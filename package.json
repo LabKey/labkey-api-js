@@ -1,0 +1,32 @@
+{
+  "name": "labkey",
+  "version": "0.0.0",
+  "private": true,
+  "description": "JavaScript client API for LabKey Server",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "webpack --config webpack.config.js",
+    "setup": "npm install && typings install"
+  },
+  "keywords": [
+    "labkey",
+    "javascript"
+  ],
+  "author": {
+    "name": "Nick Arnold",
+    "email": "nicka@labkey.com",
+    "url": "https://www.labkey.org"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "rimraf": "^2.5.2",
+    "ts-loader": "^0.8.2",
+    "tslint": "^3.10.2",
+    "tslint-config-standard": "^1.2.2",
+    "typescript": "^1.8.10",
+    "webpack": "^1.13.1"
+  }
+}

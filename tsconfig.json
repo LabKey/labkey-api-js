@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "noEmit": false,
+    "rootDir": "src",
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "experimentalDecorators": true
+  },
+  "files": [
+    "typings/index.d.ts",
+    "src/wrapper.ts"
+  ]
+}
