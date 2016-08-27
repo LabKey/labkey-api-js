@@ -27,6 +27,7 @@
     "tslint": "^3.10.2",
     "tslint-config-standard": "^1.2.2",
     "typescript": "^1.8.10",
+    "typings": "1.0.4",
     "webpack": "^1.13.1"
   }
 }
