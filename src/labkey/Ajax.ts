@@ -164,13 +164,12 @@ export function request(config: RequestOptions): XMLHttpRequest {
     configureHeaders(xhr, config, options);
 
     // configure timeout after request is open
-    if (config.hasOwnProperty('timeout') && config.timeout !== null) {
+    if (config.hasOwnProperty('timeout') && config.timeout !== null && config.timeout !== undefined) {
         xhr.ontimeout = function() {
             callback(config.failure, scope, [xhr, config]);
             callback(config.callback, scope, [config, false /* success */, xhr]);
         };
     }
-
 
     xhr.send(options.data);
 
