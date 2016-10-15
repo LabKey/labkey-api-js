@@ -22,7 +22,7 @@ var config = {
     },
 
     output: {
-        filename: 'dist/clientapi_core.min.js'
+        filename: 'dist/labkey-api-js.min.js'
     },
 
     resolve: {

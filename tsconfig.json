@@ -9,7 +9,6 @@
     "experimentalDecorators": true
   },
   "files": [
-    "typings/index.d.ts",
     "src/wrapper.ts"
   ]
 }
