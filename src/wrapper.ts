@@ -13,6 +13,9 @@ declare var LABKEY: any;
 
 LABKEY.ActionURL = API.ActionURL;
 LABKEY.Ajax = API.Ajax;
+LABKEY.FieldKey = API.FieldKey;
 LABKEY.Filter = API.Filter;
 LABKEY.Query = API.Query;
+LABKEY.QueryKey = API.QueryKey;
+LABKEY.SchemaKey = API.SchemaKey;
 LABKEY.Utils = API.Utils;

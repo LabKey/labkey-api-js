@@ -1,5 +1,8 @@
+import { AjaxHandler } from '../Ajax'
 import { appendFilterParams, Filter } from '../filter/Filter'
-import { ensureRegionName } from '../Utils'
+import { ensureRegionName, getCallbackWrapper } from '../Utils'
+
+import { Response } from './Response'
 
 // Would have liked to use an enum but TypeScript's enums are number-based (as of 1.8)
 // https://basarat.gitbooks.io/typescript/content/docs/tips/stringEnums.html
@@ -37,4 +40,26 @@ export function getMethod(value: string): string {
     if (value && (value.toUpperCase() === 'GET' || value.toUpperCase() === 'POST'))
         return value.toUpperCase();
     return 'GET';
+}
+
+export function getSuccessCallbackWrapper(fn: Function, stripHiddenCols?: boolean, scope?: any, requiredVersion?: string | number): AjaxHandler {
+    if (requiredVersion) {
+        var versionString = requiredVersion.toString();
+        if (versionString === '13.2' || versionString === '16.2') {
+            return getCallbackWrapper((data: any, response: any, options: any) => {
+                if (data && fn) {
+                    fn.call(scope || this, new Response(data), response, options);
+                }
+            }, this);
+        }
+    }
+
+    return getCallbackWrapper((data: any, response: any, options: any) => {
+        if (data && data.rows && stripHiddenCols) {
+            // TODO: stripHiddenColData
+        }
+        if (fn) {
+            fn.call(scope || this, data, options, response);
+        }
+    }, this);
 }

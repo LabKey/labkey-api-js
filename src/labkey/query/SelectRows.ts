@@ -1,8 +1,8 @@
 import { request } from '../Ajax'
 import { Filter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
-import { isArray } from '../Utils'
-import { buildQueryParams, getMethod } from './Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils'
+import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
 type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 
@@ -28,9 +28,11 @@ interface SelectRowsOptions {
     offset?: number
     parameters?: any
     requiredVersion?: number | string
+    scope?: any
     selectionKey?: string
     showRows?: ShowRows
     sort?: string
+    stripHiddenColumns?: boolean
     success?: (result: SelectRowsResults) => any
     timeout?: number
     viewName?: string
@@ -132,14 +134,8 @@ export function selectRows(options: SelectRowsOptions): XMLHttpRequest {
     return request({
         url: buildURL('query', 'getQuery.api', options.containerPath),
         method: getMethod(options.method),
-        success: () => {
-            // TODO: Not yet implemented
-            console.log('Looks like your request worked!');
-        },
-        failure: () => {
-            // TODO: Not yet implemented
-            console.log('Looks like your request failed!');
-        },
+        success: getSuccessCallbackWrapper(getOnSuccess(options), options.stripHiddenColumns, options.scope, options.requiredVersion),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: buildParams(options),
         timeout: options.timeout
     });

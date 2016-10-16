@@ -7,6 +7,9 @@ export const DEFAULT_HEADERS: {[key: string]: string} = {
     'X-LABKEY-CSRF': LABKEY.CSRF
 };
 
+export type AjaxHandler = (request: XMLHttpRequest, config: RequestOptions) => any;
+export type AjaxCallbackHandler = (config: RequestOptions, success: boolean, xhr: XMLHttpRequest) => any;
+
 interface ConfiguredOptions {
     // Required
     isForm: boolean
@@ -17,20 +20,20 @@ interface ConfiguredOptions {
     data?: FormData | string
 }
 
-interface RequestOptions {
+export interface RequestOptions {
     // Required
     url: string
 
     // Optional
-    callback?: (config: RequestOptions, success: boolean, xhr: XMLHttpRequest) => void
-    failure?: (request: XMLHttpRequest, config: RequestOptions) => void
+    callback?: AjaxCallbackHandler
+    failure?: AjaxHandler
     form?: FormData | HTMLFormElement
     headers?: {[key:string]: string}
     jsonData?: Object
     method?: string
     params?: {[key:string]: string | Array<string>}
     scope?: any
-    success?: (request: XMLHttpRequest, config: RequestOptions) => void
+    success?: AjaxHandler
     timeout?: number
 }
 
