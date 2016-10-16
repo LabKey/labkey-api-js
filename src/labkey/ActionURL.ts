@@ -6,6 +6,10 @@ const LABKEY = loadContext();
 
 const activePath = parsePathName(window.location.pathname);
 
+function buildParameterMap(paramString: string): any {
+    throw new Error('ActionURL.buildParameterMap() Not Yet Implemented');
+}
+
 export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: string | Array<string>}): string {
     if (containerPath) {
         containerPath = encodePath(containerPath);
@@ -110,6 +114,39 @@ export function getContainerName(): string {
  */
 export function getContextPath(): string {
     return LABKEY.contextPath;
+}
+
+/**
+ * Gets a URL parameter by name. This method will always return an array of values, one for
+ * each instance of the parameter name in the query string. If the parameter name appears only once
+ * this method will return a one-element array.
+ * @param {String} parameterName The name of the URL parameter.
+ */
+export function getParameterArray(parameterName: string): Array<string> {
+    throw new Error('ActionURL.getParameterArray() Not Yet Implemented');
+}
+
+/**
+ * Returns an object mapping URL parameter names to parameter values. If a given parameter
+ * appears more than once on the query string, the value in the map will be an array instead
+ * of a single value. Use LABKEY.Utils.isArray() to determine if the value is an array or not, or use
+ * getParameter() or getParameterArray() to retrieve a specific parameter name as a single value
+ * or array respectively.
+ * @param {String} [url] The URL to parse. If not specified, the browser's current location will be used.
+ * @return {Object} Map of parameter names to values.
+ */
+export function getParameters(url: string): any {
+    if (!url) {
+        return buildParameterMap(url);
+    }
+
+    let paramString = url;
+
+    if (url.indexOf('?') != -1) {
+        paramString = url.substring(url.indexOf('?') + 1, url.length);
+    }
+
+    return buildParameterMap(paramString);
 }
 
 /**

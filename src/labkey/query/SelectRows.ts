@@ -1,5 +1,5 @@
 import { request } from '../Ajax'
-import { Filter } from '../Filter'
+import { Filter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
 import { isArray } from '../Utils'
 import { buildQueryParams, getMethod } from './Utils'
