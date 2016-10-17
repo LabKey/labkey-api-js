@@ -101,6 +101,8 @@ export const Types = {
     EXP_CHILD_OF: generateFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of')
 };
 
+type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
+
 export const TYPES_BY_JSON_TYPE: {
     [jsonType: string]: Array<FilterType>
 } = {
@@ -109,6 +111,16 @@ export const TYPES_BY_JSON_TYPE: {
     'float': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN],
     'int': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN],
     'string': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.CONTAINS, Types.DOES_NOT_CONTAIN, Types.DOES_NOT_START_WITH, Types.STARTS_WITH, Types.IN, Types.NOT_IN, Types.CONTAINS_ONE_OF, Types.CONTAINS_NONE_OF, Types.BETWEEN, Types.NOT_BETWEEN]
+};
+
+export const TYPES_BY_JSON_TYPE_DEFAULT: {
+    [jsonType: string]: FilterType
+} = {
+    'boolean': Types.EQUAL,
+    'date': Types.DATE_EQUAL,
+    'float': Types.EQUAL,
+    'int': Types.EQUAL,
+    'string': Types.CONTAINS
 };
 
 function generateFilterType(
@@ -120,7 +132,7 @@ function generateFilterType(
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
 
-    const validate = (value: FilterValue, jsonType: string, columnName: string) => {
+    const doValidate = (value: FilterValue, jsonType: JsonType, columnName: string): string | boolean => {
         if (!isDataValueRequired()) {
             return true;
         }
@@ -135,15 +147,13 @@ function generateFilterType(
         }
 
         if (!found) {
-            // TODO: Remove this alert asap
             alert("Filter type '" + displayText + "' can't be applied to " + type + " types.");
             return undefined;
         }
 
-        return true; // TODO: Not Yet Finished
-        // if (this.isMultiValued())
-        //     return validateMultiple(jsonType, value, columnName, multiValueSeparator, minOccurs, maxOccurs);
-        // return validate(jsonType, value, columnName);
+        if (isMultiValued())
+            return validateMultiple(jsonType, value, columnName, multiValueSeparator, minOccurs, maxOccurs);
+        return validate(jsonType, value, columnName);
     };
 
     var type: FilterType = {
@@ -165,10 +175,186 @@ function generateFilterType(
         getSingleValueFilter: () => {
             return isMultiValued ? urlMap[multiValueToSingleMap[urlSuffix]] : null;
         },
-        validate
+        validate: doValidate
     };
 
     urlMap[urlSuffix] = type;
 
     return type;
+}
+
+// Nick: I'm choosing to explicitly ignore this function. It would require that 'Types' be mutable.
+// Already indicated as @private and warned could be removed at any time.
+// export function _define(typeName: string, displayText: string, urlSuffix: string, isMultiType: boolean): void {
+//     if (!Types[typeName]) {
+//         Types[typeName] = generateFilterType(displayText, null, urlSuffix, true);
+//     }
+// }
+
+/**
+ * Return the default LABKEY.Filter.Type for a json type ("int", "double", "string", "boolean", "date").
+ * @private
+ */
+export function getDefaultFilterForType(jsonType: JsonType): FilterType {
+    if (jsonType && TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()]) {
+        return TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()];
+    }
+
+    return Types.EQUAL;
+}
+
+export function getFilterTypeForURLSuffix(urlSuffix: string): FilterType {
+    return urlMap[urlSuffix];
+}
+
+/**
+ * Returns an Array of filter types that can be used with the given
+ * json type ("int", "double", "string", "boolean", "date")
+ * @private
+ */
+export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): Array<FilterType> {
+    let types: Array<FilterType> = [];
+
+    if (jsonType && TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]) {
+        types = types.concat(TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]);
+    }
+
+    if (mvEnabled) {
+        types.push(Types.HAS_MISSING_VALUE);
+        types.push(Types.DOES_NOT_HAVE_MISSING_VALUE);
+    }
+
+    return types;
+}
+
+function twoDigit(num: number): string {
+    if (num < 10) {
+        return '0' + num;
+    }
+    return '' + num;
+}
+
+/**
+ * Note: this is an experimental API that may change unexpectedly in future releases.
+ * Validate a form value against the json type.  Error alerts will be displayed.
+ * @param jsonType The json type ("int", "float", "date", or "boolean")
+ * @param value The value to test.
+ * @param columnName The column name to use in error messages.
+ * @return undefined if not valid otherwise a normalized string value for the type.
+ */
+function validate(jsonType: JsonType, value: FilterValue, columnName: string): string {
+    const strValue = value.toString();
+
+    if (jsonType === 'boolean') {
+        let upperVal = strValue.toUpperCase();
+        if (upperVal == 'TRUE' || upperVal == '1' || upperVal == 'YES' || upperVal == 'Y' || upperVal == 'ON' || upperVal == 'T') {
+            return '1';
+        }
+        if (upperVal == 'FALSE' || upperVal == '0' || upperVal == 'NO' || upperVal == 'N' || upperVal == 'OFF' || upperVal == 'F') {
+            return '0';
+        }
+        else {
+            alert(strValue + " is not a valid boolean for field '" + columnName + "'. Try true,false; yes,no; y,n; on,off; or 1,0.");
+            return undefined;
+        }
+    }
+    else if (jsonType === 'date') {
+        let year: number, month: number, day: number, hour: number, minute: number;
+        hour = 0;
+        minute = 0;
+
+        // Javascript does not parse ISO dates, but if date matches we're done
+        if (strValue.match(/^\s*(\d\d\d\d)-(\d\d)-(\d\d)\s*$/) ||
+            strValue.match(/^\s*(\d\d\d\d)-(\d\d)-(\d\d)\s*(\d\d):(\d\d)\s*$/)) {
+            return strValue;
+        }
+        else {
+            let dateVal = new Date(strValue);
+            if (isNaN(dateVal as any)) {
+                // filters can use relative dates, in the format +1d, -5H, etc. we try to identify those here
+                // this is fairly permissive and does not attempt to parse this value into a date.
+                // See CompareType.asDate() for server-side parsing
+                if (strValue.match(/^(-|\+)/i)) {
+                    return strValue;
+                }
+
+                alert(strValue + " is not a valid date for field '" + columnName + "'.");
+                return undefined;
+            }
+
+            // Try to do something decent with 2 digit years!
+            // if we have mm/dd/yy (but not mm/dd/yyyy) in the date
+            // fix the broken date parsing
+            if (strValue.match(/\d+\/\d+\/\d{2}(\D|$)/)) {
+                if (dateVal.getFullYear() < new Date().getFullYear() - 80)
+                    dateVal.setFullYear(dateVal.getFullYear() + 100);
+            }
+
+            year = dateVal.getFullYear();
+            month = dateVal.getMonth() + 1;
+            day = dateVal.getDate();
+            hour = dateVal.getHours();
+            minute = dateVal.getMinutes();
+        }
+        var str = '' + year + '-' + twoDigit(month) + '-' + twoDigit(day);
+        if (hour != 0 || minute != 0)
+            str += ' ' + twoDigit(hour) + ':' + twoDigit(minute);
+
+        return str;
+    }
+    else if (jsonType === 'float') {
+        let decVal = parseFloat(strValue);
+        if (isNaN(decVal)) {
+            alert(strValue + " is not a valid decimal number for field '" + columnName + "'.");
+            return undefined;
+        }
+    }
+    else if (jsonType === 'int') {
+        let intVal = parseInt(strValue);
+        if (isNaN(intVal)) {
+            alert(strValue + " is not a valid integer for field '" + columnName + "'.");
+            return undefined;
+        }
+        else {
+            return '' + intVal;
+        }
+    }
+    else {
+        // jsonType === 'string'
+        return strValue;
+    }
+}
+
+function validateMultiple(
+    jsonType: JsonType, value: FilterValue, columnName: string,
+    sep: string, minOccurs: number, maxOccurs: number
+): string {
+    var values = value.toString().split(sep);
+    var result = '';
+    var separator = '';
+    for (var i = 0; i < values.length; i++) {
+        let valid = validate(jsonType, values[i].trim(), columnName);
+        if (valid == undefined) {
+            return undefined;
+        }
+
+        result += separator + valid;
+        separator = sep;
+    }
+
+    if (minOccurs !== undefined && minOccurs > 0) {
+        if (values.length < minOccurs) {
+            alert("At least " + minOccurs + " '" + sep + "' separated values are required");
+            return undefined;
+        }
+    }
+
+    if (maxOccurs !== undefined && maxOccurs > 0) {
+        if (values.length > maxOccurs) {
+            alert("At most " + maxOccurs + " '" + sep + "' separated values are allowed");
+            return undefined;
+        }
+    }
+
+    return result;
 }
