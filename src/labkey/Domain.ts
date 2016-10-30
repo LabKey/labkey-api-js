@@ -1,0 +1,167 @@
+/*
+ * Copyright (c) 2016 LabKey Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { buildURL } from './ActionURL'
+import { request } from './Ajax'
+import { getCallbackWrapper, isString } from './Utils'
+
+interface CreateDomainOptions {
+    containerPath?: string
+    domainDesign?: any // TODO: Figure this out with respect to DomainDesign
+    domainGroup?: string
+    domainTemplate?: string
+    failure?: () => any
+    kind?: string
+    options?: any
+    success?: () => any
+}
+
+/**
+ * Create a new domain with the given kind, domainDesign, and options or
+ * specify a <a href='https://www.labkey.org/home/Documentation/wiki-page.view?name=domainTemplates'>domain template</a>
+ * to use for the domain creation. Not all domain kinds can be created through this API.
+ * Currently supported domain kinds are: "IntList", "VarList", "SampleSet", and "DataClass".
+ */
+export function create(config: CreateDomainOptions): void {
+
+    var options = arguments.length > 1 ? mapCreateArguments(arguments) : config;
+
+    request({
+        url: buildURL('property', 'createDomain.api', options.containerPath),
+        method: 'POST',
+        jsonData: options,
+        success: getCallbackWrapper(options.success),
+        failure: getCallbackWrapper(options.failure, this, true /* isErrorCallback */)
+    });
+}
+
+function mapCreateArguments(args: any): CreateDomainOptions {
+
+    var options: CreateDomainOptions = {
+        failure: args[1],
+        success: args[0]
+    };
+
+    if ((args.length === 4 || args.length === 5) && isString(args[3])) {
+        options.containerPath = args[4];
+        options.domainGroup = args[2];
+        options.domainTemplate = args[3];
+    }
+    else {
+        options.containerPath = args[5];
+        options.domainDesign = args[3];
+        options.kind = args[2];
+        options.options = args[4];
+    }
+
+    return options;
+}
+
+interface DropDomainOptions {
+    containerPath?: string
+    domainDesign?: any
+    failure?: () => any
+    queryName: string
+    schemaName: string
+    success?: () => any
+}
+
+/**
+ * Delete a domain.
+ */
+export function drop(config: DropDomainOptions): void {
+
+    request({
+        url: buildURL('property', 'deleteDomain.api', config.containerPath),
+        method: 'POST',
+        success: getCallbackWrapper(config.success),
+        failure: getCallbackWrapper(config.failure, this, true /* isErrorCallback */),
+        jsonData: {
+            domainDesign: config.domainDesign,
+            schemaName: config.schemaName,
+            queryName: config.queryName
+        }
+    });
+}
+
+interface GetDomainOptions {
+    containerPath?: string
+    failure?: () => any
+    queryName: string
+    schemaName: string
+    success?: () => any
+}
+
+/**
+ * Gets a domain design.
+ */
+export function get(config: GetDomainOptions): void {
+
+    var options: GetDomainOptions = arguments.length > 1 ? {
+        containerPath: arguments[4],
+        failure: arguments[1],
+        queryName: arguments[3],
+        schemaName: arguments[2],
+        success: arguments[0]
+    } : config;
+
+    request({
+        url: buildURL('property', 'getDomain.api', options.containerPath),
+        method: 'GET',
+        success: getCallbackWrapper(options.success),
+        failure: getCallbackWrapper(options.failure, this, true /* isErrorCallback */),
+        params: {
+            schemaName: options.schemaName,
+            queryName: options.queryName
+        }
+    });
+
+}
+
+interface SaveDomainOptions {
+    containerPath?: string
+    domainDesign?: any
+    failure?: () => any
+    queryName: string
+    schemaName: string
+    success?: () => any
+}
+
+/**
+ * Saves the provided domain design.
+ */
+export function save(config: SaveDomainOptions): void {
+
+    var options: SaveDomainOptions = arguments.length > 1 ? {
+        success: arguments[0],
+        failure: arguments[1],
+        domainDesign: arguments[2],
+        schemaName: arguments[3],
+        queryName: arguments[4],
+        containerPath: arguments[5]
+    } : config;
+
+    request({
+        url: buildURL('property', 'saveDomain.api', options.containerPath),
+        method: 'POST',
+        success: getCallbackWrapper(options.success),
+        failure: getCallbackWrapper(options.failure, this, true /* isErrorCallback */),
+        jsonData: {
+            domainDesign: options.domainDesign,
+            schemaName: options.schemaName,
+            queryName: options.queryName
+        }
+    });
+}
