@@ -53,6 +53,7 @@ interface SelectRowsOptions {
     viewName?: string
 }
 
+// TODO: Model SelectRowsResults for each API version 8.3, 9.1, 13.2, 16.2, etc
 interface SelectRowsResults {
 }
 
@@ -69,28 +70,39 @@ function buildParams(options: SelectRowsOptions): any {
     const dataRegionName = params.dataRegionName;
 
     if (!options.showRows || options.showRows === 'paginated') {
+        if (options.offset) {
+            params[dataRegionName + '.offset'] = options.offset;
+        }
 
+        if (options.maxRows != undefined) {
+            if (options.maxRows < 0) {
+                params[dataRegionName + '.showRows'] = 'all';
+            }
+            else {
+                params[dataRegionName + '.maxRows'] = options.maxRows;
+            }
+        }
     }
     else if (['all', 'selected', 'unselected', 'none'].indexOf(options.showRows) !== -1) {
         params[dataRegionName + '.showRows'] = options.showRows;
     }
 
     if (options.viewName)
-        params[options.dataRegionName + '.viewName'] = options.viewName;
+        params[dataRegionName + '.viewName'] = options.viewName;
 
     if (options.columns)
-        params[options.dataRegionName + '.columns'] = isArray(options.columns) ? (options.columns as Array<string>).join(',') : options.columns;
+        params[dataRegionName + '.columns'] = isArray(options.columns) ? (options.columns as Array<string>).join(',') : options.columns;
 
     if (options.selectionKey)
-        params[options.dataRegionName + '.selectionKey'] = options.selectionKey;
+        params[dataRegionName + '.selectionKey'] = options.selectionKey;
 
     if (options.ignoreFilter)
-        params[options.dataRegionName + '.ignoreFilter'] = 1;
+        params[dataRegionName + '.ignoreFilter'] = 1;
 
     if (options.parameters) {
         for (var propName in options.parameters) {
             if (options.parameters.hasOwnProperty(propName)) {
-                params[options.dataRegionName + '.param.' + propName] = options.parameters[propName];
+                params[dataRegionName + '.param.' + propName] = options.parameters[propName];
             }
         }
     }
@@ -150,7 +162,7 @@ export function selectRows(options: SelectRowsOptions): XMLHttpRequest {
         url: buildURL('query', 'getQuery.api', options.containerPath),
         method: getMethod(options.method),
         success: getSuccessCallbackWrapper(getOnSuccess(options), options.stripHiddenColumns, options.scope, options.requiredVersion),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
         params: buildParams(options),
         timeout: options.timeout
     });

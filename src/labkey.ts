@@ -15,6 +15,7 @@
  */
 import * as ActionURL from './labkey/ActionURL'
 import * as Ajax from './labkey/Ajax'
+import * as Domain from './labkey/Domain'
 import { FieldKey } from './labkey/fieldKey/FieldKey'
 import * as Filter from './labkey/Filter'
 import * as Query from './labkey/Query'
@@ -25,6 +26,7 @@ import * as Utils from './labkey/Utils'
 export {
     ActionURL,
     Ajax,
+    Domain,
     FieldKey,
     Filter,
     Query,

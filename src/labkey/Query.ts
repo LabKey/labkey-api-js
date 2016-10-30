@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 import { buildQueryParams, containerFilter } from './query/Utils'
+import { executeSql } from './query/ExecuteSql'
+import { selectDistinctRows } from './query/SelectDistinctRows'
 import { selectRows } from './query/SelectRows'
 
 export {
     containerFilter,
     buildQueryParams,
+    executeSql,
+    selectDistinctRows,
     selectRows
 }
