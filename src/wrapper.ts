@@ -34,4 +34,5 @@ LABKEY.Filter = API.Filter;
 LABKEY.Query = API.Query;
 LABKEY.QueryKey = API.QueryKey;
 LABKEY.SchemaKey = API.SchemaKey;
+LABKEY.Security = API.Security;
 LABKEY.Utils = API.Utils;
