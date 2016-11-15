@@ -85,7 +85,7 @@ function buildParams(options: ExecuteSqlOptions): any {
 }
 
 function buildURLParams(options: ExecuteSqlOptions): any {
-    var urlParams = {};
+    var urlParams: any = {};
 
     if (options.sort) {
         urlParams['query.sort'] = options.sort;

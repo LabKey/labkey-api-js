@@ -21,6 +21,7 @@ import * as Filter from './labkey/Filter'
 import * as Query from './labkey/Query'
 import { QueryKey } from './labkey/fieldKey/QueryKey'
 import { SchemaKey } from './labkey/fieldKey/SchemaKey'
+import * as Security from './labkey/Security'
 import * as Utils from './labkey/Utils'
 
 export {
@@ -32,5 +33,6 @@ export {
     Query,
     QueryKey,
     SchemaKey,
+    Security,
     Utils
 }

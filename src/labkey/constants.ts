@@ -26,6 +26,15 @@ export interface LabKey {
     contextPath: string
     CSRF: string
     experimental: ExperimentalFeatures
+    homeContainer: string
+    Security: any
+    SecurityPolicy: any
+    sharedContainer: string
+    user: User
+}
+
+interface User {
+    isGuest: boolean
 }
 
 declare var LABKEY: LabKey;
