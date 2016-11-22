@@ -116,7 +116,7 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
     var method = 'GET';
     var isForm = false;
 
-    if (!config.hasOwnProperty('url') || config.url === null) {
+    if (!config || !config.hasOwnProperty('url') || config.url === null) {
         throw new Error('a URL is required to make a request');
     }
 

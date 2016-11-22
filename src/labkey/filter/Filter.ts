@@ -45,7 +45,7 @@ export function appendAggregateParams(params: any, aggregates: Array<Aggregate>,
     const prefix = ensureRegionName(dataRegionName) + '.agg.';
     let _params = params || {};
 
-    if (aggregates) {
+    if (isArray(aggregates)) {
         for (var i=0; i < aggregates.length; i++) {
             let aggregate = aggregates[i];
             let value = 'type=' + aggregate.type;

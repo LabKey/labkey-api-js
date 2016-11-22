@@ -41,8 +41,8 @@ export function caseInsensitiveEquals(a: any, b: any): boolean {
 }
 
 // TODO: Need to remove this from the upper level namespace
-export function ensureRegionName(regionName?: string) {
-    return regionName || 'query';
+export function ensureRegionName(regionName?: string): string {
+    return regionName && isString(regionName) ? regionName : 'query';
 }
 
 /**
@@ -134,7 +134,10 @@ export function getOnSuccess(config: {success?: Function, successCallback?: Func
  * @returns {string}
  */
 export function id(prefix: string): string {
-    return (prefix || 'lk-gen') + (++idSeed);
+    if (prefix) {
+        return String(prefix) + (++idSeed);
+    }
+    return 'lk-gen' + (++idSeed);
 }
 
 export function isArray(value: any): boolean {
