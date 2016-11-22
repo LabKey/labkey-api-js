@@ -22,6 +22,7 @@ const LABKEY = loadContext();
 const activePath = parsePathName(window.location.pathname);
 
 function buildParameterMap(paramString: string): any {
+    // TODO: Implement this
     throw new Error('ActionURL.buildParameterMap() Not Yet Implemented');
 }
 
@@ -222,7 +223,7 @@ function codePath(path: string, method: (v: string) => string): string {
 
 function parsePathName(path:string): ActionPath {
 
-    const start = LABKEY.contextPath.length;
+    const start = LABKEY.contextPath ? LABKEY.contextPath.length : 0;
     const end = path.lastIndexOf('/');
 
     var action = path.substring(end + 1);

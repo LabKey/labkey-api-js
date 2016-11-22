@@ -21,7 +21,7 @@ import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
 type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 
-interface SelectRowsOptions {
+interface ISelectRowsOptions {
     // Required
     queryName: string
     schemaName: string
@@ -48,16 +48,16 @@ interface SelectRowsOptions {
     showRows?: ShowRows
     sort?: string
     stripHiddenColumns?: boolean
-    success?: (result: SelectRowsResults) => any
+    success?: (result: ISelectRowsResults) => any
     timeout?: number
     viewName?: string
 }
 
-// TODO: Model SelectRowsResults for each API version 8.3, 9.1, 13.2, 16.2, etc
-interface SelectRowsResults {
+// TODO: Model ISelectRowsResults for each API version 8.3, 9.1, 13.2, 16.2, etc
+interface ISelectRowsResults {
 }
 
-function buildParams(options: SelectRowsOptions): any {
+function buildParams(options: ISelectRowsOptions): any {
 
     var params = buildQueryParams(
         options.schemaName,
@@ -131,9 +131,9 @@ function buildParams(options: SelectRowsOptions): any {
 /**
  * Provides backwards compatibility with pre-1.0 selectRows() argument configuration.
  * @param args
- * @returns {SelectRowsOptions} options
+ * @returns {ISelectRowsOptions} options
  */
-function mapArguments(args: any): SelectRowsOptions {
+function mapArguments(args: any): ISelectRowsOptions {
     return {
         schemaName: args[0],
         queryName: args[1],
@@ -145,7 +145,7 @@ function mapArguments(args: any): SelectRowsOptions {
     }
 }
 
-export function selectRows(options: SelectRowsOptions): XMLHttpRequest {
+export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
 
     if (arguments.length > 1) {
         options = mapArguments(arguments);

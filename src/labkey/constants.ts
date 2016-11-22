@@ -25,12 +25,20 @@ export interface LabKey {
     container: Container
     contextPath: string
     CSRF: string
+    demoMode: boolean
+    devMode: boolean
+    dirty: boolean
     experimental: ExperimentalFeatures
     homeContainer: string
+    imagePath: string
+    isDocumentClosed: string
     Security: any
     SecurityPolicy: any
     sharedContainer: string
+    submit: boolean
+    unloadMessage: string
     user: User
+    verbose: boolean
 }
 
 interface User {

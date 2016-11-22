@@ -1,0 +1,20 @@
+{
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/labkey/**/*.ts"
+  ],
+  "globals": {
+    "LABKEY": {
+      "contextPath": "",
+      "CSRF": "TEST_CSRF_TOKEN"
+    }
+  },
+  "moduleFileExtensions": [
+    "ts",
+    "js"
+  ],
+  "transform": {
+    "^.+\\.(ts)$": "<rootDir>/preprocessor.js"
+  },
+  "testRegex": "(/test/.*|\\.(test|spec))\\.(ts|js)$"
+}

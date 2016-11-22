@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 import { buildURL } from '../ActionURL'
-import { request } from '../Ajax'
+import { request, RequestOptions } from '../Ajax'
 import { Filter } from '../filter/Filter'
 import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
 
 import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
-interface SelectDistinctOptions {
+interface ISelectDistinctResult {
+    queryName: string
+    schemaName: string
+    values: Array<any>
+}
+
+interface ISelectDistinctOptions {
     column: string
     containerFilter?: string
+    containerPath?: string
     dataRegionName?: string
+    failure?: (error?: any, request?: XMLHttpRequest, options?: RequestOptions) => any
     filterArray?: Array<Filter>
     ignoreFilter?: boolean
     maxRows?: number
@@ -33,10 +41,11 @@ interface SelectDistinctOptions {
     schemaName: string
     scope?: any
     sort?: string
+    success?: (result?: ISelectDistinctResult, options?: RequestOptions, request?: XMLHttpRequest) => any
     viewName?: string
 }
 
-function buildParams(options: SelectDistinctOptions): any {
+function buildParams(options: ISelectDistinctOptions): any {
 
     var params = buildQueryParams(
         options.schemaName,
@@ -77,7 +86,7 @@ function buildParams(options: SelectDistinctOptions): any {
     return params;
 }
 
-export function selectDistinctRows(options: SelectDistinctOptions): XMLHttpRequest {
+export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequest {
 
     if (!options.schemaName)
         throw 'You must specify a schemaName!';
@@ -87,7 +96,7 @@ export function selectDistinctRows(options: SelectDistinctOptions): XMLHttpReque
         throw 'You must specify a column!';
 
     return request({
-        url: buildURL('query', 'selectDistinct.api'),
+        url: buildURL('query', 'selectDistinct.api', options.containerPath),
         method: getMethod(options.method),
         success: getSuccessCallbackWrapper(getOnSuccess(options), false /* stripHiddenColumns */, options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
