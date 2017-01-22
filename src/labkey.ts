@@ -18,6 +18,7 @@ import * as Ajax from './labkey/Ajax'
 import * as Domain from './labkey/Domain'
 import { FieldKey } from './labkey/fieldKey/FieldKey'
 import * as Filter from './labkey/Filter'
+import * as Message from './labkey/Message'
 import * as Query from './labkey/Query'
 import { QueryKey } from './labkey/fieldKey/QueryKey'
 import { SchemaKey } from './labkey/fieldKey/SchemaKey'
@@ -30,6 +31,7 @@ export {
     Domain,
     FieldKey,
     Filter,
+    Message,
     Query,
     QueryKey,
     SchemaKey,
