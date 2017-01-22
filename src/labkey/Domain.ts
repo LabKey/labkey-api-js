@@ -36,7 +36,7 @@ interface CreateDomainOptions {
  */
 export function create(config: CreateDomainOptions): void {
 
-    var options = arguments.length > 1 ? mapCreateArguments(arguments) : config;
+    let options = arguments.length > 1 ? mapCreateArguments(arguments) : config;
 
     request({
         url: buildURL('property', 'createDomain.api', options.containerPath),
@@ -49,7 +49,7 @@ export function create(config: CreateDomainOptions): void {
 
 function mapCreateArguments(args: any): CreateDomainOptions {
 
-    var options: CreateDomainOptions = {
+    let options: CreateDomainOptions = {
         failure: args[1],
         success: args[0]
     };
@@ -109,7 +109,7 @@ interface GetDomainOptions {
  */
 export function get(config: GetDomainOptions): void {
 
-    var options: GetDomainOptions = arguments.length > 1 ? {
+    let options: GetDomainOptions = arguments.length > 1 ? {
         containerPath: arguments[4],
         failure: arguments[1],
         queryName: arguments[3],
@@ -144,7 +144,7 @@ interface SaveDomainOptions {
  */
 export function save(config: SaveDomainOptions): void {
 
-    var options: SaveDomainOptions = arguments.length > 1 ? {
+    let options: SaveDomainOptions = arguments.length > 1 ? {
         success: arguments[0],
         failure: arguments[1],
         domainDesign: arguments[2],

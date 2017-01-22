@@ -59,7 +59,7 @@ interface ISelectRowsResults {
 
 function buildParams(options: ISelectRowsOptions): any {
 
-    var params = buildQueryParams(
+    let params = buildQueryParams(
         options.schemaName,
         options.queryName,
         options.filterArray,
@@ -100,7 +100,7 @@ function buildParams(options: ISelectRowsOptions): any {
         params[dataRegionName + '.ignoreFilter'] = 1;
 
     if (options.parameters) {
-        for (var propName in options.parameters) {
+        for (let propName in options.parameters) {
             if (options.parameters.hasOwnProperty(propName)) {
                 params[dataRegionName + '.param.' + propName] = options.parameters[propName];
             }

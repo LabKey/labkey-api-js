@@ -19,7 +19,7 @@ interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
-var idSeed = 100;
+let idSeed = 100;
 
 export function alert(title: string, msg: string) {
     console.warn('alert: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
@@ -176,7 +176,7 @@ export function isDefined(value: any): boolean {
  * @return {Boolean} the result of the test
  */
 export function isEmptyObj(obj: any): boolean {
-    for (var i in obj) {
+    for (let i in obj) {
         return false;
     }
     return true;
@@ -184,7 +184,7 @@ export function isEmptyObj(obj: any): boolean {
 
 export function isFunction(value: any): boolean {
     // http://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
-    var getType = {};
+    const getType = {};
     return value && getType.toString.call(value) === '[object Function]';
 }
 
@@ -236,9 +236,9 @@ export function padString(input: string | number, length: number, padChar: strin
         _input = input as string;
     }
 
-    var pd = '';
+    let pd = '';
     if (length > _input.length) {
-        for (var i=0; i < (length - _input.length); i++) {
+        for (let i=0; i < (length - _input.length); i++) {
             pd += padChar;
         }
     }
