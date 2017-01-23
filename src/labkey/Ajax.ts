@@ -46,7 +46,7 @@ export interface RequestOptions {
     headers?: {[key:string]: string}
     jsonData?: Object
     method?: string
-    params?: {[key:string]: string | Array<string>}
+    params?: {[key:string]: any}
     scope?: any
     success?: AjaxHandler
     timeout?: number

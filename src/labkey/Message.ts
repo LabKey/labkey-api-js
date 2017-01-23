@@ -96,11 +96,13 @@ export const recipientType: IRecipientTypeCollection = {
 };
 
 interface ISendMessageOptions {
+    failure?: () => any
     msgContent?: Array<string>
     msgFrom?: string
     msgRecipients?: Array<string>
     msgSubject?: string
     scope?: any
+    success?: () => any
 }
 
 /**
