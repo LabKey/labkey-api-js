@@ -24,15 +24,15 @@ export class SchemaKey extends QueryKey {
      * @returns {SchemaKey}
      */
     static fromParts(parts?: any): SchemaKey {
-        var ret: SchemaKey = null;
+        let ret: SchemaKey = null;
 
-        for (var i=0; i < arguments.length; i++) {
+        for (let i=0; i < arguments.length; i++) {
             let arg = arguments[i];
             if (isString(arg)) {
                 ret = new SchemaKey(ret, arg);
             }
             else if (arg && arg.length) {
-                for (var j=0; j < arg.length; j++) {
+                for (let j=0; j < arg.length; j++) {
                     ret = new SchemaKey(ret, arg[j]);
                 }
             }
@@ -53,7 +53,7 @@ export class SchemaKey extends QueryKey {
         let r  = s.split('.');
         let ret: SchemaKey = null;
 
-        for (var i=0; i < r.length; i++) {
+        for (let i=0; i < r.length; i++) {
             ret = new SchemaKey(ret, QueryKey.decodePart(r[i]));
         }
 

@@ -25,15 +25,15 @@ export class FieldKey extends QueryKey {
      * @returns {FieldKey}
      */
     static fromParts(parts?: any) {
-        var ret: FieldKey = null;
+        let ret: FieldKey = null;
 
-        for (var i=0; i < arguments.length; i++) {
+        for (let i=0; i < arguments.length; i++) {
             let arg = arguments[i];
             if (isString(arg)) {
                 ret = new FieldKey(ret, arg);
             }
             else if (arg && arg.length) {
-                for (var j=0; j < arg.length; j++) {
+                for (let j=0; j < arg.length; j++) {
                     ret = new FieldKey(ret, arg[j]);
                 }
             }
@@ -54,7 +54,7 @@ export class FieldKey extends QueryKey {
         let ret: FieldKey = null;
         let r = s.split('/');
 
-        for (var i=0; i < r.length; i++) {
+        for (let i=0; i < r.length; i++) {
             ret = new FieldKey(ret, QueryKey.decodePart(r[i]));
         }
 

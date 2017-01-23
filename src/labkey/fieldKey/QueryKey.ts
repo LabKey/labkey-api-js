@@ -103,7 +103,7 @@ export abstract class QueryKey {
         let encoded: Array<string> = [];
         let parts = this.getParts();
 
-        for (var i=0; i < parts.length; i++) {
+        for (let i=0; i < parts.length; i++) {
             if (QueryKey.needsQuotes(parts[i])) {
                 encoded.push(QueryKey.quote(parts[i]));
             }
@@ -119,7 +119,7 @@ export abstract class QueryKey {
         let encoded: Array<string> = [];
         let parts = this.getParts();
 
-        for (var i=0; i < parts.length; i++) {
+        for (let i=0; i < parts.length; i++) {
             encoded.push(QueryKey.encodePart(parts[i]));
         }
 

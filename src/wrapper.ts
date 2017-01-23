@@ -32,6 +32,7 @@ LABKEY.Domain = API.Domain;
 LABKEY.FieldKey = API.FieldKey;
 LABKEY.Filter = API.Filter;
 LABKEY.Message = API.Message;
+LABKEY.ParticipantGroup = API.ParticipantGroup;
 LABKEY.Pipeline = API.Pipeline;
 LABKEY.Query = API.Query;
 LABKEY.QueryKey = API.QueryKey;
