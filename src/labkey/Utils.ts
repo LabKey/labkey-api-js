@@ -154,7 +154,7 @@ export function isArray(value: any): boolean {
  * @returns {boolean}
  */
 export function isBoolean(value: any): boolean {
-    var upperVal = value.toString().toUpperCase();
+    const upperVal = value.toString().toUpperCase();
     if (upperVal == 'TRUE' || value == '1' || upperVal == 'Y' || upperVal == 'YES' || upperVal == 'ON' || upperVal == 'T'
         || upperVal == 'FALSE' || value == '0' || upperVal == 'N' || upperVal == 'NO' || upperVal == 'OFF' || upperVal == 'F') {
         return true;
