@@ -70,6 +70,10 @@ export function encode(data: any): string {
     return JSON.stringify(data);
 }
 
+export function escapeRe(s: string): string {
+    return s.replace(/([-.*+?\^${}()|\[\]\/\\])/g, "\\$1");
+}
+
 /**
  * Returns true if value ends with ending
  * @param value the value to examine
@@ -349,4 +353,37 @@ export function setCookie(name: string, value: string, pageOnly: boolean, days: 
     }
 
     document.cookie = name + '=' + value + expires + '; path=' + path;
+}
+
+interface ITextLinkOptions {
+    href?: string
+    onClick?: string
+    text?: string
+}
+
+/**
+ * Returns a string containing a well-formed html anchor that will apply theme specific styling. The configuration
+ * takes any property value pair and places them on the anchor.
+ * @param options
+ * @returns {string}
+ */
+export function textLink(options: ITextLinkOptions): string {
+    if (options.href === undefined && options.onClick === undefined) {
+        throw 'href AND/OR onClick required in call to LABKEY.Utils.textLink()';
+    }
+
+    let attributes = " ";
+    if (options) {
+        for (let i in options) {
+            if (options.hasOwnProperty(i)) {
+                if (i.toString() != 'text' && i.toString() != 'class') {
+                    attributes += i.toString() + '=\"' + (options as any)[i] + '\" ';
+                }
+            }
+        }
+
+        return '<a class="labkey-text-link"' + attributes + '>' + (options.text != null ? options.text : "") + '</a>';
+    }
+
+    throw 'Config object not found for textLink.';
 }

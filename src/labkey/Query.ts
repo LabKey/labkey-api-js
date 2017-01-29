@@ -16,6 +16,8 @@
 import { buildQueryParams, containerFilter } from './query/Utils'
 import { executeSql } from './query/ExecuteSql'
 import * as GetData from './query/GetData'
+import { getQueryDetails } from './query/GetQueryDetails'
+import { getSchemas } from './query/GetSchemas'
 import { selectDistinctRows } from './query/SelectDistinctRows'
 import { selectRows } from './query/SelectRows'
 
@@ -24,6 +26,8 @@ export {
     buildQueryParams,
     executeSql,
     GetData,
+    getQueryDetails,
+    getSchemas,
     selectDistinctRows,
     selectRows
 }
