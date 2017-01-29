@@ -32,6 +32,7 @@ export interface LabKey {
     homeContainer: string
     imagePath: string
     isDocumentClosed: string
+    postParameters?: any
     Security: any
     SecurityPolicy: any
     sharedContainer: string

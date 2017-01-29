@@ -21,9 +21,48 @@ const LABKEY = loadContext();
 
 const activePath = parsePathName(window.location.pathname);
 
-function buildParameterMap(paramString: string): any {
-    // TODO: Implement this
-    throw new Error('ActionURL.buildParameterMap() Not Yet Implemented');
+function buildParameterMap(paramString?: string): any {
+    if (!paramString && LABKEY.postParameters) {
+        // The caller hasn't requested us to parse a specific URL, and we have POST parameters that were written
+        // back into the page by the server
+        return LABKEY.postParameters;
+    }
+
+    if (!paramString) {
+        paramString = window.location.search;
+    }
+    if (paramString.charAt(0) == '?') {
+        paramString = paramString.substring(1, paramString.length);
+    }
+
+    let paramArray = paramString.split('&');
+    let parameters: any = {};
+
+    for (let i = 0; i < paramArray.length; i++) {
+        let nameValue = paramArray[i].split('=', 2);
+        if (nameValue.length == 1 && nameValue[0] != '') {
+            // Handle URL parameters with a name but no value or =
+            nameValue[1] = '';
+        }
+
+        if (nameValue.length == 2) {
+            let name = decodeURIComponent(nameValue[0]);
+            if (undefined == parameters[name]) {
+                parameters[name] = decodeURIComponent(nameValue[1]);
+            }
+            else {
+                let curValue = parameters[name];
+                if (isArray(curValue)) {
+                    curValue.push(decodeURIComponent(nameValue[1]));
+                }
+                else {
+                    parameters[name] = [curValue, decodeURIComponent(nameValue[1])];
+                }
+            }
+        }
+    }
+
+    return parameters;
 }
 
 export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: string | Array<string>}): string {
@@ -44,9 +83,9 @@ export function buildURL(controller: string, action: string, containerPath?: str
     if (action.indexOf('.') == -1) {
         action += '.view';
     }
-    var query = queryString(parameters);
+    const query = queryString(parameters);
 
-    var newURL: string;
+    let newURL: string;
     if (LABKEY.experimental && LABKEY.experimental.containerRelativeURL) {
         newURL = LABKEY.contextPath + containerPath + controller + '-' + action;
     }
@@ -119,9 +158,8 @@ export function getContainer(): string {
  * @returns {string} Current container name.
  */
 export function getContainerName(): string {
-    var containerPath = getContainer();
-    var start = containerPath.lastIndexOf('/');
-    return containerPath.substring(start + 1);
+    const containerPath = getContainer();
+    return containerPath.substring(containerPath.lastIndexOf('/') + 1);
 }
 
 /**
@@ -132,6 +170,11 @@ export function getContextPath(): string {
     return LABKEY.contextPath;
 }
 
+export function getParameter(parameterName: string) {
+    const val = buildParameterMap()[parameterName];
+    return (val && isArray(val) && val.length > 0) ? val[0] : val;
+}
+
 /**
  * Gets a URL parameter by name. This method will always return an array of values, one for
  * each instance of the parameter name in the query string. If the parameter name appears only once
@@ -139,7 +182,8 @@ export function getContextPath(): string {
  * @param {String} parameterName The name of the URL parameter.
  */
 export function getParameterArray(parameterName: string): Array<string> {
-    throw new Error('ActionURL.getParameterArray() Not Yet Implemented');
+    const val = buildParameterMap()[parameterName];
+    return (val && !isArray(val)) ? [val] : val;
 }
 
 /**
@@ -178,7 +222,7 @@ export function queryString(parameters: {[key:string]: string | Array<string>}):
         return '';
     }
 
-    var query = '', and = '',
+    let query = '', and = '',
         pval: string | Array<string>,
         parameter: string,
         aval: string;
@@ -191,7 +235,7 @@ export function queryString(parameters: {[key:string]: string | Array<string>}):
                 pval = '';
 
             if (isArray(pval)) {
-                for (var idx = 0; idx < pval.length; ++idx) {
+                for (let idx = 0; idx < pval.length; ++idx) {
                     aval = pval[idx];
                     query += and + encodeURIComponent(parameter) + '=' + encodeURIComponent(pval[idx]);
                     and = '&';
@@ -214,8 +258,8 @@ interface ActionPath {
 }
 
 function codePath(path: string, method: (v: string) => string): string {
-    var a = path.split('/');
-    for (var i=0; i < a.length; i++) {
+    let a = path.split('/');
+    for (let i=0; i < a.length; i++) {
         a[i] = method(a[i]);
     }
     return a.join('/');
@@ -226,18 +270,18 @@ function parsePathName(path:string): ActionPath {
     const start = LABKEY.contextPath ? LABKEY.contextPath.length : 0;
     const end = path.lastIndexOf('/');
 
-    var action = path.substring(end + 1);
+    let action = path.substring(end + 1);
     path = path.substring(start, end);
 
-    var controller:string = null;
-    var dash = action.indexOf('-');
+    let controller:string = null;
+    let dash = action.indexOf('-');
 
     if (0 < dash) {
         controller = action.substring(0, dash);
         action = action.substring(dash + 1);
     }
     else {
-        var slash = path.indexOf('/', 1);
+        let slash = path.indexOf('/', 1);
         if (slash < 0) // 21945: e.g. '/admin'
             controller = path.substring(1);
         else
@@ -245,7 +289,7 @@ function parsePathName(path:string): ActionPath {
         path = path.substring(slash);
     }
 
-    var dot = action.indexOf('.');
+    let dot = action.indexOf('.');
     if (0 < dot) {
         action = action.substring(0, dot);
     }
