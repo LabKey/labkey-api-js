@@ -5,8 +5,7 @@
     "rootDir": "src",
     "sourceMap": false,
     "noImplicitAny": true,
-    "removeComments": true,
-    "experimentalDecorators": true
+    "removeComments": true
   },
   "files": [
     "src/wrapper.ts"

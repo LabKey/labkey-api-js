@@ -19,9 +19,10 @@ interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
+const ID_PREFIX = 'lk-gen';
 let idSeed = 100;
 
-export function alert(title: string, msg: string) {
+export function alert(title: string, msg: string): void {
     console.warn('alert: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
     console.warn(title + ':', msg);
 }
@@ -54,8 +55,35 @@ export function decode(data: any): any {
     return JSON.parse(data + '');
 }
 
+/**
+ * Deletes a cookie. Note that 'name' and 'pageOnly' should be exactly the same as when the cookie was set.
+ * @param name The name of the cookie to be deleted.
+ * @param pageOnly Whether the cookie is scoped to the entire site, or just this page.
+ * Deleting a site-level cookie has no impact on page-level cookies, and deleting page-level cookies
+ * has no impact on site-level cookies, even if the cookies have the same name.
+ */
+export function deleteCookie(name: string, pageOnly: boolean): void {
+    setCookie(name, '', pageOnly, -1);
+}
+
 export function encode(data: any): string {
     return JSON.stringify(data);
+}
+
+/**
+ * Returns true if value ends with ending
+ * @param value the value to examine
+ * @param ending the ending to look for
+ * @returns {boolean}
+ */
+export function endsWith(value: string, ending: string): boolean {
+    if (!value || !ending) {
+        return false;
+    }
+    if (value.length < ending.length) {
+        return false;
+    }
+    return value.substring(value.length - ending.length) == ending;
 }
 
 /**
@@ -104,6 +132,32 @@ export function getCallbackWrapper(fn: Function, scope?: any, isErrorCallback?: 
 }
 
 /**
+ * Retrieves a cookie. Useful for retrieving non-essential state to provide a better
+ * user experience. Note that some browser settings may prevent cookies from being saved,
+ * and users can clear browser cookies at any time, so previously saved cookies should not be assumed
+ * to be available.
+ * @param name The name of the cookie to be retrieved.
+ * @param defaultValue The value to be returned if no cookie with the specified name is found on the client.
+ * @returns {string}
+ */
+export function getCookie(name: string, defaultValue: string): string {
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+
+    for (let i=0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) == 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+
+    return defaultValue;
+}
+
+/**
  *
  * Standard documented name for error callback arguments is "failure" but various other names have been employed in past.
  * This function provides reverse compatibility by picking the failure callback argument out of a config object
@@ -128,6 +182,17 @@ export function getOnSuccess(config: {success?: Function, successCallback?: Func
 }
 
 /**
+ * Retrieves the current LabKey Server session ID. Note that this may only be made available when the
+ * session ID cookie is marked as httpOnly = false.
+ * @returns {string} The current session id. Defaults to ''.
+ * @see {@link https://www.owasp.org/index.php/HttpOnly|OWASP HttpOnly}
+ * @see {@link https://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Common_Attributes|Tomcat Attributes}
+ */
+export function getSessionID(): string {
+    return getCookie('JSESSIONID', '');
+}
+
+/**
  * Will generate a unique id. If you provide a prefix, consider making it DOM safe so it can be used as
  * an element id.
  * @param {string} [prefix=lk-gen] - Optional prefix to start the identifier.
@@ -137,7 +202,7 @@ export function id(prefix: string): string {
     if (prefix) {
         return String(prefix) + (++idSeed);
     }
-    return 'lk-gen' + (++idSeed);
+    return ID_PREFIX + (++idSeed);
 }
 
 export function isArray(value: any): boolean {
@@ -176,6 +241,8 @@ export function isDefined(value: any): boolean {
  * @return {Boolean} the result of the test
  */
 export function isEmptyObj(obj: any): boolean {
+    // Note, this returns true for undefined, null, and empty Array as well. Consider revising
+    // or removing in future version.
     for (let i in obj) {
         return false;
     }
@@ -185,7 +252,7 @@ export function isEmptyObj(obj: any): boolean {
 export function isFunction(value: any): boolean {
     // http://stackoverflow.com/questions/5999998/how-can-i-check-if-a-javascript-variable-is-function-type
     const getType = {};
-    return value && getType.toString.call(value) === '[object Function]';
+    return value !== null && value !== undefined && getType.toString.call(value) === '[object Function]';
 }
 
 function isJSONResponse(response: ExtendedXMLHttpRequest): boolean {
@@ -255,4 +322,31 @@ export function padString(input: string | number, length: number, padChar: strin
  */
 export function roundNumber(input: number, dec: number): number {
     return Math.round(input * Math.pow(10, dec)) / Math.pow(10, dec);
+}
+
+/**
+ * Sets a client-side cookie. Useful for saving non-essential state to provide a better
+ * user experience. Note that some browser settings may prevent cookies from being saved,
+ * and users can clear browser cookies at any time, so cookies are not a substitute for
+ * database persistence.
+ * @param name The name of the cookie to be saved.
+ * @param value The value of the cookie to be saved.
+ * @param pageOnly Whether this cookie should be scoped to the entire site, or just this page.
+ * Page scoping considers the entire URL without parameters; all URL contents after the '?' are ignored.
+ * @param days The number of days the cookie should be saved on the client.
+ */
+export function setCookie(name: string, value: string, pageOnly: boolean, days: number): void {
+    let expires = '';
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = '; expires=' + date.toUTCString();
+    }
+
+    let path = '/';
+    if (pageOnly) {
+        path = location.pathname.substring(0, location.pathname.lastIndexOf('/'));
+    }
+
+    document.cookie = name + '=' + value + expires + '; path=' + path;
 }
