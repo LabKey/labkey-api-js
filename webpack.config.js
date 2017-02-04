@@ -15,14 +15,12 @@ var config = {
     entry: './src/wrapper.ts',
 
     module: {
-        loaders: [
-            [
-                {
-                    test: /\.ts$/,
-                    loaders: ['babel', 'ts'],
-                    exclude: /node_modules/
-                }
-            ]
+        rules: [
+            {
+                test: /\.ts$/,
+                loaders: ['babel-loader', 'ts-loader'],
+                exclude: /node_modules/
+            }
         ]
     },
 
@@ -31,8 +29,7 @@ var config = {
     },
 
     resolve: {
-        root: [ path.resolve('../src') ],
-        extensions: [ '', '.ts' ]
+        extensions: [ '.ts' ]
     }
 };
 
