@@ -17,7 +17,7 @@ import { buildURL } from './ActionURL'
 import { request } from './Ajax'
 import { getCallbackWrapper, isString } from './Utils'
 
-interface CreateDomainOptions {
+export interface CreateDomainOptions {
     containerPath?: string
     domainDesign?: any // TODO: Figure this out with respect to DomainDesign
     domainGroup?: string
