@@ -24,14 +24,16 @@
  */
 import * as API from './labkey'
 
-declare var LABKEY: any;
+declare let LABKEY: any;
 
 LABKEY.ActionURL = API.ActionURL;
 LABKEY.Ajax = API.Ajax;
 LABKEY.Domain = API.Domain;
 LABKEY.FieldKey = API.FieldKey;
 LABKEY.Filter = API.Filter;
+LABKEY.List = API.List;
 LABKEY.Message = API.Message;
+LABKEY.MultiRequest = API.MultiRequest;
 LABKEY.ParticipantGroup = API.ParticipantGroup;
 LABKEY.Pipeline = API.Pipeline;
 LABKEY.Query = API.Query;

@@ -18,6 +18,8 @@ import * as Ajax from './labkey/Ajax'
 import * as Domain from './labkey/Domain'
 import { FieldKey } from './labkey/fieldKey/FieldKey'
 import * as Filter from './labkey/Filter'
+import * as List from './labkey/List'
+import { MultiRequest } from './labkey/MultiRequest'
 import * as Message from './labkey/Message'
 import * as ParticipantGroup from './labkey/ParticipantGroup'
 import * as Pipeline from './labkey/Pipeline'
@@ -33,7 +35,9 @@ export {
     Domain,
     FieldKey,
     Filter,
+    List,
     Message,
+    MultiRequest,
     ParticipantGroup,
     Pipeline,
     Query,
