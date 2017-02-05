@@ -25,6 +25,7 @@ import * as ParticipantGroup from './labkey/ParticipantGroup'
 import * as Pipeline from './labkey/Pipeline'
 import * as Query from './labkey/Query'
 import { QueryKey } from './labkey/fieldKey/QueryKey'
+import * as Report from './labkey/Report'
 import { SchemaKey } from './labkey/fieldKey/SchemaKey'
 import * as Security from './labkey/Security'
 import * as Utils from './labkey/Utils'
@@ -42,6 +43,7 @@ export {
     Pipeline,
     Query,
     QueryKey,
+    Report,
     SchemaKey,
     Security,
     Utils

@@ -38,6 +38,7 @@ LABKEY.ParticipantGroup = API.ParticipantGroup;
 LABKEY.Pipeline = API.Pipeline;
 LABKEY.Query = API.Query;
 LABKEY.QueryKey = API.QueryKey;
+LABKEY.Report = API.Report;
 LABKEY.SchemaKey = API.SchemaKey;
 LABKEY.Security = API.Security;
 LABKEY.Utils = API.Utils;

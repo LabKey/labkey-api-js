@@ -41,7 +41,7 @@ interface IExecuteSqlOptions {
 
 function buildParams(options: IExecuteSqlOptions): any {
 
-    var jsonData: any = {
+    let jsonData: any = {
         schemaName: options.schemaName,
         sql: options.sql
     };
@@ -74,7 +74,7 @@ function buildParams(options: IExecuteSqlOptions): any {
     }
 
     if (options.parameters) {
-        for (var propName in options.parameters) {
+        for (let propName in options.parameters) {
             if (options.parameters.hasOwnProperty(propName)) {
                 // TODO: This should be changed to use a dataRegionName
                 jsonData['query.param.' + propName] = options.parameters[propName];
@@ -86,7 +86,7 @@ function buildParams(options: IExecuteSqlOptions): any {
 }
 
 function buildURLParams(options: IExecuteSqlOptions): any {
-    var urlParams: any = {};
+    let urlParams: any = {};
 
     if (options.sort) {
         // TODO: This should be changed to use a dataRegionName

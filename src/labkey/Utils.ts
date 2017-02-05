@@ -22,6 +22,55 @@ interface ExtendedXMLHttpRequest extends XMLHttpRequest {
 const ID_PREFIX = 'lk-gen';
 let idSeed = 100;
 
+/**
+ * Applies properties from the source object to the target object, translating
+ * the property names based on the translation map. The translation map should
+ * have an entry per property that you wish to rename when it is applied on
+ * the target object. The key should be the name of the property on the source object
+ * and the value should be the desired name on the target object. The value may
+ * also be set to null or false to prohibit that property from being applied.
+ * By default, this function will also apply all other properties on the source
+ * object that are not listed in the translation map, but you can override this
+ * by supplying false for the applyOthers parameter.
+ * @param target The target object
+ * @param source The source object
+ * @param translationMap A map listing property name translations
+ * @param applyOthers Set to false to prohibit application of properties
+ * not explicitly mentioned in the translation map.
+ * @param applyFunctions Set to false to prohibit application of properties
+ * that are functions
+ */
+export function applyTranslated(target: any, source: any, translationMap: any, applyOthers?: boolean, applyFunctions?: boolean): void {
+
+    if (undefined === target) {
+        target = {};
+    }
+    if (undefined === applyOthers) {
+        applyOthers = true;
+    }
+    if (undefined == applyFunctions && applyOthers) {
+        applyFunctions = true;
+    }
+
+    let targetPropName;
+    for (let prop in source) {
+        if (source.hasOwnProperty(prop)) {
+            //special case: Ext adds a "constructor" property to every object, which we don't want to apply
+            if (prop == 'constructor' || isFunction(prop)) {
+                continue;
+            }
+
+            targetPropName = translationMap[prop];
+            if (targetPropName) {
+                target[translationMap[prop]] = source[prop];
+            }
+            else if (undefined === targetPropName && applyOthers && (applyFunctions || !isFunction(source[prop]))) {
+                target[prop] = source[prop];
+            }
+        }
+    }
+}
+
 export function alert(title: string, msg: string): void {
     console.warn('alert: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
     console.warn(title + ':', msg);
