@@ -115,6 +115,12 @@ export function deleteCookie(name: string, pageOnly: boolean): void {
     setCookie(name, '', pageOnly, -1);
 }
 
+// These arguments didn't originally exist but usages in core are expecting arguments to be available, pulled up
+// from dom/Utils.js implementation
+export function displayAjaxErrorResponse(response?: any, exception?: any, showExceptionClass?: any, msgPrefix?: any) {
+    console.warn('displayAjaxErrorResponse: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
+}
+
 export function encode(data: any): string {
     return JSON.stringify(data);
 }
