@@ -20,11 +20,17 @@ import { getQueryDetails } from './query/GetQueryDetails'
 import { getSchemas } from './query/GetSchemas'
 import { selectDistinctRows } from './query/SelectDistinctRows'
 import { selectRows } from './query/SelectRows'
+import * as SQL from './query/experimental/SQL'
+
+const experimental = {
+    SQL
+};
 
 export {
     containerFilter,
     buildQueryParams,
     executeSql,
+    experimental,
     GetData,
     getQueryDetails,
     getSchemas,
