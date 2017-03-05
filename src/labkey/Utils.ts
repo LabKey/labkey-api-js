@@ -19,8 +19,35 @@ interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
+const ENUMERABLES = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
 const ID_PREFIX = 'lk-gen';
 let idSeed = 100;
+
+/**
+ * Applies config properties to the specified object.
+ * @param object
+ * @param config
+ * @returns {any}
+ */
+export function apply(object: any, config: any): any {
+
+    if (object && config && typeof config === 'object') {
+        let i, j, k;
+
+        for (i in config) {
+            object[i] = config[i];
+        }
+
+        for (j = ENUMERABLES.length; j--;) {
+            k = ENUMERABLES[j];
+            if (config.hasOwnProperty(k)) {
+                object[k] = config[k];
+            }
+        }
+    }
+
+    return object;
+}
 
 /**
  * Applies properties from the source object to the target object, translating

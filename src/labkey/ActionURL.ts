@@ -195,7 +195,7 @@ export function getParameterArray(parameterName: string): Array<string> {
  * @param {String} [url] The URL to parse. If not specified, the browser's current location will be used.
  * @return {Object} Map of parameter names to values.
  */
-export function getParameters(url: string): any {
+export function getParameters(url?: string): any {
     if (!url) {
         return buildParameterMap(url);
     }

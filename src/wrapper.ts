@@ -43,3 +43,4 @@ LABKEY.SchemaKey = API.SchemaKey;
 LABKEY.Security = API.Security;
 LABKEY.Specimen = API.Specimen;
 LABKEY.Utils = API.Utils;
+LABKEY.Visualization = API.Visualization;

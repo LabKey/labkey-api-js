@@ -44,6 +44,7 @@ export interface RequestOptions {
     failure?: AjaxHandler
     form?: FormData | HTMLFormElement
     headers?: {[key:string]: string}
+    initialConfig?: any
     jsonData?: any
     method?: string
     params?: {[key:string]: any}

@@ -69,4 +69,5 @@ export const singleValueToMultiMap: {
     contains: 'containsoneof'
 };
 
-export type FilterValue = string | number | boolean;
+// TODO: Can this be typed to just primitives?
+export type FilterValue = any;
