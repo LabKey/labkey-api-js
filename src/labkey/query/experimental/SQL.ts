@@ -76,13 +76,13 @@ function convertDate(s: any): Date {
 interface IExecuteOptions {
     containerPath?: string
     eol?: string
-    failure?: () => any
+    failure?: Function
     parameters?: any
     schema: string
     scope?: any
     sep?: string
     sql: string
-    success?: () => any
+    success?: Function
     timeout?: number
 }
 

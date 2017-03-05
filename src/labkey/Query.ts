@@ -21,6 +21,7 @@ import { getSchemas } from './query/GetSchemas'
 import { selectDistinctRows } from './query/SelectDistinctRows'
 import { selectRows } from './query/SelectRows'
 import * as SQL from './query/experimental/SQL'
+import * as Visualization from './query/Visualization'
 
 const experimental = {
     SQL
@@ -40,5 +41,6 @@ export {
     sqlDateLiteral,
     sqlStringLiteral,
     URL_COLUMN_PREFIX,
-    validateQuery
+    validateQuery,
+    Visualization
 }

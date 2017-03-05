@@ -30,6 +30,7 @@ import { SchemaKey } from './labkey/fieldKey/SchemaKey'
 import * as Security from './labkey/Security'
 import * as Specimen from './labkey/Specimen'
 import * as Utils from './labkey/Utils'
+import * as Visualization from './labkey/Visualization'
 
 export {
     ActionURL,
@@ -48,5 +49,6 @@ export {
     SchemaKey,
     Security,
     Specimen,
-    Utils
+    Utils,
+    Visualization
 }
