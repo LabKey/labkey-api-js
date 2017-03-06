@@ -86,7 +86,7 @@ export function appendFilterParams(params: any, filterArray: Array<Filter>, data
     let filterParams = params || {};
 
     if (filterArray) {
-        for (var i=0; i < filterArray.length; i++) {
+        for (let i=0; i < filterArray.length; i++) {
             let filter = filterArray[i];
 
             // 10.1 compatibility: treat ~eq=null as a NOOP (#10482)

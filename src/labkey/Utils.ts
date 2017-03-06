@@ -13,15 +13,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { loadContext } from './constants'
 import { AjaxHandler, RequestOptions } from './Ajax'
+
+const { uuids } = loadContext();
 
 interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
+const CHARS = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
 const ENUMERABLES = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
 const ID_PREFIX = 'lk-gen';
 let idSeed = 100;
+
+function _copy(o: any, depth: any): any {
+    if (depth == 0 || !isObject(o)) {
+        return o;
+    }
+    let copy: any = {};
+    for (let key in o) {
+        copy[key] = _copy(o[key], depth-1);
+    }
+    return copy;
+}
+
+// like a general version of Ext.apply() or mootools.merge()
+function _merge(to: any, from: any, overwrite: any, depth: any): void {
+    for (let key in from) {
+        if (from.hasOwnProperty(key)) {
+            if (isObject(to[key]) && isObject(from[key])) {
+                _merge(to[key], from[key], overwrite, depth-1);
+            }
+            else if (undefined === to[key] || overwrite) {
+                to[key] = _copy(from[key], depth-1);
+            }
+        }
+    }
+}
 
 /**
  * Applies config properties to the specified object.
@@ -152,6 +181,26 @@ export function encode(data: any): string {
     return JSON.stringify(data);
 }
 
+/**
+ * Encodes the html passed in so that it will not be interpreted as HTML by the browser.
+ * For example, if your input string was "&lt;p&gt;Hello&lt;/p&gt;" the output would be
+ * "&amp;lt;p&amp;gt;Hello&amp;lt;/p&amp;gt;". If you set an element's innerHTML property
+ * to this string, the HTML markup will be displayed as literal text rather than being
+ * interpreted as HTML.
+ *
+ * @param {String} html The HTML to encode
+ * @return {String} The encoded HTML
+ */
+export function encodeHtml(html: string): string {
+    // http://stackoverflow.com/questions/1219860/html-encoding-in-javascript-jquery
+    return String(html)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+}
+
 export function escapeRe(s: string): string {
     return s.replace(/([-.*+?\^${}()|\[\]\/\\])/g, "\\$1");
 }
@@ -170,6 +219,43 @@ export function endsWith(value: string, ending: string): boolean {
         return false;
     }
     return value.substring(value.length - ending.length) == ending;
+}
+
+/**
+ * Returns a universally unique identifier, of the general form: "92329D39-6F5C-4520-ABFC-AAB64544E172"
+ * NOTE: Do not use this for DOM id's as it does not meet the requirements for DOM id specification.
+ * Based on original Math.uuid.js (v1.4)
+ * http://www.broofa.com
+ * mailto:robert@broofa.com
+ * Copyright (c) 2010 Robert Kieffer
+ * Dual licensed under the MIT and GPL licenses.
+ */
+export function generateUUID(): string {
+    // First see if there are any server-generated UUIDs available to return
+    if (uuids && uuids.length > 0) {
+        return uuids.pop();
+    }
+
+    // From the original Math.uuidFast implementation
+    let uuid = new Array(36), rnd = 0, r;
+    for (let i = 0; i < 36; i++) {
+        if (i == 8 || i == 13 || i == 18 || i == 23) {
+            uuid[i] = '-';
+        }
+        else if (i == 14) {
+            uuid[i] = '4';
+        }
+        else {
+            if (rnd <= 0x02) {
+                rnd = 0x2000000 + (Math.random() * 0x1000000) | 0
+            }
+            r = rnd & 0xf;
+            rnd = rnd >> 4;
+            uuid[i] = CHARS[(i == 19) ? (r & 0x3) | 0x8 : r];
+        }
+    }
+
+    return uuid.join('');
 }
 
 /**
@@ -244,6 +330,36 @@ export function getCookie(name: string, defaultValue: string): string {
 }
 
 /**
+ * Generates a display string from the response to an error from an AJAX request
+ */
+export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, config: any): string {
+    config = config || {};
+    let error;
+    let prefix = config.msgPrefix || 'An error occurred trying to load:\n';
+
+    if (response &&
+        response.responseText &&
+        response.getResponseHeader('Content-Type') &&
+        response.getResponseHeader('Content-Type').indexOf('application/json') >= 0) {
+        const jsonResponse = decode(response.responseText);
+        if (jsonResponse && jsonResponse.exception) {
+            error = prefix + jsonResponse.exception;
+            if (config.showExceptionClass) {
+                error += '\n(' + (jsonResponse.exceptionClass ? jsonResponse.exceptionClass : 'Exception class unknown') + ')';
+            }
+        }
+    }
+    if (!error) {
+        error = prefix + 'Status: ' + response.statusText + ' (' + response.status + ')';
+    }
+    if (exceptionObj && exceptionObj.message) {
+        error += '\n' + exceptionObj.name + ': ' + exceptionObj.message;
+    }
+
+    return error;
+}
+
+/**
  *
  * Standard documented name for error callback arguments is "failure" but various other names have been employed in past.
  * This function provides reverse compatibility by picking the failure callback argument out of a config object
@@ -284,7 +400,7 @@ export function getSessionID(): string {
  * @param {string} [prefix=lk-gen] - Optional prefix to start the identifier.
  * @returns {string}
  */
-export function id(prefix: string): string {
+export function id(prefix?: string): string {
     if (prefix) {
         return String(prefix) + (++idSeed);
     }
@@ -364,12 +480,70 @@ export function isString(value: any): boolean {
     return typeof value === 'string';
 }
 
+/**
+ * Apply properties from b, c, ...  to a.  Properties of each subsequent
+ * object overwrites the previous.
+ *
+ * The first object is modified.
+ *
+ * Use merge({}, o) to create a deep copy of o.
+ */
+export function merge(...props: Array<any>): any {
+    let o = props[0];
+    for (let i=1; i < props.length; i++) {
+        _merge(o, props[i], true, 50);
+    }
+    return o;
+}
+
 export function onError(error: any): void {
     console.warn('onError: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
 }
 
 export function onReady(config: any): void {
     console.warn('onReady: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
+}
+
+interface IOnTrueOptions {
+    errorArguments?: Array<any>
+    failure?: Function
+    maxTests?: number
+    scope?: any
+    successArguments?: Array<any>
+    success: Function
+    testArguments?: Array<any>
+    testCallback: Function
+}
+
+/**
+ * Iteratively calls a tester function you provide, calling another callback function once the
+ * tester function returns true. This function is useful for advanced JavaScript scenarios, such
+ * as cases where you are including common script files dynamically using the requiresScript()
+ * method, and need to wait until classes defined in those files are parsed and ready for use.
+ */
+export function onTrue(options: IOnTrueOptions): void {
+    // TODO: Get rid of this entire method
+    options.maxTests = options.maxTests || 1000;
+    try {
+        if (options.testCallback.apply(options.scope || this, options.testArguments || [])) {
+            getOnSuccess(options).apply(options.scope || this, options.successArguments || []);
+        }
+        else {
+            if (options.maxTests <= 0) {
+                throw 'Maximum number of tests reached!';
+            }
+            else {
+                --options.maxTests;
+                // TODO: Figure out how this is presently working...defer() is not a built-in function property
+                // onTrue.defer(10, this, [options]);
+            }
+        }
+    }
+    catch(e) {
+        if (getOnFailure(options)) {
+            getOnFailure(options).apply(options.scope || this, [e, options.errorArguments]);
+        }
+    }
 }
 
 /**
@@ -454,7 +628,7 @@ export function textLink(options: ITextLinkOptions): string {
         throw 'href AND/OR onClick required in call to LABKEY.Utils.textLink()';
     }
 
-    let attributes = " ";
+    let attributes = ' ';
     if (options) {
         for (let i in options) {
             if (options.hasOwnProperty(i)) {

@@ -21,6 +21,8 @@ interface ExperimentalFeatures {
     containerRelativeURL: boolean
 }
 
+export const CSRF_HEADER = 'X-LABKEY-CSRF';
+
 export interface LabKey {
     container: Container
     contextPath: string
@@ -39,6 +41,7 @@ export interface LabKey {
     submit: boolean
     unloadMessage: string
     user: User
+    uuids: Array<string>
     verbose: boolean
 }
 
@@ -46,7 +49,7 @@ interface User {
     isGuest: boolean
 }
 
-declare var LABKEY: LabKey;
+declare const LABKEY: LabKey;
 
 export function loadContext(): LabKey {
     return LABKEY;
@@ -57,7 +60,7 @@ export function loadContext(): LabKey {
 class _Window extends Window {
     LABKEY: any
 }
-declare var window: _Window;
+declare const window: _Window;
 
 if (!window.LABKEY) {
     throw new Error('LABKEY object is required to be initialized prior to loading the API');

@@ -12,7 +12,14 @@ var config = {
 
     devtool: 'source-map',
 
-    entry: './src/wrapper.ts',
+    entry: {
+        'core': [
+            './src/wrapper.ts'
+        ],
+        'dom': [
+            './src/wrapper-dom.ts'
+        ]
+    },
 
     module: {
         rules: [
@@ -25,12 +32,18 @@ var config = {
     },
 
     output: {
-        filename: 'dist/labkey-api-js.min.js'
+        filename: 'dist/labkey-api-js-[name].min.js'
     },
 
     resolve: {
         extensions: [ '.ts' ]
-    }
+    },
+
+    plugins: [
+        new webpack.optimize.UglifyJsPlugin({
+            sourceMap: true
+        })
+    ]
 };
 
 module.exports = config;
