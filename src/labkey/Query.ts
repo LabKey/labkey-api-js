@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildQueryParams, containerFilter, getServerDate, sqlDateLiteral, sqlStringLiteral, URL_COLUMN_PREFIX, validateQuery } from './query/Utils'
+import { buildQueryParams, containerFilter, getQueries, getQueryViews, getSchemas, getServerDate, saveQueryViews, sqlDateLiteral, sqlDateTimeLiteral, sqlStringLiteral, URL_COLUMN_PREFIX, validateQuery } from './query/Utils'
 import { executeSql } from './query/ExecuteSql'
 import * as GetData from './query/GetData'
 import { getQueryDetails } from './query/GetQueryDetails'
-import { getSchemas } from './query/GetSchemas'
+import { saveRows } from './query/SaveRows'
 import { selectDistinctRows } from './query/SelectDistinctRows'
 import { selectRows } from './query/SelectRows'
 import * as SQL from './query/experimental/SQL'
@@ -33,12 +33,17 @@ export {
     executeSql,
     experimental,
     GetData,
+    getQueries,
     getQueryDetails,
+    getQueryViews,
     getSchemas,
     getServerDate,
+    saveQueryViews,
+    saveRows,
     selectDistinctRows,
     selectRows,
     sqlDateLiteral,
+    sqlDateTimeLiteral,
     sqlStringLiteral,
     URL_COLUMN_PREFIX,
     validateQuery,
