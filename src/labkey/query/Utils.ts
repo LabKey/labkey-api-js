@@ -60,6 +60,112 @@ export function getMethod(value: string): string {
     return 'GET';
 }
 
+interface IGetQueriesOptions {
+    containerPath?: string
+    failure?: Function
+    includeColumns?: boolean
+    includeUserQueries?: boolean
+    includeSystemQueries?: boolean
+    schemaName: string
+    scope?: any
+    success?: Function
+}
+
+/**
+ * Returns the set of queries available in a given schema.
+ */
+export function getQueries(options: IGetQueriesOptions): XMLHttpRequest {
+
+    let params = {};
+
+    // Only pass the parameters that the server supports, and exclude ones like successCallback
+    applyTranslated(params, options, {
+        schemaName: 'schemaName',
+        includeColumns: 'includeColumns',
+        includeUserQueries: 'includeUserQueries',
+        includeSystemQueries: 'includeSystemQueries'
+    }, false /* applyOthers */, false /* applyFunctions */);
+
+    return request({
+        url: buildURL('query', 'getQueries.api', options.containerPath),
+        method: 'GET',
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        params
+    });
+}
+
+interface IGetQueryViewsOptions {
+    containerPath?: string
+    failure?: Function
+    metadata?: any
+    queryName?: string
+    schemaName?: string
+    scope?: any
+    success?: Function
+    viewName?: string
+}
+
+/**
+ * Returns the set of views available for a given query in a given schema.
+ */
+export function getQueryViews(options: IGetQueryViewsOptions): XMLHttpRequest {
+
+    let params: any = {};
+
+    if (options.schemaName) {
+        params.schemaName = options.schemaName;
+    }
+    if (options.queryName) {
+        params.queryName = options.queryName;
+    }
+    if (options.viewName != undefined) {
+        params.viewName = options.viewName;
+    }
+    if (options.metadata) {
+        params.metadata = options.metadata;
+    }
+
+    return request({
+        url: buildURL('query', 'getQueryViews.api', options.containerPath),
+        method: 'GET',
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        params
+    });
+}
+
+interface IGetSchemasOptions {
+    apiVersion?: string | number
+    containerPath?: string
+    failure?: Function
+    schemaName?: string
+    scope?: any
+    success?: Function
+}
+
+/**
+ * Returns the set of schemas available in the specified container.
+ */
+export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
+
+    let params: any = {};
+    if (options.apiVersion) {
+        params.apiVersion = options.apiVersion;
+    }
+    if (options.schemaName) {
+        params.schemaName = options.schemaName;
+    }
+
+    return request({
+        url: buildURL('query', 'getSchemas.api', options.containerPath),
+        method: 'GET',
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        params
+    });
+}
+
 interface IGetServerDateOptions {
     failure?: () => any
     scope?: any
@@ -118,6 +224,43 @@ export function getSuccessCallbackWrapper(fn: Function, stripHiddenCols?: boolea
     }, this);
 }
 
+interface ISaveQueryViewsOptions {
+    containerPath?: string
+    failure?: Function
+    metadata?: any
+    queryName?: string
+    schemaName?: string
+    scope?: any
+    success?: Function
+    views?: string
+}
+
+/**
+ * Creates or updates a custom view or views for a given query in a given schema.
+ * The options object matches the viewInfos parameter of the getQueryViews.successCallback.
+ */
+export function saveQueryViews(options: ISaveQueryViewsOptions): XMLHttpRequest {
+
+    let jsonData: any = {};
+    if (options.schemaName) {
+        jsonData.schemaName = options.schemaName;
+    }
+    if (options.queryName) {
+        jsonData.queryName = options.queryName;
+    }
+    if (options.views) {
+        jsonData.views = options.views;
+    }
+
+    return request({
+        url: buildURL('query', 'saveQueryViews.api', options.containerPath),
+        method: 'POST',
+        jsonData,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+    });
+}
+
 /**
  * Converts a JavaScript date into a format suitable for using in a LabKey SQL query, does not include time.
  * @param date JavaScript date
@@ -132,7 +275,7 @@ export function sqlDateLiteral(date: Date): string {
         try { date = new Date(date); } catch (x) { }
     }
     if (typeof date == 'object' && typeof date.toISOString == 'function') {
-        const fmt2 = function(a: number) {return (a >= 10 ? a : "0" + a);};
+        const fmt2 = (a: number) => (a >= 10 ? '' + a : '0' + a);
 
         return (
             "{d '" +
@@ -142,6 +285,32 @@ export function sqlDateLiteral(date: Date): string {
     }
 
     return "{d '" + sqlStringLiteral(date.toString()) + "'}";
+}
+
+/**
+ * Converts a javascript date into a format suitable for using in a LabKey SQL query, includes time but not milliseconds.
+ * @param date JavaScript Date
+ * @param withMS include milliseconds
+ * @returns {String} a date and time literal formatted to be used in a LabKey query
+ */
+export function sqlDateTimeLiteral(date: Date, withMS: boolean): string {
+    if (date === undefined || date === null || !date) {
+        return 'NULL';
+    }
+    if (typeof date == 'string') {
+        try { date = new Date(date); } catch (x) { }
+    }
+    if (typeof date == 'object' && typeof date.toISOString == 'function') {
+        const fmt2 = (a: number) => (a >= 10  ? '' + a : '0' + a);
+        const fmt3 = (a: number) => (a >= 100 ? '' + a : '0' + fmt2(a));
+
+        return "{ts '" +
+            date.getFullYear() + "-" + fmt2(date.getMonth()+1) + "-" + fmt2(date.getDate()) + " " + fmt2(date.getHours()) + ":" + fmt2(date.getMinutes()) + ":" + fmt2(date.getSeconds()) +
+            (withMS ? "." + fmt3(date.getMilliseconds()) : "")
+            + "'}";
+    }
+
+    return "{ts '" + this.sqlStringLiteral(date) + "'}";
 }
 
 /**
