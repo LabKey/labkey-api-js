@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { loadContext } from './constants'
+import { CSRF_HEADER, loadContext } from './constants'
 import { queryString } from './ActionURL'
 
-const LABKEY = loadContext();
+const { CSRF } = loadContext();
 
 export const DEFAULT_HEADERS: {[key: string]: string} = {
-    'X-LABKEY-CSRF': LABKEY.CSRF
+    [CSRF_HEADER]: CSRF
 };
 
 export type AjaxHandler = (request: XMLHttpRequest, config: RequestOptions) => any;
@@ -66,8 +66,8 @@ function callback(fn: Function, scope: any, args?: any) {
  */
 function contains(obj: Object, key: string) {
     if (key) {
-        var lowerKey = key.toLowerCase();
-        for (var k in obj) {
+        const lowerKey = key.toLowerCase();
+        for (let k in obj) {
             if (obj.hasOwnProperty(k) && k.toLowerCase() === lowerKey) {
                 return true;
             }
@@ -77,7 +77,7 @@ function contains(obj: Object, key: string) {
 }
 
 function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: ConfiguredOptions): void {
-    var headers = config.headers,
+    let headers = config.headers,
         jsonData = config.jsonData;
 
     if (headers === undefined || headers === null) {
@@ -98,13 +98,13 @@ function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: 
         headers['X-Requested-With'] = 'XMLHttpRequest';
     }
 
-    for (var k in DEFAULT_HEADERS) {
+    for (let k in DEFAULT_HEADERS) {
         if (DEFAULT_HEADERS.hasOwnProperty(k)) {
             xhr.setRequestHeader(k, DEFAULT_HEADERS[k]);
         }
     }
 
-    for (var k in headers) {
+    for (let k in headers) {
         if (headers.hasOwnProperty(k)) {
             xhr.setRequestHeader(k, headers[k]);
         }
@@ -112,17 +112,17 @@ function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: 
 }
 
 function configureOptions(config: RequestOptions): ConfiguredOptions {
-    var data: string;
-    var formData: FormData;
-    var method = 'GET';
-    var isForm = false;
+    let data: string;
+    let formData: FormData;
+    let method = 'GET';
+    let isForm = false;
 
     if (!config || !config.hasOwnProperty('url') || config.url === null) {
         throw new Error('a URL is required to make a request');
     }
 
-    var url = config.url;
-    var params = config.params;
+    let url = config.url;
+    let params = config.params;
 
     // configure data
     if (config.form) {
@@ -144,7 +144,7 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
     // configure params
     if (params !== undefined && params !== null) {
 
-        var qs = queryString(params);
+        let qs = queryString(params);
 
         // 26617: backwards compatibility to append params to the body in the case of a POST without form/jsonData
         if (method === 'POST' && (data === undefined || data === null)) {
@@ -164,13 +164,13 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
 }
 
 export function request(config: RequestOptions): XMLHttpRequest {
-    var options = configureOptions(config);
-    var scope = config.hasOwnProperty('scope') && config.scope !== null ? config.scope : this;
-    var xhr = new XMLHttpRequest();
+    let options = configureOptions(config);
+    let scope = config.hasOwnProperty('scope') && config.scope !== null ? config.scope : this;
+    let xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
-            var success = (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304;
+            let success = (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304;
 
             callback(success ? config.success : config.failure, scope, [xhr, config]);
             callback(config.callback, scope, [config, success, xhr]);
