@@ -15,6 +15,7 @@
  */
 import * as ActionURL from './labkey/ActionURL'
 import * as Ajax from './labkey/Ajax'
+import * as Assay from './labkey/Assay'
 import * as Domain from './labkey/Domain'
 import { FieldKey } from './labkey/fieldKey/FieldKey'
 import * as Filter from './labkey/Filter'
@@ -35,6 +36,7 @@ import * as Visualization from './labkey/Visualization'
 export {
     ActionURL,
     Ajax,
+    Assay,
     Domain,
     FieldKey,
     Filter,

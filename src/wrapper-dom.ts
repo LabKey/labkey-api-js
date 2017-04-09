@@ -46,6 +46,7 @@ LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
 
 // DOM
+LABKEY.Assay = Object.assign({}, API.Assay, DOM.Assay);
 LABKEY.Form = DOM.Form;
 LABKEY.Query = Object.assign({}, API.Query, DOM.Query);
 LABKEY.Security = Object.assign({}, API.Security, DOM.Security);

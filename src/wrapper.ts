@@ -28,6 +28,7 @@ declare let LABKEY: any;
 
 LABKEY.ActionURL = API.ActionURL;
 LABKEY.Ajax = API.Ajax;
+LABKEY.Assay = API.Assay;
 LABKEY.Domain = API.Domain;
 LABKEY.FieldKey = API.FieldKey;
 LABKEY.Filter = API.Filter;
