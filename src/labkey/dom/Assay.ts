@@ -35,6 +35,7 @@ interface IImportRunOptions {
     files: Array<any>
     name?: string
     properties?: any
+    runFilePath?: string
     scope?: any
     success: Function
 }
@@ -43,6 +44,10 @@ export function importRun(options: IImportRunOptions): void {
 
     if (!window.FormData) {
         throw new Error('modern browser required');
+    }
+    
+    if (!options.assayId) {
+        throw new Error('assayId required');
     }
 
     let files = [];
@@ -60,17 +65,17 @@ export function importRun(options: IImportRunOptions): void {
         }
     }
 
-    if (files.length == 0) {
-        throw new Error('At least one file is required');
+    if (files.length == 0 && !options.runFilePath) {
+        throw new Error('At least one file or runFilePath is required');
     }
 
     let formData = new FormData();
-    formData.append('assayId', options.assayId);
+    formData.append('assayId', options.assayId as any);
     formData.append('name', options.name);
     formData.append('comment', options.comment);
 
     if (options.batchId) {
-        formData.append('batchId', options.batchId);
+        formData.append('batchId', options.batchId as any);
     }
 
     if (options.properties) {
@@ -82,6 +87,17 @@ export function importRun(options: IImportRunOptions): void {
     if (options.batchProperties) {
         for (let key in options.batchProperties)
             formData.append("batchProperties['" + key + "']", options.batchProperties[key]);
+    }
+
+    if (options.runFilePath) {
+        formData.append('runFilePath', options.runFilePath);
+    }
+
+    if (files && files.length > 0) {
+        formData.append('file', files[0]);
+        for (var i = 0; i < files.length; i++) {
+            formData.append('file' + i, files[i]);
+        }
     }
 
     formData.append('file', files[0]);
