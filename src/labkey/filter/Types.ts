@@ -155,7 +155,7 @@ function generateFilterType(
         let f = TYPES_BY_JSON_TYPE[jsonType.toLowerCase()];
         let found = false;
 
-        for (var i=0; !found && i < f.length; i++) {
+        for (let i=0; !found && i < f.length; i++) {
             if (f[i].getURLSuffix() == urlSuffix) {
                 found = true;
             }
@@ -171,7 +171,7 @@ function generateFilterType(
         return validate(jsonType, value, columnName);
     };
 
-    var type: FilterType = {
+    const type: FilterType = {
         getDisplaySymbol: () => displaySymbol || null,
         getDisplayText: () => displayText,
         getLongDisplayText: () => longDisplayText || displayText,
@@ -311,7 +311,7 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
             hour = dateVal.getHours();
             minute = dateVal.getMinutes();
         }
-        var str = '' + year + '-' + twoDigit(month) + '-' + twoDigit(day);
+        let str = '' + year + '-' + twoDigit(month) + '-' + twoDigit(day);
         if (hour != 0 || minute != 0)
             str += ' ' + twoDigit(hour) + ':' + twoDigit(minute);
 
@@ -344,10 +344,10 @@ function validateMultiple(
     jsonType: JsonType, value: FilterValue, columnName: string,
     sep: string, minOccurs: number, maxOccurs: number
 ): string {
-    var values = value.toString().split(sep);
-    var result = '';
-    var separator = '';
-    for (var i = 0; i < values.length; i++) {
+    let values = value.toString().split(sep);
+    let result = '';
+    let separator = '';
+    for (let i = 0; i < values.length; i++) {
         let valid = validate(jsonType, values[i].trim(), columnName);
         if (valid == undefined) {
             return undefined;

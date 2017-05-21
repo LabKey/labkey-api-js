@@ -72,7 +72,7 @@ export abstract class QueryKey {
         );
     }
 
-    getName() {
+    getName(): string {
         return this.name;
     }
 

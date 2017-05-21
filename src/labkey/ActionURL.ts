@@ -16,7 +16,7 @@
 import { loadContext } from './constants'
 import { isArray } from './Utils'
 
-declare var window: Window;
+declare let window: Window;
 const LABKEY = loadContext();
 
 const activePath = parsePathName(window.location.pathname);

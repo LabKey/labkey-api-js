@@ -37,6 +37,15 @@ export const containerFilter = {
 
 export const URL_COLUMN_PREFIX = '_labkeyurl_';
 
+/**
+ * Build and return an object suitable for passing to the Ajax request 'params' configuration property.
+ * @param schemaName
+ * @param queryName
+ * @param filterArray
+ * @param sort
+ * @param dataRegionName
+ * @returns {any}
+ */
 export function buildQueryParams(schemaName: string, queryName: string, filterArray: Array<Filter>, sort: string, dataRegionName?: string): any {
 
     const regionName = ensureRegionName(dataRegionName);
@@ -52,6 +61,56 @@ export function buildQueryParams(schemaName: string, queryName: string, filterAr
     }
 
     return appendFilterParams(params, filterArray, regionName);
+}
+
+interface IDeleteQueryViewOptions {
+    containerPath?: string
+    queryName: string
+    revert?: boolean
+    schemaName: string
+    scope?: any
+    viewName?: string
+}
+
+interface IDeleteQueryViewPayload {
+    complete?: boolean
+    queryName: string
+    schemaName: string
+    viewName?: string
+}
+
+export function deleteQueryView(options: IDeleteQueryViewOptions): XMLHttpRequest {
+
+    if (!options) {
+        throw 'You must specify a configuration!';
+    }
+    if (!options.schemaName) {
+        throw 'You must specify a schemaName!';
+    }
+    if (!options.queryName) {
+        throw 'You must specify a queryName!';
+    }
+
+    let jsonData: IDeleteQueryViewPayload = {
+        schemaName: options.schemaName,
+        queryName: options.queryName
+    };
+
+    if (options.viewName) {
+        jsonData.viewName = options.viewName;
+    }
+
+    if (options.revert !== undefined) {
+        jsonData.complete = options.revert !== true;
+    }
+
+    return request({
+        url: buildURL('query', 'deleteView.api', options.containerPath),
+        method: 'POST',
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        jsonData
+    });
 }
 
 type IDataTypes = 'datasets' | 'queries' | 'reports';

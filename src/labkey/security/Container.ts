@@ -188,7 +188,7 @@ interface GetContainersOptions {
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function getContainers(config: GetContainersOptions): XMLHttpRequest {
-    var params: any = {};
+    let params: any = {};
 
     if (config) {
         // TODO: These undefined checked should use !==
@@ -374,7 +374,7 @@ interface MoveContainerOptions {
  * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
  */
 export function moveContainer(config: MoveContainerOptions): XMLHttpRequest {
-    var params = {
+    let params = {
         addAlias: config.addAlias !== false,
         container: config.container || config.containerPath,
         parent: config.destinationParent || config.parent || config.parentPath

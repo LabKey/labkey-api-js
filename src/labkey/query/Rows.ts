@@ -19,15 +19,49 @@ import { buildURL } from '../ActionURL'
 import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils'
 import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
-function saveRowsArguments(args: any): ISaveRowsOptions {
+/**
+ * Delete rows.
+ * @param options
+ * @returns {XMLHttpRequest}
+ */
+export function deleteRows(options: IQueryRequestOptions) {
+
+    if (arguments.length > 1)
+        options = queryArguments(arguments);
+    options.action = 'deleteRows.api';
+    return sendRequest(options);
+}
+
+/**
+ * Insert rows.
+ * @param options
+ * @returns {XMLHttpRequest}
+ */
+export function insertRows(options: IQueryRequestOptions) {
+
+    if (arguments.length > 1)
+        options = queryArguments(arguments);
+    options.action = 'insertRows.api';
+    return sendRequest(options);
+}
+
+interface IQueryArguments {
+    failure: Function
+    queryName: string
+    rows: Array<any>
+    schemaName: string
+    success: Function
+}
+
+function queryArguments(args: any): IQueryArguments {
+
     return {
-        // These don't make any sense...
-        // schemaName: args[0],
-        // queryName: args[1],
-        // rows: args[2],
+        schemaName: args[0],
+        queryName: args[1],
+        rows: args[2],
         success: args[3],
         failure: args[4]
-    };
+    }
 }
 
 interface ICommand {
@@ -55,7 +89,7 @@ interface ISaveRowsOptions {
 export function saveRows(options: ISaveRowsOptions): XMLHttpRequest {
 
     if (arguments.length > 1) {
-        options = saveRowsArguments(arguments);
+        options = queryArguments(arguments);
     }
 
     return request({
@@ -306,4 +340,51 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
         params: buildParams(options),
         timeout: options.timeout
     });
+}
+
+interface IQueryRequestOptions {
+    action?: string // TODO: 'action' is actually required by sendRequest but not from the user, type it this way
+    containerPath?: string
+    extraContext?: any
+    failure?: Function
+    queryName: string
+    rowDataArray?: Array<any>
+    rows?: any
+    schemaName: string
+    scope?: any
+    success?: Function
+    timeout?: number
+    transacted?: boolean
+}
+
+function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
+
+    return request({
+        url: buildURL('query', options.action, options.containerPath),
+        method: 'POST',
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        jsonData: {
+            schemaName: options.schemaName,
+            queryName: options.queryName,
+            rows: options.rows || options.rowDataArray,
+            transacted: options.transacted,
+            extraContext: options.extraContext
+        },
+        timeout: options.timeout
+    });
+}
+
+/**
+ * Update rows.
+ * @param options
+ * @returns {XMLHttpRequest}
+ */
+export function updateRows(options: IQueryRequestOptions): XMLHttpRequest {
+
+    if (arguments.length > 1) {
+        options = queryArguments(arguments);
+    }
+    options.action = 'updateRows.api';
+    return sendRequest(options);
 }

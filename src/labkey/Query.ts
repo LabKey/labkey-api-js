@@ -13,11 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildQueryParams, containerFilter, getQueries, getQueryViews, getSchemas, getServerDate, saveQueryViews, sqlDateLiteral, sqlDateTimeLiteral, sqlStringLiteral, URL_COLUMN_PREFIX, validateQuery } from './query/Utils'
+import {
+    buildQueryParams, containerFilter, deleteQueryView, getQueries, getQueryViews,
+    getSchemas, getServerDate, saveQueryViews, sqlDateLiteral, sqlDateTimeLiteral,
+    sqlStringLiteral, URL_COLUMN_PREFIX, validateQuery
+} from './query/Utils'
 import { executeSql } from './query/ExecuteSql'
 import * as GetData from './query/GetData'
 import { getQueryDetails } from './query/GetQueryDetails'
-import { saveRows, selectDistinctRows, selectRows } from './query/Rows'
+import { deleteRows, insertRows, saveRows, selectDistinctRows, selectRows, updateRows } from './query/Rows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 
@@ -28,6 +32,8 @@ const experimental = {
 export {
     containerFilter,
     buildQueryParams,
+    deleteQueryView,
+    deleteRows,
     executeSql,
     experimental,
     GetData,
@@ -36,6 +42,7 @@ export {
     getQueryViews,
     getSchemas,
     getServerDate,
+    insertRows,
     saveQueryViews,
     saveRows,
     selectDistinctRows,
@@ -43,6 +50,7 @@ export {
     sqlDateLiteral,
     sqlDateTimeLiteral,
     sqlStringLiteral,
+    updateRows,
     URL_COLUMN_PREFIX,
     validateQuery,
     Visualization
