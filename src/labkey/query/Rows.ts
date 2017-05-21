@@ -13,11 +13,151 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax'
+import { request, RequestOptions } from '../Ajax'
 import { Filter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
 import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils'
 import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
+
+function saveRowsArguments(args: any): ISaveRowsOptions {
+    return {
+        // These don't make any sense...
+        // schemaName: args[0],
+        // queryName: args[1],
+        // rows: args[2],
+        success: args[3],
+        failure: args[4]
+    };
+}
+
+interface ICommand {
+    command: 'delete' | 'insert' | 'update',
+    extraContext?: any
+    rows: Array<any>
+}
+
+interface ISaveRowsOptions {
+    apiVersion?: string | number
+    commands?: Array<ICommand>
+    containerPath?: string
+    extraContext?: any
+    failure?: Function
+    scope?: any
+    success?: Function
+    timeout?: number
+    transacted?: boolean
+    validateOnly?: boolean
+}
+
+/**
+ * Save inserts, updates, and/or deletes to potentially multiple tables with a single request.
+ */
+export function saveRows(options: ISaveRowsOptions): XMLHttpRequest {
+
+    if (arguments.length > 1) {
+        options = saveRowsArguments(arguments);
+    }
+
+    return request({
+        url: buildURL('query', 'saveRows.api', options.containerPath),
+        method: 'POST',
+        jsonData: {
+            apiVersion: options.apiVersion,
+            commands: options.commands,
+            containerPath: options.containerPath,
+            extraContext: options.extraContext,
+            transacted: options.transacted === true,
+            validateOnly: options.validateOnly === true
+        },
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        timeout: options.timeout
+    });
+}
+
+interface ISelectDistinctResult {
+    queryName: string
+    schemaName: string
+    values: Array<any>
+}
+
+interface ISelectDistinctOptions {
+    column: string
+    containerFilter?: string
+    containerPath?: string
+    dataRegionName?: string
+    failure?: (error?: any, request?: XMLHttpRequest, options?: RequestOptions) => any
+    filterArray?: Array<Filter>
+    ignoreFilter?: boolean
+    maxRows?: number
+    method?: string
+    parameters?: any
+    queryName: string
+    schemaName: string
+    scope?: any
+    sort?: string
+    success?: (result?: ISelectDistinctResult, options?: RequestOptions, request?: XMLHttpRequest) => any
+    viewName?: string
+}
+
+function buildSelectDistinctParams(options: ISelectDistinctOptions): any {
+
+    let params = buildQueryParams(
+        options.schemaName,
+        options.queryName,
+        options.filterArray,
+        options.sort,
+        options.dataRegionName
+    );
+
+    const dataRegionName = params.dataRegionName;
+
+    params[dataRegionName + '.columns'] = options.column;
+
+    if (options.viewName) {
+        params[dataRegionName + '.viewName'] = options.viewName;
+    }
+
+    if (options.maxRows && options.maxRows >= 0) {
+        params.maxRows = options.maxRows;
+    }
+
+    if (options.containerFilter) {
+        params.containerFilter = options.containerFilter;
+    }
+
+    if (options.parameters) {
+        for (let propName in options.parameters) {
+            if (options.parameters.hasOwnProperty(propName)) {
+                params[dataRegionName + '.param.' + propName] = options.parameters[propName];
+            }
+        }
+    }
+
+    if (options.ignoreFilter) {
+        params[dataRegionName + '.ignoreFilter'] = true;
+    }
+
+    return params;
+}
+
+export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequest {
+
+    if (!options.schemaName)
+        throw 'You must specify a schemaName!';
+    if (!options.queryName)
+        throw 'You must specify a queryName!';
+    if (!options.column)
+        throw 'You must specify a column!';
+
+    return request({
+        url: buildURL('query', 'selectDistinct.api', options.containerPath),
+        method: getMethod(options.method),
+        success: getSuccessCallbackWrapper(getOnSuccess(options), false /* stripHiddenColumns */, options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        params: buildSelectDistinctParams(options)
+    });
+}
 
 type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 
@@ -133,7 +273,7 @@ function buildParams(options: ISelectRowsOptions): any {
  * @param args
  * @returns {ISelectRowsOptions} options
  */
-function mapArguments(args: any): ISelectRowsOptions {
+function selectRowArguments(args: any): ISelectRowsOptions {
     return {
         schemaName: args[0],
         queryName: args[1],
@@ -148,7 +288,7 @@ function mapArguments(args: any): ISelectRowsOptions {
 export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
 
     if (arguments.length > 1) {
-        options = mapArguments(arguments);
+        options = selectRowArguments(arguments);
     }
 
     if (!options.schemaName) {

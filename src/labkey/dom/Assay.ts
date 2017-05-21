@@ -17,10 +17,7 @@ import { buildURL } from '../ActionURL'
 import { request } from '../Ajax'
 import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
 
-interface FormWindow extends Window {
-    File: any
-    FormData: any
-}
+import { FormWindow } from './constants'
 
 declare let window: FormWindow;
 

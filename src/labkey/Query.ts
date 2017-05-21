@@ -17,9 +17,7 @@ import { buildQueryParams, containerFilter, getQueries, getQueryViews, getSchema
 import { executeSql } from './query/ExecuteSql'
 import * as GetData from './query/GetData'
 import { getQueryDetails } from './query/GetQueryDetails'
-import { saveRows } from './query/SaveRows'
-import { selectDistinctRows } from './query/SelectDistinctRows'
-import { selectRows } from './query/SelectRows'
+import { saveRows, selectDistinctRows, selectRows } from './query/Rows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 

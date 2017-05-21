@@ -54,6 +54,54 @@ export function buildQueryParams(schemaName: string, queryName: string, filterAr
     return appendFilterParams(params, filterArray, regionName);
 }
 
+type IDataTypes = 'datasets' | 'queries' | 'reports';
+
+interface IBrowseDataPayload {
+    dataTypes?: Array<IDataTypes>
+    includeData?: boolean
+    includeMetadata?: boolean
+}
+
+interface IGetDataViewsOptions {
+    containerPath?: string
+    dataTypes?: Array<IDataTypes>
+    failure?: Function
+    scope?: any
+    success?: Function
+    timeout?: number
+}
+
+/**
+ * Returns a list of reports, views and/or datasets in a container
+ * @param options
+ * @returns {XMLHttpRequest}
+ */
+export function getDataViews(options: IGetDataViewsOptions): XMLHttpRequest {
+    let jsonData: IBrowseDataPayload = {
+        includeData: true,
+        includeMetadata: false
+    };
+
+    if (options.dataTypes) {
+        jsonData.dataTypes = options.dataTypes;
+    }
+
+    const onSuccess = getOnSuccess(options);
+    const success = getCallbackWrapper(function(data: any, response: any, options: any) {
+        if (onSuccess) {
+            onSuccess.call(options.scope || this, data.data, options, response);
+        }
+    }, this);
+
+    return request({
+        url: buildURL('reports', 'browseData.api', options.containerPath),
+        method: 'POST',
+        success,
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        jsonData
+    });
+}
+
 export function getMethod(value: string): string {
     if (value && (value.toUpperCase() === 'GET' || value.toUpperCase() === 'POST'))
         return value.toUpperCase();
@@ -144,12 +192,17 @@ interface IGetSchemasOptions {
     success?: Function
 }
 
+interface IGetSchemasParameters {
+    apiVersion?: string | number
+    schemaName?: string
+}
+
 /**
  * Returns the set of schemas available in the specified container.
  */
 export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
 
-    let params: any = {};
+    let params: IGetSchemasParameters = {};
     if (options.apiVersion) {
         params.apiVersion = options.apiVersion;
     }
@@ -215,10 +268,10 @@ export function getSuccessCallbackWrapper(fn: Function, stripHiddenCols?: boolea
     }
 
     return getCallbackWrapper((data: any, response: any, options: any) => {
-        if (data && data.rows && stripHiddenCols) {
-            // TODO: stripHiddenColData
-        }
         if (fn) {
+            if (data && data.rows && stripHiddenCols) {
+                stripHiddenColData(data);
+            }
             fn.call(scope || this, data, options, response);
         }
     }, this);
@@ -323,6 +376,36 @@ export function sqlStringLiteral(str: string): string {
         return 'NULL';
     }
     return "'" + str.toString().replace("'", "''") + "'";
+}
+
+function stripHiddenColData(data: any): void {
+    // gather the set of hidden columns
+    let hiddenCols = [];
+    let newColModel = [];
+    let newMetaFields = [];
+    let colModel = data.columnModel;
+    for (let i = 0; i < colModel.length; ++i) {
+        if (colModel[i].hidden) {
+            hiddenCols.push(colModel[i].dataIndex);
+        }
+        else {
+            newColModel.push(colModel[i]);
+            newMetaFields.push(data.metaData.fields[i]);
+        }
+    }
+
+    // reset the columnModel and metaData.fields to include only the non-hidden items
+    data.columnModel = newColModel;
+    data.metaData.fields = newMetaFields;
+
+    // delete column values for any columns in the hiddenCols array
+    for (let i = 0; i < data.rows.length; ++i) {
+        let row = data.rows[i];
+        for (let h = 0; h < hiddenCols.length; ++h) {
+            delete row[hiddenCols[h]];
+            delete row[URL_COLUMN_PREFIX + hiddenCols[h]];
+        }
+    }
 }
 
 interface IValidateQueryOptions {
