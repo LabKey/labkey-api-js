@@ -101,7 +101,7 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
         success: getCallbackWrapper(function(data: GetPolicyResponse, req: any) {
             data.policy.requestedResourceId = config.resourceId;
             // TODO: This is an Ext3 class -- should probably just deprecate this entirely and just hand back the response.
-            var policy = new LABKEY.SecurityPolicy(data.policy);
+            let policy = new LABKEY.SecurityPolicy(data.policy);
             getOnSuccess(config).call(config.scope || this, policy, data.relevantRoles, req);
         }, this),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)

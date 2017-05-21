@@ -46,7 +46,7 @@ export function appendAggregateParams(params: any, aggregates: Array<Aggregate>,
     let _params = params || {};
 
     if (isArray(aggregates)) {
-        for (var i=0; i < aggregates.length; i++) {
+        for (let i=0; i < aggregates.length; i++) {
             let aggregate = aggregates[i];
             let value = 'type=' + aggregate.type;
             if (aggregate.label) {
@@ -57,7 +57,7 @@ export function appendAggregateParams(params: any, aggregates: Array<Aggregate>,
                 let paramName = prefix + aggregate.column;
                 let paramValue = encodeURIComponent(value);
                 if (_params[paramName] !== undefined) {
-                    var values = _params[paramName];
+                    let values = _params[paramName];
                     if (!isArray(values)) {
                         values = [values];
                     }
@@ -150,7 +150,7 @@ export function getFilterDescription(url: string, dataRegionName: string, column
     let result = '';
     let sep = '';
 
-    for (var paramName in params) {
+    for (let paramName in params) {
         if (params.hasOwnProperty(paramName)) {
 
             // Look for parameters that have the right prefix
@@ -173,7 +173,7 @@ export function getFilterDescription(url: string, dataRegionName: string, column
                     displayText = filterType;
                 }
 
-                for (var i=0; i < values.length; i++) {
+                for (let i=0; i < values.length; i++) {
                     // If the same type of filter is applied twice, it will have multiple values
                     result += sep + displayText + ' ' + values[i];
                     sep = ' AND ';
@@ -191,7 +191,7 @@ export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<F
     const params = getParameters(url);
     const regionName = ensureRegionName(dataRegionName);
 
-    for (var paramName in params) {
+    for (let paramName in params) {
         if (params.hasOwnProperty(paramName)) {
             // Look for parameters that have the right prefix
             if (paramName.indexOf(regionName + '.') == 0) {
@@ -225,7 +225,7 @@ export function getQueryParamsFromUrl(url: string, dataRegionName: string): any 
     const params = getParameters(url);
     const key = ensureRegionName(dataRegionName) + '.param.';
 
-    for (var paramName in params) {
+    for (let paramName in params) {
         if (params.hasOwnProperty(paramName)) {
             if (paramName.indexOf(key) == 0) {
                 let qParamName = paramName.substring(key.length);
@@ -256,7 +256,7 @@ export function merge(baseFilters: Array<Filter>, columnName: string, columnFilt
     let newFilters: Array<Filter> = [];
 
     if (baseFilters && baseFilters.length > 0) {
-        for (var i=0; i < baseFilters.length; i++) {
+        for (let i=0; i < baseFilters.length; i++) {
             let bi = baseFilters[i];
             if (bi.getColumnName() != columnName) {
                 newFilters.push(bi);

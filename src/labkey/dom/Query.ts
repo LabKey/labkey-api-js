@@ -146,7 +146,9 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
         form.append('importIdentity', options.importIdentity);
     }
     if (options.importLookupByAlternateKey) {
-        form.append('importLookupByAlternateKey', options.importLookupByAlternateKey);
+        // FormData only accept string | Blob
+        // https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
+        form.append('importLookupByAlternateKey', options.importLookupByAlternateKey.toString());
     }
 
     if (options.file) {

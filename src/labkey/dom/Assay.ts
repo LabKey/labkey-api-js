@@ -92,7 +92,7 @@ export function importRun(options: IImportRunOptions): void {
 
     if (files && files.length > 0) {
         formData.append('file', files[0]);
-        for (var i = 0; i < files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
             formData.append('file' + i, files[i]);
         }
     }

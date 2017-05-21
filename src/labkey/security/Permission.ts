@@ -93,7 +93,7 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
  * getRoles() method to obtain extra information about each role.
  */
 export function getRole(perms: number): string {
-    for (var role in roles) {
+    for (let role in roles) {
         if (roles.hasOwnProperty(role)) {
             if (perms === roles[role]) {
                 return role;
@@ -155,7 +155,7 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
         url: buildURL('security', 'getRoles.api', config.containerPath),
         success: getCallbackWrapper(function(data: GetRolesResponse, req: any) {
             // roles and perms are returned in two separate blocks for efficiency
-            var i: number,
+            let i: number,
                 j: number,
                 permMap: any = {},
                 perm: any,
@@ -234,14 +234,14 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
         throw 'Method only works for the study schema';
     }
 
-    var getResourcesConfig: any = config;
+    let getResourcesConfig: any = config;
 
     getResourcesConfig.includeEffectivePermissions = true;
     getResourcesConfig.success = function(json: any, response: any) {
         // First lets make sure there is a study in here.
-        var studyResource: any = null;
-        for (var i = 0; i < json.resources.children.length; i++) {
-            var resource: any = json.resources.children[i];
+        let studyResource: any = null;
+        for (let i = 0; i < json.resources.children.length; i++) {
+            let resource: any = json.resources.children[i];
             if (resource.resourceClass == 'org.labkey.study.model.StudyImpl') {
                 studyResource = resource;
                 break;
@@ -253,15 +253,15 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
             return;
         }
 
-        var result: any = {
+        let result: any = {
             queries: {}
         }, dataset: any;
 
-        for (i=0; i < studyResource.children.length; i++) {
+        for (let i = 0; i < studyResource.children.length; i++) {
             dataset = studyResource.children[i];
             result.queries[dataset.name] = dataset;
             dataset.permissionMap = {};
-            for (var j=0; j < dataset.effectivePermissions.length; j++) {
+            for (let j=0; j < dataset.effectivePermissions.length; j++) {
                 dataset.permissionMap[dataset.effectivePermissions[j]] = true;
             }
         }
@@ -325,7 +325,7 @@ interface GetSecurableResourcesOptions {
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function getSecurableResources(config: GetSecurableResourcesOptions): XMLHttpRequest {
-    var params: any = {};
+    let params: any = {};
 
     if (config.includeSubfolders != undefined) {
         params.includeSubfolders = config.includeSubfolders === true;
@@ -457,7 +457,7 @@ export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRe
  * @returns {boolean}
  */
 export function hasEffectivePermission(effectivePermissions: Array<string>, desiredPermission: string): boolean {
-    for (var i = 0; i < effectivePermissions.length; i++) {
+    for (let i = 0; i < effectivePermissions.length; i++) {
         if (effectivePermissions[i] === desiredPermission) {
             return true;
         }

@@ -5,8 +5,8 @@ import { loadContext } from '../constants'
 
 import { currentUser } from './constants'
 
-declare var window: Window;
-var LABKEY = loadContext();
+declare let window: Window;
+const LABKEY = loadContext();
 
 interface CreateNewUserOptions {
     containerPath?: string
