@@ -15,10 +15,13 @@
  */
 import { CSRF_HEADER } from '../constants'
 import { buildURL } from '../ActionURL'
-import { encodeHtml, generateUUID, merge } from '../Utils'
+import { request } from '../Ajax'
+import { encodeHtml, generateUUID, getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils'
 import { appendFilterParams } from '../filter/Filter'
 
-import { loadDOMContext } from './constants'
+import { FormWindow, loadDOMContext } from './constants'
+
+declare let window: FormWindow;
 
 const { $, CSRF } = loadDOMContext();
 
@@ -80,7 +83,7 @@ export function exportTables(options: IExportTablesOptions): void {
             delete o.filterArray;
             delete o.sort;
 
-            // Turn the filters array into a filters map similar to QueryWebPart.js
+            // Turn the filters array into a filters map similar to LABKEY.QueryWebPart
             o.filters = appendFilterParams(null, querySettings.filters || querySettings.filterArray);
 
             if (querySettings.sort) {
@@ -94,6 +97,75 @@ export function exportTables(options: IExportTablesOptions): void {
     formData.schemas = JSON.stringify(schemas);
 
     submitForm(buildURL('query', 'exportTables.view'), formData);
+}
+
+interface IImportDataOptions {
+    containerPath?: string
+    failure?: Function
+    file?: File | Element | any
+    format?: string
+    importIdentity?: any
+    importLookupByAlternateKey?: boolean
+    module?: string
+    moduleResource?: any
+    path?: string
+    queryName: string
+    schemaName: string
+    scope?: any
+    success?: Function
+    text?: string
+    timeout?: number
+}
+
+export function importData(options: IImportDataOptions): XMLHttpRequest {
+
+    if (!window.FormData) {
+        throw new Error('modern browser required');
+    }
+
+    let form = new FormData();
+    form.append('schemaName', options.schemaName);
+    form.append('queryName', options.queryName);
+
+    if (options.text) {
+        form.append('text', options.text);
+    }
+    if (options.path) {
+        form.append('path', options.path);
+    }
+    if (options.format) {
+        form.append('format', options.format);
+    }
+    if (options.module) {
+        form.append('module', options.module);
+    }
+    if (options.moduleResource) {
+        form.append('moduleResource', options.moduleResource);
+    }
+    if (options.importIdentity) {
+        form.append('importIdentity', options.importIdentity);
+    }
+    if (options.importLookupByAlternateKey) {
+        form.append('importLookupByAlternateKey', options.importLookupByAlternateKey);
+    }
+
+    if (options.file) {
+        if (options.file instanceof File) {
+            form.append('file', options.file);
+        }
+        else if (options.file.tagName == 'INPUT' && options.file.files.length > 0) {
+            form.append('file', options.file.files[0]);
+        }
+    }
+
+    return request({
+        url: buildURL('query', 'import.api', options.containerPath),
+        method: 'POST',
+        form,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        timeout: options.timeout
+    });
 }
 
 /**

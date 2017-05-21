@@ -38,7 +38,7 @@ describe('request headers', () => {
     mockXHR();
 
     const testCSRF = 'TEST_CSRF_TOKEN';
-    const contentTypeForm = 'application/x-www-form-urlencoded; charset=UTF-8';
+    const contentTypeForm = 'application/x-www-form-urlencoded;charset=utf-8';
 
     it('should apply DEFAULT_HEADERS', () => {
         const requestHeaders = Ajax.request({ url: '/projects' }).requestHeaders;
