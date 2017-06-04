@@ -573,6 +573,14 @@ export function padString(input: string | number, length: number, padChar: strin
     return pd + _input;
 }
 
+export function pluralBasic(count: number, singlar: string): string {
+    return pluralize(count, singlar, singlar + 's');
+}
+
+export function pluralize(count: number, singular: string, plural: string): string {
+    return count.toLocaleString() + ' ' + (1 === count ? singular : plural);
+}
+
 /**
  * Rounds the passed number to the specified number of decimals
  *

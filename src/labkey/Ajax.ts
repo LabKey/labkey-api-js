@@ -16,11 +16,16 @@
 import { CSRF_HEADER, loadContext } from './constants'
 import { queryString } from './ActionURL'
 
-const { CSRF } = loadContext();
+const { CSRF, defaultHeaders } = loadContext();
 
-export const DEFAULT_HEADERS: {[key: string]: string} = {
+export let DEFAULT_HEADERS: {[key: string]: string} = {
     [CSRF_HEADER]: CSRF
 };
+
+// TODO: This should only be pulled from server context
+if (defaultHeaders) {
+    DEFAULT_HEADERS = defaultHeaders;
+}
 
 export type AjaxHandler = (request: XMLHttpRequest, config: RequestOptions) => any;
 export type AjaxCallbackHandler = (config: RequestOptions, success: boolean, xhr: XMLHttpRequest) => any;

@@ -28,6 +28,7 @@ interface IImportRunOptions {
     comment?: string
     comments?: string
     containerPath?: string
+    dataRows?: Array<any>
     failure?: Function
     files: Array<any>
     name?: string
@@ -62,8 +63,12 @@ export function importRun(options: IImportRunOptions): void {
         }
     }
 
-    if (files.length == 0 && !options.runFilePath) {
-        throw new Error('At least one file or runFilePath is required');
+    if (files.length === 0 && !options.runFilePath && !options.dataRows) {
+        throw new Error('At least one of "file", "runFilePath", or "dataRows" is required');
+    }
+
+    if ((files.length > 0 ? 1 : 0) + (options.runFilePath ? 1 : 0) + (options.dataRows ? 1 : 0) > 1) {
+        throw new Error('Only one of "file", "runFilePath", or "dataRows" is allowed');
     }
 
     let formData = new FormData();
@@ -86,6 +91,10 @@ export function importRun(options: IImportRunOptions): void {
             formData.append("batchProperties['" + key + "']", options.batchProperties[key]);
     }
 
+    if (options.dataRows) {
+        formData.append('dataRows', JSON.stringify(options.dataRows));
+    }
+
     if (options.runFilePath) {
         formData.append('runFilePath', options.runFilePath);
     }
@@ -95,11 +104,6 @@ export function importRun(options: IImportRunOptions): void {
         for (let i = 0; i < files.length; i++) {
             formData.append('file' + i, files[i]);
         }
-    }
-
-    formData.append('file', files[0]);
-    for (let i = 1; i < files.length; i++) {
-        formData.append('file' + i, files[i]);
     }
 
     request({

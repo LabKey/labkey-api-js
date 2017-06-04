@@ -27,6 +27,7 @@ export interface LabKey {
     container: Container
     contextPath: string
     CSRF: string
+    defaultHeaders: {[key: string]: string}
     demoMode: boolean
     devMode: boolean
     dirty: boolean
