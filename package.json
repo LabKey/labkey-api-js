@@ -15,7 +15,7 @@
     "javascript"
   ],
   "author": {
-    "name": "Nick Arnold",
+    "name": "Nick Kerr",
     "email": "nicka@labkey.com",
     "url": "https://www.labkey.org"
   },
@@ -23,16 +23,16 @@
   "devDependencies": {
     "@types/jest": "19.2.4",
     "app-root-path": "2.0.1",
-    "babel-core": "6.24.1",
+    "babel-core": "6.26.0",
     "babel-jest": "19.0.0",
-    "babel-loader": "7.0.0",
+    "babel-loader": "7.1.2",
     "babel-plugin-transform-object-assign": "6.22.0",
-    "babel-preset-es2015": "6.24.1",
+    "babel-preset-env": "1.6.1",
     "jest": "19.0.2",
-    "rimraf": "2.6.1",
+    "rimraf": "2.6.2",
     "sinon": "2.3.2",
-    "ts-loader": "2.1.0",
-    "typescript": "2.3.4",
-    "webpack": "2.6.1"
+    "ts-loader": "3.4.0",
+    "typescript": "2.7.1",
+    "webpack": "3.10.0"
   }
 }

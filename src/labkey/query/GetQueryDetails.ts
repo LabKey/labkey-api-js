@@ -19,12 +19,14 @@ import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
 
 interface IGetQueryDetailsOptions {
     containerPath?: string
+    failure?: Function
     fields?: any
     fk?: any
     initializeMissingView?: boolean
     queryName?: string
     schemaName?: string
     scope?: any
+    success?: Function
     viewName?: string
 }
 

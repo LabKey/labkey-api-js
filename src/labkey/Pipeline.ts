@@ -60,7 +60,9 @@ export function getFileStatus(config: IGetFileStatusOptions): void {
 
 interface IGetPipelineContainerOptions {
     containerPath?: string
+    failure?: Function
     scope?: any
+    success?: Function
 }
 
 /**
@@ -85,8 +87,10 @@ interface IGetProtocolsOptions {
 
     // optional
     containerPath?: string
+    failure?: Function
     includeWorkbooks?: boolean
     scope?: any
+    success?: Function
 }
 
 export function getProtocols(config: IGetProtocolsOptions): void {

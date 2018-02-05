@@ -65,10 +65,12 @@ export function buildQueryParams(schemaName: string, queryName: string, filterAr
 
 interface IDeleteQueryViewOptions {
     containerPath?: string
+    failure?: Function
     queryName: string
     revert?: boolean
     schemaName: string
     scope?: any
+    success?: Function
     viewName?: string
 }
 
