@@ -127,6 +127,7 @@ interface IStartAnalysisOptions {
     containerPath?: string
     failure?: () => any
     jsonParameters?: any
+    pipelineDescription?: string
     protocolDescription?: string
     saveProtocol?: string
     scope?: any
@@ -141,6 +142,7 @@ interface IStartAnalysisParams {
     file?: Array<string>
     fileIds?: Array<number>
     path?: string
+    pipelineDescription?: string
     protocolDescription?: string
     protocolName?: string
     saveProtocol?: string | boolean
@@ -157,14 +159,15 @@ export function startAnalysis(config: IStartAnalysisOptions): void {
     }
 
     let params: IStartAnalysisParams = {
-        taskId: config.taskId,
-        path: config.path,
-        protocolName: config.protocolName,
-        protocolDescription: config.protocolDescription,
+        allowNonExistentFiles: config.allowNonExistentFiles,
         file: config.files,
         fileIds: config.fileIds,
-        allowNonExistentFiles: config.allowNonExistentFiles,
-        saveProtocol: config.saveProtocol == undefined || config.saveProtocol
+        path: config.path,
+        pipelineDescription: config.pipelineDescription,
+        protocolDescription: config.protocolDescription,
+        protocolName: config.protocolName,
+        saveProtocol: config.saveProtocol == undefined || config.saveProtocol,
+        taskId: config.taskId
     };
 
     if (config.xmlParameters) {

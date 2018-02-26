@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { encodeHtml, getMsgFromError, id } from '../Utils'
+import { decode, encodeHtml, id } from '../Utils'
 import { loadDOMContext } from './constants'
 
 declare const Ext: any;
@@ -52,6 +52,46 @@ export function displayAjaxErrorResponse(response: XMLHttpRequest, exceptionObj?
         msgPrefix,
         showExceptionClass
     }));
+}
+
+/**
+ * @Override
+ * Generates a display string from the response to an error from an AJAX request
+ */
+export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, config: any): string {
+    config = config || {};
+    let error;
+    let prefix = config.msgPrefix || 'An error occurred trying to load:\n';
+
+    if (response && response.responseText && response.getResponseHeader('Content-Type')) {
+        const contentType = response.getResponseHeader('Content-Type');
+
+        if (contentType.indexOf('application/json') >= 0) {
+            const json = decode(response.responseText);
+
+            if (json && json.exception) {
+                error = prefix + json.exception;
+                if (config.showExceptionClass) {
+                    error += '\n(' + (json.exceptionClass ? json.exceptionClass : 'Exception class unknown') + ')';
+                }
+            }
+        }
+        else if (contentType.indexOf('text/html') >= 0 && $) {
+            const html = $(response.responseText);
+            const el = html.find('.exception-message');
+            if (el && el.length === 1) {
+                error = prefix + el.text().trim();
+            }
+        }
+    }
+    if (!error) {
+        error = prefix + 'Status: ' + response.statusText + ' (' + response.status + ')';
+    }
+    if (exceptionObj && exceptionObj.message) {
+        error += '\n' + exceptionObj.name + ': ' + exceptionObj.message;
+    }
+
+    return error;
 }
 
 /**

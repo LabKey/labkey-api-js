@@ -146,6 +146,11 @@ export function caseInsensitiveEquals(a: any, b: any): boolean {
     return String(a).toLowerCase() == String(b).toLowerCase();
 }
 
+export function collapseExpand(elem: any, notify?: boolean, targetTagName?: string): boolean {
+    stubWarning('collapseExpand');
+    return false;
+}
+
 // TODO: Need to remove this from the upper level namespace
 export function ensureRegionName(regionName?: string): string {
     return regionName && isString(regionName) ? regionName : 'query';
@@ -168,6 +173,7 @@ export function decode(data: any): any {
  * has no impact on site-level cookies, even if the cookies have the same name.
  */
 export function deleteCookie(name: string, pageOnly: boolean): void {
+    // TODO: Move this method to DOM utils
     setCookie(name, '', pageOnly, -1);
 }
 
@@ -219,6 +225,10 @@ export function endsWith(value: string, ending: string): boolean {
         return false;
     }
     return value.substring(value.length - ending.length) == ending;
+}
+
+export function ensureBoxVisible() {
+    console.warn('ensureBoxVisible() has been migrated to the appropriate Ext scope. Consider LABKEY.ext.Utils.ensureBoxVisible or LABKEY.ext4.Util.ensureBoxVisible');
 }
 
 /**
@@ -313,6 +323,7 @@ export function getCallbackWrapper(fn: Function, scope?: any, isErrorCallback?: 
  * @returns {string}
  */
 export function getCookie(name: string, defaultValue: string): string {
+    // TODO: Move this method to DOM utils
     let nameEQ = name + "=";
     let ca = document.cookie.split(';');
 
@@ -337,17 +348,19 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
     let error;
     let prefix = config.msgPrefix || 'An error occurred trying to load:\n';
 
-    if (response &&
-        response.responseText &&
-        response.getResponseHeader('Content-Type') &&
-        response.getResponseHeader('Content-Type').indexOf('application/json') >= 0) {
-        const jsonResponse = decode(response.responseText);
-        if (jsonResponse && jsonResponse.exception) {
-            error = prefix + jsonResponse.exception;
-            if (config.showExceptionClass) {
-                error += '\n(' + (jsonResponse.exceptionClass ? jsonResponse.exceptionClass : 'Exception class unknown') + ')';
+    if (response && response.responseText && response.getResponseHeader('Content-Type')) {
+        const contentType = response.getResponseHeader('Content-Type');
+
+        if (contentType.indexOf('application/json') >= 0) {
+            const jsonResponse = decode(response.responseText);
+
+            if (jsonResponse && jsonResponse.exception) {
+                error = prefix + jsonResponse.exception;
+                if (config.showExceptionClass)
+                    error += "\n(" + (jsonResponse.exceptionClass ? jsonResponse.exceptionClass : "Exception class unknown") + ")";
             }
         }
+        // HTML handling has been migrated to dom/Util's override of this method
     }
     if (!error) {
         error = prefix + 'Status: ' + response.statusText + ' (' + response.status + ')';
@@ -496,12 +509,21 @@ export function merge(...props: Array<any>): any {
     return o;
 }
 
+export function notifyExpandCollapse(url?: string, collapse?: boolean): void {
+    stubWarning('notifyExpandCollapse');
+}
+
 export function onError(error: any): void {
-    console.warn('onError: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
+    stubWarning('onError');
 }
 
 export function onReady(config: any): void {
-    console.warn('onReady: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
+    stubWarning('onReady');
+
+    // TODO: This method should not take any action as it is only intended to be a stub for backward compatibility
+    if (typeof config === 'function') {
+        config();
+    }
 }
 
 interface IOnTrueOptions {
@@ -604,6 +626,7 @@ export function roundNumber(input: number, dec: number): number {
  * @param days The number of days the cookie should be saved on the client.
  */
 export function setCookie(name: string, value: string, pageOnly: boolean, days: number): void {
+    // TODO: Move this method to DOM utils
     let expires = '';
     if (days) {
         let date = new Date();
@@ -617,6 +640,10 @@ export function setCookie(name: string, value: string, pageOnly: boolean, days: 
     }
 
     document.cookie = name + '=' + value + expires + '; path=' + path;
+}
+
+function stubWarning(methodName: string): void {
+    console.warn(methodName + ': This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
 }
 
 interface ITextLinkOptions {
@@ -650,4 +677,9 @@ export function textLink(options: ITextLinkOptions): string {
     }
 
     throw 'Config object not found for textLink.';
+}
+
+export function toggleLink(link: any, notify?: boolean, targetTagName?: string): boolean {
+    stubWarning('toggleLink');
+    return false;
 }

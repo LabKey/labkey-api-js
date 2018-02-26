@@ -82,13 +82,13 @@ export function importRun(options: IImportRunOptions): void {
 
     if (options.properties) {
         for (let key in options.properties) {
-            formData.append("properties['" + key + "']", options.properties[key]);
+            formData.append("properties['" + key + "']", JSON.stringify(options.properties[key]));
         }
     }
 
     if (options.batchProperties) {
         for (let key in options.batchProperties)
-            formData.append("batchProperties['" + key + "']", options.batchProperties[key]);
+            formData.append("batchProperties['" + key + "']", JSON.stringify(options.batchProperties[key]));
     }
 
     if (options.dataRows) {
