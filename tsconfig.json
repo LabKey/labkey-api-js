@@ -1,11 +1,15 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "ES5",
     "noEmit": false,
     "rootDir": "src",
     "sourceMap": false,
     "noImplicitAny": true,
-    "removeComments": true
+    "removeComments": true,
+    "lib": [
+      "DOM",
+      "es2015"
+    ]
   },
   "files": [
     "src/wrapper.ts"

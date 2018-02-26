@@ -25,7 +25,7 @@ var config = {
         rules: [
             {
                 test: /\.ts$/,
-                loaders: ['babel-loader', 'ts-loader'],
+                loaders: ['ts-loader'],
                 exclude: /node_modules/
             }
         ]
@@ -37,13 +37,7 @@ var config = {
 
     resolve: {
         extensions: [ '.ts' ]
-    },
-
-    plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: true
-        })
-    ]
+    }
 };
 
 module.exports = config;
