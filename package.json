@@ -1,11 +1,12 @@
 {
   "name": "labkey",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "private": true,
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "clean": "rimraf dist",
     "build": "webpack --config webpack.config.js",
+    "release": "rimraf lib && webpack --config release.config.js",
     "setup": "npm install",
     "test": "jest --no-cache --config test/configs/jest.json",
     "test-coverage": "jest --no-cache --config test/configs/jest-coverage.json"
@@ -14,10 +15,15 @@
     "labkey",
     "javascript"
   ],
+  "main": "./lib/index.js",
   "author": {
     "name": "Nick Kerr",
     "email": "nicka@labkey.com",
     "url": "https://www.labkey.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LabKey/labkey-api-js.git"
   },
   "dependencies": {},
   "devDependencies": {
