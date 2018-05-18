@@ -5,10 +5,7 @@
  */
 'use strict';
 
-var path = require("path");
-var webpack = require('webpack');
-
-var config = {
+module.exports = {
 
     devtool: 'source-map',
 
@@ -39,5 +36,3 @@ var config = {
         extensions: [ '.ts' ]
     }
 };
-
-module.exports = config;

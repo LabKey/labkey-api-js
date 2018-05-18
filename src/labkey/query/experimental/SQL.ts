@@ -139,31 +139,36 @@ function parseRows(text: string, sep: string, eol: string): IParsedRows {
     }
 
     // names
-    let names = rows[0].split(sep);
+    let x = 0;
+    let meta = rows[x++].split(sep);
+    let names = rows[x++].split(sep);
 
     // types
     let colConverters: Array<any> = [];
-    let types = rows[1].split(sep);
+    let types = rows[x++].split(sep);
     for (let i=0; i < types.length; i++) {
         colConverters.push(CONVERTERS[types[i]] || identity);
     }
 
+    // skip all metadata rows
+    rows = rows.slice(meta.length);
+
     // rows
-    for (let r=2; r < rows.length; r++) {
+    for (let r=0; r < rows.length; r++) {
         let row: any = rows[r].split(sep);
         for (let c=0; c < row.length; c++) {
             let s = row[c];
             if ('' === s) {
                 row[c] = null;
             }
-            else if (CONTROL_CHARS.bs === s && r > 2) {
-                row[c] = rows[r-3][c];
+            else if (CONTROL_CHARS.bs === s && r > 0) {
+                row[c] = rows[r-1][c];
             }
             else {
                 row[c] = colConverters[c](s);
             }
         }
-        rows[r-2] = row;
+        rows[r] = row;
     }
 
     rows.pop();

@@ -248,6 +248,7 @@ interface IGetSchemasOptions {
     apiVersion?: string | number
     containerPath?: string
     failure?: Function
+    includeHidden?: boolean
     schemaName?: string
     scope?: any
     success?: Function
@@ -255,6 +256,7 @@ interface IGetSchemasOptions {
 
 interface IGetSchemasParameters {
     apiVersion?: string | number
+    includeHidden?: boolean
     schemaName?: string
 }
 
@@ -269,6 +271,9 @@ export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
     }
     if (options.schemaName) {
         params.schemaName = options.schemaName;
+    }
+    if (options.includeHidden !== undefined) {
+        params.includeHidden = options.includeHidden;
     }
 
     return request({

@@ -15,7 +15,7 @@
  */
 import { buildURL } from '../ActionURL'
 import { request } from '../Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, isObject } from '../Utils'
 
 import { FormWindow } from './constants'
 
@@ -82,13 +82,28 @@ export function importRun(options: IImportRunOptions): void {
 
     if (options.properties) {
         for (let key in options.properties) {
-            formData.append("properties['" + key + "']", JSON.stringify(options.properties[key]));
+            if (options.properties.hasOwnProperty(key)) {
+                if (isObject(options.properties[key])) {
+                    formData.append("properties['" + key + "']", JSON.stringify(options.properties[key]));
+                }
+                else {
+                    formData.append("properties['" + key + "']", options.properties[key]);
+                }
+            }
         }
     }
 
     if (options.batchProperties) {
-        for (let key in options.batchProperties)
-            formData.append("batchProperties['" + key + "']", JSON.stringify(options.batchProperties[key]));
+        for (let key in options.batchProperties) {
+            if (options.batchProperties.hasOwnProperty(key)) {
+                if (isObject(options.batchProperties[key])) {
+                    formData.append("batchProperties['" + key + "']", JSON.stringify(options.batchProperties[key]));
+                }
+                else {
+                    formData.append("batchProperties['" + key + "']", options.batchProperties[key]);
+                }
+            }
+        }
     }
 
     if (options.dataRows) {
