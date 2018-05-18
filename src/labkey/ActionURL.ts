@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { loadContext } from './constants'
+import { getLocation, getServerContext } from './constants'
 import { isArray } from './Utils'
 
-declare let window: Window;
-const LABKEY = loadContext();
-
-const activePath = parsePathName(window.location.pathname);
-
 function buildParameterMap(paramString?: string): any {
-    if (!paramString && LABKEY.postParameters) {
+    const { postParameters } = getServerContext();
+
+    if (!paramString && postParameters) {
         // The caller hasn't requested us to parse a specific URL, and we have POST parameters that were written
         // back into the page by the server
-        return LABKEY.postParameters;
+        return postParameters;
     }
 
     if (!paramString) {
-        paramString = window.location.search;
+        paramString = getLocation().search;
     }
     if (paramString.charAt(0) == '?') {
         paramString = paramString.substring(1, paramString.length);
@@ -86,11 +83,12 @@ export function buildURL(controller: string, action: string, containerPath?: str
     const query = queryString(parameters);
 
     let newURL: string;
-    if (LABKEY.experimental && LABKEY.experimental.containerRelativeURL) {
-        newURL = LABKEY.contextPath + containerPath + controller + '-' + action;
+    const { contextPath, experimental } = getServerContext();
+    if (experimental && experimental.containerRelativeURL) {
+        newURL = contextPath + containerPath + controller + '-' + action;
     }
     else {
-        newURL = LABKEY.contextPath + '/' + controller + containerPath + action;
+        newURL = contextPath + '/' + controller + containerPath + action;
     }
 
     if (query) {
@@ -127,7 +125,7 @@ export function encodePath(decodedPath: string): string {
  * @returns {string} Current action.
  */
 export function getAction(): string {
-    return activePath.action;
+    return getPathFromLocation().action;
 }
 
 /**
@@ -137,7 +135,8 @@ export function getAction(): string {
  * @return {String} Current base URL.
  */
 export function getBaseURL(noContextPath: boolean): string {
-    return window.location.protocol + '//' + window.location.host + (noContextPath ? '' : getContextPath() + '/');
+    const location = getLocation();
+    return location.protocol + '//' + location.host + (noContextPath ? '' : getContextPath() + '/');
 }
 
 /**
@@ -145,10 +144,11 @@ export function getBaseURL(noContextPath: boolean): string {
  * @returns {string} Current container path.
  */
 export function getContainer(): string {
-    if (LABKEY.container && LABKEY.container.path) {
-        return LABKEY.container.path;
+    const { container } = getServerContext();
+    if (container && container.path) {
+        return container.path;
     }
-    return activePath.containerPath;
+    return getPathFromLocation().containerPath;
 }
 
 /**
@@ -167,7 +167,7 @@ export function getContainerName(): string {
  * @returns {string} Current container path.
  */
 export function getContextPath(): string {
-    return LABKEY.contextPath;
+    return getServerContext().contextPath;
 }
 
 export function getParameter(parameterName: string) {
@@ -265,15 +265,19 @@ function codePath(path: string, method: (v: string) => string): string {
     return a.join('/');
 }
 
-function parsePathName(path:string): ActionPath {
+// Formerly, parsePathName
+function getPathFromLocation(): ActionPath {
 
-    const start = LABKEY.contextPath ? LABKEY.contextPath.length : 0;
+    const { contextPath } = getServerContext();
+    const start = contextPath ? contextPath.length : 0;
+
+    let path = getLocation().pathname;
     const end = path.lastIndexOf('/');
 
     let action = path.substring(end + 1);
     path = path.substring(start, end);
 
-    let controller:string = null;
+    let controller: string = null;
     let dash = action.indexOf('-');
 
     if (0 < dash) {

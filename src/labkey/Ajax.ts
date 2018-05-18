@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { CSRF_HEADER, loadContext } from './constants'
+import { CSRF_HEADER, getServerContext } from './constants'
 import { queryString } from './ActionURL'
 
-const { CSRF, defaultHeaders } = loadContext();
+const { CSRF, defaultHeaders } = getServerContext();
 
 export let DEFAULT_HEADERS: {[key: string]: string} = {
     [CSRF_HEADER]: CSRF

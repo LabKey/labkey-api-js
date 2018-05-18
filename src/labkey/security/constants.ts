@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { loadContext } from '../constants'
+import { getServerContext } from '../constants'
 
-const LABKEY = loadContext();
+const LABKEY = getServerContext();
 
 /**
  * Exposes limited information about the current container. This property returns a JavaScript object

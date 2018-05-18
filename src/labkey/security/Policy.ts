@@ -16,9 +16,7 @@
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
 import { getOnSuccess, getCallbackWrapper, getOnFailure } from '../Utils'
-import { loadContext } from '../constants'
-
-const LABKEY = loadContext();
+import { getServerContext } from '../constants'
 
 interface DeletePolicyOptions {
     containerPath?: string
@@ -116,7 +114,8 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
         success: getCallbackWrapper(function(data: GetPolicyResponse, req: any) {
             data.policy.requestedResourceId = config.resourceId;
             // TODO: This is an Ext3 class -- should probably just deprecate this entirely and just hand back the response.
-            let policy = new LABKEY.SecurityPolicy(data.policy);
+            const { SecurityPolicy } = getServerContext();
+            let policy = new SecurityPolicy(data.policy);
             getOnSuccess(config).call(config.scope || this, policy, data.relevantRoles, req);
         }, this),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)

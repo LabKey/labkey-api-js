@@ -16,9 +16,7 @@
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
 import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray } from '../Utils'
-import { loadContext } from '../constants'
-
-const LABKEY = loadContext();
+import { getServerContext } from '../constants'
 
 interface CreateContainerOptions {
     containerPath?: string
@@ -297,7 +295,7 @@ export function getFolderTypes(config: GetFolderTypesOptions): XMLHttpRequest {
  * @returns {string} The name of the home container automatically created on this server.
  */
 export function getHomeContainer(): string {
-    return LABKEY.homeContainer;
+    return getServerContext().homeContainer;
 }
 
 interface GetModulesOptions {
@@ -351,7 +349,7 @@ export function getModules(config: GetModulesOptions): XMLHttpRequest {
  * @returns {string} The name of the shared container automatically created on this server.
  */
 export function getSharedContainer(): string {
-    return LABKEY.sharedContainer;
+    return getServerContext().sharedContainer;
 }
 
 interface MoveContainerOptions {

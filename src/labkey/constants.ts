@@ -50,9 +50,18 @@ interface User {
     isGuest: boolean
 }
 
-declare const LABKEY: LabKey;
+declare let LABKEY: LabKey;
 
-export function loadContext(): LabKey {
+export function getLocation(): Location {
+    return window.location;
+}
+
+export function getServerContext(): LabKey {
+    return LABKEY;
+}
+
+export function setGlobalUser(user: User): LabKey {
+    LABKEY.user = user;
     return LABKEY;
 }
 

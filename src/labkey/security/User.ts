@@ -16,12 +16,9 @@
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
 import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray } from '../Utils'
-import { loadContext } from '../constants'
-
-import { currentUser } from './constants'
+import { getLocation, getServerContext, setGlobalUser } from '../constants'
 
 declare let window: Window;
-const LABKEY = loadContext();
 
 interface CreateNewUserOptions {
     containerPath?: string
@@ -113,17 +110,18 @@ interface EnsureLoginOptions {
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function ensureLogin(config: EnsureLoginOptions): XMLHttpRequest | void {
-    if (currentUser.isGuest || config.force) {
+    if (getServerContext().user.isGuest || config.force) {
         if (config.useSiteLoginPage) {
-            window.location.href = buildURL('login', 'login') + '?returnUrl=' + window.location;
+            if (typeof(window) !== undefined) {
+                window.location.href = buildURL('login', 'login') + '?returnUrl=' + getLocation()
+            }
         }
         else {
             return request({
                 url: buildURL('security', 'ensureLogin.api'),
                 success: getCallbackWrapper(function(data: any, req: any) {
                     if (data.currentUser) {
-                        // TODO: Need to figure out a way to set the global from here.
-                        LABKEY.Security.currentUser = data.currentUser;
+                        setGlobalUser(data.currentUser);
                     }
 
                     if (getOnSuccess(config)) {

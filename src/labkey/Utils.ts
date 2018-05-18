@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { loadContext } from './constants'
+import { getServerContext } from './constants'
 import { AjaxHandler, RequestOptions } from './Ajax'
-
-const { uuids } = loadContext();
 
 interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
@@ -241,6 +239,8 @@ export function ensureBoxVisible() {
  * Dual licensed under the MIT and GPL licenses.
  */
 export function generateUUID(): string {
+    const { uuids } = getServerContext();
+
     // First see if there are any server-generated UUIDs available to return
     if (uuids && uuids.length > 0) {
         return uuids.pop();
