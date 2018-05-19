@@ -7,6 +7,8 @@
 
 module.exports = {
 
+    mode: 'production',
+
     devtool: 'source-map',
 
     entry: {
@@ -33,7 +35,7 @@ module.exports = {
     },
 
     output: {
-        filename: 'dist/labkey-api-js-[name].min.js'
+        filename: 'labkey-api-js-[name].min.js'
     },
 
     resolve: {
