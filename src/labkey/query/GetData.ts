@@ -21,13 +21,13 @@ import { decode, isArray, isFunction, isString } from '../Utils'
 
 import { Response } from './Response'
 
-interface IGetDataFilter {
+export interface IGetDataFilter {
     fieldKey: Array<string>
     value?: any
     type: any
 }
 
-interface IGetDataSource {
+export interface IGetDataSource {
     containerPath?: string
     queryName?: string
     schemaName?: string | Array<string> | SchemaKey
@@ -35,7 +35,7 @@ interface IGetDataSource {
     type?: 'query' | 'sql'
 }
 
-interface IGetRawDataOptions {
+export interface IGetRawDataOptions {
     source: IGetDataSource
     success: () => any
 
@@ -51,18 +51,18 @@ interface IGetRawDataOptions {
     transforms?: Array<ITransform>
 }
 
-interface IGetRawDataParams {
+export interface IGetRawDataParams {
     renderer: IRenderer
     source: IGetDataSource
     transforms?: Array<ITransform>
 }
 
-interface IPivot {
+export interface IPivot {
     by: string | Array<string> | FieldKey
     columns: Array<string | Array<string> | FieldKey>
 }
 
-interface IRenderer {
+export interface IRenderer {
     columns?: Array<string | Array<string> | FieldKey>
     includeDetailsColumn?: boolean
     maxRows?: number
@@ -71,19 +71,19 @@ interface IRenderer {
     type?: string
 }
 
-interface ISort {
+export interface ISort {
     dir?: string
     fieldKey: string | Array<string> | FieldKey
 }
 
-interface ITransform {
+export interface ITransform {
     aggregates?: Array<ITransformAggregate>
     filters?: Array<any>
     groupBy?: Array<string | Array<string> | FieldKey>
     type?: string
 }
 
-interface ITransformAggregate {
+export interface ITransformAggregate {
     fieldKey: string | Array<string> | FieldKey
     type: string
 }

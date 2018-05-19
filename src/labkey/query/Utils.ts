@@ -51,7 +51,7 @@ export function buildQueryParams(schemaName: string, queryName: string, filterAr
     const regionName = ensureRegionName(dataRegionName);
 
     let params: any = {
-        regionName,
+        dataRegionName: regionName,
         [regionName + '.queryName']: queryName,
         schemaName
     };
@@ -63,7 +63,7 @@ export function buildQueryParams(schemaName: string, queryName: string, filterAr
     return appendFilterParams(params, filterArray, regionName);
 }
 
-interface IDeleteQueryViewOptions {
+export interface IDeleteQueryViewOptions {
     containerPath?: string
     failure?: Function
     queryName: string
@@ -74,7 +74,7 @@ interface IDeleteQueryViewOptions {
     viewName?: string
 }
 
-interface IDeleteQueryViewPayload {
+export interface IDeleteQueryViewPayload {
     complete?: boolean
     queryName: string
     schemaName: string
@@ -115,15 +115,15 @@ export function deleteQueryView(options: IDeleteQueryViewOptions): XMLHttpReques
     });
 }
 
-type IDataTypes = 'datasets' | 'queries' | 'reports';
+export type IDataTypes = 'datasets' | 'queries' | 'reports';
 
-interface IBrowseDataPayload {
+export interface IBrowseDataPayload {
     dataTypes?: Array<IDataTypes>
     includeData?: boolean
     includeMetadata?: boolean
 }
 
-interface IGetDataViewsOptions {
+export interface IGetDataViewsOptions {
     containerPath?: string
     dataTypes?: Array<IDataTypes>
     failure?: Function
@@ -169,7 +169,7 @@ export function getMethod(value: string): string {
     return 'GET';
 }
 
-interface IGetQueriesOptions {
+export interface IGetQueriesOptions {
     containerPath?: string
     failure?: Function
     includeColumns?: boolean
@@ -204,7 +204,7 @@ export function getQueries(options: IGetQueriesOptions): XMLHttpRequest {
     });
 }
 
-interface IGetQueryViewsOptions {
+export interface IGetQueryViewsOptions {
     containerPath?: string
     failure?: Function
     metadata?: any
@@ -244,7 +244,7 @@ export function getQueryViews(options: IGetQueryViewsOptions): XMLHttpRequest {
     });
 }
 
-interface IGetSchemasOptions {
+export interface IGetSchemasOptions {
     apiVersion?: string | number
     containerPath?: string
     failure?: Function
@@ -285,7 +285,7 @@ export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
     });
 }
 
-interface IGetServerDateOptions {
+export interface IGetServerDateOptions {
     failure?: () => any
     scope?: any
     success?: () => any
@@ -324,7 +324,7 @@ export function getServerDate(options: IGetServerDateOptions): XMLHttpRequest {
 export function getSuccessCallbackWrapper(fn: Function, stripHiddenCols?: boolean, scope?: any, requiredVersion?: string | number): AjaxHandler {
     if (requiredVersion) {
         const versionString = requiredVersion.toString();
-        if (versionString === '13.2' || versionString === '16.2') {
+        if (versionString === '13.2' || versionString === '16.2' || versionString === '17.1') {
             return getCallbackWrapper((data: any, response: any, options: any) => {
                 if (data && fn) {
                     fn.call(scope || this, new Response(data), response, options);
@@ -343,7 +343,7 @@ export function getSuccessCallbackWrapper(fn: Function, stripHiddenCols?: boolea
     }, this);
 }
 
-interface ISaveQueryViewsOptions {
+export interface ISaveQueryViewsOptions {
     containerPath?: string
     failure?: Function
     metadata?: any
@@ -474,7 +474,7 @@ function stripHiddenColData(data: any): void {
     }
 }
 
-interface IValidateQueryOptions {
+export interface IValidateQueryOptions {
     containerPath?: string
     failure?: () => any
     scope?: any

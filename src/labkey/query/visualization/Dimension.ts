@@ -28,7 +28,7 @@ function createValues(json: any): Array<any> {
     return [];
 }
 
-interface IGetValuesOptions {
+export interface IGetValuesOptions {
     failure?: Function
     scope?: any
     success?: Function

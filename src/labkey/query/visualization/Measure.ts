@@ -32,7 +32,7 @@ function createDimensions(json: any): Array<Dimension> {
     return dimensions;
 }
 
-interface IMeasureGetDimensionsOptions {
+export interface IMeasureGetDimensionsOptions {
     failure?: Function
     includeDemographics?: boolean
     scope?: any

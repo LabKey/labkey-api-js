@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getServerContext } from '../constants'
+// Container, User imported due to TS4023
+// https://github.com/Microsoft/TypeScript/issues/5711#issuecomment-157793294
+import { Container, getServerContext, User } from '../constants'
 
 const LABKEY = getServerContext();
 

@@ -17,7 +17,7 @@ import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
 import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray } from '../Utils'
 
-interface AddGroupMembersOptions {
+export interface AddGroupMembersOptions {
     containerPath?: string
     failure?: () => any
     groupId: number
@@ -64,7 +64,7 @@ export function addGroupMembers(config: AddGroupMembersOptions): XMLHttpRequest 
     });
 }
 
-interface CreateGroupOptions {
+export interface CreateGroupOptions {
     containerPath?: string
     failure?: () => any
     groupName: string
@@ -110,7 +110,7 @@ export function createGroup(config: CreateGroupOptions): XMLHttpRequest {
     });
 }
 
-interface DeleteGroupOptions {
+export interface DeleteGroupOptions {
     containerPath?: string
     failure?: () => any
     groupId: number
@@ -154,7 +154,7 @@ export function deleteGroup(config: DeleteGroupOptions): XMLHttpRequest {
     });
 }
 
-interface RemoveGroupMembersOptions {
+export interface RemoveGroupMembersOptions {
     containerPath?: string
     failure?: () => any
     groupId: number
@@ -201,7 +201,7 @@ export function removeGroupMembers(config: RemoveGroupMembersOptions): XMLHttpRe
     });
 }
 
-interface RenameGroupOptions {
+export interface RenameGroupOptions {
     containerPath?: string
     failure?: () => any
     groupId: number

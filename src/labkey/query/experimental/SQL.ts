@@ -73,7 +73,7 @@ function convertDate(s: any): Date {
     return new Date(!isNaN(number) && isFinite(number) ? number : s);
 }
 
-interface IExecuteOptions {
+export interface IExecuteOptions {
     containerPath?: string
     eol?: string
     failure?: Function

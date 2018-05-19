@@ -25,7 +25,7 @@ declare let window: FormWindow;
 
 const { $, CSRF } = loadDOMContext();
 
-interface IExportSqlOptions {
+export interface IExportSqlOptions {
     containerFilter?: string
     containerPath?: string
     format?: string
@@ -51,7 +51,7 @@ export function exportSql(options: IExportSqlOptions): void {
     });
 }
 
-interface IExportTablesOptions {
+export interface IExportTablesOptions {
     headerType?: string
     schemas: any
 }
@@ -99,7 +99,7 @@ export function exportTables(options: IExportTablesOptions): void {
     submitForm(buildURL('query', 'exportTables.view'), formData);
 }
 
-interface IImportDataOptions {
+export interface IImportDataOptions {
     containerPath?: string
     failure?: Function
     file?: File | Element | any

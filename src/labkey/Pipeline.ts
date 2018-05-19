@@ -17,7 +17,7 @@ import { buildURL } from './ActionURL'
 import { request } from './Ajax'
 import { encode, getCallbackWrapper, getOnFailure, getOnSuccess, isString } from './Utils'
 
-interface IGetFileStatusOptions {
+export interface IGetFileStatusOptions {
     // required
     files: Array<string>
     path: string
@@ -58,7 +58,7 @@ export function getFileStatus(config: IGetFileStatusOptions): void {
     });
 }
 
-interface IGetPipelineContainerOptions {
+export interface IGetPipelineContainerOptions {
     containerPath?: string
     failure?: Function
     scope?: any
@@ -80,7 +80,7 @@ export function getPipelineContainer(config: IGetPipelineContainerOptions): XMLH
     });
 }
 
-interface IGetProtocolsOptions {
+export interface IGetProtocolsOptions {
     // required
     path: string
     taskId: string
@@ -114,7 +114,7 @@ export function getProtocols(config: IGetProtocolsOptions): void {
     });
 }
 
-interface IStartAnalysisOptions {
+export interface IStartAnalysisOptions {
     // required
     files: Array<string>
     fileIds: Array<number>
@@ -135,7 +135,7 @@ interface IStartAnalysisOptions {
     xmlParameters?: string
 }
 
-interface IStartAnalysisParams {
+export interface IStartAnalysisParams {
     allowNonExistentFiles?: boolean
     configureJson?: any
     configureXml?: string

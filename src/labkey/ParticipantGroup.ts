@@ -17,7 +17,7 @@ import { buildURL } from './ActionURL'
 import { request } from './Ajax'
 import { getCallbackWrapper } from './Utils'
 
-interface IUpdateParticipantGroupOptions {
+export interface IUpdateParticipantGroupOptions {
     // required
     rowId: number
 

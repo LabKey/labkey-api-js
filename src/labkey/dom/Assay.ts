@@ -21,7 +21,7 @@ import { FormWindow } from './constants'
 
 declare let window: FormWindow;
 
-interface IImportRunOptions {
+export interface IImportRunOptions {
     assayId?: number
     batchId?: number
     batchProperties?: any

@@ -15,7 +15,7 @@
  */
 import { create as createDomain, CreateDomainOptions } from './Domain'
 
-interface ICreateOptions {
+export interface ICreateOptions {
     domainDesign: any
     keyName: string
     keyType?: string

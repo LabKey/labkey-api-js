@@ -17,7 +17,7 @@ import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
 import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
 
-interface IGetQueryDetailsOptions {
+export interface IGetQueryDetailsOptions {
     containerPath?: string
     failure?: Function
     fields?: any

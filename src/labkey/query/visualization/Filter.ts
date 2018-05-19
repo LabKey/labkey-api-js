@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-interface ICreateOptions {
+export interface ICreateOptions {
     queryName?: string
     queryType?: TQueryType
     schemaName: string
@@ -40,7 +40,7 @@ export function create(options: ICreateOptions): string {
     return params.join('|');
 }
 
-type TQueryType = 'ALL' | 'BUILT_IN' | 'CUSTOM' | 'DATASETS';
+export type TQueryType = 'ALL' | 'BUILT_IN' | 'CUSTOM' | 'DATASETS';
 
 /**
  * Visualization Possible query types for measure filters.

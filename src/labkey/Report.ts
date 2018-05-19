@@ -17,7 +17,7 @@ import { buildURL } from './ActionURL'
 import { AjaxHandler, request } from './Ajax'
 import { decode, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
 
-interface ICreateSessionOptions {
+export interface ICreateSessionOptions {
     clientContext: any
     containerPath?: string
     failure?: () => any
@@ -44,7 +44,7 @@ export function createSession(options: ICreateSessionOptions): void {
     });
 }
 
-interface IDeleteSessionOptions {
+export interface IDeleteSessionOptions {
     containerPath?: string
     failure?: () => any
     reportSessionId: string
@@ -69,7 +69,7 @@ export function deleteSession(options: IDeleteSessionOptions): void {
     });
 }
 
-interface IRequestExecuteOptions {
+export interface IRequestExecuteOptions {
     containerPath?: string
     failure?: () => any
     functionName?: string
@@ -83,7 +83,7 @@ interface IRequestExecuteOptions {
     success?: () => any
 }
 
-interface IRequestExecuteParams {
+export interface IRequestExecuteParams {
     functionName?: string
     inputParams?: any
     reportId?: string
@@ -121,7 +121,7 @@ function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
     }, this);
 }
 
-interface IExecuteOptions extends IRequestExecuteOptions {
+export interface IExecuteOptions extends IRequestExecuteOptions {
     reportId: string
     reportName: string
 }
@@ -144,7 +144,7 @@ export function execute(options: IExecuteOptions): XMLHttpRequest {
     return requestExecute(options, true /* isReport */);
 }
 
-interface IExecuteFunctionOptions extends IRequestExecuteOptions {
+export interface IExecuteFunctionOptions extends IRequestExecuteOptions {
     functionName: string
 }
 
@@ -166,7 +166,7 @@ export function executeFunction(options: IExecuteFunctionOptions): XMLHttpReques
     return requestExecute(options, false /* isReport */);
 }
 
-interface IGetSessionsOptions {
+export interface IGetSessionsOptions {
     containerPath?: string
     failure?: () => any
     scope?: any

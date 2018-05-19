@@ -17,13 +17,13 @@ import { buildURL } from './ActionURL'
 import { AjaxHandler, request } from './Ajax'
 import { displayAjaxErrorResponse, getCallbackWrapper, getOnFailure, getOnSuccess, isFunction } from './Utils'
 
-interface APIOptions {
+export interface APIOptions {
     containerPath?: string
     failure?: Function
     success: Function
 }
 
-interface IAddSamplesToRequestOptions extends APIOptions {
+export interface IAddSamplesToRequestOptions extends APIOptions {
     preferredLocation: number
     requestId: number
     specimenHashArray: Array<any>
@@ -63,7 +63,7 @@ export function addSamplesToRequest(options: IAddSamplesToRequestOptions): void 
     });
 }
 
-interface IAddVialsToRequestOptions extends APIOptions {
+export interface IAddVialsToRequestOptions extends APIOptions {
     idType?: string
     requestId: number
     vialIdArray: Array<any>
@@ -105,7 +105,7 @@ export function addVialsToRequest(options: IAddVialsToRequestOptions): void {
     });
 }
 
-interface ICancelRequestOptions extends APIOptions {
+export interface ICancelRequestOptions extends APIOptions {
     requestId: number
 }
 
@@ -138,7 +138,7 @@ export function cancelRequest(options: ICancelRequestOptions): void {
     });
 }
 
-interface IGetOpenRequestsOptions extends APIOptions {
+export interface IGetOpenRequestsOptions extends APIOptions {
     allUsers?: boolean
 }
 
@@ -169,7 +169,7 @@ export function getOpenRequests(options: IGetOpenRequestsOptions): void {
     });
 }
 
-interface IGetProvidingLocationsOptions extends APIOptions {
+export interface IGetProvidingLocationsOptions extends APIOptions {
     specimenHashArray: Array<string>
 }
 
@@ -225,7 +225,7 @@ export function getRepositories(options: APIOptions): void {
     });
 }
 
-interface IGetRequestOptions extends APIOptions {
+export interface IGetRequestOptions extends APIOptions {
     requestId: number
 }
 
@@ -280,7 +280,7 @@ function getSuccessCallbackWrapper(success: any, root?: string): AjaxHandler {
     }, this);
 }
 
-interface IGetVialsByRowIdOptions extends APIOptions {
+export interface IGetVialsByRowIdOptions extends APIOptions {
     vialRowIdArray: Array<any>
 }
 
@@ -347,7 +347,7 @@ function rebindFailure(failure?: Function): Function {
     return REBIND;
 }
 
-interface IRemoveVialsFromRequestOptions extends APIOptions {
+export interface IRemoveVialsFromRequestOptions extends APIOptions {
     idType?: string
     requestId: number
     vialIdArray: Array<any>

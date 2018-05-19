@@ -19,7 +19,7 @@ const { $ } = loadDOMContext();
 
 declare const window: Window;
 
-interface IFormOptions {
+export interface IFormOptions {
     formElement: any
     showWarningMessage?: boolean
     warningMessage?: string

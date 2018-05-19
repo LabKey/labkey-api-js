@@ -36,7 +36,7 @@ export function getAll(options: IGetAssaysOptions) {
     getAssays(options);
 }
 
-interface IGetAssaysOptions {
+export interface IGetAssaysOptions {
     containerPath?: string
     failure?: Function
     parameters?: any
@@ -69,7 +69,7 @@ function getAssays(options: IGetAssaysOptions): void {
     });
 }
 
-interface IGetByIdOptions extends IGetAssaysOptions {
+export interface IGetByIdOptions extends IGetAssaysOptions {
     id: number
 }
 
@@ -94,7 +94,7 @@ export function getById(options: IGetByIdOptions): void {
     getAssays(config);
 }
 
-interface IGetByNameOptions extends IGetAssaysOptions {
+export interface IGetByNameOptions extends IGetAssaysOptions {
     name: string
 }
 
@@ -119,7 +119,7 @@ export function getByName(options: IGetByNameOptions): void {
     getAssays(config);
 }
 
-interface IGetByTypeOptions extends IGetAssaysOptions {
+export interface IGetByTypeOptions extends IGetAssaysOptions {
     type: string
 }
 
@@ -144,7 +144,7 @@ export function getByType(options: IGetByTypeOptions): void {
     getAssays(config);
 }
 
-interface IGetNAbRunsOptions {
+export interface IGetNAbRunsOptions {
     assayName: string
     calculateNeut?: boolean
     containerPath?: string
@@ -200,7 +200,7 @@ export function getNAbRuns(options: IGetNAbRunsOptions): void {
     });
 }
 
-interface IGetStudyNabGraphURLOptions {
+export interface IGetStudyNabGraphURLOptions {
     chartTitle?: string
     containerPath?: string
     failure?: Function
@@ -228,7 +228,7 @@ export function getStudyNabGraphURL(options: IGetStudyNabGraphURLOptions): void 
     });
 }
 
-interface IGetStudyNabRunsOptions {
+export interface IGetStudyNabRunsOptions {
     calculateNeut?: boolean
     containerPath?: string
     failure?: Function

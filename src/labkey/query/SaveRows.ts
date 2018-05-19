@@ -28,13 +28,13 @@ function mapArguments(args: any): ISaveRowsOptions {
     };
 }
 
-interface ICommand {
+export interface ICommand {
     command: 'delete' | 'insert' | 'update',
     extraContext?: any
     rows: Array<any>
 }
 
-interface ISaveRowsOptions {
+export interface ISaveRowsOptions {
     apiVersion?: string | number
     commands?: Array<ICommand>
     containerPath?: string

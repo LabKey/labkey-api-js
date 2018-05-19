@@ -69,7 +69,7 @@ function mapCreateArguments(args: any): CreateDomainOptions {
     return options;
 }
 
-interface DropDomainOptions {
+export interface DropDomainOptions {
     containerPath?: string
     domainDesign?: any
     failure?: () => any
@@ -96,7 +96,7 @@ export function drop(config: DropDomainOptions): void {
     });
 }
 
-interface GetDomainOptions {
+export interface GetDomainOptions {
     containerPath?: string
     failure?: () => any
     queryName: string
@@ -130,7 +130,7 @@ export function get(config: GetDomainOptions): void {
 
 }
 
-interface SaveDomainOptions {
+export interface SaveDomainOptions {
     containerPath?: string
     domainDesign?: any
     failure?: () => any

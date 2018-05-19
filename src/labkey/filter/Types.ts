@@ -116,7 +116,7 @@ export const Types = {
     EXP_CHILD_OF: generateFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of')
 };
 
-type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
+export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
 
 export const TYPES_BY_JSON_TYPE: {
     [jsonType: string]: Array<FilterType>

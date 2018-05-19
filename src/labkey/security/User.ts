@@ -20,7 +20,7 @@ import { getLocation, getServerContext, setGlobalUser } from '../constants'
 
 declare let window: Window;
 
-interface CreateNewUserOptions {
+export interface CreateNewUserOptions {
     containerPath?: string
     email: string
     failure?: () => any
@@ -67,7 +67,7 @@ export function createNewUser(config: CreateNewUserOptions): XMLHttpRequest {
     })
 }
 
-interface EnsureLoginOptions {
+export interface EnsureLoginOptions {
     failure?: Function
     force?: boolean
     scope?: any
@@ -137,7 +137,7 @@ export function ensureLogin(config: EnsureLoginOptions): XMLHttpRequest | void {
     }
 }
 
-interface GetUsersOptions {
+export interface GetUsersOptions {
     active?: boolean
     allMembers?: boolean
     containerPath?: string

@@ -19,7 +19,7 @@ import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
 
 import { getSuccessCallbackWrapper } from './Utils'
 
-interface IExecuteSqlOptions {
+export interface IExecuteSqlOptions {
     containerFilter?: string
     containerPath?: string
     failure?: () => any

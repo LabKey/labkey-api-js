@@ -55,7 +55,7 @@ function createTypes(json: any): Array<any> {
     return [];
 }
 
-interface IDateOptions {
+export interface IDateOptions {
     dateCol: Measure | IMeasureLike
     interval?: TInterval
     useProtocolDay?: boolean
@@ -63,10 +63,10 @@ interface IDateOptions {
     zeroDayVisitTag?: string
 }
 
-interface IDimensionLike {
+export interface IDimensionLike {
 }
 
-interface IGetOptions {
+export interface IGetOptions {
     failure?: Function
     name: string
     reportId?: any
@@ -108,7 +108,7 @@ export function get(options: IGetOptions): void {
     });
 }
 
-interface IGetDataOptions {
+export interface IGetDataOptions {
     containerPath?: string
     endpoint?: string
     failure?: Function
@@ -125,7 +125,7 @@ interface IGetDataOptions {
     success?: Function
 }
 
-interface IGetDataSortable {
+export interface IGetDataSortable {
 
 }
 
@@ -222,7 +222,7 @@ export function getDataFilterFromURL(): string {
     return getParameters().filterUrl;
 }
 
-interface IGetFromUrlOptions {
+export interface IGetFromUrlOptions {
     failure?: Function
     scope?: any
     success?: Function
@@ -262,7 +262,7 @@ export function getFromUrl(options: IGetFromUrlOptions): boolean {
     return valid;
 }
 
-interface IGetMeasuresOptions {
+export interface IGetMeasuresOptions {
     allColumns?: any
     dateMeasures?: any
     failure?: Function
@@ -305,7 +305,7 @@ export function getMeasures(options: IGetMeasuresOptions): void {
     });
 }
 
-interface IGetTypesOptions {
+export interface IGetTypesOptions {
     failure?: Function
     scope?: any
     success?: Function
@@ -321,7 +321,7 @@ export function getTypes(options: IGetTypesOptions): void {
     });
 }
 
-interface IMeasureable {
+export interface IMeasureable {
     dateOptions?: IDateOptions
     dimension?: Dimension | IDimensionLike
     filterArray?: Array<QueryFilter>
@@ -329,7 +329,7 @@ interface IMeasureable {
     time?: any
 }
 
-interface IMeasureLike {
+export interface IMeasureLike {
     aggregate?: TAggregate
     alias: string
     allowNullResults?: boolean

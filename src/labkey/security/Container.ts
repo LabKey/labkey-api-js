@@ -18,7 +18,7 @@ import { buildURL } from '../ActionURL'
 import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray } from '../Utils'
 import { getServerContext } from '../constants'
 
-interface CreateContainerOptions {
+export interface CreateContainerOptions {
     containerPath?: string
     description?: string
     failure?: () => any
@@ -85,7 +85,7 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
     })
 }
 
-interface DeleteContainerOptions {
+export interface DeleteContainerOptions {
     containerPath?: string
     failure?: () => any
     scope?: any
@@ -124,7 +124,7 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
     });
 }
 
-interface GetContainersOptions {
+export interface GetContainersOptions {
     container?: string | Array<string>
     containerPath?: string
     depth?: number
@@ -237,7 +237,7 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
     })
 }
 
-interface GetFolderTypesOptions {
+export interface GetFolderTypesOptions {
     containerPath?: string
     failure?: () => any
     scope?: any
@@ -298,7 +298,7 @@ export function getHomeContainer(): string {
     return getServerContext().homeContainer;
 }
 
-interface GetModulesOptions {
+export interface GetModulesOptions {
     containerPath?: string
     failure?: () => any
     scope?: any
@@ -352,7 +352,7 @@ export function getSharedContainer(): string {
     return getServerContext().sharedContainer;
 }
 
-interface MoveContainerOptions {
+export interface MoveContainerOptions {
     addAlias?: boolean
     container?: string
     containerPath?: string

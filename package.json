@@ -1,11 +1,11 @@
 {
-  "name": "labkey",
-  "version": "0.0.1-alpha.0",
-  "private": true,
+  "name": "@labkey/api",
+  "version": "0.0.1",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
+    "build": "webpack --config webpack.config.js && npm run build-rollup",
+    "build-rollup": "rollup -c",
     "clean": "rimraf dist",
-    "build": "webpack --config webpack.config.js",
     "release": "rimraf lib && webpack --config release.config.js",
     "setup": "npm install",
     "test": "jest --no-cache --config test/configs/jest.json",
@@ -15,7 +15,9 @@
     "labkey",
     "javascript"
   ],
-  "main": "./lib/index.js",
+  "main": "dist/labkey-api-js-core.cjs.js",
+  "module": "dist/labkey-api-js-core.es.js",
+  "types": "dist/labkey.d.ts",
   "author": {
     "name": "Nick Kerr",
     "email": "nicka@labkey.com",
@@ -31,6 +33,10 @@
     "app-root-path": "2.0.1",
     "jest": "19.0.2",
     "rimraf": "2.6.2",
+    "rollup": "0.58.2",
+    "rollup-plugin-babel": "3.0.4",
+    "rollup-plugin-node-resolve": "3.3.0",
+    "rollup-plugin-typescript2": "0.13.0",
     "sinon": "2.3.2",
     "ts-loader": "3.5.0",
     "typescript": "2.7.2",

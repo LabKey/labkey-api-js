@@ -17,7 +17,7 @@ import { buildURL } from './ActionURL'
 import { request } from './Ajax'
 import { getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
 
-interface IMsgContent {
+export interface IMsgContent {
     content: string
     type: MsgType
 }
@@ -34,7 +34,7 @@ export function createMsgContent(type: MsgType, content: string): IMsgContent {
     }
 }
 
-interface IPrincipalRecipient {
+export interface IPrincipalRecipient {
     principalId: number
     type: RecipientType
 }
@@ -46,7 +46,7 @@ export function createPrincipalIdRecipient(type: RecipientType, principalId: num
     }
 }
 
-interface IRecipient {
+export interface IRecipient {
     address: string
     type: RecipientType
 }
@@ -63,9 +63,9 @@ export function createRecipient(type: RecipientType, address: string): IRecipien
     }
 }
 
-type MsgType = 'text/plain' | 'text/html';
+export type MsgType = 'text/plain' | 'text/html';
 
-interface IMsgTypeCollection {
+export interface IMsgTypeCollection {
     [key: string]: MsgType
 }
 
@@ -80,9 +80,9 @@ export const msgType: IMsgTypeCollection = {
     plain: 'text/plain'
 };
 
-type RecipientType = 'BCC' | 'CC' | 'TO';
+export type RecipientType = 'BCC' | 'CC' | 'TO';
 
-interface IRecipientTypeCollection {
+export interface IRecipientTypeCollection {
     [key: string]: RecipientType
 }
 
@@ -95,7 +95,7 @@ export const recipientType: IRecipientTypeCollection = {
     to: 'TO'
 };
 
-interface ISendMessageOptions {
+export interface ISendMessageOptions {
     failure?: () => any
     msgContent?: Array<string>
     msgFrom?: string

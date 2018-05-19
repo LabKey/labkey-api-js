@@ -18,7 +18,7 @@ import { buildURL } from '../ActionURL'
 import { getOnSuccess, getCallbackWrapper, getOnFailure } from '../Utils'
 import { getServerContext } from '../constants'
 
-interface DeletePolicyOptions {
+export interface DeletePolicyOptions {
     containerPath?: string
     failure?: Function
     resourceId: string
@@ -63,7 +63,7 @@ export function deletePolicy(config: DeletePolicyOptions): XMLHttpRequest {
     });
 }
 
-interface GetPolicyOptions {
+export interface GetPolicyOptions {
     containerPath?: string
     failure?: Function
     resourceId: string
@@ -71,7 +71,7 @@ interface GetPolicyOptions {
     success?: Function
 }
 
-interface GetPolicyResponse {
+export interface GetPolicyResponse {
     policy: any
     relevantRoles: any
 }
@@ -122,7 +122,7 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
     });
 }
 
-interface SavePolicyOptions {
+export interface SavePolicyOptions {
     containerPath?: string
     failure?: Function
     policy: any

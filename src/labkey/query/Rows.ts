@@ -45,7 +45,7 @@ export function insertRows(options: IQueryRequestOptions) {
     return sendRequest(options);
 }
 
-interface IQueryArguments {
+export interface IQueryArguments {
     failure: Function
     queryName: string
     rows: Array<any>
@@ -64,13 +64,13 @@ function queryArguments(args: any): IQueryArguments {
     }
 }
 
-interface ICommand {
+export interface ICommand {
     command: 'delete' | 'insert' | 'update',
     extraContext?: any
     rows: Array<any>
 }
 
-interface ISaveRowsOptions {
+export interface ISaveRowsOptions {
     apiVersion?: string | number
     commands?: Array<ICommand>
     containerPath?: string
@@ -109,13 +109,13 @@ export function saveRows(options: ISaveRowsOptions): XMLHttpRequest {
     });
 }
 
-interface ISelectDistinctResult {
+export interface ISelectDistinctResult {
     queryName: string
     schemaName: string
     values: Array<any>
 }
 
-interface ISelectDistinctOptions {
+export interface ISelectDistinctOptions {
     column: string
     containerFilter?: string
     containerPath?: string
@@ -193,9 +193,9 @@ export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequ
     });
 }
 
-type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
+export type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 
-interface ISelectRowsOptions {
+export interface ISelectRowsOptions {
     // Required
     queryName: string
     schemaName: string
@@ -228,7 +228,7 @@ interface ISelectRowsOptions {
 }
 
 // TODO: Model ISelectRowsResults for each API version 8.3, 9.1, 13.2, 16.2, etc
-interface ISelectRowsResults {
+export interface ISelectRowsResults {
 }
 
 function buildParams(options: ISelectRowsOptions): any {
@@ -342,8 +342,9 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
     });
 }
 
-interface IQueryRequestOptions {
+export interface IQueryRequestOptions {
     action?: string // TODO: 'action' is actually required by sendRequest but not from the user, type it this way
+    apiVersion?: number | string
     containerPath?: string
     extraContext?: any
     failure?: Function

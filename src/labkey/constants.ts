@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-interface Container {
+export interface Container {
     path: string
 }
 
-interface ExperimentalFeatures {
+export interface ExperimentalFeatures {
     containerRelativeURL: boolean
 }
 
@@ -46,7 +46,7 @@ export interface LabKey {
     verbose: boolean
 }
 
-interface User {
+export interface User {
     isGuest: boolean
 }
 

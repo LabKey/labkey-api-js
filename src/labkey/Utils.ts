@@ -16,7 +16,7 @@
 import { getServerContext } from './constants'
 import { AjaxHandler, RequestOptions } from './Ajax'
 
-interface ExtendedXMLHttpRequest extends XMLHttpRequest {
+export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
@@ -526,7 +526,7 @@ export function onReady(config: any): void {
     }
 }
 
-interface IOnTrueOptions {
+export interface IOnTrueOptions {
     errorArguments?: Array<any>
     failure?: Function
     maxTests?: number
@@ -646,7 +646,7 @@ function stubWarning(methodName: string): void {
     console.warn(methodName + ': This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
 }
 
-interface ITextLinkOptions {
+export interface ITextLinkOptions {
     href?: string
     onClick?: string
     text?: string

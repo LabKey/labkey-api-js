@@ -19,7 +19,7 @@ import { getParameters } from '../ActionURL'
 import { FilterValue } from './constants'
 import { FilterType, getFilterTypeForURLSuffix, Types } from './Types'
 
-interface Aggregate {
+export interface Aggregate {
     column?: string
     label?: string
     type: string

@@ -19,7 +19,7 @@ import { getOnSuccess, getCallbackWrapper, getOnFailure } from '../Utils'
 
 import { roles } from './constants'
 
-interface GetGroupPermissionsOptions {
+export interface GetGroupPermissionsOptions {
     containerPath?: string
     failure?: () => any
     includeSubfolders?: boolean
@@ -117,14 +117,14 @@ export function getRole(perms: number): string {
     }
 }
 
-interface GetRolesOptions {
+export interface GetRolesOptions {
     containerPath?: string
     failure?: () => any
     scope?: any
     success?: () => any
 }
 
-interface GetRolesResponse {
+export interface GetRolesResponse {
     permissions: Array<{uniqueName: string}>
     roles: Array<{permissions: Array<string>}>
 }
@@ -194,7 +194,7 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
     });
 }
 
-interface GetSchemaPermissionsOptions {
+export interface GetSchemaPermissionsOptions {
     containerPath?: string
     failure?: Function
     schemaName: string
@@ -287,7 +287,7 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
     return getSecurableResources(getResourcesConfig);
 }
 
-interface GetSecurableResourcesOptions {
+export interface GetSecurableResourcesOptions {
     containerPath?: string
     failure?: Function
     includeEffectivePermissions?: boolean
@@ -357,7 +357,7 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
     })
 }
 
-interface GetUserPermissionsOptions {
+export interface GetUserPermissionsOptions {
     containerPath?: string
     failure?: () => any
     includeSubfolders?: boolean
