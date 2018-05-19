@@ -21,9 +21,13 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
-                loaders: ['ts-loader'],
-                exclude: /node_modules/
+                test: /^(?!.*spec\.ts?$).*\.ts?$/,
+                loaders: [{
+                    loader: 'ts-loader',
+                    options: {
+                        onlyCompileBundledFiles: true
+                    }
+                }],
             }
         ]
     },

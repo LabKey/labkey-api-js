@@ -1,11 +1,4 @@
-/*
- * Copyright (c) 2017 LabKey Corporation
- *
- * Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
- */
-"use strict";
-
-const Utils = require('../src/labkey/Utils');
+import * as Utils from './Utils'
 
 // no need for test of Utils.alert() at this time.
 

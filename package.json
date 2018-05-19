@@ -7,8 +7,7 @@
     "build-rollup": "rollup -c",
     "clean": "rimraf dist",
     "setup": "npm install",
-    "test": "jest --no-cache --config test/configs/jest.json",
-    "test-coverage": "jest --no-cache --config test/configs/jest-coverage.json"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "keywords": [
     "labkey",
@@ -28,17 +27,43 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/jest": "19.2.4",
-    "app-root-path": "2.0.1",
-    "jest": "19.0.2",
+    "@types/jest": "22.2.3",
+    "@types/sinon": "4.3.3",
+    "cross-env": "5.1.5",
+    "jest": "22.4.4",
     "rimraf": "2.6.2",
     "rollup": "0.59.1",
     "rollup-plugin-babel": "3.0.4",
     "rollup-plugin-node-resolve": "3.3.0",
     "rollup-plugin-typescript2": "0.14.0",
-    "sinon": "2.3.2",
+    "sinon": "5.0.7",
+    "ts-jest": "22.4.6",
     "ts-loader": "3.5.0",
     "typescript": "2.8.3",
     "webpack": "3.11.0"
+  },
+  "jest": {
+    "globals": {
+      "LABKEY": {
+        "contextPath": "",
+        "defaultHeaders": {
+          "X-LABKEY-CSRF": "TEST_CSRF_TOKEN"
+        }
+      }
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testRegex": "(\\.(spec))\\.(ts)$",
+    "transform": {
+      "^.+\\.ts?$": "ts-jest"
+    }
   }
 }

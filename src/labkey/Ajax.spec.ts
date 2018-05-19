@@ -1,13 +1,6 @@
-/*
- * Copyright (c) 2017 LabKey Corporation
- *
- * Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
- */
-"use strict";
+import * as sinon from 'sinon'
 
-const sinon = require('sinon');
-
-const Ajax = require('../src/labkey/Ajax');
+import * as Ajax from './Ajax'
 
 function mockXHR() {
     let xhr;
@@ -94,5 +87,4 @@ describe('request method', () => {
         expect(Ajax.request({ url: '/users', method: 'PUT' }).method).toEqual('PUT');
         expect(Ajax.request({ url: '/users', method: 'BEEP' }).method).toEqual('BEEP');
     });
-
 });

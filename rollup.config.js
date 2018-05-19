@@ -7,7 +7,10 @@ const tscOptions = {
     tsconfigOverride: {
         compilerOptions: {
             declaration: true
-        }
+        },
+        exclude: [
+            "**/*.spec.ts"
+        ]
     }
 };
 
