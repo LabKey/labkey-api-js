@@ -3,6 +3,14 @@
 import resolve from 'rollup-plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 
+const tscOptions = {
+    tsconfigOverride: {
+        compilerOptions: {
+            declaration: true
+        }
+    }
+};
+
 export default [
     {
         input: 'src/labkey.ts',
@@ -13,7 +21,7 @@ export default [
         },
         plugins: [
             resolve(),
-            typescript()
+            typescript(tscOptions)
         ]
     },
     {
@@ -25,7 +33,7 @@ export default [
         },
         plugins: [
             resolve(),
-            typescript()
+            typescript(tscOptions)
         ]
     }
 ]

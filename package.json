@@ -3,10 +3,9 @@
   "version": "0.0.1",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
-    "build": "webpack --config webpack.config.js && npm run build-rollup",
+    "build": "npm run clean && webpack --config webpack.config.js && npm run build-rollup",
     "build-rollup": "rollup -c",
     "clean": "rimraf dist",
-    "release": "rimraf lib && webpack --config release.config.js",
     "setup": "npm install",
     "test": "jest --no-cache --config test/configs/jest.json",
     "test-coverage": "jest --no-cache --config test/configs/jest-coverage.json"
@@ -33,13 +32,13 @@
     "app-root-path": "2.0.1",
     "jest": "19.0.2",
     "rimraf": "2.6.2",
-    "rollup": "0.58.2",
+    "rollup": "0.59.1",
     "rollup-plugin-babel": "3.0.4",
     "rollup-plugin-node-resolve": "3.3.0",
-    "rollup-plugin-typescript2": "0.13.0",
+    "rollup-plugin-typescript2": "0.14.0",
     "sinon": "2.3.2",
     "ts-loader": "3.5.0",
-    "typescript": "2.7.2",
+    "typescript": "2.8.3",
     "webpack": "3.11.0"
   }
 }

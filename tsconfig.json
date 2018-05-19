@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "target": "ES5",
-    "declaration": true,
     "noEmit": false,
     "rootDir": "src",
     "sourceMap": false,
@@ -11,8 +10,5 @@
       "DOM",
       "es2015"
     ]
-  },
-  "files": [
-    "src/wrapper.ts"
-  ]
+  }
 }
