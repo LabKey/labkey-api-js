@@ -68,7 +68,7 @@ export function saveRows(options: ISaveRowsOptions): XMLHttpRequest {
             validateOnly: options.validateOnly === true
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout
     });
 }

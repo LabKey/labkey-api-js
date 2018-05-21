@@ -165,7 +165,7 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
         method: 'POST',
         form,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout
     });
 }

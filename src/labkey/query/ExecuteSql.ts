@@ -102,7 +102,7 @@ export function executeSql(options: IExecuteSqlOptions): XMLHttpRequest {
         url: buildURL('query', 'executeSql.api', options.containerPath, buildURLParams(options)),
         method: 'POST',
         success: getSuccessCallbackWrapper(getOnSuccess(options), options.stripHiddenColumns, options.scope, options.requiredVersion),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData: buildParams(options),
         timeout: options.timeout
     });

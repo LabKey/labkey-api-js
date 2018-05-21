@@ -110,7 +110,7 @@ export function deleteQueryView(options: IDeleteQueryViewOptions): XMLHttpReques
         url: buildURL('query', 'deleteView.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData
     });
 }
@@ -158,7 +158,7 @@ export function getDataViews(options: IGetDataViewsOptions): XMLHttpRequest {
         url: buildURL('reports', 'browseData.api', options.containerPath),
         method: 'POST',
         success,
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData
     });
 }
@@ -193,13 +193,13 @@ export function getQueries(options: IGetQueriesOptions): XMLHttpRequest {
         includeColumns: 'includeColumns',
         includeUserQueries: 'includeUserQueries',
         includeSystemQueries: 'includeSystemQueries'
-    }, false /* applyOthers */, false /* applyFunctions */);
+    }, false, false);
 
     return request({
         url: buildURL('query', 'getQueries.api', options.containerPath),
         method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params
     });
 }
@@ -239,7 +239,7 @@ export function getQueryViews(options: IGetQueryViewsOptions): XMLHttpRequest {
         url: buildURL('query', 'getQueryViews.api', options.containerPath),
         method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params
     });
 }
@@ -280,7 +280,7 @@ export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
         url: buildURL('query', 'getSchemas.api', options.containerPath),
         method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params
     });
 }
@@ -376,7 +376,7 @@ export function saveQueryViews(options: ISaveQueryViewsOptions): XMLHttpRequest 
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
@@ -522,6 +522,6 @@ export function validateQuery(options: IValidateQueryOptions): XMLHttpRequest {
         method: 'GET',
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }

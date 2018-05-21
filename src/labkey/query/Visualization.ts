@@ -104,7 +104,7 @@ export function get(options: IGetOptions): void {
                 onSuccess.call(options.scope || this, json, response, requestOptions);
             }
         }, options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
@@ -214,7 +214,7 @@ export function getData(options: IGetDataOptions): void {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
@@ -301,7 +301,7 @@ export function getMeasures(options: IGetMeasuresOptions): void {
         method: 'GET',
         params,
         success: getSuccessCallbackWrapper(createMeasures, getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
@@ -317,7 +317,7 @@ export function getTypes(options: IGetTypesOptions): void {
         url: buildURL('visualization', 'getVisualizationTypes'),
         method: 'GET',
         success: getSuccessCallbackWrapper(createTypes, getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 

@@ -53,7 +53,7 @@ export function getFileStatus(config: IGetFileStatusOptions): void {
         success: getCallbackWrapper((data: any, response: any) => {
             onSuccess.call(this, data.files, data.submitType, response);
         }, config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         timeout: 60000000
     });
 }
@@ -76,7 +76,7 @@ export function getPipelineContainer(config: IGetPipelineContainerOptions): XMLH
         url: buildURL('pipeline', 'getPipelineContainer.api', config.containerPath),
         method: 'GET',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -110,7 +110,7 @@ export function getProtocols(config: IGetProtocolsOptions): void {
         success: getCallbackWrapper((data: any, response: any) => {
             onSuccess.call(this, data.protocols, data.defaultProtocolName, response);
         }, config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -185,7 +185,7 @@ export function startAnalysis(config: IStartAnalysisOptions): void {
         method: 'POST',
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         timeout: 60000000
     });
 }

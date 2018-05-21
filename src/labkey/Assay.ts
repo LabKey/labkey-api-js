@@ -64,7 +64,7 @@ function getAssays(options: IGetAssaysOptions): void {
         method: 'POST',
         jsonData: options.parameters,
         success: getSuccessCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         scope: options.scope || this
     });
 }
@@ -195,7 +195,7 @@ export function getNAbRuns(options: IGetNAbRunsOptions): void {
                 success.call(options.scope, data.runs);
             }
         }, this),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout
     });
 }
@@ -216,14 +216,14 @@ export interface IGetStudyNabGraphURLOptions {
 export function getStudyNabGraphURL(options: IGetStudyNabGraphURLOptions): void {
 
     let params: any = {};
-    applyTranslated(params, options, { objectIds: 'id' }, true /* applyOthers */, false /* applyFunctions */);
+    applyTranslated(params, options, { objectIds: 'id' }, true, false);
 
     request({
         url: buildURL('nabassay', 'getStudyNabGraphURL'),
         method: 'GET',
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options) || displayAjaxErrorResponse, options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options) || displayAjaxErrorResponse, options.scope, true),
         timeout: options.timeout
     });
 }

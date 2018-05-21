@@ -182,7 +182,7 @@ export function request(config: RequestOptions): XMLHttpRequest {
         }
     };
 
-    xhr.open(options.method, options.url, true /* async */);
+    xhr.open(options.method, options.url, true);
 
     // configure headers after request is open
     configureHeaders(xhr, config, options);

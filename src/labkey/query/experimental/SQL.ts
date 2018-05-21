@@ -116,7 +116,7 @@ export function execute(options: IExecuteOptions): XMLHttpRequest {
             const result = parseRows(response.responseText, sep, eol);
             getOnSuccess(options)(result);
         },
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout
     });
 }

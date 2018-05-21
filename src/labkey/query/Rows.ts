@@ -104,7 +104,7 @@ export function saveRows(options: ISaveRowsOptions): XMLHttpRequest {
             validateOnly: options.validateOnly === true
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout
     });
 }
@@ -187,8 +187,8 @@ export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequ
     return request({
         url: buildURL('query', 'selectDistinct.api', options.containerPath),
         method: getMethod(options.method),
-        success: getSuccessCallbackWrapper(getOnSuccess(options), false /* stripHiddenColumns */, options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        success: getSuccessCallbackWrapper(getOnSuccess(options), false, options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: buildSelectDistinctParams(options)
     });
 }
@@ -336,7 +336,7 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
         url: buildURL('query', 'getQuery.api', options.containerPath),
         method: getMethod(options.method),
         success: getSuccessCallbackWrapper(getOnSuccess(options), options.stripHiddenColumns, options.scope, options.requiredVersion),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: buildParams(options),
         timeout: options.timeout
     });
@@ -364,7 +364,7 @@ function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
         url: buildURL('query', options.action, options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData: {
             schemaName: options.schemaName,
             queryName: options.queryName,

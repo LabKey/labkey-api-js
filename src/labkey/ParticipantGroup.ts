@@ -69,6 +69,6 @@ export function updateParticipantGroup(config: IUpdateParticipantGroupOptions): 
         success: getCallbackWrapper((data: any) => {
             config.success(data.group);
         }, this),
-        failure: getCallbackWrapper(config.failure, this, true /* isErrorCallback */ )
+        failure: getCallbackWrapper(config.failure, this, true)
     });
 }

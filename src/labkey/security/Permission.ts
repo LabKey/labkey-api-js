@@ -95,7 +95,7 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
         url: buildURL('security', 'getGroupPerms.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -190,7 +190,7 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
 
             getOnSuccess(config).call(config.scope || this, data.roles, req);
         }, this),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -353,16 +353,16 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
         url: buildURL('security', 'getSecurableResources.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     })
 }
 
 export interface GetUserPermissionsOptions {
     containerPath?: string
-    failure?: () => any
+    failure?: (error?: any) => any
     includeSubfolders?: boolean
     scope?: any
-    success?: () => any
+    success?: (data?: any) => any
     userEmail?: string
     userId?: number
 }
@@ -460,7 +460,7 @@ export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRe
         url: buildURL('security', 'getUserPerms.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     })
 }
 

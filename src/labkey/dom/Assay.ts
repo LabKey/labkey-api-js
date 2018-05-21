@@ -125,7 +125,7 @@ export function importRun(options: IImportRunOptions): void {
         url: buildURL('assay', 'importRun.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         form: formData
     });
 }

@@ -40,7 +40,7 @@ export function createSession(options: ICreateSessionOptions): void {
             clientContext: options.clientContext
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
@@ -65,7 +65,7 @@ export function deleteSession(options: IDeleteSessionOptions): void {
             reportSessionId: options.reportSessionId
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
@@ -100,7 +100,7 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
         method: 'POST',
         jsonData: populateParams(options, isReport),
         success: requestExecuteWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
@@ -141,7 +141,7 @@ export function execute(options: IExecuteOptions): XMLHttpRequest {
         throw 'You must supply a value for the reportId or reportName config property.';
     }
 
-    return requestExecute(options, true /* isReport */);
+    return requestExecute(options, true);
 }
 
 export interface IExecuteFunctionOptions extends IRequestExecuteOptions {
@@ -163,7 +163,7 @@ export function executeFunction(options: IExecuteFunctionOptions): XMLHttpReques
         throw 'You must supply a value for the functionName config property.';
     }
 
-    return requestExecute(options, false /* isReport */);
+    return requestExecute(options, false);
 }
 
 export interface IGetSessionsOptions {
@@ -183,7 +183,7 @@ export function getSessions(options: IGetSessionsOptions): void {
         url: buildURL('reports', 'getSessions', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 

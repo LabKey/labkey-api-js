@@ -113,7 +113,7 @@ export class Dimension {
                 schemaName: this.schemaName
             },
             success: getSuccessCallbackWrapper(createValues, getOnSuccess(options), options.scope),
-            failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+            failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
         });
     }
 

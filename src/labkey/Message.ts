@@ -132,6 +132,6 @@ export function sendMessage(config: ISendMessageOptions): XMLHttpRequest {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }

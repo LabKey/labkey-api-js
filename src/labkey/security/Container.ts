@@ -81,7 +81,7 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
             title: config.title
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     })
 }
 
@@ -120,7 +120,7 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
         url: buildURL('core', 'deleteContainer.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -233,7 +233,7 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
         url: buildURL('project', 'getContainers.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     })
 }
 
@@ -286,7 +286,7 @@ export function getFolderTypes(config: GetFolderTypesOptions): XMLHttpRequest {
         url: buildURL('core', 'getFolderTypes.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     })
 }
 
@@ -340,7 +340,7 @@ export function getModules(config: GetModulesOptions): XMLHttpRequest {
         url: buildURL('admin', 'getModules.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -406,6 +406,6 @@ export function moveContainer(config: MoveContainerOptions): XMLHttpRequest {
         method: 'POST',
         jsonData: params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }

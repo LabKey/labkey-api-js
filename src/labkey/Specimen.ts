@@ -59,7 +59,7 @@ export function addSamplesToRequest(options: IAddSamplesToRequestOptions): void 
             specimenHashes: options.specimenHashArray
         },
         success: getSuccessCallbackWrapper(getOnSuccess(options)),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), this, true)
     });
 }
 
@@ -101,7 +101,7 @@ export function addVialsToRequest(options: IAddVialsToRequestOptions): void {
             vialIds: options.vialIdArray
         },
         success: getSuccessCallbackWrapper(options.success),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 
@@ -134,7 +134,7 @@ export function cancelRequest(options: ICancelRequestOptions): void {
             requestId: options.requestId
         },
         success: getSuccessCallbackWrapper(options.success),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 
@@ -165,7 +165,7 @@ export function getOpenRequests(options: IGetOpenRequestsOptions): void {
             allUsers: options.allUsers
         },
         success: getSuccessCallbackWrapper(options.success, 'requests'),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 
@@ -195,7 +195,7 @@ export function getProvidingLocations(options: IGetProvidingLocationsOptions): v
             specimenHashes: options.specimenHashArray
         },
         success: getSuccessCallbackWrapper(options.success, 'locations'),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 
@@ -221,7 +221,7 @@ export function getRepositories(options: APIOptions): void {
             'Content-Type': 'application/json'
         },
         success: getSuccessCallbackWrapper(options.success, 'repositories'),
-        failure: getCallbackWrapper(options.failure || displayAjaxErrorResponse, this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(options.failure || displayAjaxErrorResponse, this, true)
     });
 }
 
@@ -251,7 +251,7 @@ export function getRequest(options: IGetRequestOptions): void {
             requestId: options.requestId
         },
         success: getSuccessCallbackWrapper(options.success, 'request'),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 
@@ -269,7 +269,7 @@ export function getSpecimenWebPartGroups(options: APIOptions): void {
             'Content-Type': 'application/json'
         },
         success: getSuccessCallbackWrapper(options.success),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 
@@ -306,7 +306,7 @@ export function getVialsByRowId(options: IGetVialsByRowIdOptions): void {
             rowIds: options.vialRowIdArray
         },
         success: getSuccessCallbackWrapper(options.success, 'vials'),
-        failure: getCallbackWrapper(options.failure || displayAjaxErrorResponse, this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(options.failure || displayAjaxErrorResponse, this, true)
     });
 }
 
@@ -324,7 +324,7 @@ export function getVialTypeSummary(options: APIOptions): void {
             'Content-Type': 'application/json'
         },
         success: getSuccessCallbackWrapper(options.success),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 
@@ -385,7 +385,7 @@ export function removeVialsFromRequest(options: IRemoveVialsFromRequestOptions):
             vialIds: options.vialIdArray
         },
         success: getSuccessCallbackWrapper(options.success),
-        failure: getCallbackWrapper(rebindFailure(options.failure), this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(rebindFailure(options.failure), this, true)
     });
 }
 

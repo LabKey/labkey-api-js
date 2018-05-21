@@ -66,7 +66,7 @@ export function getQueryDetails(options: IGetQueryDetailsOptions): XMLHttpReques
         url: buildURL('query', 'getQueryDetails.api', options.containerPath),
         method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: buildParams(options)
     });
 }

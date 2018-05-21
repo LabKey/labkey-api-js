@@ -19,13 +19,18 @@ import { getCallbackWrapper, isString } from './Utils'
 
 export interface CreateDomainOptions {
     containerPath?: string
+    createDomain?: boolean
     domainDesign?: any // TODO: Figure this out with respect to DomainDesign
     domainGroup?: string
+    domainKind?: string
     domainTemplate?: string
-    failure?: () => any
+    failure?: (error?: any) => any
+    importData?: boolean
     kind?: string
+    module?: string
     options?: any
-    success?: () => any
+    success?: (data?: any) => any
+    timeout?: number
 }
 
 /**
@@ -43,7 +48,7 @@ export function create(config: CreateDomainOptions): void {
         method: 'POST',
         jsonData: options,
         success: getCallbackWrapper(options.success),
-        failure: getCallbackWrapper(options.failure, this, true /* isErrorCallback */)
+        failure: getCallbackWrapper(options.failure, this, true)
     });
 }
 
@@ -72,7 +77,7 @@ function mapCreateArguments(args: any): CreateDomainOptions {
 export interface DropDomainOptions {
     containerPath?: string
     domainDesign?: any
-    failure?: () => any
+    failure?: (error?: any) => any
     queryName: string
     schemaName: string
     success?: () => any
@@ -87,7 +92,7 @@ export function drop(config: DropDomainOptions): void {
         url: buildURL('property', 'deleteDomain.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(config.success),
-        failure: getCallbackWrapper(config.failure, this, true /* isErrorCallback */),
+        failure: getCallbackWrapper(config.failure, this, true),
         jsonData: {
             domainDesign: config.domainDesign,
             schemaName: config.schemaName,
@@ -121,7 +126,7 @@ export function get(config: GetDomainOptions): void {
         url: buildURL('property', 'getDomain.api', options.containerPath),
         method: 'GET',
         success: getCallbackWrapper(options.success),
-        failure: getCallbackWrapper(options.failure, this, true /* isErrorCallback */),
+        failure: getCallbackWrapper(options.failure, this, true),
         params: {
             schemaName: options.schemaName,
             queryName: options.queryName
@@ -157,7 +162,7 @@ export function save(config: SaveDomainOptions): void {
         url: buildURL('property', 'saveDomain.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(options.success),
-        failure: getCallbackWrapper(options.failure, this, true /* isErrorCallback */),
+        failure: getCallbackWrapper(options.failure, this, true),
         jsonData: {
             domainDesign: options.domainDesign,
             schemaName: options.schemaName,

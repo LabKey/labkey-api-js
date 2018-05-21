@@ -60,7 +60,7 @@ export function addGroupMembers(config: AddGroupMembersOptions): XMLHttpRequest 
             principalIds: isArray(config.principalIds) ? config.principalIds : [config.principalIds]
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -106,7 +106,7 @@ export function createGroup(config: CreateGroupOptions): XMLHttpRequest {
             name: config.groupName
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -150,7 +150,7 @@ export function deleteGroup(config: DeleteGroupOptions): XMLHttpRequest {
             id: config.groupId
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -197,7 +197,7 @@ export function removeGroupMembers(config: RemoveGroupMembersOptions): XMLHttpRe
             principalIds: isArray(config.principalIds) ? config.principalIds : [config.principalIds]
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -244,6 +244,6 @@ export function renameGroup(config: RenameGroupOptions): XMLHttpRequest {
             newName: config.newName
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }

@@ -63,7 +63,7 @@ export function createNewUser(config: CreateNewUserOptions): XMLHttpRequest {
             sendEmail: config.sendEmail === true
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     })
 }
 
@@ -128,7 +128,7 @@ export function ensureLogin(config: EnsureLoginOptions): XMLHttpRequest | void {
                         getOnSuccess(config).call(config.scope || this, data, req);
                     }
                 }, this),
-                failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+                failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
             })
         }
     }
@@ -228,6 +228,6 @@ export function getUsers(config: GetUsersOptions): XMLHttpRequest {
         url: buildURL('user', 'getUsers.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     })
 }

@@ -80,7 +80,7 @@ export class Measure {
             method: 'GET',
             params,
             success: getSuccessCallbackWrapper(createDimensions, getOnSuccess(options), options.scope),
-            failure: getCallbackWrapper(getOnFailure(options), options.scope, true /* isErrorCallback */)
+            failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
         });
     }
 

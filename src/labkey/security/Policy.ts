@@ -59,7 +59,7 @@ export function deletePolicy(config: DeletePolicyOptions): XMLHttpRequest {
             resourceId: config.resourceId
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -118,7 +118,7 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
             let policy = new SecurityPolicy(data.policy);
             getOnSuccess(config).call(config.scope || this, policy, data.relevantRoles, req);
         }, this),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -164,6 +164,6 @@ export function savePolicy(config: SavePolicyOptions): XMLHttpRequest {
         method: 'POST',
         jsonData: config.policy.policy,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true /* isErrorCallback */)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
