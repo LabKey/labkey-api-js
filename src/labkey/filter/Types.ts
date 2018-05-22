@@ -26,6 +26,7 @@ export interface FilterType {
     getURLSuffix: () => string
     isDataValueRequired: () => boolean
     isMultiValued: () => boolean
+    isTableWise: () => boolean
     getMultiValueFilter: () => FilterType
     getMultiValueMaxOccurs: () => number
     getMultiValueMinOccurs: () => number
@@ -113,7 +114,12 @@ export const Types = {
     HAS_MISSING_VALUE: generateFilterType('Has a missing value indicator', null, 'hasmvvalue'),
     DOES_NOT_HAVE_MISSING_VALUE: generateFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
 
-    EXP_CHILD_OF: generateFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of')
+    EXP_CHILD_OF: generateFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
+
+    //
+    // Table/Query-wise operators
+    //
+    Q: generateFilterType('Search', null, 'q', true, undefined, 'Search across all columns', undefined, undefined, true)
 };
 
 export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
@@ -141,11 +147,12 @@ export const TYPES_BY_JSON_TYPE_DEFAULT: {
 function generateFilterType(
     displayText: string, displaySymbol?: string, urlSuffix?: string,
     dataValueRequired?: boolean, multiValueSeparator?: string, longDisplayText?: string,
-    minOccurs?: number, maxOccurs?: number
+    minOccurs?: number, maxOccurs?: number, tableWise?: boolean
 ): FilterType {
 
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
+    const isTableWise = () => tableWise === true;
 
     const doValidate = (value: FilterValue, jsonType: JsonType, columnName: string): string | boolean => {
         if (!isDataValueRequired()) {
@@ -178,6 +185,7 @@ function generateFilterType(
         getURLSuffix: () => urlSuffix || null,
         isDataValueRequired,
         isMultiValued,
+        isTableWise,
         getMultiValueFilter: () => {
             return isMultiValued() ? null : urlMap[singleValueToMultiMap[urlSuffix]];
         },
