@@ -141,13 +141,13 @@ export interface GetUsersOptions {
     active?: boolean
     allMembers?: boolean
     containerPath?: string
-    failure?: () => any
+    failure?: (error?: any) => any
     group?: string
     groupId?: number
     name?: string
     permissions?: string | Array<string>
     scope?: any
-    success?: () => any
+    success?: (data?: any) => any
 }
 
 /**
