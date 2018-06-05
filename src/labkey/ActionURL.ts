@@ -170,7 +170,22 @@ export function getContextPath(): string {
     return getServerContext().contextPath;
 }
 
-export function getParameter(parameterName: string) {
+/**
+ * Get the current controller name
+ * @returns {string} Current controller
+ */
+export function getController(): string {
+    return getPathFromLocation().controller;
+}
+
+/**
+ * Gets a URL parameter by name. Note that if the given parameter name is present more than once
+ * in the query string, the returned value will be the first occurrence of that parameter name. To get all
+ * instances of the parameter, use getParameterArray().
+ * @param {string} parameterName The name of the URL parameter.
+ * @returns {any} The value of the named parameter, or undefined of the parameter is not present.
+ */
+export function getParameter(parameterName: string): any {
     const val = buildParameterMap()[parameterName];
     return (val && isArray(val) && val.length > 0) ? val[0] : val;
 }
