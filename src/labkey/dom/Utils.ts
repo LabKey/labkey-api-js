@@ -101,7 +101,7 @@ export function setWebpartTitle(title: string, webPartId: number): void {
     $('table#webpart_' + webPartId + ' span[class=labkey-wp-title-text]').html(encodeHtml(title));
 }
 
-export function signalWebDriverTest(signalName: string, signalResult: any): void {
+export function signalWebDriverTest(signalName: string, signalResult?: any): void {
     let signalContainerId = 'testSignals';
     let signalContainerSelector = '#' + signalContainerId;
     let signalContainer = $(signalContainerSelector);

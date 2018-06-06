@@ -22,17 +22,18 @@ import { FormWindow } from './constants'
 declare let window: FormWindow;
 
 export interface IImportRunOptions {
-    assayId?: number
-    batchId?: number
+    assayId?: number | string
+    batchId?: number | string
     batchProperties?: any
     comment?: string
     comments?: string
     containerPath?: string
     dataRows?: Array<any>
     failure?: Function
-    files: Array<any>
+    files?: Array<any>
     name?: string
     properties?: any
+    reRunId?: number | string
     runFilePath?: string
     scope?: any
     success: Function

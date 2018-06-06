@@ -33,10 +33,16 @@ import * as Specimen from './labkey/Specimen'
 import * as Utils from './labkey/Utils'
 import * as Visualization from './labkey/Visualization'
 
+// DOM imports
+import * as AssayDOM from './labkey/dom/Assay'
+import * as QueryDOM from './labkey/dom/Query'
+import * as UtilsDOM from './labkey/dom/Utils'
+
 export {
     ActionURL,
     Ajax,
     Assay,
+    AssayDOM,
     Domain,
     FieldKey,
     Filter,
@@ -46,11 +52,13 @@ export {
     ParticipantGroup,
     Pipeline,
     Query,
+    QueryDOM,
     QueryKey,
     Report,
     SchemaKey,
     Security,
     Specimen,
     Utils,
+    UtilsDOM,
     Visualization
 }
