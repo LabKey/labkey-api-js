@@ -188,7 +188,10 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
                 }
             }
 
-            getOnSuccess(config).call(config.scope || this, data.roles, req);
+            const success = getOnSuccess(config);
+            if (success) {
+                success.call(config.scope || this, data.roles, req);
+            }
         }, this),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
