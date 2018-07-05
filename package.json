@@ -25,6 +25,9 @@
     "type": "git",
     "url": "https://github.com/LabKey/labkey-api-js.git"
   },
+  "publishConfig": {
+    "registry": "https://artifactory.labkey.com/artifactory/api/npm/libs-client"
+  },
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "23.0.0",
