@@ -110,6 +110,7 @@ export interface IImportDataOptions {
     moduleResource?: any
     path?: string
     queryName: string
+    saveToPipeline?: boolean
     schemaName: string
     scope?: any
     success?: Function
@@ -145,10 +146,13 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     if (options.importIdentity) {
         form.append('importIdentity', options.importIdentity);
     }
-    if (options.importLookupByAlternateKey) {
+    if (options.importLookupByAlternateKey !== undefined) {
         // FormData only accept string | Blob
         // https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
         form.append('importLookupByAlternateKey', options.importLookupByAlternateKey.toString());
+    }
+    if (options.saveToPipeline !== undefined) {
+        form.append('saveToPipeline', options.saveToPipeline.toString());
     }
 
     if (options.file) {
