@@ -3,8 +3,9 @@
   "version": "0.0.7",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
-    "build": "npm run clean && webpack --config webpack.config.js && npm run build-rollup",
-    "build-rollup": "rollup -c",
+    "build": "npm run build:dist && npm run build:docs",
+    "build:dist": "npm run clean && webpack --config webpack.config.js && rollup -c",
+    "build:docs": "typedoc --excludeExternals --externalPattern \"**/node_modules/**\" --ignoreCompilerErrors --out ./docs ./src/labkey",
     "clean": "rimraf dist",
     "setup": "npm install",
     "test": "cross-env NODE_ENV=test jest"
@@ -41,6 +42,7 @@
     "sinon": "6.1.2",
     "ts-jest": "23.0.0",
     "ts-loader": "4.4.2",
+    "typedoc": "0.11.1",
     "typescript": "2.9.2",
     "webpack": "4.15.1",
     "webpack-cli": "3.0.8"
