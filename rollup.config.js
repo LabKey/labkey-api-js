@@ -3,6 +3,8 @@
 import resolve from 'rollup-plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 
+const input = 'src/labkey.ts';
+
 const tscOptions = {
     tsconfigOverride: {
         compilerOptions: {
@@ -10,13 +12,16 @@ const tscOptions = {
         },
         exclude: [
             "**/*.spec.ts"
+        ],
+        files: [
+            input
         ]
     }
 };
 
 export default [
     {
-        input: 'src/labkey.ts',
+        input,
         output: {
             file: 'dist/labkey-api-js-core.es.js',
             format: 'es',
@@ -28,7 +33,7 @@ export default [
         ]
     },
     {
-        input: 'src/labkey.ts',
+        input,
         output: {
             file: 'dist/labkey-api-js-core.cjs.js',
             format: 'cjs',
