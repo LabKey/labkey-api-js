@@ -16,7 +16,10 @@
 import { getLocation, getServerContext } from './constants'
 import { isArray } from './Utils'
 
-function buildParameterMap(paramString?: string): any {
+/**
+ * @private
+ */
+function buildParameterMap(paramString?: string): {[key:string]: any} {
     const { postParameters } = getServerContext();
 
     if (!paramString && postParameters) {
@@ -102,8 +105,8 @@ export function buildURL(controller: string, action: string, containerPath?: str
  * @private
  * Decoder for LabKey container paths that accounts for / to only decode the proper names. NOTE: This method is
  * marked as private and could change at any time.
- * @param {String} encodedPath An encoded container path.
- * @returns {String} An URI decoded container path.
+ * @param encodedPath An encoded container path.
+ * @returns An URI decoded container path.
  */
 export function decodePath(encodedPath: string): string {
     return codePath(encodedPath, decodeURIComponent);
@@ -113,8 +116,8 @@ export function decodePath(encodedPath: string): string {
  * @private
  * Encoder for LabKey container paths that accounts for / to only encode the proper names.
  * NOTE: This method is marked as private and could change at any time.
- * @param {string} decodedPath An unencoded container path.
- * @returns {string} An URI encoded container path.
+ * @param decodedPath An unencoded container path.
+ * @returns An URI encoded container path.
  */
 export function encodePath(decodedPath: string): string {
     return codePath(decodedPath, encodeURIComponent);
@@ -164,15 +167,15 @@ export function getContainerName(): string {
 
 /**
  * Gets the current context path. The default context path for LabKey Server is '/labkey'.
- * @returns {string} Current container path.
+ * @returns Current container path.
  */
 export function getContextPath(): string {
     return getServerContext().contextPath;
 }
 
 /**
- * Get the current controller name
- * @returns {string} Current controller
+ * Get the current controller name.
+ * @returns Current controller.
  */
 export function getController(): string {
     return getPathFromLocation().controller;
@@ -182,8 +185,8 @@ export function getController(): string {
  * Gets a URL parameter by name. Note that if the given parameter name is present more than once
  * in the query string, the returned value will be the first occurrence of that parameter name. To get all
  * instances of the parameter, use getParameterArray().
- * @param {string} parameterName The name of the URL parameter.
- * @returns {any} The value of the named parameter, or undefined of the parameter is not present.
+ * @param parameterName The name of the URL parameter.
+ * @returns The value of the named parameter, or undefined of the parameter is not present.
  */
 export function getParameter(parameterName: string): any {
     const val = buildParameterMap()[parameterName];
@@ -194,7 +197,8 @@ export function getParameter(parameterName: string): any {
  * Gets a URL parameter by name. This method will always return an array of values, one for
  * each instance of the parameter name in the query string. If the parameter name appears only once
  * this method will return a one-element array.
- * @param {String} parameterName The name of the URL parameter.
+ * @param parameterName The name of the URL parameter.
+ * @returns An Array of parameter values.
  */
 export function getParameterArray(parameterName: string): Array<string> {
     const val = buildParameterMap()[parameterName];
@@ -207,10 +211,10 @@ export function getParameterArray(parameterName: string): Array<string> {
  * of a single value. Use LABKEY.Utils.isArray() to determine if the value is an array or not, or use
  * getParameter() or getParameterArray() to retrieve a specific parameter name as a single value
  * or array respectively.
- * @param {String} [url] The URL to parse. If not specified, the browser's current location will be used.
- * @return {Object} Map of parameter names to values.
+ * @param url The URL to parse. If not specified, the browser's current location will be used.
+ * @return Object of parameter names to values.
  */
-export function getParameters(url?: string): any {
+export function getParameters(url?: string): {[key:string]: any} {
     if (!url) {
         return buildParameterMap(url);
     }
@@ -228,7 +232,7 @@ export function getParameters(url?: string): any {
  * Turn the parameter object into a query string (e.g. {x:'fred'} -> "x=fred").
  * The returned query string is not prepended by a question mark ('?').
  *
- * @param {Object} [parameters] An object with properties corresponding to GET parameters to append to the URL.
+ * @param parameters An object with properties corresponding to GET parameters to append to the URL.
  * Parameters will be encoded automatically. Parameter values that are arrays will be appended as multiple parameters
  * with the same name. (Defaults to no parameters.)
  */
@@ -266,12 +270,18 @@ export function queryString(parameters: {[key:string]: string | Array<string>}):
     return query;
 }
 
+/**
+ * @private
+ */
 interface ActionPath {
     controller: string
     action: string
     containerPath: string
 }
 
+/**
+ * @private
+ */
 function codePath(path: string, method: (v: string) => string): string {
     let a = path.split('/');
     for (let i=0; i < a.length; i++) {
@@ -281,6 +291,9 @@ function codePath(path: string, method: (v: string) => string): string {
 }
 
 // Formerly, parsePathName
+/**
+ * @private
+ */
 function getPathFromLocation(): ActionPath {
 
     const { contextPath } = getServerContext();

@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
     "build:dist": "npm run clean && webpack --config webpack.config.js && rollup -c",
-    "build:docs": "typedoc --excludeExternals --externalPattern \"**/node_modules/**\" --ignoreCompilerErrors --out ./docs ./src/labkey",
+    "build:docs": "typedoc --excludePrivate --excludeExternals --externalPattern \"**/node_modules/**\" --ignoreCompilerErrors --exclude \"**/*+(wrapper|wrapper-dom|.spec).ts\" --mode modules --out ./docs ./src/labkey",
     "clean": "rimraf dist",
     "setup": "npm install",
     "test": "cross-env NODE_ENV=test jest"

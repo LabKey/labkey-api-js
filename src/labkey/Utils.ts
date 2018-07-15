@@ -20,11 +20,29 @@ export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
+/**
+ * @private
+ */
 const CHARS = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
+
+/**
+ * @private
+ */
 const ENUMERABLES = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
+
+/**
+ * @private
+ */
 const ID_PREFIX = 'lk-gen';
+
+/**
+ * @private
+ */
 let idSeed = 100;
 
+/**
+ * @private
+ */
 function _copy(o: any, depth: any): any {
     if (depth == 0 || !isObject(o)) {
         return o;
@@ -37,6 +55,9 @@ function _copy(o: any, depth: any): any {
 }
 
 // like a general version of Ext.apply() or mootools.merge()
+/**
+ * @private
+ */
 function _merge(to: any, from: any, overwrite: any, depth: any): void {
     for (let key in from) {
         if (from.hasOwnProperty(key)) {
@@ -52,9 +73,6 @@ function _merge(to: any, from: any, overwrite: any, depth: any): void {
 
 /**
  * Applies config properties to the specified object.
- * @param object
- * @param config
- * @returns {any}
  */
 export function apply(object: any, config: any): any {
 
@@ -377,8 +395,6 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
  * Standard documented name for error callback arguments is "failure" but various other names have been employed in past.
  * This function provides reverse compatibility by picking the failure callback argument out of a config object
  * be it named failure, failureCallback or errorCallback.
- *
- * @param config
  */
 export function getOnFailure(config: {errorCallback?: Function, failure?: Function, failureCallback?: Function}): Function {
     return config.failure || config.errorCallback || config.failureCallback;
@@ -389,8 +405,6 @@ export function getOnFailure(config: {errorCallback?: Function, failure?: Functi
  * Standard documented name for success callback arguments is "success" but various names have been employed in past.
  * This function provides reverse compatibility by picking the success callback argument out of a config object,
  * be it named success or successCallback.
- *
- * @param config
  */
 export function getOnSuccess(config: {success?: Function, successCallback?: Function}): Function {
     return config.success || config.successCallback;
@@ -399,7 +413,7 @@ export function getOnSuccess(config: {success?: Function, successCallback?: Func
 /**
  * Retrieves the current LabKey Server session ID. Note that this may only be made available when the
  * session ID cookie is marked as httpOnly = false.
- * @returns {string} The current session id. Defaults to ''.
+ * @returns The current session id. Defaults to ''.
  * @see {@link https://www.owasp.org/index.php/HttpOnly|OWASP HttpOnly}
  * @see {@link https://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Common_Attributes|Tomcat Attributes}
  */
@@ -410,8 +424,7 @@ export function getSessionID(): string {
 /**
  * Will generate a unique id. If you provide a prefix, consider making it DOM safe so it can be used as
  * an element id.
- * @param {string} [prefix=lk-gen] - Optional prefix to start the identifier.
- * @returns {string}
+ * @param prefix Optional prefix to start the identifier. Defaults to "lk-gen".
  */
 export function id(prefix?: string): string {
     if (prefix) {
@@ -642,6 +655,9 @@ export function setCookie(name: string, value: string, pageOnly: boolean, days: 
     document.cookie = name + '=' + value + expires + '; path=' + path;
 }
 
+/**
+ * @private
+ */
 function stubWarning(methodName: string): void {
     console.warn(methodName + ': This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
 }

@@ -21,8 +21,6 @@ import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
 /**
  * Delete rows.
- * @param options
- * @returns {XMLHttpRequest}
  */
 export function deleteRows(options: IQueryRequestOptions) {
 
@@ -34,8 +32,6 @@ export function deleteRows(options: IQueryRequestOptions) {
 
 /**
  * Insert rows.
- * @param options
- * @returns {XMLHttpRequest}
  */
 export function insertRows(options: IQueryRequestOptions) {
 
@@ -53,6 +49,9 @@ export interface IQueryArguments {
     success: Function
 }
 
+/**
+ * @private
+ */
 function queryArguments(args: any): IQueryArguments {
 
     return {
@@ -116,24 +115,54 @@ export interface ISelectDistinctResult {
 }
 
 export interface ISelectDistinctOptions {
+    /**
+     * A single column for which the distinct results will be requested.
+     * This column must exist within the specified query.
+     */
     column: string
     containerFilter?: string
     containerPath?: string
     dataRegionName?: string
     failure?: (error?: any, request?: XMLHttpRequest, options?: RequestOptions) => any
+
+    /**
+     *  Array of objects created by Filter.create
+     */
     filterArray?: Array<Filter>
+
     ignoreFilter?: boolean
     maxRows?: number
     method?: string
     parameters?: any
+    /**
+     * Name of a query table associated with the chosen schema.
+     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     */
     queryName: string
+
+    /**
+     * Name of a schema defined within the current container.
+     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     */
     schemaName: string
+
+    /**
+     * A scope for the callback functions. Defaults to "this".
+     */
     scope?: any
+
     sort?: string
     success?: (result?: ISelectDistinctResult, options?: RequestOptions, request?: XMLHttpRequest) => any
+
+    /**
+     * Name of a view to use. This is potentially important if this view contains filters on the data.
+     */
     viewName?: string
 }
 
+/**
+ * @private
+ */
 function buildSelectDistinctParams(options: ISelectDistinctOptions): any {
 
     let params = buildQueryParams(
@@ -175,6 +204,9 @@ function buildSelectDistinctParams(options: ISelectDistinctOptions): any {
     return params;
 }
 
+/**
+ * Select Distinct Rows.
+ */
 export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequest {
 
     if (!options.schemaName)
@@ -196,34 +228,112 @@ export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequ
 export type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 
 export interface ISelectRowsOptions {
-    // Required
+    /**
+     * Name of a query table associated with the chosen schema.
+     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     */
     queryName: string
+
+    /**
+     * Name of a schema defined within the current container.
+     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     */
     schemaName: string
 
-    // Optional
+    /**
+     * An Array of columns or a comma-delimited list of column names you wish to select from the specified query.
+     * By default, selectRows will return the set of columns defined in the default value for this query, as defined
+     * via the Customize View user interface on the server. You can override this by specifying a list of column
+     * names in this parameter, separated by commas. The names can also include references to related tables
+     * (e.g., 'RelatedPeptide/Peptide' where 'RelatedPeptide is the name of a foreign key column in the base query,
+     * and 'Peptide' is the name of a column in the related table).
+     */
     columns?: string | Array<string>
     containerFilter?: string
+
+    /**
+     * The path to the container in which the schema and query are defined, if different than the current container.
+     * If not supplied, the current container's path will be used.
+     */
     containerPath?: string
     dataRegionName?: string
     failure?: () => any
+
+    /**
+     * Array of objects created by Filter.create
+     */
     filterArray?: Array<Filter>
+
+    /**
+     * If true, the command will ignore any filter that may be part of the chosen view.
+     */
     ignoreFilter?: boolean
+
+    /**
+     * Include the Details link column in the set of columns (defaults to false). If included, the column will
+     * have the name "~~Details~~". The underlying table/query must support details links or the column will
+     * be omitted in the response.
+     */
     includeDetailsColumn?: boolean
     includeStyle?: boolean
+
+    /**
+     * Include the total number of rows available (defaults to true). If false totalCount will equal
+     * number of rows returned (equal to maxRows unless maxRows == 0).
+     */
     includeTotalCount?: boolean
+
+    /**
+     * Include the Update (or edit) link column in the set of columns (defaults to false). If included, the column
+     * will have the name "~~Update~~". The underlying table/query must support update links or the column
+     * will be omitted in the response.
+     */
     includeUpdateColumn?: boolean
+
+    /**
+     * The maximum number of rows to return from the server (defaults to 100000).
+     * If you want to return all possible rows, set this config property to -1.
+     */
     maxRows?: number
     method?: string
+
+    /**
+     * The index of the first row to return from the server (defaults to 0). Use this along with the
+     * maxRows config property to request pages of data.
+     */
     offset?: number
     parameters?: any
     requiredVersion?: number | string
+
+    /**
+     * A scope for the callback functions. Defaults to "this".
+     */
     scope?: any
+
+    /**
+     * Unique string used by selection APIs as a key when storing or retrieving the selected items for a grid.
+     * Not used unless "showRows" is 'selected' or 'unselected'.
+     */
     selectionKey?: string
     showRows?: ShowRows
+
+    /**
+     * String description of the sort. It includes the column names listed in the URL of a sorted data region
+     * (with an optional minus prefix to indicate descending order). In the case of a multi-column sort,
+     * up to three column names can be included, separated by commas.
+     */
     sort?: string
     stripHiddenColumns?: boolean
     success?: (result: ISelectRowsResults) => any
+
+    /**
+     * The maximum number of milliseconds to allow for this operation before a timeout error (defaults to 30000).
+     */
     timeout?: number
+
+    /**
+     * The name of a custom view saved on the server for the specified query.
+     */
     viewName?: string
 }
 
@@ -231,6 +341,9 @@ export interface ISelectRowsOptions {
 export interface ISelectRowsResults {
 }
 
+/**
+ * @private
+ */
 function buildParams(options: ISelectRowsOptions): any {
 
     let params = buildQueryParams(
@@ -303,9 +416,8 @@ function buildParams(options: ISelectRowsOptions): any {
 }
 
 /**
+ * @private
  * Provides backwards compatibility with pre-1.0 selectRows() argument configuration.
- * @param args
- * @returns {ISelectRowsOptions} options
  */
 function selectRowArguments(args: any): ISelectRowsOptions {
     return {
@@ -319,6 +431,9 @@ function selectRowArguments(args: any): ISelectRowsOptions {
     }
 }
 
+/**
+ * Select rows.
+ */
 export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
 
     if (arguments.length > 1) {
@@ -348,16 +463,31 @@ export interface IQueryRequestOptions {
     containerPath?: string
     extraContext?: any
     failure?: Function
+
+    /**
+     * Name of a query table associated with the chosen schema.
+     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     */
     queryName: string
+
     rowDataArray?: Array<any>
     rows?: any
+
+    /**
+     * Name of a schema defined within the current container.
+     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     */
     schemaName: string
+
     scope?: any
     success?: Function
     timeout?: number
     transacted?: boolean
 }
 
+/**
+ * @private
+ */
 function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
 
     return request({
@@ -378,8 +508,6 @@ function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
 
 /**
  * Update rows.
- * @param options
- * @returns {XMLHttpRequest}
  */
 export function updateRows(options: IQueryRequestOptions): XMLHttpRequest {
 

@@ -52,6 +52,9 @@ export function create(config: CreateDomainOptions): void {
     });
 }
 
+/**
+ * @private
+ */
 function mapCreateArguments(args: any): CreateDomainOptions {
 
     let options: CreateDomainOptions = {

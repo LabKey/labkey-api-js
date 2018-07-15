@@ -333,10 +333,9 @@ const REBIND = (err: any, response: any): any => {
 };
 
 /**
+ * @private
  * Unfortunately, we need to reverse our parameter order here- LABKEY.Utils uses inconsistent
  * ordering for its default callback and callback wrapper functions.
- * @param failure
- * @returns {any}
  */
 function rebindFailure(failure?: Function): Function {
 
@@ -389,6 +388,9 @@ export function removeVialsFromRequest(options: IRemoveVialsFromRequestOptions):
     });
 }
 
+/**
+ * @private
+ */
 function remapArguments(options: any, args: any): boolean {
     return options && (isFunction(options) || args.length > 1);
 }

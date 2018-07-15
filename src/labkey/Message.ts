@@ -23,7 +23,7 @@ export interface IMsgContent {
 }
 
 /**
- * A utility function to create a message content object used in LABKEY.Message.sendMessage.
+ * A utility function to create a message content object used in sendMessage.
  * @param type The content type of this message part
  * @param content The message part content.
  */
@@ -52,7 +52,7 @@ export interface IRecipient {
 }
 
 /**
- * A utility function to create a recipient object used in LABKEY.Message.sendMessage.
+ * A utility function to create a recipient object used in sendMessage.
  * @param type Determines where the recipient email address will appear in the message.
  * @param address The email address of the recipient.
  */

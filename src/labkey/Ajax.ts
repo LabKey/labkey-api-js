@@ -31,33 +31,71 @@ export type AjaxHandler = (request: XMLHttpRequest, config: RequestOptions) => a
 export type AjaxCallbackHandler = (config: RequestOptions, success: boolean, xhr: XMLHttpRequest) => any;
 
 interface ConfiguredOptions {
-    // Required
+    data?: FormData | string
     isForm: boolean
     method: string
     url: string
-
-    // Optional
-    data?: FormData | string
 }
 
 export interface RequestOptions {
-    // Required
-    url: string
-
-    // Optional
     callback?: AjaxCallbackHandler
     failure?: AjaxHandler
+
+    /**
+     * FormData or Object consumable by FormData that can be used to POST key/value pairs of form information.
+     * For more information, see <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData">FormData documentation</a>.
+     */
     form?: FormData | HTMLFormElement
+
+    /**
+     * Object specifying additional HTTP headers to add the request.
+     */
     headers?: {[key:string]: string}
+
     initialConfig?: any
+
+    /**
+     * Data provided to the XMLHttpRequest.send(data) function. If the request is method "POST" this is the body
+     * of the request.
+     */
     jsonData?: any
+
+    /**
+     * HTTP request method used for the XMLHttpRequest. Examples are "GET", "PUSH, "DELETE", etc.
+     * Defaults to "GET" unless jsonData is supplied then the default is changed to "POST". For more information,
+     * see this <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP request method documentation</a>.
+     */
     method?: string
+
+    /**
+     * An object representing URL parameters that will be added to the URL. Note, that if the request is method
+     * "POST" and jsonData is not provided these params will be sent via the body of the request.
+     */
     params?: {[key:string]: any}
+
+    /**
+     * A scope for the callback functions. Defaults to "this".
+     */
     scope?: any
+
+
     success?: AjaxHandler
+
+    /**
+     * If a non-null value is supplied then XMLHttpRequest.ontimeout will be hooked to failure.
+     */
     timeout?: number
+
+    /**
+     * The url used for the XMLHttpRequest. If you are making a request to the LabKey Server instance
+     * see [[ActionURL.buildURL]] for helpful URL construction.
+     */
+    url: string
 }
 
+/**
+ * @private
+ */
 function callback(fn: Function, scope: any, args?: any) {
     if (fn) {
         fn.apply(scope, args);
@@ -65,9 +103,8 @@ function callback(fn: Function, scope: any, args?: any) {
 }
 
 /**
+ * @private
  * Returns true iff obj contains case-insensitive key
- * @param {object} obj
- * @param {string} key
  */
 function contains(obj: Object, key: string) {
     if (key) {
@@ -81,6 +118,9 @@ function contains(obj: Object, key: string) {
     return false;
 }
 
+/**
+ * @private
+ */
 function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: ConfiguredOptions): void {
     let headers = config.headers,
         jsonData = config.jsonData;
@@ -116,6 +156,9 @@ function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: 
     }
 }
 
+/**
+ * @private
+ */
 function configureOptions(config: RequestOptions): ConfiguredOptions {
     let data: string;
     let formData: FormData;
@@ -161,13 +204,17 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
     }
 
     return {
-        url,
-        method,
         data: isForm ? formData : data,
-        isForm
+        isForm,
+        method,
+        url
     }
 }
 
+/**
+ * Make a XMLHttpRequest nominally to a LabKey instance. Includes success/failure callback mechanism,
+ * HTTP header configuration, support for FormData, and parameter encoding amongst other features.
+ */
 export function request(config: RequestOptions): XMLHttpRequest {
     let options = configureOptions(config);
     let scope = config.hasOwnProperty('scope') && config.scope !== null ? config.scope : this;

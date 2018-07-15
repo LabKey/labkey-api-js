@@ -44,6 +44,9 @@ export interface IGetAssaysOptions {
     success?: Function
 }
 
+/**
+ * @private
+ */
 function getAssays(options: IGetAssaysOptions): void {
 
     if (arguments.length > 1) {
@@ -265,6 +268,9 @@ export function getStudyNabRuns(options: IGetStudyNabRunsOptions): void {
     });
 }
 
+/**
+ * @private
+ */
 function getSuccessCallbackWrapper(success: Function, scope: any): AjaxHandler {
     return getCallbackWrapper((data: any, response: any) => {
         if (success) {
@@ -273,6 +279,9 @@ function getSuccessCallbackWrapper(success: Function, scope: any): AjaxHandler {
     }, (scope || this));
 }
 
+/**
+ * @private
+ */
 function moveParameter(config: any, param: any): void {
 
     if (!config.parameters) {
