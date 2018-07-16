@@ -52,9 +52,29 @@ npm run build
 
 Now that the distrobution is built you can load it up by serving the index.html file found in the package root. To serve it up from IntelliJ you can "Open in Browser". This will let you explore the API as it is exposed via the `LABKEY` global namespace.
 
-#### Running against a LabKey Server
+### Running against a LabKey Server
 
 If you would like to experiment with running this code against LabKey Server it is possible thanks to the provided wrapper for the `LABKEY` global namespace. The following assumes you have a [LabKey development environment setup](https://www.labkey.org/Documentation/wiki-page.view?name=devMachine).
+
+#### Deploy Using Experimental Build
+
+To get started edit the `<labkey root>/server/modules/core/build.js` file and set `USE_LABKEY_API` to `true`.
+
+```js
+const USE_LABKEY_API = true;
+```
+
+Next, you can either perform a Gradle clean build or run the node portion of the build directly:
+
+```sh
+# From <labkey root>/server/modules/core
+npm install
+node build.js
+```
+
+Now you can startup the server and the code for the APIs will be supplied from this package.
+
+#### Deploy From Source
 
 Steps:
 1. Navigate to `<labkey root>/server/api/webapp/` and clone this repository.
@@ -70,8 +90,6 @@ Steps:
 ```
 
 Now you can startup the server and the code for the APIs will be supplied from this package.
-
-**Note** A "hot reload" is not currently configured so any changes that are made will require running `npm run build` from the package directory for them to be available in the distrobution.
 
 ## Publishing
 
