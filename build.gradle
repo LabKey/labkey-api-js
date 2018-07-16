@@ -1,3 +1,0 @@
-npmRun {
-   buildProd = 'build'
-}

@@ -61,61 +61,73 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<h1 id="-labkey-api">@labkey/api</h1>
-				<p>JavaScript package for interacting with <a href="https://www.labkey.com/">LabKey Server</a>. The goal for this package is to provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the browser, on the server, and in pretty much any modern JavaScript environment.</p>
-				<p>Written with joy in TypeScript.</p>
-				<h2 id="v0-0-7-alpha">v0.0.7 - Alpha</h2>
-				<p>This package is under development. We&#39;re preparing the 1.0.0 release but in the meantime treat this package as experimental. All code is subject to change.</p>
-				<h2 id="installation">Installation</h2>
-				<p>The easiest way to use @labkey/api is to install it from npm and bundle it with your app. Before you run install you&#39;ll want to make sure you set the appropriate registry for the <code>@labkey</code> scope.</p>
-				<h4 id="setting-the-registry-scope">Setting the Registry Scope</h4>
-				<p>This package is currently availble on LabKey&#39;s Artifactory package registry. To include this package set the registry in npm for the <code>@labkey</code> scope. This can be done via command line using <code>npm config</code>:</p>
-				<pre><code>npm config <span class="hljs-keyword">set</span> @labkey:registry <span class="hljs-comment">https:</span>//<span class="hljs-comment">artifactory.labkey.com</span>/artifactory/<span class="hljs-comment">api</span>/npm/<span class="hljs-comment">libs-client</span>
-</code></pre><p>or via a <code>.npmrc</code> file</p>
-				<pre><code><span class="hljs-comment"># .npmrc</span>
-<span class="hljs-variable">@labkey</span><span class="hljs-symbol">:registry=https</span><span class="hljs-symbol">://artifactory</span>.labkey.com/artifactory/api/npm/libs-client
-</code></pre><h4 id="installing">Installing</h4>
-				<p>To install using npm</p>
-				<pre><code><span class="hljs-built_in">npm</span> install @labkey/api
-</code></pre><p>You can then import @labkey/api in your application as follows:</p>
-				<pre><code class="lang-js"><span class="hljs-keyword">import</span> { Query, Security } <span class="hljs-keyword">from</span> <span class="hljs-string">'@labkey/api'</span>;
-</code></pre>
-				<h2 id="development">Development</h2>
-				<p>If you would like to contribute changes to this package it is straight-forward to get setup for development. First, clone this repository to a directory</p>
-				<pre><code class="lang-sh">git <span class="hljs-built_in">clone</span> https://github.com/LabKey/labkey-api-js.git <span class="hljs-comment"># or via ssh</span>
-</code></pre>
-				<p>Navigate into the package directory and run the following commands</p>
-				<pre><code class="lang-sh">npm install
-npm run build
-</code></pre>
-				<p>Now that the distrobution is built you can load it up by serving the index.html file found in the package root. To serve it up from IntelliJ you can &quot;Open in Browser&quot;. This will let you explore the API as it is exposed via the <code>LABKEY</code> global namespace.</p>
-				<h4 id="running-against-a-labkey-server">Running against a LabKey Server</h4>
-				<p>If you would like to experiment with running this code against LabKey Server it is possible thanks to the provided wrapper for the <code>LABKEY</code> global namespace. The following assumes you have a <a href="https://www.labkey.org/Documentation/wiki-page.view?name=devMachine">LabKey development environment setup</a>.</p>
-				<p>Steps:</p>
-				<ol>
-					<li>Navigate to <code>&lt;labkey root&gt;/server/api/webapp/</code> and clone this repository.</li>
-					<li>Navigate to the package directory and run <code>npm install</code> followed by <code>npm run build</code>.</li>
-					<li>Open <code>&lt;labkey root&gt;/server/api/webapp/clientapi_core.lib.xml</code> and replace the contents</li>
-				</ol>
-				<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">libraries</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://labkey.org/clientLibrary/xml/"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">library</span> <span class="hljs-attr">compileInProductionMode</span>=<span class="hljs-string">"false"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"labkey-api-js/dist/labkey-api-js-core.min.js"</span>/&gt;</span><span class="handlebars"><span class="xml">
-    <span class="hljs-tag">&lt;/<span class="hljs-name">library</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">libraries</span>&gt;</span></span></span>
-</code></pre>
-				<p>Now you can startup the server and the code for the APIs will be supplied from this package.</p>
-				<p><strong>Note</strong> A &quot;hot reload&quot; is not currently configured so any changes that are made will require running <code>npm run build</code> from the package directory for them to be available in the distrobution.</p>
-				<h2 id="publishing">Publishing</h2>
-				<p>To publish, increment the version number in accordance with <a href="https://semver.org/">SemVer</a>, update the Readme.md, and commit. Then from the package root run</p>
-				<pre><code class="lang-sh">npm publish
-</code></pre>
-			</div>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>External modules</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-external-module"><a href="modules/_actionurl_.html" class="tsd-kind-icon">"<wbr>ActionURL"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_ajax_.html" class="tsd-kind-icon">"<wbr>Ajax"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_assay_.html" class="tsd-kind-icon">"<wbr>Assay"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_domain_.html" class="tsd-kind-icon">"<wbr>Domain"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_filter_.html" class="tsd-kind-icon">"<wbr>Filter"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_list_.html" class="tsd-kind-icon">"<wbr>List"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_message_.html" class="tsd-kind-icon">"<wbr>Message"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_multirequest_.html" class="tsd-kind-icon">"<wbr>Multi<wbr>Request"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_participantgroup_.html" class="tsd-kind-icon">"<wbr>Participant<wbr>Group"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_pipeline_.html" class="tsd-kind-icon">"<wbr>Pipeline"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_.html" class="tsd-kind-icon">"<wbr>Query"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_report_.html" class="tsd-kind-icon">"<wbr>Report"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_security_.html" class="tsd-kind-icon">"<wbr>Security"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_specimen_.html" class="tsd-kind-icon">"<wbr>Specimen"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_utils_.html" class="tsd-kind-icon">"<wbr>Utils"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_visualization_.html" class="tsd-kind-icon">"<wbr>Visualization"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_constants_.html" class="tsd-kind-icon">"constants"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_dom_assay_.html" class="tsd-kind-icon">"dom/<wbr>Assay"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_dom_form_.html" class="tsd-kind-icon">"dom/<wbr>Form"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_dom_query_.html" class="tsd-kind-icon">"dom/<wbr>Query"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_dom_security_.html" class="tsd-kind-icon">"dom/<wbr>Security"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_dom_utils_.html" class="tsd-kind-icon">"dom/<wbr>Utils"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_dom_constants_.html" class="tsd-kind-icon">"dom/constants"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_dom_index_.html" class="tsd-kind-icon">"dom/index"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_fieldkey_fieldkey_.html" class="tsd-kind-icon">"field<wbr>Key/<wbr>Field<wbr>Key"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_fieldkey_querykey_.html" class="tsd-kind-icon">"field<wbr>Key/<wbr>Query<wbr>Key"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_fieldkey_schemakey_.html" class="tsd-kind-icon">"field<wbr>Key/<wbr>Schema<wbr>Key"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_filter_filter_.html" class="tsd-kind-icon">"filter/<wbr>Filter"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_filter_types_.html" class="tsd-kind-icon">"filter/<wbr>Types"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_filter_constants_.html" class="tsd-kind-icon">"filter/constants"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_executesql_.html" class="tsd-kind-icon">"query/<wbr>Execute<wbr>Sql"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_getdata_.html" class="tsd-kind-icon">"query/<wbr>Get<wbr>Data"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_getquerydetails_.html" class="tsd-kind-icon">"query/<wbr>Get<wbr>Query<wbr>Details"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_response_.html" class="tsd-kind-icon">"query/<wbr>Response"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_rows_.html" class="tsd-kind-icon">"query/<wbr>Rows"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_saverows_.html" class="tsd-kind-icon">"query/<wbr>Save<wbr>Rows"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_utils_.html" class="tsd-kind-icon">"query/<wbr>Utils"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_visualization_.html" class="tsd-kind-icon">"query/<wbr>Visualization"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_experimental_sql_.html" class="tsd-kind-icon">"query/experimental/SQL"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_visualization_dimension_.html" class="tsd-kind-icon">"query/visualization/<wbr>Dimension"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_visualization_filter_.html" class="tsd-kind-icon">"query/visualization/<wbr>Filter"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_visualization_measure_.html" class="tsd-kind-icon">"query/visualization/<wbr>Measure"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_visualization_utils_.html" class="tsd-kind-icon">"query/visualization/<wbr>Utils"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_query_visualization_constants_.html" class="tsd-kind-icon">"query/visualization/constants"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_security_container_.html" class="tsd-kind-icon">"security/<wbr>Container"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_security_group_.html" class="tsd-kind-icon">"security/<wbr>Group"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_security_permission_.html" class="tsd-kind-icon">"security/<wbr>Permission"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_security_policy_.html" class="tsd-kind-icon">"security/<wbr>Policy"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_security_user_.html" class="tsd-kind-icon">"security/<wbr>User"</a></li>
+								<li class="tsd-kind-external-module"><a href="modules/_security_constants_.html" class="tsd-kind-icon">"security/constants"</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
+					<li class="globals current ">
 						<a href="globals.html"><em>Globals</em></a>
 					</li>
 					<li class=" tsd-kind-external-module">
