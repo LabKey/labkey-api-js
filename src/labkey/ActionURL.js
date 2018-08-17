@@ -43,7 +43,7 @@ function buildURL(controller, action, containerPath, parameters) {
         containerPath = encodePath(containerPath);
     }
     else {
-        containerPath = getContainer();
+        containerPath = exports.getContainer();
     }
     if (containerPath.charAt(0) != '/') {
         containerPath = '/' + containerPath;
@@ -83,7 +83,7 @@ function getAction() {
 exports.getAction = getAction;
 function getBaseURL(noContextPath) {
     var location = constants_1.getLocation();
-    return location.protocol + '//' + location.host + (noContextPath ? '' : getContextPath() + '/');
+    return location.protocol + '//' + location.host + (noContextPath ? '' : exports.getContextPath() + '/');
 }
 exports.getBaseURL = getBaseURL;
 function getContainer() {
@@ -95,7 +95,7 @@ function getContainer() {
 }
 exports.getContainer = getContainer;
 function getContainerName() {
-    var containerPath = getContainer();
+    var containerPath = exports.getContainer();
     return containerPath.substring(containerPath.lastIndexOf('/') + 1);
 }
 exports.getContainerName = getContainerName;

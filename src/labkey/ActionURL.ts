@@ -105,12 +105,12 @@ function buildParameterMap(paramString?: string): {[key:string]: any} {
  * with the same name. (Defaults to no parameters)
  * @return URL constructed from the current container and context path, plus the specified controller and action.
  */
-export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: string | Array<string>}): string {
+export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: any }): string {
     if (containerPath) {
         containerPath = encodePath(containerPath);
     }
     else {
-        containerPath = getContainer(); // TODO: Shouldn't we be encoding this as well?
+        containerPath = exports.getContainer(); // TODO: Shouldn't we be encoding this as well?
     }
 
     // ensure that the container begins/ends with a "/"
@@ -179,7 +179,7 @@ export function getAction(): string {
  */
 export function getBaseURL(noContextPath?: boolean): string {
     const location = getLocation();
-    return location.protocol + '//' + location.host + (noContextPath ? '' : getContextPath() + '/');
+    return location.protocol + '//' + location.host + (noContextPath ? '' : exports.getContextPath() + '/');
 }
 
 /**
@@ -201,7 +201,7 @@ export function getContainer(): string {
  * @returns Current container name.
  */
 export function getContainerName(): string {
-    const containerPath = getContainer();
+    const containerPath = exports.getContainer();
     return containerPath.substring(containerPath.lastIndexOf('/') + 1);
 }
 
