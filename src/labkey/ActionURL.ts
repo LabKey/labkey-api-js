@@ -17,6 +17,7 @@ import { getLocation, getServerContext } from './constants'
 import { isArray } from './Utils'
 
 /**
+ * @hidden
  * @private
  */
 function buildParameterMap(paramString?: string): {[key:string]: any} {
@@ -142,6 +143,7 @@ export function buildURL(controller: string, action: string, containerPath?: str
 }
 
 /**
+ * @hidden
  * @private
  * Decoder for LabKey container paths that accounts for / to only decode the proper names. NOTE: This method is
  * marked as private and could change at any time.
@@ -153,6 +155,7 @@ export function decodePath(encodedPath: string): string {
 }
 
 /**
+ * @hidden
  * @private
  * Encoder for LabKey container paths that accounts for / to only encode the proper names.
  * NOTE: This method is marked as private and could change at any time.
@@ -311,6 +314,7 @@ export function queryString(parameters?: {[key:string]: string | Array<string>})
 }
 
 /**
+ * @hidden
  * @private
  */
 interface ActionPath {
@@ -320,6 +324,7 @@ interface ActionPath {
 }
 
 /**
+ * @hidden
  * @private
  */
 function codePath(path: string, method: (v: string) => string): string {
@@ -332,6 +337,7 @@ function codePath(path: string, method: (v: string) => string): string {
 
 // Formerly, parsePathName
 /**
+ * @hidden
  * @private
  */
 function getPathFromLocation(): ActionPath {
