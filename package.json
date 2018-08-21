@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
     "build:dist": "npm run clean && webpack --config webpack.config.js && rollup -c",
-    "build:docs": "typedoc --theme src/labkey/theme --excludePrivate --excludeExternals --externalPattern \"**/node_modules/**\" --ignoreCompilerErrors --exclude \"**/*+(wrapper|wrapper-dom|.spec).ts\" --mode modules --out ./docs ./src/labkey && touch docs/.nojekyll",
+    "build:docs": "typedoc --options src/typedoc.js --out ./docs ./src/labkey && touch docs/.nojekyll",
     "clean": "rimraf dist && rimraf docs",
     "predeploy": "npm run build:docs",
     "deploy": "gh-pages -t -d docs",
