@@ -10,7 +10,7 @@
             </li>
         {{else}}
             <li class="{{#if isInPath}}current{{/if}} {{cssClasses}}">
-                <a href="{{relativeURL url}}">{{{wbr title}}}</a>
+                <a href="{{relativeURL url}}">{{{wbr (trimString title 1 1)}}}</a>
                 {{#if isInPath}}
                     {{#if children}}
                         <ul>
