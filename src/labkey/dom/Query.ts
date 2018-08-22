@@ -100,6 +100,7 @@ export function exportTables(options: IExportTablesOptions): void {
 }
 
 export interface IImportDataOptions {
+    importUrl?: string
     containerPath?: string
     failure?: Function
     file?: File | Element | any
@@ -165,7 +166,7 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     }
 
     return request({
-        url: buildURL('query', 'import.api', options.containerPath),
+        url: options.importUrl || buildURL('query', 'import.api', options.containerPath),
         method: 'POST',
         form,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
