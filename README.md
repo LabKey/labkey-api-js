@@ -50,7 +50,7 @@ npm install
 npm run build
 ```
 
-Now that the distrobution is built you can load it up by serving the index.html file found in the package root. To serve it up from IntelliJ you can "Open in Browser". This will let you explore the API as it is exposed via the `LABKEY` global namespace.
+Now that the distribution is built you can load it up by serving the index.html file found in the package root. To serve it up from IntelliJ you can "Open in Browser". This will let you explore the API as it is exposed via the `LABKEY` global namespace.
 
 ### Running against a LabKey Server
 
