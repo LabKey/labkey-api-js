@@ -38,7 +38,20 @@ interface ConfiguredOptions {
 }
 
 export interface RequestOptions {
+    /**
+     * A function called after any success/failure response is received. It will be passed the following arguments:
+     * * <b>originalConfig:</b> The config originally supplied to LABKEY.Ajax.request
+     * * <b>success:</b> boolean value that is true if the request was successful
+     * * <b>xhr:</b> The XMLHttpRequest where the text of the response can be found on xhr.responseText amongst other properties
+     */
     callback?: AjaxCallbackHandler
+
+    /**
+     * A function called when a failure response is received (determined by XHR readyState, status, or ontimeout
+     * if supplied). It will be passed the following arguments:
+     * * <b>xhr:</b> The XMLHttpRequest where the text of the response can be found on xhr.responseText amongst other properties
+     * * <b>originalConfig:</b> The config originally supplied to LABKEY.Ajax.request
+     */
     failure?: AjaxHandler
 
     /**
@@ -78,7 +91,12 @@ export interface RequestOptions {
      */
     scope?: any
 
-
+    /**
+     * A function called when a successful response is received (determined by XHR readyState and status).
+     * It will be passed the following arguments:
+     * * <b>xhr:</b> The XMLHttpRequest where the text of the response can be found on xhr.responseText amongst other properties
+     * * <b>originalConfig:</b> The config originally supplied to LABKEY.Ajax.request
+     */
     success?: AjaxHandler
 
     /**
@@ -94,6 +112,7 @@ export interface RequestOptions {
 }
 
 /**
+ * @hidden
  * @private
  */
 function callback(fn: Function, scope: any, args?: any) {
@@ -103,6 +122,7 @@ function callback(fn: Function, scope: any, args?: any) {
 }
 
 /**
+ * @hidden
  * @private
  * Returns true iff obj contains case-insensitive key
  */
@@ -119,6 +139,7 @@ function contains(obj: Object, key: string) {
 }
 
 /**
+ * @hidden
  * @private
  */
 function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: ConfiguredOptions): void {
@@ -157,6 +178,7 @@ function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: 
 }
 
 /**
+ * @hidden
  * @private
  */
 function configureOptions(config: RequestOptions): ConfiguredOptions {
