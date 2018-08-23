@@ -134,7 +134,7 @@ export interface IGetDataViewsOptions {
 
 /**
  * Returns a list of reports, views and/or datasets in a container
- * @param options
+ * @param {IGetDataViewsOptions} options
  * @returns {XMLHttpRequest}
  */
 export function getDataViews(options: IGetDataViewsOptions): XMLHttpRequest {
@@ -182,6 +182,8 @@ export interface IGetQueriesOptions {
 
 /**
  * Returns the set of queries available in a given schema.
+ * @param {IGetQueriesOptions} options
+ * @returns {XMLHttpRequest}
  */
 export function getQueries(options: IGetQueriesOptions): XMLHttpRequest {
 
@@ -217,6 +219,8 @@ export interface IGetQueryViewsOptions {
 
 /**
  * Returns the set of views available for a given query in a given schema.
+ * @param {IGetQueryViewsOptions} options
+ * @returns {XMLHttpRequest}
  */
 export function getQueryViews(options: IGetQueryViewsOptions): XMLHttpRequest {
 
@@ -262,6 +266,8 @@ interface IGetSchemasParameters {
 
 /**
  * Returns the set of schemas available in the specified container.
+ * @param {IGetSchemasOptions} options
+ * @returns {XMLHttpRequest}
  */
 export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
 
@@ -286,22 +292,25 @@ export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
 }
 
 export interface IGetServerDateOptions {
+    /**
+     * The function to call if this function encounters an error.
+     * This function will be called with the following parameters:
+     * * <b>errorInfo:</b> An object with a property called "exception," which contains the error message.
+     */
     failure?: () => any
     scope?: any
+
+    /**
+     * The function to call when the function finishes successfully.
+     * This function will be called with a single parameter of type Date.
+     */
     success?: () => any
 }
 
 /**
  * Returns the current date/time on the LabKey server.
- * @param options An object that contains the following configuration parameters
- * @param {function} options.success The function to call when the function finishes successfully.
- * This function will be called with a single parameter of type Date.
- * @param {function} [options.failure] The function to call if this function encounters an error.
- * This function will be called with the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> An object with a property called "exception," which contains the error message.</li>
- * </ul>
- * @returns In client-side scripts, this method will return a transaction id
+ * @param {IGetServerDateOptions} options
+ * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
@@ -357,6 +366,8 @@ export interface ISaveQueryViewsOptions {
 /**
  * Creates or updates a custom view or views for a given query in a given schema.
  * The options object matches the viewInfos parameter of the getQueryViews.successCallback.
+ * @param {ISaveQueryViewsOptions} options
+ * @returns {XMLHttpRequest}
  */
 export function saveQueryViews(options: ISaveQueryViewsOptions): XMLHttpRequest {
 
@@ -475,32 +486,37 @@ function stripHiddenColData(data: any): void {
 }
 
 export interface IValidateQueryOptions {
+    /**
+     * A container path in which to execute this command. If not supplied,
+     * the current container will be used.
+     */
     containerPath?: string
+
+    /**
+     * The function to call if this function encounters an error.
+     * This function will be called with the following parameters:
+     * * <b>errorInfo:</b> An object with a property called "exception," which contains the error message.
+     * If validateQueryMetadata was used, this will also hae a property called 'errors', which is an array of objects describing each error.
+     */
     failure?: () => any
+
+    /** A scope for the callback functions. Defaults to "this". */
     scope?: any
+
+    /**
+     * The function to call when the function finishes successfully.
+     * This function will be called with a simple object with one property named "valid" set to true.
+     */
     success?: () => any
+
+    /** If true, the query metadata and custom views will also be validated. */
     validateQueryMetadata?: boolean
 }
 
 /**
  * Validates the specified query by ensuring that it parses and executes without an exception.
- * @param options An object that contains the following configuration parameters
- * @param {String} options.schemaName The name of the schema.
- * @param {String} options.queryName the name of the query.
- * @param {Boolean} options.includeAllColumns If set to false, only the columns in the user's default view
- * of the specific query will be tested (defaults to true).
- * @param {Boolean} options.validateQueryMetadata If true, the query metadata and custom views will also be validated.
- * @param {function} options.success The function to call when the function finishes successfully.
- * This function will be called with a simple object with one property named "valid" set to true.
- * @param {function} [options.failure] The function to call if this function encounters an error.
- * This function will be called with the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> An object with a property called "exception," which contains the error message. If validateQueryMetadata was used, this will also hae a property called 'errors', which is an array of objects describing each error.</li>
- * </ul>
- * @param {String} [options.containerPath] A container path in which to execute this command. If not supplied,
- * the current container will be used.
- * @param {Object} [options.scope] A scope for the callback functions. Defaults to "this"
- * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * @param {IValidateQueryOptions} options
+ * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)

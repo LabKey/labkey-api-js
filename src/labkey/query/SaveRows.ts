@@ -36,8 +36,8 @@ export interface ICommand {
     extraContext?: any
 
     /**
-     * An array of data for each row to be changed. See {@link LABKEY.Query.insertRows},
-     * {@link LABKEY.Query.updateRows}, or {@link LABKEY.Query.deleteRows} for requirements of what data must be included for each row.
+     * An array of data for each row to be changed. See [[insertRows]],
+     * [[updateRows]], or [[deleteRows]] for requirements of what data must be included for each row.
      */
     rows: Array<any>
 }
@@ -68,7 +68,7 @@ export interface ISaveRowsOptions {
 
     /**
      * Function called if execution of the "saveRows" function fails.
-     * See {@link LABKEY.Query.selectRows} for more information on the parameters passed to this function.
+     * See [[selectRows]] for more information on the parameters passed to this function.
      */
     failure?: Function
 

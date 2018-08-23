@@ -115,8 +115,8 @@ export interface ICommand {
     extraContext?: any
 
     /**
-     * An array of data for each row to be changed. See {@link LABKEY.Query.insertRows},
-     * {@link LABKEY.Query.updateRows}, or {@link LABKEY.Query.deleteRows} for requirements of what data must be included for each row.
+     * An array of data for each row to be changed. See [[insertRows]],
+     * [[updateRows]], or [[deleteRows]] for requirements of what data must be included for each row.
      */
     rows: Array<any>
 }
@@ -147,7 +147,7 @@ export interface ISaveRowsOptions {
 
     /**
      * Function called if execution of the "saveRows" function fails.
-     * See {@link LABKEY.Query.selectRows} for more information on the parameters passed to this function.
+     * See [[selectRows]] for more information on the parameters passed to this function.
      */
     failure?: Function
 
@@ -356,13 +356,13 @@ export type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 export interface ISelectRowsOptions {
     /**
      * Name of a query table associated with the chosen schema.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     queryName: string
 
     /**
      * Name of a schema defined within the current container.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     schemaName: string
 
@@ -591,7 +591,7 @@ function selectRowArguments(args: any): ISelectRowsOptions {
  * @see LABKEY.Query.SelectRowsOptions
  * @see LABKEY.Query.SelectRowsResults
  * @see LABKEY.Query.ExtendedSelectRowsResults
- * @see LABKEY.Query.Response
+ * @see [[Response]]
  * @param {ISelectRowsOptions} options
  * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
@@ -636,13 +636,13 @@ export interface IQueryRequestOptions {
 
     /**
      * Function called when execution of the "deleteRows" function fails.
-     * See {@link LABKEY.Query.selectRows} for more information on the parameters passed to this function.
+     * See [[selectRows]] for more information on the parameters passed to this function.
      */
     failure?: Function
 
     /**
      * Name of a query table associated with the chosen schema.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     queryName: string
 
@@ -656,7 +656,7 @@ export interface IQueryRequestOptions {
 
     /**
      * Name of a schema defined within the current container.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     schemaName: string
 

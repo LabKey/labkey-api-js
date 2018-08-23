@@ -183,9 +183,10 @@ function buildURLParams(options: IExecuteSqlOptions): any {
 
 /**
  * Execute arbitrary LabKey SQL. For more information, see the
- * <a href="https://www.labkey.org/Documentation/wiki-page.view?name=labkeySql"> LabKey SQL Reference</a>.
+ * [LabKey SQL Reference](https://www.labkey.org/Documentation/wiki-page.view?name=labkeySql).
  * #### Examples
- * Example, from the Reagent Request Confirmation <a href="https://www.labkey.org/Documentation/wiki-page.view?name=reagentRequestConfirmation">Tutorial</a> and <a href="https://www.labkey.org/home/Study/demo/wiki-page.view?name=Confirmation">Demo</a>:
+ * Example, from the Reagent Request Confirmation [Tutorial](https://www.labkey.org/Documentation/wiki-page.view?name=reagentRequestConfirmation)
+ * and [Demo](https://www.labkey.org/home/Study/demo/wiki-page.view?name=Confirmation):
  *
  * ```
  * // This snippet extracts a table of UserID, TotalRequests and
@@ -206,11 +207,11 @@ function buildURLParams(options: IExecuteSqlOptions): any {
  * @see LABKEY.Query.SelectRowsOptions
  * @see LABKEY.Query.SelectRowsResults
  * @see LABKEY.Query.ExtendedSelectRowsResults
- * @see LABKEY.Query.Response
+ * @see [[Response]]
  * @param {IExecuteSqlOptions} options
  * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+ * (see [Ext.data.Connection.abort](http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort)).
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function executeSql(options: IExecuteSqlOptions): XMLHttpRequest {

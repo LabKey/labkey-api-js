@@ -22,7 +22,7 @@ import { decode, isArray, isFunction, isString } from '../Utils'
 import { Response } from './Response'
 
 export interface IGetDataFilter {
-    /** Can be a string, array of strings, or a {@link LABKEY.FieldKey} */
+    /** Can be a string, array of strings, or a [[FieldKey]] */
     fieldKey: Array<string>
 
     /** Optional depending on filter type. The value to filter on. */
@@ -58,13 +58,13 @@ export interface IGetRawDataOptions {
 
     /**
      * A function to be executed when the GetData request completes successfully. The function will
-     * be passed a {@link LABKEY.Query.Response} object.
+     * be passed a [[Response]] object.
      */
     success: () => any
 
     // optional
     /**
-     * An array containing {@link LABKEY.FieldKey} objects, strings, or arrays of strings.
+     * An array containing [[FieldKey]]objects, strings, or arrays of strings.
      * Used to specify which columns the user wants. The columns must match those returned from the last transform.
      */
     columns?: Array<string | Array<string> | FieldKey>
@@ -111,12 +111,12 @@ export interface IGetRawDataParams {
 }
 
 export interface IPivot {
-    /** The column to pivot by. Can be an array of strings, a string, or a {@link LABKEY.FieldKey} */
+    /** The column to pivot by. Can be an array of strings, a string, or a [[FieldKey]] */
     by: string | Array<string> | FieldKey
 
     /**
      * The columns to pivot. Is an array containing strings, arrays of strings, and/or
-     * {@link LABKEY.FieldKey} objects.
+     * [[FieldKey]] objects.
      */
     columns: Array<string | Array<string> | FieldKey>
 }
@@ -134,27 +134,24 @@ export interface ISort {
     /** Can be 'ASC' or 'DESC', defaults to 'ASC'. */
     dir?: string
 
-    /** The field key of the column to sort. Can be a string, array of strings, or a {@link LABKEY.FieldKey} */
+    /** The field key of the column to sort. Can be a string, array of strings, or a [[FieldKey]] */
     fieldKey: string | Array<string> | FieldKey
 }
 
 export interface ITransform {
     aggregates?: Array<ITransformAggregate>
 
-    /**
-     * An array containing  objects created with {@link LABKEY.Filter.create}, {@link LABKEY.Query.Filter} objects,
-     * or javascript objects.
-     */
+    /** An array containing  objects created with [[create]], [[Filter]] objects, or javascript objects. */
     filters?: Array<IGetDataFilter>
 
-    /** An array of Objects. Each object can be a string, array of strings, or a {@link LABKEY.FieldKey}. */
+    /** An array of Objects. Each object can be a string, array of strings, or a [[FieldKey]]. */
     groupBy?: Array<string | Array<string> | FieldKey>
 
     type?: string
 }
 
 export interface ITransformAggregate {
-    /** The target column. Can be an array of strings, a string, or a {@link LABKEY.FieldKey} */
+    /** The target column. Can be an array of strings, a string, or a [[FieldKey]] */
     fieldKey: string | Array<string> | FieldKey
 
     /**  The type of aggregate. */
@@ -162,8 +159,8 @@ export interface ITransformAggregate {
 }
 
 /**
- * Used to get the raw data from a GetData request. Roughly equivalent to {@link LABKEY.Query.selectRows} or
- * {@link LABKEY.Query.executeSql}, except it allows the user to pass the data through a series of transforms.
+ * Used to get the raw data from a GetData request. Roughly equivalent to [[selectRows]] or
+ * [[executeSql]], except it allows the user to pass the data through a series of transforms.
  * @param {IGetRawDataOptions} config
  * @returns {XMLHttpRequest}
  */

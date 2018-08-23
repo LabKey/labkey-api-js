@@ -72,10 +72,7 @@ function generateGetDisplayField(fieldKey: FieldKey, fields: Array<any>): Functi
     }
 }
 
-/**
- * The class used to wrap the response object from {@link LABKEY.Query.GetData.getRawData},
- * {@link LABKEY.Query.selectRows}, and {@link LABKEY.Query.executeSql}.
- */
+/** The class used to wrap the response object from [[getRawData]], [[selectRows]], and [[executeSql]]. */
 export class Response {
     columnModel: any;
     formatVersion: number;
@@ -88,11 +85,11 @@ export class Response {
     [attr:string]: any;
 
     /**
-     * @see LABKEY.Query.GetData.getRawData
-     * @see LABKEY.Query.selectRows
-     * @see LABKEY.Query.executeSql
-     * @param rawResponse The raw JSON response object returned from the server when executing {@link LABKEY.Query.GetData.getRawData},
-     * {@link LABKEY.Query.selectRows}, or {@link LABKEY.Query.executeSql} when requiredVersion is greater than 13.2.
+     * @see [[getRawData]]
+     * @see [[selectRows]]
+     * @see [[executeSql]]
+     * @param rawResponse The raw JSON response object returned from the server when executing [[getRawData]],
+     * [[selectRows]], or [[executeSql]] when requiredVersion is greater than 13.2.
      */
     constructor(rawResponse: any) {
 
@@ -178,7 +175,7 @@ export class Response {
      *    * <strong>lookup</strong>: {Object} If the field is a lookup, there will be four sub-properties listed under
      *    this property: schema, table, displayColumn, and keyColumn, which describe the schema, table, and display
      *    column, and key column of the lookup table (query).
-     *    * <strong>displayField</strong>: {{@link LABKEY.FieldKey}} If the field has a display field this is
+     *    * <strong>displayField</strong>: {[[FieldKey]]} If the field has a display field this is
      *    the field key for that field.
      *    * <strong>getDisplayField</strong>: {Function} If the field has a display field this function will return
      *    the metadata field object for that field.
@@ -225,7 +222,7 @@ export class Response {
 
     /**
      * Returns the array of row objects.
-     * @returns {Array<Row>} Returns an array of {@link LABKEY.Query.Row} objects.
+     * @returns {Array<Row>} Returns an array of [[Row]] objects.
      */
     getRows(): Array<Row> {
         return this.rows;
@@ -234,7 +231,7 @@ export class Response {
     /**
      * Returns the schema name from the Response.
      * @param {boolean} asString
-     * @returns {string} If asString is true it returns a string, otherwise it returns a {@link LABKEY.FieldKey} object.
+     * @returns {string} If asString is true it returns a string, otherwise it returns a [[FieldKey]] object.
      */
     getSchemaName(asString?: boolean): string {
         // TODO: Shouldn't this return this.schemaKey when !asString?
@@ -253,7 +250,7 @@ export class Row {
 
     /**
      * @see LABKEY.Query.Response
-     * @param rawRowT he raw row from a GetData or executeSQL, selectRows (version 13.2 and above) request.
+     * @param rawRow The raw row from a GetData or executeSQL, selectRows (version 13.2 and above) request.
      */
     constructor(rawRow: any) {
         this.links = null;
