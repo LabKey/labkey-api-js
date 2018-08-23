@@ -87,8 +87,8 @@ export interface IDimensionLike {
 export interface IGetOptions {
     /**
      * Function called when execution fails.  Called with the following parameters:
-     * * <b>errorInfo:</b> an object containing detailed error information (may be null)
-     * * <b>response:</b> The XMLHttpResponse object
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
      */
     failure?: Function
     name: string
@@ -111,21 +111,21 @@ export interface IGetOptions {
 
     /**
      * Function called when execution succeeds. Will be called with one arguments:
-     * * <b>result</b>: an object with two properties:
-     *    * <b>name</b>: The name of the saved visualization
-     *    * <b>description</b>: The description of the saved visualization
-     *    * <b>type</b>: The visualization type
-     *    * <b>schemaName</b>: The schema to which this visualization has been scoped, if any
-     *    * <b>queryName</b>: The query to which this visualization has been scoped, if any
-     *    * <b>visualizationConfig</b>: The configuration object provided to {@link LABKEY.Query.Visualization.save}
-     * * <b>request</b>: the XMLHttpRequest object
-     * * <b>options</b>: a request options object
+     * * **result**: an object with two properties:
+     *    * **name**: The name of the saved visualization
+     *    * **description**: The description of the saved visualization
+     *    * **type**: The visualization type
+     *    * **schemaName**: The schema to which this visualization has been scoped, if any
+     *    * **queryName**: The query to which this visualization has been scoped, if any
+     *    * **visualizationConfig**: The configuration object provided to [[save]]
+     * * **request**: the XMLHttpRequest object
+     * * **options**: a request options object
      */
     success?: Function
 }
 
 /**
- * Retrieves a saved visualization.  See {@link LABKEY.Query.Visualization.save}.
+ * Retrieves a saved visualization.  See [[save]].
  * @param {IGetOptions} options
  */
 export function get(options: IGetOptions): void {
@@ -163,8 +163,8 @@ export interface IGetDataOptions {
 
     /**
      * Function called when execution fails.  Called with the following parameters:
-     * * <b>errorInfo:</b> an object containing detailed error information (may be null)
-     * * <b>response:</b> The XMLHttpResponse object
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
      */
     failure?: Function
     filterQuery?: string
@@ -189,9 +189,9 @@ export interface IGetDataOptions {
 
     /**
      * Function called when execution succeeds. Will be called with three arguments:
-     * * <b>data</b>: the parsed response data ({@link LABKEY.Query.SelectRowsResults})
-     * * <b>request</b>: the XMLHttpRequest object
-     * * <b>options</b>: a request options object ({@link LABKEY.Query.SelectRowsOptions})
+     * * **data**: the parsed response data ({@link LABKEY.Query.SelectRowsResults})
+     * * **request**: the XMLHttpRequest object
+     * * **options**: a request options object ({@link LABKEY.Query.SelectRowsOptions})
      */
     success?: Function
 }
@@ -345,8 +345,8 @@ export interface IGetMeasuresOptions {
 
     /**
      * Function called when execution fails.  Called with the following parameters:
-     * * <b>errorInfo:</b> an object containing detailed error information (may be null)
-     * * <b>response:</b> The XMLHttpResponse object
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
      */
     failure?: Function
 
@@ -357,7 +357,7 @@ export interface IGetMeasuresOptions {
 
     /**
      * Function called when execution succeeds. Will be called with one argument:
-     * * <b>measures</b>: an array of [[Measure]] objects.
+     * * **measures**: an array of [[Measure]] objects.
      */
     success?: Function
 }

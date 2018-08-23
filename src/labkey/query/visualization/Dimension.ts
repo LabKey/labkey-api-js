@@ -31,7 +31,7 @@ function createValues(json: any): Array<any> {
 export interface IGetValuesOptions {
     /**
      * Function called when execution fails.  Called with the following parameters:
-     * * **errorInfo:** an object containing detailed error information (may be null)</li>
+     * * **errorInfo:** an object containing detailed error information (may be null)
      * * **response:** The XMLHttpResponse object
      */
     failure?: Function

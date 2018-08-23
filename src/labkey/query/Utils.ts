@@ -295,7 +295,7 @@ export interface IGetServerDateOptions {
     /**
      * The function to call if this function encounters an error.
      * This function will be called with the following parameters:
-     * * <b>errorInfo:</b> An object with a property called "exception," which contains the error message.
+     * * **errorInfo:** An object with a property called "exception," which contains the error message.
      */
     failure?: () => any
     scope?: any
@@ -495,7 +495,7 @@ export interface IValidateQueryOptions {
     /**
      * The function to call if this function encounters an error.
      * This function will be called with the following parameters:
-     * * <b>errorInfo:</b> An object with a property called "exception," which contains the error message.
+     * * **errorInfo:** An object with a property called "exception," which contains the error message.
      * If validateQueryMetadata was used, this will also hae a property called 'errors', which is an array of objects describing each error.
      */
     failure?: () => any

@@ -21,7 +21,7 @@ import { getSuccessCallbackWrapper } from './Utils'
 
 export interface IExecuteSqlOptions {
     /**
-     * One of the values of {@link LABKEY.Query.containerFilter} that sets
+     * One of the values of [[containerFilter]] that sets
      * the scope of this query. Defaults to containerFilter.current, and is interpreted relative to
      * config.containerPath.
      */
@@ -35,7 +35,7 @@ export interface IExecuteSqlOptions {
 
     /**
      * Function called when execution of the "executeSql" function fails.
-     * See {@link LABKEY.Query.selectRows} for more information on the parameters passed to this function.
+     * See [[selectRows]] for more information on the parameters passed to this function.
      */
     failure?: () => any
 
@@ -67,11 +67,11 @@ export interface IExecuteSqlOptions {
     /**
      * If not set, or set to "8.3", the success handler will be passed a {@link LABKEY.Query.SelectRowsResults}
      * object. If set to "9.1" the success handler will be passed a {@link LABKEY.Query.ExtendedSelectRowsResults}
-     * object. If greater than 13.2 the success handler will be passed a {@link LABKEY.Query.Response} object.
+     * object. If greater than 13.2 the success handler will be passed a [[Response]] object.
      * The main difference between SelectRowsResults and ExtendedSelectRowsResults is that each column in each row
      * will be another object (not just a scalar value) with a "value" property as well as other related properties
      * (url, mvValue, mvIndicator, etc.). In the LABKEY.Query.Response format each row will be an instance of
-     * @link LABKEY.Query.Row}.
+     * [[Row]].
      *
      * In the "16.2" format, multi-value columns will be returned as an array of values, each of which may have a value, displayValue, and url.
      * In the "17.1" format, "formattedValue" may be included in the response as the display column's value formatted with the display column's format or folder format settings.
@@ -108,12 +108,12 @@ export interface IExecuteSqlOptions {
     /**
      * Function called when the "selectRows" function executes successfully.
      * This function will be called with the following arguments:
-     * * <b>data:</b> If config.requiredVersion is not set, or set to "8.3", the success handler will be passed a
+     * * **data:** If config.requiredVersion is not set, or set to "8.3", the success handler will be passed a
      * {@link LABKEY.Query.SelectRowsResults} object. If set to "9.1" the success handler will be passed a
      * {@link LABKEY.Query.ExtendedSelectRowsResults} object. If requiredVersion is greater than 13.2 the success
-     * handler will be passed a {@link LABKEY.Query.Response} object.
-     * * <b>responseObj:</b> The XMLHttpResponseObject instance used to make the AJAX request</li>
-     * * <b>options:</b> The options used for the AJAX request</li>
+     * handler will be passed a [[Response]] object.
+     * * **responseObj:** The XMLHttpResponseObject instance used to make the AJAX request
+     * * **options:** The options used for the AJAX request
      */
     success: () => any
 

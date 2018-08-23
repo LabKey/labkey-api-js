@@ -249,7 +249,7 @@ export class Row {
     [attr:string]: any;
 
     /**
-     * @see LABKEY.Query.Response
+     * @see [[Response]]
      * @param rawRow The raw row from a GetData or executeSQL, selectRows (version 13.2 and above) request.
      */
     constructor(rawRow: any) {

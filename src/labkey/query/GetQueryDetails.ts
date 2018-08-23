@@ -27,7 +27,7 @@ export interface IGetQueryDetailsOptions {
     /**
      * The function to call if this function encounters an error.
      * This function will be called with the following parameters:
-     * * <b>errorInfo:</b> An object with a property called "exception," which contains the error message.
+     * * **errorInfo:** An object with a property called "exception," which contains the error message.
      */
     failure?: Function
 
@@ -51,22 +51,22 @@ export interface IGetQueryDetailsOptions {
     /**
      * The function to call when the function finishes successfully.
      * This function will be called with the following parameters:
-     * * <b>queryInfo:</b> An object with the following properties
-     *   * <b>schemaName:</b> the name of the requested schema
-     *   * <b>name:</b> the name of the requested query
-     *   * <b>isUserDefined:</b> true if this is a user-defined query
-     *   * <b>canEdit:</b> true if the current user can edit this query
-     *   * <b>isMetadataOverrideable:</b> true if the current user may override the query's metadata
-     *   * <b>moduleName:</b> the module that defines this query
-     *   * <b>isInherited:</b> true if this query is defined in a different container.
-     *   * <b>containerPath:</b> if <code>isInherited</code>, the container path where this query is defined.
-     *   * <b>viewDataUrl:</b> The URL to navigate to for viewing the data returned from this query
-     *   * <b>title:</b> If a value has been set, this is the label used when displaying this table
-     *   * <b>description:</b> A description for this query (if provided)
-     *   * <b>columns:</b> Information about all columns in this query. This is an array of LABKEY.Query.FieldMetaData objects.
-     *   * <b>defaultView:</b> An array of column information for the columns in the current user's default view of this query.
+     * * **queryInfo:** An object with the following properties
+     *   * **schemaName:** the name of the requested schema
+     *   * **name:** the name of the requested query
+     *   * **isUserDefined:** true if this is a user-defined query
+     *   * **canEdit:** true if the current user can edit this query
+     *   * **isMetadataOverrideable:** true if the current user may override the query's metadata
+     *   * **moduleName:** the module that defines this query
+     *   * **isInherited:** true if this query is defined in a different container.
+     *   * **containerPath:** if <code>isInherited</code>, the container path where this query is defined.
+     *   * **viewDataUrl:** The URL to navigate to for viewing the data returned from this query
+     *   * **title:** If a value has been set, this is the label used when displaying this table
+     *   * **description:** A description for this query (if provided)
+     *   * **columns:** Information about all columns in this query. This is an array of LABKEY.Query.FieldMetaData objects.
+     *   * **defaultView:** An array of column information for the columns in the current user's default view of this query.
      *      The shape of each column info is the same as in the columns array.
-     *   * <b>views:</b> An array of view info (XXX: same as views.getQueryViews()
+     *   * **views:** An array of view info (XXX: same as views.getQueryViews()
      * @see LABKEY.Query.FieldMetaData
      */
     success?: Function

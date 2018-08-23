@@ -32,7 +32,7 @@ export interface ICommand {
     /** Name of the command to be performed. Must be one of "insert", "update", or "delete". */
     command: 'delete' | 'insert' | 'update',
 
-    /** <b>Experimental:</b> Optional extra context object passed into the transformation/validation script environment. */
+    /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
     extraContext?: any
 
     /**
@@ -61,7 +61,7 @@ export interface ISaveRowsOptions {
     containerPath?: string
 
     /**
-     * <b>Experimental:</b> Optional extra context object passed into the transformation/validation script environment.
+     * **Experimental:** Optional extra context object passed into the transformation/validation script environment.
      * The extraContext at the command-level will be merged with the extraContext at the top-level of the config.
      */
     extraContext?: any
