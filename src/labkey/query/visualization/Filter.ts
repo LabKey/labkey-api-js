@@ -15,13 +15,22 @@
  */
 
 export interface ICreateOptions {
+    /** If specified, only measures from the specified query will be returned. */
     queryName?: string
+
+    /**
+     * If specified, only measures from the specified query types will be returned
+     * Valid values for queryType are:  [[QueryType.ALL]], [[QueryType.BUILT_IN]],
+     * and [[QueryType.CUSTOM]].  By default, all queries will be returned.
+     */
     queryType?: TQueryType
     schemaName: string
 }
 
 /**
- * Creates a new filter object for use in getMeasures().
+ * Creates a new filter object for use in [[getMeasures]].
+ * @param {ICreateOptions} options
+ * @returns {string}
  */
 export function create(options: ICreateOptions): string {
     if (!options.schemaName) {
@@ -43,7 +52,7 @@ export function create(options: ICreateOptions): string {
 export type TQueryType = 'ALL' | 'BUILT_IN' | 'CUSTOM' | 'DATASETS';
 
 /**
- * Visualization Possible query types for measure filters.
+ * @namespace Possible query types for measure filters.  See [[Filter]].
  */
 export const QueryType: {
     [key: string]: string

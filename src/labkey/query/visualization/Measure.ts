@@ -33,12 +33,31 @@ function createDimensions(json: any): Array<Dimension> {
 }
 
 export interface IMeasureGetDimensionsOptions {
+    /**
+     * Function called when execution fails.  Called with the following parameters:
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
+     */
     failure?: Function
+
+    /**
+     * Applies only to measures from study datsets.
+     * Indicates whether dimensions from demographic datasets should be included
+     * in the returned set.  If false, only dimensions from the measure's query will be returned.
+     */
     includeDemographics?: boolean
     scope?: any
+
+    /**
+     * Function called when execution succeeds. Will be called with one argument:
+     * **values**: an array of unique dimension values
+     */
     success?: Function
 }
 
+/**
+ * @namespace Measures are plottable data elements (columns).  They may be of numeric or date types.
+ */
 export class Measure {
 
     description: string;
@@ -64,6 +83,10 @@ export class Measure {
         return this.description;
     }
 
+    /**
+     * Returns the set of available [[Dimension]] objects for this measure.
+     * @param {IMeasureGetDimensionsOptions} options
+     */
     getDimensions(options: IMeasureGetDimensionsOptions): void {
 
         let params: any = {
