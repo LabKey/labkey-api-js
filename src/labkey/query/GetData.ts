@@ -22,32 +22,85 @@ import { decode, isArray, isFunction, isString } from '../Utils'
 import { Response } from './Response'
 
 export interface IGetDataFilter {
+    /** Can be a string, array of strings, or a {@link LABKEY.FieldKey} */
     fieldKey: Array<string>
+
+    /** Optional depending on filter type. The value to filter on. */
     value?: any
+
+    /** Can be a string or a type from {@link LABKEY.Filter#Types} */
     type: any
 }
 
 export interface IGetDataSource {
+    /** The path to the target container to execute the GetData call in. */
     containerPath?: string
+
+    /** The queryName to use in the request. Required if source.type = "query". */
     queryName?: string
+
+    /** The schemaName to use in the request. Can be a string, array of strings, or LABKEY.FieldKey. */
     schemaName?: string | Array<string> | SchemaKey
+
+    /** The LabKey SQL to use in the request. Required if source.type = "sql". */
     sql?: string
+
+    /**
+     * A string with value set to either "query" or "sql". Indicates if the value is "sql" then source.sql is required.
+     * If the value is "query" then source.queryName is required.
+     */
     type?: 'query' | 'sql'
 }
 
 export interface IGetRawDataOptions {
+    /** An object which contains parameters related to the source of the request. */
     source: IGetDataSource
+
+    /**
+     * A function to be executed when the GetData request completes successfully. The function will
+     * be passed a {@link LABKEY.Query.Response} object.
+     */
     success: () => any
 
     // optional
+    /**
+     * An array containing {@link LABKEY.FieldKey} objects, strings, or arrays of strings.
+     * Used to specify which columns the user wants. The columns must match those returned from the last transform.
+     */
     columns?: Array<string | Array<string> | FieldKey>
+
+    /**
+     * If no failure function is provided the response is sent to the console
+     * via console.error. If a function is provided the JSON response is passed to it as the only parameter.
+     */
     failure?: (json?: any) => any
+
+    /**
+     * Include the Details link column in the set of columns (defaults to false).
+     * If included, the column will have the name "~~Details~~". The underlying table/query must support details
+     * links or the column will be omitted in the response.
+     */
     includeDetailsColumn?: boolean
+
+    /**
+     * The maximum number of rows to return from the server (defaults to 100000). If you want
+     * to return all possible rows, set this config property to -1.
+     */
     maxRows?: number
+
+    /**
+     * The index of the first row to return from the server (defaults to 0). Use this along
+     * with the maxRows config property to request pages of data.
+     */
     offset?: number
+
     pivot?: IPivot
+
     scope?: any
+
+    /** Define how columns are sorted. */
     sort?: Array<ISort>
+
     transforms?: Array<ITransform>
 }
 
@@ -58,7 +111,13 @@ export interface IGetRawDataParams {
 }
 
 export interface IPivot {
+    /** The column to pivot by. Can be an array of strings, a string, or a {@link LABKEY.FieldKey} */
     by: string | Array<string> | FieldKey
+
+    /**
+     * The columns to pivot. Is an array containing strings, arrays of strings, and/or
+     * {@link LABKEY.FieldKey} objects.
+     */
     columns: Array<string | Array<string> | FieldKey>
 }
 
@@ -72,22 +131,42 @@ export interface IRenderer {
 }
 
 export interface ISort {
+    /** Can be 'ASC' or 'DESC', defaults to 'ASC'. */
     dir?: string
+
+    /** The field key of the column to sort. Can be a string, array of strings, or a {@link LABKEY.FieldKey} */
     fieldKey: string | Array<string> | FieldKey
 }
 
 export interface ITransform {
     aggregates?: Array<ITransformAggregate>
-    filters?: Array<any>
+
+    /**
+     * An array containing  objects created with {@link LABKEY.Filter.create}, {@link LABKEY.Query.Filter} objects,
+     * or javascript objects.
+     */
+    filters?: Array<IGetDataFilter>
+
+    /** An array of Objects. Each object can be a string, array of strings, or a {@link LABKEY.FieldKey}. */
     groupBy?: Array<string | Array<string> | FieldKey>
+
     type?: string
 }
 
 export interface ITransformAggregate {
+    /** The target column. Can be an array of strings, a string, or a {@link LABKEY.FieldKey} */
     fieldKey: string | Array<string> | FieldKey
+
+    /**  The type of aggregate. */
     type: string
 }
 
+/**
+ * Used to get the raw data from a GetData request. Roughly equivalent to {@link LABKEY.Query.selectRows} or
+ * {@link LABKEY.Query.executeSql}, except it allows the user to pass the data through a series of transforms.
+ * @param {IGetRawDataOptions} config
+ * @returns {XMLHttpRequest}
+ */
 export function getRawData(config: IGetRawDataOptions): XMLHttpRequest {
 
     let jsonData = validateGetDataConfig(config);
@@ -214,6 +293,12 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
     return jsonData;
 }
 
+/**
+ * @hidden
+ * @private
+ * @param {string | Array<string> | FieldKey} key
+ * @returns {Array<string>}
+ */
 function validateFieldKey(key: string | Array<string> | FieldKey): Array<string> {
     if (key instanceof FieldKey) {
         return key.getParts();
@@ -259,6 +344,11 @@ function validateFilter(filter: any): IGetDataFilter {
     return filter;
 }
 
+/**
+ * @hidden
+ * @private
+ * @param {IPivot} pivot
+ */
 function validatePivot(pivot: IPivot): void {
     if (!pivot.columns || pivot.columns == null) {
         throw new Error('pivot.columns is required.');
@@ -287,6 +377,12 @@ function validatePivot(pivot: IPivot): void {
     }
 }
 
+/**
+ * @hidden
+ * @private
+ * @param {string | Array<string> | SchemaKey} key
+ * @returns {Array<string>}
+ */
 function validateSchemaKey(key: string | Array<string> | SchemaKey): Array<string> {
     if (key instanceof SchemaKey) {
         return key.getParts();
@@ -303,6 +399,11 @@ function validateSchemaKey(key: string | Array<string> | SchemaKey): Array<strin
     return undefined;
 }
 
+/**
+ * @hidden
+ * @private
+ * @param {IGetDataSource} source
+ */
 function validateSource(source: IGetDataSource): void {
     if (!source || source == null) {
         throw new Error('A source is required for a GetData request.');
@@ -337,6 +438,11 @@ function validateSource(source: IGetDataSource): void {
     }
 }
 
+/**
+ * @hidden
+ * @private
+ * @param {ITransform} transform
+ */
 function validateTransform(transform: ITransform): void {
 
     // Issue 18138
