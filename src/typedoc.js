@@ -1,4 +1,5 @@
 module.exports = {
+    out: './docs',
     theme: "src/labkey/theme",
     mode: "modules",
     exclude: [
