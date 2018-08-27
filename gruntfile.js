@@ -1,5 +1,5 @@
-module.exports = function(grunt)
-{
+module.exports = function(grunt) {
+
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         ts: {
@@ -11,12 +11,12 @@ module.exports = function(grunt)
                     declaration: false
                 },
                 src: [
-                    'src/labkey/theme/assets/js/src/lib/**/*.ts',
-                    'src/labkey/theme/assets/js/src/typedoc/Application.ts',
-                    'src/labkey/theme/assets/js/src/typedoc/components/**/*.ts',
-                    'src/labkey/theme/assets/js/src/typedoc/services/**/*.ts',
-                    'src/labkey/theme/assets/js/src/typedoc/utils/**/*.ts',
-                    'src/labkey/theme/assets/js/src/~bootstrap.ts'
+                    'theme/assets/js/src/lib/**/*.ts',
+                    'theme/assets/js/src/typedoc/Application.ts',
+                    'theme/assets/js/src/typedoc/components/**/*.ts',
+                    'theme/assets/js/src/typedoc/services/**/*.ts',
+                    'theme/assets/js/src/typedoc/utils/**/*.ts',
+                    'theme/assets/js/src/~bootstrap.ts'
                 ],
                 out: 'docs/assets/js/main.js'
             }
@@ -28,11 +28,11 @@ module.exports = function(grunt)
                 },
                 files: {
                     'docs/assets/js/main.js': [
-                        'src/labkey/theme/assets/js/lib/jquery-2.1.1.min.js',
-                        'src/labkey/theme/assets/js/lib/underscore-1.6.0.min.js',
-                        'src/labkey/theme/assets/js/lib/backbone-1.1.2.min.js',
-                        'src/labkey/theme/assets/js/lib/lunr.min.js',
-                        'src/labkey/theme/assets/js/main.js'
+                        'theme/assets/js/lib/jquery-2.1.1.min.js',
+                        'theme/assets/js/lib/underscore-1.6.0.min.js',
+                        'theme/assets/js/lib/backbone-1.1.2.min.js',
+                        'theme/assets/js/lib/lunr.min.js',
+                        'theme/assets/js/main.js'
                     ]
                 }
             }
@@ -45,7 +45,7 @@ module.exports = function(grunt)
                 },
                 files: [{
                     expand: true,
-                    cwd: 'src/labkey/theme/assets/css',
+                    cwd: 'theme/assets/css',
                     src: '**/*.sass',
                     dest: 'docs/assets/css',
                     ext: '.css'
@@ -66,7 +66,7 @@ module.exports = function(grunt)
             themeDefault: {
                 files: [{
                     expand: true,
-                    cwd: 'src/labkey/theme',
+                    cwd: 'theme',
                     src: ['**/*.png'],
                     dest: 'docs'
                 }]

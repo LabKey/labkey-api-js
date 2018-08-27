@@ -1,13 +1,13 @@
 module.exports = {
     out: './docs',
-    theme: "src/labkey/theme",
+    theme: "theme",
     mode: "modules",
     exclude: [
         "**/*+(wrapper|wrapper-dom|.spec).ts",
-        "**/src/labkey/theme/**"
+        "**/theme/**"
     ],
     externalPattern: "**/node_modules/** ",
     excludeExternals: true,
     excludePrivate: true,
     ignoreCompilerErrors: true
-}
+};

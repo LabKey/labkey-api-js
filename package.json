@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
     "build:dist": "npm run clean && webpack --config webpack.config.js && rollup -c",
-    "build:docs": "npm run clean:docs && typedoc --options src/typedoc.js ./src/labkey && touch docs/.nojekyll && grunt",
+    "build:docs": "npm run clean:docs && typedoc --options theme/typedoc.js ./src/labkey && touch docs/.nojekyll && grunt",
     "clean": "rimraf dist && npm run clean:docs",
     "clean:docs": "rimraf docs",
     "predeploy": "npm run build:docs",
