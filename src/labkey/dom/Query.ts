@@ -106,6 +106,7 @@ export interface IImportDataOptions {
     format?: string
     importIdentity?: any
     importLookupByAlternateKey?: boolean
+    importUrl?: string
     module?: string
     moduleResource?: any
     path?: string
@@ -165,7 +166,7 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     }
 
     return request({
-        url: buildURL('query', 'import.api', options.containerPath),
+        url: options.importUrl || buildURL('query', 'import.api', options.containerPath),
         method: 'POST',
         form,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
