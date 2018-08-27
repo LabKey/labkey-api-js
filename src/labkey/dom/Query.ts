@@ -100,13 +100,13 @@ export function exportTables(options: IExportTablesOptions): void {
 }
 
 export interface IImportDataOptions {
-    importUrl?: string
     containerPath?: string
     failure?: Function
     file?: File | Element | any
     format?: string
     importIdentity?: any
     importLookupByAlternateKey?: boolean
+    importUrl?: string
     module?: string
     moduleResource?: any
     path?: string
