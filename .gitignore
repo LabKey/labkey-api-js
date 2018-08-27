@@ -2,7 +2,6 @@
 dist
 node_modules
 npm-debug.log
-docs
 package-lock.json
-sass-cashe
+sass-cache
 tscache

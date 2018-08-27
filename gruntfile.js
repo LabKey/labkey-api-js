@@ -70,21 +70,18 @@ module.exports = function(grunt)
                     src: ['**/*.png'],
                     dest: 'docs'
                 }]
-            },
+            }
         }
     });
 
 
-    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-string-replace');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-ts');
 
     grunt.registerTask('css', ['sass', 'autoprefixer']);
     grunt.registerTask('js', ['ts:themeDefault', 'uglify']);
-    // grunt.registerTask('default', ['copy', 'css', 'js', 'string-replace']);
     grunt.registerTask('default', ['copy', 'css', 'js']);
 };
