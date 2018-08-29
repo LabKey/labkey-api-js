@@ -5,7 +5,8 @@
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
     "build:dist": "npm run clean && webpack --config webpack.config.js && rollup -c",
-    "build:docs": "npm run clean:docs && typedoc --options theme/typedoc.js ./src/labkey && touch docs/.nojekyll && grunt",
+    "build:docs": "npm run clean:docs && typedoc --options theme/typedoc.js ./src/labkey && touch docs/.nojekyll && npm run build:docs-theme",
+    "build:docs-theme": "rimraf docs/assets/css && webpack --config theme/webpack.config.js",
     "clean": "rimraf dist && npm run clean:docs",
     "clean:docs": "rimraf docs",
     "predeploy": "npm run build:docs",
@@ -37,20 +38,18 @@
     "@types/jest": "23.3.1",
     "@types/sinon": "5.0.2",
     "cross-env": "5.2.0",
+    "css-loader": "1.0.0",
     "gh-pages": "1.2.0",
-    "grunt": "1.0.3",
-    "grunt-autoprefixer": "3.0.4",
-    "grunt-contrib-copy": "1.0.0",
-    "grunt-contrib-sass": "1.0.0",
-    "grunt-contrib-uglify": "3.4.0",
-    "grunt-ts": "6.0.0-beta.21",
     "jest": "23.5.0",
+    "mini-css-extract-plugin": "0.4.2",
+    "node-sass": "4.9.3",
+    "resolve-url-loader": "2.3.0",
     "rimraf": "2.6.2",
     "rollup": "0.65.0",
     "rollup-plugin-babel": "4.0.2",
     "rollup-plugin-node-resolve": "3.3.0",
     "rollup-plugin-typescript2": "0.17.0",
-    "ruby-sass": "0.0.3",
+    "sass-loader": "7.1.0",
     "sinon": "6.1.5",
     "ts-jest": "23.1.4",
     "ts-loader": "4.5.0",
@@ -83,6 +82,5 @@
     "transform": {
       "^.+\\.ts?$": "ts-jest"
     }
-  },
-  "dependencies": {}
+  }
 }
