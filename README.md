@@ -4,7 +4,7 @@ JavaScript package for interacting with [LabKey Server](https://www.labkey.com/)
 
 Written with joy in TypeScript.
 
-## v0.0.7 - Alpha
+## v0.0.9 - Alpha
 
 This package is under development. We're preparing the 1.0.0 release but in the meantime treat this package as experimental. All code is subject to change.
 
@@ -50,7 +50,7 @@ npm install
 npm run build
 ```
 
-Now that the distrobution is built you can load it up by serving the index.html file found in the package root. To serve it up from IntelliJ you can "Open in Browser". This will let you explore the API as it is exposed via the `LABKEY` global namespace.
+Now that the distribution is built you can load it up by serving the index.html file found in the package root. To serve it up from IntelliJ you can "Open in Browser". This will let you explore the API as it is exposed via the `LABKEY` global namespace.
 
 ### Running against a LabKey Server
 
