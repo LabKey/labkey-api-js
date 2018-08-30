@@ -21,6 +21,13 @@ import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
 /**
  * Delete rows.
+ * @see LABKEY.Query.ModifyRowsResults
+ * @see LABKEY.Query.ModifyRowsOptions
+ * @param {IQueryRequestOptions} options
+ * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request
+ * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+ * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function deleteRows(options: IQueryRequestOptions) {
 
@@ -32,6 +39,41 @@ export function deleteRows(options: IQueryRequestOptions) {
 
 /**
  * Insert rows.
+ * #### Examples
+ * Example, from the Reagent Request <a href="https://www.labkey.org/Documentation/wiki-page.view?name=reagentRequestForm">Tutorial</a> and <a href="https://www.labkey.org/home/Study/demo/wiki-page.view?name=reagentRequest">Demo</a>:
+ *
+ * ```
+ * // This snippet inserts data from the ReagentReqForm into a list.
+ * // Upon success, it moves the user to the confirmation page and
+ * // passes the current user's ID to that page.
+ * LABKEY.Query.insertRows({
+ *     containerPath: '/home/Study/demo/guestaccess',
+ *     schemaName: 'lists',
+ *     queryName: 'Reagent Requests',
+ *     rows: [{
+ *        "Name":  ReagentReqForm.DisplayName.value,
+ *        "Email": ReagentReqForm.Email.value,
+ *        "UserID": ReagentReqForm.UserID.value,
+ *        "Reagent": ReagentReqForm.Reagent.value,
+ *        "Quantity": parseInt(ReagentReqForm.Quantity.value),
+ *        "Date": new Date(),
+ *        "Comments": ReagentReqForm.Comments.value,
+ *        "Fulfilled": 'false'
+ *     }],
+ *     successCallback: function(data){
+ *         window.location =
+ *            '/home/Study/demo/wiki-page.view?name=confirmation&userid='
+ *            + LABKEY.Security.currentUser.id;
+ *     },
+ * });
+ * ```
+ * @see LABKEY.Query.ModifyRowsResults
+ * @see LABKEY.Query.ModifyRowsOptions
+ * @param {IQueryRequestOptions} options
+ * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request
+ * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+ * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function insertRows(options: IQueryRequestOptions) {
 
@@ -49,7 +91,9 @@ export interface IQueryArguments {
     success: Function
 }
 
+// previously configFromArgs
 /**
+ * @hidden
  * @private
  */
 function queryArguments(args: any): IQueryArguments {
@@ -64,26 +108,91 @@ function queryArguments(args: any): IQueryArguments {
 }
 
 export interface ICommand {
+    /** Name of the command to be performed. Must be one of "insert", "update", or "delete". */
     command: 'delete' | 'insert' | 'update',
+
+    /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
     extraContext?: any
+
+    /**
+     * An array of data for each row to be changed. See [[insertRows]],
+     * [[updateRows]], or [[deleteRows]] for requirements of what data must be included for each row.
+     */
     rows: Array<any>
 }
 
 export interface ISaveRowsOptions {
+    /**
+     * Version of the API. If this is 13.2 or higher, a request that fails
+     * validation will be returned as a successful response. Use the 'errorCount' and 'committed' properties in the
+     * response to tell if it committed or not. If this is 13.1 or lower (or unspecified), the failure callback
+     * will be invoked instead in the event of a validation failure.
+     */
     apiVersion?: string | number
+
+    /** An array of all of the update/insert/delete operations to be performed. */
     commands?: Array<ICommand>
+
+    /**
+     * The container path in which the changes are to be performed.
+     * If not supplied, the current container path will be used.
+     */
     containerPath?: string
+
+    /**
+     * **Experimental:** Optional extra context object passed into the transformation/validation script environment.
+     * The extraContext at the command-level will be merged with the extraContext at the top-level of the config.
+     */
     extraContext?: any
+
+    /**
+     * Function called if execution of the "saveRows" function fails.
+     * See [[selectRows]] for more information on the parameters passed to this function.
+     */
     failure?: Function
+
+    /** A scope for the callback functions. Defaults to "this". */
     scope?: any
+
+    /**
+     * Function called when the "saveRows" function executes successfully.
+     * Called with arguments:
+     * * an object with the following properties:
+     *   * <strong>result</strong>: an array of parsed response data ({@link LABKEY.Query.ModifyRowsResults}) (one for each command in the request)
+     *   * <strong>errorCount</strong>: an integer, with the total number of errors encountered during the operation
+     *   * <strong>committed</strong>: a boolean, indicating if the changes were actually committed to the database
+     * * the XMLHttpRequest object
+     * * (optionally) the "options" object ({@link LABKEY.Query.ModifyRowsOptions})
+     */
     success?: Function
+
+    /** The maximum number of milliseconds to allow for this operation before generating a timeout error (defaults to 30000). */
     timeout?: number
+
+    /**
+     * Whether all of the row changes for all of the tables
+     * should be done in a single transaction, so they all succeed or all fail. Defaults to true.
+     */
     transacted?: boolean
+
+    /**
+     * Whether or not the server should attempt proceed through all of the
+     * commands, but not actually commit them to the database. Useful for scenarios like giving incremental
+     * validation feedback as a user fills out a UI form, but not actually save anything until they explicitly request
+     * a save.
+     */
     validateOnly?: boolean
 }
 
 /**
  * Save inserts, updates, and/or deletes to potentially multiple tables with a single request.
+ * @see LABKEY.Query.ModifyRowsResults
+ * @see LABKEY.Query.ModifyRowsOptions
+ * @param {ISaveRowsOptions} options
+ * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request
+ * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+ * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function saveRows(options: ISaveRowsOptions): XMLHttpRequest {
 
@@ -120,6 +229,12 @@ export interface ISelectDistinctOptions {
      * This column must exist within the specified query.
      */
     column: string
+
+    /**
+     * One of the values of [[containerFilter]] that sets
+     * the scope of this query. Defaults to containerFilter.current, and is interpreted relative to
+     * config.containerPath.
+     */
     containerFilter?: string
     containerPath?: string
     dataRegionName?: string
@@ -133,7 +248,15 @@ export interface ISelectDistinctOptions {
     ignoreFilter?: boolean
     maxRows?: number
     method?: string
+
+    /**
+     * Map of name (string)/value pairs for the values of parameters if the SQL
+     *        references underlying queries that are parameterized. For example, the following passes two parameters to the query: {'Gender': 'M', 'CD4': '400'}.
+     *        The parameters are written to the request URL as follows: query.param.Gender=M&query.param.CD4=400.  For details on parameterized SQL queries, see
+     *        <a href="https://www.labkey.org/Documentation/wiki-page.view?name=paramsql">Parameterized SQL Queries</a>.
+     */
     parameters?: any
+
     /**
      * Name of a query table associated with the chosen schema.
      * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
@@ -161,6 +284,7 @@ export interface ISelectDistinctOptions {
 }
 
 /**
+ * @hidden
  * @private
  */
 function buildSelectDistinctParams(options: ISelectDistinctOptions): any {
@@ -205,7 +329,9 @@ function buildSelectDistinctParams(options: ISelectDistinctOptions): any {
 }
 
 /**
- * Select Distinct Rows.
+ * Select Distinct Rows
+ * @param {ISelectDistinctOptions} options
+ * @returns {XMLHttpRequest}
  */
 export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequest {
 
@@ -230,13 +356,13 @@ export type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 export interface ISelectRowsOptions {
     /**
      * Name of a query table associated with the chosen schema.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     queryName: string
 
     /**
      * Name of a schema defined within the current container.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     schemaName: string
 
@@ -342,6 +468,7 @@ export interface ISelectRowsResults {
 }
 
 /**
+ * @hidden
  * @private
  */
 function buildParams(options: ISelectRowsOptions): any {
@@ -416,6 +543,7 @@ function buildParams(options: ISelectRowsOptions): any {
 }
 
 /**
+ * @hidden
  * @private
  * Provides backwards compatibility with pre-1.0 selectRows() argument configuration.
  */
@@ -433,6 +561,42 @@ function selectRowArguments(args: any): ISelectRowsOptions {
 
 /**
  * Select rows.
+ * #### Examples
+ *
+ * ```
+ * <pre name="code" class="xml">
+ * &lt;script type="text/javascript"&gt;
+ * function onFailure(errorInfo, options, responseObj)
+ * {
+ *     if (errorInfo && errorInfo.exception)
+ *         alert("Failure: " + errorInfo.exception);
+ *     else
+ *         alert("Failure: " + responseObj.statusText);
+ * }
+ *
+ * function onSuccess(data)
+ * {
+ *     alert("Success! " + data.rowCount + " rows returned.");
+ * }
+ *
+ * LABKEY.Query.selectRows({
+ *    schemaName: 'lists',
+ *    queryName: 'People',
+ *    columns: ['Name', 'Age'],
+ *    success: onSuccess,
+ *    failure: onFailure
+ * });
+ * &lt;/script&gt; </pre>
+ * ```
+ * @see LABKEY.Query.SelectRowsOptions
+ * @see LABKEY.Query.SelectRowsResults
+ * @see LABKEY.Query.ExtendedSelectRowsResults
+ * @see [[Response]]
+ * @param {ISelectRowsOptions} options
+ * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request
+ * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+ * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  */
 export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
 
@@ -460,32 +624,67 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
 export interface IQueryRequestOptions {
     action?: string // TODO: 'action' is actually required by sendRequest but not from the user, type it this way
     apiVersion?: number | string
+
+    /**
+     * The container path in which the schema and query name are defined.
+     * If not supplied, the current container path will be used.
+     */
     containerPath?: string
+
+    /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
     extraContext?: any
+
+    /**
+     * Function called when execution of the "deleteRows" function fails.
+     * See [[selectRows]] for more information on the parameters passed to this function.
+     */
     failure?: Function
 
     /**
      * Name of a query table associated with the chosen schema.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     queryName: string
 
     rowDataArray?: Array<any>
+
+    /**
+     * Array of record objects in which each object has a property for each field.
+     * The row data array needs to include only the primary key column value, not all columns.
+     */
     rows?: any
 
     /**
      * Name of a schema defined within the current container.
-     * See also: <a class="link" href="https://www.labkey.org/Documentation/wiki-page.view?name=findNames">How To Find schemaName, queryName &amp; viewName</a>.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     schemaName: string
 
+    /** A scope for the callback functions. Defaults to "this". */
     scope?: any
+
+    /**
+     * Function called when the "deleteRows" function executes successfully.
+     * Will be called with the following arguments:
+     * * the parsed response data ({@link LABKEY.Query.ModifyRowsResults})
+     * * the XMLHttpRequest object
+     * * (optionally) the "options" object ({@link LABKEY.Query.ModifyRowsOptions}).
+     */
     success?: Function
+
+    /**
+     * The maximum number of milliseconds to allow for this operation before
+     * generating a timeout error (defaults to 30000).
+     */
     timeout?: number
+
+    /** Whether all of the deletes should be done in a single transaction, so they all succeed or all fail. Defaults to true. */
     transacted?: boolean
 }
 
+// Formerly sendJsonQueryRequest
 /**
+ * @hidden
  * @private
  */
 function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
@@ -508,6 +707,8 @@ function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
 
 /**
  * Update rows.
+ * @param {IQueryRequestOptions} options
+ * @returns {XMLHttpRequest}
  */
 export function updateRows(options: IQueryRequestOptions): XMLHttpRequest {
 

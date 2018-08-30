@@ -29,11 +29,26 @@ function createValues(json: any): Array<any> {
 }
 
 export interface IGetValuesOptions {
+    /**
+     * Function called when execution fails.  Called with the following parameters:
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
+     */
     failure?: Function
     scope?: any
+
+    /**
+     * Function called when execution succeeds. Will be called with one argument:
+     * **values**: an array of unique dimension values
+     */
     success?: Function
 }
 
+/**
+ * @namespace Dimensions are data elements (columns) on which [[Measure]] objects
+ * can be pivoted or transformed.  For example, the 'Analyte Name' dimension may be used to pivot a single 'Result' measure
+ * into one series per Analyte.
+ */
 export class Dimension {
 
     description: string;
@@ -101,6 +116,7 @@ export class Dimension {
 
     /**
      * Returns the set of available unique values for this dimension.
+     * @param {IGetValuesOptions} options
      */
     getValues(options: IGetValuesOptions): void {
 

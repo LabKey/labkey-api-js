@@ -17,6 +17,7 @@ import { getLocation, getServerContext } from './constants'
 import { isArray } from './Utils'
 
 /**
+ * @hidden
  * @private
  */
 function buildParameterMap(paramString?: string): {[key:string]: any} {
@@ -65,12 +66,52 @@ function buildParameterMap(paramString?: string): {[key:string]: any} {
     return parameters;
 }
 
-export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: string | Array<string>}): string {
+/**
+ * Builds a URL from a controller and an action.  Uses the current container and context path.
+ * #### Examples
+ * 1. Build the URL for the 'plotChartAPI' action in the 'reports' controller within the current container
+ * ```
+ * var url = LABKEY.ActionURL.buildURL("reports", "plotChartApi");
+ * ```
+ *
+ * 2. Build the URL for the 'getWebPart' action in the 'reports' controller within the current container
+ * ```
+ * var url = LABKEY.ActionURL.buildURL("project", "getWebPart");
+ * ```
+ *
+ * 3. Build the URL for the 'updateRows' action in the 'query' controller within the container "My Project/My Folder"
+ * ```
+ * var url = LABKEY.ActionURL.buildURL("query", "updateRows", "My Project/My Folder");
+ * ```
+ *
+ * 4. Navigate the browser to the study controller's begin action in the current container
+ * ```
+ * window.location = LABKEY.ActionURL.buildURL("study", "begin");
+ * ```
+ *
+ * 5. Navigate the browser to the study controller's begin action in the folder "/myproject/mystudyfolder"
+ * ```
+ * window.location = LABKEY.ActionURL.buildURL("study", "begin", "/myproject/mystudyfolder");
+ * ```
+ *
+ * 6. Navigate to the list controller's insert action, passing a returnUrl parameter that points back to the current page:
+ * ```
+ * window.location = LABKEY.ActionURL.buildURL("list", "insert", LABKEY.ActionURL.getContainer(), {listId: 50, returnUrl: window.location});
+ * ```
+ * @param controller The controller to use in building the URL
+ * @param action The action to use in building the URL
+ * @param containerPath The container path to use (defaults to the current container)
+ * @param parameters An object with properties corresponding to GET parameters to append to the URL.
+ * Parameters will be encoded automatically. Parameter values that are arrays will be appended as multiple parameters
+ * with the same name. (Defaults to no parameters)
+ * @return URL constructed from the current container and context path, plus the specified controller and action.
+ */
+export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: any }): string {
     if (containerPath) {
         containerPath = encodePath(containerPath);
     }
     else {
-        containerPath = getContainer(); // TODO: Shouldn't we be encoding this as well?
+        containerPath = exports.getContainer(); // TODO: Shouldn't we be encoding this as well?
     }
 
     // ensure that the container begins/ends with a "/"
@@ -102,6 +143,7 @@ export function buildURL(controller: string, action: string, containerPath?: str
 }
 
 /**
+ * @hidden
  * @private
  * Decoder for LabKey container paths that accounts for / to only decode the proper names. NOTE: This method is
  * marked as private and could change at any time.
@@ -113,6 +155,7 @@ export function decodePath(encodedPath: string): string {
 }
 
 /**
+ * @hidden
  * @private
  * Encoder for LabKey container paths that accounts for / to only encode the proper names.
  * NOTE: This method is marked as private and could change at any time.
@@ -125,7 +168,7 @@ export function encodePath(decodedPath: string): string {
 
 /**
  * Gets the current action
- * @returns {string} Current action.
+ * @returns Current action.
  */
 export function getAction(): string {
     return getPathFromLocation().action;
@@ -134,17 +177,17 @@ export function getAction(): string {
 /**
  * Get the current base URL, which includes context path by default
  * for example: http://labkey.org/labkey/
- * @param {boolean} [noContextPath] Set true to omit the context path.  Defaults to false.
- * @return {String} Current base URL.
+ * @param noContextPath Set true to omit the context path.  Defaults to false.
+ * @returns Current base URL.
  */
-export function getBaseURL(noContextPath: boolean): string {
+export function getBaseURL(noContextPath?: boolean): string {
     const location = getLocation();
-    return location.protocol + '//' + location.host + (noContextPath ? '' : getContextPath() + '/');
+    return location.protocol + '//' + location.host + (noContextPath ? '' : exports.getContextPath() + '/');
 }
 
 /**
  * Gets the current (unencoded) container path.
- * @returns {string} Current container path.
+ * @returns Current container path.
  */
 export function getContainer(): string {
     const { container } = getServerContext();
@@ -158,10 +201,10 @@ export function getContainer(): string {
  * Gets the current container's name. For example, if you are in the
  * /Project/SubFolder/MyFolder container, this method would return 'MyFolder'
  * while getContainer() would return the entire path.
- * @returns {string} Current container name.
+ * @returns Current container name.
  */
 export function getContainerName(): string {
-    const containerPath = getContainer();
+    const containerPath = exports.getContainer();
     return containerPath.substring(containerPath.lastIndexOf('/') + 1);
 }
 
@@ -236,7 +279,7 @@ export function getParameters(url?: string): {[key:string]: any} {
  * Parameters will be encoded automatically. Parameter values that are arrays will be appended as multiple parameters
  * with the same name. (Defaults to no parameters.)
  */
-export function queryString(parameters: {[key:string]: string | Array<string>}): string {
+export function queryString(parameters?: {[key:string]: string | Array<string>}): string {
     if (!parameters) {
         return '';
     }
@@ -271,6 +314,7 @@ export function queryString(parameters: {[key:string]: string | Array<string>}):
 }
 
 /**
+ * @hidden
  * @private
  */
 interface ActionPath {
@@ -280,6 +324,7 @@ interface ActionPath {
 }
 
 /**
+ * @hidden
  * @private
  */
 function codePath(path: string, method: (v: string) => string): string {
@@ -292,6 +337,7 @@ function codePath(path: string, method: (v: string) => string): string {
 
 // Formerly, parsePathName
 /**
+ * @hidden
  * @private
  */
 function getPathFromLocation(): ActionPath {

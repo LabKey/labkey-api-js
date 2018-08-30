@@ -16,6 +16,9 @@
 
 export type TAggregate = 'AVG' | 'COUNT' | 'MAX' | 'MIN' | 'SUM';
 
+/**
+ * @namespace Possible aggregates when pivoting a resultset by a dimension.  See  [[getData]].
+ */
 export const Aggregate: {
     [key: string]: string
 } = {
@@ -33,6 +36,9 @@ export const Aggregate: {
 
 export type TInterval = 'DAY' | 'MONTH' | 'WEEK' | 'YEAR';
 
+/**
+ * @namespace Possible intervals for aligning series in time plots.  See  [[getData]].
+ */
 export const Interval: {
     [key: string]: string
 } = {
@@ -48,6 +54,10 @@ export const Interval: {
 
 export type TType = 'ReportService.GenericChartReport' | 'ReportService.TimeChartReport';
 
+/**
+ * @namespace A predefined set of visualization types, for use in the config.type property in the
+ * [[save]] method.
+ */
 export const Type: {
     [key: string]: string
 } = {

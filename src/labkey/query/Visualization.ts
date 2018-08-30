@@ -56,10 +56,28 @@ function createTypes(json: any): Array<any> {
 }
 
 export interface IDateOptions {
+    /** A measure object (with properties for name, queryName, and schemaName) of type date specifying the measure date. */
     dateCol: Measure | IMeasureLike
+
+    /**
+     * See [[Interval]].  The type of interval that should be calculated between the measure date and the zero date
+     * (if zeroDateCol is specified) or zero day (if zeroDayVisitTag is specified).
+     */
     interval?: TInterval
+
+    /**
+     * If true, zeroDayVisitTag uses ParticipantVisit.ProtocolDay to calculate offsets;
+     * if false ParticipantVisit.Day is used. Defaults to true.
+     */
     useProtocolDay?: boolean
+
+    /**
+     * A measure object (with properties for name, queryName, and schemaName) of type date specifiying
+     * the zero date, used to align data points in terms of days, weeks, or months.
+     */
     zeroDateCol?: Measure | IMeasureLike
+
+    /** A VisitTag that will be used to find the ParticipantVisit used to align data points. */
     zeroDayVisitTag?: string
 }
 
@@ -67,17 +85,48 @@ export interface IDimensionLike {
 }
 
 export interface IGetOptions {
+    /**
+     * Function called when execution fails.  Called with the following parameters:
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
+     */
     failure?: Function
     name: string
     reportId?: any
+
+    /**
+     * Optional, but required if config.schemaName is provided.  Limits the search for
+     * the visualization to a specific schema and query.  Note that visualization names are unique within a container
+     * (regardless of schema and query), so these additional optional parameters are only useful in a small number of circumstances.
+     */
     queryName?: string
+
+    /**
+     * Optional, but required if config.queryName is provided.  Limits the search for
+     * the visualization to a specific schema and query.  Note that visualization names are unique within a container
+     * (regardless of schema and query), so these additional optional parameters are only useful in a small number of circumstances.
+     */
     schemaName?: string
     scope?: any
+
+    /**
+     * Function called when execution succeeds. Will be called with one arguments:
+     * * **result**: an object with two properties:
+     *    * **name**: The name of the saved visualization
+     *    * **description**: The description of the saved visualization
+     *    * **type**: The visualization type
+     *    * **schemaName**: The schema to which this visualization has been scoped, if any
+     *    * **queryName**: The query to which this visualization has been scoped, if any
+     *    * **visualizationConfig**: The configuration object provided to [[save]]
+     * * **request**: the XMLHttpRequest object
+     * * **options**: a request options object
+     */
     success?: Function
 }
 
 /**
- * Retrieves a saved visualization.
+ * Retrieves a saved visualization.  See [[save]].
+ * @param {IGetOptions} options
  */
 export function get(options: IGetOptions): void {
 
@@ -111,17 +160,39 @@ export function get(options: IGetOptions): void {
 export interface IGetDataOptions {
     containerPath?: string
     endpoint?: string
+
+    /**
+     * Function called when execution fails.  Called with the following parameters:
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
+     */
     failure?: Function
     filterQuery?: string
     filterUrl?: string
     groupBys?: any // TODO: determine type
+
+    /**
+     * Default false. If true, all measures will be joined to the first measure
+     * in the array instead of to the previous measure.
+     */
     joinToFirst?: boolean
     limit?: any // TODO: determine type
     measures: Array<IMeasureable>
+
+    /** Default false. If true, response will no include the actual data rows, just metadata. */
     metaDataOnly?: boolean
     parameters?: any
     scope?: any
+
+    /** Generally an array of augmented [[Dimension]] or [[Measure]] objects */
     sorts?: Array<Dimension> | Array<Measure> | Array<IGetDataSortable>
+
+    /**
+     * Function called when execution succeeds. Will be called with three arguments:
+     * * **data**: the parsed response data ({@link LABKEY.Query.SelectRowsResults})
+     * * **request**: the XMLHttpRequest object
+     * * **options**: a request options object ({@link LABKEY.Query.SelectRowsOptions})
+     */
     success?: Function
 }
 
@@ -131,7 +202,7 @@ export interface IGetDataSortable {
 
 /**
  * Returns a resultset suitable for visualization based on requested measures and dimensions.
- * @param options
+ * @param {IGetDataOptions} options
  */
 export function getData(options: IGetDataOptions): void {
 
@@ -223,18 +294,22 @@ export function getDataFilterFromURL(): string {
 }
 
 export interface IGetFromUrlOptions {
+    /** Function called when the saved visualization could not be retrieved.  See [[get]] for details. */
     failure?: Function
     scope?: any
+
+    /** Function called when the saved visualization was successfully retrieved. See [[get]] for details. */
     success?: Function
 }
 
 /**
  * Retrieves a saved visualization based on identifying parameters found on the current URL.
  * Method returns true or false, depending on whether the URL contains a saved visualization identifier.
- * If true, the success or failure callback function will be called just as with get(). If false, no callbacks
+ * If true, the success or failure callback function will be called just as with [[get]]. If false, no callbacks
  * will be called. This method allows callers to use a single method to retrieve saved visualizations, regardless
  * of how they are identified on the URL.
- * @returns {boolean}
+ * @param {IGetFromUrlOptions} options
+ * @returns {boolean} Indicates whether the current URL includes parameters that identify a saved visualization.
  */
 export function getFromUrl(options: IGetFromUrlOptions): boolean {
     let params: any = options || {};
@@ -264,17 +339,32 @@ export function getFromUrl(options: IGetFromUrlOptions): boolean {
 
 export interface IGetMeasuresOptions {
     allColumns?: any
+
+    /** Indicates whether date measures should be returned instead of numeric measures. Defaults to false. */
     dateMeasures?: any
+
+    /**
+     * Function called when execution fails.  Called with the following parameters:
+     * * **errorInfo:** an object containing detailed error information (may be null)
+     * * **response:** The XMLHttpResponse object
+     */
     failure?: Function
+
+    /** An array of [[Filter]] objects. **/
     filters?: Array<any> // TODO: Check if this is expecting Query Filters
     showHidden?: any;
     scope?: any
+
+    /**
+     * Function called when execution succeeds. Will be called with one argument:
+     * * **measures**: an array of [[Measure]] objects.
+     */
     success?: Function
 }
 
 /**
  * Returns the set of plottable measures found in the current container.
- * @param options
+ * @param {IGetMeasuresOptions} options
  */
 export function getMeasures(options: IGetMeasuresOptions): void {
 
@@ -322,21 +412,56 @@ export function getTypes(options: IGetTypesOptions): void {
 }
 
 export interface IMeasureable {
+    /**
+     * Optional if this measure's axis.timeAxis property is true, ignored otherwise.  Has the following child properties.
+     * Either zeroDateCol or ZeroDayVisitTag may be specified, but not both.
+     */
     dateOptions?: IDateOptions
+
+    /** Used to pivot a resultset into multiple series.  Generally an augmented [[Dimension]] */
     dimension?: Dimension | IDimensionLike
     filterArray?: Array<QueryFilter>
+
+    /** Generally an augmented [[Measure]] */
     measure: Measure | IMeasureLike
+
+    /** "date" indicates this measure is date-based. "time" indicates it is time-based. */
     time?: any
 }
 
 export interface IMeasureLike {
+    /**
+     * See [[Aggregate]].  Required if a 'dimension' property is specified, ignored otherwise.  Indicates
+     * what data should be returned if pivoting by dimension results in multiple underlying values
+     * per series data point.
+     */
     aggregate?: TAggregate
+
+    /** String. */
     alias: string
+
+    /**
+     * Optional, defaults to true.  If true, this measure will be joined to other measures via an outer join, which will allow results
+     * from other measures at timepoints not present for this measure (possibly resulting in null/blank values for this measure).  If false, other measures will be inner joined
+     * to this measure, which will produce a dataset without null values for this measure, but which may not include all data from joined measures.
+     */
     allowNullResults?: boolean
+
+    /** Boolean (default false). Indicates whether the measure is Demographic data. */
     isDemographic?: boolean
+
+    /** The  name of the column containing this measure. */
     name: string
+
+    /** The name of the query containing this measure. */
     queryName: string
+
+    /** The name of the schema containing the query that contains this measure. */
     schemaName: string
+
+    /** The data type of this measure. */
     type: string
+
+    /** Optional.  If provided, results will be filtered to include only the provided values. */
     values?: any
 }

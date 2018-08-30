@@ -20,7 +20,47 @@ import { applyTranslated, displayAjaxErrorResponse, getCallbackWrapper, getOnFai
 
 /**
  * Gets all assays
+ * #### Examples
+ *
+ * ```
+ * <pre name="code" class="xml">
+ * &lt;script type="text/javascript"&gt;
+ * function successHandler(assayArray)
+ * {
+ *     var html = '';
+ *     for (var defIndex = 0; defIndex < assayArray.length; defIndex ++)
+ *     {
+ *         var definition = assayArray[defIndex ];
+ *         html += '&lt;b&gt;' + definition.type + '&lt;/b&gt;: '
+ *             + definition.name + '&lt;br&gt;';
+ *         for (var domain in definition.domains)
+ *         {
+ *             html += '&nbsp;&nbsp;&nbsp;' + domain + '&lt;br&gt;';
+ *             var properties = definition.domains[domain];
+ *             for (var propertyIndex = 0; propertyIndex
+ *                 < properties.length; propertyIndex++)
+ *             {
+ *                 var property = properties[propertyIndex];
+ *                 html += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + property.name +
+ *                     ' - ' + property.typeName + '&lt;br&gt;';
+ *             }
+ *         }
+ *     }
+ *     document.getElementById('testDiv').innerHTML = html;
+ * }
+ *
+ * function errorHandler(error)
+ * {
+ *     alert('An error occurred retrieving data.');
+ * }
+ *
+ * LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
+ * &lt;/script&gt;
+ * &lt;div id='testDiv'&gt;Loading...&lt;/div&gt;
+ * </pre>
+ * ```
  * @param options
+ * @see [[LABKEY.Assay.AssayDesign]]
  */
 export function getAll(options: IGetAssaysOptions) {
 
@@ -37,14 +77,21 @@ export function getAll(options: IGetAssaysOptions) {
 }
 
 export interface IGetAssaysOptions {
+    /**The container path in which the requested Assays are defined.
+     * If not supplied, the current container path will be used.*/
     containerPath?: string
+    /**Function called when execution of the "getAll" function fails.*/
     failure?: Function
     parameters?: any
+    /**The scope to be used for the success and failure callbacks*/
     scope?: any
-    success?: Function
+    /**Function called when the "getAll" function executes successfully.
+     * Will be called with the argument: [[LABKEY.Assay.AssayDesign[]]].*/
+    success: Function
 }
 
 /**
+ * @hidden
  * @private
  */
 function getAssays(options: IGetAssaysOptions): void {
@@ -73,12 +120,14 @@ function getAssays(options: IGetAssaysOptions): void {
 }
 
 export interface IGetByIdOptions extends IGetAssaysOptions {
+    /**Unique integer ID for the assay.*/
     id: number
 }
 
 /**
  * Gets an assay by its ID.
  * @param options
+ * @see LABKEY.Assay.AssayDesign
  */
 export function getById(options: IGetByIdOptions): void {
 
@@ -98,12 +147,14 @@ export function getById(options: IGetByIdOptions): void {
 }
 
 export interface IGetByNameOptions extends IGetAssaysOptions {
+    /**String name of the assay.*/
     name: string
 }
 
 /**
  * Gets an assay by name.
  * @param options
+ * @see LABKEY.Assay.AssayDesign
  */
 export function getByName(options: IGetByNameOptions): void {
 
@@ -123,12 +174,14 @@ export function getByName(options: IGetByNameOptions): void {
 }
 
 export interface IGetByTypeOptions extends IGetAssaysOptions {
+    /**String name of the assay type.  "ELISpot", for example.*/
     type: string
 }
 
 /**
  * Gets an assay by type.
  * @param options
+ * @see LABKEY.Assay.AssayDesign
  */
 export function getByType(options: IGetByTypeOptions): void {
 
@@ -148,19 +201,58 @@ export function getByType(options: IGetByTypeOptions): void {
 }
 
 export interface IGetNAbRunsOptions {
+    /**The name of the NAb assay design for which runs are to be retrieved.*/
     assayName: string
+    /**Whether neutralization should be calculated on the server.*/
     calculateNeut?: boolean
+    /**The path to the container in which the schema and query are defined,
+     * if different than the current container. If not supplied, the current container's path will be used.*/
     containerPath?: string
-    failure?: Function
+    /**
+     * Function called when execution of the "getNAbRuns" function fails.
+     * This function will be called with the following arguments:
+     * * errorInfo: an object describing the error with the following fields:
+     *   * exception: the exception message
+     *   * exceptionClass: the Java class of the exception thrown on the server
+     *   * stackTrace: the Java stack trace at the point when the exception occurred
+     * * responseObj: the XMLHttpResponseObject instance used to make the AJAX request
+     * * options: the options used for the AJAX request
+     */
+    failure?: (errorInfo: {exception: string, exceptionClass: any, stackTrace: any}, responseObj: object, options: object) => any
+    /**Array of objects created by {@link LABKEY.Filter.create}.*/
     filterArray?: Array<Filter>
+    /**Whether the parameters used in the neutralization curve fitting calculation
+     * should be included in the response.*/
     includeFitParameters?: boolean
+    /**Whether or not statistics (standard deviation, max, min, etc.) should
+     * be returned with calculations and well data.*/
     includeStats?: boolean
+    /**Whether well-level data should be included in the response.*/
     includeWells?: boolean
+    /**The maximum number of runs to return from the server (defaults to 100).
+     * If you want to return all possible rows, set this config property to -1.*/
     maxRows?: number
+    /**The index of the first row to return from the server (defaults to 0).
+     * Use this along with the maxRows config property to request pages of data.*/
     offset?: number
     scope?: any
+    /**
+     * String description of the sort.  It includes the column names
+     * listed in the URL of a sorted data region (with an optional minus prefix to indicate
+     * descending order). In the case of a multi-column sort, up to three column names can be
+     * included, separated by commas.
+     */
     sort?: string
+    /**
+     * Function called when the "getNAbRuns" function executes successfully.
+     * This function will be called with the following arguments:
+     * * runs: an array of NAb run objects
+     * * options: the options used for the AJAX request
+     * * responseObj: the XMLHttpResponseObject instance used to make the AJAX request
+     */
     success: Function
+    /**The maximum number of milliseconds to allow for this operation before
+     * generating a timeout error (defaults to 30000).*/
     timeout?: number
 }
 
@@ -204,18 +296,86 @@ export function getNAbRuns(options: IGetNAbRunsOptions): void {
 }
 
 export interface IGetStudyNabGraphURLOptions {
+    /**The desired title for the chart. Defaults to no title.*/
     chartTitle?: string
+    /**The path to the study container containing the NAb summary data,
+     * if different than the current container. If not supplied, the current container's path will be used.*/
     containerPath?: string
+    /**
+     * Function called when execution of the "getStudyNabGraphURL" function fails.
+     * This function will be called with the following arguments:
+     * * errorInfo: an object describing the error with the following fields:
+     *   * exception: the exception message
+     *   * exceptionClass: the Java class of the exception thrown on the server
+     *   * stackTrace: the Java stack trace at the point when the exception occurred
+     * * responseObj: the XMLHttpResponseObject instance used to make the AJAX request
+     * * options: the options used for the AJAX request
+     */
     failure?: Function
+    /**Allowable values are FIVE_PARAMETER, FOUR_PARAMETER, and POLYNOMIAL.
+     * Defaults to FIVE_PARAMETER.*/
     fitType?: 'FIVE_PARAMETER' | 'FOUR_PARAMETER' | 'POLYNOMIAL'
+    /**Desired height of the graph image in pixels. Defaults to 300.*/
     height?: number
+    /**The object Ids for the NAb data rows that have been copied to the study.
+     * This method will ignore requests to graph any object IDs that the current user does not have permission to view.*/
     objectIds: Array<string | number>
     scope?: any
+    /**
+     * Function called when the "getStudyNabGraphURL" function executes successfully.
+     * This function will be called with the following arguments:
+     * * result: an object with the following properties:
+     *   * url: a string URL of the dilution curve graph.
+     *   * objectIds: an array containing the IDs of the samples that were successfully graphed.
+     * * responseObj: the XMLHttpResponseObject instance used to make the AJAX request
+     * * options: the options used for the AJAX request
+     */
     success: Function
+    /**The maximum number of milliseconds to allow for this operation before
+     * generating a timeout error (defaults to 30000).*/
     timeout?: number
+    /**Desired width of the graph image in pixels. Defaults to 425.*/
     width?: number
 }
 
+/**
+ * Retrieve the URL of an image that contains a graph of dilution curves for NAb results that have been copied to a study.
+ * Note that this method must be executed against the study folder containing the copied NAb summary data.
+ * #### Examples
+ *
+ * ```
+ * <pre name="code" class="xml">
+ * &lt;script type="text/javascript"&gt;
+ * function showGraph(data)
+ * {
+ *     var el = document.getElementById("graphDiv");
+ *     if (data.objectIds && data.objectIds.length &gt; 0)
+ *         el.innerHTML = '&lt;img src=\"' + data.url + '\"&gt;';
+ *     else
+ *         el.innerHTML = 'No graph available.  Insufficient permissions, ' +
+ *                        'or no matching results were found.';
+ * }
+ *
+ * function initiateGraph(ids)
+ * {
+ *     LABKEY.Assay.getStudyNabGraphURL({
+ *         objectIds: ids,
+ *         success: showGraph,
+ *         captionColumn: 'VirusName',
+ *         chartTitle: 'My NAb Chart',
+ *         height: 500,
+ *         width: 700,
+ *         fitType: 'FOUR_PARAMETER'
+ *     });
+ * }
+ *
+ * Ext.onReady(initiateGraph([185, 165]));
+ * &lt;/script&gt;
+ * &lt;div id="graphDiv"&gt;
+ * </pre>
+ * ```
+ * @param {IGetStudyNabGraphURLOptions} options
+ */
 export function getStudyNabGraphURL(options: IGetStudyNabGraphURLOptions): void {
 
     let params: any = {};
@@ -232,15 +392,40 @@ export function getStudyNabGraphURL(options: IGetStudyNabGraphURLOptions): void 
 }
 
 export interface IGetStudyNabRunsOptions {
+    /**Whether neutralization should be calculated on the server.*/
     calculateNeut?: boolean
+    /**The path to the study container containing the NAb summary,
+     * if different than the current container. If not supplied, the current container's path will be used.*/
     containerPath?: string
+    /**Function called when execution of the "getStudyNabRuns" function fails.
+     * This function will be called with the following arguments:
+     * * errorInfo: an object describing the error with the following fields:
+     *   * exception: the exception message
+     *   * exceptionClass: the Java class of the exception thrown on the server
+     *   * stackTrace: the Java stack trace at the point when the exception occurred
+     * * responseObj: the XMLHttpResponseObject instance used to make the AJAX request
+     * * options: the options used for the AJAX request
+     */
     failure?: Function
+    /**Whether the parameters used in the neutralization curve fitting calculation
+     * should be included in the response.*/
     includeFitParameters?: boolean
+    /**Whether or not statistics (standard deviation, max, min, etc.) should
+     * be returned with calculations and well data.*/
     includeStats?: boolean
+    /**Whether well-level data should be included in the response.*/
     includeWells?: boolean
+    /**The object Ids for the NAb data rows that have been copied to the study.*/
     objectIds: Array<string | number>
     scope?: any
+    /**
+     * Function called when the "getStudyNabRuns" function executes successfully.
+     * This function will be called with the following arguments:
+     * * runs: an array of NAb run objects
+     */
     success: Function
+    /**The maximum number of milliseconds to allow for this operation before
+     * generating a timeout error (defaults to 30000).*/
     timeout?: number
 }
 
@@ -269,6 +454,7 @@ export function getStudyNabRuns(options: IGetStudyNabRunsOptions): void {
 }
 
 /**
+ * @hidden
  * @private
  */
 function getSuccessCallbackWrapper(success: Function, scope: any): AjaxHandler {
@@ -280,6 +466,7 @@ function getSuccessCallbackWrapper(success: Function, scope: any): AjaxHandler {
 }
 
 /**
+ * @hidden
  * @private
  */
 function moveParameter(config: any, param: any): void {
