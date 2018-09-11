@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_saverows_.html">&quot;query/SaveRows&quot;</a>
+					<a href="../modules/_query_saverows_.html">query/SaveRows</a>
 				</li>
 				<li>
 					<a href="_query_saverows_.isaverowsoptions.html">ISaveRowsOptions</a>
@@ -105,9 +105,17 @@
 					<div class="tsd-signature tsd-kind-icon">api<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L38">query/SaveRows.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L52">query/SaveRows.ts:52</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Version of the API. If this is 13.2 or higher, a request that fails
+								validation will be returned as a successful response. Use the &#39;errorCount&#39; and &#39;committed&#39; properties in the
+								response to tell if it committed or not. If this is 13.1 or lower (or unspecified), the failure callback
+							will be invoked instead in the event of a validation failure.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="commands" class="tsd-anchor"></a>
@@ -115,9 +123,14 @@
 					<div class="tsd-signature tsd-kind-icon">commands<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_query_saverows_.icommand.html" class="tsd-signature-type">ICommand</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L39">query/SaveRows.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L55">query/SaveRows.ts:55</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An array of all of the update/insert/delete operations to be performed.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="containerpath" class="tsd-anchor"></a>
@@ -125,9 +138,15 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L40">query/SaveRows.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L61">query/SaveRows.ts:61</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The container path in which the changes are to be performed.
+							If not supplied, the current container path will be used.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="extracontext" class="tsd-anchor"></a>
@@ -135,9 +154,15 @@
 					<div class="tsd-signature tsd-kind-icon">extra<wbr>Context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L41">query/SaveRows.ts:41</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L67">query/SaveRows.ts:67</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p><strong>Experimental:</strong> Optional extra context object passed into the transformation/validation script environment.
+							The extraContext at the command-level will be merged with the extraContext at the top-level of the config.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
@@ -145,9 +170,15 @@
 					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L42">query/SaveRows.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L73">query/SaveRows.ts:73</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Function called if execution of the &quot;saveRows&quot; function fails.
+							See <a href="../modules/_query_rows_.html#selectrows">selectRows</a> for more information on the parameters passed to this function.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
@@ -155,9 +186,14 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L43">query/SaveRows.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L76">query/SaveRows.ts:76</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scope for the callback functions. Defaults to &quot;this&quot;.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
@@ -165,9 +201,25 @@
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L44">query/SaveRows.ts:44</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L88">query/SaveRows.ts:88</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Function called when the &quot;saveRows&quot; function executes successfully.
+							Called with arguments:</p>
+							<ul>
+								<li>an object with the following properties:<ul>
+										<li><strong>result</strong>: an array of parsed response data ({@link LABKEY.Query.ModifyRowsResults}) (one for each command in the request)</li>
+										<li><strong>errorCount</strong>: an integer, with the total number of errors encountered during the operation</li>
+										<li><strong>committed</strong>: a boolean, indicating if the changes were actually committed to the database</li>
+									</ul>
+								</li>
+								<li>the XMLHttpRequest object</li>
+								<li>(optionally) the &quot;options&quot; object ({@link LABKEY.Query.ModifyRowsOptions})</li>
+							</ul>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="timeout" class="tsd-anchor"></a>
@@ -175,9 +227,14 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L45">query/SaveRows.ts:45</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L91">query/SaveRows.ts:91</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The maximum number of milliseconds to allow for this operation before generating a timeout error (defaults to 30000).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="transacted" class="tsd-anchor"></a>
@@ -185,9 +242,15 @@
 					<div class="tsd-signature tsd-kind-icon">transacted<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L46">query/SaveRows.ts:46</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L97">query/SaveRows.ts:97</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether all of the row changes for all of the tables
+							should be done in a single transaction, so they all succeed or all fail. Defaults to true.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="validateonly" class="tsd-anchor"></a>
@@ -195,9 +258,17 @@
 					<div class="tsd-signature tsd-kind-icon">validate<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L47">query/SaveRows.ts:47</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L105">query/SaveRows.ts:105</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether or not the server should attempt proceed through all of the
+								commands, but not actually commit them to the database. Useful for scenarios like giving incremental
+								validation feedback as a user fills out a UI form, but not actually save anything until they explicitly request
+							a save.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -208,7 +279,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_query_saverows_.html">"query/<wbr>Save<wbr>Rows"</a>
+						<a href="../modules/_query_saverows_.html">query/<wbr>Save<wbr>Rows</a>
 					</li>
 				</ul>
 			</nav>
@@ -279,6 +350,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

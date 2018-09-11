@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_assay_.html">&quot;Assay&quot;</a>
+					<a href="_assay_.html">Assay</a>
 				</li>
 			</ul>
 			<h1>External module &quot;Assay&quot;</h1>
@@ -84,15 +84,12 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_assay_.html#getall" class="tsd-kind-icon">get<wbr>All</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported"><a href="_assay_.html#getassays" class="tsd-kind-icon">get<wbr>Assays</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_assay_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_assay_.html#getbyname" class="tsd-kind-icon">get<wbr>ByName</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_assay_.html#getbytype" class="tsd-kind-icon">get<wbr>ByType</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_assay_.html#getnabruns" class="tsd-kind-icon">getNAb<wbr>Runs</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_assay_.html#getstudynabgraphurl" class="tsd-kind-icon">get<wbr>Study<wbr>Nab<wbr>GraphURL</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_assay_.html#getstudynabruns" class="tsd-kind-icon">get<wbr>Study<wbr>Nab<wbr>Runs</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported"><a href="_assay_.html#getsuccesscallbackwrapper" class="tsd-kind-icon">get<wbr>Success<wbr>Callback<wbr>Wrapper</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported"><a href="_assay_.html#moveparameter" class="tsd-kind-icon">move<wbr>Parameter</a></li>
 							</ul>
 						</section>
 					</div>
@@ -110,40 +107,55 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L25">Assay.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L65">Assay.ts:65</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Gets all assays</p>
+									<h4 id="examples">Examples</h4>
 								</div>
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>options: <a href="../interfaces/_assay_.igetassaysoptions.html" class="tsd-signature-type">IGetAssaysOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-					<a name="getassays" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Assays</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Assays<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_assay_.igetassaysoptions.html" class="tsd-signature-type">IGetAssaysOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L50">Assay.ts:50</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
+								<pre><code>&lt;pre name=<span class="hljs-string">"code"</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">"xml"</span>&gt;
+&amp;lt;script type=<span class="hljs-string">"text/javascript"</span>&amp;gt;
+<span class="hljs-function">function <span class="hljs-title">successHandler</span>(<span class="hljs-params">assayArray</span>)
+</span>{
+    <span class="hljs-keyword">var</span> html = <span class="hljs-string">''</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> defIndex = <span class="hljs-number">0</span>; defIndex &lt; assayArray.length; defIndex ++)
+    {
+        <span class="hljs-keyword">var</span> definition = assayArray[defIndex ];
+        html += <span class="hljs-string">'&amp;lt;b&amp;gt;'</span> + definition.type + <span class="hljs-string">'&amp;lt;/b&amp;gt;: '</span>
+            + definition.name + <span class="hljs-string">'&amp;lt;br&amp;gt;'</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> domain <span class="hljs-keyword">in</span> definition.domains)
+        {
+            html += <span class="hljs-string">'&amp;nbsp;&amp;nbsp;&amp;nbsp;'</span> + domain + <span class="hljs-string">'&amp;lt;br&amp;gt;'</span>;
+            <span class="hljs-keyword">var</span> properties = definition.domains[domain];
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> propertyIndex = <span class="hljs-number">0</span>; propertyIndex
+                &lt; properties.length; propertyIndex++)
+            {
+                <span class="hljs-keyword">var</span> property = properties[propertyIndex];
+                html += <span class="hljs-string">'&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;'</span> + property.name +
+                    <span class="hljs-string">' - '</span> + property.typeName + <span class="hljs-string">'&amp;lt;br&amp;gt;'</span>;
+            }
+        }
+    }
+    document.getElementById(<span class="hljs-string">'testDiv'</span>).innerHTML = html;
+}
+
+<span class="hljs-function">function <span class="hljs-title">errorHandler</span>(<span class="hljs-params">error</span>)
+</span>{
+    alert(<span class="hljs-string">'An error occurred retrieving data.'</span>);
+}
+
+LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
+&amp;lt;/script&amp;gt;
+&amp;lt;div id=<span class="hljs-string">'testDiv'</span>&amp;gt;Loading...&amp;lt;/div&amp;gt;
+&lt;/pre&gt;
+</code></pre>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>[[LABKEY.Assay.AssayDesign]]</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -165,20 +177,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L83">Assay.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L132">Assay.ts:132</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Gets an assay by its ID.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>LABKEY.Assay.AssayDesign</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="../interfaces/_assay_.igetbyidoptions.html" class="tsd-signature-type">IGetByIdOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -195,20 +210,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L108">Assay.ts:108</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L159">Assay.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Gets an assay by name.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>LABKEY.Assay.AssayDesign</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="../interfaces/_assay_.igetbynameoptions.html" class="tsd-signature-type">IGetByNameOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -225,20 +243,23 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L133">Assay.ts:133</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L186">Assay.ts:186</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Gets an assay by type.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>LABKEY.Assay.AssayDesign</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="../interfaces/_assay_.igetbytypeoptions.html" class="tsd-signature-type">IGetByTypeOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -255,7 +276,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L171">Assay.ts:171</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L263">Assay.ts:263</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -285,13 +306,52 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L219">Assay.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L379">Assay.ts:379</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieve the URL of an image that contains a graph of dilution curves for NAb results that have been copied to a study.
+									Note that this method must be executed against the study folder containing the copied NAb summary data.</p>
+									<h4 id="examples">Examples</h4>
+								</div>
+								<pre><code>&lt;pre name=<span class="hljs-string">"code"</span> class=<span class="hljs-string">"xml"</span>&gt;
+&amp;<span class="hljs-keyword">lt</span>;script type=<span class="hljs-string">"text/javascript"</span>&amp;<span class="hljs-keyword">gt</span>;
+function showGraph(data)
+{
+    var el = document.getElementById(<span class="hljs-string">"graphDiv"</span>);
+    <span class="hljs-keyword">if</span> (data.objectIds &amp;&amp; data.objectIds.length &amp;<span class="hljs-keyword">gt</span>; <span class="hljs-number">0</span>)
+        el.innerHTML = <span class="hljs-string">'&amp;lt;img src=\"'</span> + data.url + <span class="hljs-string">'\"&amp;gt;'</span>;
+    <span class="hljs-keyword">else</span>
+        el.innerHTML = <span class="hljs-string">'No graph available.  Insufficient permissions, '</span> +
+                       <span class="hljs-string">'or no matching results were found.'</span>;
+}
+
+function initiateGraph(ids)
+{
+    LABKEY.Assay.getStudyNabGraphURL({
+        objectIds: ids,
+        success: showGraph,
+        captionColumn: <span class="hljs-string">'VirusName'</span>,
+        chartTitle: <span class="hljs-string">'My NAb Chart'</span>,
+        height: <span class="hljs-number">500</span>,
+        width: <span class="hljs-number">700</span>,
+        fitType: <span class="hljs-string">'FOUR_PARAMETER'</span>
+    });
+}
+
+Ext.onReady(initiateGraph([<span class="hljs-number">185</span>, <span class="hljs-number">165</span>]));
+&amp;<span class="hljs-keyword">lt</span>;/script&amp;<span class="hljs-keyword">gt</span>;
+&amp;<span class="hljs-keyword">lt</span>;<span class="hljs-built-in">div</span> id=<span class="hljs-string">"graphDiv"</span>&amp;<span class="hljs-keyword">gt</span>;
+&lt;/pre&gt;
+</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>options: <a href="../interfaces/_assay_.igetstudynabgraphurloptions.html" class="tsd-signature-type">IGetStudyNabGraphURLOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -308,7 +368,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L252">Assay.ts:252</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L437">Assay.ts:437</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -329,62 +389,6 @@
 						</li>
 					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-					<a name="getsuccesscallbackwrapper" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Success<wbr>Callback<wbr>Wrapper</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Success<wbr>Callback<wbr>Wrapper<span class="tsd-signature-symbol">(</span>success<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Function</span>, scope<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_ajax_.html#ajaxhandler" class="tsd-signature-type">AjaxHandler</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L274">Assay.ts:274</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>success: <span class="tsd-signature-type">Function</span></h5>
-								</li>
-								<li>
-									<h5>scope: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_ajax_.html#ajaxhandler" class="tsd-signature-type">AjaxHandler</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-					<a name="moveparameter" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagPrivate">Private</span> move<wbr>Parameter</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">move<wbr>Parameter<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, param<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L285">Assay.ts:285</a></li>
-								</ul>
-							</aside>
-							<div class="tsd-comment tsd-typography">
-							</div>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>config: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5>param: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-						</li>
-					</ul>
-				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -394,7 +398,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_assay_.html">"<wbr>Assay"</a>
+						<a href="_assay_.html">Assay</a>
 					</li>
 				</ul>
 			</nav>
@@ -424,9 +428,6 @@
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_assay_.html#getall" class="tsd-kind-icon">get<wbr>All</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<a href="_assay_.html#getassays" class="tsd-kind-icon">get<wbr>Assays</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_assay_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a>
 					</li>
@@ -445,12 +446,6 @@
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_assay_.html#getstudynabruns" class="tsd-kind-icon">get<wbr>Study<wbr>Nab<wbr>Runs</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<a href="_assay_.html#getsuccesscallbackwrapper" class="tsd-kind-icon">get<wbr>Success<wbr>Callback<wbr>Wrapper</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<a href="_assay_.html#moveparameter" class="tsd-kind-icon">move<wbr>Parameter</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
@@ -468,6 +463,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

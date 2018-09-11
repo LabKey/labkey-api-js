@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_visualization_.html">&quot;query/Visualization&quot;</a>
+					<a href="../modules/_query_visualization_.html">query/Visualization</a>
 				</li>
 				<li>
 					<a href="_query_visualization_.imeasureable.html">IMeasureable</a>
@@ -100,9 +100,15 @@
 					<div class="tsd-signature tsd-kind-icon">date<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="_query_visualization_.idateoptions.html" class="tsd-signature-type">IDateOptions</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L325">query/Visualization.ts:325</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L419">query/Visualization.ts:419</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional if this measure&#39;s axis.timeAxis property is true, ignored otherwise.  Has the following child properties.
+							Either zeroDateCol or ZeroDayVisitTag may be specified, but not both.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="dimension" class="tsd-anchor"></a>
@@ -110,9 +116,14 @@
 					<div class="tsd-signature tsd-kind-icon">dimension<span class="tsd-signature-symbol">:</span> <a href="../classes/_query_visualization_dimension_.dimension.html" class="tsd-signature-type">Dimension</a><span class="tsd-signature-symbol"> | </span><a href="_query_visualization_.idimensionlike.html" class="tsd-signature-type">IDimensionLike</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L326">query/Visualization.ts:326</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L422">query/Visualization.ts:422</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Used to pivot a resultset into multiple series.  Generally an augmented <a href="../classes/_query_visualization_dimension_.dimension.html">Dimension</a></p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="filterarray" class="tsd-anchor"></a>
@@ -120,7 +131,7 @@
 					<div class="tsd-signature tsd-kind-icon">filter<wbr>Array<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">QueryFilter</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L327">query/Visualization.ts:327</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L423">query/Visualization.ts:423</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -130,9 +141,14 @@
 					<div class="tsd-signature tsd-kind-icon">measure<span class="tsd-signature-symbol">:</span> <a href="../classes/_query_visualization_measure_.measure.html" class="tsd-signature-type">Measure</a><span class="tsd-signature-symbol"> | </span><a href="_query_visualization_.imeasurelike.html" class="tsd-signature-type">IMeasureLike</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L328">query/Visualization.ts:328</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L426">query/Visualization.ts:426</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Generally an augmented <a href="../classes/_query_visualization_measure_.measure.html">Measure</a></p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="time" class="tsd-anchor"></a>
@@ -140,9 +156,14 @@
 					<div class="tsd-signature tsd-kind-icon">time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L329">query/Visualization.ts:329</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L429">query/Visualization.ts:429</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>&quot;date&quot; indicates this measure is date-based. &quot;time&quot; indicates it is time-based.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -153,7 +174,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_query_visualization_.html">"query/<wbr>Visualization"</a>
+						<a href="../modules/_query_visualization_.html">query/<wbr>Visualization</a>
 					</li>
 				</ul>
 			</nav>
@@ -251,6 +272,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

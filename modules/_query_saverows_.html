@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_query_saverows_.html">&quot;query/SaveRows&quot;</a>
+					<a href="_query_saverows_.html">query/SaveRows</a>
 				</li>
 			</ul>
 			<h1>External module &quot;query/SaveRows&quot;</h1>
@@ -97,7 +97,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L20">query/SaveRows.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L20">query/SaveRows.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -120,13 +120,21 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/SaveRows.ts#L53">query/SaveRows.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/SaveRows.ts#L118">query/SaveRows.ts:118</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Save inserts, updates, and/or deletes to potentially multiple tables with a single request.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>LABKEY.Query.ModifyRowsResults</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>LABKEY.Query.ModifyRowsOptions</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -135,6 +143,10 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<p>In client-side scripts, this method will return a transaction id
+								for the async request that can be used to cancel the request
+								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -147,7 +159,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_query_saverows_.html">"query/<wbr>Save<wbr>Rows"</a>
+						<a href="_query_saverows_.html">query/<wbr>Save<wbr>Rows</a>
 					</li>
 				</ul>
 			</nav>
@@ -182,6 +194,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

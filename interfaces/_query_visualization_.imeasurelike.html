@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_visualization_.html">&quot;query/Visualization&quot;</a>
+					<a href="../modules/_query_visualization_.html">query/Visualization</a>
 				</li>
 				<li>
 					<a href="_query_visualization_.imeasurelike.html">IMeasureLike</a>
@@ -104,9 +104,16 @@
 					<div class="tsd-signature tsd-kind-icon">aggregate<span class="tsd-signature-symbol">:</span> <a href="../modules/_query_visualization_constants_.html#taggregate" class="tsd-signature-type">TAggregate</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L333">query/Visualization.ts:333</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L438">query/Visualization.ts:438</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>See <a href="_filter_filter_.aggregate.html">Aggregate</a>.  Required if a &#39;dimension&#39; property is specified, ignored otherwise.  Indicates
+								what data should be returned if pivoting by dimension results in multiple underlying values
+							per series data point.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="alias" class="tsd-anchor"></a>
@@ -114,9 +121,14 @@
 					<div class="tsd-signature tsd-kind-icon">alias<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L334">query/Visualization.ts:334</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L441">query/Visualization.ts:441</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>String.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="allownullresults" class="tsd-anchor"></a>
@@ -124,9 +136,16 @@
 					<div class="tsd-signature tsd-kind-icon">allow<wbr>Null<wbr>Results<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L335">query/Visualization.ts:335</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L448">query/Visualization.ts:448</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional, defaults to true.  If true, this measure will be joined to other measures via an outer join, which will allow results
+								from other measures at timepoints not present for this measure (possibly resulting in null/blank values for this measure).  If false, other measures will be inner joined
+							to this measure, which will produce a dataset without null values for this measure, but which may not include all data from joined measures.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="isdemographic" class="tsd-anchor"></a>
@@ -134,9 +153,14 @@
 					<div class="tsd-signature tsd-kind-icon">is<wbr>Demographic<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L336">query/Visualization.ts:336</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L451">query/Visualization.ts:451</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Boolean (default false). Indicates whether the measure is Demographic data.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="name" class="tsd-anchor"></a>
@@ -144,9 +168,14 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L337">query/Visualization.ts:337</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L454">query/Visualization.ts:454</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The  name of the column containing this measure.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="queryname" class="tsd-anchor"></a>
@@ -154,9 +183,14 @@
 					<div class="tsd-signature tsd-kind-icon">query<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L338">query/Visualization.ts:338</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L457">query/Visualization.ts:457</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name of the query containing this measure.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="schemaname" class="tsd-anchor"></a>
@@ -164,9 +198,14 @@
 					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L339">query/Visualization.ts:339</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L460">query/Visualization.ts:460</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name of the schema containing the query that contains this measure.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="type" class="tsd-anchor"></a>
@@ -174,9 +213,14 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L340">query/Visualization.ts:340</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L463">query/Visualization.ts:463</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The data type of this measure.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="values" class="tsd-anchor"></a>
@@ -184,9 +228,14 @@
 					<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L341">query/Visualization.ts:341</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L466">query/Visualization.ts:466</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Optional.  If provided, results will be filtered to include only the provided values.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -197,7 +246,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_query_visualization_.html">"query/<wbr>Visualization"</a>
+						<a href="../modules/_query_visualization_.html">query/<wbr>Visualization</a>
 					</li>
 				</ul>
 			</nav>
@@ -307,6 +356,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

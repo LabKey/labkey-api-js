@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_query_executesql_.html">&quot;query/ExecuteSql&quot;</a>
+					<a href="_query_executesql_.html">query/ExecuteSql</a>
 				</li>
 			</ul>
 			<h1>External module &quot;query/ExecuteSql&quot;</h1>
@@ -97,7 +97,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L42">query/ExecuteSql.ts:42</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L127">query/ExecuteSql.ts:127</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -120,7 +120,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L88">query/ExecuteSql.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L173">query/ExecuteSql.ts:173</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -143,9 +143,47 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L99">query/ExecuteSql.ts:99</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L217">query/ExecuteSql.ts:217</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Execute arbitrary LabKey SQL. For more information, see the
+									<a href="https://www.labkey.org/Documentation/wiki-page.view?name=labkeySql">LabKey SQL Reference</a>.</p>
+									<h4 id="examples">Examples</h4>
+									<p>Example, from the Reagent Request Confirmation <a href="https://www.labkey.org/Documentation/wiki-page.view?name=reagentRequestConfirmation">Tutorial</a>
+									and <a href="https://www.labkey.org/home/Study/demo/wiki-page.view?name=Confirmation">Demo</a>:</p>
+								</div>
+								<pre><code><span class="hljs-comment">// This snippet extracts a table of UserID, TotalRequests and</span>
+<span class="hljs-comment">// TotalQuantity from the "Reagent Requests" list.</span>
+<span class="hljs-comment">// Upon success, the writeTotals function (not included here) uses the</span>
+<span class="hljs-comment">// returned data object to display total requests and total quantities.</span>
+
+LABKEY.<span class="hljs-keyword">Query</span>.executeSql({
+        containerPath: 'home/Study/demo/guestaccess',
+        schemaName: 'lists',
+        sql: 'SELECT <span class="hljs-string">"Reagent Requests"</span>.UserID <span class="hljs-keyword">AS</span> UserID, \
+            <span class="hljs-keyword">Count</span>(<span class="hljs-string">"Reagent Requests"</span>.UserID) <span class="hljs-keyword">AS</span> TotalRequests, \
+            <span class="hljs-built_in">Sum</span>(<span class="hljs-string">"Reagent Requests"</span>.Quantity) <span class="hljs-keyword">AS</span> TotalQuantity \
+            FROM <span class="hljs-string">"Reagent Requests"</span> Group <span class="hljs-keyword">BY</span> <span class="hljs-string">"Reagent Requests"</span>.UserID',
+        success: writeTotals
+});
+</code></pre>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>LABKEY.Query.SelectRowsOptions</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>LABKEY.Query.SelectRowsResults</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>LABKEY.Query.ExtendedSelectRowsResults</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p><a href="../classes/_query_response_.response.html">Response</a></p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -153,6 +191,10 @@
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<p>In client-side scripts, this method will return a transaction id
+								for the async request that can be used to cancel the request
+								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&amp;member=abort">Ext.data.Connection.abort</a>).
+							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -165,7 +207,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_query_executesql_.html">"query/<wbr>Execute<wbr>Sql"</a>
+						<a href="_query_executesql_.html">query/<wbr>Execute<wbr>Sql</a>
 					</li>
 				</ul>
 			</nav>
@@ -200,6 +242,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

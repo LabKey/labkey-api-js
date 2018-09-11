@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_executesql_.html">&quot;query/ExecuteSql&quot;</a>
+					<a href="../modules/_query_executesql_.html">query/ExecuteSql</a>
 				</li>
 				<li>
 					<a href="_query_executesql_.iexecutesqloptions.html">IExecuteSqlOptions</a>
@@ -112,9 +112,16 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L23">query/ExecuteSql.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L28">query/ExecuteSql.ts:28</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>One of the values of <a href="_query_executesql_.iexecutesqloptions.html#containerfilter">containerFilter</a> that sets
+								the scope of this query. Defaults to containerFilter.current, and is interpreted relative to
+							config.containerPath.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="containerpath" class="tsd-anchor"></a>
@@ -122,9 +129,15 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L24">query/ExecuteSql.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L34">query/ExecuteSql.ts:34</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The path to the container in which the schema and query are defined,
+							if different than the current container. If not supplied, the current container&#39;s path will be used.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
@@ -132,9 +145,15 @@
 					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L25">query/ExecuteSql.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L40">query/ExecuteSql.ts:40</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Function called when execution of the &quot;executeSql&quot; function fails.
+							See <a href="../modules/_query_rows_.html#selectrows">selectRows</a> for more information on the parameters passed to this function.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -157,7 +176,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Style<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L26">query/ExecuteSql.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L42">query/ExecuteSql.ts:42</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,9 +186,15 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Total<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L27">query/ExecuteSql.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L48">query/ExecuteSql.ts:48</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Include the total number of rows available (defaults to true).
+							If false totalCount will equal number of rows returned (equal to maxRows unless maxRows == 0).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="maxrows" class="tsd-anchor"></a>
@@ -177,9 +202,14 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L28">query/ExecuteSql.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L51">query/ExecuteSql.ts:51</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The maximum number of rows to return from the server (defaults to returning all rows).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="offset" class="tsd-anchor"></a>
@@ -187,9 +217,15 @@
 					<div class="tsd-signature tsd-kind-icon">offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L29">query/ExecuteSql.ts:29</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L57">query/ExecuteSql.ts:57</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The index of the first row to return from the server (defaults to 0).
+							Use this along with the maxRows config property to request pages of data.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="parameters" class="tsd-anchor"></a>
@@ -197,9 +233,17 @@
 					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L30">query/ExecuteSql.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L65">query/ExecuteSql.ts:65</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Map of name (string)/value pairs for the values of parameters if the SQL
+								references underlying queries that are parameterized. For example, the following passes two parameters to the query: {&#39;Gender&#39;: &#39;M&#39;, &#39;CD4&#39;: &#39;400&#39;}.
+								The parameters are written to the request URL as follows: query.param.Gender=M&amp;query.param.CD4=400.  For details on parameterized SQL queries, see
+							<a href="https://www.labkey.org/Documentation/wiki-page.view?name=paramsql">Parameterized SQL Queries</a>.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="requiredversion" class="tsd-anchor"></a>
@@ -207,9 +251,22 @@
 					<div class="tsd-signature tsd-kind-icon">required<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L31">query/ExecuteSql.ts:31</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L79">query/ExecuteSql.ts:79</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If not set, or set to &quot;8.3&quot;, the success handler will be passed a {@link LABKEY.Query.SelectRowsResults}
+								object. If set to &quot;9.1&quot; the success handler will be passed a {@link LABKEY.Query.ExtendedSelectRowsResults}
+								object. If greater than 13.2 the success handler will be passed a <a href="../classes/_query_response_.response.html">Response</a> object.
+								The main difference between SelectRowsResults and ExtendedSelectRowsResults is that each column in each row
+								will be another object (not just a scalar value) with a &quot;value&quot; property as well as other related properties
+								(url, mvValue, mvIndicator, etc.). In the LABKEY.Query.Response format each row will be an instance of
+							<a href="../classes/_query_response_.row.html">Row</a>.</p>
+						</div>
+						<p>In the &quot;16.2&quot; format, multi-value columns will be returned as an array of values, each of which may have a value, displayValue, and url.
+						In the &quot;17.1&quot; format, &quot;formattedValue&quot; may be included in the response as the display column&#39;s value formatted with the display column&#39;s format or folder format settings.</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="saveinsession" class="tsd-anchor"></a>
@@ -217,9 +274,17 @@
 					<div class="tsd-signature tsd-kind-icon">save<wbr>InSession<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L32">query/ExecuteSql.ts:32</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L87">query/ExecuteSql.ts:87</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether or not the definition of this query should be stored for reuse during the current session.
+								If true, all information required to recreate the query will be stored on the server and a unique query name will be passed to the
+								success callback.  This temporary query name can be used by all other API methods, including Query Web Part creation, for as long
+							as the current user&#39;s session remains active.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="schemaname" class="tsd-anchor"></a>
@@ -227,9 +292,14 @@
 					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L33">query/ExecuteSql.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L90">query/ExecuteSql.ts:90</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the schema to query.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
@@ -237,9 +307,14 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L34">query/ExecuteSql.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L93">query/ExecuteSql.ts:93</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scope for the callback functions. Defaults to &quot;this&quot;.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="sort" class="tsd-anchor"></a>
@@ -247,9 +322,17 @@
 					<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L35">query/ExecuteSql.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L101">query/ExecuteSql.ts:101</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A sort specification to apply over the rows returned by the SQL. In general, you should either include an
+								ORDER BY clause in your SQL, or specific a sort specification in this config property, but not both. The value
+								of this property should be a comma-delimited list of column names you want to sort by. Use a - prefix to sort
+							a column in descending order (e.g., &#39;LastName,-Age&#39; to sort first by LastName, then by Age descending).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="sql" class="tsd-anchor"></a>
@@ -257,9 +340,14 @@
 					<div class="tsd-signature tsd-kind-icon">sql<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L36">query/ExecuteSql.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L104">query/ExecuteSql.ts:104</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The LabKey SQL to execute.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="striphiddencolumns" class="tsd-anchor"></a>
@@ -267,7 +355,7 @@
 					<div class="tsd-signature tsd-kind-icon">strip<wbr>Hidden<wbr>Columns<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L37">query/ExecuteSql.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L106">query/ExecuteSql.ts:106</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -277,9 +365,23 @@
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L38">query/ExecuteSql.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L118">query/ExecuteSql.ts:118</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Function called when the &quot;selectRows&quot; function executes successfully.
+							This function will be called with the following arguments:</p>
+							<ul>
+								<li><strong>data:</strong> If config.requiredVersion is not set, or set to &quot;8.3&quot;, the success handler will be passed a
+									{@link LABKEY.Query.SelectRowsResults} object. If set to &quot;9.1&quot; the success handler will be passed a
+									{@link LABKEY.Query.ExtendedSelectRowsResults} object. If requiredVersion is greater than 13.2 the success
+								handler will be passed a <a href="../classes/_query_response_.response.html">Response</a> object.</li>
+								<li><strong>responseObj:</strong> The XMLHttpResponseObject instance used to make the AJAX request</li>
+								<li><strong>options:</strong> The options used for the AJAX request</li>
+							</ul>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
@@ -302,9 +404,15 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/ExecuteSql.ts#L39">query/ExecuteSql.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/ExecuteSql.ts#L124">query/ExecuteSql.ts:124</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The maximum number of milliseconds to allow for this operation before
+							generating a timeout error (defaults to 30000).</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -315,7 +423,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_query_executesql_.html">"query/<wbr>Execute<wbr>Sql"</a>
+						<a href="../modules/_query_executesql_.html">query/<wbr>Execute<wbr>Sql</a>
 					</li>
 				</ul>
 			</nav>
@@ -407,6 +515,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

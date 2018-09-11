@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_response_.html">&quot;query/Response&quot;</a>
+					<a href="../modules/_query_response_.html">query/Response</a>
 				</li>
 				<li>
 					<a href="_query_response_.row.html">Row</a>
@@ -67,6 +67,15 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The class used to wrap each row object returned from the server during a GetData, executeSql,
+							or selectRows request. Most users will not instantiate these themselves. Instead they will interact with them during
+						the success handler of the API they are using.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
@@ -78,6 +87,13 @@
 			<section class="tsd-panel tsd-kind-class tsd-parent-kind-external-module">
 				<h3 class="tsd-before-signature">Indexable</h3>
 				<div class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">[</span>attr: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></div>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The class used to wrap each row object returned from the server during a GetData, executeSql,
+							or selectRows request. Most users will not instantiate these themselves. Instead they will interact with them during
+						the success handler of the API they are using.</p>
+					</div>
+				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
@@ -119,13 +135,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Response.ts#L168">query/Response.ts:168</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Response.ts#L249">query/Response.ts:249</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p><a href="_query_response_.response.html">Response</a></p>
+									</dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>rawRow: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>The raw row from a GetData or executeSQL, selectRows (version 13.2 and above) request.</p>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="_query_response_.row.html" class="tsd-signature-type">Row</a></h4>
@@ -141,7 +169,7 @@
 					<div class="tsd-signature tsd-kind-icon">links<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Response.ts#L167">query/Response.ts:167</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Response.ts#L248">query/Response.ts:248</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -158,16 +186,31 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Response.ts#L184">query/Response.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Response.ts#L280">query/Response.ts:280</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the requested column from the row. Includes extended values such as display value, URL, etc.
+										When requested version is &gt;16.2, multi-value columns will return an array of objects containing &quot;value&quot; and other properties.
+									In the &quot;17.1&quot; format, &quot;formattedValue&quot; may be included in the response as the column display value formatted with the display column&#39;s format or folder format settings.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>columnName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The column name requested. Used to do a case-insensitive match to find the column.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>For the given columnName, returns an object in the common case or an array of objects for multi-value columns.
+								The object will always contain a property named &quot;value&quot; that is the column&#39;s value, but it may also contain other properties about that column&#39;s value. For
+								example, if the column was setup to track missing value information, it will also contain a property named mvValue
+								(which is the raw value that is considered suspect), and a property named mvIndicator, which will be the string MV
+							indicator (e.g., &quot;Q&quot;).</p>
 						</li>
 					</ul>
 				</section>
@@ -181,16 +224,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Response.ts#L196">query/Response.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Response.ts#L297">query/Response.ts:297</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets a specific link type for a row (details, update, etc.).</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>linkType: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The name of the link type to be returned.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Returns an object with the display text and link value.</p>
 						</li>
 					</ul>
 				</section>
@@ -204,10 +256,16 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Response.ts#L204">query/Response.ts:204</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Response.ts#L309">query/Response.ts:309</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets all of the links for a row (details, update, etc.).</p>
+								</div>
+							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Returns an object with all of the links types (details, update, etc.) for a row.</p>
 						</li>
 					</ul>
 				</section>
@@ -221,16 +279,26 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Response.ts#L208">query/Response.ts:208</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Response.ts#L319">query/Response.ts:319</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets the simple value for the requested column. Equivalent of doing Row.get(columnName).value.
+									For multi-value columns, the result is an array of values.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>columnName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The column name requested. Used to do a case-insensitive match to find the column.</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<p>Returns the simple value for the given column.</p>
 						</li>
 					</ul>
 				</section>
@@ -243,7 +311,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_query_response_.html">"query/<wbr>Response"</a>
+						<a href="../modules/_query_response_.html">query/<wbr>Response</a>
 					</li>
 				</ul>
 			</nav>
@@ -288,12 +356,6 @@
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../modules/_query_response_.html#window" class="tsd-kind-icon">window</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_query_response_.html#generatecolumnmodel" class="tsd-kind-icon">generate<wbr>Column<wbr>Model</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="../modules/_query_response_.html#generategetdisplayfield" class="tsd-kind-icon">generate<wbr>Get<wbr>Display<wbr>Field</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
@@ -311,6 +373,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

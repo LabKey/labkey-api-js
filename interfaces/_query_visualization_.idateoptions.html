@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_visualization_.html">&quot;query/Visualization&quot;</a>
+					<a href="../modules/_query_visualization_.html">query/Visualization</a>
 				</li>
 				<li>
 					<a href="_query_visualization_.idateoptions.html">IDateOptions</a>
@@ -100,9 +100,14 @@
 					<div class="tsd-signature tsd-kind-icon">date<wbr>Col<span class="tsd-signature-symbol">:</span> <a href="../classes/_query_visualization_measure_.measure.html" class="tsd-signature-type">Measure</a><span class="tsd-signature-symbol"> | </span><a href="_query_visualization_.imeasurelike.html" class="tsd-signature-type">IMeasureLike</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L59">query/Visualization.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L60">query/Visualization.ts:60</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A measure object (with properties for name, queryName, and schemaName) of type date specifying the measure date.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="interval" class="tsd-anchor"></a>
@@ -110,9 +115,15 @@
 					<div class="tsd-signature tsd-kind-icon">interval<span class="tsd-signature-symbol">:</span> <a href="../modules/_query_visualization_constants_.html#tinterval" class="tsd-signature-type">TInterval</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L60">query/Visualization.ts:60</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L66">query/Visualization.ts:66</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>See <a href="../modules/_query_visualization_constants_.html#interval">Interval</a>.  The type of interval that should be calculated between the measure date and the zero date
+							(if zeroDateCol is specified) or zero day (if zeroDayVisitTag is specified).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="useprotocolday" class="tsd-anchor"></a>
@@ -120,9 +131,15 @@
 					<div class="tsd-signature tsd-kind-icon">use<wbr>Protocol<wbr>Day<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L61">query/Visualization.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L72">query/Visualization.ts:72</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If true, zeroDayVisitTag uses ParticipantVisit.ProtocolDay to calculate offsets;
+							if false ParticipantVisit.Day is used. Defaults to true.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="zerodatecol" class="tsd-anchor"></a>
@@ -130,9 +147,15 @@
 					<div class="tsd-signature tsd-kind-icon">zero<wbr>Date<wbr>Col<span class="tsd-signature-symbol">:</span> <a href="../classes/_query_visualization_measure_.measure.html" class="tsd-signature-type">Measure</a><span class="tsd-signature-symbol"> | </span><a href="_query_visualization_.imeasurelike.html" class="tsd-signature-type">IMeasureLike</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L62">query/Visualization.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L78">query/Visualization.ts:78</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A measure object (with properties for name, queryName, and schemaName) of type date specifiying
+							the zero date, used to align data points in terms of days, weeks, or months.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="zerodayvisittag" class="tsd-anchor"></a>
@@ -140,9 +163,14 @@
 					<div class="tsd-signature tsd-kind-icon">zero<wbr>Day<wbr>Visit<wbr>Tag<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/query/Visualization.ts#L63">query/Visualization.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/query/Visualization.ts#L81">query/Visualization.ts:81</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A VisitTag that will be used to find the ParticipantVisit used to align data points.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -153,7 +181,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_query_visualization_.html">"query/<wbr>Visualization"</a>
+						<a href="../modules/_query_visualization_.html">query/<wbr>Visualization</a>
 					</li>
 				</ul>
 			</nav>
@@ -251,6 +279,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>

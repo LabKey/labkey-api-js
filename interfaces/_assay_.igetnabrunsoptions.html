@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_assay_.html">&quot;Assay&quot;</a>
+					<a href="../modules/_assay_.html">Assay</a>
 				</li>
 				<li>
 					<a href="_assay_.igetnabrunsoptions.html">IGetNAbRunsOptions</a>
@@ -109,9 +109,14 @@
 					<div class="tsd-signature tsd-kind-icon">assay<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L151">Assay.ts:151</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L205">Assay.ts:205</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name of the NAb assay design for which runs are to be retrieved.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="calculateneut" class="tsd-anchor"></a>
@@ -119,9 +124,14 @@
 					<div class="tsd-signature tsd-kind-icon">calculate<wbr>Neut<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L152">Assay.ts:152</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L207">Assay.ts:207</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether neutralization should be calculated on the server.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="containerpath" class="tsd-anchor"></a>
@@ -129,19 +139,79 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L153">Assay.ts:153</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L210">Assay.ts:210</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The path to the container in which the schema and query are defined,
+							if different than the current container. If not supplied, the current container&#39;s path will be used.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L154">Assay.ts:154</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L221">Assay.ts:221</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Function called when execution of the &quot;getNAbRuns&quot; function fails.
+							This function will be called with the following arguments:</p>
+							<ul>
+								<li>errorInfo: an object describing the error with the following fields:<ul>
+										<li>exception: the exception message</li>
+										<li>exceptionClass: the Java class of the exception thrown on the server</li>
+										<li>stackTrace: the Java stack trace at the point when the exception occurred</li>
+									</ul>
+								</li>
+								<li>responseObj: the XMLHttpResponseObject instance used to make the AJAX request</li>
+								<li>options: the options used for the AJAX request</li>
+							</ul>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-siganture">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>errorInfo<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, responseObj<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span>, options<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>errorInfo: <span class="tsd-signature-type">object</span></h5>
+												<ul class="tsd-parameters">
+													<li class="tsd-parameter">
+														<h5>exception<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+													</li>
+													<li class="tsd-parameter">
+														<h5>exception<wbr>Class<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+													</li>
+													<li class="tsd-parameter">
+														<h5>stack<wbr>Trace<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></h5>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<h5>responseObj: <span class="tsd-signature-type">object</span></h5>
+											</li>
+											<li>
+												<h5>options: <span class="tsd-signature-type">object</span></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="filterarray" class="tsd-anchor"></a>
@@ -149,9 +219,14 @@
 					<div class="tsd-signature tsd-kind-icon">filter<wbr>Array<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L155">Assay.ts:155</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L223">Assay.ts:223</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Array of objects created by {@link LABKEY.Filter.create}.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="includefitparameters" class="tsd-anchor"></a>
@@ -159,9 +234,15 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Fit<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L156">Assay.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L226">Assay.ts:226</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether the parameters used in the neutralization curve fitting calculation
+							should be included in the response.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="includestats" class="tsd-anchor"></a>
@@ -169,9 +250,15 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Stats<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L157">Assay.ts:157</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L229">Assay.ts:229</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether or not statistics (standard deviation, max, min, etc.) should
+							be returned with calculations and well data.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="includewells" class="tsd-anchor"></a>
@@ -179,9 +266,14 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Wells<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L158">Assay.ts:158</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L231">Assay.ts:231</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Whether well-level data should be included in the response.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="maxrows" class="tsd-anchor"></a>
@@ -189,9 +281,15 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L159">Assay.ts:159</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L234">Assay.ts:234</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The maximum number of runs to return from the server (defaults to 100).
+							If you want to return all possible rows, set this config property to -1.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="offset" class="tsd-anchor"></a>
@@ -199,9 +297,15 @@
 					<div class="tsd-signature tsd-kind-icon">offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L160">Assay.ts:160</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L237">Assay.ts:237</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The index of the first row to return from the server (defaults to 0).
+							Use this along with the maxRows config property to request pages of data.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
@@ -209,7 +313,7 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L161">Assay.ts:161</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L238">Assay.ts:238</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -219,9 +323,17 @@
 					<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L162">Assay.ts:162</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L245">Assay.ts:245</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>String description of the sort.  It includes the column names
+								listed in the URL of a sorted data region (with an optional minus prefix to indicate
+								descending order). In the case of a multi-column sort, up to three column names can be
+							included, separated by commas.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
@@ -229,9 +341,20 @@
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L163">Assay.ts:163</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L253">Assay.ts:253</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Function called when the &quot;getNAbRuns&quot; function executes successfully.
+							This function will be called with the following arguments:</p>
+							<ul>
+								<li>runs: an array of NAb run objects</li>
+								<li>options: the options used for the AJAX request</li>
+								<li>responseObj: the XMLHttpResponseObject instance used to make the AJAX request</li>
+							</ul>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="timeout" class="tsd-anchor"></a>
@@ -239,9 +362,15 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/2941ec3/src/labkey/Assay.ts#L164">Assay.ts:164</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/Assay.ts#L256">Assay.ts:256</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The maximum number of milliseconds to allow for this operation before
+							generating a timeout error (defaults to 30000).</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -252,7 +381,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_assay_.html">"<wbr>Assay"</a>
+						<a href="../modules/_assay_.html">Assay</a>
 					</li>
 				</ul>
 			</nav>
@@ -330,9 +459,6 @@
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_assay_.html#getall" class="tsd-kind-icon">get<wbr>All</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<a href="../modules/_assay_.html#getassays" class="tsd-kind-icon">get<wbr>Assays</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_assay_.html#getbyid" class="tsd-kind-icon">get<wbr>ById</a>
 					</li>
@@ -351,12 +477,6 @@
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_assay_.html#getstudynabruns" class="tsd-kind-icon">get<wbr>Study<wbr>Nab<wbr>Runs</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<a href="../modules/_assay_.html#getsuccesscallbackwrapper" class="tsd-kind-icon">get<wbr>Success<wbr>Callback<wbr>Wrapper</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private tsd-is-not-exported">
-						<a href="../modules/_assay_.html#moveparameter" class="tsd-kind-icon">move<wbr>Parameter</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
@@ -374,6 +494,7 @@
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
 				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
