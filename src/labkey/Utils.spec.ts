@@ -75,7 +75,7 @@ describe('id', () => {
         expect(Utils.id('custom_PreFix')).toEqual('custom_PreFix' + (++defaultSeed));
     });
     it('should return a string', () => {
-        expect(Utils.id(123)).toEqual('123' + (++defaultSeed));
+        expect(Utils.id.apply(this, [123])).toEqual('123' + (++defaultSeed));
     });
 });
 
@@ -129,8 +129,6 @@ describe('isDate', () => {
 
 describe('isDefined', () => {
     it('should return true only for undefined', () => {
-        const x = undefined;
-        expect(Utils.isDefined(x)).toBe(false);
         expect(Utils.isDefined(undefined)).toBe(false);
         expect(Utils.isDefined(null)).toBe(true);
         expect(Utils.isDefined('string')).toBe(true);
@@ -224,8 +222,8 @@ describe('isString', () => {
 
 describe('padString', () => {
     it('should be null, undefined unsafe', () => {
-        expect(() => { Utils.padString(null); }).toThrow(/* cannot call toString() of null */);
-        expect(() => { Utils.padString(undefined); }).toThrow(/* cannot call toString() of undefined */);
+        expect(() => { Utils.padString.apply(this, [null]); }).toThrow(/* cannot call toString() of null */);
+        expect(() => { Utils.padString.apply(this, [undefined]); }).toThrow(/* cannot call toString() of undefined */);
         // expect(Utils.padString(null, null)).toBe(true);
         // expect(Utils.padString(null, null, null)).toBe(true);
     });

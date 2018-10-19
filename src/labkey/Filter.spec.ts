@@ -59,10 +59,10 @@ describe('merge', () => {
     ];
 
     it('should accept empty arguments', () => {
-        expect(Filter.merge()).toEqual([]);
+        expect(Filter.merge.apply(this, [])).toEqual([]);
     });
     it('should remove baseFilters with columnName', () => {
-        const result = Filter.merge(baseFilters, 'A');
+        const result = Filter.merge.apply(this, [baseFilters, 'A']);
         expect(baseFilters.length).toEqual(6); // should not modify original baseFilters
         expect(result.length).toEqual(4);
     });
