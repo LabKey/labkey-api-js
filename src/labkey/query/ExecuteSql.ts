@@ -47,7 +47,7 @@ export interface IExecuteSqlOptions {
      */
     includeTotalCount?: boolean
 
-    /** The maximum number of rows to return from the server (defaults to returning all rows). */
+    /** The maximum number of rows to return from the server (defaults to returning 100,000 rows). */
     maxRows?: number
 
     /**
