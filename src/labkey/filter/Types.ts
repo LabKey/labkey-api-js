@@ -16,10 +16,10 @@
 import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants'
 
 let urlMap: {
-    [suffix:string]: FilterType
+    [suffix:string]: IFilterType
 } = {};
 
-export interface FilterType {
+export interface IFilterType {
     getDisplaySymbol: () => string
     getDisplayText: () => string
     getLongDisplayText: () => string
@@ -27,12 +27,12 @@ export interface FilterType {
     isDataValueRequired: () => boolean
     isMultiValued: () => boolean
     isTableWise: () => boolean
-    getMultiValueFilter: () => FilterType
+    getMultiValueFilter: () => IFilterType
     getMultiValueMaxOccurs: () => number
     getMultiValueMinOccurs: () => number
     getMultiValueSeparator: () => string
-    getOpposite: () => FilterType
-    getSingleValueFilter:() => FilterType
+    getOpposite: () => IFilterType
+    getSingleValueFilter:() => IFilterType
     validate: (value: FilterValue, jsonType: string, columnName: string) => any
 }
 
@@ -125,7 +125,7 @@ export const Types = {
 export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
 
 export const TYPES_BY_JSON_TYPE: {
-    [jsonType: string]: Array<FilterType>
+    [jsonType: string]: Array<IFilterType>
 } = {
     'boolean': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
     'date': [Types.HAS_ANY_VALUE, Types.DATE_EQUAL, Types.DATE_NOT_EQUAL, Types.ISBLANK, Types.NONBLANK, Types.DATE_GREATER_THAN, Types.DATE_LESS_THAN, Types.DATE_GREATER_THAN_OR_EQUAL, Types.DATE_LESS_THAN_OR_EQUAL],
@@ -135,7 +135,7 @@ export const TYPES_BY_JSON_TYPE: {
 };
 
 export const TYPES_BY_JSON_TYPE_DEFAULT: {
-    [jsonType: string]: FilterType
+    [jsonType: string]: IFilterType
 } = {
     'boolean': Types.EQUAL,
     'date': Types.DATE_EQUAL,
@@ -148,7 +148,7 @@ function generateFilterType(
     displayText: string, displaySymbol?: string, urlSuffix?: string,
     dataValueRequired?: boolean, multiValueSeparator?: string, longDisplayText?: string,
     minOccurs?: number, maxOccurs?: number, tableWise?: boolean
-): FilterType {
+): IFilterType {
 
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
@@ -178,7 +178,7 @@ function generateFilterType(
         return validate(jsonType, value, columnName);
     };
 
-    const type: FilterType = {
+    const type: IFilterType = {
         getDisplaySymbol: () => displaySymbol || null,
         getDisplayText: () => displayText,
         getLongDisplayText: () => longDisplayText || displayText,
@@ -218,7 +218,7 @@ function generateFilterType(
  * Return the default LABKEY.Filter.Type for a json type ("int", "double", "string", "boolean", "date").
  * @private
  */
-export function getDefaultFilterForType(jsonType: JsonType): FilterType {
+export function getDefaultFilterForType(jsonType: JsonType): IFilterType {
     if (jsonType && TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()]) {
         return TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()];
     }
@@ -226,7 +226,7 @@ export function getDefaultFilterForType(jsonType: JsonType): FilterType {
     return Types.EQUAL;
 }
 
-export function getFilterTypeForURLSuffix(urlSuffix: string): FilterType {
+export function getFilterTypeForURLSuffix(urlSuffix: string): IFilterType {
     return urlMap[urlSuffix];
 }
 
@@ -235,8 +235,8 @@ export function getFilterTypeForURLSuffix(urlSuffix: string): FilterType {
  * json type ("int", "double", "string", "boolean", "date")
  * @private
  */
-export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): Array<FilterType> {
-    let types: Array<FilterType> = [];
+export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): Array<IFilterType> {
+    let types: Array<IFilterType> = [];
 
     if (jsonType && TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]) {
         types = types.concat(TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]);

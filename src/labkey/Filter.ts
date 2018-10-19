@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { appendAggregateParams, appendFilterParams, create, Filter, getFilterDescription, getFiltersFromUrl, getQueryParamsFromUrl, getSortFromUrl, merge } from './filter/Filter'
-import { FilterType, getDefaultFilterForType, getFilterTypeForURLSuffix, getFilterTypesForType, Types } from './filter/Types'
+import { appendAggregateParams, appendFilterParams, create, IFilter, getFilterDescription, getFiltersFromUrl, getQueryParamsFromUrl, getSortFromUrl, merge } from './filter/Filter'
+import { IFilterType, getDefaultFilterForType, getFilterTypeForURLSuffix, getFilterTypesForType, Types } from './filter/Types'
 
 export {
     appendAggregateParams,
@@ -31,6 +31,6 @@ export {
     Types,
 
     /* TypeScript interfaces */
-    Filter,
-    FilterType
+    IFilter,
+    IFilterType
 }

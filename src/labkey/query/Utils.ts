@@ -15,7 +15,7 @@
  */
 import { buildURL } from '../ActionURL'
 import { AjaxHandler, request } from '../Ajax'
-import { appendFilterParams, Filter } from '../filter/Filter'
+import { appendFilterParams, IFilter } from '../filter/Filter'
 import { applyTranslated, ensureRegionName, getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
 
 import { Response } from './Response'
@@ -46,7 +46,7 @@ export const URL_COLUMN_PREFIX = '_labkeyurl_';
  * @param dataRegionName
  * @returns {any}
  */
-export function buildQueryParams(schemaName: string, queryName: string, filterArray: Array<Filter>, sort: string, dataRegionName?: string): any {
+export function buildQueryParams(schemaName: string, queryName: string, filterArray: Array<IFilter>, sort: string, dataRegionName?: string): any {
 
     const regionName = ensureRegionName(dataRegionName);
 

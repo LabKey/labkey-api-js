@@ -24,6 +24,7 @@ import { getQueryDetails } from './query/GetQueryDetails'
 import { deleteRows, insertRows, saveRows, selectDistinctRows, selectRows, updateRows } from './query/Rows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
+import { Filter } from './filter/Filter'
 
 const experimental = {
     SQL
@@ -36,6 +37,7 @@ export {
     deleteRows,
     executeSql,
     experimental,
+    Filter,
     GetData,
     getQueries,
     getQueryDetails,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { request, RequestOptions } from '../Ajax'
-import { Filter } from '../filter/Filter'
+import { IFilter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
 import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils'
 import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
@@ -243,7 +243,7 @@ export interface ISelectDistinctOptions {
     /**
      *  Array of objects created by Filter.create
      */
-    filterArray?: Array<Filter>
+    filterArray?: Array<IFilter>
 
     ignoreFilter?: boolean
     maxRows?: number
@@ -388,7 +388,7 @@ export interface ISelectRowsOptions {
     /**
      * Array of objects created by Filter.create
      */
-    filterArray?: Array<Filter>
+    filterArray?: Array<IFilter>
 
     /**
      * If true, the command will ignore any filter that may be part of the chosen view.

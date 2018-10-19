@@ -16,7 +16,7 @@
 import { buildURL, getParameters, queryString } from '../ActionURL'
 import { request, RequestOptions } from '../Ajax'
 import { decode, getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
-import { Filter as QueryFilter } from '../filter/Filter'
+import { IFilter as QueryFilter } from '../filter/Filter'
 
 import { Aggregate, Interval, TAggregate, TInterval, Type } from './visualization/constants'
 import { Dimension } from './visualization/Dimension'

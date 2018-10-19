@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ensureRegionName, isArray } from '../Utils'
+import { ensureRegionName, isArray, isString } from '../Utils'
 import { getParameters } from '../ActionURL'
+import { FieldKey } from '../fieldKey/FieldKey'
 
 import { FilterValue } from './constants'
-import { FilterType, getFilterTypeForURLSuffix, Types } from './Types'
+import { IFilterType, getFilterTypeForURLSuffix, Types } from './Types'
 
 export interface Aggregate {
     column?: string
@@ -25,12 +26,94 @@ export interface Aggregate {
     type: string
 }
 
-export interface Filter {
+export interface IFilter {
     getColumnName(): string
-    getFilterType(): FilterType
+    getFilterType(): IFilterType
     getURLParameterName(dataRegionName?: string): string
     getURLParameterValue(): FilterValue
     getValue(): FilterValue
+}
+
+// Previously known as LABKEY.Query.Filter
+export class Filter implements IFilter {
+
+    readonly columnName: string;
+    readonly filterType: IFilterType;
+    readonly value: FilterValue;
+
+    constructor(columnName: string | Array<string> | FieldKey, value: FilterValue, filterType?: IFilterType) {
+
+        if (columnName) {
+            if (columnName instanceof FieldKey) {
+                columnName = columnName.toString();
+            }
+            else if (columnName instanceof Array) {
+                columnName = columnName.join('/');
+            }
+        }
+
+        if (!filterType) {
+            filterType = Types.EQUAL;
+        }
+
+        if (filterType.isTableWise()) {
+            columnName = '*';
+        }
+
+        this.columnName = columnName as string;
+        this.filterType = filterType;
+        this.value = value;
+    }
+
+    getColumnName(): string {
+        return this.columnName;
+    }
+
+    getFilterType(): IFilterType {
+        return this.filterType;
+    }
+
+    getURLParameterName(dataRegionName?: string): string {
+        return [
+            ensureRegionName(dataRegionName),
+            '.',
+            this.columnName,
+            '~',
+            this.filterType.getURLSuffix()
+        ].join('');
+    }
+
+    getURLParameterValue(): FilterValue {
+        if (!this.filterType.isDataValueRequired()) {
+            return '';
+        }
+
+        if (isArray(this.value)) {
+
+            // 35265: Create alternate syntax to handle semicolons
+            if (this.filterType === Types.IN || this.filterType === Types.NOT_IN) {
+                let found = false;
+                this.value.forEach((v: string) => {
+                    if (isString(v) && v.indexOf(';') !== -1) {
+                        found = true;
+                        return false;
+                    }
+                });
+
+                if (found) {
+                    return '{json:' + JSON.stringify(this.value) + '}';
+                }
+
+                return this.value.join(';');
+            }
+        }
+
+        return this.value;
+    }
+
+    getValue(): FilterValue {
+        return this.value;
+    }
 }
 
 /**
@@ -80,7 +163,7 @@ export function appendAggregateParams(params: any, aggregates: Array<Aggregate>,
  * @returns {any|{}}
  * @private
  */
-export function appendFilterParams(params: any, filterArray: Array<Filter>, dataRegionName?: string): any {
+export function appendFilterParams(params: any, filterArray: Array<IFilter>, dataRegionName?: string): any {
 
     let regionName = ensureRegionName(dataRegionName);
     let filterParams = params || {};
@@ -114,28 +197,8 @@ export function appendFilterParams(params: any, filterArray: Array<Filter>, data
     return filterParams;
 }
 
-export function create(column: string, value: FilterValue, type?: FilterType): Filter {
-
-    const _type = type ? type : Types.EQUAL;
-
-    return {
-        getColumnName: () => column,
-        getValue: () => value,
-        getFilterType: () => _type,
-        getURLParameterName(dataRegionName?: string): string {
-            let regionName = ensureRegionName(dataRegionName);
-            return [
-                regionName,
-                '.',
-                column,
-                '~',
-                _type.getURLSuffix()
-            ].join('');
-        },
-        getURLParameterValue: () => {
-            return _type.isDataValueRequired() ? value : '';
-        }
-    }
+export function create(column: string, value: FilterValue, type?: IFilterType): IFilter {
+    return new Filter(column, value, type);
 }
 
 /**
@@ -185,9 +248,9 @@ export function getFilterDescription(url: string, dataRegionName: string, column
     return result;
 }
 
-export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<Filter> {
+export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<IFilter> {
 
-    let filters: Array<Filter> = [];
+    let filters: Array<IFilter> = [];
     const params = getParameters(url);
     const regionName = ensureRegionName(dataRegionName);
 
@@ -252,8 +315,8 @@ export function getSortFromUrl(url: string, dataRegionName: string): string {
  * @param {String} columnName  Column name of filters to replace
  * @param {Array} columnFilters Array of new filters created by {@link LABKEY.Filter.create}. Will replace any filters referring to columnName
  */
-export function merge(baseFilters: Array<Filter>, columnName: string, columnFilters: Array<Filter>): Array<Filter> {
-    let newFilters: Array<Filter> = [];
+export function merge(baseFilters: Array<IFilter>, columnName: string, columnFilters: Array<IFilter>): Array<IFilter> {
+    let newFilters: Array<IFilter> = [];
 
     if (baseFilters && baseFilters.length > 0) {
         for (let i=0; i < baseFilters.length; i++) {

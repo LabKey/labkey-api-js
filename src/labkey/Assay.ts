@@ -15,7 +15,7 @@
  */
 import { buildURL } from './ActionURL'
 import { AjaxHandler, request } from './Ajax'
-import { appendFilterParams, Filter } from './filter/Filter'
+import { appendFilterParams, IFilter } from './filter/Filter'
 import { applyTranslated, displayAjaxErrorResponse, getCallbackWrapper, getOnFailure, getOnSuccess, merge } from './Utils'
 
 /**
@@ -220,7 +220,7 @@ export interface IGetNAbRunsOptions {
      */
     failure?: (errorInfo: {exception: string, exceptionClass: any, stackTrace: any}, responseObj: object, options: object) => any
     /**Array of objects created by {@link LABKEY.Filter.create}.*/
-    filterArray?: Array<Filter>
+    filterArray?: Array<IFilter>
     /**Whether the parameters used in the neutralization curve fitting calculation
      * should be included in the response.*/
     includeFitParameters?: boolean
