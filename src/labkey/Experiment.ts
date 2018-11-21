@@ -22,6 +22,9 @@ import { RunGroup } from './Exp'
 
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
 
+type ExperimentFailureCallback = (errorInfo?: any, response?: XMLHttpRequest) => any;
+type ExperimentSuccessCallback<T> = (payload?: T, response?: XMLHttpRequest) => any;
+
 export interface ICreateHiddenRunGroupOptions {
     /**
      * An alternate container path to get permissions from. If not specified, the current container path will be used.
@@ -31,7 +34,7 @@ export interface ICreateHiddenRunGroupOptions {
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
-    failure?: (errorInfo?: any, response?: XMLHttpRequest) => any
+    failure?: ExperimentFailureCallback
 
     /**
      * An array of integer ids for the runs to be members of the group. Either runIds or selectionKey must be specified.
@@ -52,7 +55,7 @@ export interface ICreateHiddenRunGroupOptions {
     /**
      * A reference to a function to call with the API results.
      */
-    success: (runGroup?: RunGroup, response?: XMLHttpRequest) => any
+    success: ExperimentSuccessCallback<RunGroup>
 }
 
 /**
@@ -76,47 +79,112 @@ export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): voi
         throw 'Either the runIds or the selectionKey config parameter is required';
     }
 
-    const success = getOnSuccess(options);
-
     // note, does not return request
     request({
         url: buildURL('experiment', 'createHiddenRunGroup.api', options.containerPath),
         method: 'POST',
         jsonData,
-        success: getCallbackWrapper((json: any, response: ExtendedXMLHttpRequest) => {
-            if (success) {
-                success.call(options.scope || this, new RunGroup(json), response);
-            }
-        }),
+        success: getSuccessCallbackWrapper<RunGroup>((json) => {
+            return new RunGroup(json);
+        }, getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
+}
+
+function getSuccessCallbackWrapper<SuccessPayload>(
+    payloadProcessor: (json: any) => SuccessPayload,
+    success: any,
+    scope?: any) {
+
+    return getCallbackWrapper((json: any, response: ExtendedXMLHttpRequest) => {
+        if (success) {
+            success.call(scope || this, payloadProcessor(json), response);
+        }
+    });
+}
+
+export interface IBaseSaveBatchOptions {
+    /**
+     * The assay protocol id
+     */
+    assayId: number
+
+    /**
+     * The name of the assay.
+     */
+    assayName?: string
+
+    /**
+     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
+     */
+    failure?: ExperimentFailureCallback
+
+    /**
+     * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
+     * is supported.
+     */
+    protocolName?: string
+
+    /**
+     * The assay provider name.
+     */
+    providerName?: string
+
+    /**
+     * A scoping object for the success and failure callback functions (default to this).
+     */
+    scope?: any
+}
+
+export interface ISaveBatchOptions extends IBaseSaveBatchOptions {
+    /**
+     * A modified RunGroup.
+     */
+    batch?: RunGroup
+
+    /**
+     * The function to call when loadBatches finishes successfully.
+     */
+    success?: ExperimentSuccessCallback<RunGroup>
+}
+
+export interface ISaveBatchesOptions extends IBaseSaveBatchOptions {
+    /**
+     * The modified RunGroups.
+     */
+    batches?: Array<RunGroup>
+
+    /**
+     * The function to call when loadBatches finishes successfully.
+     */
+    success?: ExperimentSuccessCallback<Array<RunGroup>>
 }
 
 export interface ILoadBatchOptions {
     /**
      * The assay protocol id.
      */
-    assayId: number;
+    assayId: number
 
     /**
      * The name of the assay.
      */
-    assayName: string;
+    assayName: string
 
     /**
      * The batch id.
      */
-    batchId: number;
+    batchId: number
 
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
-    failure?: (errorInfo?: any, response?: XMLHttpRequest) => any
+    failure?: ExperimentFailureCallback
 
     /**
      * The assay provider name.
      */
-    providerName: string;
+    providerName: string
 
     /**
      * A scoping object for the success and failure callback functions (default to this).
@@ -126,7 +194,7 @@ export interface ILoadBatchOptions {
     /**
      * The function to call when loadBatch finishes successfully.
      */
-    success: (batch?: RunGroup, response?: XMLHttpRequest) => any
+    success: ExperimentSuccessCallback<RunGroup>
 }
 
 /**
@@ -134,8 +202,6 @@ export interface ILoadBatchOptions {
  * documentation for more information.
  */
 export function loadBatch(options: ILoadBatchOptions): void {
-
-    const success = getOnSuccess(options);
 
     // note, does not return request
     request({
@@ -147,11 +213,9 @@ export function loadBatch(options: ILoadBatchOptions): void {
             batchId: options.batchId,
             providerName: options.providerName
         },
-        success: getCallbackWrapper((json: any, response: ExtendedXMLHttpRequest) => {
-            if (success) {
-                success.call(options.scope || this, new RunGroup(json.batch), response);
-            }
-        }),
+        success: getSuccessCallbackWrapper<RunGroup>((json) => {
+            return new RunGroup(json.batch);
+        }, getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
@@ -160,27 +224,27 @@ export interface ILoadBatchesOptions {
     /**
      * The assay protocol id.
      */
-    assayId: number;
+    assayId: number
 
     /**
      * The name of the assay.
      */
-    assayName: string;
+    assayName: string
 
     /**
      * An Array of batch ids.
      */
-    batchIds: Array<number>;
+    batchIds: Array<number>
 
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
-    failure?: (errorInfo?: any, response?: XMLHttpRequest) => any
+    failure?: ExperimentFailureCallback
 
     /**
      * The assay provider name.
      */
-    providerName: string;
+    providerName: string
 
     /**
      * A scoping object for the success and failure callback functions (default to this).
@@ -190,7 +254,7 @@ export interface ILoadBatchesOptions {
     /**
      * The function to call when loadBatches finishes successfully.
      */
-    success: (batches?: Array<RunGroup>, response?: XMLHttpRequest) => any
+    success: ExperimentSuccessCallback<Array<RunGroup>>
 }
 
 /**
@@ -198,8 +262,6 @@ export interface ILoadBatchesOptions {
  * documentation for more information.
  */
 export function loadBatches(options: ILoadBatchesOptions): void {
-
-    const success = getOnSuccess(options);
 
     // note, does not return request
     request({
@@ -211,20 +273,73 @@ export function loadBatches(options: ILoadBatchesOptions): void {
             batchIds: options.batchIds,
             providerName: options.providerName
         },
-        success: getCallbackWrapper((json: any, response: ExtendedXMLHttpRequest) => {
-            if (success) {
-                let batches: Array<RunGroup> = [];
+        success: getSuccessCallbackWrapper<Array<RunGroup>>((json) => {
+            let batches: Array<RunGroup> = [];
 
-                if (json.batches) {
-                    for (let i=0; i < json.batches.length; i++) {
-                        batches.push(new RunGroup(json.batches[i]));
-                    }
+            if (json.batches) {
+                for (let i=0; i < json.batches.length; i++) {
+                    batches.push(new RunGroup(json.batches[i]));
                 }
-
-                success.call(options.scope || this, batches, response);
             }
-        }),
+
+            return batches;
+        }, getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+    });
+}
+
+// formerly, _saveBatches
+function requestSaveBatches<SuccessPayload>(
+    rawOptions: ISaveBatchOptions & ISaveBatchesOptions,
+    payloadProcessor: (json: any) => SuccessPayload): void {
+
+    request({
+        url: buildURL('assay', 'saveAssayBatch.api'),
+        method: 'POST',
+        jsonData: {
+            assayId: rawOptions.assayId,
+            assayName: rawOptions.assayName,
+            batches: rawOptions.batches ? rawOptions.batches : [rawOptions.batch],
+            protocolName: rawOptions.protocolName,
+            providerName: rawOptions.providerName
+        },
+        success: getSuccessCallbackWrapper<SuccessPayload>(payloadProcessor, getOnSuccess(rawOptions), rawOptions.scope),
+        failure: getCallbackWrapper(getOnFailure(rawOptions), rawOptions.scope, true)
+    })
+}
+
+/**
+ * Saves a modified batch. Runs within the batch may refer to existing data and material objects,
+ * either inputs or outputs, by ID or LSID. Runs may also define new data and materials objects by not
+ * specifying an ID or LSID in their properties. See
+ * the [Module Assay](https://www.labkey.org/Documentation/wiki-page.view?name=moduleassay) documentation for
+ * more information.
+ */
+export function saveBatch(options: ISaveBatchOptions): void {
+    requestSaveBatches<RunGroup>(options as any, (json: any) => {
+        if (json.batches) {
+            return new RunGroup(json.batches[0]);
+        }
+    });
+}
+
+/**
+ * Saves an array of modified batches. Runs within the batches may refer to existing data and material objects,
+ * either inputs or outputs, by ID or LSID. Runs may also define new data and materials objects by not specifying
+ * an ID or LSID in their properties. See
+ * the [Module Assay](https://www.labkey.org/Documentation/wiki-page.view?name=moduleassay) documentation for
+ * more information.
+ * @param options
+ */
+export function saveBatches(options: ISaveBatchesOptions): void {
+    requestSaveBatches<Array<RunGroup>>(options as any, (json: any) => {
+        let batches = [];
+        if (json.batches) {
+            for (let i = 0; i < json.batches.length; i++) {
+                batches.push(new RunGroup(json.batches[i]));
+            }
+        }
+        return batches;
     });
 }
 
@@ -233,7 +348,7 @@ export interface ISaveMaterialsOptions {
     /**
      * The function to call if this function encounters an error.
      */
-    failure?: () => any
+    failure?: ExperimentFailureCallback
 
     /**
      * An array of LABKEY.Exp.Material objects to be saved
