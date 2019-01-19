@@ -60,7 +60,7 @@ import { applyTranslated, displayAjaxErrorResponse, getCallbackWrapper, getOnFai
  * </pre>
  * ```
  * @param options
- * @see [[LABKEY.Assay.AssayDesign]]
+ * @see [[AssayDesign]]
  */
 export function getAll(options: IGetAssaysOptions) {
 
@@ -86,8 +86,58 @@ export interface IGetAssaysOptions {
     /**The scope to be used for the success and failure callbacks*/
     scope?: any
     /**Function called when the "getAll" function executes successfully.
-     * Will be called with the argument: [[LABKEY.Assay.AssayDesign[]]].*/
-    success: Function
+     * Will be called with the argument: [[AssayDesign]][].*/
+    success: ( assays: AssayDesign[] ) => void
+}
+
+enum AssayLink {
+    BATCHES = 'batches',
+    BEGIN = 'begin',
+    DESIGN_COPY = 'designCopy',
+    DESIGN_EDIT = 'designEdit',
+    IMPORT = 'import',
+    RESULT = 'result',
+    RESULTS = 'results',
+    RUNS = 'runs'
+}
+
+
+export interface AssayDesign {
+    /** The name of the assay. */
+    name: string
+    /** The path to the container in which this assay design is saved. */
+    containerPath: string;
+    /** Contains the assay description. */
+    description: string;
+    /**
+     * Map containing name/value pairs.  Typically contains three entries for three domains (batch, run and results).
+     * Each domain is associated with an array of objects that each describe a domain field.
+     */
+    domains: Map<string, any /*FieldMetaData*/[]>;
+    /**
+     * An mapped enumeration of domain types to domain names. Useful when attempting to find a domain by type.
+     * The value is a domain name which can be used as a key lookup into the "domain" object.
+     */
+    domainTypes: Map<string, string>;
+    /** The unique ID of the assay. */
+    id: number;
+    /** The name of the action used for data import. */
+    importAction: string;
+    /** The name of the controller used for data import. */
+    importController: string;
+    /** Contains a map of name to URL for this assay design. */
+    links: Map<AssayLink, string>;
+    /** Contains the plate template name if the assay is plate-based.  Undefined otherwise. */
+    plateTemplate?: string;
+    /** Indicates whether this is a project-level assay. */
+    projectLevel: boolean;
+    /** Query schema name of this assay protocol. e.g. 'assay.General.MyAssay' */
+    protocolSchemaName: string;
+    // sampleRuns: List<number>;
+    /** URL for generating an Excel template for importing data into this assay. */
+    templateLink: string;
+    /** The name of the assay type.  Example:  "ELISpot". */
+    type: string;
 }
 
 /**
@@ -110,7 +160,7 @@ function getAssays(options: IGetAssaysOptions): void {
     moveParameter(options, 'name');
 
     request({
-        url: buildURL('assay', 'assayList', options.containerPath),
+        url: buildURL('assay', 'assayList.api', options.containerPath),
         method: 'POST',
         jsonData: options.parameters,
         success: getSuccessCallbackWrapper(getOnSuccess(options), options.scope),
@@ -127,7 +177,7 @@ export interface IGetByIdOptions extends IGetAssaysOptions {
 /**
  * Gets an assay by its ID.
  * @param options
- * @see LABKEY.Assay.AssayDesign
+ * @see [[AssayDesign]]
  */
 export function getById(options: IGetByIdOptions): void {
 
@@ -154,7 +204,7 @@ export interface IGetByNameOptions extends IGetAssaysOptions {
 /**
  * Gets an assay by name.
  * @param options
- * @see LABKEY.Assay.AssayDesign
+ * @see [[AssayDesign]]
  */
 export function getByName(options: IGetByNameOptions): void {
 
@@ -181,7 +231,7 @@ export interface IGetByTypeOptions extends IGetAssaysOptions {
 /**
  * Gets an assay by type.
  * @param options
- * @see LABKEY.Assay.AssayDesign
+ * @see [[AssayDesign]]
  */
 export function getByType(options: IGetByTypeOptions): void {
 

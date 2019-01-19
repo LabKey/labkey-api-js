@@ -34,16 +34,16 @@ function createDimensions(json: any): Array<Dimension> {
 
 export interface IMeasureGetDimensionsOptions {
     /**
-     * Function called when execution fails.  Called with the following parameters:
+     * Function called when execution fails. Called with the following parameters:
      * * **errorInfo:** an object containing detailed error information (may be null)
      * * **response:** The XMLHttpResponse object
      */
     failure?: Function
 
     /**
-     * Applies only to measures from study datsets.
+     * Applies only to measures from study datasets.
      * Indicates whether dimensions from demographic datasets should be included
-     * in the returned set.  If false, only dimensions from the measure's query will be returned.
+     * in the returned set. If false, only dimensions from the measure's query will be returned.
      */
     includeDemographics?: boolean
     scope?: any

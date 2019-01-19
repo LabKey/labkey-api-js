@@ -30,7 +30,7 @@ function createValues(json: any): Array<any> {
 
 export interface IGetValuesOptions {
     /**
-     * Function called when execution fails.  Called with the following parameters:
+     * Function called when execution fails. Called with the following parameters:
      * * **errorInfo:** an object containing detailed error information (may be null)
      * * **response:** The XMLHttpResponse object
      */
@@ -46,7 +46,7 @@ export interface IGetValuesOptions {
 
 /**
  * @namespace Dimensions are data elements (columns) on which [[Measure]] objects
- * can be pivoted or transformed.  For example, the 'Analyte Name' dimension may be used to pivot a single 'Result' measure
+ * can be pivoted or transformed. For example, the 'Analyte Name' dimension may be used to pivot a single 'Result' measure
  * into one series per Analyte.
  */
 export class Dimension {

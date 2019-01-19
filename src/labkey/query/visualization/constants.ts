@@ -17,7 +17,7 @@
 export type TAggregate = 'AVG' | 'COUNT' | 'MAX' | 'MIN' | 'SUM';
 
 /**
- * @namespace Possible aggregates when pivoting a resultset by a dimension.  See  [[getData]].
+ * @namespace Possible aggregates when pivoting a resultset by a dimension. See [[getData]].
  */
 export const Aggregate: {
     [key: string]: string
@@ -37,7 +37,7 @@ export const Aggregate: {
 export type TInterval = 'DAY' | 'MONTH' | 'WEEK' | 'YEAR';
 
 /**
- * @namespace Possible intervals for aligning series in time plots.  See  [[getData]].
+ * @namespace Possible intervals for aligning series in time plots. See [[getData]].
  */
 export const Interval: {
     [key: string]: string

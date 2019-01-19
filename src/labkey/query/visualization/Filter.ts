@@ -20,10 +20,12 @@ export interface ICreateOptions {
 
     /**
      * If specified, only measures from the specified query types will be returned
-     * Valid values for queryType are:  [[QueryType.ALL]], [[QueryType.BUILT_IN]],
-     * and [[QueryType.CUSTOM]].  By default, all queries will be returned.
+     * Valid values for queryType are: [[QueryType.ALL]], [[QueryType.BUILT_IN]],
+     * and [[QueryType.CUSTOM]]. By default, all queries will be returned.
      */
     queryType?: TQueryType
+
+    /** Only measures from the specified schema will be returned. */
     schemaName: string
 }
 
