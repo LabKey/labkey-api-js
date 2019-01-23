@@ -17,6 +17,21 @@ import * as Utils from './Utils'
 
 // no need for test of Utils.alert() at this time.
 
+describe('capitalize', () => {
+    it('should be null and undefined safe', () => {
+        expect(Utils.capitalize(null)).toBe(null);
+        expect(Utils.capitalize(undefined)).toBe(undefined);
+    });
+    it('should be empty string safe', () => {
+        expect(Utils.capitalize('')).toBe('');
+    });
+    it('should capitalize the first letter of a string', () => {
+        expect(Utils.capitalize('abc def')).toBe('Abc def');
+        expect(Utils.capitalize('ABC')).toBe('ABC');
+        expect(Utils.capitalize('☃ snowman')).toBe('☃ snowman');
+    })
+});
+
 describe('caseInsensitiveEquals', () => {
     it('should be null safe', () => {
         expect(Utils.caseInsensitiveEquals(null, null)).toBe(true);
@@ -139,6 +154,19 @@ describe('isDate', () => {
         expect(Utils.isDate(new Date())).toBe(true);
         expect(Utils.isDate(new Date(123))).toBe(true);
         expect(Utils.isDate(Date.now())).toBe(false);
+    });
+});
+
+describe('isNumber', () => {
+    it('should return true only for Number', () => {
+        expect(Utils.isNumber(undefined)).toBe(false);
+        expect(Utils.isNumber(null)).toBe(false);
+        expect(Utils.isNumber('string')).toBe(false);
+        expect(Utils.isNumber({})).toBe(false);
+        expect(Utils.isNumber(new Date())).toBe(false);
+        expect(Utils.isNumber(123)).toBe(true);
+        expect(Utils.isNumber(1.1)).toBe(true);
+        expect(Utils.isNumber('1.1')).toBe(false);
     });
 });
 

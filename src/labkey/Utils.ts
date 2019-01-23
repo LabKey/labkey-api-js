@@ -149,6 +149,18 @@ export function alert(title: string, msg: string): void {
 }
 
 /**
+ * Returns the string value with the first char capitalized.
+ * @param {String} value The string value to capitalize
+ * @return {String}
+ */
+export function capitalize(value: string): string {
+    if (value && isString(value) && value.length > 0) {
+        return value.charAt(0).toUpperCase() + value.substr(1);
+    }
+    return value;
+}
+
+/**
  * Returns true if the arguments are case-insensitive equal.
  * Note: the method converts arguments to strings for the purposes of comparing numbers,
  * which means that it will return odd behaviors with objects
@@ -456,6 +468,10 @@ export function isBoolean(value: any): boolean {
 
 export function isDate(value: any): boolean {
     return Object.prototype.toString.call(value) === '[object Date]';
+}
+
+export function isNumber(value: any): boolean {
+    return typeof value === 'number' && Number.isFinite(value);
 }
 
 export function isDefined(value: any): boolean {
