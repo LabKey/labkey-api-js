@@ -74,9 +74,12 @@ export function importRun(options: IImportRunOptions): void {
 
     let formData = new FormData();
     formData.append('assayId', options.assayId as any);
-    formData.append('name', options.name);
-    formData.append('comment', options.comment);
-
+    if (options.name) {
+        formData.append('name', options.name);
+    }
+    if (options.comment) {
+        formData.append('comment', options.comment);
+    }
     if (options.batchId) {
         formData.append('batchId', options.batchId as any);
     }
