@@ -111,7 +111,7 @@ export function buildURL(controller: string, action: string, containerPath?: str
         containerPath = encodePath(containerPath);
     }
     else {
-        containerPath = exports.getContainer(); // TODO: Shouldn't we be encoding this as well?
+        containerPath = getContainer(); // TODO: Shouldn't we be encoding this as well?
     }
 
     // ensure that the container begins/ends with a "/"
@@ -182,7 +182,7 @@ export function getAction(): string {
  */
 export function getBaseURL(noContextPath?: boolean): string {
     const location = getLocation();
-    return location.protocol + '//' + location.host + (noContextPath ? '' : exports.getContextPath() + '/');
+    return location.protocol + '//' + location.host + (noContextPath ? '' : getContextPath() + '/');
 }
 
 /**
@@ -204,7 +204,7 @@ export function getContainer(): string {
  * @returns Current container name.
  */
 export function getContainerName(): string {
-    const containerPath = exports.getContainer();
+    const containerPath = getContainer();
     return containerPath.substring(containerPath.lastIndexOf('/') + 1);
 }
 
