@@ -54,6 +54,40 @@ describe('create', () => {
     it('should not encode URL parameter value', () => {
         expect(encodedFilter.getURLParameterValue()).toEqual(filterValue);
     });
+
+});
+
+describe('create multi-valued', () => {
+    it('single string value', () => {
+        let f = Filter.create('q', 'abc', Filter.Types.IN);
+        expect(f.getValue()).toEqual(['abc']);
+        expect(f.getURLParameterValue()).toEqual('abc');
+    });
+
+    it('semi-colon separated values', () => {
+        let f = Filter.create('q', 'a;b;c', Filter.Types.IN);
+        expect(f.getValue()).toEqual(['a', 'b', 'c']);
+        expect(f.getURLParameterValue()).toEqual('a;b;c');
+    });
+
+    it('array of values', () => {
+        let f = Filter.create('q', ['a', 'b', 'c'], Filter.Types.IN);
+        expect(f.getValue()).toEqual(['a', 'b', 'c']);
+        expect(f.getURLParameterValue()).toEqual('a;b;c');
+    });
+
+    it('json encoded array of values', () => {
+        let f = Filter.create('q', '{json:["a","b","c"]}', Filter.Types.IN);
+        expect(f.getValue()).toEqual(['a', 'b', 'c']);
+        expect(f.getURLParameterValue()).toEqual('a;b;c');
+    });
+
+    it('json encoded array of values with semi-colon', () => {
+        let f = Filter.create('q', '{json:["a","b;c"]}', Filter.Types.IN);
+        expect(f.getValue()).toEqual(['a', 'b;c']);
+        expect(f.getURLParameterValue()).toEqual('{json:["a","b;c"]}');
+    });
+
 });
 
 describe('merge', () => {

@@ -60,6 +60,23 @@ export class Filter implements IFilter {
             columnName = '*';
         }
 
+        // If the filter is multi-valued and we were constructed with a single
+        // string value, parse the string into the individual parts.
+        if (filterType.isMultiValued() && isString(value))
+        {
+            if (value.indexOf("{json:") === 0 && value.indexOf("}") === value.length-1)
+            {
+                value = JSON.parse(value.substring("{json:".length, value.length - 1));
+            }
+            else
+            {
+                value = value.split(filterType.getMultiValueSeparator());
+            }
+        }
+
+        if (!filterType.isMultiValued() && isArray(value))
+            throw new Error("Can't create '" + filterType.getDisplayText() + "' filter for column '" + columnName + "' with an array of values: " + value);
+
         this.columnName = columnName as string;
         this.filterType = filterType;
         this.value = value;
@@ -88,23 +105,19 @@ export class Filter implements IFilter {
             return '';
         }
 
-        if (isArray(this.value)) {
+        if (this.filterType.isMultiValued() && isArray(this.value)) {
 
             // 35265: Create alternate syntax to handle semicolons
-            if (this.filterType === Types.IN || this.filterType === Types.NOT_IN) {
-                let found = false;
-                this.value.forEach((v: string) => {
-                    if (isString(v) && v.indexOf(';') !== -1) {
-                        found = true;
-                        return false;
-                    }
-                });
+            let sep = this.filterType.getMultiValueSeparator();
+            let found = this.value.some((v: string) => {
+                return isString(v) && v.indexOf(sep) !== -1;
+            });
 
-                if (found) {
-                    return '{json:' + JSON.stringify(this.value) + '}';
-                }
-
-                return this.value.join(';');
+            if (found) {
+                return '{json:' + JSON.stringify(this.value) + '}';
+            }
+            else {
+                return this.value.join(sep);
             }
         }
 
@@ -266,11 +279,16 @@ export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<I
                     let filterType = getFilterTypeForURLSuffix(filterName);
 
                     let values = params[paramName];
-                    if (!isArray(values)) {
-                        values = [values];
+                    // Create separate Filter objects if the filter parameter appears on the URL more than once.
+                    if (isArray(values)) {
+                        for (let i = 0; i < values.length; i++) {
+                            filters.push(create(columnName, values[i], filterType));
+                        }
+                    }
+                    else {
+                        filters.push(create(columnName, values, filterType));
                     }
 
-                    filters.push(create(columnName, values, filterType));
                 }
             }
         }
