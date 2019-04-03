@@ -60,22 +60,11 @@ export class Filter implements IFilter {
             columnName = '*';
         }
 
-        // If the filter is multi-valued and we were constructed with a single
-        // string value, parse the string into the individual parts.
-        if (filterType.isMultiValued() && isString(value))
-        {
-            if (value.indexOf("{json:") === 0 && value.indexOf("}") === value.length-1)
-            {
-                value = JSON.parse(value.substring("{json:".length, value.length - 1));
-            }
-            else
-            {
-                value = value.split(filterType.getMultiValueSeparator());
-            }
+        if (value) {
+            // If the filter is multi-valued and we were constructed with a single
+            // string value, split the string into the individual parts.
+            value = filterType.splitValue(value);
         }
-
-        if (!filterType.isMultiValued() && isArray(value))
-            throw new Error("Can't create '" + filterType.getDisplayText() + "' filter for column '" + columnName + "' with an array of values: " + value);
 
         this.columnName = columnName as string;
         this.filterType = filterType;
@@ -101,27 +90,7 @@ export class Filter implements IFilter {
     }
 
     getURLParameterValue(): FilterValue {
-        if (!this.filterType.isDataValueRequired()) {
-            return '';
-        }
-
-        if (this.filterType.isMultiValued() && isArray(this.value)) {
-
-            // 35265: Create alternate syntax to handle semicolons
-            let sep = this.filterType.getMultiValueSeparator();
-            let found = this.value.some((v: string) => {
-                return isString(v) && v.indexOf(sep) !== -1;
-            });
-
-            if (found) {
-                return '{json:' + JSON.stringify(this.value) + '}';
-            }
-            else {
-                return this.value.join(sep);
-            }
-        }
-
-        return this.value;
+        return this.filterType.getURLParameterValue(this.value);
     }
 
     getValue(): FilterValue {

@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants'
+import { isArray, isString } from '../Utils';
 
 let urlMap: {
     [suffix:string]: IFilterType
@@ -33,6 +34,15 @@ export interface IFilterType {
     getMultiValueSeparator: () => string
     getOpposite: () => IFilterType
     getSingleValueFilter:() => IFilterType
+    /**
+     * Split a filter String or Array value appropriately for this filter type.
+     * @return {String|Array} For multi-valued filter types, an Array of values, otherwise the original filter value.
+     */
+    splitValue: (value: string | Array<FilterValue>) => FilterValue | Array<FilterValue>
+    /**
+     * Get the (unencoded) value that will be put on the URL.
+     */
+    getURLParameterValue: (value: FilterValue) => FilterValue
     validate: (value: FilterValue, jsonType: string, columnName: string) => any
 }
 
@@ -154,9 +164,9 @@ function generateFilterType(
     const isMultiValued = () => multiValueSeparator != null;
     const isTableWise = () => tableWise === true;
 
-    const doValidate = (value: FilterValue, jsonType: JsonType, columnName: string): string | boolean => {
+    const doValidate = (value: FilterValue, jsonType: JsonType, columnName: string): string | undefined => {
         if (!isDataValueRequired()) {
-            return true;
+            return undefined;
         }
 
         let f = TYPES_BY_JSON_TYPE[jsonType.toLowerCase()];
@@ -174,7 +184,7 @@ function generateFilterType(
         }
 
         if (isMultiValued())
-            return validateMultiple(jsonType, value, columnName, multiValueSeparator, minOccurs, maxOccurs);
+            return validateMultiple(type, jsonType, value, columnName, multiValueSeparator, minOccurs, maxOccurs);
         return validate(jsonType, value, columnName);
     };
 
@@ -198,6 +208,52 @@ function generateFilterType(
         getSingleValueFilter: () => {
             return isMultiValued ? urlMap[multiValueToSingleMap[urlSuffix]] : null;
         },
+
+        splitValue: (value) => {
+            if (type.isMultiValued()) {
+                if (isString(value)) {
+                    if (value.indexOf("{json:") === 0 && value.indexOf("}") === value.length-1) {
+                        value = JSON.parse(value.substring("{json:".length, value.length - 1));
+                    }
+                    else {
+                        value = value.split(type.getMultiValueSeparator());
+                    }
+                }
+
+                if (!isArray(value))
+                    throw new Error("Filter '" + type.getDisplayText() + "' must be created with Array of values or a '" + type.getMultiValueSeparator() + "' separated string of values: " + value);
+            }
+
+            if (!type.isMultiValued() && isArray(value))
+                throw new Error("Array of values not supported for '" + type.getDisplayText() + "' filter: " + value);
+
+            return value;
+        },
+
+        getURLParameterValue: function (value) {
+            if (!type.isDataValueRequired()) {
+                return '';
+            }
+
+            if (type.isMultiValued() && isArray(value)) {
+
+                // 35265: Create alternate syntax to handle semicolons
+                let sep = type.getMultiValueSeparator();
+                let found = value.some((v: string) => {
+                    return isString(v) && v.indexOf(sep) !== -1;
+                });
+
+                if (found) {
+                    return '{json:' + JSON.stringify(value) + '}';
+                }
+                else {
+                    return value.join(sep);
+                }
+            }
+
+            return value;
+        },
+
         validate: doValidate
     };
 
@@ -265,7 +321,7 @@ function twoDigit(num: number): string {
  * @param columnName The column name to use in error messages.
  * @return undefined if not valid otherwise a normalized string value for the type.
  */
-function validate(jsonType: JsonType, value: FilterValue, columnName: string): string {
+function validate(jsonType: JsonType, value: FilterValue, columnName: string): string | undefined {
     const strValue = value.toString();
 
     if (jsonType === 'boolean') {
@@ -348,21 +404,31 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
     }
 }
 
+// validate the component items of the value
+// returns undefined or the string representation of the filter value (see .getURLParameterValue)
 function validateMultiple(
-    jsonType: JsonType, value: FilterValue, columnName: string,
+    filterType: IFilterType, jsonType: JsonType, value: FilterValue, columnName: string,
     sep: string, minOccurs: number, maxOccurs: number
-): string {
-    let values = value.toString().split(sep);
-    let result = '';
-    let separator = '';
+): string | undefined {
+    let values;
+    try
+    {
+        values = filterType.splitValue(value);
+    }
+    catch (x)
+    {
+        alert("Failed to validate filter: " + x.toString());
+        return undefined;
+    }
+
+    let result = [];
     for (let i = 0; i < values.length; i++) {
         let valid = validate(jsonType, values[i].trim(), columnName);
         if (valid == undefined) {
             return undefined;
         }
 
-        result += separator + valid;
-        separator = sep;
+        result.push(valid);
     }
 
     if (minOccurs !== undefined && minOccurs > 0) {
@@ -379,5 +445,5 @@ function validateMultiple(
         }
     }
 
-    return result;
+    return filterType.getURLParameterValue(values);
 }
