@@ -518,7 +518,7 @@ export function isObject(value: any): boolean {
  * @param value
  * @returns {boolean}
  */
-export function isString(value: any): boolean {
+export function isString(value: any): value is string {
     return typeof value === 'string';
 }
 
