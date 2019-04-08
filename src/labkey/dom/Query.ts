@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { CSRF_HEADER } from '../constants'
 import { buildURL } from '../ActionURL'
 import { request } from '../Ajax'
-import { encodeHtml, generateUUID, getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils'
 import { appendFilterParams } from '../filter/Filter'
 
-import { FormWindow, loadDOMContext } from './constants'
+import { FormWindow } from './constants'
+import { postToAction } from './Utils';
 
 declare let window: FormWindow;
-
-const { $, CSRF } = loadDOMContext();
 
 export interface IExportSqlOptions {
     containerFilter?: string
@@ -43,7 +41,7 @@ export interface IExportSqlOptions {
  */
 export function exportSql(options: IExportSqlOptions): void {
 
-    submitForm(buildURL('query', 'exportSql', options.containerPath), {
+    postToAction(buildURL('query', 'exportSql', options.containerPath), {
         containerFilter: options.containerFilter,
         format: options.format,
         schemaName: options.schemaName,
@@ -96,7 +94,7 @@ export function exportTables(options: IExportTablesOptions): void {
 
     formData.schemas = JSON.stringify(schemas);
 
-    submitForm(buildURL('query', 'exportTables.view'), formData);
+    postToAction(buildURL('query', 'exportTables.view'), formData);
 }
 
 export interface IImportDataOptions {
@@ -175,34 +173,4 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     });
 }
 
-/**
- * Insert a hidden html <form> into to page, put the JSON into it, and submit it - the server's response
- * will make the browser pop up a dialog.
- */
-function submitForm(url: string, formData: any): void {
-    if (!formData[CSRF_HEADER]) {
-        formData[CSRF_HEADER] = CSRF;
-    }
 
-    const formId = generateUUID();
-
-    let html = [];
-    html.push('<f');   // avoid form tag, it causes skipfish false positive
-    html.push('orm method="POST" id="' + formId + '"action="' + url + '">');
-    for (let name in formData) {
-        if (formData.hasOwnProperty(name)) {
-            let value = formData[name];
-            if (value === undefined) {
-                continue;
-            }
-
-            html.push('<input type="hidden"' +
-                ' name="' + encodeHtml(name) + '"' +
-                ' value="' + encodeHtml(value) + '" />');
-        }
-    }
-    html.push("</form>");
-
-    $('body').append(html.join(''));
-    $('form#' + formId).submit();
-}

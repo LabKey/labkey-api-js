@@ -60,6 +60,12 @@ export class Filter implements IFilter {
             columnName = '*';
         }
 
+        if (value) {
+            // If the filter is multi-valued and we were constructed with a single
+            // string value, split the string into the individual parts.
+            value = filterType.splitValue(value);
+        }
+
         this.columnName = columnName as string;
         this.filterType = filterType;
         this.value = value;
@@ -84,31 +90,7 @@ export class Filter implements IFilter {
     }
 
     getURLParameterValue(): FilterValue {
-        if (!this.filterType.isDataValueRequired()) {
-            return '';
-        }
-
-        if (isArray(this.value)) {
-
-            // 35265: Create alternate syntax to handle semicolons
-            if (this.filterType === Types.IN || this.filterType === Types.NOT_IN) {
-                let found = false;
-                this.value.forEach((v: string) => {
-                    if (isString(v) && v.indexOf(';') !== -1) {
-                        found = true;
-                        return false;
-                    }
-                });
-
-                if (found) {
-                    return '{json:' + JSON.stringify(this.value) + '}';
-                }
-
-                return this.value.join(';');
-            }
-        }
-
-        return this.value;
+        return this.filterType.getURLParameterValue(this.value);
     }
 
     getValue(): FilterValue {
@@ -266,11 +248,16 @@ export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<I
                     let filterType = getFilterTypeForURLSuffix(filterName);
 
                     let values = params[paramName];
-                    if (!isArray(values)) {
-                        values = [values];
+                    // Create separate Filter objects if the filter parameter appears on the URL more than once.
+                    if (isArray(values)) {
+                        for (let i = 0; i < values.length; i++) {
+                            filters.push(create(columnName, values[i], filterType));
+                        }
+                    }
+                    else {
+                        filters.push(create(columnName, values, filterType));
                     }
 
-                    filters.push(create(columnName, values, filterType));
                 }
             }
         }
