@@ -107,8 +107,9 @@ export function drop(config: DropDomainOptions): void {
 export interface GetDomainOptions {
     containerPath?: string
     failure?: () => any
-    queryName: string
-    schemaName: string
+    queryName?: string
+    schemaName?: string
+    domainId?: number
     success?: () => any
 }
 
@@ -132,7 +133,8 @@ export function get(config: GetDomainOptions): void {
         failure: getCallbackWrapper(options.failure, this, true),
         params: {
             schemaName: options.schemaName,
-            queryName: options.queryName
+            queryName: options.queryName,
+            domainId: options.domainId
         }
     });
 
@@ -142,8 +144,9 @@ export interface SaveDomainOptions {
     containerPath?: string
     domainDesign?: any
     failure?: () => any
-    queryName: string
-    schemaName: string
+    queryName?: string
+    schemaName?: string
+    domainId?: number
     success?: () => any
 }
 
@@ -169,7 +172,8 @@ export function save(config: SaveDomainOptions): void {
         jsonData: {
             domainDesign: options.domainDesign,
             schemaName: options.schemaName,
-            queryName: options.queryName
+            queryName: options.queryName,
+            domainId: options.domainId
         }
     });
 }
