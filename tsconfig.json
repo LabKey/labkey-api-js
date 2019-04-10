@@ -7,6 +7,7 @@
     "sourceMap": false,
     "noImplicitAny": true,
     "removeComments": true,
+    "module": "ES2015",
     "lib": [
       "DOM",
       "es2015"
