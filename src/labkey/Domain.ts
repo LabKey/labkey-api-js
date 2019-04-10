@@ -106,11 +106,11 @@ export function drop(config: DropDomainOptions): void {
 
 export interface GetDomainOptions {
     containerPath?: string
-    failure?: () => any
+    failure?: (error?: any) => any
     queryName?: string
     schemaName?: string
     domainId?: number
-    success?: () => any
+    success?: (data?: any) => any
 }
 
 /**
@@ -143,11 +143,11 @@ export function get(config: GetDomainOptions): void {
 export interface SaveDomainOptions {
     containerPath?: string
     domainDesign?: any
-    failure?: () => any
+    failure?: (error?: any) => any
     queryName?: string
     schemaName?: string
     domainId?: number
-    success?: () => any
+    success?: (data?: any) => any
 }
 
 /**
