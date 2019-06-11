@@ -104,6 +104,7 @@ export interface IImportDataOptions {
     format?: string
     importIdentity?: any
     importLookupByAlternateKey?: boolean
+    insertOption?: string
     importUrl?: string
     module?: string
     moduleResource?: any
@@ -152,6 +153,9 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     }
     if (options.saveToPipeline !== undefined) {
         form.append('saveToPipeline', options.saveToPipeline.toString());
+    }
+    if (options.insertOption !== undefined) {
+        form.append('insertOption', options.insertOption);
     }
 
     if (options.file) {
