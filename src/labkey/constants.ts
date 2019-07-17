@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+ // SNPRC: Added support for baseURL configuration with CORS support
 export interface Container {
     path: string
 }
@@ -44,6 +46,7 @@ export interface LabKey {
     user: User
     uuids: Array<string>
     verbose: boolean
+    baseURL: string
 }
 
 export interface User {

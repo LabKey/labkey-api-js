@@ -174,7 +174,7 @@ function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: 
         if (headers.hasOwnProperty(k)) {
             xhr.setRequestHeader(k, headers[k]);
         }
-    }
+    }  
 }
 
 /**
@@ -236,6 +236,9 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
 /**
  * Make a XMLHttpRequest nominally to a LabKey instance. Includes success/failure callback mechanism,
  * HTTP header configuration, support for FormData, and parameter encoding amongst other features.
+ * 
+ * SNPRC: Added CORS configuration
+ * 
  */
 export function request(config: RequestOptions): XMLHttpRequest {
     let options = configureOptions(config);
@@ -252,6 +255,17 @@ export function request(config: RequestOptions): XMLHttpRequest {
     };
 
     xhr.open(options.method, options.url, true);
+
+    // If the request is to a remote server then the baseURL will be configured in the LABKEY object. In this case, we need to enable 
+    // credentials to trigger a CORS request
+    const { baseURL } = getServerContext();
+    const noContextPath = !( getServerContext().hasOwnProperty('contextPath') && getServerContext().contextPath != null);
+
+
+    if (location.protocol + '//' + location.host + (noContextPath ? '/' : getServerContext().contextPath + '/') != baseURL ) {
+        xhr.withCredentials = true;
+    }
+    
 
     // configure headers after request is open
     configureHeaders(xhr, config, options);

@@ -16,6 +16,7 @@
 import { request, RequestOptions } from '../Ajax'
 import { IFilter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
+import { getServerContext } from '../constants'
 import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils'
 import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
@@ -597,6 +598,9 @@ function selectRowArguments(args: any): ISelectRowsOptions {
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * 
+ * SNPRC: If the baseURL is configured then it will be used to make the AJAX request
+ * 
  */
 export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
 
@@ -611,8 +615,18 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
         throw 'You must specify a queryName!';
     }
 
+    //
+    let url: string;
+    const { baseURL } = getServerContext();
+    if (baseURL) {
+        url = baseURL + buildURL('query', 'getQuery.api', options.containerPath);
+    }
+    else {
+        url = buildURL('query', 'getQuery.api', options.containerPath);
+    }
+
     return request({
-        url: buildURL('query', 'getQuery.api', options.containerPath),
+        url: url,
         method: getMethod(options.method),
         success: getSuccessCallbackWrapper(getOnSuccess(options), options.stripHiddenColumns, options.scope, options.requiredVersion),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
