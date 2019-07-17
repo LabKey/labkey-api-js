@@ -174,10 +174,19 @@ export function getAction(): string {
  * for example: http://labkey.org/labkey/
  * @param noContextPath Set true to omit the context path.  Defaults to false.
  * @returns Current base URL.
+ * 
+ *  * SNPRC - If baseURL is included in the LABKEY configuration, then return it.
+ * 
  */
 export function getBaseURL(noContextPath?: boolean): string {
-    const location = getLocation();
-    return location.protocol + '//' + location.host + (noContextPath ? '' : getContextPath() + '/');
+   const { baseURL } = getServerContext();
+    if (baseURL) {
+        return baseURL + (noContextPath ? '' : getContextPath()) + '/';
+    }
+    else {
+        const location = getLocation();
+        return location.protocol + '//' + location.host + (noContextPath ? '' : getContextPath()) + '/';
+    }
 }
 
 /**
