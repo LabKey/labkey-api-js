@@ -615,7 +615,8 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
         throw 'You must specify a queryName!';
     }
 
-    //
+    // Create absolute path if the LABKEY.baseURL is configured (assume remote server), otherwise use the relative URL from buildURL.
+    // TODO: refactor into buildURL (ActionURL.ts)
     let url: string;
     const { baseURL } = getServerContext();
     if (baseURL) {
