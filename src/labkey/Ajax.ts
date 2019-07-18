@@ -256,11 +256,10 @@ export function request(config: RequestOptions): XMLHttpRequest {
 
     xhr.open(options.method, options.url, true);
 
-    // If the request is to a remote server then the baseURL will be configured in the LABKEY object. In this case, we need to enable 
+    // If the request is to a remote server then the baseURL will be configured in the LABKEY configuration. In this case, we need to enable 
     // credentials to trigger a CORS request
     const { baseURL } = getServerContext();
     const noContextPath = !( getServerContext().hasOwnProperty('contextPath') && getServerContext().contextPath != null);
-
 
     if (location.protocol + '//' + location.host + (noContextPath ? '/' : getServerContext().contextPath + '/') != baseURL ) {
         xhr.withCredentials = true;

@@ -1,3 +1,83 @@
+# SNPRC Fork Notes (https://github.com/SNPRC/labkey-api-js)
+
+This is the SNPRC forked version of labkey-api-js. Changes were made to support baseURL configuration and CORS headers. 
+
+Currently, Query.selectRows (Rows.ts) has been changed to create absolute URLs and pass credentials for CORS headers. Future plans include refactoring BuildURL in ActionURL.ts to handle 
+absolute vs. relative paths for all API calls. However, this will require more testing than we are willing to do at this time, so we are addressing APIs on an as needed basis.
+
+# LabKey Server (Tomcat) configuration to enable CORS
+
+```xml
+ <filter>
+    <filter-name>CorsFilter</filter-name>
+      <filter-class>org.apache.catalina.filters.CorsFilter</filter-class>
+	  <init-param>
+	    <param-name>cors.allowed.headers</param-name>
+		<param-value>Content-Type,X-Requested-With,accept,Origin,Access-Control-RequestMethod,Access-Control-Request-Headers,Authorization,dsName,x-labkey-csrf,dnt</param-value>
+	  </init-param>
+	  <init-param>
+		<param-name>cors.support.credentials</param-name>
+		<param-value>true</param-value>
+	  </init-param>
+	  <init-param>
+        <param-name>cors.allowed.origins</param-name>
+        <param-value>https://fully.qualified.name:8443, ... </param-value>
+      </init-param>
+	  <init-param>
+          <param-name>debug</param-name>
+          <param-value>0</param-value>
+      </init-param>
+	  <init-param>
+        <param-name>cors.allowed.methods</param-name>
+        <param-value>GET,POST,PUT,HEAD,OPTIONS</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+```
+## Notes:
+1. Credential support is required for the API.
+2. White listing of allowed origins is required when credential support is enabled.
+3. Custom headers, such as **x-labkey-csrf** and **dnt** must be included in the allowed headers list, since they are sent to the server by the API.
+
+# Basic API configuration (index.html)
+
+```xml
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LabKey-api-js dev</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>   
+</head>
+
+<body>
+    <p>LabKey JS API Project</p>
+    <script>
+        LABKEY = {
+            contextPath: '/labkey',
+            container: {path: 'SNPRC'}, 
+            baseURL: 'https://moe.txbiomed.org'
+        }
+    </script>
+
+    <div id="app"></div>
+    <script type="text/javascript" src="bundle.js"></script>
+</body>
+
+</html>
+```
+## Notes:
+1. jquery is required by the API
+2. contextPath requires the leading **/**
+3. **baseURL** is the LabKey server being queried
+
+#
+# LabKey/labkey-api-js `README.MD` (https://github.com/LabKey/labkey-api-js)
+
 # @labkey/api
 
 JavaScript package for interacting with [LabKey Server](https://www.labkey.com/). The goal for this package is to provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the browser, on the server, and in pretty much any modern JavaScript environment.
