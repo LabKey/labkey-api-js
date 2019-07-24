@@ -175,6 +175,7 @@ export interface IGetQueriesOptions {
     includeColumns?: boolean
     includeUserQueries?: boolean
     includeSystemQueries?: boolean
+    queryDetailColumns?: boolean
     schemaName: string
     scope?: any
     success?: Function
@@ -194,7 +195,8 @@ export function getQueries(options: IGetQueriesOptions): XMLHttpRequest {
         schemaName: 'schemaName',
         includeColumns: 'includeColumns',
         includeUserQueries: 'includeUserQueries',
-        includeSystemQueries: 'includeSystemQueries'
+        includeSystemQueries: 'includeSystemQueries',
+        queryDetailColumns: 'queryDetailColumns'
     }, false, false);
 
     return request({
