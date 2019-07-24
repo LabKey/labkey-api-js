@@ -43,6 +43,15 @@ absolute vs. relative paths for all API calls. However, this will require more t
 2. White listing of allowed origins is required when credential support is enabled.
 3. Custom headers, such as **x-labkey-csrf** and **dnt** must be included in the allowed headers list, since they are sent to the server by the API.
 
+# Installing the SNPRC fork
+The SNPRC fork is installed directly from GitHub, so you can ignore the installation instructions in the LabKey docs below.
+```
+npm install snprc/labkey-api-js#fb_updates_for_npm
+```
+You can then import @labkey/api in your application as follows:
+```js
+import { Query, Security } from '@labkey/api';
+```
 # Basic API configuration (index.html)
 
 ```xml

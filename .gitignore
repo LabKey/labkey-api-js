@@ -1,5 +1,6 @@
 .rpt2_cache
 dist/labkey
+dist/labkey.d.ts
 docs
 node_modules
 npm-debug.log
