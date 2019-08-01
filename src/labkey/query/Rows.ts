@@ -527,7 +527,7 @@ function buildParams(options: ISelectRowsOptions): any {
     if (options.containerFilter)
         params.containerFilter = options.containerFilter;
 
-    if (options.includeTotalCount)
+    if (options.includeTotalCount !== undefined)
         params.includeTotalCount = options.includeTotalCount;
 
     if (options.includeDetailsColumn)
