@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "0.0.19",
+  "version": "0.0.19-fb-saveDataAsFile.0",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",

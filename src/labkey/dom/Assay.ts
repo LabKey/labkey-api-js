@@ -35,6 +35,7 @@ export interface IImportRunOptions {
     properties?: any
     reRunId?: number | string
     runFilePath?: string
+    saveDataAsFile?: boolean
     scope?: any
     success: Function
 }
@@ -85,6 +86,9 @@ export function importRun(options: IImportRunOptions): void {
     }
     if (options.reRunId) {
         formData.append('reRunId', options.reRunId as string);
+    }
+    if (options.saveDataAsFile) {
+        formData.append('saveDataAsFile', options.saveDataAsFile ? "true" : "false");
     }
 
     if (options.properties) {
