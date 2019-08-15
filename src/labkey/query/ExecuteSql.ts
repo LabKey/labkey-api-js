@@ -142,7 +142,7 @@ function buildParams(options: IExecuteSqlOptions): any {
     if (options.offset && options.offset > 0) {
         jsonData.offset = options.offset;
     }
-    if (options.includeTotalCount != undefined) {
+    if (options.includeTotalCount !== undefined) {
         jsonData.includeTotalCount = options.includeTotalCount;
     }
 

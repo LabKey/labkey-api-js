@@ -83,6 +83,9 @@ export function importRun(options: IImportRunOptions): void {
     if (options.batchId) {
         formData.append('batchId', options.batchId as any);
     }
+    if (options.reRunId) {
+        formData.append('reRunId', options.reRunId as string);
+    }
 
     if (options.properties) {
         for (let key in options.properties) {
