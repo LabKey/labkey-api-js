@@ -58,28 +58,34 @@ If you would like to experiment with running this code against LabKey Server it 
 
 #### Deploy Using Experimental Build
 
+:warning: This will modify files in your git enlistment. Double check your commits and be sure to revert and changes when you are done experimenting!
+
 To get started edit the `<labkey root>/server/modules/core/build.js` file and set `USE_LABKEY_API` to `true`.
 
 ```js
 const USE_LABKEY_API = true;
 ```
 
-Next, you can either perform a Gradle clean build or run the node portion of the build directly:
+Next, perform a Gradle build from the top of your LabKey enlistment:
 
 ```sh
-# From <labkey root>/server/modules/core
-npm install
-node build.js
+# From <labkey root>
+./gradlew deployApp
 ```
 
-Now you can startup the server and the code for the APIs will be supplied from this package.
+Once, the build is complete you can startup the server and the code for the APIs will be supplied from this package. This can be verified
+by checking the browser console. You should see:
+
+```
+LABKEY is now running @labkey/api.
+```
 
 #### Deploy From Source
 
 Steps:
-1. Navigate to `<labkey root>/server/api/webapp/` and clone this repository.
+1. Navigate to `<labkey root>/server/modules/platform/api/webapp/` and clone this repository.
 2. Navigate to the package directory and run `npm install` followed by `npm run build`.
-3. Open `<labkey root>/server/api/webapp/clientapi_core.lib.xml` and replace the contents
+3. Open `<labkey root>/server/modules/platform/api/webapp/clientapi_core.lib.xml` and replace the contents
 
 ```xml
 <libraries xmlns="http://labkey.org/clientLibrary/xml/">
@@ -89,7 +95,12 @@ Steps:
 </libraries>
 ```
 
-Now you can startup the server and the code for the APIs will be supplied from this package.
+Now you can startup the server and the code for the APIs will be supplied from this package. This can be verified
+by checking the browser console. You should see:
+
+```
+LABKEY is now running @labkey/api.
+```
 
 ## Publishing
 
