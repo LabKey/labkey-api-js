@@ -45,3 +45,6 @@ LABKEY.Security = API.Security;
 LABKEY.Specimen = API.Specimen;
 LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
+
+// Let our presence be known in experimental deployments. See README.md.
+console.log('LABKEY is now running @labkey/api.');
