@@ -23,6 +23,7 @@
  * this file SHOULD NOT export anything.
  */
 import * as API from './labkey'
+import * as __package__ from './package'
 
 declare let LABKEY: any;
 
@@ -45,6 +46,4 @@ LABKEY.Security = API.Security;
 LABKEY.Specimen = API.Specimen;
 LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
-
-// Let our presence be known in experimental deployments. See README.md.
-console.log('LABKEY is now running @labkey/api.');
+LABKEY.__package__ = __package__;
