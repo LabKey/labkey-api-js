@@ -73,12 +73,14 @@ Next, perform a Gradle build from the top of your LabKey enlistment:
 ./gradlew deployApp
 ```
 
-Once the build is complete, you can start the server and the code for the APIs will be supplied from this package. This can be verified
-by checking the browser console. You should see:
+Once the build is complete, you can start the server and the code for the APIs will be supplied from this package.
+This can be verified by opening the browser console and typing:
 
+```js
+LABKEY.__package__
 ```
-LABKEY is now running @labkey/api.
-```
+
+If installed correctly, `__package__` will contain package information such as the version of the package you're using.
 
 #### Deploy From Source
 
@@ -96,11 +98,13 @@ Steps:
 ```
 
 Now you can start the server and the code for the APIs will be supplied from this package. This can be verified
-by checking the browser console. You should see:
+by opening the browser console and typing:
 
+```js
+LABKEY.__package__
 ```
-LABKEY is now running @labkey/api.
-```
+
+If installed correctly, `__package__` will contain package information such as the version of the package you're using.
 
 ## Publishing
 
