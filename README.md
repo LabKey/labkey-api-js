@@ -58,7 +58,7 @@ If you would like to experiment with running this code against LabKey Server it 
 
 #### Deploy Using Experimental Build
 
-:warning: This will modify files in your git enlistment. Double check your commits and be sure to revert and changes when you are done experimenting!
+:warning: This will modify files in your git enlistment. Double check your commits and be sure to revert any changes when you are done experimenting!
 
 To get started edit the `<labkey root>/server/modules/core/build.js` file and set `USE_LABKEY_API` to `true`.
 
@@ -73,7 +73,7 @@ Next, perform a Gradle build from the top of your LabKey enlistment:
 ./gradlew deployApp
 ```
 
-Once, the build is complete you can startup the server and the code for the APIs will be supplied from this package. This can be verified
+Once the build is complete, you can start the server and the code for the APIs will be supplied from this package. This can be verified
 by checking the browser console. You should see:
 
 ```
@@ -95,7 +95,7 @@ Steps:
 </libraries>
 ```
 
-Now you can startup the server and the code for the APIs will be supplied from this package. This can be verified
+Now you can start the server and the code for the APIs will be supplied from this package. This can be verified
 by checking the browser console. You should see:
 
 ```
