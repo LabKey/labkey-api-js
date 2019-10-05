@@ -1,15 +1,14 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "target": "ES5",
+    "lib": [ "dom", "es2015" ],
+    "moduleResolution": "node",
     "noEmit": false,
-    "rootDir": "src",
-    "sourceMap": false,
     "noImplicitAny": true,
     "removeComments": true,
-    "lib": [
-      "DOM",
-      "es2015"
-    ]
+    "resolveJsonModule": true,
+    "rootDir": "src",
+    "sourceMap": false,
+    "target": "ES5"
   }
 }
