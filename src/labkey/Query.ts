@@ -21,7 +21,7 @@ import {
 import { executeSql } from './query/ExecuteSql'
 import * as GetData from './query/GetData'
 import { getQueryDetails } from './query/GetQueryDetails'
-import { deleteRows, insertRows, saveRows, selectDistinctRows, selectRows, updateRows } from './query/Rows'
+import { deleteRows, insertRows, saveRows, selectDistinctRows, selectRows, truncateTable, updateRows } from './query/Rows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 import { Filter } from './filter/Filter'
@@ -52,6 +52,7 @@ export {
     sqlDateLiteral,
     sqlDateTimeLiteral,
     sqlStringLiteral,
+    truncateTable,
     updateRows,
     URL_COLUMN_PREFIX,
     validateQuery,
