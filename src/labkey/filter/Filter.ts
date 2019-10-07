@@ -234,7 +234,7 @@ export function getFiltersFromParametersObject(params: {[key:string]: any}, data
     let filters: Array<IFilter> = [];
     const regionName = ensureRegionName(dataRegionName);
 
-    for (let paramName in params) {
+    for (const paramName in params) {
         if (params.hasOwnProperty(paramName)) {
             // Look for parameters that have the right prefix
             if (paramName.indexOf(regionName + '.') == 0) {
