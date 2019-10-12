@@ -4,7 +4,7 @@ JavaScript package for interacting with [LabKey Server](https://www.labkey.com/)
 
 Written with joy in TypeScript.
 
-## v0.0.20 - Alpha
+## v0.0.22 - Alpha
 
 This package is under development. We're preparing the 1.0.0 release but in the meantime treat this package as experimental. All code is subject to change.
 
@@ -58,28 +58,36 @@ If you would like to experiment with running this code against LabKey Server it 
 
 #### Deploy Using Experimental Build
 
+:warning: This will modify files in your git enlistment. Double check your commits and be sure to revert any changes when you are done experimenting!
+
 To get started edit the `<labkey root>/server/modules/core/build.js` file and set `USE_LABKEY_API` to `true`.
 
 ```js
 const USE_LABKEY_API = true;
 ```
 
-Next, you can either perform a Gradle clean build or run the node portion of the build directly:
+Next, perform a Gradle build from the top of your LabKey enlistment:
 
 ```sh
-# From <labkey root>/server/modules/core
-npm install
-node build.js
+# From <labkey root>
+./gradlew deployApp
 ```
 
-Now you can startup the server and the code for the APIs will be supplied from this package.
+Once the build is complete, you can start the server and the code for the APIs will be supplied from this package.
+This can be verified by opening the browser console and typing:
+
+```js
+LABKEY.__package__
+```
+
+If installed correctly, `__package__` will contain package information such as the version of the package you're using.
 
 #### Deploy From Source
 
 Steps:
-1. Navigate to `<labkey root>/server/api/webapp/` and clone this repository.
+1. Navigate to `<labkey root>/server/modules/platform/api/webapp/` and clone this repository.
 2. Navigate to the package directory and run `npm install` followed by `npm run build`.
-3. Open `<labkey root>/server/api/webapp/clientapi_core.lib.xml` and replace the contents
+3. Open `<labkey root>/server/modules/platform/api/webapp/clientapi_core.lib.xml` and replace the contents
 
 ```xml
 <libraries xmlns="http://labkey.org/clientLibrary/xml/">
@@ -89,7 +97,14 @@ Steps:
 </libraries>
 ```
 
-Now you can startup the server and the code for the APIs will be supplied from this package.
+Now you can start the server and the code for the APIs will be supplied from this package. This can be verified
+by opening the browser console and typing:
+
+```js
+LABKEY.__package__
+```
+
+If installed correctly, `__package__` will contain package information such as the version of the package you're using.
 
 ## Publishing
 
