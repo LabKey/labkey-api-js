@@ -99,7 +99,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L109">ActionURL.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L104">ActionURL.ts:104</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -107,26 +107,18 @@
 									<p>Builds a URL from a controller and an action.  Uses the current container and context path.</p>
 									<h4 id="examples">Examples</h4>
 									<ol>
-										<li>Build the URL for the &#39;plotChartAPI&#39; action in the &#39;reports&#39; controller within the current container<pre><code><span class="hljs-attribute">var url</span> = LABKEY.ActionURL.buildURL(<span class="hljs-string">"reports"</span>, <span class="hljs-string">"plotChartApi"</span>);
-</code></pre></li>
+										<li>Build the URL for the &#39;getWebPart&#39; action in the &#39;reports&#39; controller within the current container<pre><code>var url = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LABKEY</span>.</span><span class="hljs-module"><span class="hljs-identifier">ActionURL</span>.</span></span>build<span class="hljs-constructor">URL(<span class="hljs-string">"project"</span>, <span class="hljs-string">"getWebPart"</span>)</span>;</code></pre></li>
 									</ol>
 								</div>
 								<ol start="2">
-									<li><p>Build the URL for the &#39;getWebPart&#39; action in the &#39;reports&#39; controller within the current container</p>
-										<pre><code><span class="hljs-attribute">var url</span> = LABKEY.ActionURL.buildURL(<span class="hljs-string">"project"</span>, <span class="hljs-string">"getWebPart"</span>);
-</code></pre></li>
 									<li><p>Build the URL for the &#39;updateRows&#39; action in the &#39;query&#39; controller within the container &quot;My Project/My Folder&quot;</p>
-										<pre><code><span class="hljs-attribute">var url</span> = LABKEY.ActionURL.buildURL(<span class="hljs-string">"query"</span>, <span class="hljs-string">"updateRows"</span>, <span class="hljs-string">"My Project/My Folder"</span>);
-</code></pre></li>
+									<pre><code>var url = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LABKEY</span>.</span><span class="hljs-module"><span class="hljs-identifier">ActionURL</span>.</span></span>build<span class="hljs-constructor">URL(<span class="hljs-string">"query"</span>, <span class="hljs-string">"updateRows"</span>, <span class="hljs-string">"My Project/My Folder"</span>)</span>;</code></pre></li>
 									<li><p>Navigate the browser to the study controller&#39;s begin action in the current container</p>
-										<pre><code>window.<span class="hljs-keyword">location</span> <span class="hljs-title">= LABKEY</span>.ActionURL.buildURL(<span class="hljs-string">"study"</span>, <span class="hljs-string">"begin"</span>);
-</code></pre></li>
+									<pre><code>window.location = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LABKEY</span>.</span><span class="hljs-module"><span class="hljs-identifier">ActionURL</span>.</span></span>build<span class="hljs-constructor">URL(<span class="hljs-string">"study"</span>, <span class="hljs-string">"begin"</span>)</span>;</code></pre></li>
 									<li><p>Navigate the browser to the study controller&#39;s begin action in the folder &quot;/myproject/mystudyfolder&quot;</p>
-										<pre><code>window.<span class="hljs-keyword">location</span> <span class="hljs-title">= LABKEY</span>.ActionURL.buildURL(<span class="hljs-string">"study"</span>, <span class="hljs-string">"begin"</span>, <span class="hljs-string">"/myproject/mystudyfolder"</span>);
-</code></pre></li>
+									<pre><code>window.location = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LABKEY</span>.</span><span class="hljs-module"><span class="hljs-identifier">ActionURL</span>.</span></span>build<span class="hljs-constructor">URL(<span class="hljs-string">"study"</span>, <span class="hljs-string">"begin"</span>, <span class="hljs-string">"/myproject/mystudyfolder"</span>)</span>;</code></pre></li>
 									<li><p>Navigate to the list controller&#39;s insert action, passing a returnUrl parameter that points back to the current page:</p>
-										<pre><code>window.<span class="hljs-keyword">location</span> <span class="hljs-title">= LABKEY</span>.ActionURL.buildURL(<span class="hljs-string">"list"</span>, <span class="hljs-string">"insert"</span>, LABKEY.ActionURL.getContainer(), {listId: <span class="hljs-number">50</span>, returnUrl: window.location});
-</code></pre></li>
+									<pre><code>window.location = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">LABKEY</span>.</span><span class="hljs-module"><span class="hljs-identifier">ActionURL</span>.</span></span>build<span class="hljs-constructor">URL(<span class="hljs-string">"list"</span>, <span class="hljs-string">"insert"</span>, LABKEY.ActionURL.<span class="hljs-params">getContainer</span>()</span>, {listId: <span class="hljs-number">50</span>, returnUrl: window.location});</code></pre></li>
 								</ol>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -178,7 +170,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L173">ActionURL.ts:173</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L168">ActionURL.ts:168</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -201,7 +193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L183">ActionURL.ts:183</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L178">ActionURL.ts:178</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -234,7 +226,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L192">ActionURL.ts:192</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L187">ActionURL.ts:187</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -257,7 +249,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L206">ActionURL.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L201">ActionURL.ts:201</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -282,7 +274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L215">ActionURL.ts:215</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L210">ActionURL.ts:210</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -305,7 +297,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L223">ActionURL.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L218">ActionURL.ts:218</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -328,7 +320,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L234">ActionURL.ts:234</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L229">ActionURL.ts:229</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -362,7 +354,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L246">ActionURL.ts:246</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L241">ActionURL.ts:241</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -396,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L260">ActionURL.ts:260</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L255">ActionURL.ts:255</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -437,7 +429,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/ActionURL.ts#L282">ActionURL.ts:282</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/ActionURL.ts#L277">ActionURL.ts:277</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

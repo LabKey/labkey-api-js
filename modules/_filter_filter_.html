@@ -69,10 +69,16 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Classes</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_filter_filter_.filter.html" class="tsd-kind-icon">Filter</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_filter_filter_.aggregate.html" class="tsd-kind-icon">Aggregate</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_filter_filter_.filter.html" class="tsd-kind-icon">Filter</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-kind-icon">IFilter</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -103,7 +109,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L44">filter/Filter.ts:44</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L109">filter/Filter.ts:109</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -131,13 +137,13 @@
 					<a name="appendfilterparams" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> append<wbr>Filter<wbr>Params</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-private">
-						<li class="tsd-signature tsd-kind-icon">append<wbr>Filter<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, filterArray<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">append<wbr>Filter<wbr>Params<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, filterArray<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L83">filter/Filter.ts:83</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L148">filter/Filter.ts:148</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -151,7 +157,7 @@
 									<h5>params: <span class="tsd-signature-type">any</span></h5>
 								</li>
 								<li>
-									<h5>filterArray: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>filterArray: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataRegionName: <span class="tsd-signature-type">string</span></h5>
@@ -165,13 +171,13 @@
 					<a name="create" class="tsd-anchor"></a>
 					<h3>create</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>column<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><a href="_filter_constants_.html#filtervalue" class="tsd-signature-type">FilterValue</a>, type<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_filter_types_.filtertype.html" class="tsd-signature-type">FilterType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a></li>
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>column<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><a href="_filter_constants_.html#filtervalue" class="tsd-signature-type">FilterValue</a>, type<span class="tsd-signature-symbol">?: </span><a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L117">filter/Filter.ts:117</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L182">filter/Filter.ts:182</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -183,10 +189,10 @@
 									<h5>value: <a href="_filter_constants_.html#filtervalue" class="tsd-signature-type">FilterValue</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <a href="../interfaces/_filter_types_.filtertype.html" class="tsd-signature-type">FilterType</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -200,7 +206,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L148">filter/Filter.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L193">filter/Filter.ts:193</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -238,13 +244,13 @@
 					<a name="getfiltersfromurl" class="tsd-anchor"></a>
 					<h3>get<wbr>Filters<wbr>From<wbr>Url</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L188">filter/Filter.ts:188</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L233">filter/Filter.ts:233</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -256,7 +262,7 @@
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataRegionName: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -270,7 +276,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L219">filter/Filter.ts:219</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L269">filter/Filter.ts:269</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -296,7 +302,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L240">filter/Filter.ts:240</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L290">filter/Filter.ts:290</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -316,13 +322,13 @@
 					<a name="merge" class="tsd-anchor"></a>
 					<h3>merge</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">merge<span class="tsd-signature-symbol">(</span>baseFilters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span>, columnName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, columnFilters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">merge<span class="tsd-signature-symbol">(</span>baseFilters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span>, columnName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, columnFilters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/8635d12/src/labkey/filter/Filter.ts#L255">filter/Filter.ts:255</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9562f47/src/labkey/filter/Filter.ts#L305">filter/Filter.ts:305</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,7 +341,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>baseFilters: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>baseFilters: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Array of existing filters created by {@link LABKEY.Filter.create}</p>
 									</div>
@@ -347,13 +353,13 @@
 									</div>
 								</li>
 								<li>
-									<h5>columnFilters: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>columnFilters: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Array of new filters created by {@link LABKEY.Filter.create}. Will replace any filters referring to columnName</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.filter.html" class="tsd-signature-type">Filter</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -372,11 +378,14 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_filter_filter_.filter.html" class="tsd-kind-icon">Filter</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_filter_filter_.aggregate.html" class="tsd-kind-icon">Aggregate</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_filter_filter_.filter.html" class="tsd-kind-icon">Filter</a>
+						<a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-kind-icon">IFilter</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private">
 						<a href="_filter_filter_.html#appendaggregateparams" class="tsd-kind-icon">append<wbr>Aggregate<wbr>Params</a>
