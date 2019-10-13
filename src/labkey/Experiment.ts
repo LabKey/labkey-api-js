@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 LabKey Corporation
+ * Copyright (c) 2019 LabKey Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,21 @@ import { insertRows } from './query/Rows'
 
 import { RunGroup } from './Exp'
 
+/**
+ * TODO: Needs description
+ */
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
 
+/**
+ * @hidden
+ * @private
+ */
 type ExperimentFailureCallback = (errorInfo?: any, response?: XMLHttpRequest) => any;
+
+/**
+ * @hidden
+ * @private
+ */
 type ExperimentSuccessCallback<T> = (payload?: T, response?: XMLHttpRequest) => any;
 
 export interface ICreateHiddenRunGroupOptions {
@@ -91,6 +103,10 @@ export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): voi
     });
 }
 
+/**
+ * @hidden
+ * @private
+ */
 function getSuccessCallbackWrapper<SuccessPayload>(
     payloadProcessor: (json: any) => SuccessPayload,
     success: any,
@@ -160,6 +176,99 @@ export interface ISaveBatchesOptions extends IBaseSaveBatchOptions {
     success?: ExperimentSuccessCallback<Array<RunGroup>>
 }
 
+export interface ILineageOptions {
+    /**
+     * Include children in the lineage response. Defaults to true.
+     */
+    children?: boolean
+
+    /**
+     * Optional LSID of a SampleSet or DataClass to filter the response. Defaults to include all.
+     */
+    cpasType?: string
+
+    /**
+     * An optional depth argument.  Defaults to include all.
+     */
+    depth?: number
+
+    /**
+     * Optional experiment type to filter response -- either "Data", "Material", or "ExperimentRun". Defaults to include all.
+     */
+    expType?: string
+
+    /**
+     * A reference to a function to call when an error occurs.
+     */
+    failure?: () => any
+
+    /**
+     * The LSID of the seed ExpData or ExpMaterial.  Either rowId or lsid is required.
+     */
+    lsid?: string
+
+    /**
+     * Include parents in the lineage response.  Defaults to true.
+     */
+    parents?: boolean
+    
+    /**
+     * The row id of the seed ExpData or ExpMaterial.  Either rowId or lsid is required.
+     */
+    rowId?: any // TODO: string or number or both?
+
+    /**
+     * A scoping object for the success and failure callback functions (default to this).
+     */
+    scope?: any
+
+    /**
+     * The function to call when lineage finishes successfully.
+     */
+    success?: () => any
+}
+
+/**
+ * Get parent/child relationships of an ExpData or ExpMaterial.
+ * @param options 
+ */
+export function lineage(options: ILineageOptions): void {
+    let params: any = {};
+
+    if (options.rowId) {
+        params.rowId = options.rowId;
+    }
+    else if (options.lsid) {
+        params.lsid = options.lsid;
+    }
+
+    if (options.hasOwnProperty('parents')) {
+        params.parents = options.parents;
+    }
+    if (options.hasOwnProperty('children')) {
+        params.children = options.children;
+    }
+    if (options.hasOwnProperty('depth')) {
+        params.depth = options.depth;
+    }
+
+    if (options.expType) {
+        params.expType = options.expType;
+    }
+    if (options.cpasType) {
+        params.cpasType = options.cpasType;
+    }
+
+    // note, does not return request
+    request({
+        url: buildURL('experiment', 'lineage.api'),
+        method: 'GET',
+        params,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+    });    
+}
+
 export interface ILoadBatchOptions {
     /**
      * The assay protocol id.
@@ -177,9 +286,15 @@ export interface ILoadBatchOptions {
     batchId: number
 
     /**
-     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
+     * A reference to a function to call when an error occurs.
      */
     failure?: ExperimentFailureCallback
+
+    /**
+     * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
+     * is supported.
+     */
+    protocolName?: string
 
     /**
      * The assay provider name.
@@ -200,6 +315,15 @@ export interface ILoadBatchOptions {
 /**
  * Loads a batch from the server. See the [Module Assay](https://www.labkey.org/Documentation/wiki-page.view?name=moduleassay)
  * documentation for more information.
+ *
+ * #### Examples
+ * 
+ * ```js
+ * LABKEY.Experiment.loadBatch({
+ *     protocolName: LABKEY.Experiment.SAMPLE_DERIVATION_PROTOCOL,
+ *     batchId: 12
+ * });
+ * ```
  */
 export function loadBatch(options: ILoadBatchOptions): void {
 
@@ -211,6 +335,7 @@ export function loadBatch(options: ILoadBatchOptions): void {
             assayId: options.assayId,
             assayName: options.assayName,
             batchId: options.batchId,
+            protocolName: options.providerName,
             providerName: options.providerName
         },
         success: getSuccessCallbackWrapper<RunGroup>((json) => {
@@ -242,6 +367,12 @@ export interface ILoadBatchesOptions {
     failure?: ExperimentFailureCallback
 
     /**
+     * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
+     * is supported.
+     */
+    protocolName?: string
+
+    /**
      * The assay provider name.
      */
     providerName: string
@@ -271,6 +402,7 @@ export function loadBatches(options: ILoadBatchesOptions): void {
             assayId: options.assayId,
             assayName: options.assayName,
             batchIds: options.batchIds,
+            protocolName: options.protocolName,
             providerName: options.providerName
         },
         success: getSuccessCallbackWrapper<Array<RunGroup>>((json) => {
@@ -314,6 +446,28 @@ function requestSaveBatches<SuccessPayload>(
  * specifying an ID or LSID in their properties. See
  * the [Module Assay](https://www.labkey.org/Documentation/wiki-page.view?name=moduleassay) documentation for
  * more information.
+ * @param options
+ *
+ * #### Examples
+ * 
+ * ```js
+ * LABKEY.Experiment.saveBatch({
+ *     protocolName: LABKEY.Experiment.SAMPLE_DERIVATION_PROTOCOL,
+ *     batch: {
+ *         properties: {
+ *             // property URI from a Vocabulary
+ *             'urn:lsid:labkey.com:Vocabulary.Folder-114:MyVocab#field1': '123'
+ *         },
+ *         runs: [{
+ *             name: 'two',
+ *             properties: {
+ *                 // property URI from a Vocabulary
+ *                 'urn:lsid:labkey.com:Vocabulary.Folder-114:MyVocab#field1': '123'
+ *             }
+ *         }]
+ *     }
+ * });
+ * ```
  */
 export function saveBatch(options: ISaveBatchOptions): void {
     requestSaveBatches<RunGroup>(options as any, (json: any) => {
@@ -373,6 +527,7 @@ export interface ISaveMaterialsOptions {
 
 /**
  * Saves materials.
+ * @param options
  */
 export function saveMaterials(options: ISaveMaterialsOptions): void {
     insertRows({
@@ -383,4 +538,55 @@ export function saveMaterials(options: ISaveMaterialsOptions): void {
         failure: getOnFailure(options),
         scope: options.scope
     })
+}
+
+export interface ISaveRunsOptions {
+    /**
+     * The function to call if this function encounters an error.
+     */
+    failure?: ExperimentFailureCallback
+
+    /**
+     * Protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
+     * is supported.
+     */
+    protocolName: string
+
+    /**
+     * TODO: What is this type?
+     */
+    runs: any
+
+    /**
+     * A scoping object for the success and error callback functions (default to this).
+     */
+    scope?: any
+
+    /**
+     * The function to call when the function finishes successfully.
+     */
+    success?: ExperimentSuccessCallback<RunGroup>
+}
+
+/**
+ * TODO: Needs description
+ * @param options
+ */
+export function saveRuns(options: ISaveRunsOptions): void {
+
+    // note, does not return request
+    request({
+        url: buildURL('assay', 'saveAssayRuns.api'),
+        method: 'POST',
+        jsonData: {
+            protocolName: options.protocolName,
+            runs: options.runs
+        },
+        success: getSuccessCallbackWrapper<RunGroup>((json) => {
+            if (json.runs) {
+                return new RunGroup(json.runs);
+            }
+        }, getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+    });
 }
