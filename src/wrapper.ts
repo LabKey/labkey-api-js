@@ -23,6 +23,7 @@
  * this file SHOULD NOT export anything.
  */
 import * as API from './labkey'
+import * as __package__ from './package'
 
 declare let LABKEY: any;
 
@@ -45,3 +46,4 @@ LABKEY.Security = API.Security;
 LABKEY.Specimen = API.Specimen;
 LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
+LABKEY.__package__ = __package__;

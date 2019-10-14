@@ -24,6 +24,7 @@
  */
 import * as API from './labkey'
 import * as DOM from './labkey/dom/index'
+import * as __package__ from './package'
 
 declare let LABKEY: any;
 
@@ -43,6 +44,7 @@ LABKEY.Report = API.Report;
 LABKEY.SchemaKey = API.SchemaKey;
 LABKEY.Specimen = API.Specimen;
 LABKEY.Visualization = API.Visualization;
+LABKEY.__package__ = __package__;
 
 // DOM
 LABKEY.Assay = Object.assign({}, API.Assay, DOM.Assay);
