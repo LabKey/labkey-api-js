@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 import { buildURL } from './ActionURL'
-import { request } from './Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
-import { get as getDomain } from './Domain'
+import { request, RequestOptions } from './Ajax'
+import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
+import { create, IDomainDesign, get } from './Domain'
 
 export interface IExpObject {
     /**
@@ -108,6 +108,144 @@ export class ExpObject implements IExpObject {
     }
 }
 
+export interface IGetExpObjectDomain {
+    /**
+     * The container path in which the requested Domain is defined.
+     * If not supplied, the current container path will be used.
+     */
+    containerPath?: string
+
+    /**
+     * Function called if execution of the "getDomain" function fails.
+     */
+    failure?: () => any
+
+    /**
+     * Function called if the "getDomain" function executes successfully.
+     * Will be called with the domain object as returned by [[get|Domain.get]]
+     * which describes the fields of a domain.
+     */
+    success: (domain?: any) => any
+}
+
+export interface ICreateDataClassDomain {
+    /**
+     * The container path in which to create the domain.
+     */
+    containerPath?: string
+
+    /**
+     * The domain design to save.
+     */
+    domainDesign: IDomainDesign
+
+    /**
+     * Function called if execution of the "getDomain" function fails.
+     */
+    failure?: () => any
+
+    /**
+     * Set of extra options used when creating the SampleSet.
+     */
+    options?: any
+
+    /**
+     * Function called if the "getDomain" function executes successfully.
+     * Will be called with the domain object as returned by [[get|Domain.get]]
+     * which describes the fields of a domain.
+     */
+    success: (domain?: any) => any
+}
+
+export interface IDataClass extends IExpObject {
+    /**
+     * TODO: Determine description and type
+     */
+    data?: any
+
+    /**
+     * Description of the DataClass.
+     */
+    description: string
+
+    /**
+     * Optional name expression used to generate unique names for ExpData inserted into the DataClass.
+     */
+    nameExpression?: string
+
+    /**
+     * The optional SampleSet the DataClass is associated with.
+     */
+    sampleSet?: ExpMaterialSampleSet
+}
+
+/**
+ * DataClass represents a set of ExpData objects that share a set of properties.
+ * This class defines the set of fields that you you wish to attach to all datas in the group.
+ * Within the DataClass, each Data has a unique name.
+ */
+export class DataClass extends ExpObject implements IDataClass {
+
+    data: any;
+    description: string;
+    nameExpression: string;
+    sampleSet: ExpMaterialSampleSet;
+
+    constructor(config: Partial<IDataClass>) {
+        super(config);
+        config = config || {};
+
+        this.data = config.data;
+        this.description = config.description;
+        this.sampleSet = config.sampleSet;
+    }
+
+    /**
+     * Create a new DataClass definition.
+     * @param options
+     * @hidden
+     */
+    static create(options: ICreateDataClassDomain): void {
+        create({
+            containerPath: options.containerPath,
+            domainDesign: options.domainDesign,
+            // err, this says "type" in Experiment.js, however, I don't believe "type" is a supported property.
+            // I assume it is attempting to match to "kind" which would be "DataClass" to create a DataClassDomainKind.
+            kind: 'DataClass',
+            options: options.options,
+            success: getOnSuccess(options) as any,
+            failure: getOnFailure(options) as any
+        });
+    }
+
+    /**
+     * Get a domain design for the DataClass. See [[get|Domain.get]].
+     * @param options
+     * @hidden
+     *
+     * #### Examples
+     *
+     * ```js
+     * var dc = new LABKEY.Exp.DataClass({name: 'MyDataClass'});
+     * dc.getDomain({
+     *     success: function(domain) {
+     *         // access the retrieved DataClass domain object.
+     *         console.log(domain);
+     *     }
+     * });
+     * ```
+     */
+    getDomain(options: IGetExpObjectDomain): void {
+        get({
+            schemaName: 'exp.data',
+            queryName: this.name,
+            containerPath: options.containerPath,
+            success: getOnSuccess(options) as any,
+            failure: getOnFailure(options) as any
+        });
+    }
+}
+
 /**
  * Internal configuration object. Not intended to be instantiated directly.
  * If anyone is using this we should really ask them why -- it was never hooked up.
@@ -168,6 +306,33 @@ export class RunItem extends ExpObject implements IRunItem {
         this.sucessorRuns = config.sucessorRuns;
         this.targetApplications = config.targetApplications;
     }
+}
+
+/**
+ * Available options for [[Data.getContent|LABKEY.Exp.Data.getContent()]]
+ */
+export interface IGetContentOptions {
+    /**
+     * A reference to a function to call when an error occurs.
+     */
+    failure?: (errorInfo?: any, response?: ExtendedXMLHttpRequest, options?: RequestOptions) => any
+
+    /**
+     * How to format the content. Defaults to plaintext, supported for text/* MIME types,
+     * including .html, .xml, .tsv, .txt, and .csv. Use 'jsonTSV' to get a JSON version of the .xls, .tsv, .or .csv
+     * files, the structure of which matches the argument to convertToExcel
+     */
+    format?: string
+
+    /**
+     * A scoping object for the success and failure callback functions (default to this).
+     */
+    scope?: any
+
+    /**
+     * The function to call when the function finishes successfully.
+     */
+    success: (content?: any, format?: string, response?: ExtendedXMLHttpRequest) => any
 }
 
 export type ExpDataDataClass = {
@@ -311,8 +476,137 @@ export class Data extends ExpObject implements IExpData {
         }
     }
 
-    getContent() {
-        // TODO: ...
+    /**
+     * Retrieves the contents of the data object from the server.
+     * @param options
+     *
+     * #### Examples
+     *
+     * An example of the results for a request for 'jsonTsv' format:
+     * ```js
+     * {
+     *     "filename": "SimpleExcelFile.xls",
+     *     "sheets": [
+     *         {
+     *             "name": "Sheet1",
+     *             "data": [
+     *                 "StringColumn",
+     *                 "DateColumn"
+     *             ],[
+     *                 "Hello",
+     *                 "16 May 2009 17:00:00"
+     *             ],[
+     *                 "world",
+     *                 "12/21/2008 08:45AM"
+     *             ]
+     *         },{
+     *             "name": "Sheet2",
+     *             "data": [
+     *                 ["NumberColumn"],
+     *                 [55.44],
+     *                 [100.34],
+     *                 [-1]
+     *             ]
+     *         },{
+     *             "name": "Sheet3",
+     *             "data": []
+     *         }
+     *     ]
+     * }
+     * ```
+     *
+     * An example of the same file in the 'jsonTSVExtended' format:
+     *
+     * ```js
+     * {
+     *     "filename": "SimpleExcelFile.xls",
+     *     "sheets": [
+     *         {
+     *             "name": "Sheet1",
+     *             "data": [
+     *                 {
+     *                     "value": "StringColumn",
+     *                     "formattedValue": "StringColumn"
+     *                 },{
+     *                     "value": "DateColumn",
+     *                     "formattedValue": "DateColumn"
+     *                 }
+     *             ],[
+     *                 {
+     *                     "value": "Hello",
+     *                     "formattedValue": "Hello"
+     *                 },{
+     *                     "formatString": "MMMM d, yyyy",
+     *                     "value": "16 May 2009 17:00:00",
+     *                     "timeOnly": false,
+     *                     "formattedValue": "May 17, 2009"
+     *                 }
+     *             ],[
+     *                 {
+     *                     "value": "world",
+     *                     "formattedValue": "world"
+     *                 },{
+     *                     "formatString": "M/d/yy h:mm a",
+     *                     "value": "21 Dec 2008 19:31:00",
+     *                     "timeOnly": false,
+     *                     "formattedValue": "12/21/08 7:31 PM"
+     *                 }
+     *             ]
+     *         },{
+     *             "name": "Sheet2",
+     *             "data": [
+     *                 [{
+     *                     "value": "NumberColumn",
+     *                     "formattedValue": "NumberColumn"
+     *                 }],[{
+     *                     "formatString": "$#,##0.00",
+     *                     "value": 55.44,
+     *                     "formattedValue": "$55.44"
+     *                 }],[{
+     *                     "value": 100.34,
+     *                     "formattedValue": "100.34"
+     *                 }],[{
+     *                     "value": -1,
+     *                     "formattedValue": "-1"
+     *                 }]
+     *             ]
+     *         },{
+     *             "name": "Sheet3",
+     *             "data": []
+     *         }
+     *     ]
+     * }
+     * ```
+     */
+    getContent(options: IGetContentOptions): void {
+        // NK: I'm choosing to not implement this call to "alert". There are plenty of places where we
+        // "require" arguments and fail less gracefully. In this case, not supplying a success just means the call
+        // is useless but I think a user of this API will quickly come to realize that they need to get access
+        // to the object somehow and investigate further.
+
+        // if (getOnSuccess(options)) {
+        //     alert('Error', 'You must specify a callback function in config.success when calling LABKEY.Exp.Data.getContent()');
+        // }
+
+        function getSuccessCallbackWrapper(success: Function, format: string, scope: any) {
+            return getCallbackWrapper((json: any, response: ExtendedXMLHttpRequest) => {
+                if (success) {
+                    success.call(scope || this, json, format, response);
+                }
+            });
+        }
+
+        // note, does not return request
+        request({
+            url: buildURL('experiment', 'showFile'),
+            method: 'GET',
+            params: {
+                format: options.format,
+                rowId: this.id
+            },
+            success: getSuccessCallbackWrapper(getOnSuccess(options), options.format, options.scope),
+            failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        });
     }
 }
 
@@ -580,10 +874,44 @@ export interface IExpSampleSet extends IExpObject {
     samples: Array<IExpMaterial>
 }
 
-export interface IGetSampleSetDomain {
+export interface ICreateSampleSetDomain {
+    /**
+     * The container path in which to create the domain.
+     */
     containerPath?: string
+
+    /**
+     * The domain design to save.
+     */
+    domainDesign: IDomainDesign
+
+    /**
+     * Function called if execution of the "getDomain" function fails.
+     */
     failure?: () => any
-    success?: () => any
+
+    /**
+     * Set of extra options used when creating the SampleSet.
+     */
+    options?: {
+        /**
+         * Array of indexes into the domain design fields. If the domain design contains a 'Name' field,
+         * no idCols are allowed. Either a 'Name' field must be present or at least one idCol must be supplied.
+         */
+        idCols?: Array<string>
+
+        /**
+         * Index of the parent id column.
+         */
+        parentCol?: string
+    }
+
+    /**
+     * Function called if the "getDomain" function executes successfully.
+     * Will be called with the domain object as returned by [[get|Domain.get]]
+     * which describes the fields of a domain.
+     */
+    success: (domain?: any) => any
 }
 
 /**
@@ -607,12 +935,67 @@ export class SampleSet extends ExpObject implements IExpSampleSet {
     }
 
     /**
-     * Get a domain design for the SampleSet. See [[]].
-     * // TODO: Copy example
+     * Create a new Sample Set definition.
      * @param options
+     * @hidden
+     *
+     * #### Examples
+     *
+     * ```js
+     * var domainDesign = {
+     *     name: "BoyHowdy',
+     *     description: "A client api created sample set",
+     *     fields: [{
+     *         name: "TestName",
+     *         label: "The First Field",
+     *         rangeURI: "http://www.w3.org/2001/XMLSchema#string"
+     *     },{
+     *         name: "Num",
+     *         rangeURI: "http://www.w3.org/2001/XMLSchema#int"
+     *     },{
+     *         name: "Parent",
+     *         rangeURI: "http://www.w3.org/2001/XMLSchema#string"
+     *     }]
+     * };
+     *
+     * LABKEY.Exp.SampleSet.create({
+     *     domainDesign: domainDesign,
+     *     options: { idCols: [0, 1], parentCol: 2 },
+     *     success: function () { alert("success!"); },
+     *     failure: function () { alert("failure!"); },
+     * });
+     * ```
      */
-    getDomain(options: IGetSampleSetDomain) {
-        getDomain({
+    static create(options: ICreateSampleSetDomain): void {
+        create({
+            containerPath: options.containerPath,
+            domainDesign: options.domainDesign,
+            kind: 'SampleSet',
+            options: options.options,
+            success: getOnSuccess(options) as any,
+            failure: getOnFailure(options) as any
+        });
+    }
+
+    /**
+     * Get a domain design for the SampleSet. See [[get|Domain.get]].
+     * @param options
+     * @hidden
+     *
+     * #### Examples
+     *
+     * ```js
+     * var ss = new LABKEY.Exp.SampleSet({name: 'MySampleSet'});
+     * ss.getDomain({
+     *     success: function(domain) {
+     *         // access the retrieved SampleSet domain object.
+     *         console.log(domain);
+     *     }
+     * });
+     * ```
+     */
+    getDomain(options: IGetExpObjectDomain): void {
+        get({
             schemaName: 'Samples',
             queryName: this.name,
             containerPath: options.containerPath,
@@ -621,5 +1004,3 @@ export class SampleSet extends ExpObject implements IExpSampleSet {
         });
     }
 }
-
-// TODO: Next thing to port is LABKEY.Exp.SampleSet.create
