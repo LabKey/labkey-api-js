@@ -16,48 +16,54 @@
 import { buildURL } from './ActionURL'
 import { request, RequestOptions } from './Ajax'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
-import { create, IDomainDesign, get } from './Domain'
+import { create, DomainDesign, get } from './Domain'
 
-export interface IExpObject {
+/**
+ * The experiment object base class which describes basic characteristics of a protocol
+ * or an experimental run. Many experiment classes (such as [[Run]], [[Data]], and [[Material]])
+ * are subclasses of ExpObject, so they provide the fields defined by this object (e.g., name, lsid, etc).
+ */
+export class ExpObject {
+
     /**
      * User editable comment.
      */
-    comment: string
-
-    /**
-     * When the ExpObject was created.
-     */
-    created: Date
+    comment: string;
 
     /**
      * The person who created the ExpObject.
      */
-    createdBy: string
+    created: Date;
+
+    /**
+     * The person who created the ExpObject.
+     */
+    createdBy: string; // TODO: I think this should be a number
 
     /**
      * The id of the ExpObject
      */
-    id: number
+    id: number;
 
     /**
      * The LSID of the ExpObject
      */
-    lsid: string
+    lsid: string;
 
     /**
      * When the ExpObject was last modified.
      */
-    modified: Date
+    modified: Date;
 
     /**
      * The person who last modified the ExpObject.
      */
-    modifiedBy: string
+    modifiedBy: string; // TODO: I think this should be a number
 
     /**
      * The name of the ExpObject
      */
-    name: string
+    name: string;
 
     /**
      * Map of property descriptor names to values. Most types, such as strings and
@@ -67,34 +73,14 @@ export interface IExpObject {
      * or a simple value of the following three types: the data's RowId, the data's LSID, or the full path
      * on the server's file system.
      */
-    properties: {[key: string]: any}
+    properties: {[key: string]: any};
 
     /**
      * The id of the ExpObject (alias of id property)
      */
-    rowId: number
-}
-
-/**
- * The experiment object base class which describes basic characteristics of a protocol
- * or an experimental run. Many experiment classes (such as [[Run]], [[Data]], and [[Material]])
- * are subclasses of ExpObject, so they provide the fields defined by this object (e.g., name, lsid, etc).
- */
-export class ExpObject implements IExpObject {
-
-    comment: string;
-    created: Date;
-    createdBy: string;
-    id: number;
-    lsid: string;
-    modified: Date;
-    modifiedBy: string;
-    name: string;
-    properties: {[key: string]: any};
     rowId: number;
 
-    constructor(config: Partial<IExpObject>) {
-        config = config || {};
+    constructor(config: Partial<ExpObject> = {}) {
         this.lsid = config.lsid;
         this.name = config.name;
         this.id = config.id || config.rowId;
@@ -137,7 +123,7 @@ export interface ICreateDataClassDomain {
     /**
      * The domain design to save.
      */
-    domainDesign: IDomainDesign
+    domainDesign: DomainDesign
 
     /**
      * Function called if execution of the "getDomain" function fails.
@@ -157,41 +143,34 @@ export interface ICreateDataClassDomain {
     success: (domain?: any) => any
 }
 
-export interface IDataClass extends IExpObject {
-    /**
-     * TODO: Determine description and type
-     */
-    data?: any
-
-    /**
-     * Description of the DataClass.
-     */
-    description: string
-
-    /**
-     * Optional name expression used to generate unique names for ExpData inserted into the DataClass.
-     */
-    nameExpression?: string
-
-    /**
-     * The optional SampleSet the DataClass is associated with.
-     */
-    sampleSet?: ExpMaterialSampleSet
-}
-
 /**
  * DataClass represents a set of ExpData objects that share a set of properties.
  * This class defines the set of fields that you you wish to attach to all datas in the group.
  * Within the DataClass, each Data has a unique name.
  */
-export class DataClass extends ExpObject implements IDataClass {
+export class DataClass extends ExpObject {
 
+    /**
+     * TODO: Determine description and type
+     */
     data: any;
+
+    /**
+     * Description of the DataClass.
+     */
     description: string;
+
+    /**
+     * Optional name expression used to generate unique names for ExpData inserted into the DataClass.
+     */
     nameExpression: string;
+
+    /**
+     * The optional SampleSet the DataClass is associated with.
+     */
     sampleSet: ExpMaterialSampleSet;
 
-    constructor(config: Partial<IDataClass>) {
+    constructor(config: Partial<DataClass> = {}) {
         super(config);
         config = config || {};
 
@@ -254,7 +233,7 @@ export class DataClass extends ExpObject implements IDataClass {
  */
 export class ChildObject extends ExpObject {
 
-    constructor(config: Partial<IExpObject>) {
+    constructor(config: Partial<ChildObject> = {}) {
         super(config);
     }
 }
@@ -267,18 +246,9 @@ export class ChildObject extends ExpObject {
  */
 export class ProtocolApplication extends ExpObject {
 
-    constructor(config: Partial<IExpObject>) {
+    constructor(config: Partial<ProtocolApplication> = {}) {
         super(config);
     }
-}
-
-export interface IRunItem extends IExpObject {
-    cpasType: string
-    run: any
-    sourceApplications: any
-    sourceProtocol: any
-    sucessorRuns: any
-    targetApplications: any
 }
 
 /**
@@ -286,7 +256,7 @@ export interface IRunItem extends IExpObject {
  * @hidden
  * @private
  */
-export class RunItem extends ExpObject implements IRunItem {
+export class RunItem extends ExpObject {
 
     cpasType: string;
     run: any;
@@ -295,9 +265,8 @@ export class RunItem extends ExpObject implements IRunItem {
     sucessorRuns: any;
     targetApplications: any;
 
-    constructor(config: Partial<IRunItem>) {
+    constructor(config: Partial<RunItem> = {}) {
         super(config);
-        config = config || {};
 
         this.cpasType = config.cpasType;
         this.run = config.run;
@@ -346,33 +315,6 @@ export type ExpDataDataClass = {
      */
     name: string
 };
-
-export interface IExpData extends IExpObject {
-    /**
-     * The DataClass the data belongs to.
-     */
-    dataClass: ExpDataDataClass
-
-    /**
-     * The local file url of the uploaded file.
-     */
-    dataFileURL: string
-
-    /**
-     * TODO: Describe dataType
-     */
-    dataType: string
-
-    /**
-     * TODO: Describe pipelinePath
-     */
-    pipelinePath: string
-
-    /**
-     * TODO: Describe role and determine type
-     */
-    role: any
-}
 
 /**
  * The Exp.Data class describes the data input or output of a [[Run]]. This typically
@@ -453,17 +395,35 @@ export interface IExpData extends IExpObject {
  * });
  * ```
  */
-export class Data extends ExpObject implements IExpData {
+export class Data extends ExpObject {
 
+    /**
+     * The DataClass the data belongs to.
+     */
     dataClass: ExpDataDataClass;
+
+    /**
+     * The local file url of the uploaded file.
+     */
     dataFileURL: string;
+
+    /**
+     * TODO: Describe dataType
+     */
     dataType: string;
+
+    /**
+     * TODO: Describe pipelinePath
+     */
     pipelinePath: string;
+
+    /**
+     * TODO: Describe role and determine type
+     */
     role: any;
 
-    constructor(config: Partial<IExpData>) {
+    constructor(config: Partial<Data> = {}) {
         super(config);
-        config = config || {};
 
         this.dataType = config.dataType;
         this.dataFileURL = config.dataFileURL;
@@ -610,37 +570,6 @@ export class Data extends ExpObject implements IExpData {
     }
 }
 
-export interface IExpRun extends IExpObject {
-    /**
-     * Array of [[Data]] objects that are the inputs to this run.
-     * Datas typically represents a file on the server's file system.
-     */
-    dataInputs: Array<Data>
-
-    /**
-     * Array of [[Data]] objects that are the outputs from this run.
-     * Datas typically represent a file on the server's file system.
-     */
-    dataOutputs: Array<Data>
-
-    /**
-     * Array of Objects where each Object corresponds to a row in the results domain.
-     */
-    dataRows: Array<any>
-
-    experiments: any
-
-    filePathRoot: string
-
-    materialInputs: Array<Material>
-
-    materialOutputs: Array<Material>
-
-    objectProperties: any
-
-    protocol: any
-}
-
 export interface IDeleteRunOptions {
     /**
      * A reference to a function to call when an error occurs.
@@ -697,10 +626,23 @@ export interface IDeleteRunOptions {
  * });
  * ```
  */
-export class Run extends ExpObject implements IExpRun {
+export class Run extends ExpObject {
 
+    /**
+     * Array of [[Data]] objects that are the inputs to this run.
+     * Datas typically represents a file on the server's file system.
+     */
     dataInputs: Array<Data>;
+
+    /**
+     * Array of [[Data]] objects that are the outputs from this run.
+     * Datas typically represent a file on the server's file system.
+     */
     dataOutputs: Array<Data>;
+
+    /**
+     * Array of Objects where each Object corresponds to a row in the results domain.
+     */
     dataRows: Array<any>;
     experiments: any;
     filePathRoot: string;
@@ -709,9 +651,8 @@ export class Run extends ExpObject implements IExpRun {
     objectProperties: any;
     protocol: any;
 
-    constructor(config: Partial<IExpRun>) {
+    constructor(config: Partial<Run> = {}) {
         super(config);
-        config = config || {};
 
         this.experiments = config.experiments || [];
         this.protocol = config.protocol;
@@ -748,22 +689,14 @@ export class Run extends ExpObject implements IExpRun {
     }
 }
 
-export interface IExpRunGroup extends IExpObject {
-    batchProtocolId?: number
-    hidden?: boolean
-    runs?: Array<IExpRun>
-}
-
-export class RunGroup extends ExpObject implements IExpRunGroup {
+export class RunGroup extends ExpObject {
 
     batchProtocolId?: number;
     hidden?: boolean;
-    runs?: Array<IExpRun>;
+    runs?: Array<Run>;
 
-    constructor(config: Partial<IExpRunGroup>) {
+    constructor(config: Partial<RunGroup> = {}) {
         super(config);
-
-        config = config || {};
 
         this.batchProtocolId = config.batchProtocolId || 0;
         this.hidden = config.hidden;
@@ -789,40 +722,23 @@ export type ExpMaterialSampleSet = {
     name: string
 };
 
-export interface IExpMaterial extends IRunItem {
-
-    /**
-     * The SampleSet the material belongs to.
-     */
-    sampleSet: ExpMaterialSampleSet
-}
-
 /**
  * The Exp.Material class describes an experiment material. "Material" is a synonym for both
  * "sample" and "specimen". Thus, for example, the input to an assay could be called a material.
  * The fields of this class are inherited from [[ExpObject]] and the private [[RunItem]] object.
  */
-export class Material extends RunItem implements IExpMaterial {
+export class Material extends RunItem {
 
+    /**
+     * The SampleSet the material belongs to.
+     */
     sampleSet: ExpMaterialSampleSet;
 
-    constructor(config: Partial<IExpMaterial>) {
+    constructor(config: Partial<Material> = {}) {
         super(config);
-        config = config || {};
 
         this.sampleSet = config.sampleSet;
     }
-}
-
-export interface IExpProtocol extends IExpObject {
-    applicationType: any
-    childProtocols: Array<any>
-    contact: any
-    description: string
-    instrument: any
-    runs: Array<IExpRun>
-    software: any
-    steps: Array<any>
 }
 
 /**
@@ -830,20 +746,19 @@ export interface IExpProtocol extends IExpObject {
  * @hidden
  * @private
  */
-export class Protocol extends ExpObject implements IExpProtocol {
+export class Protocol extends ExpObject {
 
     applicationType: any;
     childProtocols: Array<any>;
     contact: any;
     description: string;
     instrument: any;
-    runs: Array<IExpRun>;
+    runs: Array<Run>;
     software: any;
     steps: Array<any>;
 
-    constructor(config: Partial<IExpProtocol>) {
+    constructor(config: Partial<Protocol> = {}) {
         super(config);
-        config = config || {};
 
         this.applicationType = config.applicationType;
         this.childProtocols = config.childProtocols || [];
@@ -862,18 +777,6 @@ export class Protocol extends ExpObject implements IExpProtocol {
     }
 }
 
-export interface IExpSampleSet extends IExpObject {
-    /**
-     * Description of the SampleSet.
-     */
-    description: string
-
-    /**
-     * Array of Exp.Material config objects.
-     */
-    samples: Array<IExpMaterial>
-}
-
 export interface ICreateSampleSetDomain {
     /**
      * The container path in which to create the domain.
@@ -883,7 +786,7 @@ export interface ICreateSampleSetDomain {
     /**
      * The domain design to save.
      */
-    domainDesign: IDomainDesign
+    domainDesign: DomainDesign
 
     /**
      * Function called if execution of the "getDomain" function fails.
@@ -921,14 +824,20 @@ export interface ICreateSampleSetDomain {
  * (e.g., its volume, number of cells, color, etc.). For more information see
  * [additional documentation](https://www.labkey.org/Documentation/wiki-page.view?name=experiment).
  */
-export class SampleSet extends ExpObject implements IExpSampleSet {
+export class SampleSet extends ExpObject {
 
+    /**
+     * Description of the SampleSet.
+     */
     description: string;
+
+    /**
+     * Array of Exp.Material config objects.
+     */
     samples: Array<Material>;
 
-    constructor(config: Partial<IExpSampleSet>) {
+    constructor(config: Partial<SampleSet> = {}) {
         super(config);
-        config = config || {};
 
         this.description = config.description;
         this.samples = config.samples;

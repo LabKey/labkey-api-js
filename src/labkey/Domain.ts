@@ -18,7 +18,7 @@ import { request } from './Ajax'
 import { getCallbackWrapper, isString } from './Utils'
 
 // This is effectively GWTDomain
-export interface IDomainDesign {
+export interface DomainDesign {
     allowAttachmentProperties?: boolean
     allowFileLinkProperties?: boolean
     allowFlagProperties?: boolean
@@ -37,7 +37,7 @@ export interface IDomainDesign {
 export interface CreateDomainOptions {
     containerPath?: string
     createDomain?: boolean
-    domainDesign?: IDomainDesign
+    domainDesign?: DomainDesign
     domainGroup?: string
     domainKind?: string
     domainTemplate?: string
