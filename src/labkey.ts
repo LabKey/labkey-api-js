@@ -17,6 +17,8 @@ import * as ActionURL from './labkey/ActionURL'
 import * as Ajax from './labkey/Ajax'
 import * as Assay from './labkey/Assay'
 import * as Domain from './labkey/Domain'
+import * as Exp from './labkey/Exp'
+import * as Experiment from './labkey/Experiment'
 import { FieldKey } from './labkey/fieldKey/FieldKey'
 import * as Filter from './labkey/Filter'
 import * as List from './labkey/List'
@@ -44,6 +46,8 @@ export {
     Assay,
     AssayDOM,
     Domain,
+    Exp,
+    Experiment,
     FieldKey,
     Filter,
     List,
