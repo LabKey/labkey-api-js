@@ -38,7 +38,7 @@ export class ExpObject {
     /**
      * The person who created the ExpObject.
      */
-    createdBy: string; // TODO: I think this should be a number
+    createdBy: number;
 
     /**
      * The id of the ExpObject
@@ -58,7 +58,7 @@ export class ExpObject {
     /**
      * The person who last modified the ExpObject.
      */
-    modifiedBy: string; // TODO: I think this should be a number
+    modifiedBy: string;
 
     /**
      * The name of the ExpObject
@@ -151,9 +151,9 @@ export interface ICreateDataClassDomain {
 export class DataClass extends ExpObject {
 
     /**
-     * TODO: Determine description and type
+     * Data underlying this DataClass.
      */
-    data: any;
+    data: Data;
 
     /**
      * Description of the DataClass.
@@ -408,19 +408,19 @@ export class Data extends ExpObject {
     dataFileURL: string;
 
     /**
-     * TODO: Describe dataType
+     * TODO: Describe dataType. Possibly no longer supported.
      */
     dataType: string;
 
     /**
-     * TODO: Describe pipelinePath
+     * Path relative to pipeline root.
      */
     pipelinePath: string;
 
     /**
-     * TODO: Describe role and determine type
+     * The role designation for this data.
      */
-    role: any;
+    role: string;
 
     constructor(config: Partial<Data> = {}) {
         super(config);

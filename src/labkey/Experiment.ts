@@ -21,7 +21,7 @@ import { insertRows } from './query/Rows'
 import { RunGroup } from './Exp'
 
 /**
- * TODO: Needs description
+ * The name of the protocol used by Experiment. This can be used for "protocolName".
  */
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
 
@@ -214,8 +214,9 @@ export interface ILineageOptions {
     
     /**
      * The row id of the seed ExpData or ExpMaterial.  Either rowId or lsid is required.
+     * @deprecated Use lsid instead.
      */
-    rowId?: any // TODO: string or number or both?
+    rowId?: number
 
     /**
      * A scoping object for the success and failure callback functions (default to this).
@@ -553,9 +554,9 @@ export interface ISaveRunsOptions {
     protocolName: string
 
     /**
-     * TODO: What is this type?
+     * The runs to be saved.
      */
-    runs: any
+    runs: any // TODO: What is this type? Likely too strict to have Array<Run> as "Run-like" objects are also accepted.
 
     /**
      * A scoping object for the success and error callback functions (default to this).
@@ -569,7 +570,7 @@ export interface ISaveRunsOptions {
 }
 
 /**
- * TODO: Needs description
+ * Save modified runs.
  * @param options
  */
 export function saveRuns(options: ISaveRunsOptions): void {
