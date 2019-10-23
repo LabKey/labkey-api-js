@@ -49,8 +49,6 @@ export function deleteRows(options: IQueryRequestOptions) {
  */
 export function truncateTable(options: IQueryRequestOptions)
 {
-    if (arguments.length > 1)
-        options = queryArguments(arguments);
     options.action = "truncateTable.api";
     return sendRequest(options);
 }
