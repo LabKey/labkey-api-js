@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { create as createDomain, CreateDomainOptions } from './Domain'
+import { create as createDomain, CreateDomainOptions, DomainDesign } from './Domain'
 
 export interface ICreateOptions {
-    domainDesign: any
+    domainDesign: DomainDesign
     keyName: string
     keyType?: string
     kind?: string
@@ -32,7 +32,8 @@ export interface ICreateOptions {
 export function create(config: ICreateOptions) {
     
     let domainOptions: CreateDomainOptions = {
-        domainDesign: config,
+        // not really awesome...intermixing interface with domain design. Separate these concerns.
+        domainDesign: config as Partial<DomainDesign>,
         options: {}
     };
     
