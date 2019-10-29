@@ -38,6 +38,22 @@ export function deleteRows(options: IQueryRequestOptions) {
 }
 
 /**
+ * Delete all rows in a table.
+ * @see LABKEY.Query.ModifyRowsResults
+ * @see LABKEY.Query.ModifyRowsOptions
+ * @param {IQueryRequestOptions} options
+ * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request
+ * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+ * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ */
+export function truncateTable(options: IQueryRequestOptions)
+{
+    options.action = "truncateTable.api";
+    return sendRequest(options);
+}
+
+/**
  * Insert rows.
  * #### Examples
  * Example, from the Reagent Request <a href="https://www.labkey.org/Documentation/wiki-page.view?name=reagentRequestForm">Tutorial</a> and <a href="https://www.labkey.org/home/Study/demo/wiki-page.view?name=reagentRequest">Demo</a>:

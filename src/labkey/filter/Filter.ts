@@ -230,13 +230,11 @@ export function getFilterDescription(url: string, dataRegionName: string, column
     return result;
 }
 
-export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<IFilter> {
-
+export function getFiltersFromParameters(params: {[key:string]: any}, dataRegionName?: string) : Array<IFilter> {
     let filters: Array<IFilter> = [];
-    const params = getParameters(url);
     const regionName = ensureRegionName(dataRegionName);
 
-    for (let paramName in params) {
+    for (const paramName in params) {
         if (params.hasOwnProperty(paramName)) {
             // Look for parameters that have the right prefix
             if (paramName.indexOf(regionName + '.') == 0) {
@@ -264,6 +262,11 @@ export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<I
     }
 
     return filters;
+}
+
+export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<IFilter> {
+
+    return getFiltersFromParameters(getParameters(url), dataRegionName);
 }
 
 export function getQueryParamsFromUrl(url: string, dataRegionName: string): any {
