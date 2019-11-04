@@ -616,7 +616,6 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
     }
 
     // Create absolute path if the LABKEY.baseURL is configured (assume remote server), otherwise use the relative URL from buildURL.
-    // TODO: refactor into buildURL (ActionURL.ts)
     let url: string;
     const { baseURL } = getServerContext();
     if (baseURL) {
@@ -703,9 +702,20 @@ export interface IQueryRequestOptions {
  * @private
  */
 function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
+    
+    // SNPRC: Create absolute path if the LABKEY.baseURL is configured (assume remote server), otherwise use the relative URL from buildURL.
+    // TODO: refactor into buildURL (ActionURL.ts)
+    let url: string;
+    const { baseURL } = getServerContext();
+    if (baseURL) {
+        url = baseURL + buildURL('query', options.action, options.containerPath);
+    }
+    else {
+        url = buildURL('query', options.action, options.containerPath);
+    }
 
     return request({
-        url: buildURL('query', options.action, options.containerPath),
+        url: url,
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),

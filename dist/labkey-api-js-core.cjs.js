@@ -714,6 +714,11 @@ function configureHeaders(xhr, config, options) {
     if (!contains(headers, 'X-Requested-With')) {
         headers['X-Requested-With'] = 'XMLHttpRequest';
     }
+    var baseURL = getServerContext().baseURL;
+    if (baseURL) {
+        DEFAULT_HEADERS[CSRF_HEADER] = getServerContext().CSRF;
+        xhr.withCredentials = true;
+    }
     for (var k in DEFAULT_HEADERS) {
         if (DEFAULT_HEADERS.hasOwnProperty(k)) {
             xhr.setRequestHeader(k, DEFAULT_HEADERS[k]);
@@ -776,11 +781,6 @@ function request(config) {
         }
     };
     xhr.open(options.method, options.url, true);
-    var baseURL = getServerContext().baseURL;
-    var noContextPath = !(getServerContext().hasOwnProperty('contextPath') && getServerContext().contextPath != null);
-    if (location.protocol + '//' + location.host + (noContextPath ? '/' : getServerContext().contextPath + '/') != baseURL) {
-        xhr.withCredentials = true;
-    }
     configureHeaders(xhr, config, options);
     if (config.hasOwnProperty('timeout') && config.timeout !== null && config.timeout !== undefined) {
         xhr.ontimeout = function () {
@@ -2920,8 +2920,16 @@ function selectRows(options) {
     });
 }
 function sendRequest(options) {
+    var url;
+    var baseURL = getServerContext().baseURL;
+    if (baseURL) {
+        url = baseURL + buildURL('query', options.action, options.containerPath);
+    }
+    else {
+        url = buildURL('query', options.action, options.containerPath);
+    }
     return request({
-        url: buildURL('query', options.action, options.containerPath),
+        url: url,
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),

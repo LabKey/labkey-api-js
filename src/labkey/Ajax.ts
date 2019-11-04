@@ -164,6 +164,17 @@ function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: 
         headers['X-Requested-With'] = 'XMLHttpRequest';
     }
 
+    // SNPRC
+    // CSRF is getting initialized too early for CORS requests
+    // CSRF should be set after the user authenticates (LABKEY.CSRF = CSRF from the login response)
+    // 1 - if this is a CORS request (baseURL is defined), then replace the value of CSRF with the updated value in the server context (LABKEY)
+    // 2 - If the request is to a remote server then the baseURL will be configured in the LABKEY configuration. In this case, credentials need to be enabled to trigger a CORS request
+    const { baseURL } = getServerContext();
+    if (baseURL) {
+        DEFAULT_HEADERS[CSRF_HEADER] = getServerContext().CSRF;
+        xhr.withCredentials = true;
+    }
+    
     for (let k in DEFAULT_HEADERS) {
         if (DEFAULT_HEADERS.hasOwnProperty(k)) {
             xhr.setRequestHeader(k, DEFAULT_HEADERS[k]);
@@ -237,7 +248,6 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
  * Make a XMLHttpRequest nominally to a LabKey instance. Includes success/failure callback mechanism,
  * HTTP header configuration, support for FormData, and parameter encoding amongst other features.
  * 
- * SNPRC: Added CORS configuration
  * 
  */
 export function request(config: RequestOptions): XMLHttpRequest {
@@ -255,16 +265,6 @@ export function request(config: RequestOptions): XMLHttpRequest {
     };
 
     xhr.open(options.method, options.url, true);
-
-    // If the request is to a remote server then the baseURL will be configured in the LABKEY configuration. In this case, we need to enable 
-    // credentials to trigger a CORS request
-    const { baseURL } = getServerContext();
-    const noContextPath = !( getServerContext().hasOwnProperty('contextPath') && getServerContext().contextPath != null);
-
-    if (location.protocol + '//' + location.host + (noContextPath ? '/' : getServerContext().contextPath + '/') != baseURL ) {
-        xhr.withCredentials = true;
-    }
-    
 
     // configure headers after request is open
     configureHeaders(xhr, config, options);
