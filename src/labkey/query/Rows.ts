@@ -420,6 +420,11 @@ export interface ISelectRowsOptions {
     includeStyle?: boolean
 
     /**
+     * Include metadata for the selected columns.  Defaults to true.
+     */
+    includeMetadata?: boolean
+
+    /**
      * Include the total number of rows available (defaults to true). If false totalCount will equal
      * number of rows returned (equal to maxRows unless maxRows == 0).
      */
@@ -554,6 +559,9 @@ function buildParams(options: ISelectRowsOptions): any {
 
     if (options.includeStyle)
         params.includeStyle = options.includeStyle;
+
+    if (options.includeMetadata !== undefined)
+        params.includeMetadata = options.includeMetadata;
 
     return params;
 }
