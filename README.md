@@ -7,7 +7,7 @@ Written with joy in TypeScript.
 ## v0.0.25 - Alpha
 
 This package is under development. We're preparing the 1.0.0 release but in the meantime treat this package as experimental. All code is subject to change.
-See the [CHANGELOG.md] for changes in this version.
+See the [CHANGELOG](CHANGELOG.md) for changes in this version.
 
 ## Installation
 
