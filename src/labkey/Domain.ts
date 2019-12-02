@@ -194,3 +194,63 @@ export function save(config: SaveDomainOptions): void {
         }
     });
 }
+
+interface ListDomainsParams {
+    domainKinds?: Array<string>
+    includeFields?: boolean
+    includeProjectAndShared?: boolean
+}
+
+export interface ListDomainsOptions extends ListDomainsParams {
+    containerPath?: string
+    failure?: (error?: any) => any
+    success?: (response: {data?: Array<DomainDesign>}) => any
+}
+
+export function listDomains(config: ListDomainsOptions): void {
+    const params: ListDomainsParams = { };
+
+    if (config.domainKinds)
+        params.domainKinds = config.domainKinds;
+
+    if (config.includeFields !== undefined)
+        params.includeFields = config.includeFields;
+
+    if (config.includeProjectAndShared !== undefined)
+        params.includeProjectAndShared = config.includeProjectAndShared;
+
+    request({
+        url: buildURL('property', 'listDomains.api', config.containerPath, params),
+        method: 'GET',
+        success: getCallbackWrapper(config.success),
+        failure: getCallbackWrapper(config.failure, this, true),
+    });
+}
+
+interface GetPropertiesParams {
+    propertyIds?: Array<number>
+    propertyURIs?: Array<string>
+}
+
+export interface GetPropertiesOptions extends GetPropertiesParams{
+    containerPath?: string
+    failure?: (error?: any) => any
+    success?: (response: {data?: Array<any /*DomainField*/>}) => any
+}
+
+export function getProperties(config: GetPropertiesOptions): void {
+    const params: GetPropertiesParams = {};
+
+    if (config.propertyIds)
+        params.propertyIds = config.propertyIds;
+
+    if (config.propertyURIs)
+        params.propertyURIs = config.propertyURIs;
+
+    request({
+        url: buildURL('property', 'getProperties.api', config.containerPath, params),
+        method: 'GET',
+        success: getCallbackWrapper(config.success),
+        failure: getCallbackWrapper(config.failure, this, true),
+    });
+}
