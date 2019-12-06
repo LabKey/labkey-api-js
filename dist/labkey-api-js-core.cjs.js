@@ -533,7 +533,13 @@ function buildURL(controller, action, containerPath, parameters) {
         newURL = contextPath + containerPath + controller + '-' + action;
     }
     else {
-        newURL = contextPath + '/' + controller + containerPath + action;
+        var baseURL = getServerContext().baseURL;
+        if (baseURL) {
+            newURL = baseURL + contextPath + '/' + controller + containerPath + action;
+        }
+        else {
+            newURL = contextPath + '/' + controller + containerPath + action;
+        }
     }
     if (query) {
         newURL += '?' + query;
@@ -2902,16 +2908,8 @@ function selectRows(options) {
     if (!options.queryName) {
         throw 'You must specify a queryName!';
     }
-    var url;
-    var baseURL = getServerContext().baseURL;
-    if (baseURL) {
-        url = baseURL + buildURL('query', 'getQuery.api', options.containerPath);
-    }
-    else {
-        url = buildURL('query', 'getQuery.api', options.containerPath);
-    }
     return request({
-        url: url,
+        url: buildURL('query', 'getQuery.api', options.containerPath),
         method: getMethod(options.method),
         success: getSuccessCallbackWrapper$1(getOnSuccess(options), options.stripHiddenColumns, options.scope, options.requiredVersion),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
@@ -2920,16 +2918,8 @@ function selectRows(options) {
     });
 }
 function sendRequest(options) {
-    var url;
-    var baseURL = getServerContext().baseURL;
-    if (baseURL) {
-        url = baseURL + buildURL('query', options.action, options.containerPath);
-    }
-    else {
-        url = buildURL('query', options.action, options.containerPath);
-    }
     return request({
-        url: url,
+        url: buildURL('query', options.action, options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),

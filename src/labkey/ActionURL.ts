@@ -127,7 +127,16 @@ export function buildURL(controller: string, action: string, containerPath?: str
         newURL = contextPath + containerPath + controller + '-' + action;
     }
     else {
-        newURL = contextPath + '/' + controller + containerPath + action;
+        // SNPRC: added baseURL support for CORS requests
+        const { baseURL } = getServerContext();
+        if (baseURL) 
+        {
+            newURL = baseURL + contextPath + '/' + controller + containerPath + action;
+        }
+        else 
+        {
+            newURL = contextPath + '/' + controller + containerPath + action;
+        }
     }
 
     if (query) {

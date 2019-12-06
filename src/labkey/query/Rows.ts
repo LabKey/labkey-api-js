@@ -599,7 +599,6 @@ function selectRowArguments(args: any): ISelectRowsOptions {
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
  * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
  * 
- * SNPRC: If the baseURL is configured then it will be used to make the AJAX request
  * 
  */
 export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
@@ -615,18 +614,8 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
         throw 'You must specify a queryName!';
     }
 
-    // Create absolute path if the LABKEY.baseURL is configured (assume remote server), otherwise use the relative URL from buildURL.
-    let url: string;
-    const { baseURL } = getServerContext();
-    if (baseURL) {
-        url = baseURL + buildURL('query', 'getQuery.api', options.containerPath);
-    }
-    else {
-        url = buildURL('query', 'getQuery.api', options.containerPath);
-    }
-
     return request({
-        url: url,
+        url: buildURL('query', 'getQuery.api', options.containerPath),
         method: getMethod(options.method),
         success: getSuccessCallbackWrapper(getOnSuccess(options), options.stripHiddenColumns, options.scope, options.requiredVersion),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
@@ -702,20 +691,9 @@ export interface IQueryRequestOptions {
  * @private
  */
 function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
-    
-    // SNPRC: Create absolute path if the LABKEY.baseURL is configured (assume remote server), otherwise use the relative URL from buildURL.
-    // TODO: refactor into buildURL (ActionURL.ts)
-    let url: string;
-    const { baseURL } = getServerContext();
-    if (baseURL) {
-        url = baseURL + buildURL('query', options.action, options.containerPath);
-    }
-    else {
-        url = buildURL('query', options.action, options.containerPath);
-    }
 
     return request({
-        url: url,
+        url: buildURL('query', options.action, options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
