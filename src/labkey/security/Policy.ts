@@ -113,10 +113,7 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(function(data: GetPolicyResponse, req: any) {
             data.policy.requestedResourceId = config.resourceId;
-            // TODO: This is an Ext3 class -- should probably just deprecate this entirely and just hand back the response.
-            const { SecurityPolicy } = getServerContext();
-            let policy = new SecurityPolicy(data.policy);
-            getOnSuccess(config).call(config.scope || this, policy, data.relevantRoles, req);
+            getOnSuccess(config).call(config.scope || this, data.policy, data.relevantRoles, req);
         }, this),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });

@@ -21,10 +21,10 @@ import { roles } from './constants'
 
 export interface GetGroupPermissionsOptions {
     containerPath?: string
-    failure?: () => any
+    failure?: (error?: any) => any
     includeSubfolders?: boolean
     scope?: any
-    success?: () => any
+    success?: (data?: any) => any
 }
 
 /**
@@ -119,9 +119,9 @@ export function getRole(perms: number): string {
 
 export interface GetRolesOptions {
     containerPath?: string
-    failure?: () => any
+    failure?: (error?: any) => any
     scope?: any
-    success?: () => any
+    success?: (data?: any) => any
 }
 
 export interface GetRolesResponse {
