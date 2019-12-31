@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants'
+import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants';
 import { isArray, isString } from '../Utils';
 
 let urlMap: {
@@ -46,15 +46,15 @@ export interface IFilterType {
     validate: (value: FilterValue, jsonType: string, columnName: string) => any
 }
 
-const EQUAL = generateFilterType('Equals', '=', 'eq', true);
-const GREATER_THAN = generateFilterType('Is Greater Than', '>', 'gt', true);
-const GREATER_THAN_OR_EQUAL = generateFilterType('Is Greater Than or Equal To', '>=', 'gte', true);
-const IN = generateFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of (example usage: a;b;c)');
-const LESS_THAN = generateFilterType('Is Less Than', '<', 'lt', true);
-const LESS_THAN_OR_EQUAL = generateFilterType('Is Less Than or Equal To', '=<', 'lte', true);
-const NOT_EQUAL = generateFilterType('Does Not Equal', '<>', 'neq', true);
-const NOT_IN = generateFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
-const NEQ_OR_NULL = generateFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
+const EQUAL = registerFilterType('Equals', '=', 'eq', true);
+const GREATER_THAN = registerFilterType('Is Greater Than', '>', 'gt', true);
+const GREATER_THAN_OR_EQUAL = registerFilterType('Is Greater Than or Equal To', '>=', 'gte', true);
+const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of (example usage: a;b;c)');
+const LESS_THAN = registerFilterType('Is Less Than', '<', 'lt', true);
+const LESS_THAN_OR_EQUAL = registerFilterType('Is Less Than or Equal To', '=<', 'lte', true);
+const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true);
+const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
+const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
 export const Types = {
 
@@ -63,39 +63,39 @@ export const Types = {
     //
 
     EQUAL,
-    DATE_EQUAL: generateFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), 'dateeq', true),
+    DATE_EQUAL: registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), 'dateeq', true),
 
     NOT_EQUAL,
     NEQ: NOT_EQUAL,
-    DATE_NOT_EQUAL: generateFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'dateneq', true),
+    DATE_NOT_EQUAL: registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'dateneq', true),
 
     NEQ_OR_NULL,
     NOT_EQUAL_OR_MISSING: NEQ_OR_NULL,
 
     GREATER_THAN,
     GT: GREATER_THAN,
-    DATE_GREATER_THAN: generateFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), 'dategt', true),
+    DATE_GREATER_THAN: registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), 'dategt', true),
 
     LESS_THAN,
     LT: LESS_THAN,
-    DATE_LESS_THAN: generateFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), 'datelt', true),
+    DATE_LESS_THAN: registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), 'datelt', true),
 
     GREATER_THAN_OR_EQUAL,
     GTE : GREATER_THAN_OR_EQUAL,
-    DATE_GREATER_THAN_OR_EQUAL: generateFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), 'dategte', true),
+    DATE_GREATER_THAN_OR_EQUAL: registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), 'dategte', true),
 
     LESS_THAN_OR_EQUAL,
     LTE: LESS_THAN_OR_EQUAL,
-    DATE_LESS_THAN_OR_EQUAL: generateFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), 'datelte', true),
+    DATE_LESS_THAN_OR_EQUAL: registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), 'datelte', true),
 
-    STARTS_WITH: generateFilterType('Starts With', null, 'startswith', true),
-    DOES_NOT_START_WITH: generateFilterType('Does Not Start With', null, 'doesnotstartwith', true),
+    STARTS_WITH: registerFilterType('Starts With', null, 'startswith', true),
+    DOES_NOT_START_WITH: registerFilterType('Does Not Start With', null, 'doesnotstartwith', true),
 
-    CONTAINS: generateFilterType('Contains', null, 'contains', true),
-    DOES_NOT_CONTAIN: generateFilterType('Does Not Contain', null, 'doesnotcontain', true),
+    CONTAINS: registerFilterType('Contains', null, 'contains', true),
+    DOES_NOT_CONTAIN: registerFilterType('Does Not Contain', null, 'doesnotcontain', true),
 
-    CONTAINS_ONE_OF: generateFilterType('Contains One Of', null, 'containsoneof', true, ';', 'Contains One Of (example usage: a;b;c)'),
-    CONTAINS_NONE_OF: generateFilterType('Does Not Contain Any Of', null, 'containsnoneof', true, ';', 'Does Not Contain Any Of (example usage: a;b;c)'),
+    CONTAINS_ONE_OF: registerFilterType('Contains One Of', null, 'containsoneof', true, ';', 'Contains One Of (example usage: a;b;c)'),
+    CONTAINS_NONE_OF: registerFilterType('Does Not Contain Any Of', null, 'containsnoneof', true, ';', 'Does Not Contain Any Of (example usage: a;b;c)'),
 
     // NOTE: for some reason IN is aliased as EQUALS_ONE_OF. Not sure if this is for legacy purposes or it was
     // determined EQUALS_ONE_OF was a better phrase to follow this pattern I did the same for IN_OR_MISSING
@@ -105,31 +105,31 @@ export const Types = {
     NOT_IN,
     EQUALS_NONE_OF: NOT_IN,
 
-    BETWEEN: generateFilterType('Between', null, 'between', true, ',', 'Between, Inclusive (example usage: -4,4)', 2, 2),
-    NOT_BETWEEN: generateFilterType('Not Between', null, 'notbetween', true, ',', 'Not Between, Exclusive (example usage: -4,4)', 2, 2),
+    BETWEEN: registerFilterType('Between', null, 'between', true, ',', 'Between, Inclusive (example usage: -4,4)', 2, 2),
+    NOT_BETWEEN: registerFilterType('Not Between', null, 'notbetween', true, ',', 'Not Between, Exclusive (example usage: -4,4)', 2, 2),
 
-    MEMBER_OF: generateFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
+    MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
 
     //
     // These are the 'no data value' operators
     //
 
-    HAS_ANY_VALUE: generateFilterType('Has Any Value'),
+    HAS_ANY_VALUE: registerFilterType('Has Any Value'),
 
-    ISBLANK: generateFilterType('Is Blank', null, 'isblank'),
-    MISSING: generateFilterType('Is Blank', null, 'isblank'),
-    NONBLANK: generateFilterType('Is Not Blank', null, 'isnonblank'),
-    NOT_MISSING: generateFilterType('Is Not Blank', null, 'isnonblank'),
+    ISBLANK: registerFilterType('Is Blank', null, 'isblank'),
+    MISSING: registerFilterType('Is Blank', null, 'isblank'),
+    NONBLANK: registerFilterType('Is Not Blank', null, 'isnonblank'),
+    NOT_MISSING: registerFilterType('Is Not Blank', null, 'isnonblank'),
 
-    HAS_MISSING_VALUE: generateFilterType('Has a missing value indicator', null, 'hasmvvalue'),
-    DOES_NOT_HAVE_MISSING_VALUE: generateFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
+    HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', null, 'hasmvvalue'),
+    DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
 
-    EXP_CHILD_OF: generateFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
+    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
 
     //
     // Table/Query-wise operators
     //
-    Q: generateFilterType('Search', null, 'q', true, undefined, 'Search across all columns', undefined, undefined, true)
+    Q: registerFilterType('Search', null, 'q', true, undefined, 'Search across all columns', undefined, undefined, true)
 };
 
 export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
@@ -154,12 +154,23 @@ export const TYPES_BY_JSON_TYPE_DEFAULT: {
     'string': Types.CONTAINS
 };
 
-function generateFilterType(
+/**
+ * Creates a FilterType object and stores it in the global URL Map used by Filter.getFilterTypeForURLSuffix
+ * @param displayText The text to display in a filter menu
+ * @param displaySymbol The symbol to display in a filter menu
+ * @param urlSuffix The suffix used when adding the filter to a URL
+ * @param dataValueRequired Boolean used to indicate if a data value is required for the filter type
+ * @param multiValueSeparator The separator to use if multiple values are allowed for the filter type
+ * @param longDisplayText The text to display in a filter help menu
+ * @param minOccurs The minimum number of times the filter can be applied
+ * @param maxOccurs The maximum number of times the filter can be applied
+ * @param tableWise
+ */
+export function registerFilterType(
     displayText: string, displaySymbol?: string, urlSuffix?: string,
     dataValueRequired?: boolean, multiValueSeparator?: string, longDisplayText?: string,
     minOccurs?: number, maxOccurs?: number, tableWise?: boolean
 ): IFilterType {
-
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
     const isTableWise = () => tableWise === true;
@@ -266,7 +277,7 @@ function generateFilterType(
 // Already indicated as @private and warned could be removed at any time.
 // export function _define(typeName: string, displayText: string, urlSuffix: string, isMultiType: boolean): void {
 //     if (!Types[typeName]) {
-//         Types[typeName] = generateFilterType(displayText, null, urlSuffix, true);
+//         Types[typeName] = registerFilterType(displayText, null, urlSuffix, true);
 //     }
 // }
 
