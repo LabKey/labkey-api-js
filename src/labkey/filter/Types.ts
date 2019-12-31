@@ -154,6 +154,7 @@ export const TYPES_BY_JSON_TYPE_DEFAULT: {
     'string': Types.CONTAINS
 };
 
+// TODO: document tableWise param below.
 /**
  * Creates a FilterType object and stores it in the global URL Map used by Filter.getFilterTypeForURLSuffix
  * @param displayText The text to display in a filter menu
