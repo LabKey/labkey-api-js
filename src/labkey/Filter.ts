@@ -29,6 +29,7 @@ import {
     getDefaultFilterForType,
     getFilterTypeForURLSuffix,
     getFilterTypesForType,
+    registerFilterType,
     IFilterType,
     Types
 } from './filter/Types'
@@ -46,6 +47,7 @@ export {
     getQueryParamsFromUrl,
     getSortFromUrl,
     merge,
+    registerFilterType,
     Types,
 
     /* TypeScript interfaces */
