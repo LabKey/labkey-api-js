@@ -1,4 +1,7 @@
 
+## 0.0.28 - 2019-11-12
+- Add registerFilterType
+
 ## 0.0.25 - 2019-11-12
 - Added `includeMetadata` flag to selectRows (#24)
 
