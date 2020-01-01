@@ -154,7 +154,6 @@ export const TYPES_BY_JSON_TYPE_DEFAULT: {
     'string': Types.CONTAINS
 };
 
-// TODO: document tableWise param below.
 /**
  * Creates a FilterType object and stores it in the global URL Map used by Filter.getFilterTypeForURLSuffix
  * @param displayText The text to display in a filter menu
@@ -165,7 +164,7 @@ export const TYPES_BY_JSON_TYPE_DEFAULT: {
  * @param longDisplayText The text to display in a filter help menu
  * @param minOccurs The minimum number of times the filter can be applied
  * @param maxOccurs The maximum number of times the filter can be applied
- * @param tableWise
+ * @param tableWise true if the filter applies to all columns on the table
  */
 export function registerFilterType(
     displayText: string, displaySymbol?: string, urlSuffix?: string,
