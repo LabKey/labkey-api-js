@@ -1,7 +1,8 @@
-.rpt2_cache
-dist
-docs
-node_modules
+.rpt2_cache/
+dist/
+docs/
+node_modules/
+.idea/
 npm-debug.log
 package-lock.json
 sass-cache
