@@ -100,10 +100,6 @@ export class Filter implements IFilter {
 
 /**
  * Create an object suitable for QueryWebPart, etc
- * @param params
- * @param aggregates
- * @param dataRegionName
- * @returns {any|{}}
  * @private
  */
 export function appendAggregateParams(params: any, aggregates: Array<Aggregate>, dataRegionName?: string): any {
@@ -139,10 +135,6 @@ export function appendAggregateParams(params: any, aggregates: Array<Aggregate>,
 
 /**
  * Create an Object suitable for Query.selectRows, etc
- * @param params
- * @param filterArray
- * @param dataRegionName
- * @returns {any|{}}
  * @private
  */
 export function appendFilterParams(params: any, filterArray: Array<IFilter>, dataRegionName?: string): any {
@@ -179,6 +171,34 @@ export function appendFilterParams(params: any, filterArray: Array<IFilter>, dat
     return filterParams;
 }
 
+/**
+ * Creates a filter
+ *
+ * ```
+ * function onFailure(errorInfo, options, responseObj){
+ *  if(errorInfo && errorInfo.exception)
+ *      alert("Failure: " + errorInfo.exception);
+ *  else
+ *      alert("Failure: " + responseObj.statusText);
+ * }
+ *
+ * function onSuccess(data){
+ *  alert("Success! " + data.rowCount + " rows returned.");
+ * }
+ *
+ * LABKEY.Query.selectRows({
+ *  schemaName: 'lists',
+ *  queryName: 'People',
+ *  success: onSuccess,
+ *  failure: onFailure,
+ *  filterArray: [
+ *      LABKEY.Filter.create('FirstName', 'Johnny'),
+ *      LABKEY.Filter.create('Age', 15, LABKEY.Filter.Types.LESS_THAN_OR_EQUAL)
+ *      LABKEY.Filter.create('LastName', ['A', 'B'], LABKEY.Filter.Types.DOES_NOT_START_WITH)
+ *  ]
+ * });
+ * ```
+ */
 export function create(column: string, value: FilterValue, type?: IFilterType): IFilter {
     return new Filter(column, value, type);
 }
@@ -264,6 +284,9 @@ export function getFiltersFromParameters(params: {[key:string]: any}, dataRegion
     return filters;
 }
 
+/**
+ * Create an array of LABKEY.Filter objects from the filter parameters on the URL
+ */
 export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<IFilter> {
 
     return getFiltersFromParameters(getParameters(url), dataRegionName);

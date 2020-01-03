@@ -46,13 +46,21 @@ export interface IFilterType {
     validate: (value: FilterValue, jsonType: string, columnName: string) => any
 }
 
+/** Finds rows where the column value matches the given filter value. Case-sensitivity depends upon how your underlying relational database was configured.*/
 const EQUAL = registerFilterType('Equals', '=', 'eq', true);
+/** Finds rows where the column value is greater than the filter value.*/
 const GREATER_THAN = registerFilterType('Is Greater Than', '>', 'gt', true);
+/** Finds rows where the column value is greater than or equal to the filter value.*/
 const GREATER_THAN_OR_EQUAL = registerFilterType('Is Greater Than or Equal To', '>=', 'gte', true);
+/** Finds rows where the column value equals one of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
 const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of (example usage: a;b;c)');
+/** Finds rows where the column value is less than the filter value.*/
 const LESS_THAN = registerFilterType('Is Less Than', '<', 'lt', true);
+/** Finds rows where the column value is less than or equal to the filter value.*/
 const LESS_THAN_OR_EQUAL = registerFilterType('Is Less Than or Equal To', '=<', 'lte', true);
+/** Finds rows where the column value does not equal the filter value.*/
 const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true);
+/** Finds rows where the column value is not in any of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
 const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
