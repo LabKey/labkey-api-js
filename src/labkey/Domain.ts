@@ -18,33 +18,73 @@ import { request } from './Ajax'
 import { getCallbackWrapper, isString } from './Utils'
 
 // This is effectively GWTDomain
+/**
+ * An interface to describe the shape and fields of a domain.
+ */
 export interface DomainDesign {
     allowAttachmentProperties?: boolean
     allowFileLinkProperties?: boolean
     allowFlagProperties?: boolean
     container?: string
+    /** The unique ID of this domain */
     domainId?: number
+    /** The URI of this domain. */
     domainURI?: string
+    /** The description of this domain. */
     description?: string
+    /**
+     * An array of objects that each describe a domain field.  Each object has the following properties:
+     * - propertyId : The unique ID of this field.
+     * - propertyURI:</b> The URI of this field. (string)
+     * - ontologyURI:</b> The URI of the ontology this field belongs to. (string)
+     * - name:</b> The name of this field. (string)
+     * - description:</b> The description of this field (may be blank). (string)
+     * - rangeURI:</b> The URI for this field's range definition. (string)
+     * - conceptURI:</b> The URI of this field's concept. (string)
+     * - label:</b> The friendly label for this field. (string)
+     * - searchTerms:</b> The search terms for this field. (string)
+     * - semanticType:</b> The semantic type of this field. (string)
+     * - format:</b> The format string defined for this field. (string)
+     * - required:</b> Indicates whether this field is required to have a value (i.e. cannot be null). (boolean)
+     * - lookupContainer:</b> If this domain field is a lookup, this holds the container in which to look. (string)
+     * - lookupSchema:</b> If this domain field is a lookup, this holds the schema in which to look. (string)
+     * - lookupQuery:</b> if this domain field is a lookup, this holds the query in which to look. (string)
+     */
     fields?: Array<any>
+    /**
+     * An array of objects that each designate an index upon the domain.  Each object has the following properties
+     * - columnNames : An array of strings, where each string is the name of a domain field that will be an index. (array).
+     * - unique : Indicates whether the domain field is allowed to contain any duplicate values. (boolean).
+     */
     indices?: Array<any>
+    /** The name of this domain. */
     name?: string
-    queryName?: string
+    queryName?: string              // consider removing, queryName & schemaName may no longer be used
     schemaName?: string
     templateDescription?: string
 }
 
 export interface CreateDomainOptions {
+    /** The container path in which to create the domain. */
     containerPath?: string
+    /** When using a domain template, create the domain.  Defaults to true. */
     createDomain?: boolean
+    /** The domain design to save. */
     domainDesign?: DomainDesign
+    /** The name of a domain template group. */
     domainGroup?: string
+    /** The domain kind to create. One of "IntList", "VarList", "SampleSet", or "DataClass". */
     domainKind?: string
+    /** The name of a domain template within the domain group. */
     domainTemplate?: string
     failure?: (error?: any) => any
+    /** When using a domain template, import initial data associated in the template.  Defaults to true. */
     importData?: boolean
+    /** The domain kind to create. One of "IntList", "VarList", "SampleSet", or "DataClass". */
     kind?: string
+    /** The name of a module that contains the domain template group. */
     module?: string
+    /** Arguments used to create the specific domain type. */
     options?: any
     success?: (data?: any) => any
     timeout?: number
@@ -52,9 +92,47 @@ export interface CreateDomainOptions {
 
 /**
  * Create a new domain with the given kind, domainDesign, and options or
- * specify a <a href='https://www.labkey.org/home/Documentation/wiki-page.view?name=domainTemplates'>domain template</a>
+ * specify a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates)
  * to use for the domain creation. Not all domain kinds can be created through this API.
  * Currently supported domain kinds are: "IntList", "VarList", "SampleSet", "DataClass", "StudyDatasetDate", "StudyDatasetVisit".
+ *
+ * ```
+ * LABKEY.Domain.create({
+ *  kind: "IntList",
+ *  domainDesign: {
+ *      name: "LookupCodes",
+ *      description: "integer key list",
+ *      fields: [{
+ *          name: "id", rangeURI: "int"
+ *          },{
+ *          name: "code",
+ *          rangeURI: "string", scale: 4
+ *      }]
+ *  },
+ *  options: {
+ *      keyName: "id"
+ *  }
+ * });
+ * ```
+ * Create domain from a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates)
+ * ```
+ * LABKEY.Domain.create({
+ *  module: "mymodule",
+ *  domainGroup: "codes",
+ *  domainTemplate: "LookupCodes",
+ *  importData: false
+ * });
+ * ```
+ * Import the initial data from the domain template of a previously created domain:
+ * ```
+ * LABKEY.Domain.create({
+ *  module: "mymodule",
+ *  domainGroup: "codes",
+ *  domainTemplate: "LookupCodes",
+ *  createDomain: false,
+ *  importData: true
+ * });
+ * ```
  */
 export function create(config: CreateDomainOptions): void {
 
@@ -95,10 +173,15 @@ function mapCreateArguments(args: any): CreateDomainOptions {
 }
 
 export interface DropDomainOptions {
+    /** The container path in which the requested Domain is defined.
+     * If not supplied, the current container path will be used.
+     */
     containerPath?: string
-    domainDesign?: any
+    domainDesign?: any              // consider removing, this doesn't appear to be needed
     failure?: (error?: any) => any
+    /** The domain query name. */
     queryName: string
+    /** The domain schema name. */
     schemaName: string
     success?: () => any
 }
@@ -122,16 +205,42 @@ export function drop(config: DropDomainOptions): void {
 }
 
 export interface GetDomainOptions {
+    /** The container path in which the requested Domain is defined.
+     * If not supplied, the current container path will be used.
+     */
     containerPath?: string
     failure?: (error?: any) => any
+    /** The domain query name. */
     queryName?: string
+    /** The domain schema name. */
     schemaName?: string
+    /** Id of the domain. This is an alternate way to identify the domain.
+     * SchemaName and queryName will be ignored if this value is not undefined or null.
+     */
     domainId?: number
     success?: (data?: any) => any
 }
 
 /**
  * Gets a domain design.
+ *
+ * ```
+ *  function successHandler(domainDesign){
+ *      var html = '';
+ *
+ *      html += '<b>' + domainDesign.name + ':</b><br> ';
+ *      for (var i in domainDesign.fields){
+ *          html += '   ' + domainDesign.fields[i].name + '<br>';
+ *      }
+ *      document.getElementById('testDiv').innerHTML = html;
+ *  }
+ *
+ *  function errorHandler(error){
+ *      alert('An error occurred retrieving data: ' + error);
+ *  }
+ *
+ *  LABKEY.Domain.get(successHandler, errorHandler, 'study', 'StudyProperties');
+ * ```
  */
 export function get(config: GetDomainOptions): void {
 
@@ -158,11 +267,22 @@ export function get(config: GetDomainOptions): void {
 }
 
 export interface SaveDomainOptions {
+    /**
+     * The container path in which the requested Domain is defined.
+     * If not supplied, the current container path will be used.
+     */
     containerPath?: string
+    /** The domain design to save. */
     domainDesign?: any
     failure?: (error?: any) => any
+    /** Name of the query. */
     queryName?: string
+    /** Name of the schema. */
     schemaName?: string
+    /**
+     * Id of the domain. This is an alternate way to identify the domain to update.
+     * SchemaName and queryName will be ignored if this value is not undefined or null.
+     */
     domainId?: number
     success?: (data?: any) => any
 }
