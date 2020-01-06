@@ -21,6 +21,7 @@ export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
 }
 
 /**
+ * Private array of chars to use for UUID generation
  * @private
  */
 const CHARS = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
@@ -143,6 +144,7 @@ export function applyTranslated(target: any, source: any, translationMap: any, a
     }
 }
 
+/** Display an error dialog. */
 export function alert(title: string, msg: string): void {
     console.warn('alert: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
     console.warn(title + ':', msg);
@@ -207,6 +209,14 @@ export function deleteCookie(name: string, pageOnly: boolean): void {
 
 // These arguments didn't originally exist but usages in core are expecting arguments to be available, pulled up
 // from dom/Utils.js implementation
+/**
+ * Shows an error dialog box to the user in response to an error from an AJAX request, including
+ * any error messages from the server.
+ * @param response The XMLHttpRequest object containing the response data.
+ * @param exception A JavaScript Error object caught by the calling code.
+ * @param showExceptionClass Flag to display the java class of the exception.
+ * @param msgPrefix Prefix to the error message (defaults to: 'An error occurred trying to load:')
+ */
 export function displayAjaxErrorResponse(response?: any, exception?: any, showExceptionClass?: any, msgPrefix?: any) {
     console.warn('displayAjaxErrorResponse: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
 }
