@@ -19,17 +19,24 @@ import { getCallbackWrapper } from './Utils'
 
 export interface IUpdateParticipantGroupOptions {
     // required
+    /** The integer ID of the desired participant group */
     rowId: number
 
     // optional
+    /** The container path in which the relevant study is defined. If not supplied, the current container path will be used.*/
     containerPath?: string
+    /** Set of IDs to be removed from the group if they are already members */
     deleteParticipantIds?: Array<string>
+    /** The new value for the description of the group */
     description?: string
+    /** Set of IDs to be added to the group if they are not already members */
     ensureParticipantIds?: Array<string>
     failure?: () => any
     filters?: any
+    /** The new value for the label of the group */
     label?: string
     method?: string
+    /** Set of IDs to be members of the group */
     participantIds?: Array<string>
     success?: (group?: any) => any
 }
