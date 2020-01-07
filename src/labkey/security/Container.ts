@@ -19,51 +19,50 @@ import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray } from '../Util
 import { getServerContext } from '../constants'
 
 export interface CreateContainerOptions {
+    /**
+     * An alternate container in which to create a new container. If not specified,
+     * the current container path will be used.
+     */
     containerPath?: string
+    /** The description of the container, used primarily for workbooks. */
     description?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: () => any
+    /** The name of the folder type to be applied. */
     folderType?: string
+    /** Whether this a workbook should be created. Defaults to false. */
     isWorkbook?: boolean
+    /** Required for projects or folders. The name of the container. */
     name?: string
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameters:
+     * - containersInfo: an object with the following properties:
+     *     - id: the id of the requested container
+     *     - name: the name of the requested container
+     *     - path: the path of the requested container
+     *     - sortOrder: the relative sort order of the requested container
+     *     - description: an optional description for the container (may be null or missing)
+     *     - title: an optional non-unique title for the container (may be null or missing)
+     *     - isWorkbook: true if this container is a workbook. Workbooks do not appear in the left-hand project tree.
+     *     - effectivePermissions: An array of effective permission unique names the group has.
+     * - response: The XMLHttpResponse object
+     */
     success?: () => any
+    /** The title of the container, used primarily for workbooks. */
     title?: string
 }
 
 /**
  * Creates a new container, which may be a project, folder, or workbook.
- * @param config A configuration object with the following properties
- * @param {String} [config.name] Required for projects or folders. The name of the container.
- * @param {String} [config.title] The title of the container, used primarily for workbooks.
- * @param {String} [config.description] The description of the container, used primarily for workbooks.
- * @param {boolean} [config.isWorkbook] Whether this a workbook should be created. Defaults to false.
- * @param {String} [config.folderType] The name of the folder type to be applied.
- * @param {function} [config.success] A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>containersInfo:</b> an object with the following properties:
- *  <ul>
- *      <li>id: the id of the requested container</li>
- *      <li>name: the name of the requested container</li>
- *      <li>path: the path of the requested container</li>
- *      <li>sortOrder: the relative sort order of the requested container</li>
- *      <li>description: an optional description for the container (may be null or missing)</li>
- *      <li>title: an optional non-unique title for the container (may be null or missing)</li>
- *      <li>isWorkbook: true if this container is a workbook. Workbooks do not appear in the left-hand project tree.</li>
- *      <li>effectivePermissions: An array of effective permission unique names the group has.</li>
- *  </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {string} [config.containerPath] An alternate container in which to create a new container. If not specified,
- * the current container path will be used.
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -86,30 +85,29 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
 }
 
 export interface DeleteContainerOptions {
+    /** The container which should be deleted. If not specified the current container path will be deleted. */
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: () => any
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameter:
+     * - object: Empty JavaScript object
+     * - response: The XMLHttpResponse object
+     */
     success?: () => any
 }
 
 /**
  * Deletes an existing container, which may be a project, folder, or workbook.
- * @param config A configuration object with the following properties
- * @param {function} [config.success] A reference to a function to call with the API results. This
- * function will be passed the following parameter:
- * <ul>
- * <li><b>object:</b> Empty JavaScript object</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {string} [config.containerPath] The container which should be deleted. If not specified,
- * the current container path will be deleted.
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -125,14 +123,69 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
 }
 
 export interface GetContainersOptions {
+    /** A container id or full-path String or an Array of container id/full-path Strings.  If not present, the current container is used. */
     container?: string | Array<string>
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
     containerPath?: string
+    /** May be used to control the depth of recursion if includeSubfolders is set to true. */
     depth?: number
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: () => any
+    /**
+     * If set to false, the effective permissions for this container resource
+     * will not be included. (defaults to true)
+     */
     includeEffectivePermissions?: boolean
+    /**
+     * If set to true, the entire branch of containers will be returned.
+     * If false, only the immediate children of the starting container will be returned (defaults to false).
+     */
     includeSubfolders?: boolean
+    /**
+     * The names (Strings) of modules whose Module Property values should be included for each container.
+     * Use "*" to get the value of all Module Properties for all modules.
+     */
     moduleProperties?: Array<string>
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameters:
+     *
+     * - containersInfo:
+     * If `container` is an Array, an object with property
+     * `containers` and value Array of 'container info' is returned.
+     * If `container` is a String, a object of 'container info' is returned.
+     *     - id: the id of the requested container
+     *     - name: the name of the requested container
+     *     - path: the path of the requested container
+     *     - sortOrder: the relative sort order of the requested container
+     *     - activeModules: an assay of the names (strings) of active modules in the container
+     *     - folderType: the name (string) of the folder type, matched with getFolderTypes()
+     *     - description: an optional description for the container (may be null or missing)
+     *     - title: an optional non-unique title for the container (may be null or missing)
+     *     - isWorkbook: true if this container is a workbook. Workbooks do not appear in the left-hand project tree.
+     *     - isContainerTab: true if this container is a Container Tab. Container Tabs do not appear in the left-hand project tree.
+     *     - userPermissions: (DEPRECATED) the permissions the current user has in the requested container.
+     *          Use this value with the hasPermission() method to test for specific permissions.
+     *     - effectivePermissions: An array of effective permission unique names the group has.
+     *     - children: if the includeSubfolders parameter was true, this will contain
+     *          an array of child container objects with the same shape as the parent object.
+     *     - moduleProperties: if requested in the config object, an array of module properties for each included module:
+     *          - name: the name of the Module Property.
+     *          - moduleName: the name of the module specifying this property.
+     *          - effectiveValue: the value of the property, including a value potentially inherited from parent containers.
+     *          - value: the value of the property as set for this specific container
+     * - response: The XMLHttpResponse object
+     */
     success?: () => any
 }
 
@@ -140,61 +193,7 @@ export interface GetContainersOptions {
  * Returns information about the specified container, including the user's current permissions within
  * that container. If the includeSubfolders config option is set to true, it will also return information
  * about all descendants the user is allowed to see.
- * @param config A configuration object with the following properties
- * @param {Mixed} [config.container] A container id or full-path String or an Array of container id/full-path Strings.  If not present, the current container is used.
- * @param {boolean} [config.includeSubfolders] If set to true, the entire branch of containers will be returned.
- * If false, only the immediate children of the starting container will be returned (defaults to false).
- * @param {boolean} [config.includeEffectivePermissions] If set to false, the effective permissions for this container resource
- * will not be included. (defaults to true)
- * @param {int} [config.depth] May be used to control the depth of recursion if includeSubfolders is set to true.
- * @param {Array} [config.moduleProperties] The names (Strings) of modules whose Module Property values should be included for each container.
- * Use "*" to get the value of all Module Properties for all modules.
- * @param {function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>containersInfo:</b>
- * If <code>config.container</code> is an Array, an object with property
- * <code>containers</code> and value Array of 'container info' is returned.
- * If <code>config.container</code> is a String, a object of 'container info' is returned.
- * <br>
- * The 'container info' properties are as follows:
- *  <ul>
- *      <li>id: the id of the requested container</li>
- *      <li>name: the name of the requested container</li>
- *      <li>path: the path of the requested container</li>
- *      <li>sortOrder: the relative sort order of the requested container</li>
- *      <li>activeModules: an assay of the names (strings) of active modules in the container</li>
- *      <li>folderType: the name (string) of the folder type, matched with getFolderTypes()</li>
- *      <li>description: an optional description for the container (may be null or missing)</li>
- *      <li>title: an optional non-unique title for the container (may be null or missing)</li>
- *      <li>isWorkbook: true if this container is a workbook. Workbooks do not appear in the left-hand project tree.</li>
- *      <li>isContainerTab: true if this container is a Container Tab. Container Tabs do not appear in the left-hand project tree.</li>
- *      <li>userPermissions: (DEPRECATED) the permissions the current user has in the requested container.
- *          Use this value with the hasPermission() method to test for specific permissions.</li>
- *      <li>effectivePermissions: An array of effective permission unique names the group has.</li>
- *      <li>children: if the includeSubfolders parameter was true, this will contain
- *          an array of child container objects with the same shape as the parent object.</li>
- *      <li>moduleProperties: if requested in the config object, an array of module properties for each included module:
- *          <ul>
- *              <li>name: the name of the Module Property.</li>
- *              <li>moduleName: the name of the module specifying this property.</li>
- *              <li>effectiveValue: the value of the property, including a value potentially inherited from parent containers.</li>
- *              <li>value: the value of the property as set for this specific container</li>
- *          </ul>
- *      </li>
- *  </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -239,43 +238,37 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
 
 export interface GetFolderTypesOptions {
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: () => any
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameter:
+     * - folderTypes: Map from folder type name to folder type object, which consists of the following properties:
+     *     - name: the cross-version stable name of the folder type
+     *     - description: a short description of the folder type
+     *     - label: the name that's shown to the user for this folder type
+     *     - defaultModule: name of the module that provides the home screen for this folder type
+     *     - activeModules: an array of module names that are automatically active for this folder type
+     *     - workbookType: boolean that indicates if this is specifically intended to use as a workbook type
+     *     - requiredWebParts: an array of web parts that are part of this folder type and cannot be removed
+     *          - name: the name of the web part
+     *          - properties: a map of properties that are automatically set
+     *     - preferredWebParts: an array of web parts that are part of this folder type but may be removed. Same structure as requiredWebParts
+     * - response: The XMLHttpResponse object
+     */
     success?: () => any
 }
 
 /**
  * Retrieves the full set of folder types that are available on the server.
- * @param config A configuration object with the following properties
- * @param {function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameter:
- * <ul>
- * <li><b>folderTypes:</b> Map from folder type name to folder type object, which consists of the following properties:
- *  <ul>
- *      <li><b>name:</b> the cross-version stable name of the folder type</li>
- *      <li><b>description:</b> a short description of the folder type</li>
- *      <li><b>label:</b> the name that's shown to the user for this folder type</li>
- *      <li><b>defaultModule:</b> name of the module that provides the home screen for this folder type</li>
- *      <li><b>activeModules:</b> an array of module names that are automatically active for this folder type</li>
- *      <li><b>workbookType:</b> boolean that indicates if this is specifically intended to use as a workbook type
- *      <li><b>requiredWebParts:</b> an array of web parts that are part of this folder type and cannot be removed
- *          <ul>
- *              <li><b>name:</b> the name of the web part</li>
- *              <li><b>properties:</b> a map of properties that are automatically set</li>
- *          </ul>
- *      </li>
- *      <li><b>preferredWebParts:</b> an array of web parts that are part of this folder type but may be removed. Same structure as requiredWebParts</li>
- *  </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -300,36 +293,33 @@ export function getHomeContainer(): string {
 
 export interface GetModulesOptions {
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: () => any
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameter:
+     * - folderType: the folderType, based on the container used when calling this API
+     * - modules: Array of all modules present on this site, each of which consists of the following properties:
+     *     - name: the name of the module
+     *     - required: whether this module is required in the folder type specified above
+     *     - tabName: name of the tab associated with this module
+     *     - active: whether this module should be active for this container
+     *     - enabled: whether this module should be enabled by default for this container
+     * - response: The XMLHttpResponse object
+     */
     success?: () => any
 }
 
 /**
  * Retrieves the full set of modules that are installed on the server.
- * @param config A configuration object with the following properties
- * @param {function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameter:
- * <ul>
- * <li><b>folderType:</b> the folderType, based on the container used when calling this API</li>
- * <li><b>modules:</b> Array of all modules present on this site, each of which consists of the following properties:
- *  <ul>
- *      <li><b>name:</b> the name of the module</li>
- *      <li><b>required:</b> whether this module is required in the folder type specified above</li>
- *      <li><b>tabName:</b> name of the tab associated with this module</li>
- *      <li><b>active:</b> whether this module should be active for this container</li>
- *      <li><b>enabled:</b> whether this module should be enabled by default for this container</li>
- *  </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -353,38 +343,41 @@ export function getSharedContainer(): string {
 }
 
 export interface MoveContainerOptions {
+    /** Add alias of current container path to container that is being moved (defaults to True). */
     addAlias?: boolean
     container?: string
+    /**
+     * The current container path of the container that is going to be moved. Additionally, the container
+     * entity id is also valid.
+     */
     containerPath?: string
+    /**
+     * The current container path of the container that is going to be moved. Additionally, the container
+     * entity id is also valid.
+     */
     destinationParent?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: () => any
     parent?: string
     parentPath?: string
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This function will
+     * be passed the following parameters:
+     * - object: Empty JavaScript object
+     * - response: The XMLHttpResponse object
+     */
     success?: () => any
 }
 
 /**
  * Moves an existing container, which may be a folder or workbook to be the subfolder of another folder and/or project.
- * @param config A configuration object with the following properties
- * @param {string} config.containerPath The current container path of the container that is going to be moved. Additionally, the container
- * entity id is also valid.
- * @param {string} config.destinationParent The container path of destination parent. Additionally, the destination parent entity id
- * is also valid.
- * @param {boolean} [config.addAlias] Add alias of current container path to container that is being moved (defaults to True).
- * @param {function} [config.success] A reference to a function to call with the API results. This function will
- * be passed the following parameters:
- * <ul>
- * <li><b>object:</b> Empty JavaScript object</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
  */
 export function moveContainer(config: MoveContainerOptions): XMLHttpRequest {
     let params = {

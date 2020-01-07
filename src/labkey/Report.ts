@@ -18,10 +18,24 @@ import { AjaxHandler, request } from './Ajax'
 import { decode, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
 
 export interface ICreateSessionOptions {
+    /** Client supplied identifier returned in a call to getSessions() */
     clientContext: any
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error occurs. This function
+     * will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: () => any
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /**
+     * The function to call with the resulting information.
+     * This function will be passed a single parameter of type object, which will have the following
+     * properties:
+     * - reportSessionId: A unique identifier that represents the new underlying report session, a String
+     */
     success?: () => any
 }
 
@@ -45,10 +59,19 @@ export function createSession(options: ICreateSessionOptions): void {
 }
 
 export interface IDeleteSessionOptions {
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error occurs. This function
+     * will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: () => any
+    /** reportSessionId Identifier for the report session to delete. */
     reportSessionId: string
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /** The function to call if the operation is successful. */
     success?: () => any
 }
 
@@ -70,26 +93,51 @@ export function deleteSession(options: IDeleteSessionOptions): void {
 }
 
 export interface IRequestExecuteOptions {
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error preventing script execution occurs.
+     * This function will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: () => any
     functionName?: string
+    /** An object with properties for input parameters. */
     inputParams?: any
+    /** Identifier for the report to execute */
     reportId?: string
+    /** name of the report to execute if the id is unknown */
     reportName?: string
+    /** Execute within the existsing report session. */
     reportSessionId?: string
     queryName?: string
+    /** schema to which this report belongs (only used if reportName is used) */
     schemaName?: string
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /**
+     * The function to call if the operation is successful.  This function will
+     * receive an object with the following properties
+     * - console:  a string[] of information written by the script to the console
+     * - error:  any exception thrown by the script that halted execution
+     * - ouputParams:  an outputParam[] of any output parameters (imgout, jsonout, etc) returned by the script
+     */
     success?: () => any
 }
 
 export interface IRequestExecuteParams {
+    /** The name of the function to execute */
     functionName?: string
+    /** An object with properties for input parameters. */
     inputParams?: any
+    /** Identifier for the report to execute */
     reportId?: string
+    /** name of the report to execute if the id is unknown */
     reportName?: string
+    /** Execute within the existsing report session. */
     reportSessionId?: string
     queryName?: string
+    /** schema to which this report belongs (only used if reportName is used) */
     schemaName?: string
 }
 
@@ -122,7 +170,9 @@ function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
 }
 
 export interface IExecuteOptions extends IRequestExecuteOptions {
+    /** reportId Identifier for the report to execute */
     reportId: string
+    /** name of the report to execute if the id is unknown */
     reportName: string
 }
 
@@ -167,9 +217,21 @@ export function executeFunction(options: IExecuteFunctionOptions): XMLHttpReques
 }
 
 export interface IGetSessionsOptions {
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error occurs. This function
+     * will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: () => any
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /**
+     * The function to call if the operation is successful.  This function will
+     * receive an object with the following properties
+     * - reportSessions:  a reportSession[] of any sessions that have been created by the client
+     */
     success?: () => any
 }
 
@@ -187,6 +249,9 @@ export function getSessions(options: IGetSessionsOptions): void {
     });
 }
 
+/**
+ * @param isReport true if a report is being executed
+ */
 function populateParams(options: IRequestExecuteOptions, isReport: boolean): IRequestExecuteParams {
     let execParams: IRequestExecuteParams = {};
 
