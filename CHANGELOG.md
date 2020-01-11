@@ -1,4 +1,15 @@
 
+## 0.0.29 - 2020-01-03
+- Item 6506: Security.createNewUser() fix to include response object in success and failure function property definition (#28)
+
+## 0.0.28 - 2019-11-12
+- Add registerFilterType
+
+## 0.0.26 - 2019-12-06
+- Item 6508: Security api fixes for getPolicy and getRoles (#25)
+    - getPolicy was trying to create a SecurityPolicy object which is not a constructor
+    - savePolicy was returning incorrect typescript info for the success and failure functions
+
 ## 0.0.25 - 2019-11-12
 - Added `includeMetadata` flag to selectRows (#24)
 

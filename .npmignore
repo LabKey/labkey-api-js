@@ -1,8 +1,13 @@
-docs
-rpt2_cache
+.rpt2_cache/
+docs/
+node_modules/
+.idea/
+src/
 build.gradle
 index.html
 rollup.config.js
 theme
 tsconfig.json
 webpack.config.js
+*.tgz
+.gitattributes

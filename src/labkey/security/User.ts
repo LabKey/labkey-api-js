@@ -23,21 +23,21 @@ declare let window: Window;
 export interface CreateNewUserOptions {
     containerPath?: string
     email: string
-    failure?: () => any
+    failure?: (error: any) => any
     scope?: any
     sendEmail?: boolean
-    success?: () => any
+    success?: (response: any) => any
 }
 
 /**
  * Creates a new user account
  * @param config A configuration object with the following properties:
- * @param {String} config.email The new user's email address.
+ * @param {String} config.email The new user's email address, or a semicolon separated list of email addresses.
  * @param {Boolean} config.sendEmail Set to false to stop the server from sending a welcome email to the user.
  * @param {Function} config.success A reference to a function to call with the API results. This
  * function will be passed the following parameters:
  * <ul>
- * <li><b>data:</b> a simple object with three properties: userId, email, and message.</li>
+ * <li><b>data:</b> a simple object, or array of objects, with three properties: userId, email, and message.</li>
  * <li><b>response:</b> The XMLHttpResponse object</li>
  * </ul>
  * @param {Function} [config.failure] A reference to a function to call when an error occurs. This
