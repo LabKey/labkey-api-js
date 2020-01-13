@@ -1,5 +1,5 @@
 
-## TBD
+## 0.0.30 - 2020-01-13
 - Item 6571: Add optionalMessage property to the Security.createNewUser() API call
 
 ## 0.0.29 - 2020-01-03
