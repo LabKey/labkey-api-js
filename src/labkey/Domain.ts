@@ -164,7 +164,8 @@ export interface SaveDomainOptions {
     queryName?: string
     schemaName?: string
     domainId?: number
-    success?: (data?: any) => any
+    success?: (data?: any) => any,
+    includeWarnings?: boolean
 }
 
 /**
@@ -178,7 +179,8 @@ export function save(config: SaveDomainOptions): void {
         domainDesign: arguments[2],
         schemaName: arguments[3],
         queryName: arguments[4],
-        containerPath: arguments[5]
+        containerPath: arguments[5],
+        includeWarnings: arguments[6]
     } : config;
 
     request({
@@ -190,7 +192,8 @@ export function save(config: SaveDomainOptions): void {
             domainDesign: options.domainDesign,
             schemaName: options.schemaName,
             queryName: options.queryName,
-            domainId: options.domainId
+            domainId: options.domainId,
+            includeWarnings: options.includeWarnings
         }
     });
 }
