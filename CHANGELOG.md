@@ -2,6 +2,9 @@
 ## 0.0.TBD - 2020-01-16
 - Item 6654: Changes to SaveDomain Api to include Warnings
 
+## 0.0.30 - 2020-01-13
+- Item 6571: Add optionalMessage property to the Security.createNewUser() API call
+
 ## 0.0.29 - 2020-01-03
 - Item 6506: Security.createNewUser() fix to include response object in success and failure function property definition (#28)
 

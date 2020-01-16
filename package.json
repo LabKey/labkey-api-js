@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "0.0.29-fb-specimenDesigner.0",
+  "version": "0.0.30",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
