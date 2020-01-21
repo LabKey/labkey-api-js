@@ -4,7 +4,7 @@ JavaScript package for interacting with [LabKey Server](https://www.labkey.com/)
 
 Written with joy in TypeScript.
 
-## vTBD - Alpha
+## v0.0.31 - Alpha
 
 This package is under development. We're preparing the 1.0.0 release but in the meantime treat this package as experimental. All code is subject to change.
 See the [CHANGELOG](CHANGELOG.md) for changes in this version.
