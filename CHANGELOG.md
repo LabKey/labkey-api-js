@@ -1,6 +1,6 @@
 
 ## 0.0.31 - 2020-01-21
-- Item 6759: Query.getServerDate() fix to include response object in success and failure functions
+- Item 6759: Query.getServerDate() fix to include response object in success and failure functions (#32)
 
 ## 0.0.30 - 2020-01-13
 - Item 6571: Add optionalMessage property to the Security.createNewUser() API call (#29)
