@@ -1,12 +1,15 @@
 
+## 0.0.31 - 2020-01-21
+- Item 6759: Query.getServerDate() fix to include response object in success and failure functions (#32)
+
 ## 0.0.30 - 2020-01-13
-- Item 6571: Add optionalMessage property to the Security.createNewUser() API call
+- Item 6571: Add optionalMessage property to the Security.createNewUser() API call (#29)
 
 ## 0.0.29 - 2020-01-03
 - Item 6506: Security.createNewUser() fix to include response object in success and failure function property definition (#28)
 
 ## 0.0.28 - 2019-11-12
-- Add registerFilterType
+- Add registerFilterType (#27)
 
 ## 0.0.26 - 2019-12-06
 - Item 6508: Security api fixes for getPolicy and getRoles (#25)
