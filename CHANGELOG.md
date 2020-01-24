@@ -1,5 +1,5 @@
 
-## 0.0.TBD - 2020-01-22
+## 0.0.32 - 2020-01-24
 - Item 6654: Changes to SaveDomain Api to include Warnings
 
 ## 0.0.31 - 2020-01-21
