@@ -1,4 +1,7 @@
 
+## 0.0.32 - 2020-01-24
+- Item 6654: Changes to SaveDomain Api to include Warnings
+
 ## 0.0.31 - 2020-01-21
 - Item 6759: Query.getServerDate() fix to include response object in success and failure functions (#32)
 
