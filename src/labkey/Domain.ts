@@ -157,6 +157,33 @@ export function get(config: GetDomainOptions): void {
 
 }
 
+/**
+ * Gets a domain design.
+ */
+export function getDomainKind(config: GetDomainOptions): void {
+
+    let options: GetDomainOptions = arguments.length > 1 ? {
+        containerPath: arguments[4],
+        failure: arguments[1],
+        queryName: arguments[3],
+        schemaName: arguments[2],
+        success: arguments[0]
+    } : config;
+
+    request({
+        url: buildURL('property', 'getDomainKind.api', options.containerPath),
+        method: 'GET',
+        success: getCallbackWrapper(options.success),
+        failure: getCallbackWrapper(options.failure, this, true),
+        params: {
+            schemaName: options.schemaName,
+            queryName: options.queryName,
+            domainId: options.domainId
+        }
+    });
+
+}
+
 export interface SaveDomainOptions {
     containerPath?: string
     domainDesign?: any

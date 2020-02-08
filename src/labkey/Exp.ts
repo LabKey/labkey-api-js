@@ -17,6 +17,7 @@ import { buildURL } from './ActionURL'
 import { request, RequestOptions } from './Ajax'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
 import { create, DomainDesign, get } from './Domain'
+import {KINDS} from "./constants";
 
 /**
  * The experiment object base class which describes basic characteristics of a protocol
@@ -879,7 +880,7 @@ export class SampleSet extends ExpObject {
         create({
             containerPath: options.containerPath,
             domainDesign: options.domainDesign,
-            kind: 'SampleSet',
+            kind: KINDS.SAMPLE_TYPE,
             options: options.options,
             success: getOnSuccess(options) as any,
             failure: getOnFailure(options) as any
