@@ -160,7 +160,7 @@ export function get(config: GetDomainOptions): void {
 /**
  * Gets a domain design.
  */
-export function getDomainKind(config: GetDomainOptions): void {
+export function getDomainDetails(config: GetDomainOptions): void {
 
     let options: GetDomainOptions = arguments.length > 1 ? {
         containerPath: arguments[4],
@@ -171,7 +171,7 @@ export function getDomainKind(config: GetDomainOptions): void {
     } : config;
 
     request({
-        url: buildURL('property', 'getDomainKind.api', options.containerPath),
+        url: buildURL('property', 'getDomainDetails.api', options.containerPath),
         method: 'GET',
         success: getCallbackWrapper(options.success),
         failure: getCallbackWrapper(options.failure, this, true),

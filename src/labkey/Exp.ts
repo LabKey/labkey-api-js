@@ -16,7 +16,7 @@
 import { buildURL } from './ActionURL'
 import { request, RequestOptions } from './Ajax'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
-import { create, DomainDesign, get } from './Domain'
+import {create, DomainDesign, get, getDomainDetails} from './Domain'
 import {KINDS} from "./constants";
 
 /**
@@ -891,6 +891,7 @@ export class SampleSet extends ExpObject {
      * Get a domain design for the SampleSet. See [[get|Domain.get]].
      * @param options
      * @hidden
+     * @deprecated Use [[getDomain|Domain.getDomain]]
      *
      * #### Examples
      *
@@ -906,6 +907,33 @@ export class SampleSet extends ExpObject {
      */
     getDomain(options: IGetExpObjectDomain): void {
         get({
+            schemaName: 'Samples',
+            queryName: this.name,
+            containerPath: options.containerPath,
+            success: getOnSuccess(options) as any,
+            failure: getOnFailure(options) as any
+        });
+    }
+
+    /**
+     * Get a domain design for the SampleSet. See [[getDomainDetails|Domain.getDomainDetails]].
+     * @param options
+     * @hidden
+     *
+     * #### Examples
+     *
+     * ```js
+     * var ss = new LABKEY.Exp.SampleSet({name: 'MySampleSet'});
+     * ss.getDomain({
+     *     success: function(domain) {
+     *         // access the retrieved SampleSet domain object.
+     *         console.log(domain);
+     *     }
+     * });
+     * ```
+     */
+    getDomainDetails(options: IGetExpObjectDomain): void {
+        getDomainDetails({
             schemaName: 'Samples',
             queryName: this.name,
             containerPath: options.containerPath,
