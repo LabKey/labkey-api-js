@@ -84,4 +84,5 @@ export const KINDS = {
     STUDY_DATASET_DATE: 'StudyDatasetDate',
     STUDY_DATASET_VISIT: 'StudyDatasetVisit',
     VAR_LIST: 'VarList',
+    UNKNOWN: 'Unknown'
 };
