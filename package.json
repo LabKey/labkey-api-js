@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "0.0.32-fb-mergeSTUI-6848.3",
+  "version": "0.0.32-fb-mergeSTUI-6848.4",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",

@@ -16,8 +16,7 @@
 import { buildURL } from './ActionURL'
 import { request, RequestOptions } from './Ajax'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
-import {create, DomainDesign, get, getDomainDetails} from './Domain'
-import {KINDS} from "./constants";
+import {create, DomainDesign, get, getDomainDetails, KINDS} from './Domain'
 
 /**
  * The experiment object base class which describes basic characteristics of a protocol
