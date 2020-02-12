@@ -224,3 +224,13 @@ export function save(config: SaveDomainOptions): void {
         }
     });
 }
+
+export const KINDS = {
+    DATA_CLASS: 'DataClass',
+    INT_LIST: 'IntList',
+    SAMPLE_TYPE: 'SampleSet',
+    STUDY_DATASET_DATE: 'StudyDatasetDate',
+    STUDY_DATASET_VISIT: 'StudyDatasetVisit',
+    VAR_LIST: 'VarList',
+    UNKNOWN: 'Unknown'
+};

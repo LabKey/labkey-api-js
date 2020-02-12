@@ -75,14 +75,3 @@ declare const window: _Window;
 if (!window.LABKEY) {
     throw new Error('LABKEY object is required to be initialized prior to loading the API');
 }
-
-//TODO use these instead of HC strings in domain calls
-export const KINDS = {
-    DATA_CLASS: 'DataClass',
-    INT_LIST: 'IntList',
-    SAMPLE_TYPE: 'SampleSet',
-    STUDY_DATASET_DATE: 'StudyDatasetDate',
-    STUDY_DATASET_VISIT: 'StudyDatasetVisit',
-    VAR_LIST: 'VarList',
-    UNKNOWN: 'Unknown'
-};
