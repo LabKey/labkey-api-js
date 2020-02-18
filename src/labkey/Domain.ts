@@ -223,7 +223,7 @@ export function save(config: SaveDomainOptions): void {
             queryName: options.queryName,
             domainId: options.domainId,
             includeWarnings: options.includeWarnings,
-            options: options.options,
+            options: {...options.options},
         }
     });
 }
