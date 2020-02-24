@@ -399,7 +399,7 @@ export interface ISelectRowsOptions {
      */
     containerPath?: string
     dataRegionName?: string
-    failure?: (data: any, response: ExtendedXMLHttpRequest, options: ISelectRowsOptions) => any
+    failure?: (result: any, request: ExtendedXMLHttpRequest, options: ISelectRowsOptions) => any
 
     /**
      * Array of objects created by Filter.create
@@ -471,7 +471,7 @@ export interface ISelectRowsOptions {
      */
     sort?: string
     stripHiddenColumns?: boolean
-    success?: (result: ISelectRowsResults) => any
+    success?: (result: ISelectRowsResults, request: ExtendedXMLHttpRequest, options: ISelectRowsOptions) => any
 
     /**
      * The maximum number of milliseconds to allow for this operation before a timeout error (defaults to 30000).
