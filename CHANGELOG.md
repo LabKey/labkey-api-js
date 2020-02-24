@@ -1,4 +1,7 @@
 
+## 0.0.TBD - TBD
+- Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save 
+
 ## 0.0.32 - 2020-01-24
 - Item 6654: Changes to SaveDomain Api to include Warnings
 
