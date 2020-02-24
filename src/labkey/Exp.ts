@@ -38,7 +38,7 @@ export class ExpObject {
     /**
      * The person who created the ExpObject.
      */
-    createdBy: number;
+    createdBy: string;
 
     /**
      * The id of the ExpObject
@@ -151,11 +151,6 @@ export interface ICreateDataClassDomain {
 export class DataClass extends ExpObject {
 
     /**
-     * Data underlying this DataClass.
-     */
-    data: Data;
-
-    /**
      * Description of the DataClass.
      */
     description: string;
@@ -174,7 +169,6 @@ export class DataClass extends ExpObject {
         super(config);
         config = config || {};
 
-        this.data = config.data;
         this.description = config.description;
         this.sampleSet = config.sampleSet;
     }
