@@ -18,7 +18,7 @@ import { request } from './Ajax'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
 import { insertRows } from './query/Rows'
 
-import { RunGroup } from './Exp'
+import { Run, RunGroup } from './Exp'
 
 /**
  * The name of the protocol used by Experiment. This can be used for "protocolName".
@@ -421,6 +421,55 @@ export function loadBatches(options: ILoadBatchesOptions): void {
     });
 }
 
+export interface ILoadRunsOptions
+{
+    /**
+     * An Arra of run LSIDs to fetch.
+     */
+    lsids?: Array<string>
+
+    /**
+     * An Array of run ids to fetch.
+     */
+    runIds?: Array<number>
+
+    /**
+     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
+     */
+    failure?: ExperimentFailureCallback
+
+    /**
+     * A scoping object for the success and failure callback functions (default to this).
+     */
+    scope?: any
+
+    /**
+     * The function to call when loadBatches finishes successfully.
+     */
+    success: ExperimentSuccessCallback<Array<Run>>
+}
+
+export function loadRuns(options: ILoadRunsOptions): void {
+    request({
+        url: buildURL('assay', 'getAssayRuns.api'),
+        method: 'POST',
+        jsonData: {
+            runIds: options.runIds,
+            lsids: options.lsids,
+        },
+        success: getSuccessCallbackWrapper<Array<Run>>((json) => {
+            let runs: Array<Run> = [];
+            if (json.runs) {
+                for (let i = 0; i < json.runs.length; i++) {
+                    runs.push(new Run(json.runs[i]));
+                }
+            }
+            return runs;
+        }, getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+    });
+}
+
 // formerly, _saveBatches
 function requestSaveBatches<SuccessPayload>(
     rawOptions: ISaveBatchOptions & ISaveBatchesOptions,
@@ -566,7 +615,7 @@ export interface ISaveRunsOptions {
     /**
      * The function to call when the function finishes successfully.
      */
-    success?: ExperimentSuccessCallback<RunGroup>
+    success?: ExperimentSuccessCallback<Array<Run>>
 }
 
 /**
@@ -583,10 +632,14 @@ export function saveRuns(options: ISaveRunsOptions): void {
             protocolName: options.protocolName,
             runs: options.runs
         },
-        success: getSuccessCallbackWrapper<RunGroup>((json) => {
+        success: getSuccessCallbackWrapper<Array<Run>>((json) => {
+            let runs: Array<Run> = [];
             if (json.runs) {
-                return new RunGroup(json.runs);
+                for (let i = 0; i < json.runs.length; i++) {
+                    runs.push(new Run(json.runs[i]));
+                }
             }
+            return runs;
         }, getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
