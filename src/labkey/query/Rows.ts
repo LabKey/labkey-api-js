@@ -16,7 +16,7 @@
 import { request, RequestOptions } from '../Ajax'
 import { IFilter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils'
+import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils';
 import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
 /**
@@ -399,7 +399,7 @@ export interface ISelectRowsOptions {
      */
     containerPath?: string
     dataRegionName?: string
-    failure?: () => any
+    failure?: (data: any, response: ExtendedXMLHttpRequest, options: ISelectRowsOptions) => any
 
     /**
      * Array of objects created by Filter.create
