@@ -1,3 +1,5 @@
+## 0.0.34 - 2020-02-25
+- Fix type signature for selectRows success and failure callbacks
 
 ## 0.0.32 - 2020-01-24
 - Item 6654: Changes to SaveDomain Api to include Warnings
