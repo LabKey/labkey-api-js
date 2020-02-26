@@ -5,11 +5,10 @@
  */
 module.exports = {
     out: './docs',
-    theme: "theme",
+    theme: "default",
     mode: "modules",
     exclude: [
         "**/*+(wrapper|wrapper-dom|.spec).ts",
-        "**/theme/**"
     ],
     externalPattern: "**/node_modules/** ",
     excludeExternals: true,
