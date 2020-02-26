@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import resolve from 'rollup-plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 
 const input = 'src/labkey.ts';
