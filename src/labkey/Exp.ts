@@ -16,7 +16,7 @@
 import { buildURL } from './ActionURL'
 import { request, RequestOptions } from './Ajax'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
-import { create, DomainDesign, get } from './Domain'
+import {create, DomainDesign, getDomainDetails, KINDS} from './Domain'
 
 /**
  * The experiment object base class which describes basic characteristics of a protocol
@@ -102,13 +102,13 @@ export interface IGetExpObjectDomain {
     containerPath?: string
 
     /**
-     * Function called if execution of the "getDomain" function fails.
+     * Function called if execution of the "getDomainDetails" function fails.
      */
     failure?: () => any
 
     /**
-     * Function called if the "getDomain" function executes successfully.
-     * Will be called with the domain object as returned by [[get|Domain.get]]
+     * Function called if the "getDomainDetails" function executes successfully.
+     * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
      * which describes the fields of a domain.
      */
     success: (domain?: any) => any
@@ -126,7 +126,7 @@ export interface ICreateDataClassDomain {
     domainDesign: DomainDesign
 
     /**
-     * Function called if execution of the "getDomain" function fails.
+     * Function called if execution of the "getDomainDetails" function fails.
      */
     failure?: () => any
 
@@ -136,8 +136,8 @@ export interface ICreateDataClassDomain {
     options?: any
 
     /**
-     * Function called if the "getDomain" function executes successfully.
-     * Will be called with the domain object as returned by [[get|Domain.get]]
+     * Function called if the "getDomainDetails" function executes successfully.
+     * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
      * which describes the fields of a domain.
      */
     success: (domain?: any) => any
@@ -192,7 +192,7 @@ export class DataClass extends ExpObject {
     }
 
     /**
-     * Get a domain design for the DataClass. See [[get|Domain.get]].
+     * Get a domain design for the DataClass. See [[getDomainDetails|Domain.getDomainDetails]].
      * @param options
      * @hidden
      *
@@ -200,7 +200,7 @@ export class DataClass extends ExpObject {
      *
      * ```js
      * var dc = new LABKEY.Exp.DataClass({name: 'MyDataClass'});
-     * dc.getDomain({
+     * dc.getDomainDetails({
      *     success: function(domain) {
      *         // access the retrieved DataClass domain object.
      *         console.log(domain);
@@ -208,8 +208,8 @@ export class DataClass extends ExpObject {
      * });
      * ```
      */
-    getDomain(options: IGetExpObjectDomain): void {
-        get({
+    getDomainDetails(options: IGetExpObjectDomain): void {
+        getDomainDetails({
             schemaName: 'exp.data',
             queryName: this.name,
             containerPath: options.containerPath,
@@ -783,7 +783,7 @@ export interface ICreateSampleSetDomain {
     domainDesign: DomainDesign
 
     /**
-     * Function called if execution of the "getDomain" function fails.
+     * Function called if execution of the "getDomainDetails" function fails.
      */
     failure?: () => any
 
@@ -804,8 +804,8 @@ export interface ICreateSampleSetDomain {
     }
 
     /**
-     * Function called if the "getDomain" function executes successfully.
-     * Will be called with the domain object as returned by [[get|Domain.get]]
+     * Function called if the "getDomainDetails" function executes successfully.
+     * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
      * which describes the fields of a domain.
      */
     success: (domain?: any) => any
@@ -873,7 +873,7 @@ export class SampleSet extends ExpObject {
         create({
             containerPath: options.containerPath,
             domainDesign: options.domainDesign,
-            kind: 'SampleSet',
+            kind: KINDS.SAMPLE_TYPE,
             options: options.options,
             success: getOnSuccess(options) as any,
             failure: getOnFailure(options) as any
@@ -881,7 +881,7 @@ export class SampleSet extends ExpObject {
     }
 
     /**
-     * Get a domain design for the SampleSet. See [[get|Domain.get]].
+     * Get a domain design for the SampleSet. See [[getDomainDetails|Domain.getDomainDetails]].
      * @param options
      * @hidden
      *
@@ -889,7 +889,7 @@ export class SampleSet extends ExpObject {
      *
      * ```js
      * var ss = new LABKEY.Exp.SampleSet({name: 'MySampleSet'});
-     * ss.getDomain({
+     * ss.getDomainDetails({
      *     success: function(domain) {
      *         // access the retrieved SampleSet domain object.
      *         console.log(domain);
@@ -897,8 +897,8 @@ export class SampleSet extends ExpObject {
      * });
      * ```
      */
-    getDomain(options: IGetExpObjectDomain): void {
-        get({
+    getDomainDetails(options: IGetExpObjectDomain): void {
+        getDomainDetails({
             schemaName: 'Samples',
             queryName: this.name,
             containerPath: options.containerPath,
