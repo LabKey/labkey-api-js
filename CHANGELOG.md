@@ -1,9 +1,19 @@
+
+## 0.0.37 - 2020-02-27
+- Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save (#35) 
+
+## 0.0.36 - 2020-02-27
+- Add jest-teamcity-reporter for improved CI test reporting
+
 ## 0.0.35 - 2020-02-27
 - Package updates
 - Remove docs custom theme
 
 ## 0.0.34 - 2020-02-25
 - Fix type signature for selectRows success and failure callbacks
+
+## 0.0.33 - 2020-02-21
+- Add additional Domain and Run handling functions (Domain.listDomains, Domain.getProperties, Exp.loadRuns) (#26)
 
 ## 0.0.32 - 2020-01-24
 - Item 6654: Changes to SaveDomain Api to include Warnings

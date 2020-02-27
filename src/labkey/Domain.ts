@@ -242,7 +242,7 @@ export interface GetDomainOptions {
  *  LABKEY.Domain.get(successHandler, errorHandler, 'study', 'StudyProperties');
  * ```
  */
-export function get(config: GetDomainOptions): void {
+export function getDomainDetails(config: GetDomainOptions): void {
 
     let options: GetDomainOptions = arguments.length > 1 ? {
         containerPath: arguments[4],
@@ -253,7 +253,7 @@ export function get(config: GetDomainOptions): void {
     } : config;
 
     request({
-        url: buildURL('property', 'getDomain.api', options.containerPath),
+        url: buildURL('property', 'getDomainDetails.api', options.containerPath),
         method: 'GET',
         success: getCallbackWrapper(options.success),
         failure: getCallbackWrapper(options.failure, this, true),
@@ -265,6 +265,12 @@ export function get(config: GetDomainOptions): void {
     });
 
 }
+
+/**
+ * Gets a domain design. This is a deprecated alias for [[getDomainDetails]].
+ * @deprecated
+ */
+export const get = getDomainDetails;
 
 export interface SaveDomainOptions {
     /**
@@ -285,7 +291,8 @@ export interface SaveDomainOptions {
      */
     domainId?: number
     success?: (data?: any) => any,
-    includeWarnings?: boolean
+    includeWarnings?: boolean,
+    options?: any,
 }
 
 /**
@@ -300,7 +307,8 @@ export function save(config: SaveDomainOptions): void {
         schemaName: arguments[3],
         queryName: arguments[4],
         containerPath: arguments[5],
-        includeWarnings: arguments[6]
+        includeWarnings: arguments[6],
+        options: arguments[7],
     } : config;
 
     request({
@@ -313,7 +321,8 @@ export function save(config: SaveDomainOptions): void {
             schemaName: options.schemaName,
             queryName: options.queryName,
             domainId: options.domainId,
-            includeWarnings: options.includeWarnings
+            includeWarnings: options.includeWarnings,
+            options: {...options.options},
         }
     });
 }
@@ -376,4 +385,14 @@ export function getProperties(config: GetPropertiesOptions): void {
         success: getCallbackWrapper(config.success),
         failure: getCallbackWrapper(config.failure, this, true),
     });
+}
+
+export enum KINDS {
+    DATA_CLASS = 'DataClass',
+    INT_LIST = 'IntList',
+    SAMPLE_TYPE = 'SampleSet',
+    STUDY_DATASET_DATE = 'StudyDatasetDate',
+    STUDY_DATASET_VISIT = 'StudyDatasetVisit',
+    VAR_LIST = 'VarList',
+    UNKNOWN = 'Unknown',
 }
