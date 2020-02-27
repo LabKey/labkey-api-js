@@ -1,5 +1,5 @@
 
-## 0.0.TBD - TBD
+## 0.0.37 - 2020-02-27
 - Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save (#35) 
 
 ## 0.0.36 - 2020-02-27
