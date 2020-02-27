@@ -157,6 +157,12 @@ export function getDomainDetails(config: GetDomainOptions): void {
 
 }
 
+/**
+ * Gets a domain design. This is a deprecated alias for [[getDomainDetails]].
+ * @deprecated
+ */
+export const get = getDomainDetails;
+
 export interface SaveDomainOptions {
     containerPath?: string
     domainDesign?: any
