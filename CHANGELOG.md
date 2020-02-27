@@ -1,3 +1,7 @@
+## 0.0.35 - 2020-02-27
+- Package updates
+- Remove docs custom theme
+
 ## 0.0.34 - 2020-02-25
 - Fix type signature for selectRows success and failure callbacks
 
