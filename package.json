@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "0.0.33-fb-mergeSTUI-6848.0",
+  "version": "0.0.34",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
@@ -10,6 +10,7 @@
     "clean": "rimraf dist && npm run clean:docs",
     "clean:docs": "rimraf docs",
     "predeploy": "npm run build:docs",
+    "prepublishOnly": "npm run build",
     "deploy": "gh-pages -t -d docs",
     "setup": "npm install",
     "test": "cross-env NODE_ENV=test jest"

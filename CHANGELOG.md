@@ -1,3 +1,5 @@
+## 0.0.34 - 2020-02-25
+- Fix type signature for selectRows success and failure callbacks
 
 ## 0.0.TBD - TBD
 - Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save 
