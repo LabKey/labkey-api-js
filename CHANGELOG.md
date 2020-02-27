@@ -1,11 +1,15 @@
-## 0.0.34 - 2020-02-25
-- Fix type signature for selectRows success and failure callbacks
 
 ## 0.0.TBD - TBD
-- Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save 
+- Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save (#35) 
+
+## 0.0.34 - 2020-02-25
+- Fix type signature for selectRows success and failure callbacks (#34)
+
+## 0.0.33 - 2020-02-21
+- Add additional Domain and Run handling functions (Domain.listDomains, Domain.getProperties, Exp.loadRuns) (#26)
 
 ## 0.0.32 - 2020-01-24
-- Item 6654: Changes to SaveDomain Api to include Warnings
+- Item 6654: Changes to SaveDomain Api to include Warnings (#31)
 
 ## 0.0.31 - 2020-01-21
 - Item 6759: Query.getServerDate() fix to include response object in success and failure functions (#32)
