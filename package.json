@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "0.0.35-fb-mergeSTUI-6848.0",
+  "version": "0.0.36",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
@@ -12,7 +12,8 @@
     "prepublishOnly": "npm run build",
     "deploy": "gh-pages -t -d docs",
     "setup": "npm install",
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "cross-env NODE_ENV=test jest",
+    "test_teamcity": "cross-env NODE_ENV=test jest --testResultsProcessor=jest-teamcity-reporter"
   },
   "keywords": [
     "labkey",
@@ -42,6 +43,7 @@
     "cross-env": "7.0.0",
     "gh-pages": "2.2.0",
     "jest": "25.1.0",
+    "jest-teamcity-reporter": "0.9.0",
     "rimraf": "3.0.2",
     "rollup": "1.31.1",
     "rollup-plugin-babel": "4.3.3",

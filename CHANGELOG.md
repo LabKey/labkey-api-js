@@ -2,6 +2,9 @@
 ## 0.0.TBD - TBD
 - Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save (#35) 
 
+## 0.0.36 - 2020-02-27
+- Add jest-teamcity-reporter for improved CI test reporting
+
 ## 0.0.35 - 2020-02-27
 - Package updates
 - Remove docs custom theme
