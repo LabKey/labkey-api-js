@@ -16,7 +16,7 @@
 import { request, RequestOptions } from '../Ajax'
 import { IFilter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils'
+import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils';
 import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
 
 /**
@@ -399,7 +399,7 @@ export interface ISelectRowsOptions {
      */
     containerPath?: string
     dataRegionName?: string
-    failure?: () => any
+    failure?: (result: any, request: ExtendedXMLHttpRequest, options: ISelectRowsOptions) => any
 
     /**
      * Array of objects created by Filter.create
@@ -471,7 +471,7 @@ export interface ISelectRowsOptions {
      */
     sort?: string
     stripHiddenColumns?: boolean
-    success?: (result: ISelectRowsResults) => any
+    success?: (result: ISelectRowsResults, request: ExtendedXMLHttpRequest, options: ISelectRowsOptions) => any
 
     /**
      * The maximum number of milliseconds to allow for this operation before a timeout error (defaults to 30000).
