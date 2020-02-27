@@ -1,4 +1,4 @@
-## 0.0.XX - 2020-02-XX
+## 0.0.35 - 2020-02-27
 - Package updates
 - Remove docs custom theme
 
