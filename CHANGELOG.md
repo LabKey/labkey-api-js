@@ -1,3 +1,6 @@
+## 0.0.36 - 2020-02-27
+- Add jest-teamcity-reporter for improved CI test reporting
+
 ## 0.0.35 - 2020-02-27
 - Package updates
 - Remove docs custom theme
