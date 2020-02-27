@@ -133,33 +133,6 @@ export interface GetDomainOptions {
 /**
  * Gets a domain design.
  */
-export function get(config: GetDomainOptions): void {
-
-    let options: GetDomainOptions = arguments.length > 1 ? {
-        containerPath: arguments[4],
-        failure: arguments[1],
-        queryName: arguments[3],
-        schemaName: arguments[2],
-        success: arguments[0]
-    } : config;
-
-    request({
-        url: buildURL('property', 'getDomain.api', options.containerPath),
-        method: 'GET',
-        success: getCallbackWrapper(options.success),
-        failure: getCallbackWrapper(options.failure, this, true),
-        params: {
-            schemaName: options.schemaName,
-            queryName: options.queryName,
-            domainId: options.domainId
-        }
-    });
-
-}
-
-/**
- * Gets a domain design.
- */
 export function getDomainDetails(config: GetDomainOptions): void {
 
     let options: GetDomainOptions = arguments.length > 1 ? {
