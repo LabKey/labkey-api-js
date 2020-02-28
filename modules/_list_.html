@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_list_.html">List</a>
+					<a href="_list_.html">&quot;List&quot;</a>
 				</li>
 			</ul>
 			<h1>External module &quot;List&quot;</h1>
@@ -95,7 +95,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/List.ts#L32">List.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/List.ts#L49">src/labkey/List.ts:49</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -104,13 +104,24 @@
 										A primary key column must be specified with the properties &#39;keyName&#39; and &#39;keyType&#39;. If the key is not
 									provided in the domain design&#39;s array of fields, it will be automatically added to the domain.</p>
 								</div>
+								<pre><code> <span class="hljs-selector-tag">LABKEY</span><span class="hljs-selector-class">.List</span><span class="hljs-selector-class">.create</span>({
+     <span class="hljs-attribute">name</span>: <span class="hljs-string">"mylist"</span>,
+     keyType: <span class="hljs-string">"int"</span>,
+     keyName: <span class="hljs-string">"one"</span>,
+     description: <span class="hljs-string">"my first list"</span>,
+     fields: [{
+         name: <span class="hljs-string">"one"</span>, rangeURI: <span class="hljs-string">"int"</span>
+         },{
+         <span class="hljs-attribute">name</span>: <span class="hljs-string">"two"</span>, rangeURI: <span class="hljs-string">"multiLine"</span>, required: true
+         },{
+         <span class="hljs-attribute">name</span>: <span class="hljs-string">"three"</span>, rangeURI: <span class="hljs-string">"Attachment"</span>
+     }]
+ });</code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>config: <a href="../interfaces/_list_.icreateoptions.html" class="tsd-signature-type">ICreateOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -126,7 +137,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_list_.html">List</a>
+						<a href="_list_.html">&quot;<wbr>List&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -204,7 +215,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_security_container_.html">security/Container</a>
+					<a href="../modules/_security_container_.html">&quot;security/Container&quot;</a>
 				</li>
 				<li>
 					<a href="_security_container_.movecontaineroptions.html">MoveContainerOptions</a>
@@ -104,9 +104,14 @@
 					<div class="tsd-signature tsd-kind-icon">add<wbr>Alias<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L356">security/Container.ts:356</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L347">src/labkey/security/Container.ts:347</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Add alias of current container path to container that is being moved (defaults to True).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="container" class="tsd-anchor"></a>
@@ -114,7 +119,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L357">security/Container.ts:357</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L348">src/labkey/security/Container.ts:348</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -124,9 +129,15 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L358">security/Container.ts:358</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L353">src/labkey/security/Container.ts:353</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The current container path of the container that is going to be moved. Additionally, the container
+							entity id is also valid.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="destinationparent" class="tsd-anchor"></a>
@@ -134,24 +145,40 @@
 					<div class="tsd-signature tsd-kind-icon">destination<wbr>Parent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L359">security/Container.ts:359</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L358">src/labkey/security/Container.ts:358</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The current container path of the container that is going to be moved. Additionally, the container
+							entity id is also valid.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L360">security/Container.ts:360</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L365">src/labkey/security/Container.ts:365</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A reference to a function to call when an error occurs. This
+							function will be passed the following parameters:</p>
+							<ul>
+								<li>errorInfo: an object containing detailed error information (may be null)</li>
+								<li>response: The XMLHttpResponse object</li>
+							</ul>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -169,7 +196,7 @@
 					<div class="tsd-signature tsd-kind-icon">parent<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L361">security/Container.ts:361</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L366">src/labkey/security/Container.ts:366</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -179,7 +206,7 @@
 					<div class="tsd-signature tsd-kind-icon">parent<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L362">security/Container.ts:362</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L367">src/labkey/security/Container.ts:367</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -189,24 +216,39 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L363">security/Container.ts:363</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L369">src/labkey/security/Container.ts:369</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scoping object for the success and error callback functions (default to this).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L364">security/Container.ts:364</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L376">src/labkey/security/Container.ts:376</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A reference to a function to call with the API results. This function will
+							be passed the following parameters:</p>
+							<ul>
+								<li>object: Empty JavaScript object</li>
+								<li>response: The XMLHttpResponse object</li>
+							</ul>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -227,7 +269,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_security_container_.html">security/<wbr>Container</a>
+						<a href="../modules/_security_container_.html">&quot;security/<wbr>Container&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -374,7 +416,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

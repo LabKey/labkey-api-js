@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_multirequest_.html">MultiRequest</a>
+					<a href="_multirequest_.html">&quot;MultiRequest&quot;</a>
 				</li>
 			</ul>
 			<h1>External module &quot;MultiRequest&quot;</h1>
@@ -89,13 +89,86 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/MultiRequest.ts#L18">MultiRequest.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/MultiRequest.ts#L86">src/labkey/MultiRequest.ts:86</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Make multiple ajax requests and invokes a callback when all are complete.
+										Requests are added as [function, config] array pairs where the config object
+										is passed as the argument to the request function.  The request function&#39;s config
+										object argument must accept a success callback named &#39;success&#39; and a failure
+									callback named &#39;failure&#39;.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>config: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+											<p>Either an array of [function, config] array pairs
+											to be added or a config object with the shape:</p>
+											<ul>
+												<li>listeners: a config object containing event handlers.</li>
+												<li>requests: an array of [function, config] array pairs to be added.</li>
+											</ul>
+											<pre><code><span class="hljs-keyword">var</span> config = {
+ <span class="hljs-attr">schemaName</span> : <span class="hljs-string">"assay"</span>,
+ <span class="hljs-attr">queryName</span> : protocolName + <span class="hljs-string">" Data"</span>,
+ <span class="hljs-attr">containerPath</span> : <span class="hljs-string">"/Test"</span>,
+ <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data, options, response</span>) </span>{
+     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"selectRows success: "</span> + data.rowCount);
+ },
+ <span class="hljs-attr">failure</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response, options</span>) </span>{
+     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"selectRows failure"</span>);
+ },
+ <span class="hljs-attr">scope</span>: scope <span class="hljs-comment">// scope to execute success and failure callbacks in.</span>
+};
+
+<span class="hljs-comment">// add the requests and config arguments one by one</span>
+<span class="hljs-keyword">var</span> multi = <span class="hljs-keyword">new</span> LABKEY.MultiRequest();
+<span class="hljs-keyword">var</span> requestScope = ... <span class="hljs-comment">// scope to execute the request function in.</span>
+multi.add(LABKEY.Query.selectRows, config, requestScope);
+multi.add(LABKEY.Query.selectRows, config, requestScope);
+multi.add(LABKEY.Query.selectRows, config, requestScope);
+multi.send(
+ <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"send complete"</span>); },
+ sendCallbackScope <span class="hljs-comment">// scope to execute 'send complete' callback in.</span>
+);
+
+<span class="hljs-comment">// additional requests won't be sent while other requests are in progress</span>
+multi.add(LABKEY.Query.selectRows, config);
+multi.send(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"send complete"</span>); }, sendCallbackScope);
+
+<span class="hljs-comment">// constructor can take an array of requests [function, config] pairs</span>
+multi = <span class="hljs-keyword">new</span> LABKEY.MultiRequest([
+ [ LABKEY.Query.selectRows, config ],
+ [ LABKEY.Query.selectRows, config ],
+ [ LABKEY.Query.selectRows, config ]
+]);
+multi.send();
+
+<span class="hljs-comment">// constructor can take a config object with listeners and requests.</span>
+<span class="hljs-comment">// if there is a 'done' listener, the requests will be sent immediately.</span>
+multi = <span class="hljs-keyword">new</span> LABKEY.MultiRequest({
+ <span class="hljs-attr">listeners</span> : { <span class="hljs-string">'done'</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"send complete"</span>); }, <span class="hljs-attr">scope</span>: sendCallbackScope },
+ <span class="hljs-attr">requests</span> : [ [ LABKEY.Query.selectRows, config ],
+     [ LABKEY.Query.selectRows, config ],
+     [ LABKEY.Query.selectRows, config ] ]
+ });
+
+ <span class="hljs-comment">// Alternate syntax for adding the 'done' event listener.</span>
+ multi = <span class="hljs-keyword">new</span> LABKEY.MultiRequest({
+     <span class="hljs-attr">listeners</span> : {
+         <span class="hljs-string">'done'</span>: {
+             <span class="hljs-attr">fn</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{ <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"send complete"</span>); }
+             <span class="hljs-attr">scope</span>: sendCallbackScope
+         }
+     }
+ });</code></pre>
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -111,7 +184,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_multirequest_.html">Multi<wbr>Request</a>
+						<a href="_multirequest_.html">&quot;<wbr>Multi<wbr>Request&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -186,7 +259,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

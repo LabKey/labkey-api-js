@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_assay_.html">Assay</a>
+					<a href="_assay_.html">&quot;Assay&quot;</a>
 				</li>
 			</ul>
 			<h1>External module &quot;Assay&quot;</h1>
@@ -114,49 +114,40 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Assay.ts#L65">Assay.ts:65</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Assay.ts#L54">src/labkey/Assay.ts:54</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Gets all assays</p>
-									<h4 id="examples">Examples</h4>
+									<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+										<h4>Examples</h4>
+									</a>
 								</div>
-								<pre><code>&lt;pre name=<span class="hljs-string">"code"</span> class=<span class="hljs-string">"xml"</span>&gt;
-&amp;lt;script <span class="hljs-built_in">type</span>=<span class="hljs-string">"text/javascript"</span>&amp;gt;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">successHandler</span><span class="hljs-params">(assayArray)</span></span>
-{
-    var html = <span class="hljs-string">''</span>;
-    <span class="hljs-keyword">for</span> (var defIndex = <span class="hljs-number">0</span>; defIndex &lt; assayArray.<span class="hljs-built_in">length</span>; defIndex ++)
-    {
-        var definition = assayArray[defIndex ];
-        html += <span class="hljs-string">'&amp;lt;b&amp;gt;'</span> + definition.<span class="hljs-built_in">type</span> + <span class="hljs-string">'&amp;lt;/b&amp;gt;: '</span>
-            + definition.name + <span class="hljs-string">'&amp;lt;br&amp;gt;'</span>;
-        <span class="hljs-keyword">for</span> (var domain in definition.domains)
-        {
-            html += <span class="hljs-string">'&amp;nbsp;&amp;nbsp;&amp;nbsp;'</span> + domain + <span class="hljs-string">'&amp;lt;br&amp;gt;'</span>;
-            var <span class="hljs-keyword">properties</span> = definition.domains[domain];
-            <span class="hljs-keyword">for</span> (var propertyIndex = <span class="hljs-number">0</span>; propertyIndex
-                &lt; <span class="hljs-keyword">properties</span>.<span class="hljs-built_in">length</span>; propertyIndex++)
-            {
-                var property = <span class="hljs-keyword">properties</span>[propertyIndex];
-                html += <span class="hljs-string">'&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;'</span> + property.name +
-                    <span class="hljs-string">' - '</span> + property.typeName + <span class="hljs-string">'&amp;lt;br&amp;gt;'</span>;
-            }
-        }
-    }
-    document.getElementById(<span class="hljs-string">'testDiv'</span>).innerHTML = html;
+								<pre><code><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">successHandler</span>(<span class="hljs-params">assayArray</span>)</span>{
+ <span class="hljs-keyword">var</span> html = <span class="hljs-string">''</span>;
+ <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> defIndex = <span class="hljs-number">0</span>; defIndex &lt; assayArray.length; defIndex ++){
+     <span class="hljs-keyword">var</span> definition = assayArray[defIndex ];
+     html += <span class="hljs-string">'&lt;b&gt;'</span> + definition.type + <span class="hljs-string">'&lt;/b&gt;: '</span>
+         + definition.name + <span class="hljs-string">'&lt;br&gt;'</span>;
+     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> domain <span class="hljs-keyword">in</span> definition.domains){
+         html += <span class="hljs-string">'   '</span> + domain + <span class="hljs-string">'&lt;br&gt;'</span>;
+         <span class="hljs-keyword">var</span> properties = definition.domains[domain];
+         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> propertyIndex = <span class="hljs-number">0</span>; propertyIndex &lt; properties.length; propertyIndex++){
+             <span class="hljs-keyword">var</span> <span class="hljs-keyword">property</span><span class="hljs-string"> </span>= properties[propertyIndex];
+             html += <span class="hljs-string">'      '</span> + <span class="hljs-keyword">property</span><span class="hljs-string">.name +</span>
+                 <span class="hljs-string">' - '</span> + <span class="hljs-keyword">property</span><span class="hljs-string">.typeName + '&lt;br&gt;'</span>;
+         }
+     }
+ }
+ <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'testDiv'</span>).innerHTML = html;
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorHandler</span><span class="hljs-params">(error)</span></span>
-{
-    alert(<span class="hljs-string">'An error occurred retrieving data.'</span>);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">errorHandler</span>(<span class="hljs-params">error</span>)</span>{
+ alert(<span class="hljs-string">'An error occurred retrieving data.'</span>);
 }
 
-LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
-&amp;lt;/script&amp;gt;
-&amp;lt;div id=<span class="hljs-string">'testDiv'</span>&amp;gt;Loading...&amp;lt;/div&amp;gt;
-&lt;/pre&gt;</code></pre>
+LABKEY.Assay.getAll({<span class="hljs-attribute">success</span>: successHandler, <span class="hljs-attribute">failure</span>: errorHandler});</code></pre>
 								<dl class="tsd-comment-tags">
 									<dt>see</dt>
 									<dd><p><a href="../interfaces/_assay_.assaydesign.html">AssayDesign</a></p>
@@ -183,7 +174,7 @@ LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Assay.ts#L182">Assay.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Assay.ts#L171">src/labkey/Assay.ts:171</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -216,7 +207,7 @@ LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Assay.ts#L209">Assay.ts:209</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Assay.ts#L198">src/labkey/Assay.ts:198</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -249,7 +240,7 @@ LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Assay.ts#L236">Assay.ts:236</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Assay.ts#L225">src/labkey/Assay.ts:225</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -282,7 +273,7 @@ LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Assay.ts#L313">Assay.ts:313</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Assay.ts#L302">src/labkey/Assay.ts:302</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -312,44 +303,41 @@ LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Assay.ts#L429">Assay.ts:429</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Assay.ts#L413">src/labkey/Assay.ts:413</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Retrieve the URL of an image that contains a graph of dilution curves for NAb results that have been copied to a study.
 									Note that this method must be executed against the study folder containing the copied NAb summary data.</p>
-									<h4 id="examples">Examples</h4>
+									<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+										<h4>Examples</h4>
+									</a>
 								</div>
-								<pre><code>&lt;pre name=<span class="hljs-string">"code"</span> class=<span class="hljs-string">"xml"</span>&gt;
-<span class="hljs-variable">&amp;lt</span>;script type=<span class="hljs-string">"text/javascript"</span><span class="hljs-variable">&amp;gt</span>;
-function showGraph(data)
-{
-    var el = document.getElementById(<span class="hljs-string">"graphDiv"</span>);
-    <span class="hljs-meta">if</span> (data.objectIds <span class="hljs-variable">&amp;&amp;</span> data.objectIds.<span class="hljs-meta">length</span> <span class="hljs-variable">&amp;gt</span>; 0)
-        el.innerHTML = <span class="hljs-string">'&amp;lt;img src=\"'</span> + data.url + <span class="hljs-string">'\"&amp;gt;'</span>;
-    <span class="hljs-meta">else</span>
-        el.innerHTML = <span class="hljs-string">'No graph available.  Insufficient permissions, '</span> +
-                       <span class="hljs-string">'or no matching results were found.'</span>;
-}
+								<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
+ <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showGraph</span>(<span class="hljs-params">data</span>)</span>{
+     <span class="hljs-keyword">var</span> el = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"graphDiv"</span>);
+     <span class="hljs-keyword">if</span> (data.objectIds &amp;&amp; data.objectIds.length &gt; <span class="hljs-number">0</span>)
+         el.innerHTML = <span class="hljs-string">'&lt;img src=\"'</span> + data.url + <span class="hljs-string">'\"&gt;'</span>;
+     <span class="hljs-keyword">else</span>
+         el.innerHTML = <span class="hljs-string">'No graph available.  Insufficient permissions, '</span> + <span class="hljs-string">'or no matching results were found.'</span>;
+ }
 
-function initiateGraph(ids)
-{
-    LABKEY.Assay.getStudyNabGraphURL({
-        objectIds: ids,
-        success: showGraph,
-        captionColumn: <span class="hljs-string">'VirusName'</span>,
-        chartTitle: <span class="hljs-string">'My NAb Chart'</span>,
-        height: 500,
-        width: 700,
-        fitType: <span class="hljs-string">'FOUR_PARAMETER'</span>
-    });
-}
+ <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initiateGraph</span>(<span class="hljs-params">ids</span>)</span>{
+     LABKEY.Assay.getStudyNabGraphURL({
+         <span class="hljs-attr">objectIds</span>: ids,
+         <span class="hljs-attr">success</span>: showGraph,
+         <span class="hljs-attr">captionColumn</span>: <span class="hljs-string">'VirusName'</span>,
+         <span class="hljs-attr">chartTitle</span>: <span class="hljs-string">'My NAb Chart'</span>,
+         <span class="hljs-attr">height</span>: <span class="hljs-number">500</span>,
+         <span class="hljs-attr">width</span>: <span class="hljs-number">700</span>,
+         <span class="hljs-attr">fitType</span>: <span class="hljs-string">'FOUR_PARAMETER'</span>
+     });
+ }
 
-Ext.onReady(initiateGraph([185, 165]));
-<span class="hljs-variable">&amp;lt</span>;/script<span class="hljs-variable">&amp;gt</span>;
-<span class="hljs-variable">&amp;lt</span>;div id=<span class="hljs-string">"graphDiv"</span><span class="hljs-variable">&amp;gt</span>;
-&lt;/pre&gt;</code></pre>
+ Ext.onReady(initiateGraph([<span class="hljs-number">185</span>, <span class="hljs-number">165</span>]));
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"graphDiv"</span>&gt;</span></code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -373,7 +361,7 @@ Ext.onReady(initiateGraph([185, 165]));
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Assay.ts#L487">Assay.ts:487</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Assay.ts#L471">src/labkey/Assay.ts:471</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -403,7 +391,7 @@ Ext.onReady(initiateGraph([185, 165]));
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_assay_.html">Assay</a>
+						<a href="_assay_.html">&quot;<wbr>Assay&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -523,7 +511,7 @@ Ext.onReady(initiateGraph([185, 165]));
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

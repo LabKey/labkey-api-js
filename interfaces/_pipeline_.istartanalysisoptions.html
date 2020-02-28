@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_pipeline_.html">Pipeline</a>
+					<a href="../modules/_pipeline_.html">&quot;Pipeline&quot;</a>
 				</li>
 				<li>
 					<a href="_pipeline_.istartanalysisoptions.html">IStartAnalysisOptions</a>
@@ -110,7 +110,7 @@
 					<div class="tsd-signature tsd-kind-icon">allow<wbr>Non<wbr>Existent<wbr>Files<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L126">Pipeline.ts:126</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L187">src/labkey/Pipeline.ts:187</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -120,24 +120,38 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L127">Pipeline.ts:127</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L189">src/labkey/Pipeline.ts:189</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The container in which to make the request (defaults to current container)</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L128">Pipeline.ts:128</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L195">src/labkey/Pipeline.ts:195</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A function to call if an error occurs. This function
+							will receive one parameter of type object with the following properties:</p>
+							<ul>
+								<li>exception: The exception message.</li>
+							</ul>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -155,9 +169,14 @@
 					<div class="tsd-signature tsd-kind-icon">file<wbr>Ids<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L120">Pipeline.ts:120</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L178">src/labkey/Pipeline.ts:178</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>data IDs of files be to used as inputs for this pipeline.  these correspond to the rowIds from the table ext.data.  they do not need to be located within the file path provided.  the user does need read access to the container associated with each file.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="files" class="tsd-anchor"></a>
@@ -165,9 +184,14 @@
 					<div class="tsd-signature tsd-kind-icon">files<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L119">Pipeline.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L176">src/labkey/Pipeline.ts:176</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>names of the file within the subdirectory described by the path property</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="jsonparameters" class="tsd-anchor"></a>
@@ -175,9 +199,16 @@
 					<div class="tsd-signature tsd-kind-icon">json<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L129">Pipeline.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L201">src/labkey/Pipeline.ts:201</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>JSON representation of the protocol description. Not allowed
+								if a protocol with the same name has already been saved. If no protocol with the same name exists, either
+							this property or xmlParameters must be specified.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="path" class="tsd-anchor"></a>
@@ -185,9 +216,14 @@
 					<div class="tsd-signature tsd-kind-icon">path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L121">Pipeline.ts:121</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L180">src/labkey/Pipeline.ts:180</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>relative path from the folder&#39;s pipeline root</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="pipelinedescription" class="tsd-anchor"></a>
@@ -195,9 +231,14 @@
 					<div class="tsd-signature tsd-kind-icon">pipeline<wbr>Description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L130">Pipeline.ts:130</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L203">src/labkey/Pipeline.ts:203</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>description displayed in the pipeline</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="protocoldescription" class="tsd-anchor"></a>
@@ -205,9 +246,14 @@
 					<div class="tsd-signature tsd-kind-icon">protocol<wbr>Description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L131">Pipeline.ts:131</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L205">src/labkey/Pipeline.ts:205</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>description of the analysis protocol</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="protocolname" class="tsd-anchor"></a>
@@ -215,9 +261,14 @@
 					<div class="tsd-signature tsd-kind-icon">protocol<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L122">Pipeline.ts:122</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L182">src/labkey/Pipeline.ts:182</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>name of the analysis protocol</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="saveprotocol" class="tsd-anchor"></a>
@@ -225,9 +276,15 @@
 					<div class="tsd-signature tsd-kind-icon">save<wbr>Protocol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L132">Pipeline.ts:132</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L210">src/labkey/Pipeline.ts:210</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>if no protocol with this name already exists, whether or not to save
+							this protocol definition for future use. Defaults to true.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
@@ -235,24 +292,34 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L133">Pipeline.ts:133</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L212">src/labkey/Pipeline.ts:212</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The scope to use when calling the callbacks (defaults to this).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L134">Pipeline.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L214">src/labkey/Pipeline.ts:214</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A function to call if this operation is successful.</p>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -270,9 +337,14 @@
 					<div class="tsd-signature tsd-kind-icon">task<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L123">Pipeline.ts:123</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L184">src/labkey/Pipeline.ts:184</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>taskId Identifier for the pipeline.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="xmlparameters" class="tsd-anchor"></a>
@@ -280,9 +352,16 @@
 					<div class="tsd-signature tsd-kind-icon">xml<wbr>Parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L135">Pipeline.ts:135</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L220">src/labkey/Pipeline.ts:220</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>XML representation of the protocol description. Not allowed
+								if a protocol with the same name has already been saved. If no protocol with the same name exists, either
+							this property or jsonParameters must be specified.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -293,7 +372,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_pipeline_.html">Pipeline</a>
+						<a href="../modules/_pipeline_.html">&quot;<wbr>Pipeline&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -443,7 +522,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

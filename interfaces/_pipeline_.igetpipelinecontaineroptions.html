@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_pipeline_.html">Pipeline</a>
+					<a href="../modules/_pipeline_.html">&quot;Pipeline&quot;</a>
 				</li>
 				<li>
 					<a href="_pipeline_.igetpipelinecontaineroptions.html">IGetPipelineContainerOptions</a>
@@ -99,9 +99,14 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L62">Pipeline.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L82">src/labkey/Pipeline.ts:82</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The container in which to make the request (defaults to current container)</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
@@ -109,9 +114,18 @@
 					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L63">Pipeline.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L88">src/labkey/Pipeline.ts:88</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A function to call if an error occurs. This function
+							will receive one parameter of type object with the following properties:</p>
+							<ul>
+								<li>exception: The exception message.</li>
+							</ul>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
@@ -119,9 +133,14 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L64">Pipeline.ts:64</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L90">src/labkey/Pipeline.ts:90</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The scope to use when calling the callbacks (defaults to this).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
@@ -129,9 +148,21 @@
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Pipeline.ts#L65">Pipeline.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Pipeline.ts#L99">src/labkey/Pipeline.ts:99</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The function to call with the resulting information.
+								This function will be passed a single parameter of type object, which will have the following
+							properties:</p>
+							<ul>
+								<li>containerPath: the container path in which the pipeline is defined. If no pipeline has
+								been defined in this container hierarchy, the value of this property will be null.</li>
+								<li>webDavURL: the WebDavURL for the pipeline root.</li>
+							</ul>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -142,7 +173,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_pipeline_.html">Pipeline</a>
+						<a href="../modules/_pipeline_.html">&quot;<wbr>Pipeline&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -259,7 +290,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_message_.html">Message</a>
+					<a href="../modules/_message_.html">&quot;Message&quot;</a>
 				</li>
 				<li>
 					<a href="_message_.isendmessageoptions.html">ISendMessageOptions</a>
@@ -99,17 +99,17 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Message.ts#L99">Message.ts:99</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Message.ts#L105">src/labkey/Message.ts:105</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -127,9 +127,19 @@
 					<div class="tsd-signature tsd-kind-icon">msg<wbr>Content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Message.ts#L100">Message.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Message.ts#L113">src/labkey/Message.ts:113</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An array of content objects which have the following properties:</p>
+							<ul>
+								<li>type: the message content type, must be one of the values from: <a href="../modules/_message_.html#msgtype-1">msgType</a>.</li>
+								<li>content: the email message body for this content type.</li>
+							</ul>
+						</div>
+						<p>The utility function <a href="../modules/_message_.html#createmsgcontent">createMsgContent</a> can be used to help create these objects.</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="msgfrom" class="tsd-anchor"></a>
@@ -137,9 +147,14 @@
 					<div class="tsd-signature tsd-kind-icon">msg<wbr>From<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Message.ts#L101">Message.ts:101</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Message.ts#L115">src/labkey/Message.ts:115</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The email address that appears on the email from line.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="msgrecipients" class="tsd-anchor"></a>
@@ -147,9 +162,21 @@
 					<div class="tsd-signature tsd-kind-icon">msg<wbr>Recipients<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Message.ts#L102">Message.ts:102</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Message.ts#L125">src/labkey/Message.ts:125</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An array of recipient objects which have the following properties:</p>
+							<ul>
+								<li>type: the recipient type, must be one of the values from: <a href="../modules/_message_.html#recipienttype-1">recipientType</a>.</li>
+								<li>address: the email address of the recipient.</li>
+							</ul>
+						</div>
+						<p>The utility function <a href="../modules/_message_.html#createrecipient">createRecipient</a> can be used to help create these objects.
+							Recipients whose accounts have been deactivated or have never been logged into will be silently dropped from
+						the message.</p>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="msgsubject" class="tsd-anchor"></a>
@@ -157,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">msg<wbr>Subject<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Message.ts#L103">Message.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Message.ts#L126">src/labkey/Message.ts:126</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -167,24 +194,29 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Message.ts#L104">Message.ts:104</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Message.ts#L128">src/labkey/Message.ts:128</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scoping object for the success and error callback functions (default to this).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/Message.ts#L105">Message.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/Message.ts#L129">src/labkey/Message.ts:129</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -205,7 +237,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_message_.html">Message</a>
+						<a href="../modules/_message_.html">&quot;<wbr>Message&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -346,7 +378,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

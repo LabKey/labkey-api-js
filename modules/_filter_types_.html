@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_filter_types_.html">filter/Types</a>
+					<a href="_filter_types_.html">&quot;filter/Types&quot;</a>
 				</li>
 			</ul>
 			<h1>External module &quot;filter/Types&quot;</h1>
@@ -98,10 +98,10 @@
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_filter_types_.html#generatefiltertype" class="tsd-kind-icon">generate<wbr>Filter<wbr>Type</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-private"><a href="_filter_types_.html#getdefaultfilterfortype" class="tsd-kind-icon">get<wbr>Default<wbr>Filter<wbr>For<wbr>Type</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_types_.html#getfiltertypeforurlsuffix" class="tsd-kind-icon">get<wbr>Filter<wbr>Type<wbr>ForURLSuffix</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-private"><a href="_filter_types_.html#getfiltertypesfortype" class="tsd-kind-icon">get<wbr>Filter<wbr>Types<wbr>For<wbr>Type</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_types_.html#registerfiltertype" class="tsd-kind-icon">register<wbr>Filter<wbr>Type</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_filter_types_.html#twodigit" class="tsd-kind-icon">two<wbr>Digit</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_filter_types_.html#validate" class="tsd-kind-icon">validate</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported"><a href="_filter_types_.html#validatemultiple" class="tsd-kind-icon">validate<wbr>Multiple</a></li>
@@ -126,7 +126,7 @@
 					<div class="tsd-signature tsd-kind-icon">Json<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"boolean"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"date"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"float"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"int"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"string"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L135">filter/Types.ts:135</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L143">src/labkey/filter/Types.ts:143</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -136,100 +136,140 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="equal" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> EQUAL</h3>
-					<div class="tsd-signature tsd-kind-icon">EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Equals&#x27;, &#x27;&#x3D;&#x27;, &#x27;eq&#x27;, true)</span></div>
+					<div class="tsd-signature tsd-kind-icon">EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Equals&#x27;, &#x27;&#x3D;&#x27;, &#x27;eq&#x27;, true)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L49">filter/Types.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L50">src/labkey/filter/Types.ts:50</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value matches the given filter value. Case-sensitivity depends upon how your underlying relational database was configured.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="greater_than" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> GREATER_<wbr>THAN</h3>
-					<div class="tsd-signature tsd-kind-icon">GREATER_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Greater Than&#x27;, &#x27;&gt;&#x27;, &#x27;gt&#x27;, true)</span></div>
+					<div class="tsd-signature tsd-kind-icon">GREATER_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Greater Than&#x27;, &#x27;&gt;&#x27;, &#x27;gt&#x27;, true)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L50">filter/Types.ts:50</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L52">src/labkey/filter/Types.ts:52</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value is greater than the filter value.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="greater_than_or_equal" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> GREATER_<wbr>THAN_<wbr>OR_<wbr>EQUAL</h3>
-					<div class="tsd-signature tsd-kind-icon">GREATER_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Greater Than or Equal To&#x27;, &#x27;&gt;&#x3D;&#x27;, &#x27;gte&#x27;, true)</span></div>
+					<div class="tsd-signature tsd-kind-icon">GREATER_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Greater Than or Equal To&#x27;, &#x27;&gt;&#x3D;&#x27;, &#x27;gte&#x27;, true)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L51">filter/Types.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L54">src/labkey/filter/Types.ts:54</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value is greater than or equal to the filter value.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="in" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> IN</h3>
-					<div class="tsd-signature tsd-kind-icon">IN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Equals One Of&#x27;, null, &#x27;in&#x27;, true, &#x27;;&#x27;, &#x27;Equals One Of (example usage: a;b;c)&#x27;)</span></div>
+					<div class="tsd-signature tsd-kind-icon">IN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Equals One Of&#x27;, null, &#x27;in&#x27;, true, &#x27;;&#x27;, &#x27;Equals One Of (example usage: a;b;c)&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L52">filter/Types.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L56">src/labkey/filter/Types.ts:56</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value equals one of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="less_than" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> LESS_<wbr>THAN</h3>
-					<div class="tsd-signature tsd-kind-icon">LESS_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Less Than&#x27;, &#x27;&lt;&#x27;, &#x27;lt&#x27;, true)</span></div>
+					<div class="tsd-signature tsd-kind-icon">LESS_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Less Than&#x27;, &#x27;&lt;&#x27;, &#x27;lt&#x27;, true)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L53">filter/Types.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L58">src/labkey/filter/Types.ts:58</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value is less than the filter value.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="less_than_or_equal" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> LESS_<wbr>THAN_<wbr>OR_<wbr>EQUAL</h3>
-					<div class="tsd-signature tsd-kind-icon">LESS_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Less Than or Equal To&#x27;, &#x27;&#x3D;&lt;&#x27;, &#x27;lte&#x27;, true)</span></div>
+					<div class="tsd-signature tsd-kind-icon">LESS_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Less Than or Equal To&#x27;, &#x27;&#x3D;&lt;&#x27;, &#x27;lte&#x27;, true)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L54">filter/Types.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L60">src/labkey/filter/Types.ts:60</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value is less than or equal to the filter value.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="neq_or_null" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> NEQ_<wbr>OR_<wbr>NULL</h3>
-					<div class="tsd-signature tsd-kind-icon">NEQ_<wbr>OR_<wbr>NULL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), &#x27;neqornull&#x27;, true)</span></div>
+					<div class="tsd-signature tsd-kind-icon">NEQ_<wbr>OR_<wbr>NULL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), &#x27;neqornull&#x27;, true)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L57">filter/Types.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L65">src/labkey/filter/Types.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="not_equal" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> NOT_<wbr>EQUAL</h3>
-					<div class="tsd-signature tsd-kind-icon">NOT_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Does Not Equal&#x27;, &#x27;&lt;&gt;&#x27;, &#x27;neq&#x27;, true)</span></div>
+					<div class="tsd-signature tsd-kind-icon">NOT_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Does Not Equal&#x27;, &#x27;&lt;&gt;&#x27;, &#x27;neq&#x27;, true)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L55">filter/Types.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L62">src/labkey/filter/Types.ts:62</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value does not equal the filter value.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="not_in" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> NOT_<wbr>IN</h3>
-					<div class="tsd-signature tsd-kind-icon">NOT_<wbr>IN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Does Not Equal Any Of&#x27;, null, &#x27;notin&#x27;, true, &#x27;;&#x27;, &#x27;Does Not Equal Any Of (example usage: a;b;c)&#x27;)</span></div>
+					<div class="tsd-signature tsd-kind-icon">NOT_<wbr>IN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Does Not Equal Any Of&#x27;, null, &#x27;notin&#x27;, true, &#x27;;&#x27;, &#x27;Does Not Equal Any Of (example usage: a;b;c)&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L56">filter/Types.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L64">src/labkey/filter/Types.ts:64</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Finds rows where the column value is not in any of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="urlmap" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagLet">Let</span> url<wbr>Map</h3>
-					<div class="tsd-signature tsd-kind-icon">url<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+					<div class="tsd-signature tsd-kind-icon">url<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L19">filter/Types.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L19">src/labkey/filter/Types.ts:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -244,53 +284,6 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-					<a name="generatefiltertype" class="tsd-anchor"></a>
-					<h3>generate<wbr>Filter<wbr>Type</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">generate<wbr>Filter<wbr>Type<span class="tsd-signature-symbol">(</span>displayText<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, displaySymbol<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, urlSuffix<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, dataValueRequired<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, multiValueSeparator<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, longDisplayText<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, minOccurs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, maxOccurs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, tableWise<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L157">filter/Types.ts:157</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>displayText: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> displaySymbol: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> urlSuffix: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataValueRequired: <span class="tsd-signature-type">boolean</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> multiValueSeparator: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> longDisplayText: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> minOccurs: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> maxOccurs: <span class="tsd-signature-type">number</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> tableWise: <span class="tsd-signature-type">boolean</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-private">
 					<a name="getdefaultfilterfortype" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagPrivate">Private</span> get<wbr>Default<wbr>Filter<wbr>For<wbr>Type</h3>
@@ -301,7 +294,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L277">filter/Types.ts:277</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L296">src/labkey/filter/Types.ts:296</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -329,7 +322,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L285">filter/Types.ts:285</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L304">src/labkey/filter/Types.ts:304</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -352,7 +345,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L294">filter/Types.ts:294</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L313">src/labkey/filter/Types.ts:313</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -374,6 +367,85 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="registerfiltertype" class="tsd-anchor"></a>
+					<h3>register<wbr>Filter<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">register<wbr>Filter<wbr>Type<span class="tsd-signature-symbol">(</span>displayText<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, displaySymbol<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, urlSuffix<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, dataValueRequired<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, multiValueSeparator<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, longDisplayText<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, minOccurs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, maxOccurs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, tableWise<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L177">src/labkey/filter/Types.ts:177</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a FilterType object and stores it in the global URL Map used by Filter.getFilterTypeForURLSuffix</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>displayText: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The text to display in a filter menu</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> displaySymbol: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The symbol to display in a filter menu</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> urlSuffix: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The suffix used when adding the filter to a URL</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataValueRequired: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Boolean used to indicate if a data value is required for the filter type</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> multiValueSeparator: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The separator to use if multiple values are allowed for the filter type</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> longDisplayText: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The text to display in a filter help menu</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> minOccurs: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The minimum number of times the filter can be applied</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> maxOccurs: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The maximum number of times the filter can be applied</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> tableWise: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>true if the filter applies to all columns on the table</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 					<a name="twodigit" class="tsd-anchor"></a>
 					<h3>two<wbr>Digit</h3>
@@ -384,7 +456,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L309">filter/Types.ts:309</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L328">src/labkey/filter/Types.ts:328</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -407,7 +479,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L324">filter/Types.ts:324</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L343">src/labkey/filter/Types.ts:343</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -437,10 +509,7 @@
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">undefined</span>
-							</h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 							<p>undefined if not valid otherwise a normalized string value for the type.</p>
 						</li>
 					</ul>
@@ -455,7 +524,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L409">filter/Types.ts:409</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L428">src/labkey/filter/Types.ts:428</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -482,10 +551,7 @@
 									<h5>maxOccurs: <span class="tsd-signature-type">number</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span>
-								<span class="tsd-signature-symbol"> | </span>
-								<span class="tsd-signature-type">undefined</span>
-							</h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -498,56 +564,56 @@
 					<div class="tsd-signature tsd-kind-icon">TYPES_<wbr>BY_<wbr>JSON_<wbr>TYPE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L137">filter/Types.ts:137</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L145">src/labkey/filter/Types.ts:145</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type.boolean" class="tsd-anchor"></a>
 						<h3>boolean</h3>
-						<div class="tsd-signature tsd-kind-icon">boolean<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK]</span></div>
+						<div class="tsd-signature tsd-kind-icon">boolean<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L140">filter/Types.ts:140</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L148">src/labkey/filter/Types.ts:148</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type.date" class="tsd-anchor"></a>
 						<h3>date</h3>
-						<div class="tsd-signature tsd-kind-icon">date<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[Types.HAS_ANY_VALUE, Types.DATE_EQUAL, Types.DATE_NOT_EQUAL, Types.ISBLANK, Types.NONBLANK, Types.DATE_GREATER_THAN, Types.DATE_LESS_THAN, Types.DATE_GREATER_THAN_OR_EQUAL, Types.DATE_LESS_THAN_OR_EQUAL]</span></div>
+						<div class="tsd-signature tsd-kind-icon">date<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [Types.HAS_ANY_VALUE, Types.DATE_EQUAL, Types.DATE_NOT_EQUAL, Types.ISBLANK, Types.NONBLANK, Types.DATE_GREATER_THAN, Types.DATE_LESS_THAN, Types.DATE_GREATER_THAN_OR_EQUAL, Types.DATE_LESS_THAN_OR_EQUAL]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L141">filter/Types.ts:141</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L149">src/labkey/filter/Types.ts:149</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type.float" class="tsd-anchor"></a>
 						<h3>float</h3>
-						<div class="tsd-signature tsd-kind-icon">float<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN]</span></div>
+						<div class="tsd-signature tsd-kind-icon">float<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L142">filter/Types.ts:142</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L150">src/labkey/filter/Types.ts:150</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type.int" class="tsd-anchor"></a>
 						<h3>int</h3>
-						<div class="tsd-signature tsd-kind-icon">int<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN]</span></div>
+						<div class="tsd-signature tsd-kind-icon">int<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L143">filter/Types.ts:143</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L151">src/labkey/filter/Types.ts:151</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type.string" class="tsd-anchor"></a>
 						<h3>string</h3>
-						<div class="tsd-signature tsd-kind-icon">string<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;[Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.CONTAINS, Types.DOES_NOT_CONTAIN, Types.DOES_NOT_START_WITH, Types.STARTS_WITH, Types.IN, Types.NOT_IN, Types.CONTAINS_ONE_OF, Types.CONTAINS_NONE_OF, Types.BETWEEN, Types.NOT_BETWEEN]</span></div>
+						<div class="tsd-signature tsd-kind-icon">string<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.CONTAINS, Types.DOES_NOT_CONTAIN, Types.DOES_NOT_START_WITH, Types.STARTS_WITH, Types.IN, Types.NOT_IN, Types.CONTAINS_ONE_OF, Types.CONTAINS_NONE_OF, Types.BETWEEN, Types.NOT_BETWEEN]</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L144">filter/Types.ts:144</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L152">src/labkey/filter/Types.ts:152</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -558,56 +624,56 @@
 					<div class="tsd-signature tsd-kind-icon">TYPES_<wbr>BY_<wbr>JSON_<wbr>TYPE_<wbr>DEFAULT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L147">filter/Types.ts:147</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L155">src/labkey/filter/Types.ts:155</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type_default.boolean-1" class="tsd-anchor"></a>
 						<h3>boolean</h3>
-						<div class="tsd-signature tsd-kind-icon">boolean<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;Types.EQUAL</span></div>
+						<div class="tsd-signature tsd-kind-icon">boolean<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = Types.EQUAL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L150">filter/Types.ts:150</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L158">src/labkey/filter/Types.ts:158</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type_default.date-1" class="tsd-anchor"></a>
 						<h3>date</h3>
-						<div class="tsd-signature tsd-kind-icon">date<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;Types.DATE_EQUAL</span></div>
+						<div class="tsd-signature tsd-kind-icon">date<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = Types.DATE_EQUAL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L151">filter/Types.ts:151</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L159">src/labkey/filter/Types.ts:159</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type_default.float-1" class="tsd-anchor"></a>
 						<h3>float</h3>
-						<div class="tsd-signature tsd-kind-icon">float<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;Types.EQUAL</span></div>
+						<div class="tsd-signature tsd-kind-icon">float<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = Types.EQUAL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L152">filter/Types.ts:152</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L160">src/labkey/filter/Types.ts:160</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type_default.int-1" class="tsd-anchor"></a>
 						<h3>int</h3>
-						<div class="tsd-signature tsd-kind-icon">int<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;Types.EQUAL</span></div>
+						<div class="tsd-signature tsd-kind-icon">int<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = Types.EQUAL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L153">filter/Types.ts:153</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L161">src/labkey/filter/Types.ts:161</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types_by_json_type_default.string-1" class="tsd-anchor"></a>
 						<h3>string</h3>
-						<div class="tsd-signature tsd-kind-icon">string<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;Types.CONTAINS</span></div>
+						<div class="tsd-signature tsd-kind-icon">string<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = Types.CONTAINS</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L154">filter/Types.ts:154</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L162">src/labkey/filter/Types.ts:162</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -618,136 +684,136 @@
 					<div class="tsd-signature tsd-kind-icon">Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L59">filter/Types.ts:59</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L67">src/labkey/filter/Types.ts:67</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.between" class="tsd-anchor"></a>
 						<h3>BETWEEN</h3>
-						<div class="tsd-signature tsd-kind-icon">BETWEEN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Between&#x27;, null, &#x27;between&#x27;, true, &#x27;,&#x27;, &#x27;Between, Inclusive (example usage: -4,4)&#x27;, 2, 2)</span></div>
+						<div class="tsd-signature tsd-kind-icon">BETWEEN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Between&#x27;, null, &#x27;between&#x27;, true, &#x27;,&#x27;, &#x27;Between, Inclusive (example usage: -4,4)&#x27;, 2, 2)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L108">filter/Types.ts:108</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L116">src/labkey/filter/Types.ts:116</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.contains" class="tsd-anchor"></a>
 						<h3>CONTAINS</h3>
-						<div class="tsd-signature tsd-kind-icon">CONTAINS<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Contains&#x27;, null, &#x27;contains&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">CONTAINS<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Contains&#x27;, null, &#x27;contains&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L94">filter/Types.ts:94</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L102">src/labkey/filter/Types.ts:102</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.contains_none_of" class="tsd-anchor"></a>
 						<h3>CONTAINS_<wbr>NONE_<wbr>OF</h3>
-						<div class="tsd-signature tsd-kind-icon">CONTAINS_<wbr>NONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Does Not Contain Any Of&#x27;, null, &#x27;containsnoneof&#x27;, true, &#x27;;&#x27;, &#x27;Does Not Contain Any Of (example usage: a;b;c)&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">CONTAINS_<wbr>NONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Does Not Contain Any Of&#x27;, null, &#x27;containsnoneof&#x27;, true, &#x27;;&#x27;, &#x27;Does Not Contain Any Of (example usage: a;b;c)&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L98">filter/Types.ts:98</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L106">src/labkey/filter/Types.ts:106</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.contains_one_of" class="tsd-anchor"></a>
 						<h3>CONTAINS_<wbr>ONE_<wbr>OF</h3>
-						<div class="tsd-signature tsd-kind-icon">CONTAINS_<wbr>ONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Contains One Of&#x27;, null, &#x27;containsoneof&#x27;, true, &#x27;;&#x27;, &#x27;Contains One Of (example usage: a;b;c)&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">CONTAINS_<wbr>ONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Contains One Of&#x27;, null, &#x27;containsoneof&#x27;, true, &#x27;;&#x27;, &#x27;Contains One Of (example usage: a;b;c)&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L97">filter/Types.ts:97</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L105">src/labkey/filter/Types.ts:105</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.date_equal" class="tsd-anchor"></a>
 						<h3>DATE_<wbr>EQUAL</h3>
-						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), &#x27;dateeq&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), &#x27;dateeq&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L66">filter/Types.ts:66</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L74">src/labkey/filter/Types.ts:74</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.date_greater_than" class="tsd-anchor"></a>
 						<h3>DATE_<wbr>GREATER_<wbr>THAN</h3>
-						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>GREATER_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), &#x27;dategt&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>GREATER_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), &#x27;dategt&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L77">filter/Types.ts:77</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L85">src/labkey/filter/Types.ts:85</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.date_greater_than_or_equal" class="tsd-anchor"></a>
 						<h3>DATE_<wbr>GREATER_<wbr>THAN_<wbr>OR_<wbr>EQUAL</h3>
-						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>GREATER_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), &#x27;dategte&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>GREATER_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), &#x27;dategte&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L85">filter/Types.ts:85</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L93">src/labkey/filter/Types.ts:93</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.date_less_than" class="tsd-anchor"></a>
 						<h3>DATE_<wbr>LESS_<wbr>THAN</h3>
-						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>LESS_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), &#x27;datelt&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>LESS_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), &#x27;datelt&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L81">filter/Types.ts:81</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L89">src/labkey/filter/Types.ts:89</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.date_less_than_or_equal" class="tsd-anchor"></a>
 						<h3>DATE_<wbr>LESS_<wbr>THAN_<wbr>OR_<wbr>EQUAL</h3>
-						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>LESS_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), &#x27;datelte&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>LESS_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), &#x27;datelte&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L89">filter/Types.ts:89</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L97">src/labkey/filter/Types.ts:97</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.date_not_equal" class="tsd-anchor"></a>
 						<h3>DATE_<wbr>NOT_<wbr>EQUAL</h3>
-						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>NOT_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), &#x27;dateneq&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DATE_<wbr>NOT_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), &#x27;dateneq&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L70">filter/Types.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L78">src/labkey/filter/Types.ts:78</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.does_not_contain" class="tsd-anchor"></a>
 						<h3>DOES_<wbr>NOT_<wbr>CONTAIN</h3>
-						<div class="tsd-signature tsd-kind-icon">DOES_<wbr>NOT_<wbr>CONTAIN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Does Not Contain&#x27;, null, &#x27;doesnotcontain&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DOES_<wbr>NOT_<wbr>CONTAIN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Does Not Contain&#x27;, null, &#x27;doesnotcontain&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L95">filter/Types.ts:95</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L103">src/labkey/filter/Types.ts:103</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.does_not_have_missing_value" class="tsd-anchor"></a>
 						<h3>DOES_<wbr>NOT_<wbr>HAVE_<wbr>MISSING_<wbr>VALUE</h3>
-						<div class="tsd-signature tsd-kind-icon">DOES_<wbr>NOT_<wbr>HAVE_<wbr>MISSING_<wbr>VALUE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Does not have a missing value indicator&#x27;, null, &#x27;nomvvalue&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DOES_<wbr>NOT_<wbr>HAVE_<wbr>MISSING_<wbr>VALUE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Does not have a missing value indicator&#x27;, null, &#x27;nomvvalue&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L125">filter/Types.ts:125</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L133">src/labkey/filter/Types.ts:133</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.does_not_start_with" class="tsd-anchor"></a>
 						<h3>DOES_<wbr>NOT_<wbr>START_<wbr>WITH</h3>
-						<div class="tsd-signature tsd-kind-icon">DOES_<wbr>NOT_<wbr>START_<wbr>WITH<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Does Not Start With&#x27;, null, &#x27;doesnotstartwith&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">DOES_<wbr>NOT_<wbr>START_<wbr>WITH<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Does Not Start With&#x27;, null, &#x27;doesnotstartwith&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L92">filter/Types.ts:92</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L100">src/labkey/filter/Types.ts:100</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -757,37 +823,37 @@
 						<div class="tsd-signature tsd-kind-icon">EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L65">filter/Types.ts:65</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L73">src/labkey/filter/Types.ts:73</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.equals_none_of" class="tsd-anchor"></a>
 						<h3>EQUALS_<wbr>NONE_<wbr>OF</h3>
-						<div class="tsd-signature tsd-kind-icon">EQUALS_<wbr>NONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;NOT_IN</span></div>
+						<div class="tsd-signature tsd-kind-icon">EQUALS_<wbr>NONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = NOT_IN</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L106">filter/Types.ts:106</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L114">src/labkey/filter/Types.ts:114</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.equals_one_of" class="tsd-anchor"></a>
 						<h3>EQUALS_<wbr>ONE_<wbr>OF</h3>
-						<div class="tsd-signature tsd-kind-icon">EQUALS_<wbr>ONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;IN</span></div>
+						<div class="tsd-signature tsd-kind-icon">EQUALS_<wbr>ONE_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = IN</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L103">filter/Types.ts:103</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L111">src/labkey/filter/Types.ts:111</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.exp_child_of" class="tsd-anchor"></a>
 						<h3>EXP_<wbr>CHILD_<wbr>OF</h3>
-						<div class="tsd-signature tsd-kind-icon">EXP_<wbr>CHILD_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Child Of&#x27;, null, &#x27;exp:childof&#x27;, true, undefined, &#x27; is child of&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">EXP_<wbr>CHILD_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Child Of&#x27;, null, &#x27;exp:childof&#x27;, true, undefined, &#x27; is child of&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L127">filter/Types.ts:127</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L135">src/labkey/filter/Types.ts:135</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -797,7 +863,7 @@
 						<div class="tsd-signature tsd-kind-icon">GREATER_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L75">filter/Types.ts:75</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L83">src/labkey/filter/Types.ts:83</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -807,47 +873,47 @@
 						<div class="tsd-signature tsd-kind-icon">GREATER_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L83">filter/Types.ts:83</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L91">src/labkey/filter/Types.ts:91</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.gt" class="tsd-anchor"></a>
 						<h3>GT</h3>
-						<div class="tsd-signature tsd-kind-icon">GT<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;GREATER_THAN</span></div>
+						<div class="tsd-signature tsd-kind-icon">GT<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = GREATER_THAN</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L76">filter/Types.ts:76</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L84">src/labkey/filter/Types.ts:84</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.gte" class="tsd-anchor"></a>
 						<h3>GTE</h3>
-						<div class="tsd-signature tsd-kind-icon">GTE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;GREATER_THAN_OR_EQUAL</span></div>
+						<div class="tsd-signature tsd-kind-icon">GTE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = GREATER_THAN_OR_EQUAL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L84">filter/Types.ts:84</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L92">src/labkey/filter/Types.ts:92</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.has_any_value" class="tsd-anchor"></a>
 						<h3>HAS_<wbr>ANY_<wbr>VALUE</h3>
-						<div class="tsd-signature tsd-kind-icon">HAS_<wbr>ANY_<wbr>VALUE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Has Any Value&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">HAS_<wbr>ANY_<wbr>VALUE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Has Any Value&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L117">filter/Types.ts:117</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L125">src/labkey/filter/Types.ts:125</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.has_missing_value" class="tsd-anchor"></a>
 						<h3>HAS_<wbr>MISSING_<wbr>VALUE</h3>
-						<div class="tsd-signature tsd-kind-icon">HAS_<wbr>MISSING_<wbr>VALUE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Has a missing value indicator&#x27;, null, &#x27;hasmvvalue&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">HAS_<wbr>MISSING_<wbr>VALUE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Has a missing value indicator&#x27;, null, &#x27;hasmvvalue&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L124">filter/Types.ts:124</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L132">src/labkey/filter/Types.ts:132</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -857,17 +923,17 @@
 						<div class="tsd-signature tsd-kind-icon">IN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L102">filter/Types.ts:102</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L110">src/labkey/filter/Types.ts:110</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.isblank" class="tsd-anchor"></a>
 						<h3>ISBLANK</h3>
-						<div class="tsd-signature tsd-kind-icon">ISBLANK<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Blank&#x27;, null, &#x27;isblank&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">ISBLANK<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Blank&#x27;, null, &#x27;isblank&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L119">filter/Types.ts:119</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L127">src/labkey/filter/Types.ts:127</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -877,7 +943,7 @@
 						<div class="tsd-signature tsd-kind-icon">LESS_<wbr>THAN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L79">filter/Types.ts:79</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L87">src/labkey/filter/Types.ts:87</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -887,57 +953,57 @@
 						<div class="tsd-signature tsd-kind-icon">LESS_<wbr>THAN_<wbr>OR_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L87">filter/Types.ts:87</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L95">src/labkey/filter/Types.ts:95</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.lt" class="tsd-anchor"></a>
 						<h3>LT</h3>
-						<div class="tsd-signature tsd-kind-icon">LT<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;LESS_THAN</span></div>
+						<div class="tsd-signature tsd-kind-icon">LT<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = LESS_THAN</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L80">filter/Types.ts:80</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L88">src/labkey/filter/Types.ts:88</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.lte" class="tsd-anchor"></a>
 						<h3>LTE</h3>
-						<div class="tsd-signature tsd-kind-icon">LTE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;LESS_THAN_OR_EQUAL</span></div>
+						<div class="tsd-signature tsd-kind-icon">LTE<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = LESS_THAN_OR_EQUAL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L88">filter/Types.ts:88</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L96">src/labkey/filter/Types.ts:96</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.member_of" class="tsd-anchor"></a>
 						<h3>MEMBER_<wbr>OF</h3>
-						<div class="tsd-signature tsd-kind-icon">MEMBER_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Member Of&#x27;, null, &#x27;memberof&#x27;, true, undefined, &#x27;Member Of&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">MEMBER_<wbr>OF<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Member Of&#x27;, null, &#x27;memberof&#x27;, true, undefined, &#x27;Member Of&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L111">filter/Types.ts:111</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L119">src/labkey/filter/Types.ts:119</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.missing" class="tsd-anchor"></a>
 						<h3>MISSING</h3>
-						<div class="tsd-signature tsd-kind-icon">MISSING<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Blank&#x27;, null, &#x27;isblank&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">MISSING<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Blank&#x27;, null, &#x27;isblank&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L120">filter/Types.ts:120</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L128">src/labkey/filter/Types.ts:128</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.neq" class="tsd-anchor"></a>
 						<h3>NEQ</h3>
-						<div class="tsd-signature tsd-kind-icon">NEQ<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;NOT_EQUAL</span></div>
+						<div class="tsd-signature tsd-kind-icon">NEQ<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = NOT_EQUAL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L69">filter/Types.ts:69</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L77">src/labkey/filter/Types.ts:77</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -947,27 +1013,27 @@
 						<div class="tsd-signature tsd-kind-icon">NEQ_<wbr>OR_<wbr>NULL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L72">filter/Types.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L80">src/labkey/filter/Types.ts:80</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.nonblank" class="tsd-anchor"></a>
 						<h3>NONBLANK</h3>
-						<div class="tsd-signature tsd-kind-icon">NONBLANK<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Not Blank&#x27;, null, &#x27;isnonblank&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">NONBLANK<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Not Blank&#x27;, null, &#x27;isnonblank&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L121">filter/Types.ts:121</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L129">src/labkey/filter/Types.ts:129</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.not_between" class="tsd-anchor"></a>
 						<h3>NOT_<wbr>BETWEEN</h3>
-						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>BETWEEN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Not Between&#x27;, null, &#x27;notbetween&#x27;, true, &#x27;,&#x27;, &#x27;Not Between, Exclusive (example usage: -4,4)&#x27;, 2, 2)</span></div>
+						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>BETWEEN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Not Between&#x27;, null, &#x27;notbetween&#x27;, true, &#x27;,&#x27;, &#x27;Not Between, Exclusive (example usage: -4,4)&#x27;, 2, 2)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L109">filter/Types.ts:109</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L117">src/labkey/filter/Types.ts:117</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -977,17 +1043,17 @@
 						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>EQUAL<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L68">filter/Types.ts:68</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L76">src/labkey/filter/Types.ts:76</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.not_equal_or_missing" class="tsd-anchor"></a>
 						<h3>NOT_<wbr>EQUAL_<wbr>OR_<wbr>MISSING</h3>
-						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>EQUAL_<wbr>OR_<wbr>MISSING<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;NEQ_OR_NULL</span></div>
+						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>EQUAL_<wbr>OR_<wbr>MISSING<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = NEQ_OR_NULL</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L73">filter/Types.ts:73</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L81">src/labkey/filter/Types.ts:81</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -997,37 +1063,37 @@
 						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>IN<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L105">filter/Types.ts:105</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L113">src/labkey/filter/Types.ts:113</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.not_missing" class="tsd-anchor"></a>
 						<h3>NOT_<wbr>MISSING</h3>
-						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>MISSING<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Is Not Blank&#x27;, null, &#x27;isnonblank&#x27;)</span></div>
+						<div class="tsd-signature tsd-kind-icon">NOT_<wbr>MISSING<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Is Not Blank&#x27;, null, &#x27;isnonblank&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L122">filter/Types.ts:122</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L130">src/labkey/filter/Types.ts:130</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.q" class="tsd-anchor"></a>
 						<h3>Q</h3>
-						<div class="tsd-signature tsd-kind-icon">Q<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Search&#x27;, null, &#x27;q&#x27;, true, undefined, &#x27;Search across all columns&#x27;, undefined, undefined, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">Q<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Search&#x27;, null, &#x27;q&#x27;, true, undefined, &#x27;Search across all columns&#x27;, undefined, undefined, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L132">filter/Types.ts:132</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L140">src/labkey/filter/Types.ts:140</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="types.starts_with" class="tsd-anchor"></a>
 						<h3>STARTS_<wbr>WITH</h3>
-						<div class="tsd-signature tsd-kind-icon">STARTS_<wbr>WITH<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> =&nbsp;generateFilterType(&#x27;Starts With&#x27;, null, &#x27;startswith&#x27;, true)</span></div>
+						<div class="tsd-signature tsd-kind-icon">STARTS_<wbr>WITH<span class="tsd-signature-symbol">:</span> <a href="../interfaces/_filter_types_.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol"> = registerFilterType(&#x27;Starts With&#x27;, null, &#x27;startswith&#x27;, true)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Types.ts#L91">filter/Types.ts:91</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Types.ts#L99">src/labkey/filter/Types.ts:99</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1041,7 +1107,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_filter_types_.html">filter/<wbr>Types</a>
+						<a href="_filter_types_.html">&quot;filter/<wbr>Types&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -1083,9 +1149,6 @@
 					<li class=" tsd-kind-variable tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_filter_types_.html#urlmap" class="tsd-kind-icon">url<wbr>Map</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_filter_types_.html#generatefiltertype" class="tsd-kind-icon">generate<wbr>Filter<wbr>Type</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private">
 						<a href="_filter_types_.html#getdefaultfilterfortype" class="tsd-kind-icon">get<wbr>Default<wbr>Filter<wbr>For<wbr>Type</a>
 					</li>
@@ -1094,6 +1157,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-private">
 						<a href="_filter_types_.html#getfiltertypesfortype" class="tsd-kind-icon">get<wbr>Filter<wbr>Types<wbr>For<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_filter_types_.html#registerfiltertype" class="tsd-kind-icon">register<wbr>Filter<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="_filter_types_.html#twodigit" class="tsd-kind-icon">two<wbr>Digit</a>
@@ -1179,7 +1245,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

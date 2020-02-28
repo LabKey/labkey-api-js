@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_security_permission_.html">security/Permission</a>
+					<a href="../modules/_security_permission_.html">&quot;security/Permission&quot;</a>
 				</li>
 				<li>
 					<a href="_security_permission_.getschemapermissionsoptions.html">GetSchemaPermissionsOptions</a>
@@ -100,9 +100,15 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Permission.ts#L201">security/Permission.ts:201</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Permission.ts#L193">src/labkey/security/Permission.ts:193</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An alternate container path to get permissions from. If not specified,
+							the current container path will be used.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
@@ -110,9 +116,19 @@
 					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Permission.ts#L202">security/Permission.ts:202</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Permission.ts#L200">src/labkey/security/Permission.ts:200</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A reference to a function to call when an error occurs. This
+							function will be passed the following parameters:</p>
+							<ul>
+								<li>errorInfo: an object containing detailed error information (may be null)</li>
+								<li>response: The XMLHttpResponse object</li>
+							</ul>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="schemaname" class="tsd-anchor"></a>
@@ -120,9 +136,14 @@
 					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Permission.ts#L203">security/Permission.ts:203</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Permission.ts#L202">src/labkey/security/Permission.ts:202</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Name of the schema to retrieve information on.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
@@ -130,9 +151,14 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Permission.ts#L204">security/Permission.ts:204</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Permission.ts#L204">src/labkey/security/Permission.ts:204</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scoping object for the success and error callback functions (default to this).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
@@ -140,9 +166,35 @@
 					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Permission.ts#L205">security/Permission.ts:205</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Permission.ts#L225">src/labkey/security/Permission.ts:225</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A reference to a function to call with the API results. This
+							function will be passed the following parameters:</p>
+							<ul>
+								<li>data: an object with a property named &quot;schemas&quot; which contains a queries object.
+									The queries object property with the name of each table/queries. So
+									schemas.study.queries.Demographics would yield the following results<ul>
+										<li>id: The unique id of the resource (String, typically a GUID).</li>
+										<li>name: The name of the resource suitable for showing to a user.</li>
+										<li>description: The description of the reosurce.</li>
+										<li>resourceClass: The fully-qualified Java class name of the resource.</li>
+										<li>sourceModule: The name of the module in which the resource is defined and managed</li>
+										<li>parentId: The parent resource&#39;s id (may be omitted if no parent)</li>
+										<li>parentContainerPath: The parent resource&#39;s container path (may be omitted if no parent)</li>
+										<li>children: An array of child resource objects.</li>
+										<li>effectivePermissions: An array of permission unique names the current user has on the resource. This will be
+										present only if the includeEffectivePermissions property was set to true on the config object.</li>
+										<li>permissionMap: An object with one property per effectivePermission allowed the user. This restates
+										effectivePermissions in a slightly more convenient way</li>
+									</ul>
+								</li>
+								<li>response: The XMLHttpResponse object</li>
+							</ul>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -153,7 +205,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_security_permission_.html">security/<wbr>Permission</a>
+						<a href="../modules/_security_permission_.html">&quot;security/<wbr>Permission&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -288,7 +340,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

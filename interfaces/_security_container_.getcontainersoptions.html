@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_security_container_.html">security/Container</a>
+					<a href="../modules/_security_container_.html">&quot;security/Container&quot;</a>
 				</li>
 				<li>
 					<a href="_security_container_.getcontainersoptions.html">GetContainersOptions</a>
@@ -104,9 +104,14 @@
 					<div class="tsd-signature tsd-kind-icon">container<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L128">security/Container.ts:128</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L127">src/labkey/security/Container.ts:127</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A container id or full-path String or an Array of container id/full-path Strings.  If not present, the current container is used.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="containerpath" class="tsd-anchor"></a>
@@ -114,9 +119,15 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L129">security/Container.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L132">src/labkey/security/Container.ts:132</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An alternate container path to get permissions from. If not specified,
+							the current container path will be used.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="depth" class="tsd-anchor"></a>
@@ -124,24 +135,39 @@
 					<div class="tsd-signature tsd-kind-icon">depth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L130">security/Container.ts:130</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L134">src/labkey/security/Container.ts:134</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>May be used to control the depth of recursion if includeSubfolders is set to true.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L131">security/Container.ts:131</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L141">src/labkey/security/Container.ts:141</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A reference to a function to call when an error occurs. This
+							function will be passed the following parameters:</p>
+							<ul>
+								<li>errorInfo: an object containing detailed error information (may be null)</li>
+								<li>response: The XMLHttpResponse object</li>
+							</ul>
+						</div>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -159,9 +185,15 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Effective<wbr>Permissions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L132">security/Container.ts:132</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L146">src/labkey/security/Container.ts:146</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If set to false, the effective permissions for this container resource
+							will not be included. (defaults to true)</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="includesubfolders" class="tsd-anchor"></a>
@@ -169,9 +201,15 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Subfolders<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L133">security/Container.ts:133</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L151">src/labkey/security/Container.ts:151</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>If set to true, the entire branch of containers will be returned.
+							If false, only the immediate children of the starting container will be returned (defaults to false).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="moduleproperties" class="tsd-anchor"></a>
@@ -179,9 +217,15 @@
 					<div class="tsd-signature tsd-kind-icon">module<wbr>Properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L134">security/Container.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L156">src/labkey/security/Container.ts:156</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The names (Strings) of modules whose Module Property values should be included for each container.
+							Use &quot;*&quot; to get the value of all Module Properties for all modules.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="scope" class="tsd-anchor"></a>
@@ -189,24 +233,66 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L135">security/Container.ts:135</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L158">src/labkey/security/Container.ts:158</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scoping object for the success and error callback functions (default to this).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/security/Container.ts#L136">security/Container.ts:136</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/security/Container.ts#L189">src/labkey/security/Container.ts:189</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A reference to a function to call with the API results. This
+							function will be passed the following parameters:</p>
+						</div>
+						<ul>
+							<li>containersInfo:
+								If <code>container</code> is an Array, an object with property
+								<code>containers</code> and value Array of &#39;container info&#39; is returned.
+								If <code>container</code> is a String, a object of &#39;container info&#39; is returned.<ul>
+									<li>id: the id of the requested container</li>
+									<li>name: the name of the requested container</li>
+									<li>path: the path of the requested container</li>
+									<li>sortOrder: the relative sort order of the requested container</li>
+									<li>activeModules: an assay of the names (strings) of active modules in the container</li>
+									<li>folderType: the name (string) of the folder type, matched with getFolderTypes()</li>
+									<li>description: an optional description for the container (may be null or missing)</li>
+									<li>title: an optional non-unique title for the container (may be null or missing)</li>
+									<li>isWorkbook: true if this container is a workbook. Workbooks do not appear in the left-hand project tree.</li>
+									<li>isContainerTab: true if this container is a Container Tab. Container Tabs do not appear in the left-hand project tree.</li>
+									<li>userPermissions: (DEPRECATED) the permissions the current user has in the requested container.
+									Use this value with the hasPermission() method to test for specific permissions.</li>
+									<li>effectivePermissions: An array of effective permission unique names the group has.</li>
+									<li>children: if the includeSubfolders parameter was true, this will contain
+									an array of child container objects with the same shape as the parent object.</li>
+									<li>moduleProperties: if requested in the config object, an array of module properties for each included module:<ul>
+											<li>name: the name of the Module Property.</li>
+											<li>moduleName: the name of the module specifying this property.</li>
+											<li>effectiveValue: the value of the property, including a value potentially inherited from parent containers.</li>
+											<li>value: the value of the property as set for this specific container</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>response: The XMLHttpResponse object</li>
+						</ul>
+					</div>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
 									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
@@ -227,7 +313,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_security_container_.html">security/<wbr>Container</a>
+						<a href="../modules/_security_container_.html">&quot;security/<wbr>Container&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -374,7 +460,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

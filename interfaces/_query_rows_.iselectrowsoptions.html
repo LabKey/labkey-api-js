@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_rows_.html">query/Rows</a>
+					<a href="../modules/_query_rows_.html">&quot;query/Rows&quot;</a>
 				</li>
 				<li>
 					<a href="_query_rows_.iselectrowsoptions.html">ISelectRowsOptions</a>
@@ -90,6 +90,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectrowsoptions.html#filterarray" class="tsd-kind-icon">filter<wbr>Array</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectrowsoptions.html#ignorefilter" class="tsd-kind-icon">ignore<wbr>Filter</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectrowsoptions.html#includedetailscolumn" class="tsd-kind-icon">include<wbr>Details<wbr>Column</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectrowsoptions.html#includemetadata" class="tsd-kind-icon">include<wbr>Metadata</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectrowsoptions.html#includestyle" class="tsd-kind-icon">include<wbr>Style</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectrowsoptions.html#includetotalcount" class="tsd-kind-icon">include<wbr>Total<wbr>Count</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectrowsoptions.html#includeupdatecolumn" class="tsd-kind-icon">include<wbr>Update<wbr>Column</a></li>
@@ -121,7 +122,7 @@
 					<div class="tsd-signature tsd-kind-icon">columns<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L377">query/Rows.ts:377</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L393">src/labkey/query/Rows.ts:393</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -141,7 +142,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L378">query/Rows.ts:378</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L394">src/labkey/query/Rows.ts:394</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -151,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L384">query/Rows.ts:384</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L400">src/labkey/query/Rows.ts:400</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -167,28 +168,40 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>Region<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L385">query/Rows.ts:385</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L401">src/labkey/query/Rows.ts:401</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, request<span class="tsd-signature-symbol">: </span><a href="_utils_.extendedxmlhttprequest.html" class="tsd-signature-type">ExtendedXMLHttpRequest</a>, options<span class="tsd-signature-symbol">: </span><a href="_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L386">query/Rows.ts:386</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L402">src/labkey/query/Rows.ts:402</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, request<span class="tsd-signature-symbol">: </span><a href="_utils_.extendedxmlhttprequest.html" class="tsd-signature-type">ExtendedXMLHttpRequest</a>, options<span class="tsd-signature-symbol">: </span><a href="_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5>result: <span class="tsd-signature-type">any</span></h5>
+											</li>
+											<li>
+												<h5>request: <a href="_utils_.extendedxmlhttprequest.html" class="tsd-signature-type">ExtendedXMLHttpRequest</a></h5>
+											</li>
+											<li>
+												<h5>options: <a href="_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a></h5>
+											</li>
+										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 									</li>
 								</ul>
@@ -202,7 +215,7 @@
 					<div class="tsd-signature tsd-kind-icon">filter<wbr>Array<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L391">query/Rows.ts:391</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L407">src/labkey/query/Rows.ts:407</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -217,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">ignore<wbr>Filter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L396">query/Rows.ts:396</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L412">src/labkey/query/Rows.ts:412</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -232,7 +245,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Details<wbr>Column<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L403">query/Rows.ts:403</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L419">src/labkey/query/Rows.ts:419</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -244,12 +257,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="includemetadata" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> include<wbr>Metadata</h3>
+					<div class="tsd-signature tsd-kind-icon">include<wbr>Metadata<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L425">src/labkey/query/Rows.ts:425</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Include metadata for the selected columns.  Defaults to true.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="includestyle" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> include<wbr>Style</h3>
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Style<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L404">query/Rows.ts:404</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L420">src/labkey/query/Rows.ts:420</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -259,7 +287,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Total<wbr>Count<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L410">query/Rows.ts:410</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L431">src/labkey/query/Rows.ts:431</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -275,7 +303,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Update<wbr>Column<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L417">query/Rows.ts:417</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L438">src/labkey/query/Rows.ts:438</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -292,7 +320,7 @@
 					<div class="tsd-signature tsd-kind-icon">max<wbr>Rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L423">query/Rows.ts:423</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L444">src/labkey/query/Rows.ts:444</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -308,7 +336,7 @@
 					<div class="tsd-signature tsd-kind-icon">method<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L424">query/Rows.ts:424</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L445">src/labkey/query/Rows.ts:445</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -318,7 +346,7 @@
 					<div class="tsd-signature tsd-kind-icon">offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L430">query/Rows.ts:430</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L451">src/labkey/query/Rows.ts:451</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -334,7 +362,7 @@
 					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L431">query/Rows.ts:431</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L452">src/labkey/query/Rows.ts:452</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -344,7 +372,7 @@
 					<div class="tsd-signature tsd-kind-icon">query<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L361">query/Rows.ts:361</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L377">src/labkey/query/Rows.ts:377</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -360,7 +388,7 @@
 					<div class="tsd-signature tsd-kind-icon">required<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L432">query/Rows.ts:432</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L453">src/labkey/query/Rows.ts:453</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -370,7 +398,7 @@
 					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L367">query/Rows.ts:367</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L383">src/labkey/query/Rows.ts:383</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -386,7 +414,7 @@
 					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L437">query/Rows.ts:437</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L458">src/labkey/query/Rows.ts:458</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -401,7 +429,7 @@
 					<div class="tsd-signature tsd-kind-icon">selection<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L443">query/Rows.ts:443</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L464">src/labkey/query/Rows.ts:464</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -417,7 +445,7 @@
 					<div class="tsd-signature tsd-kind-icon">show<wbr>Rows<span class="tsd-signature-symbol">:</span> <a href="../modules/_query_rows_.html#showrows" class="tsd-signature-type">ShowRows</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L444">query/Rows.ts:444</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L465">src/labkey/query/Rows.ts:465</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -427,7 +455,7 @@
 					<div class="tsd-signature tsd-kind-icon">sort<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L451">query/Rows.ts:451</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L472">src/labkey/query/Rows.ts:472</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -444,25 +472,25 @@
 					<div class="tsd-signature tsd-kind-icon">strip<wbr>Hidden<wbr>Columns<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L452">query/Rows.ts:452</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L473">src/labkey/query/Rows.ts:473</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><a href="_query_rows_.iselectrowsresults.html" class="tsd-signature-type">ISelectRowsResults</a>, request<span class="tsd-signature-symbol">: </span><a href="_utils_.extendedxmlhttprequest.html" class="tsd-signature-type">ExtendedXMLHttpRequest</a>, options<span class="tsd-signature-symbol">: </span><a href="_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L453">query/Rows.ts:453</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L474">src/labkey/query/Rows.ts:474</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
 						<h4>Type declaration</h4>
 						<ul class="tsd-parameters">
 							<li class="tsd-parameter-siganture">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property tsd-is-not-exported">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><a href="_query_rows_.iselectrowsresults.html" class="tsd-signature-type">ISelectRowsResults</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>result<span class="tsd-signature-symbol">: </span><a href="_query_rows_.iselectrowsresults.html" class="tsd-signature-type">ISelectRowsResults</a>, request<span class="tsd-signature-symbol">: </span><a href="_utils_.extendedxmlhttprequest.html" class="tsd-signature-type">ExtendedXMLHttpRequest</a>, options<span class="tsd-signature-symbol">: </span><a href="_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 								</ul>
 								<ul class="tsd-descriptions">
 									<li class="tsd-description">
@@ -470,6 +498,12 @@
 										<ul class="tsd-parameters">
 											<li>
 												<h5>result: <a href="_query_rows_.iselectrowsresults.html" class="tsd-signature-type">ISelectRowsResults</a></h5>
+											</li>
+											<li>
+												<h5>request: <a href="_utils_.extendedxmlhttprequest.html" class="tsd-signature-type">ExtendedXMLHttpRequest</a></h5>
+											</li>
+											<li>
+												<h5>options: <a href="_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a></h5>
 											</li>
 										</ul>
 										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -485,7 +519,7 @@
 					<div class="tsd-signature tsd-kind-icon">timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L458">query/Rows.ts:458</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L479">src/labkey/query/Rows.ts:479</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -500,7 +534,7 @@
 					<div class="tsd-signature tsd-kind-icon">view<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L463">query/Rows.ts:463</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L484">src/labkey/query/Rows.ts:484</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -518,7 +552,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="../modules/_query_rows_.html">query/<wbr>Rows</a>
+						<a href="../modules/_query_rows_.html">&quot;query/<wbr>Rows&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -570,6 +604,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_query_rows_.iselectrowsoptions.html#includedetailscolumn" class="tsd-kind-icon">include<wbr>Details<wbr>Column</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_rows_.iselectrowsoptions.html#includemetadata" class="tsd-kind-icon">include<wbr>Metadata</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_query_rows_.iselectrowsoptions.html#includestyle" class="tsd-kind-icon">include<wbr>Style</a>
@@ -651,6 +688,9 @@
 						<a href="../modules/_query_rows_.html#selectrows" class="tsd-kind-icon">select<wbr>Rows</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_query_rows_.html#truncatetable" class="tsd-kind-icon">truncate<wbr>Table</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_query_rows_.html#updaterows" class="tsd-kind-icon">update<wbr>Rows</a>
 					</li>
 				</ul>
@@ -719,7 +759,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

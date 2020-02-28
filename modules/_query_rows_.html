@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_query_rows_.html">query/Rows</a>
+					<a href="_query_rows_.html">&quot;query/Rows&quot;</a>
 				</li>
 			</ul>
 			<h1>External module &quot;query/Rows&quot;</h1>
@@ -95,6 +95,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_query_rows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_query_rows_.html#selectdistinctrows" class="tsd-kind-icon">select<wbr>Distinct<wbr>Rows</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_query_rows_.html#selectrows" class="tsd-kind-icon">select<wbr>Rows</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_query_rows_.html#truncatetable" class="tsd-kind-icon">truncate<wbr>Table</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_query_rows_.html#updaterows" class="tsd-kind-icon">update<wbr>Rows</a></li>
 							</ul>
 						</section>
@@ -109,7 +110,7 @@
 					<div class="tsd-signature tsd-kind-icon">Show<wbr>Rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"all"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"none"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"paginated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"selected"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"unselected"</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L354">query/Rows.ts:354</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L370">src/labkey/query/Rows.ts:370</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -120,13 +121,13 @@
 					<a name="deleterows" class="tsd-anchor"></a>
 					<h3>delete<wbr>Rows</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">delete<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L32">query/Rows.ts:32</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L32">src/labkey/query/Rows.ts:32</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -148,7 +149,7 @@
 									<h5>options: <a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
 								for the async request that can be used to cancel the request
 								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -160,19 +161,21 @@
 					<a name="insertrows" class="tsd-anchor"></a>
 					<h3>insert<wbr>Rows</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">insert<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">insert<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L78">query/Rows.ts:78</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L94">src/labkey/query/Rows.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Insert rows.</p>
-									<h4 id="examples">Examples</h4>
+									<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+										<h4>Examples</h4>
+									</a>
 									<p>Example, from the Reagent Request <a href="https://www.labkey.org/Documentation/wiki-page.view?name=reagentRequestForm">Tutorial</a> and <a href="https://www.labkey.org/home/Study/demo/wiki-page.view?name=reagentRequest">Demo</a>:</p>
 								</div>
 								<pre><code><span class="hljs-comment">// This snippet inserts data from the ReagentReqForm into a list.</span>
@@ -213,7 +216,7 @@ LABKEY.Query.insertRows({
 									<h5>options: <a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
 								for the async request that can be used to cancel the request
 								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -225,13 +228,13 @@ LABKEY.Query.insertRows({
 					<a name="saverows" class="tsd-anchor"></a>
 					<h3>save<wbr>Rows</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">save<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.isaverowsoptions.html" class="tsd-signature-type">ISaveRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">save<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.isaverowsoptions.html" class="tsd-signature-type">ISaveRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L197">query/Rows.ts:197</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L213">src/labkey/query/Rows.ts:213</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -253,7 +256,7 @@ LABKEY.Query.insertRows({
 									<h5>options: <a href="../interfaces/_query_rows_.isaverowsoptions.html" class="tsd-signature-type">ISaveRowsOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
 								for the async request that can be used to cancel the request
 								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -265,13 +268,13 @@ LABKEY.Query.insertRows({
 					<a name="selectdistinctrows" class="tsd-anchor"></a>
 					<h3>select<wbr>Distinct<wbr>Rows</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">select<wbr>Distinct<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iselectdistinctoptions.html" class="tsd-signature-type">ISelectDistinctOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">select<wbr>Distinct<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iselectdistinctoptions.html" class="tsd-signature-type">ISelectDistinctOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L336">query/Rows.ts:336</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L352">src/labkey/query/Rows.ts:352</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -285,7 +288,7 @@ LABKEY.Query.insertRows({
 									<h5>options: <a href="../interfaces/_query_rows_.iselectdistinctoptions.html" class="tsd-signature-type">ISelectDistinctOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -293,19 +296,21 @@ LABKEY.Query.insertRows({
 					<a name="selectrows" class="tsd-anchor"></a>
 					<h3>select<wbr>Rows</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">select<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">select<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L601">query/Rows.ts:601</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L625">src/labkey/query/Rows.ts:625</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Select rows.</p>
-									<h4 id="examples">Examples</h4>
+									<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+										<h4>Examples</h4>
+									</a>
 								</div>
 								<pre><code>&lt;pre name=<span class="hljs-string">"code"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"xml"</span>&gt;
 &amp;lt;script type=<span class="hljs-string">"text/javascript"</span>&amp;gt;
@@ -351,7 +356,47 @@ LABKEY.Query.selectRows({
 									<h5>options: <a href="../interfaces/_query_rows_.iselectrowsoptions.html" class="tsd-signature-type">ISelectRowsOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
+							<p>In client-side scripts, this method will return a transaction id
+								for the async request that can be used to cancel the request
+								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
+							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="truncatetable" class="tsd-anchor"></a>
+					<h3>truncate<wbr>Table</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">truncate<wbr>Table<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L50">src/labkey/query/Rows.ts:50</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete all rows in a table.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>see</dt>
+									<dd><p>LABKEY.Query.ModifyRowsResults</p>
+									</dd>
+									<dt>see</dt>
+									<dd><p>LABKEY.Query.ModifyRowsOptions</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
 								for the async request that can be used to cancel the request
 								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -363,13 +408,13 @@ LABKEY.Query.selectRows({
 					<a name="updaterows" class="tsd-anchor"></a>
 					<h3>update<wbr>Rows</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
-						<li class="tsd-signature tsd-kind-icon">update<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/query/Rows.ts#L713">query/Rows.ts:713</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/query/Rows.ts#L737">src/labkey/query/Rows.ts:737</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -383,7 +428,7 @@ LABKEY.Query.selectRows({
 									<h5>options: <a href="../interfaces/_query_rows_.iqueryrequestoptions.html" class="tsd-signature-type">IQueryRequestOptions</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -396,7 +441,7 @@ LABKEY.Query.selectRows({
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_query_rows_.html">query/<wbr>Rows</a>
+						<a href="_query_rows_.html">&quot;query/<wbr>Rows&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -443,6 +488,9 @@ LABKEY.Query.selectRows({
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_query_rows_.html#selectrows" class="tsd-kind-icon">select<wbr>Rows</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_query_rows_.html#truncatetable" class="tsd-kind-icon">truncate<wbr>Table</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_query_rows_.html#updaterows" class="tsd-kind-icon">update<wbr>Rows</a>
@@ -513,7 +561,7 @@ LABKEY.Query.selectRows({
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>

@@ -54,7 +54,7 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_filter_filter_.html">filter/Filter</a>
+					<a href="_filter_filter_.html">&quot;filter/Filter&quot;</a>
 				</li>
 			</ul>
 			<h1>External module &quot;filter/Filter&quot;</h1>
@@ -88,6 +88,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-external-module tsd-is-private"><a href="_filter_filter_.html#appendfilterparams" class="tsd-kind-icon">append<wbr>Filter<wbr>Params</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_filter_.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_filter_.html#getfilterdescription" class="tsd-kind-icon">get<wbr>Filter<wbr>Description</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_filter_.html#getfiltersfromparameters" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Parameters</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_filter_.html#getfiltersfromurl" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Url</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_filter_.html#getqueryparamsfromurl" class="tsd-kind-icon">get<wbr>Query<wbr>Params<wbr>From<wbr>Url</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_filter_filter_.html#getsortfromurl" class="tsd-kind-icon">get<wbr>Sort<wbr>From<wbr>Url</a></li>
@@ -109,7 +110,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L109">filter/Filter.ts:109</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L105">src/labkey/filter/Filter.ts:105</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -143,7 +144,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L148">filter/Filter.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L140">src/labkey/filter/Filter.ts:140</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -177,9 +178,36 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L182">filter/Filter.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L202">src/labkey/filter/Filter.ts:202</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a filter</p>
+								</div>
+								<pre><code><span class="hljs-keyword">function</span> onFailure(errorInfo, <span class="hljs-keyword">options</span>, responseObj){
+ <span class="hljs-keyword">if</span>(errorInfo &amp;&amp; errorInfo.<span class="hljs-keyword">exception</span>)
+     alert("Failure: " + errorInfo.<span class="hljs-keyword">exception</span>);
+ <span class="hljs-keyword">else</span>
+     alert("Failure: " + responseObj.statusText);
+}
+
+<span class="hljs-keyword">function</span> onSuccess(data){
+ alert("Success! " + data.rowCount + " rows returned.");
+}
+
+LABKEY.Query.selectRows({
+ schemaName: <span class="hljs-string">'lists'</span>,
+ queryName: <span class="hljs-string">'People'</span>,
+ success: onSuccess,
+ failure: onFailure,
+ filterArray: [
+     LABKEY.<span class="hljs-keyword">Filter</span>.<span class="hljs-keyword">create</span>(<span class="hljs-string">'FirstName'</span>, <span class="hljs-string">'Johnny'</span>),
+     LABKEY.<span class="hljs-keyword">Filter</span>.<span class="hljs-keyword">create</span>(<span class="hljs-string">'Age'</span>, <span class="hljs-number">15</span>, LABKEY.<span class="hljs-keyword">Filter</span>.<span class="hljs-keyword">Types</span>.LESS_THAN_OR_EQUAL)
+     LABKEY.<span class="hljs-keyword">Filter</span>.<span class="hljs-keyword">create</span>(<span class="hljs-string">'LastName'</span>, [<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>], LABKEY.<span class="hljs-keyword">Filter</span>.<span class="hljs-keyword">Types</span>.DOES_NOT_START_WITH)
+ ]
+});</code></pre>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -206,7 +234,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L193">filter/Filter.ts:193</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L213">src/labkey/filter/Filter.ts:213</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -241,6 +269,37 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="getfiltersfromparameters" class="tsd-anchor"></a>
+					<h3>get<wbr>Filters<wbr>From<wbr>Parameters</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Parameters<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L253">src/labkey/filter/Filter.ts:253</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <span class="tsd-signature-symbol">{}</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter-index-signature">
+											<h5><span class="tsd-signature-symbol">[</span>key: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">any</span></h5>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataRegionName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/_filter_filter_.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
 					<a name="getfiltersfromurl" class="tsd-anchor"></a>
 					<h3>get<wbr>Filters<wbr>From<wbr>Url</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
@@ -250,9 +309,14 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L233">filter/Filter.ts:233</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L290">src/labkey/filter/Filter.ts:290</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create an array of LABKEY.Filter objects from the filter parameters on the URL</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
@@ -276,7 +340,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L269">filter/Filter.ts:269</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L295">src/labkey/filter/Filter.ts:295</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -302,7 +366,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L290">filter/Filter.ts:290</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L316">src/labkey/filter/Filter.ts:316</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -328,7 +392,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/850c046/src/labkey/filter/Filter.ts#L305">filter/Filter.ts:305</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/9be314e/src/labkey/filter/Filter.ts#L331">src/labkey/filter/Filter.ts:331</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -372,7 +436,7 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-external-module">
-						<a href="_filter_filter_.html">filter/<wbr>Filter</a>
+						<a href="_filter_filter_.html">&quot;filter/<wbr>Filter&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -398,6 +462,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_filter_filter_.html#getfilterdescription" class="tsd-kind-icon">get<wbr>Filter<wbr>Description</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_filter_filter_.html#getfiltersfromparameters" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Parameters</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="_filter_filter_.html#getfiltersfromurl" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Url</a>
@@ -477,7 +544,7 @@
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="../assets/js/main.js"></script>
