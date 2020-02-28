@@ -19,16 +19,35 @@ import { encode, getCallbackWrapper, getOnFailure, getOnSuccess, isString } from
 
 export interface IGetFileStatusOptions {
     // required
+    /** names of the file within the subdirectory described by the path property */
     files: Array<string>
+    /** relative path from the folder's pipeline root */
     path: string
+    /** name of the analysis protocol */
     protocolName: string
+    /** Identifier for the pipeline. */
     taskId: string
 
     // optional
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error occurs. This function
+     * will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: () => any
     includeWorkbooks?: boolean
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /**
+     * The function to call with the resulting information.
+     * This function will be passed two arguments, a list of file status objects (described below) and the
+     * name of the action that would be performed on the files if the user initiated processing
+     * ('Retry' or 'Analyze', for example).
+     * - name: name of the file, a String.
+     * - status: status of the file, a String
+     */
     success?: () => any
 }
 
@@ -59,9 +78,24 @@ export function getFileStatus(config: IGetFileStatusOptions): void {
 }
 
 export interface IGetPipelineContainerOptions {
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error occurs. This function
+     * will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: Function
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /**
+     * The function to call with the resulting information.
+     * This function will be passed a single parameter of type object, which will have the following
+     * properties:
+     * - containerPath: the container path in which the pipeline is defined. If no pipeline has
+     * been defined in this container hierarchy, the value of this property will be null.
+     * - webDavURL: the WebDavURL for the pipeline root.
+     */
     success?: Function
 }
 
@@ -82,17 +116,39 @@ export function getPipelineContainer(config: IGetPipelineContainerOptions): XMLH
 
 export interface IGetProtocolsOptions {
     // required
+    /** relative path from the folder's pipeline root */
     path: string
+    /** Identifier for the pipeline. */
     taskId: string
 
     // optional
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error occurs. This function
+     * will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: Function
+    /** If true, protocols from workbooks under the selected container will also be included */
     includeWorkbooks?: boolean
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /**
+     * The function to call with the resulting information.
+     * This function will be passed a list of protocol objects, which will have the following properties:
+     * - name: name of the saved protocol.
+     * - description: description of the saved protocol, if provided.
+     * - xmlParameters: bioml representation of the parameters defined by this protocol.
+     * - jsonParameters: JSON representation of the parameters defined by this protocol.
+     * - containerPath: The container path where this protocol was saved
+     */
     success?: Function
 }
 
+/**
+ * Gets the protocols that have been saved for a particular pipeline.
+ */
 export function getProtocols(config: IGetProtocolsOptions): void {
     let params = {
         taskId: config.taskId,
@@ -116,42 +172,91 @@ export function getProtocols(config: IGetProtocolsOptions): void {
 
 export interface IStartAnalysisOptions {
     // required
+    /** names of the file within the subdirectory described by the path property */
     files: Array<string>
+    /** data IDs of files be to used as inputs for this pipeline.  these correspond to the rowIds from the table ext.data.  they do not need to be located within the file path provided.  the user does need read access to the container associated with each file. */
     fileIds: Array<number>
+    /** relative path from the folder's pipeline root */
     path: string
+    /** name of the analysis protocol */
     protocolName: string
+    /** taskId Identifier for the pipeline. */
     taskId: string
 
     // optional
     allowNonExistentFiles?: boolean
+    /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /**
+     * A function to call if an error occurs. This function
+     * will receive one parameter of type object with the following properties:
+     * - exception: The exception message.
+     */
     failure?: () => any
+    /**
+     * JSON representation of the protocol description. Not allowed
+     * if a protocol with the same name has already been saved. If no protocol with the same name exists, either
+     * this property or xmlParameters must be specified.
+     */
     jsonParameters?: any
+    /** description displayed in the pipeline */
     pipelineDescription?: string
+    /** description of the analysis protocol */
     protocolDescription?: string
+    /**
+     * if no protocol with this name already exists, whether or not to save
+     * this protocol definition for future use. Defaults to true.
+     */
     saveProtocol?: string
+    /** The scope to use when calling the callbacks (defaults to this). */
     scope?: any
+    /** A function to call if this operation is successful. */
     success?: () => any
+    /**
+     * XML representation of the protocol description. Not allowed
+     * if a protocol with the same name has already been saved. If no protocol with the same name exists, either
+     * this property or jsonParameters must be specified.
+     */
     xmlParameters?: string
 }
 
 export interface IStartAnalysisParams {
     allowNonExistentFiles?: boolean
+    /**
+     * JSON representation of the protocol description. Not allowed
+     * if a protocol with the same name has already been saved. If no protocol with the same name exists, either
+     * this property or xmlParameters must be specified.
+     */
     configureJson?: any
+    /**
+     * XML representation of the protocol description. Not allowed
+     * if a protocol with the same name has already been saved. If no protocol with the same name exists, either
+     * this property or jsonParameters must be specified.
+     */
     configureXml?: string
+    /** names of the file within the subdirectory described by the path property */
     file?: Array<string>
+    /** data IDs of files be to used as inputs for this pipeline.  these correspond to the rowIds from the table ext.data.  they do not need to be located within the file path provided.  the user does need read access to the container associated with each file. */
     fileIds?: Array<number>
+    /** relative path from the folder's pipeline root */
     path?: string
+    /** description displayed in the pipeline */
     pipelineDescription?: string
+    /** description of the analysis protocol */
     protocolDescription?: string
+    /** name of the analysis protocol */
     protocolName?: string
+    /**
+     * if no protocol with this name already exists, whether or not to save
+     * this protocol definition for future use. Defaults to true.
+     */
     saveProtocol?: string | boolean
+    /** Identifier for the pipeline. */
     taskId?: string
 }
 
 /**
  * Starts analysis of a set of files using a particular protocol definition with a particular pipeline.
- * @param config
  */
 export function startAnalysis(config: IStartAnalysisOptions): void {
     if (!config.protocolName) {

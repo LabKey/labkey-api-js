@@ -23,41 +23,30 @@ import { applyTranslated, displayAjaxErrorResponse, getCallbackWrapper, getOnFai
  * #### Examples
  *
  * ```
- * <pre name="code" class="xml">
- * &lt;script type="text/javascript"&gt;
- * function successHandler(assayArray)
- * {
- *     var html = '';
- *     for (var defIndex = 0; defIndex < assayArray.length; defIndex ++)
- *     {
- *         var definition = assayArray[defIndex ];
- *         html += '&lt;b&gt;' + definition.type + '&lt;/b&gt;: '
- *             + definition.name + '&lt;br&gt;';
- *         for (var domain in definition.domains)
- *         {
- *             html += '&nbsp;&nbsp;&nbsp;' + domain + '&lt;br&gt;';
- *             var properties = definition.domains[domain];
- *             for (var propertyIndex = 0; propertyIndex
- *                 < properties.length; propertyIndex++)
- *             {
- *                 var property = properties[propertyIndex];
- *                 html += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + property.name +
- *                     ' - ' + property.typeName + '&lt;br&gt;';
- *             }
- *         }
- *     }
- *     document.getElementById('testDiv').innerHTML = html;
+ * function successHandler(assayArray){
+ *  var html = '';
+ *  for (var defIndex = 0; defIndex < assayArray.length; defIndex ++){
+ *      var definition = assayArray[defIndex ];
+ *      html += '<b>' + definition.type + '</b>: '
+ *          + definition.name + '<br>';
+ *      for (var domain in definition.domains){
+ *          html += '   ' + domain + '<br>';
+ *          var properties = definition.domains[domain];
+ *          for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
+ *              var property = properties[propertyIndex];
+ *              html += '      ' + property.name +
+ *              	' - ' + property.typeName + '<br>';
+ *          }
+ *      }
+ *  }
+ *  document.getElementById('testDiv').innerHTML = html;
  * }
  *
- * function errorHandler(error)
- * {
- *     alert('An error occurred retrieving data.');
+ * function errorHandler(error){
+ *  alert('An error occurred retrieving data.');
  * }
  *
  * LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
- * &lt;/script&gt;
- * &lt;div id='testDiv'&gt;Loading...&lt;/div&gt;
- * </pre>
  * ```
  * @param options
  * @see [[AssayDesign]]
@@ -394,35 +383,30 @@ export interface IGetStudyNabGraphURLOptions {
  * #### Examples
  *
  * ```
- * <pre name="code" class="xml">
- * &lt;script type="text/javascript"&gt;
- * function showGraph(data)
- * {
- *     var el = document.getElementById("graphDiv");
- *     if (data.objectIds && data.objectIds.length &gt; 0)
- *         el.innerHTML = '&lt;img src=\"' + data.url + '\"&gt;';
- *     else
- *         el.innerHTML = 'No graph available.  Insufficient permissions, ' +
- *                        'or no matching results were found.';
- * }
+ * <script type="text/javascript">
+ *  function showGraph(data){
+ *      var el = document.getElementById("graphDiv");
+ *      if (data.objectIds && data.objectIds.length > 0)
+ *          el.innerHTML = '<img src=\"' + data.url + '\">';
+ *      else
+ *          el.innerHTML = 'No graph available.  Insufficient permissions, ' + 'or no matching results were found.';
+ *  }
  *
- * function initiateGraph(ids)
- * {
- *     LABKEY.Assay.getStudyNabGraphURL({
- *         objectIds: ids,
- *         success: showGraph,
- *         captionColumn: 'VirusName',
- *         chartTitle: 'My NAb Chart',
- *         height: 500,
- *         width: 700,
- *         fitType: 'FOUR_PARAMETER'
- *     });
- * }
+ *  function initiateGraph(ids){
+ *      LABKEY.Assay.getStudyNabGraphURL({
+ *          objectIds: ids,
+ *          success: showGraph,
+ *          captionColumn: 'VirusName',
+ *          chartTitle: 'My NAb Chart',
+ *          height: 500,
+ *          width: 700,
+ *          fitType: 'FOUR_PARAMETER'
+ *      });
+ *  }
  *
- * Ext.onReady(initiateGraph([185, 165]));
- * &lt;/script&gt;
- * &lt;div id="graphDiv"&gt;
- * </pre>
+ *  Ext.onReady(initiateGraph([185, 165]));
+ * </script>
+ * <div id="graphDiv">
  * ```
  * @param {IGetStudyNabGraphURLOptions} options
  */

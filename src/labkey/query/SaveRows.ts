@@ -79,11 +79,11 @@ export interface ISaveRowsOptions {
      * Function called when the "saveRows" function executes successfully.
      * Called with arguments:
      * * an object with the following properties:
-     *   * <strong>result</strong>: an array of parsed response data ({@link LABKEY.Query.ModifyRowsResults}) (one for each command in the request)
+     *   * <strong>result</strong>: an array of parsed response data [[ModifyRowsResults]] (one for each command in the request)
      *   * <strong>errorCount</strong>: an integer, with the total number of errors encountered during the operation
      *   * <strong>committed</strong>: a boolean, indicating if the changes were actually committed to the database
      * * the XMLHttpRequest object
-     * * (optionally) the "options" object ({@link LABKEY.Query.ModifyRowsOptions})
+     * * (optionally) the "options" object [[ModifyRowsOptions]]
      */
     success?: Function
 
@@ -106,9 +106,128 @@ export interface ISaveRowsOptions {
 }
 
 /**
+ * Interface to describe the first object passed to the successCallback function
+ * by [[updateRows]], [[insertRows]] or [[deleteRows]]. This object's properties are useful for
+ * matching requests to responses, as HTTP requests are typically
+ * processed asynchronously.
+ * Additional Documentation:
+ * - [How to find schemaName, queryName and viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames)
+ * - [LabKey Javascript tutorial](https://www.labkey.org/Documentation/wiki-page.view?name=javascriptTutorial)
+ * - [Demo](https://www.labkey.org/home/Study/demo/wiki-page.view?name=reagentRequest)
+ *
+ * ```
+ * {"schemaName": "lists",
+ *  "queryName": "API Test List",
+ *  "rowsAffected": 1,
+ *  "command": "insert",
+ *  "errors": [],
+ *  "rows": [{ Key: 3, StringField: 'NewValue'}]
+ *  }
+ * ```
+ */
+export interface ModifyRowsResults {
+
+    field? : string
+    /** Contains the same schemaName the client passed to the calling function. */
+    schemaName : string
+    /** Contains the same queryName the client passed to the calling function. */
+    queryName : string
+    /** Will be "update", "insert", or "delete" depending on the API called. */
+    command : string
+    /**
+     * Objects will contain the properties 'id' (the field to which the error is related, if any),
+     * and 'msg' (the error message itself).
+     */
+    errors : Array<any>
+    /**
+     * Indicates the number of rows affected by the API action.
+     * This will typically be the same number of rows passed in to the calling function.
+     */
+    rowsAffected : number
+    /**
+     * Array of rows with field values for the rows updated, inserted,
+     * or deleted, in the same order as the rows supplied in the request. For insert, the
+     * new key value for an auto-increment key will be in the returned row's field values.
+     * For insert or update, the other field values may also be different than those supplied
+     * as a result of database default expressions, triggers, or LabKey's automatic tracking
+     * feature, which automatically adjusts columns of certain names (e.g., Created, CreatedBy,
+     * Modified, ModifiedBy, etc.).
+     */
+    rows : Array<any>
+}
+
+/**
+ * Interface to describe the third object passed to the successCallback function
+ * by [[updateRows]], [[insertRows]] or [[deleteRows]]. This object's properties are useful for
+ * matching requests to responses, as HTTP requests are typically
+ * processed asynchronously.
+ * Additional Documentation:
+ * - [How to find schemaName, queryName and viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames)
+ */
+export interface ModifyRowsOptions {
+    field : string
+    /** An object containing one property for each HTTP header sent to the server. */
+    headers : Object
+    /** The HTTP method used for the request (typically 'GET' or 'POST'). */
+    method : string
+    /** The URL that was requested. */
+    url : string
+    /**
+     * The data object sent to the server. This will contain the following properties:
+     * - schemaName: String. The schema name being modified.  This is the same schemaName
+     * the client passed to the calling function.
+     * - queryName: String. The query name being modified. This is the same queryName
+     * the client passed to the calling function.
+     * - rows: Object[]. Array of row objects that map the names of the row fields to their values.
+     * The fields required for inclusion for each row depend on the which LABKEY.Query method you are
+     * using (updateRows, insertRows or deleteRows).
+     *
+     * An example of a ModifyRowsOptions object for the 'updateRows' successCallback:
+     * ```
+     * {"schemaName": "lists",
+     *  "queryName": "API Test List",
+     *  "rows": [{
+     *      "Key": 1,
+     *      "FirstName": "Z",
+     *      "Age": "100"
+     *  }]
+     * ```
+     *
+     *  For the 'insertRows' method, the fields of the rows should look the same as
+     *  they do for the 'updateRows' method, except that primary key values for new rows
+     *  need not be supplied if the primary key columns are auto-increment.
+     *  An example of a ModifyRowsOptions object for the 'insertRows' successCallback:
+     *
+     *  ```
+     * {"schemaName": "lists",
+     *  "queryName": "API Test List",
+     *  "rows": [{
+     *      "FirstName": "C",
+     *      "Age": "30"
+     *  }]
+     *  ```
+     *
+     * For the 'deleteRows' method, the fields of the rows should look the
+     * same as they do for the 'updateRows' method, except that the 'deleteRows'
+     * method needs to supply only the primary key values for the rows. All
+     * other row data will be ignored.
+     *  An example of a ModifyRowsOptions object for the 'deleteRows' successCallback:
+     *
+     *  ```
+     * {"schemaName": "lists",
+     *  "queryName": "API Test List",
+     *  "rows": [{
+     *      "Key": 3
+     *  }]
+     *  ```
+     */
+    jsonData : Object
+}
+
+/**
  * Save inserts, updates, and/or deletes to potentially multiple tables with a single request.
- * @see LABKEY.Query.ModifyRowsResults
- * @see LABKEY.Query.ModifyRowsOptions
+ * @see [[ModifyRowsResults]]
+ * @see [[ModifyRowsOptions]]
  * @param {ISaveRowsOptions} options
  * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
