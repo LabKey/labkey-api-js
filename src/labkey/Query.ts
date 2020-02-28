@@ -25,6 +25,9 @@ import { deleteRows, insertRows, saveRows, selectDistinctRows, selectRows, trunc
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 import { Filter } from './filter/Filter'
+import {request} from "./Ajax";
+import {buildURL} from "./ActionURL";
+import {getCallbackWrapper} from "./Utils";
 
 const experimental = {
     SQL
@@ -57,4 +60,36 @@ export {
     URL_COLUMN_PREFIX,
     validateQuery,
     Visualization
+}
+
+export interface GetQueryMetadataOptions {
+    containerPath?: string
+    queryName?: string
+    schemaName?: string
+    failure?: (error?: any) => any
+    success?: (data?: any) => any
+}
+
+/**
+ * Gets QueryMetadata in the shape of a Domain design.
+ */
+export function getQueryMetadata(config: GetQueryMetadataOptions): void {
+    let options: GetQueryMetadataOptions = arguments.length > 1 ? {
+        success: arguments[0],
+        failure: arguments[1],
+        schemaName: arguments[2],
+        queryName: arguments[3],
+        containerPath: arguments[4],
+    } : config;
+
+    request({
+        url: buildURL('query', 'getQueryEditorMetadata.api', options.containerPath),
+        method: 'GET',
+        success: getCallbackWrapper(options.success),
+        failure: getCallbackWrapper(options.failure, this, true),
+        params: {
+            schemaName: options.schemaName,
+            queryName: options.queryName
+        }
+    });
 }

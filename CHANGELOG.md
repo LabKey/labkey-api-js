@@ -1,4 +1,7 @@
 
+## 0.0.38-fb-queryMetadataEditor-0.0 - 2020-02-27
+- Item 6083: QueryMetadata Editor migration
+
 ## 0.0.37 - 2020-02-27
 - Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save (#35) 
 

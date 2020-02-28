@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "0.0.37",
+  "version": "0.0.38-fb-queryMetadataEditor-0.2",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
