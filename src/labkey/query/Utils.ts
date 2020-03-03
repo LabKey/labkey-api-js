@@ -37,13 +37,13 @@ export const containerFilter = {
 };
 
 export enum ContainerFilter {
-    current = 'Current',
-    currentAndFirstChildren = 'CurrentAndFirstChildren',
-    currentAndSubfolders = 'CurrentAndSubfolders',
-    currentPlusProject = 'CurrentPlusProject',
-    currentAndParents = 'CurrentAndParents',
-    currentPlusProjectAndShared = 'CurrentPlusProjectAndShared',
-    allFolders = 'AllFolders'
+    Current = 'Current',
+    CurrentAndFirstChildren = 'CurrentAndFirstChildren',
+    CurrentAndSubfolders = 'CurrentAndSubfolders',
+    CurrentPlusProject = 'CurrentPlusProject',
+    CurrentAndParents = 'CurrentAndParents',
+    CurrentPlusProjectAndShared = 'CurrentPlusProjectAndShared',
+    AllFolders = 'AllFolders'
 }
 
 export const URL_COLUMN_PREFIX = '_labkeyurl_';
