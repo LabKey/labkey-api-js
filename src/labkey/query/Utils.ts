@@ -25,26 +25,15 @@ import { Response } from './Response'
 //
 // Additionally, cannot use 'type' here as we want to actually return a resolvable object
 // e.g. LABKEY.Query.containerFilter.current; // "current"
-// @deprecated please switch to enum version: ContainerFilter
 export const containerFilter = {
-    current: 'current',
-    currentAndFirstChildren: 'currentAndFirstChildren',
-    currentAndSubfolders: 'currentAndSubfolders',
-    currentPlusProject: 'currentPlusProject',
-    currentAndParents: 'currentAndParents',
-    currentPlusProjectAndShared: 'currentPlusProjectAndShared',
-    allFolders: 'allFolders'
+    current: 'Current',
+    currentAndFirstChildren: 'CurrentAndFirstChildren',
+    currentAndSubfolders: 'CurrentAndSubfolders',
+    currentPlusProject: 'CurrentPlusProject',
+    currentAndParents: 'CurrentAndParents',
+    currentPlusProjectAndShared: 'CurrentPlusProjectAndShared',
+    allFolders: 'AllFolders'
 };
-
-export enum ContainerFilter {
-    Current = 'Current',
-    CurrentAndFirstChildren = 'CurrentAndFirstChildren',
-    CurrentAndSubfolders = 'CurrentAndSubfolders',
-    CurrentPlusProject = 'CurrentPlusProject',
-    CurrentAndParents = 'CurrentAndParents',
-    CurrentPlusProjectAndShared = 'CurrentPlusProjectAndShared',
-    AllFolders = 'AllFolders'
-}
 
 export const URL_COLUMN_PREFIX = '_labkeyurl_';
 
