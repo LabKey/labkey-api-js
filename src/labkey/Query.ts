@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import {
-    buildQueryParams, containerFilter, deleteQueryView, getQueries, getQueryViews,
+    buildQueryParams, containerFilter, ContainerFilter, deleteQueryView, getQueries, getQueryViews,
     getSchemas, getServerDate, saveQueryViews, sqlDateLiteral, sqlDateTimeLiteral,
     sqlStringLiteral, URL_COLUMN_PREFIX, validateQuery
 } from './query/Utils'
@@ -32,6 +32,7 @@ const experimental = {
 
 export {
     containerFilter,
+    ContainerFilter,
     buildQueryParams,
     deleteQueryView,
     deleteRows,
