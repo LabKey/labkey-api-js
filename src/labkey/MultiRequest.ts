@@ -15,6 +15,74 @@
  */
 import { getOnFailure, getOnSuccess, isArray } from './Utils'
 
+/**
+ * Make multiple ajax requests and invokes a callback when all are complete.
+ * Requests are added as [function, config] array pairs where the config object
+ * is passed as the argument to the request function.  The request function's config
+ * object argument must accept a success callback named 'success' and a failure
+ * callback named 'failure'.
+ * @param config Either an array of [function, config] array pairs
+ * to be added or a config object with the shape:
+ * - listeners: a config object containing event handlers.
+ * - requests: an array of [function, config] array pairs to be added.
+ *
+ * ```
+ * var config = {
+ *  schemaName : "assay",
+ *  queryName : protocolName + " Data",
+ *  containerPath : "/Test",
+ *  success: function (data, options, response) {
+ *      console.log("selectRows success: " + data.rowCount);
+ *  },
+ *  failure: function (response, options) {
+ *      console.log("selectRows failure");
+ *  },
+ *  scope: scope // scope to execute success and failure callbacks in.
+ * };
+ *
+ * // add the requests and config arguments one by one
+ * var multi = new LABKEY.MultiRequest();
+ * var requestScope = ... // scope to execute the request function in.
+ * multi.add(LABKEY.Query.selectRows, config, requestScope);
+ * multi.add(LABKEY.Query.selectRows, config, requestScope);
+ * multi.add(LABKEY.Query.selectRows, config, requestScope);
+ * multi.send(
+ *  function () { console.log("send complete"); },
+ *  sendCallbackScope // scope to execute 'send complete' callback in.
+ * );
+ *
+ * // additional requests won't be sent while other requests are in progress
+ * multi.add(LABKEY.Query.selectRows, config);
+ * multi.send(function () { console.log("send complete"); }, sendCallbackScope);
+ *
+ * // constructor can take an array of requests [function, config] pairs
+ * multi = new LABKEY.MultiRequest([
+ *  [ LABKEY.Query.selectRows, config ],
+ *  [ LABKEY.Query.selectRows, config ],
+ *  [ LABKEY.Query.selectRows, config ]
+ * ]);
+ * multi.send();
+ *
+ * // constructor can take a config object with listeners and requests.
+ * // if there is a 'done' listener, the requests will be sent immediately.
+ * multi = new LABKEY.MultiRequest({
+ *  listeners : { 'done': function () { console.log("send complete"); }, scope: sendCallbackScope },
+ *  requests : [ [ LABKEY.Query.selectRows, config ],
+ *      [ LABKEY.Query.selectRows, config ],
+ *      [ LABKEY.Query.selectRows, config ] ]
+ *  });
+ *
+ *  // Alternate syntax for adding the 'done' event listener.
+ *  multi = new LABKEY.MultiRequest({
+ *      listeners : {
+ *          'done': {
+ *              fn: function () { console.log("send complete"); }
+ *              scope: sendCallbackScope
+ *          }
+ *      }
+ *  });
+ * ```
+*/
 export const MultiRequest = function(config: any) {
     config = config || {};
 
@@ -93,9 +161,26 @@ export const MultiRequest = function(config: any) {
 
     /**
      * Adds a request to the queue.
-     * @param fn
-     * @param config
-     * @param scope
+     * @param fn {Function} A request function which takes single config object.
+     * @param config {Object} The config object that will be passed to the request <code>fn</code>
+     * and must contain success and failure callbacks.
+     * @param [scope] {Object} The scope in which to execute the request <code>fn</code>.
+     * Note that the config success and failure callbacks will execute in the <code>config.scope</code> and not the <code>scope</code> argument.
+     * @returns {LABKEY.MultiRequest} this object so add calls can be chained.
+     *
+     * ```
+     * new MultiRequest().add(Ext.Ajax.request, {
+     *  url: LABKEY.ActionURL.buildURL("controller", "action1", "/container/path"),
+     *  success: function () { console.log("success 1!"); },
+     *  failure: function () { console.log("failure 1!"); },
+     *  scope: this // The scope of the success and failure callbacks.
+     * }).add({Ext.Ajax.request, {
+     *  url: LABKEY.ActionURL.buildURL("controller", "action2", "/container/path"),
+     *  success: function () { console.log("success 2!"); },
+     *  failure: function () { console.log("failure 2!"); },
+     *  scope: this // The scope of the success and failure callbacks.
+     * }).send(function () { console.log("all done!") });
+     * ```
      */
     this.add = function(fn: any, config: any, scope: any) {
         config = config || {};

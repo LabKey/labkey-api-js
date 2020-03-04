@@ -17,7 +17,9 @@ import { create as createDomain, CreateDomainOptions, DomainDesign } from './Dom
 
 export interface ICreateOptions {
     domainDesign: DomainDesign
+    /** The name of the key column.*/
     keyName: string
+    /** The type of the key column.  Either "int" or "string". */
     keyType?: string
     kind?: string
     options?: any
@@ -27,7 +29,22 @@ export interface ICreateOptions {
  * Create a new list.
  * A primary key column must be specified with the properties 'keyName' and 'keyType'. If the key is not
  * provided in the domain design's array of fields, it will be automatically added to the domain.
- * @param config
+ *
+ * ```
+ *  LABKEY.List.create({
+ *      name: "mylist",
+ *      keyType: "int",
+ *      keyName: "one",
+ *      description: "my first list",
+ *      fields: [{
+ *          name: "one", rangeURI: "int"
+ *          },{
+ *          name: "two", rangeURI: "multiLine", required: true
+ *          },{
+ *          name: "three", rangeURI: "Attachment"
+ *      }]
+ *  });
+ * ```
  */
 export function create(config: ICreateOptions) {
     

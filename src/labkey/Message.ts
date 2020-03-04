@@ -39,6 +39,12 @@ export interface IPrincipalRecipient {
     type: RecipientType
 }
 
+/**
+ * A utility function to create a recipient object (based on a user ID or group ID) used in LABKEY.Message.sendMessage.
+ * Note: only server side validation or transformation scripts can specify a user or group ID.
+ * @param [[RecipientType]] type Determines where the recipient email address will appear in the message.
+ * @param principalId The user or group id of the recipient.
+ */
 export function createPrincipalIdRecipient(type: RecipientType, principalId: number): IPrincipalRecipient {
     return {
         principalId,
@@ -97,10 +103,28 @@ export const recipientType: IRecipientTypeCollection = {
 
 export interface ISendMessageOptions {
     failure?: () => any
+    /**
+     * An array of content objects which have the following properties:
+     * - type: the message content type, must be one of the values from: [[msgType]].
+     * - content: the email message body for this content type.
+     *
+     * The utility function [[createMsgContent]] can be used to help create these objects.
+     */
     msgContent?: Array<string>
+    /** The email address that appears on the email from line. */
     msgFrom?: string
+    /**
+     * An array of recipient objects which have the following properties:
+     * - type: the recipient type, must be one of the values from: [[recipientType]].
+     * - address: the email address of the recipient.
+     *
+     * The utility function [[createRecipient]] can be used to help create these objects.
+     * Recipients whose accounts have been deactivated or have never been logged into will be silently dropped from
+     * the message.
+     */
     msgRecipients?: Array<string>
     msgSubject?: string
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
     success?: () => any
 }
@@ -109,6 +133,33 @@ export interface ISendMessageOptions {
  * Sends an email notification message through the LabKey Server. Message recipients and the sender
  * must exist as valid accounts, or the current user account must have permission to send to addresses
  * not associated with a LabKey Server account at the site-level, or an error will be thrown.
+ *
+ * ```
+ * function errorHandler(errorInfo, responseObj){
+ *  LABKEY.Utils.displayAjaxErrorResponse(responseObj, errorInfo);
+ * }
+ *
+ * function onSuccess(result){
+ *  alert('Message sent successfully.');
+ * }
+ *
+ * LABKEY.Message.sendMessage({
+ *  msgFrom: 'admin@test.com',
+ *  msgSubject: 'Testing email API...',
+ *  msgRecipients: [
+ *      LABKEY.Message.createRecipient(LABKEY.Message.recipientType.to, 'user1@test.com'),
+ *      LABKEY.Message.createRecipient(LABKEY.Message.recipientType.cc, 'user2@test.com'),
+ *      LABKEY.Message.createRecipient(LABKEY.Message.recipientType.cc, 'user3@test.com'),
+ *      LABKEY.Message.createRecipient(LABKEY.Message.recipientType.bcc, 'user4@test.com')
+ *  ],
+ *  msgContent: [
+ *      LABKEY.Message.createMsgContent(LABKEY.Message.msgType.html, '<h2>This is a test message</h2>'),
+ *      LABKEY.Message.createMsgContent(LABKEY.Message.msgType.plain, 'This is a test message')
+ *  ],
+ *  success: onSuccess,
+ *  failure: errorHandler,
+ * });
+ * ```
  */
 export function sendMessage(config: ISendMessageOptions): XMLHttpRequest {
 

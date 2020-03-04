@@ -20,65 +20,59 @@ import { getOnSuccess, getCallbackWrapper, getOnFailure } from '../Utils'
 import { roles } from './constants'
 
 export interface GetGroupPermissionsOptions {
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     * @param error
+     */
     failure?: (error?: any) => any
+    /** Set to true to recurse down the subfolders (defaults to false) */
     includeSubfolders?: boolean
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameters:
+     * - groupPermsInfo: an object containing properties about the container and group permissions.
+     * This object will have the following shape:
+     *     - container
+     *         - id: the container id
+     *         - name: the container name
+     *         - path: the container path
+     *         - isInheritingPerms: true if the container is inheriting permissions from its parent
+     *         - groups: an array of group objects, each of which will have the following properties:
+     *             - id: the group id
+     *             - name: the group's name
+     *             - type: the group's type ('g' for group, 'r' for role, 'm' for module-specific)
+     *             - roleLabel: (DEPRECATED) a description of the group's permission role. This will correspond
+     *             to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
+     *             - role: (DEPRECATED) the group's role value (e.g., 'ADMIN'). Use this property for programmatic checks.
+     *             - permissions: (DEPRECATED) The group's effective permissions as a bit mask.
+     *             Use this with the hasPermission() method to test for specific permissions.
+     *             - roles: An array of role unique names that this group is playing in the container. This replaces the
+     *             existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
+     *             and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
+     *             about the roles, including which permissions are granted by each role.
+     *             -  effectivePermissions: An array of effective permission unique names the group has.
+     *         - children: if includeSubfolders was true, this will contain an array of objects, each of
+     *              which will have the same shape as the parent container object.
+     * - response: The XMLHttpResponse object
+     * @param data
+     */
     success?: (data?: any) => any
 }
 
 /**
  * Get the effective permissions for all groups within the container, optionally
  * recursing down the container hierarchy.
- * @param config A configuration object with the following properties:
- * @param {function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>groupPermsInfo:</b> an object containing properties about the container and group permissions.
- * This object will have the following shape:
- *  <ul>
- *  <li>container
- *      <ul>
- *          <li>id: the container id</li>
- *          <li>name: the container name</li>
- *          <li>path: the container path</li>
- *          <li>isInheritingPerms: true if the container is inheriting permissions from its parent</li>
- *          <li>groups: an array of group objects, each of which will have the following properties:
- *              <ul>
- *                  <li>id: the group id</li>
- *                  <li>name: the group's name</li>
- *                  <li>type: the group's type ('g' for group, 'r' for role, 'm' for module-specific)</li>
- *                  <li>roleLabel: (DEPRECATED) a description of the group's permission role. This will correspond
- *                      to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.</li>
- *                  <li>role: (DEPRECATED) the group's role value (e.g., 'ADMIN'). Use this property for programmatic checks.</li>
- *                  <li>permissions: (DEPRECATED) The group's effective permissions as a bit mask.
- *                          Use this with the hasPermission() method to test for specific permissions.</li>
- *                  <li>roles: An array of role unique names that this group is playing in the container. This replaces the
- *                              existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
- *                              and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
- *                              about the roles, including which permissions are granted by each role.
- *                  </li>
- *                  <li>effectivePermissions: An array of effective permission unique names the group has.</li>
- *              </ul>
- *          </li>
- *          <li>children: if includeSubfolders was true, this will contain an array of objects, each of
- *              which will have the same shape as the parent container object.</li>
- *      </ul>
- *  </li>
- * </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {boolean} [config.includeSubfolders] Set to true to recurse down the subfolders (defaults to false)
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -119,8 +113,30 @@ export function getRole(perms: number): string {
 
 export interface GetRolesOptions {
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: (error?: any) => any
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameters:
+     * - roles: An array of role objects, each of which has the following properties:
+     *     - uniqueName: The unique name of the resource (String, typically a fully-qualified class name).
+     *     - name: The name of the role suitable for showing to a user.
+     *     - description: The description of the role.
+     *     - sourceModule: The name of the module in which the role is defined.
+     *     - permissions: An array of permissions the role grants. Each permission has the following properties:
+     *         - uniqueName: The unique name of the permission (String, typically a fully-qualified class name).
+     *         - name: The name of the permission.
+     *         - description: A description of the permission.
+     *         - sourceModule: The module in which the permission is defined.
+     * - response: The XMLHttpResponse object
+     */
     success?: (data?: any) => any
 }
 
@@ -131,35 +147,7 @@ export interface GetRolesResponse {
 
 /**
  * Returns the complete set of roles defined on the server, along with the permissions each role grants.
- * @param config A configuration object with the following properties:
- * @param {Function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>roles:</b> An array of role objects, each of which has the following properties:
- *  <ul>
- *      <li>uniqueName: The unique name of the resource (String, typically a fully-qualified class name).</li>
- *      <li>name: The name of the role suitable for showing to a user.</li>
- *      <li>description: The description of the role.</li>
- *      <li>sourceModule: The name of the module in which the role is defined.</li>
- *      <li>permissions: An array of permissions the role grants. Each permission has the following properties:
- *          <ul>
- *              <li>uniqueName: The unique name of the permission (String, typically a fully-qualified class name).</li>
- *              <li>name: The name of the permission.</li>
- *              <li>description: A description of the permission.</li>
- *              <li>sourceModule: The module in which the permission is defined.</li>
- *          </ul>
- *      </li>
- *  </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -198,50 +186,49 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
 }
 
 export interface GetSchemaPermissionsOptions {
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: Function
+    /** Name of the schema to retrieve information on. */
     schemaName: string
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameters:
+     * - data: an object with a property named "schemas" which contains a queries object.
+     * The queries object property with the name of each table/queries. So
+     * schemas.study.queries.Demographics would yield the following results
+     *     - id: The unique id of the resource (String, typically a GUID).
+     *     - name: The name of the resource suitable for showing to a user.
+     *     - description: The description of the reosurce.
+     *     - resourceClass: The fully-qualified Java class name of the resource.
+     *     - sourceModule: The name of the module in which the resource is defined and managed
+     *     - parentId: The parent resource's id (may be omitted if no parent)
+     *     - parentContainerPath: The parent resource's container path (may be omitted if no parent)
+     *     - children: An array of child resource objects.
+     *     - effectivePermissions: An array of permission unique names the current user has on the resource. This will be
+     *       present only if the includeEffectivePermissions property was set to true on the config object.
+     *     - permissionMap: An object with one property per effectivePermission allowed the user. This restates
+     *       effectivePermissions in a slightly more convenient way
+     * - response: The XMLHttpResponse object
+     */
     success?: Function
 }
 
 /**
  * EXPERIMENTAL! gets permissions for a set of tables within the study schema.
  * Currently only study tables have individual permissions so only works on the study schema
- * @param config A configuration object with the following properties:
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
- * @param {object} [config.schemaName] Name of the schema to retrieve information on.
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
- * @param {Function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>data:</b> an object with a property named "schemas" which contains a queries object.
- * The queries object property with the name of each table/queries. So
- * schemas.study.queries.Demographics would yield the following results
- *  <ul>
- *      <li>id: The unique id of the resource (String, typically a GUID).</li>
- *      <li>name: The name of the resource suitable for showing to a user.</li>
- *      <li>description: The description of the reosurce.</li>
- *      <li>resourceClass: The fully-qualified Java class name of the resource.</li>
- *      <li>sourceModule: The name of the module in which the resource is defined and managed</li>
- *      <li>parentId: The parent resource's id (may be omitted if no parent)</li>
- *      <li>parentContainerPath: The parent resource's container path (may be omitted if no parent)</li>
- *      <li>children: An array of child resource objects.</li>
- *      <li>effectivePermissions: An array of permission unique names the current user has on the resource. This will be
- *          present only if the includeEffectivePermissions property was set to true on the config object.</li>
- *      <li>permissionMap: An object with one property per effectivePermission allowed the user. This restates
- *          effectivePermissions in a slightly more convenient way
- *  </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -291,52 +278,55 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
 }
 
 export interface GetSecurableResourcesOptions {
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: Function
+    /**
+     * If set to true, the response will include the
+     * list of effective permissions (unique names) the current user has to each resource (defaults to false).
+     * These permissions are calcualted based on the current user's group memberships and role assignments, and
+     * represent the actual permissions the user has to these resources at the time of the API call.
+     */
     includeEffectivePermissions?: boolean
+    /**
+     * If set to true, the response will include subfolders
+     * and their contained securable resources (defaults to false).
+     */
     includeSubfolders?: boolean
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameters:
+     * - data: an object with a property named "resources" which contains the root resource.
+     * Each resource has the following properties:
+     *     - id: The unique id of the resource (String, typically a GUID).
+     *     - name: The name of the resource suitable for showing to a user.
+     *     - description: The description of the reosurce.
+     *     - resourceClass: The fully-qualified Java class name of the resource.
+     *     - sourceModule: The name of the module in which the resource is defined and managed
+     *     - parentId: The parent resource's id (may be omitted if no parent)
+     *     - parentContainerPath: The parent resource's container path (may be omitted if no parent)</li>
+     *     - children: An array of child resource objects.
+     *     - effectivePermissions: An array of permission unique names the current user has on the resource. This will be
+     *       present only if the includeEffectivePermissions property was set to true on the config object.
+     * - response: The XMLHttpResponse object
+     */
     success?: Function
 }
 
 /**
  * Returns the tree of securable resources from the current container downward
- * @param config A configuration object with the following properties:
- * @param {Boolean} config.includeSubfolders If set to true, the response will include subfolders
- * and their contained securable resources (defaults to false).
- * @param {Boolean} config.includeEffectivePermissions If set to true, the response will include the
- * list of effective permissions (unique names) the current user has to each resource (defaults to false).
- * These permissions are calculated based on the current user's group memberships and role assignments, and
- * represent the actual permissions the user has to these resources at the time of the API call.
- * @param {Function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>data:</b> an object with a property named "resources" which contains the root resource.
- * Each resource has the following properties:
- *  <ul>
- *      <li>id: The unique id of the resource (String, typically a GUID).</li>
- *      <li>name: The name of the resource suitable for showing to a user.</li>
- *      <li>description: The description of the reosurce.</li>
- *      <li>resourceClass: The fully-qualified Java class name of the resource.</li>
- *      <li>sourceModule: The name of the module in which the resource is defined and managed</li>
- *      <li>parentId: The parent resource's id (may be omitted if no parent)</li>
- *      <li>parentContainerPath: The parent resource's container path (may be omitted if no parent)</li>
- *      <li>children: An array of child resource objects.</li>
- *      <li>effectivePermissions: An array of permission unique names the current user has on the resource. This will be
- *          present only if the includeEffectivePermissions property was set to true on the config object.</li>
- *  </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
@@ -362,83 +352,67 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
 
 export interface GetUserPermissionsOptions {
     containerPath?: string
+    /**
+     * A reference to a function to call when an error occurs. This
+     * function will be passed the following parameters:
+     * - errorInfo: an object containing detailed error information (may be null)
+     * - response: The XMLHttpResponse object
+     */
     failure?: (error?: any) => any
+    /** Set to true to recurse down the subfolders (defaults to false) */
     includeSubfolders?: boolean
+    /** A scoping object for the success and error callback functions (default to this). */
     scope?: any
+    /**
+     * A reference to a function to call with the API results. This
+     * function will be passed the following parameters:
+     * - userPermsInfo: an object containing properties about the user's permissions.
+     * This object will have the following shape:
+     *     - container: information about the container and the groups the user belongs to in that container
+     *         - id: the container id
+     *         - name: the container name
+     *         - path: the container path
+     *         - roleLabel: (DEPRECATED) a description of the user's permission role in this container. This will correspond
+     *           to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
+     *         - role: (DEPRECATED) the user's role value (e.g., 'ADMIN'). Use this property for programmatic checks.
+     *         - permissions: (DEPRECATED) The user's effective permissions in this container as a bit mask.
+     *           Use this with the hasPermission() method to test for specific permissions.
+     *         - roles: An array of role unique names that this user is playing in the container. This replaces the
+     *           existing roleLabel, role and permissions properties. Users may now play multiple roles in a container
+     *           and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
+     *           about the roles, including which permissions are granted by each role.
+     *         - effectivePermissions: An array of effective permission unique names the user has.
+     *         - groups: an array of group objects to which the user belongs, each of which will have the following properties:
+     *             - id: the group id
+     *             - name: the group's name
+     *             - roleLabel: (DEPRECATED) a description of the group's permission role. This will correspond
+     *               to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
+     *             - role: (DEPRECATED) the group's role value (e.g., 'ADMIN'). Use this property for programmatic checks.
+     *             - permissions: (DEPRECATED) The group's effective permissions as a bit mask.
+     *               Use this with the hasPermission() method to test for specific permissions.
+     *             - roles: An array of role unique names that this group is playing in the container. This replaces the
+     *               existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
+     *               and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
+     *               about the roles, including which permissions are granted by each role.
+     *             - effectivePermissions: An array of effective permission unique names the group has.
+     *         - children: if includeSubfolders was true, this will contain an array of objects, each of
+     *           which will have the same shape as the parent container object.
+     *     - user: information about the requested user
+     *         - userId: the user's id
+     *         - displayName: the user's display name
+     * - response: The XMLHttpResponse object
+     */
     success?: (data?: any) => any
+    /** The email address (user name) of the user (specify only userId or userEmail, not both) */
     userEmail?: string
+    /** The id of the user. Omit to get the current user's information */
     userId?: number
 }
 
 /**
  * Returns information about a user's permissions within a container. If you don't specify a user id, this
  * will return information about the current user.
- * @param config A configuration object containing the following properties
- * @param {int} config.userId The id of the user. Omit to get the current user's information
- * @param {string} config.userEmail The email address (user name) of the user (specify only userId or userEmail, not both)
- * @param {Function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>userPermsInfo:</b> an object containing properties about the user's permissions.
- * This object will have the following shape:
- *  <ul>
- *  <li>container: information about the container and the groups the user belongs to in that container
- *      <ul>
- *          <li>id: the container id</li>
- *          <li>name: the container name</li>
- *          <li>path: the container path</li>
- *          <li>roleLabel: (DEPRECATED) a description of the user's permission role in this container. This will correspond
- *               to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.</li>
- *          <li>role: (DEPRECATED) the user's role value (e.g., 'ADMIN'). Use this property for programmatic checks.</li>
- *          <li>permissions: (DEPRECATED) The user's effective permissions in this container as a bit mask.
- *               Use this with the hasPermission() method to test for specific permissions.</li>
- *          <li>roles: An array of role unique names that this user is playing in the container. This replaces the
- *               existing roleLabel, role and permissions properties. Users may now play multiple roles in a container
- *               and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
- *               about the roles, including which permissions are granted by each role.
- *          </li>
- *          <li>effectivePermissions: An array of effective permission unique names the user has.</li>
- *          <li>groups: an array of group objects to which the user belongs, each of which will have the following properties:
- *              <ul>
- *                  <li>id: the group id</li>
- *                  <li>name: the group's name</li>
- *                  <li>roleLabel: (DEPRECATED) a description of the group's permission role. This will correspond
- *                      to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.</li>
- *                  <li>role: (DEPRECATED) the group's role value (e.g., 'ADMIN'). Use this property for programmatic checks.</li>
- *                  <li>permissions: (DEPRECATED) The group's effective permissions as a bit mask.
- *                          Use this with the hasPermission() method to test for specific permissions.</li>
- *                  <li>roles: An array of role unique names that this group is playing in the container. This replaces the
- *                              existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
- *                              and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
- *                              about the roles, including which permissions are granted by each role.
- *                  </li>
- *                  <li>effectivePermissions: An array of effective permission unique names the group has.</li>
- *              </ul>
- *          </li>
- *          <li>children: if includeSubfolders was true, this will contain an array of objects, each of
- *              which will have the same shape as the parent container object.</li>
- *      </ul>
- *  </li>
- *  <li>user: information about the requested user
- *      <ul>
- *          <li>userId: the user's id</li>
- *          <li>displayName: the user's display name</li>
- *      </ul>
- *  </li>
- * </ul>
- * </li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {boolean} [config.includeSubfolders] Set to true to recurse down the subfolders (defaults to false)
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
- * @param {Object} [config.scope] A scoping object for the success and error callback functions (default to this).
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request
  * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).

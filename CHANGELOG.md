@@ -1,3 +1,5 @@
+## 0.0.38 - 2020-02-27
+- Doc updates (migrated from legacy API)
 
 ## 0.0.38-fb-queryMetadataEditor-0.0 - 2020-02-27
 - Item 6083: QueryMetadata Editor migration
