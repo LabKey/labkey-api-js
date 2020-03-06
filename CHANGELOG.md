@@ -1,3 +1,6 @@
+## 0.0.39 - 2020-03-06
+- Fix value casing of Query.containerFilter
+
 ## 0.0.38 - 2020-02-27
 - Doc updates (migrated from legacy API)
 
