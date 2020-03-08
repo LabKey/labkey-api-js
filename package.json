@@ -4,7 +4,7 @@
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
-    "build:dist": "npm run clean && webpack --config webpack.config.js && rollup -c",
+    "build:dist": "npm run clean && webpack --config webpack.config.js",
     "build:docs": "npm run clean:docs && typedoc --options typedoc.js ./src/labkey && touch docs/.nojekyll",
     "clean": "rimraf dist && npm run clean:docs",
     "clean:docs": "rimraf docs",
@@ -19,12 +19,11 @@
     "labkey",
     "javascript"
   ],
-  "main": "dist/labkey-api-js-core.cjs.js",
-  "module": "dist/labkey-api-js-core.es.js",
-  "types": "dist/labkey.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "author": {
     "name": "Nick Kerr",
-    "email": "nicka@labkey.com",
+    "email": "nickk@labkey.com",
     "url": "https://www.labkey.org"
   },
   "repository": {
@@ -37,7 +36,6 @@
   },
   "devDependencies": {
     "@babel/core": "7.8.4",
-    "@rollup/plugin-node-resolve": "7.1.1",
     "@types/jest": "25.1.3",
     "@types/sinon": "7.5.2",
     "cross-env": "7.0.0",
@@ -45,9 +43,6 @@
     "jest": "25.1.0",
     "jest-teamcity-reporter": "0.9.0",
     "rimraf": "3.0.2",
-    "rollup": "1.31.1",
-    "rollup-plugin-babel": "4.3.3",
-    "rollup-plugin-typescript2": "0.26.0",
     "sinon": "9.0.0",
     "ts-jest": "25.2.1",
     "ts-loader": "6.2.1",
