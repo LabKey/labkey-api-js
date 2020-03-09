@@ -4,6 +4,7 @@ docs/
 node_modules/
 .idea/
 .envrc
+.gradle
 .npmrc
 npm-debug.log
 package-lock.json
