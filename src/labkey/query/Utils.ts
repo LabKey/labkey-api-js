@@ -20,20 +20,39 @@ import { applyTranslated, ensureRegionName, getCallbackWrapper, getOnFailure, ge
 
 import { Response } from './Response'
 
-// Would have liked to use an enum but TypeScript's enums are number-based (as of 1.8)
-// https://basarat.gitbooks.io/typescript/content/docs/tips/stringEnums.html
-//
-// Additionally, cannot use 'type' here as we want to actually return a resolvable object
-// e.g. LABKEY.Query.containerFilter.current; // "current"
-export const containerFilter = {
-    current: 'Current',
-    currentAndFirstChildren: 'CurrentAndFirstChildren',
-    currentAndSubfolders: 'CurrentAndSubfolders',
-    currentPlusProject: 'CurrentPlusProject',
-    currentAndParents: 'CurrentAndParents',
-    currentPlusProjectAndShared: 'CurrentPlusProjectAndShared',
-    allFolders: 'AllFolders'
+/**
+ * An enumeration of the various container filters available. Note that not all
+ * data types and queries can contain that spans multiple containers. In those cases,
+ * all values will behave the same as current and show only data in the current container.
+ */
+export enum ContainerFilter {
+
+    /** Include all folders for which the user has read permission. */
+    allFolders = 'AllFolders',
+
+    /** Include the current folder only. */
+    current = 'Current',
+
+    /** Include the current folder and all first children, excluding workbooks. */
+    currentAndFirstChildren = 'CurrentAndFirstChildren',
+
+    /** Include the current folder and its parent folders. */
+    currentAndParents = 'CurrentAndParents',
+
+    /** Include the current folder and all subfolders. */
+    currentAndSubfolders = 'CurrentAndSubfolders',
+
+    /** Include the current folder and the project that contains it. */
+    currentPlusProject = 'CurrentPlusProject',
+
+    /** Include the current folder plus its project plus any shared folders. */
+    currentPlusProjectAndShared = 'CurrentPlusProjectAndShared',
 };
+
+/**
+ * @deprecated Backwards compatible reference to [[ContainerFilter]].
+ */
+export const containerFilter = ContainerFilter;
 
 export const URL_COLUMN_PREFIX = '_labkeyurl_';
 
