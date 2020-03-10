@@ -17,15 +17,15 @@ import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
 import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
 
-import { getSuccessCallbackWrapper } from './Utils'
+import { ContainerFilter, getSuccessCallbackWrapper } from './Utils'
 
 export interface IExecuteSqlOptions {
     /**
-     * One of the values of [[containerFilter]] that sets
-     * the scope of this query. Defaults to containerFilter.current, and is interpreted relative to
+     * One of the values of [[ContainerFilter]] that sets
+     * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
      * config.containerPath.
      */
-    containerFilter?: string
+    containerFilter?: ContainerFilter
 
     /**
      * The path to the container in which the schema and query are defined,

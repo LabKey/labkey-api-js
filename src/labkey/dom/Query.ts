@@ -17,6 +17,7 @@ import { buildURL } from '../ActionURL'
 import { request } from '../Ajax'
 import { getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils'
 import { appendFilterParams } from '../filter/Filter'
+import { ContainerFilter } from '../query/Utils'
 
 import { FormWindow } from './constants'
 import { postToAction } from './Utils';
@@ -24,7 +25,7 @@ import { postToAction } from './Utils';
 declare let window: FormWindow;
 
 export interface IExportSqlOptions {
-    containerFilter?: string
+    containerFilter?: ContainerFilter
     containerPath?: string
     format?: string
     schemaName: string
