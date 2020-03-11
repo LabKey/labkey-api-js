@@ -1,3 +1,6 @@
+## 0.0.40 - 2020-03-11
+- Declare Query.ContainerFilter as an enum. Deprecate Query.containerFilter.
+
 ## 0.0.39 - 2020-03-06
 - Fix value casing of Query.containerFilter
 

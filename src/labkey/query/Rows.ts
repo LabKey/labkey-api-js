@@ -17,7 +17,7 @@ import { request, RequestOptions } from '../Ajax'
 import { IFilter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils';
-import { buildQueryParams, getMethod, getSuccessCallbackWrapper } from './Utils'
+import { buildQueryParams, ContainerFilter, getMethod, getSuccessCallbackWrapper } from './Utils'
 
 /**
  * Delete rows.
@@ -247,11 +247,11 @@ export interface ISelectDistinctOptions {
     column: string
 
     /**
-     * One of the values of [[containerFilter]] that sets
-     * the scope of this query. Defaults to containerFilter.current, and is interpreted relative to
+     * One of the values of [[ContainerFilter]] that sets
+     * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
      * config.containerPath.
      */
-    containerFilter?: string
+    containerFilter?: ContainerFilter
     containerPath?: string
     dataRegionName?: string
     failure?: (error?: any, request?: XMLHttpRequest, options?: RequestOptions) => any
@@ -391,7 +391,13 @@ export interface ISelectRowsOptions {
      * and 'Peptide' is the name of a column in the related table).
      */
     columns?: string | Array<string>
-    containerFilter?: string
+
+    /**
+     * One of the values of [[ContainerFilter]] that sets
+     * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
+     * config.containerPath.
+     */
+    containerFilter?: ContainerFilter
 
     /**
      * The path to the container in which the schema and query are defined, if different than the current container.
