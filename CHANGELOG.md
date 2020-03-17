@@ -1,3 +1,6 @@
+## 0.0.## - 2020-03-##
+- Expose ExperimentalFeatures, getServerContext, and LabKey type.
+
 ## 0.0.40 - 2020-03-11
 - Declare Query.ContainerFilter as an enum. Deprecate Query.containerFilter.
 
