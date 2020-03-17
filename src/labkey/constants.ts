@@ -17,13 +17,22 @@ export interface Container {
     path: string
 }
 
-export interface ExperimentalFeatures {
-    containerRelativeURL: boolean
+export enum ExperimentalFeatures {
+    containerRelativeURL = 'containerRelativeURL',
+    disableGuestAccount = 'disableGuestAccount',
+    javascriptErrorServerLogging = 'javascriptErrorServerLogging',
+    javascriptMothership = 'javascriptMothership',
+    useExperimentalCoreUI = 'useExperimentalCoreUI',
+    strictReturnUrl = 'strictReturnUrl',
+}
+
+export type ExperimentalFlags = {
+    [key in ExperimentalFeatures]: boolean
 }
 
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
-export interface LabKey {
+export type LabKey = {
     container: Container
     contextPath: string
     CSRF: string
@@ -31,10 +40,14 @@ export interface LabKey {
     demoMode: boolean
     devMode: boolean
     dirty: boolean
-    experimental: ExperimentalFeatures
+    experimental: ExperimentalFlags
+    getModuleContext: any
+    helpLinkPrefix: string
     homeContainer: string
     imagePath: string
     isDocumentClosed: string
+    moduleContext: any
+    Mothership: any
     postParameters?: any
     Security: any
     SecurityPolicy: any
@@ -44,6 +57,7 @@ export interface LabKey {
     user: User
     uuids: Array<string>
     verbose: boolean
+    vis: any
 }
 
 export interface User {
