@@ -52,7 +52,7 @@ export type ExperimentalFlags = {
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
 export type LabKey = {
-    container: Container
+    container: Partial<Container>
     contextPath: string
     CSRF: string
     defaultHeaders: {[key: string]: string}
@@ -73,7 +73,7 @@ export type LabKey = {
     sharedContainer: string
     submit: boolean
     unloadMessage: string
-    user: User
+    user: Partial<User>
     uuids: Array<string>
     verbose: boolean
     vis: any
