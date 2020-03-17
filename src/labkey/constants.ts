@@ -14,7 +14,26 @@
  * limitations under the License.
  */
 export interface Container {
+    activeModules: Array<string>
+    folderType: string
+    formats: {
+        dateFormat: string
+        dateTimeFormat: string
+        numberFormat: string
+    }
+    hasRestrictedActiveModule: boolean
+    iconHref: string
+    id: string
+    isContainerTab: boolean
+    isWorkbook: boolean
+    name: string
+    parentId: string
+    parentPath: string
     path: string
+    sortOrder: number
+    startUrl: string
+    title: string
+    type: string
 }
 
 export enum ExperimentalFeatures {
@@ -61,7 +80,24 @@ export type LabKey = {
 }
 
 export interface User {
+    avatar: string
+    email: string
+    canDelete: boolean
+    canDeleteOwn: boolean
+    canInsert: boolean
+    canUpdate: boolean
+    canUpdateOwn: boolean
+    displayName: string
+    id: number
+    isAdmin: boolean
+    isAnalyst: boolean
+    isDeveloper: boolean
     isGuest: boolean
+    isRootAdmin: boolean
+    isSignedIn: boolean
+    isSystemAdmin: boolean
+    isTrusted: boolean
+    phone: string
 }
 
 declare let LABKEY: LabKey;
