@@ -14,40 +14,90 @@
  * limitations under the License.
  */
 export interface Container {
+    activeModules: Array<string>
+    folderType: string
+    formats: {
+        dateFormat: string
+        dateTimeFormat: string
+        numberFormat: string
+    }
+    hasRestrictedActiveModule: boolean
+    iconHref: string
+    id: string
+    isContainerTab: boolean
+    isWorkbook: boolean
+    name: string
+    parentId: string
+    parentPath: string
     path: string
+    sortOrder: number
+    startUrl: string
+    title: string
+    type: string
 }
 
-export interface ExperimentalFeatures {
-    containerRelativeURL: boolean
+export enum ExperimentalFeatures {
+    containerRelativeURL = 'containerRelativeURL',
+    disableGuestAccount = 'disableGuestAccount',
+    javascriptErrorServerLogging = 'javascriptErrorServerLogging',
+    javascriptMothership = 'javascriptMothership',
+    useExperimentalCoreUI = 'useExperimentalCoreUI',
+    strictReturnUrl = 'strictReturnUrl',
+}
+
+export type ExperimentalFlags = {
+    [key in ExperimentalFeatures]: boolean
 }
 
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
-export interface LabKey {
-    container: Container
+export type LabKey = {
+    container: Partial<Container>
     contextPath: string
     CSRF: string
     defaultHeaders: {[key: string]: string}
     demoMode: boolean
     devMode: boolean
     dirty: boolean
-    experimental: ExperimentalFeatures
+    experimental: ExperimentalFlags
+    getModuleContext: any
+    helpLinkPrefix: string
     homeContainer: string
     imagePath: string
     isDocumentClosed: string
+    moduleContext: any
+    Mothership: any
     postParameters?: any
     Security: any
     SecurityPolicy: any
     sharedContainer: string
     submit: boolean
     unloadMessage: string
-    user: User
+    user: Partial<User>
     uuids: Array<string>
     verbose: boolean
+    vis: any
 }
 
 export interface User {
+    avatar: string
+    email: string
+    canDelete: boolean
+    canDeleteOwn: boolean
+    canInsert: boolean
+    canUpdate: boolean
+    canUpdateOwn: boolean
+    displayName: string
+    id: number
+    isAdmin: boolean
+    isAnalyst: boolean
+    isDeveloper: boolean
     isGuest: boolean
+    isRootAdmin: boolean
+    isSignedIn: boolean
+    isSystemAdmin: boolean
+    isTrusted: boolean
+    phone: string
 }
 
 declare let LABKEY: LabKey;

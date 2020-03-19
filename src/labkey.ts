@@ -13,6 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+// constants
+import {
+    ExperimentalFeatures,
+    LabKey,
+    getServerContext,
+} from './labkey/constants';
+
+// modules
 import * as ActionURL from './labkey/ActionURL';
 import * as Ajax from './labkey/Ajax';
 import * as Assay from './labkey/Assay';
@@ -40,6 +48,12 @@ import * as QueryDOM from './labkey/dom/Query';
 import * as UtilsDOM from './labkey/dom/Utils';
 
 export {
+    // constants
+    ExperimentalFeatures,
+    LabKey,
+    getServerContext,
+
+    // modules
     ActionURL,
     Ajax,
     Assay,
