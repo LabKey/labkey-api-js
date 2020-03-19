@@ -1,4 +1,4 @@
-## 0.0.## - 2020-03-##
+## 0.0.41 - 2020-03-18
 - Expose ExperimentalFeatures, getServerContext, and LabKey type.
 
 ## 0.0.40 - 2020-03-11
