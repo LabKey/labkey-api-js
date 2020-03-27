@@ -64,11 +64,7 @@
       "ts",
       "js"
     ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
     "preset": "ts-jest",
-    "testRegex": "(\\.(spec))\\.(ts)$",
-    "testURL": "http://localhost"
+    "testRegex": "(\\.(spec))\\.(ts)$"
   }
 }
