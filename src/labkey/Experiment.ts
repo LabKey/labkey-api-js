@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 LabKey Corporation
+ * Copyright (c) 2019-2020 LabKey Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,8 +74,7 @@ export interface ICreateHiddenRunGroupOptions {
  * Create or recycle an existing run group. Run groups are the basis for some operations, like comparing
  * MS2 runs to one another.
  */
-export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): void {
-
+export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): XMLHttpRequest {
     let jsonData: any = {};
 
     if (options.runIds && options.selectionKey) {
@@ -91,8 +90,7 @@ export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): voi
         throw 'Either the runIds or the selectionKey config parameter is required';
     }
 
-    // note, does not return request
-    request({
+    return request({
         url: buildURL('experiment', 'createHiddenRunGroup.api', options.containerPath),
         method: 'POST',
         jsonData,
@@ -101,6 +99,34 @@ export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): voi
         }, getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
+}
+
+/**
+ * @hidden
+ * @private
+ */
+function createRunGroups(json: any): RunGroup[] {
+    let batches: RunGroup[] = [];
+    if (json.batches) {
+        for (let i=0; i < json.batches.length; i++) {
+            batches.push(new RunGroup(json.batches[i]));
+        }
+    }
+    return batches;
+}
+
+/**
+ * @hidden
+ * @private
+ */
+function createRuns(json: any): Run[] {
+    let runs: Run[] = [];
+    if (json.runs) {
+        for (let i = 0; i < json.runs.length; i++) {
+            runs.push(new Run(json.runs[i]));
+        }
+    }
+    return runs;
 }
 
 /**
@@ -203,20 +229,19 @@ export interface ILineageOptions {
     failure?: () => any
 
     /**
-     * The LSID of the seed ExpData or ExpMaterial.  Either rowId or lsid is required.
+     * Include node properties in the lineage response.  Defaults to false.
      */
-    lsid?: string
+    includeProperties?: boolean
+
+    /**
+     * Array of LSIDs for the seed ExpData, ExpMaterials, or ExpRun.
+     */
+    lsids?: string[]
 
     /**
      * Include parents in the lineage response.  Defaults to true.
      */
     parents?: boolean
-    
-    /**
-     * The row id of the seed ExpData or ExpMaterial.  Either rowId or lsid is required.
-     * @deprecated Use lsid instead.
-     */
-    rowId?: number
 
     /**
      * A scoping object for the success and failure callback functions (default to this).
@@ -230,17 +255,18 @@ export interface ILineageOptions {
 }
 
 /**
- * Get parent/child relationships of an ExpData or ExpMaterial.
- * @param options 
+ * Get parent/child relationships of ExpData, ExpMaterial, or ExpRun.
  */
-export function lineage(options: ILineageOptions): void {
+export function lineage(options: ILineageOptions): XMLHttpRequest {
     let params: any = {};
 
-    if (options.rowId) {
-        params.rowId = options.rowId;
+    if (options.lsids) {
+        params.lsids = options.lsids;
     }
-    else if (options.lsid) {
-        params.lsid = options.lsid;
+    else if ((options as any).lsid) {
+        // Allow singular 'lsid' for backwards compatibility with <19.3.
+        // Response will include a top-level 'seed' instead of 'seeds' property.
+        params.lsid = (options as any).lsid;
     }
 
     if (options.hasOwnProperty('parents')) {
@@ -252,6 +278,9 @@ export function lineage(options: ILineageOptions): void {
     if (options.hasOwnProperty('depth')) {
         params.depth = options.depth;
     }
+    if (options.hasOwnProperty('includeProperties')) {
+        params.includeProperties = options.includeProperties;
+    }
 
     if (options.expType) {
         params.expType = options.expType;
@@ -260,10 +289,8 @@ export function lineage(options: ILineageOptions): void {
         params.cpasType = options.cpasType;
     }
 
-    // note, does not return request
-    request({
+    return request({
         url: buildURL('experiment', 'lineage.api'),
-        method: 'GET',
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
@@ -326,17 +353,15 @@ export interface ILoadBatchOptions {
  * });
  * ```
  */
-export function loadBatch(options: ILoadBatchOptions): void {
-
-    // note, does not return request
-    request({
+export function loadBatch(options: ILoadBatchOptions): XMLHttpRequest {
+    return request({
         url: buildURL('assay', 'getAssayBatch.api'),
         method: 'POST',
         jsonData: {
             assayId: options.assayId,
             assayName: options.assayName,
             batchId: options.batchId,
-            protocolName: options.providerName,
+            protocolName: options.protocolName,
             providerName: options.providerName
         },
         success: getSuccessCallbackWrapper<RunGroup>((json) => {
@@ -393,10 +418,8 @@ export interface ILoadBatchesOptions {
  * Loads batches from the server. See the [Module Assay](https://www.labkey.org/Documentation/wiki-page.view?name=moduleassay)
  * documentation for more information.
  */
-export function loadBatches(options: ILoadBatchesOptions): void {
-
-    // note, does not return request
-    request({
+export function loadBatches(options: ILoadBatchesOptions): XMLHttpRequest {
+    return request({
         url: buildURL('assay', 'getAssayBatches.api'),
         method: 'POST',
         jsonData: {
@@ -406,25 +429,34 @@ export function loadBatches(options: ILoadBatchesOptions): void {
             protocolName: options.protocolName,
             providerName: options.providerName
         },
-        success: getSuccessCallbackWrapper<Array<RunGroup>>((json) => {
-            let batches: Array<RunGroup> = [];
-
-            if (json.batches) {
-                for (let i=0; i < json.batches.length; i++) {
-                    batches.push(new RunGroup(json.batches[i]));
-                }
-            }
-
-            return batches;
-        }, getOnSuccess(options), options.scope),
+        success: getSuccessCallbackWrapper<RunGroup[]>(createRunGroups, getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
-export interface ILoadRunsOptions
-{
+export interface ILoadRunsOptions {
     /**
-     * An Arra of run LSIDs to fetch.
+     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
+     */
+    failure?: ExperimentFailureCallback
+
+    /**
+     * Include run and step inputs and outputs.
+     */
+    includeInputsAndOutputs?: boolean
+
+    /**
+     * Include properties set on the experiment objects.
+     */
+    includeProperties?: boolean
+
+    /**
+     * Include run steps.
+     */
+    includeRunSteps?: boolean
+
+    /**
+     * An Array of run LSIDs to fetch.
      */
     lsids?: Array<string>
 
@@ -434,9 +466,69 @@ export interface ILoadRunsOptions
     runIds?: Array<number>
 
     /**
-     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
+     * A scoping object for the success and failure callback functions (default to this).
+     */
+    scope?: any
+
+    /**
+     * The function to call when loadRuns finishes successfully.
+     */
+    success: ExperimentSuccessCallback<Array<Run>>
+}
+
+export function loadRuns(options: ILoadRunsOptions): XMLHttpRequest {
+    let jsonData: any = {};
+
+    if (options.runIds) {
+        jsonData.runIds = options.runIds;
+    }
+    if (options.lsids) {
+        jsonData.lsids = options.lsids;
+    }
+    if (options.includeProperties !== undefined) {
+        jsonData.includeProperties = options.includeProperties;
+    }
+    if (options.includeInputsAndOutputs !== undefined) {
+        jsonData.includeInputsAndOutputs = options.includeInputsAndOutputs;
+    }
+    if (options.includeRunSteps !== undefined) {
+        jsonData.includeRunSteps = options.includeRunSteps;
+    }
+
+    return request({
+        url: buildURL('assay', 'getAssayRuns.api'),
+        method: 'POST',
+        jsonData,
+        success: getSuccessCallbackWrapper<Run[]>(createRuns, getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+    });
+}
+
+export interface IResolveOptions {
+    /**
+     * A reference to a function to call when an error occurs.
      */
     failure?: ExperimentFailureCallback
+
+    /**
+     * Include run and step inputs and outputs.
+     */
+    includeInputsAndOutputs?: boolean
+
+    /**
+     * Include properties set on the experiment objects.
+     */
+    includeProperties?: boolean
+
+    /**
+     * Include run steps.
+     */
+    includeRunSteps?: boolean
+
+    /**
+     * The list of run lsids.
+     */
+    lsids?: string[]
 
     /**
      * A scoping object for the success and failure callback functions (default to this).
@@ -444,28 +536,34 @@ export interface ILoadRunsOptions
     scope?: any
 
     /**
-     * The function to call when loadBatches finishes successfully.
+     * The function to call when resolve finishes successfully.
      */
-    success: ExperimentSuccessCallback<Array<Run>>
+    success: () => any
 }
 
-export function loadRuns(options: ILoadRunsOptions): void {
-    request({
-        url: buildURL('assay', 'getAssayRuns.api'),
-        method: 'POST',
-        jsonData: {
-            runIds: options.runIds,
-            lsids: options.lsids,
-        },
-        success: getSuccessCallbackWrapper<Array<Run>>((json) => {
-            let runs: Array<Run> = [];
-            if (json.runs) {
-                for (let i = 0; i < json.runs.length; i++) {
-                    runs.push(new Run(json.runs[i]));
-                }
-            }
-            return runs;
-        }, getOnSuccess(options), options.scope),
+/**
+ * Resolve LSIDs.
+ */
+export function resolve(options: IResolveOptions): XMLHttpRequest {
+    let params: any = {};
+
+    if (options.lsids) {
+        params.lsids = options.lsids;
+    }
+    if (options.includeProperties !== undefined) {
+        params.includeProperties = options.includeProperties;
+    }
+    if (options.includeInputsAndOutputs !== undefined) {
+        params.includeInputsAndOutputs = options.includeInputsAndOutputs;
+    }
+    if (options.includeRunSteps !== undefined) {
+        params.includeRunSteps = options.includeRunSteps;
+    }
+    
+    return request({
+        url: buildURL('experiment', 'resolve.api'),
+        params,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
@@ -473,9 +571,9 @@ export function loadRuns(options: ILoadRunsOptions): void {
 // formerly, _saveBatches
 function requestSaveBatches<SuccessPayload>(
     rawOptions: ISaveBatchOptions & ISaveBatchesOptions,
-    payloadProcessor: (json: any) => SuccessPayload): void {
+    payloadProcessor: (json: any) => SuccessPayload): XMLHttpRequest {
 
-    request({
+    return request({
         url: buildURL('assay', 'saveAssayBatch.api'),
         method: 'POST',
         jsonData: {
@@ -519,8 +617,8 @@ function requestSaveBatches<SuccessPayload>(
  * });
  * ```
  */
-export function saveBatch(options: ISaveBatchOptions): void {
-    requestSaveBatches<RunGroup>(options as any, (json: any) => {
+export function saveBatch(options: ISaveBatchOptions): XMLHttpRequest {
+    return requestSaveBatches<RunGroup>(options as any, (json: any) => {
         if (json.batches) {
             return new RunGroup(json.batches[0]);
         }
@@ -535,16 +633,8 @@ export function saveBatch(options: ISaveBatchOptions): void {
  * more information.
  * @param options
  */
-export function saveBatches(options: ISaveBatchesOptions): void {
-    requestSaveBatches<Array<RunGroup>>(options as any, (json: any) => {
-        let batches = [];
-        if (json.batches) {
-            for (let i = 0; i < json.batches.length; i++) {
-                batches.push(new RunGroup(json.batches[i]));
-            }
-        }
-        return batches;
-    });
+export function saveBatches(options: ISaveBatchesOptions): XMLHttpRequest {
+    return requestSaveBatches<Array<RunGroup>>(options as any, createRunGroups);
 }
 
 export interface ISaveMaterialsOptions {
@@ -579,8 +669,8 @@ export interface ISaveMaterialsOptions {
  * Saves materials.
  * @param options
  */
-export function saveMaterials(options: ISaveMaterialsOptions): void {
-    insertRows({
+export function saveMaterials(options: ISaveMaterialsOptions): XMLHttpRequest {
+    return insertRows({
         schemaName: 'Samples',
         queryName: options.name,
         rows: options.materials,
@@ -592,6 +682,16 @@ export function saveMaterials(options: ISaveMaterialsOptions): void {
 
 export interface ISaveRunsOptions {
     /**
+     * The assay protocol id.
+     */
+    assayId?: number
+
+    /**
+     * The name of the assay.
+     */
+    assayName?: string
+
+    /**
      * The function to call if this function encounters an error.
      */
     failure?: ExperimentFailureCallback
@@ -600,7 +700,12 @@ export interface ISaveRunsOptions {
      * Protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
-    protocolName: string
+    protocolName?: string
+
+    /**
+     * The assay provider name.
+     */
+    providerName?: string
 
     /**
      * The runs to be saved.
@@ -620,27 +725,19 @@ export interface ISaveRunsOptions {
 
 /**
  * Save modified runs.
- * @param options
  */
-export function saveRuns(options: ISaveRunsOptions): void {
-
-    // note, does not return request
-    request({
+export function saveRuns(options: ISaveRunsOptions): XMLHttpRequest {
+    return request({
         url: buildURL('assay', 'saveAssayRuns.api'),
         method: 'POST',
         jsonData: {
+            assayId: options.assayId,
+            assayName: options.assayName,
             protocolName: options.protocolName,
-            runs: options.runs
+            providerName: options.providerName,
+            runs: options.runs,
         },
-        success: getSuccessCallbackWrapper<Array<Run>>((json) => {
-            let runs: Array<Run> = [];
-            if (json.runs) {
-                for (let i = 0; i < json.runs.length; i++) {
-                    runs.push(new Run(json.runs[i]));
-                }
-            }
-            return runs;
-        }, getOnSuccess(options), options.scope),
+        success: getSuccessCallbackWrapper<Run[]>(createRuns, getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
