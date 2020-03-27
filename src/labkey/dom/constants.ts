@@ -34,7 +34,9 @@ if (typeof jQuery !== 'undefined') {
     LABKEY.$ = jQuery;
 }
 else {
-    console.warn('jQuery not available. When using the DOM version of the LabKey API jQuery is expected to be available.');
+    LABKEY.$ = () => {
+        throw new Error('jQuery not available. When using the DOM version of the LabKey API jQuery is expected to be available.');
+    };
 }
 
 export function loadDOMContext(): LabKeyDOM {
