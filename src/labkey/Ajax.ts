@@ -30,6 +30,8 @@ if (defaultHeaders) {
 export type AjaxHandler = (request: XMLHttpRequest, config: RequestOptions) => any;
 export type AjaxCallbackHandler = (config: RequestOptions, success: boolean, xhr: XMLHttpRequest) => any;
 
+export type RequestSuccess<D = any> = (data?: D, request?: XMLHttpRequest, config?: RequestOptions) => any;
+
 interface ConfiguredOptions {
     data?: FormData | string
     isForm: boolean

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { buildURL } from './ActionURL'
-import { request } from './Ajax'
+import { request, RequestSuccess } from './Ajax'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
 import { insertRows } from './query/Rows'
 
@@ -202,6 +202,45 @@ export interface ISaveBatchesOptions extends IBaseSaveBatchOptions {
     success?: ExperimentSuccessCallback<Array<RunGroup>>
 }
 
+export interface LineageEdge {
+    lsid: string
+    role: string
+}
+
+export interface LineagePKFilter {
+    fieldKey: string
+    value: any
+}
+
+export interface LineageNode {
+    absolutePath: string
+    children: LineageEdge[]
+    cpasType: string
+    created: string
+    createdBy: string
+    dataFileURL: string
+    distance: number
+    id: number
+    listURL: string
+    lsid: string
+    modified: string
+    modifiedBy: string
+    name: string
+    parents: LineageEdge[]
+    pipelinePath: string
+    pkFilters: LineagePKFilter[]
+    properties: any
+    queryName: string
+    schemaName: string
+    type: string
+    url: string
+}
+
+export interface LineageResponse {
+    nodes: {[lsid:string]: LineageNode}
+    seeds: string[]
+}
+
 export interface ILineageOptions {
     /**
      * Include children in the lineage response. Defaults to true.
@@ -226,7 +265,7 @@ export interface ILineageOptions {
     /**
      * A reference to a function to call when an error occurs.
      */
-    failure?: () => any
+    failure?: ExperimentFailureCallback
 
     /**
      * Include node properties in the lineage response.  Defaults to false.
@@ -251,7 +290,7 @@ export interface ILineageOptions {
     /**
      * The function to call when lineage finishes successfully.
      */
-    success?: () => any
+    success?: RequestSuccess<LineageResponse>
 }
 
 /**
@@ -504,6 +543,10 @@ export function loadRuns(options: ILoadRunsOptions): XMLHttpRequest {
     });
 }
 
+export interface ResolveResponse {
+    data: LineageNode[]
+}
+
 export interface IResolveOptions {
     /**
      * A reference to a function to call when an error occurs.
@@ -538,7 +581,7 @@ export interface IResolveOptions {
     /**
      * The function to call when resolve finishes successfully.
      */
-    success: () => any
+    success: RequestSuccess<ResolveResponse>
 }
 
 /**
@@ -662,7 +705,7 @@ export interface ISaveMaterialsOptions {
     /**
      * The function to call when the function finishes successfully.
      */
-    success?: () => any
+    success?: RequestSuccess
 }
 
 /**
