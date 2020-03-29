@@ -237,7 +237,20 @@ export interface LineageNode {
 }
 
 export interface LineageResponse {
+    /**
+     * Object containing all lineage nodes in this lineage result. Keyed by node LSID.
+     */
     nodes: {[lsid:string]: LineageNode}
+
+    /**
+     * When request is made with "lsid" option the response will include a singluar "seed".
+     * @deprecated since 19.3. Use "seeds" instead.
+     */
+    seed: string
+
+    /**
+     * LSID "seeds" for this lineage result.
+     */
     seeds: string[]
 }
 
@@ -273,6 +286,12 @@ export interface ILineageOptions {
     includeProperties?: boolean
 
     /**
+     * The LSID for the seed ExpData, ExpMaterials, or ExpRun.
+     * @deprecated since 19.3. Use "lsids" instead.
+     */
+    lsid: string
+
+    /**
      * Array of LSIDs for the seed ExpData, ExpMaterials, or ExpRun.
      */
     lsids?: string[]
@@ -302,10 +321,10 @@ export function lineage(options: ILineageOptions): XMLHttpRequest {
     if (options.lsids) {
         params.lsids = options.lsids;
     }
-    else if ((options as any).lsid) {
+    else if (options.lsid) {
         // Allow singular 'lsid' for backwards compatibility with <19.3.
         // Response will include a top-level 'seed' instead of 'seeds' property.
-        params.lsid = (options as any).lsid;
+        params.lsid = options.lsid;
     }
 
     if (options.hasOwnProperty('parents')) {
