@@ -37,6 +37,48 @@ type ExperimentFailureCallback = (errorInfo?: any, response?: XMLHttpRequest) =>
  */
 type ExperimentSuccessCallback<T> = (payload?: T, response?: XMLHttpRequest) => any;
 
+/**
+ * Several Experiment API endpoints expose optional settings for the ExperimentJSONConverter.
+ */
+export interface ExperimentJSONConverterOptions {
+    /**
+     * Include run and step inputs and outputs.
+     */
+    includeInputsAndOutputs?: boolean
+
+    /**
+     * Include properties set on the experiment objects.
+     */
+    includeProperties?: boolean
+
+    /**
+     * Include run steps.
+     */
+    includeRunSteps?: boolean
+}
+
+/**
+ * Helper to apply {ExperimentJSONConverterOptions} options to a parameter object.
+ * @hidden
+ * @private
+ */
+function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOptions): any {
+    let params: any = {};
+
+    // Consider: strictly checking option type and raising error if it does not match
+    if (options.includeInputsAndOutputs !== undefined) {
+        params.includeInputsAndOutputs = options.includeInputsAndOutputs;
+    }
+    if (options.includeProperties !== undefined) {
+        params.includeProperties = options.includeProperties;
+    }
+    if (options.includeRunSteps !== undefined) {
+        params.includeRunSteps = options.includeRunSteps;
+    }
+
+    return params;
+}
+
 export interface ICreateHiddenRunGroupOptions {
     /**
      * An alternate container path to get permissions from. If not specified, the current container path will be used.
@@ -254,7 +296,7 @@ export interface LineageResponse {
     seeds: string[]
 }
 
-export interface ILineageOptions {
+export interface ILineageOptions extends ExperimentJSONConverterOptions {
     /**
      * Include children in the lineage response. Defaults to true.
      */
@@ -279,11 +321,6 @@ export interface ILineageOptions {
      * A reference to a function to call when an error occurs.
      */
     failure?: ExperimentFailureCallback
-
-    /**
-     * Include node properties in the lineage response.  Defaults to false.
-     */
-    includeProperties?: boolean
 
     /**
      * The LSID for the seed ExpData, ExpMaterials, or ExpRun.
@@ -316,7 +353,7 @@ export interface ILineageOptions {
  * Get parent/child relationships of ExpData, ExpMaterial, or ExpRun.
  */
 export function lineage(options: ILineageOptions): XMLHttpRequest {
-    let params: any = {};
+    let params = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.lsids) {
         params.lsids = options.lsids;
@@ -335,9 +372,6 @@ export function lineage(options: ILineageOptions): XMLHttpRequest {
     }
     if (options.hasOwnProperty('depth')) {
         params.depth = options.depth;
-    }
-    if (options.hasOwnProperty('includeProperties')) {
-        params.includeProperties = options.includeProperties;
     }
 
     if (options.expType) {
@@ -492,26 +526,11 @@ export function loadBatches(options: ILoadBatchesOptions): XMLHttpRequest {
     });
 }
 
-export interface ILoadRunsOptions {
+export interface ILoadRunsOptions extends ExperimentJSONConverterOptions {
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
     failure?: ExperimentFailureCallback
-
-    /**
-     * Include run and step inputs and outputs.
-     */
-    includeInputsAndOutputs?: boolean
-
-    /**
-     * Include properties set on the experiment objects.
-     */
-    includeProperties?: boolean
-
-    /**
-     * Include run steps.
-     */
-    includeRunSteps?: boolean
 
     /**
      * An Array of run LSIDs to fetch.
@@ -535,22 +554,13 @@ export interface ILoadRunsOptions {
 }
 
 export function loadRuns(options: ILoadRunsOptions): XMLHttpRequest {
-    let jsonData: any = {};
+    let jsonData = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.runIds) {
         jsonData.runIds = options.runIds;
     }
     if (options.lsids) {
         jsonData.lsids = options.lsids;
-    }
-    if (options.includeProperties !== undefined) {
-        jsonData.includeProperties = options.includeProperties;
-    }
-    if (options.includeInputsAndOutputs !== undefined) {
-        jsonData.includeInputsAndOutputs = options.includeInputsAndOutputs;
-    }
-    if (options.includeRunSteps !== undefined) {
-        jsonData.includeRunSteps = options.includeRunSteps;
     }
 
     return request({
@@ -566,26 +576,11 @@ export interface ResolveResponse {
     data: LineageNode[]
 }
 
-export interface IResolveOptions {
+export interface IResolveOptions extends ExperimentJSONConverterOptions {
     /**
      * A reference to a function to call when an error occurs.
      */
     failure?: ExperimentFailureCallback
-
-    /**
-     * Include run and step inputs and outputs.
-     */
-    includeInputsAndOutputs?: boolean
-
-    /**
-     * Include properties set on the experiment objects.
-     */
-    includeProperties?: boolean
-
-    /**
-     * Include run steps.
-     */
-    includeRunSteps?: boolean
 
     /**
      * The list of run lsids.
@@ -607,19 +602,10 @@ export interface IResolveOptions {
  * Resolve LSIDs.
  */
 export function resolve(options: IResolveOptions): XMLHttpRequest {
-    let params: any = {};
+    let params = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.lsids) {
         params.lsids = options.lsids;
-    }
-    if (options.includeProperties !== undefined) {
-        params.includeProperties = options.includeProperties;
-    }
-    if (options.includeInputsAndOutputs !== undefined) {
-        params.includeInputsAndOutputs = options.includeInputsAndOutputs;
-    }
-    if (options.includeRunSteps !== undefined) {
-        params.includeRunSteps = options.includeRunSteps;
     }
     
     return request({
