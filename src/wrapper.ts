@@ -22,7 +22,7 @@
  * This is not a part of the API definition and SHOULD NOT define any APIs. Additionally,
  * this file SHOULD NOT export anything.
  */
-import * as API from './labkey'
+import * as API from './index'
 import * as __package__ from './package'
 
 declare let LABKEY: any;
