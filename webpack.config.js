@@ -76,7 +76,7 @@ const umdPackageConfig = {
     },
 
     optimization: {
-        // don't minimize the code from components, module/app usages will be doing that if they want to
+        // don't minimize; module/app usages will be doing that if they want to
         minimize: false
     },
 

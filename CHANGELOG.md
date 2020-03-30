@@ -1,3 +1,12 @@
+## 0.0.43 - 2020-03-30
+- Package distribution as UMD.
+- Remove rollup build configuration.
+- Simplify jest configuration.
+- Compile source maps from TypeScript.
+- Removed console warning about jQuery.
+- Package updates.
+- See https://github.com/LabKey/labkey-api-js/pull/43.
+
 ## 0.0.42 - 2020-03-29
 - Experiment module updates.
 
