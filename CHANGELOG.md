@@ -1,3 +1,6 @@
+## 0.0.42 - 2020-03-29
+- Experiment module updates.
+
 ## 0.0.41 - 2020-03-18
 - Expose ExperimentalFeatures, getServerContext, and LabKey type.
 
