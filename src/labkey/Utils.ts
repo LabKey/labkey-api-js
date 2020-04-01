@@ -15,6 +15,7 @@
  */
 import { getServerContext } from './constants'
 import { AjaxHandler, RequestOptions } from './Ajax'
+import { buildURL } from './ActionURL';
 
 export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
@@ -40,6 +41,51 @@ const ID_PREFIX = 'lk-gen';
  * @private
  */
 let idSeed = 100;
+
+/**
+ * When using Ext dateFields you can use DATEALTFORMATS for the altFormat: config option.
+ * @private
+ */
+const DATEALTFORMATS_Either = [
+    'j-M-y g:i a|j-M-Y g:i a|j-M-y G:i|j-M-Y G:i|',
+    'j-M-y|j-M-Y|',
+    'Y-n-d H:i:s|Y-n-d|',
+    'Y/n/d H:i:s|Y/n/d|',
+    'j M Y G:i:s O|', // 10 Sep 2009 11:24:12 -0700
+    'j M Y H:i:s|c',
+].join('');
+
+/**
+ * @private
+ */
+const DATEALTFORMATS_MonthDay = [
+    'n/j/y g:i:s a|n/j/Y g:i:s a|n/j/y G:i:s|n/j/Y G:i:s|',
+    'n-j-y g:i:s a|n-j-Y g:i:s a|n-j-y G:i:s|n-j-Y G:i:s|',
+    'n/j/y g:i a|n/j/Y g:i a|n/j/y G:i|n/j/Y G:i|',
+    'n-j-y g:i a|n-j-Y g:i a|n-j-y G:i|n-j-Y G:i|',
+    'n/j/y|n/j/Y|',
+    'n-j-y|n-j-Y|',
+    DATEALTFORMATS_Either
+].join('');
+
+/**
+ * @private
+ */
+const DATEALTFORMATS_DayMonth = [
+    'j/n/y g:i:s a|j/n/Y g:i:s a|j/n/y G:i:s|j/n/Y G:i:s|',
+    'j-n-y g:i:s a|j-n-Y g:i:s a|j-n-y G:i:s|j-n-Y G:i:s|',
+    'j/n/y g:i a|j/n/Y g:i a|j/n/y G:i|j/n/Y G:i|',
+    'j-n-y g:i a|j-n-Y g:i a|j-n-y G:i|j-n-Y G:i|',
+    'j/n/y|j/n/Y|',
+    'j-n-y|j-n-Y|',
+    'j-M-y|j-M-Y|'
+].join('');
+
+/**
+ * 24 hr format with milliseconds
+ * @private
+ */
+const DATETIMEFORMAT_WithMS = 'Y-m-d H:i:s.u';
 
 /**
  * @private
@@ -146,7 +192,7 @@ export function applyTranslated(target: any, source: any, translationMap: any, a
 
 /** Display an error dialog. */
 export function alert(title: string, msg: string): void {
-    console.warn('alert: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
+    stubWarning('alert');
     console.warn(title + ':', msg);
 }
 
@@ -218,7 +264,7 @@ export function deleteCookie(name: string, pageOnly: boolean): void {
  * @param msgPrefix Prefix to the error message (defaults to: 'An error occurred trying to load:')
  */
 export function displayAjaxErrorResponse(response?: any, exception?: any, showExceptionClass?: any, msgPrefix?: any) {
-    console.warn('displayAjaxErrorResponse: This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
+    stubWarning('displayAjaxErrorResponse');
 }
 
 export function encode(data: any): string {
@@ -226,16 +272,24 @@ export function encode(data: any): string {
 }
 
 /**
- * Encodes the html passed in so that it will not be interpreted as HTML by the browser.
- * For example, if your input string was "&lt;p&gt;Hello&lt;/p&gt;" the output would be
+ * Encodes the html passed in and converts it to a String so that it will not be interpreted as HTML
+ * by the browser. For example, if your input string was "&lt;p&gt;Hello&lt;/p&gt;" the output would be
  * "&amp;lt;p&amp;gt;Hello&amp;lt;/p&amp;gt;". If you set an element's innerHTML property
  * to this string, the HTML markup will be displayed as literal text rather than being
- * interpreted as HTML.
+ * interpreted as HTML. By default this function will return an empty string if a value
+ * of undefined or null is passed it. To prevent this default, you can pass in a second
+ * optional parameter value of true to retain the empty value's type.
  *
- * @param {String} html The HTML to encode
- * @return {String} The encoded HTML
+ * @param html The HTML to encode and return as a String value. If the value of this parameter is null or undefined, an empty string will be returned by default.
+ * @param retainEmptyValueTypes Optional boolean parameter indicating that the empty values (null and undefined) should be returned as is from this function.
+ * @return The encoded HTML
  */
-export function encodeHtml(html: string): string {
+export function encodeHtml(html: string, retainEmptyValueTypes?: boolean): string {
+    // Issue 39628: default to returning an empty string when this function is called with a value of undefined or null
+    if (html === undefined || html === null) {
+        return retainEmptyValueTypes ? html : '';
+    }
+
     // http://stackoverflow.com/questions/1219860/html-encoding-in-javascript-jquery
     return String(html)
         .replace(/&/g, '&amp;')
@@ -265,7 +319,7 @@ export function endsWith(value: string, ending: string): boolean {
     return value.substring(value.length - ending.length) == ending;
 }
 
-export function ensureBoxVisible() {
+export function ensureBoxVisible(): void {
     console.warn('ensureBoxVisible() has been migrated to the appropriate Ext scope. Consider LABKEY.ext.Utils.ensureBoxVisible or LABKEY.ext4.Util.ensureBoxVisible');
 }
 
@@ -311,11 +365,19 @@ export function generateUUID(): string {
 /**
  * This is used internally by other class methods to automatically parse returned JSON
  * and call another success function passing that parsed JSON.
- * @param fn The callback function to wrap
- * @param scope The scope for the callback function
- * @param {boolean} [isErrorCallback=false] Set to true if the function is an error callback. If true, and you do not provide a separate callback, alert will popup showing the error message
+ * @param fn The callback function to wrap.
+ * @param scope The scope for the callback function.
+ * @param isErrorCallback Set to true if the function is an error callback. If true, and you do not provide a
+ * separate callback, alert will popup showing the error message.
+ * @param responseTransformer Function to be invoked to transform the response object before invoking the
+ * primary callback function.
  */
-export function getCallbackWrapper(fn: Function, scope?: any, isErrorCallback?: boolean): AjaxHandler {
+export function getCallbackWrapper(
+    fn: Function,
+    scope?: any,
+    isErrorCallback?: boolean,
+    responseTransformer?: Function
+): AjaxHandler {
     return (response: ExtendedXMLHttpRequest, options: RequestOptions) => {
         let json = response.responseJSON;
 
@@ -340,6 +402,10 @@ export function getCallbackWrapper(fn: Function, scope?: any, isErrorCallback?: 
         if (json && !json.exception && isErrorCallback) {
             // Try to make sure we don't show an empty error message
             json.exception = (response && response.statusText ? response.statusText : 'Communication failure.');
+        }
+
+        if (responseTransformer) {
+            json = responseTransformer.call(scope || this, json);
         }
 
         if (fn) {
@@ -378,6 +444,38 @@ export function getCookie(name: string, defaultValue: string): string {
     }
 
     return defaultValue;
+}
+
+/**
+ * Returns date formats for use in an Ext.form.DateField. Useful when using a DateField in an Ext object,
+ * it contains a very large set of date formats, which helps make a DateField more robust. For example, a
+ * user would be allowed to enter dates like 6/1/2011, 06/01/2011, 6/1/11, etc.
+ */
+export function getDateAltFormats(): string {
+    const { useMDYDateParsing } = getServerContext();
+    return useMDYDateParsing ? DATEALTFORMATS_MonthDay : DATEALTFORMATS_DayMonth;
+}
+
+/**
+ * Returns date format with timestamp including milliseconds. Useful for parsing the date in
+ * "yyyy-MM-dd HH:mm:ss.SSS" format as returned by DateUtil.getJsonDateTimeFormatString().
+ * ex. Ext4.Date.parse("2019-02-15 17:15:10.123", 'Y-m-d H:i:s.u')
+ */
+export function getDateTimeFormatWithMS(): string {
+    return DATETIMEFORMAT_WithMS;
+}
+
+/**
+ * Returns a URL to the appropriate file icon image based on the specified file name.
+ * Note that file name can be a full path or just the file name and extension.
+ * If the file name does not include an extension, the URL for a generic image will be returned
+ * @return The URL suitable for use in the src attribute of an img element.
+ */
+export function getFileIconUrl(fileName: string): string {
+    const idx = fileName.lastIndexOf('.');
+    return buildURL('core', 'getAttachmentIcon', '', {
+        extension: (idx >= 0) ? fileName.substring(idx + 1) : '_generic'
+    });
 }
 
 /**
@@ -540,10 +638,18 @@ export function isString(value: any): value is string {
  *
  * Use merge({}, o) to create a deep copy of o.
  */
-export function merge(...props: Array<any>): any {
+export function merge(...props: any[]): any {
     let o = props[0];
     for (let i=1; i < props.length; i++) {
         _merge(o, props[i], true, 50);
+    }
+    return o;
+}
+
+export function mergeIf(...props: any[]): any {
+    let o = props[0];
+    for (let i=1; i < props.length; i++) {
+        _merge(o, props[i], false, 50);
     }
     return o;
 }
@@ -583,7 +689,7 @@ export interface IOnTrueOptions {
  * method, and need to wait until classes defined in those files are parsed and ready for use.
  */
 export function onTrue(options: IOnTrueOptions): void {
-    // TODO: Get rid of this entire method
+    // TODO: 2.x Remove this method
     options.maxTests = options.maxTests || 1000;
     try {
         if (options.testCallback.apply(options.scope || this, options.testArguments || [])) {
@@ -634,12 +740,103 @@ export function padString(input: string | number, length: number, padChar: strin
     return pd + _input;
 }
 
+export function parseDateString(dateString: string): Date {
+    try {
+        if (!!window.MSInputMethodContext && !!(document as any).documentMode) {
+            // This method call can throw exceptions, either due to string split on undefined or if any of the
+            // date or time parts are NaN after parseInt.
+            return parseDateStringIE11(dateString);
+        } else {
+            // Note: This is not actually the best way to parse a date in JS, browser vendors recommend using a
+            // date parsing library of sorts. See more information at MDN:
+            // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse
+            return new Date(dateString);
+        }
+    } catch (e) {
+        throw 'Date string not in expected format. Expecting yyyy-MM-dd HH:mm:ss.SSS';
+    }
+}
+
+/**
+ * Parses a date string returned from LabKey Server which should be in the format of: "yyyy-MM-dd HH:mm:ss.SSS"
+ * On IE 11 does not support this syntax view new Date(), while all other browsers that we support do (as of April
+ * 2019). This requires us to manually parse the date string and use the alternate Date constructor.
+ *
+ * @param dateString String in the format of: "yyyy-MM-dd HH:mm:ss.SSS"
+ * @returns {Date}
+ * @hidden
+ * @private
+ */
+function parseDateStringIE11(dateString: string): Date {
+    const parts = dateString.split(' ');
+    const dateParts = parts[0].split('-');
+    const year = parseInt(dateParts[0], 10);
+    const month = parseInt(dateParts[1], 10) - 1; // Months start at 0.
+    const day = parseInt(dateParts[2], 10);
+    const timeParts = parts[1].split(':');
+    const hour = parseInt(timeParts[0], 10);
+    const minute = parseInt(timeParts[1], 10);
+    const secondParts = timeParts[2].split('.');
+    const second = parseInt(secondParts[0], 10);
+    const millisecond = parseInt(secondParts[1], 10);
+    const values = [year, month, day, hour, minute, second, millisecond];
+
+    if (values.some(isNaN)) {
+        throw 'Invalid date string';
+    }
+
+    return new Date(year, month, day, hour, minute, second, millisecond);
+}
+
 export function pluralBasic(count: number, singlar: string): string {
     return pluralize(count, singlar, singlar + 's');
 }
 
 export function pluralize(count: number, singular: string, plural: string): string {
     return count.toLocaleString() + ' ' + (1 === count ? singular : plural);
+}
+
+/**
+ * Includes a Cascading Style Sheet (CSS) file into the page. If the file was already included by some other code, this
+ * function will simply ignore the call. This may be used to include CSS files defined in your module's web/ directory.
+ * @param filePath The path to the script file to include. This path should be relative to the web application
+ * root. So for example, if you wanted to include a file in your module's web/mymodule/styles/ directory,
+ * the path would be "mymodule/styles/mystyles.css"
+ */
+export function requiresCSS(filePath: string): void {
+    // TODO: 2.x Remove this method
+    const { requiresCss } = getServerContext();
+    requiresCss(filePath);
+}
+
+/**
+ * Loads JavaScript file(s) from the server.
+ * @param file A file or Array of files to load.
+ * @param callback Callback for when all dependencies are loaded.
+ * @param scope Scope of callback.
+ * @param inOrder True to load the scripts in the order they are passed in. Default is false.
+ * ```html
+ * <script type="text/javascript">
+ *     LABKEY.Utils.requiresScript("myModule/myScript.js", function() {
+ *         // your script is loaded
+ *     });
+ * </script>
+ * ```
+ */
+export function requiresScript(file: string|string[], callback: Function, scope?: any, inOrder?: boolean): void {
+    // TODO: 2.x Remove this method
+    const { requiresScript } = getServerContext();
+    requiresScript(file, callback, scope, inOrder);
+}
+
+/**
+ * This method has been migrated to specific instances for both Ext 3.4.1 and Ext 4.2.1.
+ * For Ext 3.4.1 see LABKEY.ext.Utils.resizeToViewport
+ * For Ext 4.2.1 see LABKEY.ext4.Util.resizeToViewport
+ * @deprecated
+ */
+export function resizeToViewport(): void {
+    console.warn('LABKEY.Utils.resizeToViewport has been migrated. See JavaScript API documentation for details.');
 }
 
 /**

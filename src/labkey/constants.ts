@@ -68,11 +68,14 @@ export type LabKey = {
     moduleContext: any
     Mothership: any
     postParameters?: any
+    requiresCss?: Function
+    requiresScript: Function
     Security: any
     SecurityPolicy: any
     sharedContainer: string
     submit: boolean
     unloadMessage: string
+    useMDYDateParsing?: boolean
     user: Partial<User>
     uuids: Array<string>
     verbose: boolean
