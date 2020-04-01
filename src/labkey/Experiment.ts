@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 import { buildURL } from './ActionURL'
-import { request, RequestSuccess } from './Ajax'
-import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
+import { request } from './Ajax'
+import {
+    ExtendedXMLHttpRequest,
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    RequestCallbackOptions,
+    RequestFailure,
+    RequestSuccess
+} from './Utils'
 import { insertRows } from './query/Rows'
 
 import { Run, RunGroup } from './Exp'
@@ -24,12 +32,6 @@ import { Run, RunGroup } from './Exp'
  * The name of the protocol used by Experiment. This can be used for "protocolName".
  */
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
-
-/**
- * @hidden
- * @private
- */
-type ExperimentFailureCallback = (errorInfo?: any, response?: XMLHttpRequest) => any;
 
 /**
  * @hidden
@@ -88,7 +90,7 @@ export interface ICreateHiddenRunGroupOptions {
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
-    failure?: ExperimentFailureCallback
+    failure?: RequestFailure
 
     /**
      * An array of integer ids for the runs to be members of the group. Either runIds or selectionKey must be specified.
@@ -201,7 +203,7 @@ export interface IBaseSaveBatchOptions {
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
-    failure?: ExperimentFailureCallback
+    failure?: RequestFailure
 
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
@@ -296,7 +298,7 @@ export interface LineageResponse {
     seeds: string[]
 }
 
-export interface ILineageOptions extends ExperimentJSONConverterOptions {
+export interface ILineageOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<LineageResponse> {
     /**
      * Include children in the lineage response. Defaults to true.
      */
@@ -318,11 +320,6 @@ export interface ILineageOptions extends ExperimentJSONConverterOptions {
     expType?: string
 
     /**
-     * A reference to a function to call when an error occurs.
-     */
-    failure?: ExperimentFailureCallback
-
-    /**
      * The LSID for the seed ExpData, ExpMaterials, or ExpRun.
      * @deprecated since 19.3. Use "lsids" instead.
      */
@@ -337,16 +334,6 @@ export interface ILineageOptions extends ExperimentJSONConverterOptions {
      * Include parents in the lineage response.  Defaults to true.
      */
     parents?: boolean
-
-    /**
-     * A scoping object for the success and failure callback functions (default to this).
-     */
-    scope?: any
-
-    /**
-     * The function to call when lineage finishes successfully.
-     */
-    success?: RequestSuccess<LineageResponse>
 }
 
 /**
@@ -408,7 +395,7 @@ export interface ILoadBatchOptions {
     /**
      * A reference to a function to call when an error occurs.
      */
-    failure?: ExperimentFailureCallback
+    failure?: RequestFailure
 
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
@@ -482,7 +469,7 @@ export interface ILoadBatchesOptions {
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
-    failure?: ExperimentFailureCallback
+    failure?: RequestFailure
 
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
@@ -530,7 +517,7 @@ export interface ILoadRunsOptions extends ExperimentJSONConverterOptions {
     /**
      * A reference to a function to call when an error occurs. This function will be passed the following parameters:
      */
-    failure?: ExperimentFailureCallback
+    failure?: RequestFailure
 
     /**
      * An Array of run LSIDs to fetch.
@@ -576,26 +563,11 @@ export interface ResolveResponse {
     data: LineageNode[]
 }
 
-export interface IResolveOptions extends ExperimentJSONConverterOptions {
-    /**
-     * A reference to a function to call when an error occurs.
-     */
-    failure?: ExperimentFailureCallback
-
+export interface IResolveOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<ResolveResponse> {
     /**
      * The list of run lsids.
      */
     lsids?: string[]
-
-    /**
-     * A scoping object for the success and failure callback functions (default to this).
-     */
-    scope?: any
-
-    /**
-     * The function to call when resolve finishes successfully.
-     */
-    success: RequestSuccess<ResolveResponse>
 }
 
 /**
@@ -690,7 +662,7 @@ export interface ISaveMaterialsOptions {
     /**
      * The function to call if this function encounters an error.
      */
-    failure?: ExperimentFailureCallback
+    failure?: RequestFailure
 
     /**
      * An array of LABKEY.Exp.Material objects to be saved
@@ -742,7 +714,7 @@ export interface ISaveRunsOptions {
     /**
      * The function to call if this function encounters an error.
      */
-    failure?: ExperimentFailureCallback
+    failure?: RequestFailure
 
     /**
      * Protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL

@@ -21,6 +21,26 @@ export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
+export type RequestFailure<E = any> = (errorInfo?: E, response?: XMLHttpRequest) => any;
+export type RequestSuccess<D = any> = (data?: D, request?: XMLHttpRequest, config?: RequestOptions) => any;
+
+export interface RequestCallbackOptions<S = any, F = any, SC = any> {
+    /**
+     * This will be called upon failure to complete a request.
+     */
+    failure?: RequestFailure<F>
+
+    /**
+     * A scoping object for the success and failure callback functions (default to this).
+     */
+    scope?: SC
+
+    /**
+     * This will be called upon successfully completing a request.
+     */
+    success?: RequestSuccess<S>
+}
+
 /**
  * Private array of chars to use for UUID generation
  * @private
