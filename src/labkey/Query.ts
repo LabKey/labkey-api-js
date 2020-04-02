@@ -14,17 +14,38 @@
  * limitations under the License.
  */
 import {
-    buildQueryParams, ContainerFilter, containerFilter, deleteQueryView, getQueries, getQueryViews,
-    getSchemas, getServerDate, saveQueryViews, sqlDateLiteral, sqlDateTimeLiteral,
-    sqlStringLiteral, URL_COLUMN_PREFIX, validateQuery
+    buildQueryParams,
+    ContainerFilter,
+    containerFilter,
+    deleteQueryView,
+    getDataViews,
+    getQueries,
+    getQueryViews,
+    getSchemas,
+    getServerDate,
+    saveQueryViews,
+    sqlDateLiteral,
+    sqlDateTimeLiteral,
+    sqlStringLiteral,
+    URL_COLUMN_PREFIX,
+    validateQuery
 } from './query/Utils'
 import { executeSql } from './query/ExecuteSql'
 import * as GetData from './query/GetData'
 import { getQueryDetails } from './query/GetQueryDetails'
-import { deleteRows, insertRows, saveRows, selectDistinctRows, selectRows, truncateTable, updateRows } from './query/Rows'
+import {
+    deleteRows,
+    insertRows,
+    saveRows,
+    selectDistinctRows,
+    selectRows,
+    truncateTable,
+    updateRows
+} from './query/Rows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 import { Filter } from './filter/Filter'
+import { Response, Row } from './query/Response';
 
 const experimental = {
     SQL
@@ -40,12 +61,15 @@ export {
     experimental,
     Filter,
     GetData,
+    getDataViews,
     getQueries,
     getQueryDetails,
     getQueryViews,
     getSchemas,
     getServerDate,
     insertRows,
+    Response,
+    Row,
     saveQueryViews,
     saveRows,
     selectDistinctRows,
