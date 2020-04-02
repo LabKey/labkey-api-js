@@ -1,3 +1,6 @@
+## 0.0.44 - 2020-04-02
+- Query exports getDataViews, Response, Row.
+
 ## 0.0.43 - 2020-03-30
 - Package distribution as UMD.
 - Remove rollup build configuration.
