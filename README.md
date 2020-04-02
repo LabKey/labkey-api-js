@@ -18,7 +18,7 @@ you'll want to make sure you set the appropriate registry for the `@labkey` scop
 
 #### Setting the Registry Scope
 
-This package is currently availble on LabKey's Artifactory package registry. To include this package set the registry 
+This package is currently available on LabKey's Artifactory package registry. To include this package set the registry 
 in npm for the `@labkey` scope. This can be done via command line using `npm config`:
 ```
 npm config set @labkey:registry https://artifactory.labkey.com/artifactory/api/npm/libs-client
@@ -71,8 +71,7 @@ wrapper for the `LABKEY` global namespace. The following assumes you have a
 Starting in version LabKey v20.5 this package can be used in LabKey Server by enabling 
 the "Use @labkey/api on the client-side" experimental feature.
 
-This flag requires either restarting the server or clearing the server caches to take effect. You can verify the
-package version being used by opening the browser console and typing:
+You can verify the package version being used by opening the browser console and typing:
 
 ```js
 LABKEY.__package__
