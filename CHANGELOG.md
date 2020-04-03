@@ -1,3 +1,8 @@
+## 0.0.45 - 2020-04-02
+- Utils module updates.
+- Improve typings for success/failure/scope options.
+- Document experimental flag.
+
 ## 0.0.44 - 2020-04-02
 - Query exports getDataViews, Response, Row.
 
