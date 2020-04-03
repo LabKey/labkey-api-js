@@ -34,6 +34,7 @@ export interface Container {
     startUrl: string
     title: string
     type: string
+    userPermissions: number
 }
 
 export enum ExperimentalFeatures {

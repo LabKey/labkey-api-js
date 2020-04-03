@@ -1,3 +1,6 @@
+## 0.0.## - 2020-04-##
+- Security module updates.
+
 ## 0.0.45 - 2020-04-02
 - Utils module updates.
 - Improve typings for success/failure/scope options.
