@@ -15,39 +15,23 @@
  */
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
-import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray } from '../Utils'
+import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray, RequestCallbackOptions } from '../Utils'
 
-export interface AddGroupMembersOptions {
+export interface AddGroupMembersOptions extends RequestCallbackOptions<{added: number[]}> {
     containerPath?: string
-    /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     */
-    failure?: () => any
     /** The id of the group to which you want to add the member. */
     groupId: number
     /** An integer id or array of ids of the users or groups you want to add as members. */
-    principalIds: number | Array<number>
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - data: a simple object with a property named "added" that contains the added principal id.
-     * - response: The XMLHttpResponse object
-     */
-    success?: () => any
+    principalIds: number | number[]
 }
 
 /**
  * Adds a new member to an existing group.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function addGroupMembers(config: AddGroupMembersOptions): XMLHttpRequest {
     return request({
@@ -62,30 +46,21 @@ export function addGroupMembers(config: AddGroupMembersOptions): XMLHttpRequest 
     });
 }
 
-export interface CreateGroupOptions {
+export interface CreateGroupResponse {
+    /** The groupId for the group that was created */
+    id: number
+    /** The name for the group that was created */
+    name: string
+}
+
+export interface CreateGroupOptions extends RequestCallbackOptions<CreateGroupResponse> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
     containerPath?: string
-    /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     */
-    failure?: () => any
     /** The name of the group to create */
     groupName: string
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - data: a simple object with a property named "added" that contains the added principal id.
-     * - response: The XMLHttpResponse object
-     */
-    success?: () => any
 }
 
 /**
@@ -94,9 +69,9 @@ export interface CreateGroupOptions {
  * container is the root.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function createGroup(config: CreateGroupOptions): XMLHttpRequest {
     return request({
@@ -110,39 +85,23 @@ export function createGroup(config: CreateGroupOptions): XMLHttpRequest {
     });
 }
 
-export interface DeleteGroupOptions {
+export interface DeleteGroupOptions extends RequestCallbackOptions<{deleted: number}> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
     containerPath?: string
-    /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     */
-    failure?: () => any
     /** The id of the group to delete */
     groupId: number
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - data: a simple object with a property named "added" that contains the added principal id.
-     * - response: The XMLHttpResponse object
-     */
-    success?: () => any
 }
 
 /**
  * Deletes a group.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function deleteGroup(config: DeleteGroupOptions): XMLHttpRequest {
     return request({
@@ -156,41 +115,57 @@ export function deleteGroup(config: DeleteGroupOptions): XMLHttpRequest {
     });
 }
 
-export interface RemoveGroupMembersOptions {
+export interface Group {
+    /** The unique id of the group. */
+    id: number
+    /** The name of the group. */
+    name: string
+    /** True if this group is defined at the project level. */
+    isProjectGroup: boolean
+    /** True if this group is defined at the system level. */
+    isSystemGroup: boolean
+}
+
+export interface GetGroupsForCurrentUserResponse {
+    /** An array of group information objects. */
+    groups: Group[]
+}
+
+export interface GetGroupsForCurrentUserOptions extends RequestCallbackOptions<GetGroupsForCurrentUserResponse> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
     containerPath?: string
+}
+
+export function getGroupsForCurrentUser(config: GetGroupsForCurrentUserOptions): XMLHttpRequest {
+    return request({
+        url: buildURL('security', 'getGroupsForCurrentUser.api', config.containerPath),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+    });
+}
+
+export interface RemoveGroupMembersOptions extends RequestCallbackOptions<{removed: number[]}> {
     /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
      */
-    failure?: () => any
+    containerPath?: string
     /** The id of the group from which you want to remove the member. */
     groupId: number
     /** An integer id or array of ids of the users or groups you want to remove. */
-    principalIds: number | Array<number>
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - data: a simple object with a property named "added" that contains the added principal id.
-     * - response: The XMLHttpResponse object
-     */
-    success?: () => any
+    principalIds: number | number[]
 }
 
 /**
  * Removes a member from an existing group.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function removeGroupMembers(config: RemoveGroupMembersOptions): XMLHttpRequest {
     return request({
@@ -205,41 +180,36 @@ export function removeGroupMembers(config: RemoveGroupMembersOptions): XMLHttpRe
     });
 }
 
-export interface RenameGroupOptions {
+export interface RenameGroupResponse {
+    /** The new name for the group */
+    newName: string
+    /** The old name for the group */
+    oldName: string
+    /** The groupId for the renamed group */
+    renamed: number
+    /** Indicates if the rename was successful */
+    success: boolean
+}
+
+export interface RenameGroupOptions extends RequestCallbackOptions<RenameGroupResponse> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
     containerPath?: string
-    /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     */
-    failure?: () => any
     /** The id of the group to rename */
     groupId: number
     /** The new name for the group */
     newName: string
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - data: a simple object with a property named "added" that contains the added principal id.
-     * - response: The XMLHttpResponse object
-     */
-    success?: () => any
 }
 
 /**
  * Renames a group.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function renameGroup(config: RenameGroupOptions): XMLHttpRequest {
     return request({

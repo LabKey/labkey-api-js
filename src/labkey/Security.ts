@@ -51,6 +51,7 @@ import {
     addGroupMembers,
     createGroup,
     deleteGroup,
+    getGroupsForCurrentUser,
     removeGroupMembers,
     renameGroup
 } from './security/Group'
@@ -81,6 +82,7 @@ export {
     getContainers,
     getFolderTypes,
     getGroupPermissions,
+    getGroupsForCurrentUser,
     getHomeContainer,
     getModules,
     getReadableContainers,
