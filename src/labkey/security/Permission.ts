@@ -15,58 +15,39 @@
  */
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
-import { getOnSuccess, getCallbackWrapper, getOnFailure } from '../Utils'
+import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions } from '../Utils'
 
 import { roles } from './constants'
+import { Group, SecurableResource } from './types'
 
-export interface GetGroupPermissionsOptions {
+export interface PermissionsContainer {
+    /** If includeSubfolders is true, then this will contain child containers. */
+    children?: PermissionsContainer[]
+    /** An array of group objects. */
+    groups: Group[]
+    /** The container id. */
+    id: string
+    /** True if the container is inheriting permissions from its parent. This is not always provided. */
+    isInheritingPerms?: boolean
+    /** The container name. */
+    name: string
+    /** The container path. */
+    path: string
+}
+
+export interface PermissionsResponse {
+    /** Information object describing the container's permission. */
+    container: PermissionsContainer
+}
+
+export interface GetGroupPermissionsOptions extends RequestCallbackOptions<PermissionsResponse> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
     containerPath?: string
-    /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     * @param error
-     */
-    failure?: (error?: any) => any
     /** Set to true to recurse down the subfolders (defaults to false) */
     includeSubfolders?: boolean
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - groupPermsInfo: an object containing properties about the container and group permissions.
-     * This object will have the following shape:
-     *     - container
-     *         - id: the container id
-     *         - name: the container name
-     *         - path: the container path
-     *         - isInheritingPerms: true if the container is inheriting permissions from its parent
-     *         - groups: an array of group objects, each of which will have the following properties:
-     *             - id: the group id
-     *             - name: the group's name
-     *             - type: the group's type ('g' for group, 'r' for role, 'm' for module-specific)
-     *             - roleLabel: (DEPRECATED) a description of the group's permission role. This will correspond
-     *             to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
-     *             - role: (DEPRECATED) the group's role value (e.g., 'ADMIN'). Use this property for programmatic checks.
-     *             - permissions: (DEPRECATED) The group's effective permissions as a bit mask.
-     *             Use this with the hasPermission() method to test for specific permissions.
-     *             - roles: An array of role unique names that this group is playing in the container. This replaces the
-     *             existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
-     *             and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
-     *             about the roles, including which permissions are granted by each role.
-     *             -  effectivePermissions: An array of effective permission unique names the group has.
-     *         - children: if includeSubfolders was true, this will contain an array of objects, each of
-     *              which will have the same shape as the parent container object.
-     * - response: The XMLHttpResponse object
-     * @param data
-     */
-    success?: (data?: any) => any
 }
 
 /**
@@ -74,9 +55,9 @@ export interface GetGroupPermissionsOptions {
  * recursing down the container hierarchy.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttpRequest {
     let params: any = {};
@@ -111,52 +92,52 @@ export function getRole(perms: number): string {
     }
 }
 
-export interface GetRolesOptions {
-    containerPath?: string
-    /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     */
-    failure?: (error?: any) => any
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - roles: An array of role objects, each of which has the following properties:
-     *     - uniqueName: The unique name of the resource (String, typically a fully-qualified class name).
-     *     - name: The name of the role suitable for showing to a user.
-     *     - description: The description of the role.
-     *     - sourceModule: The name of the module in which the role is defined.
-     *     - permissions: An array of permissions the role grants. Each permission has the following properties:
-     *         - uniqueName: The unique name of the permission (String, typically a fully-qualified class name).
-     *         - name: The name of the permission.
-     *         - description: A description of the permission.
-     *         - sourceModule: The module in which the permission is defined.
-     * - response: The XMLHttpResponse object
-     */
-    success?: (data?: any) => any
+export interface RolePermission {
+    /** The description of the permission. */
+    description: string
+    /** The name of the permission. */
+    name: string
+    /** The name of the module in which the permission is defined. */
+    sourceModule: string
+    /** The unique name of the resource (String, typically a fully-qualified class name). */
+    uniqueName: string
 }
 
-export interface GetRolesResponse {
-    permissions: Array<{uniqueName: string}>
-    roles: Array<{permissions: Array<string>}>
+export interface Role {
+    /** The description of the role. */
+    description: string
+    /** Principals excluded from this role by id. */
+    excludedPrincipals: number[]
+    /** The name of the role suitable for showing to a user. */
+    name: string
+    /** An array of permissions the role grants. */
+    permissions: RolePermission[]
+    /** The name of the module in which the role is defined. */
+    sourceModule: string
+    /** The unique name of the resource (String, typically a fully-qualified class name). */
+    uniqueName: string
+}
+
+export interface GetRolesOptions extends RequestCallbackOptions<Role[]> {
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
+    containerPath?: string
 }
 
 /**
  * Returns the complete set of roles defined on the server, along with the permissions each role grants.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getRoles(config: GetRolesOptions): XMLHttpRequest {
     return request({
         url: buildURL('security', 'getRoles.api', config.containerPath),
-        success: getCallbackWrapper(function(data: GetRolesResponse, req: any) {
+        success: getCallbackWrapper(function(data: any, req: any) {
             // roles and perms are returned in two separate blocks for efficiency
             let i: number,
                 j: number,
@@ -185,44 +166,28 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
     });
 }
 
-export interface GetSchemaPermissionsOptions {
+export interface SecurableResourceWithPermissions extends SecurableResource {
+    /** An object with one property per effectivePermission allowed the user. */
+    permissionMap: { [permission:string]: boolean }
+}
+
+export interface SchemaPermissionsResponse {
+    schemas: {
+        study: {
+            /** The queries object property with the name of each table/queries. */
+            queries: { [queryName:string]: SecurableResourceWithPermissions }
+        }
+    }
+}
+
+export interface GetSchemaPermissionsOptions extends RequestCallbackOptions<SchemaPermissionsResponse> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
     containerPath?: string
-    /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     */
-    failure?: Function
-    /** Name of the schema to retrieve information on. */
-    schemaName: string
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - data: an object with a property named "schemas" which contains a queries object.
-     * The queries object property with the name of each table/queries. So
-     * schemas.study.queries.Demographics would yield the following results
-     *     - id: The unique id of the resource (String, typically a GUID).
-     *     - name: The name of the resource suitable for showing to a user.
-     *     - description: The description of the reosurce.
-     *     - resourceClass: The fully-qualified Java class name of the resource.
-     *     - sourceModule: The name of the module in which the resource is defined and managed
-     *     - parentId: The parent resource's id (may be omitted if no parent)
-     *     - parentContainerPath: The parent resource's container path (may be omitted if no parent)
-     *     - children: An array of child resource objects.
-     *     - effectivePermissions: An array of permission unique names the current user has on the resource. This will be
-     *       present only if the includeEffectivePermissions property was set to true on the config object.
-     *     - permissionMap: An object with one property per effectivePermission allowed the user. This restates
-     *       effectivePermissions in a slightly more convenient way
-     * - response: The XMLHttpResponse object
-     */
-    success?: Function
+    /** Name of the schema to retrieve information on. Currently only works for "study". */
+    schemaName: 'study'
 }
 
 /**
@@ -230,9 +195,9 @@ export interface GetSchemaPermissionsOptions {
  * Currently only study tables have individual permissions so only works on the study schema
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHttpRequest {
     if (!config.schemaName || (config.schemaName && config.schemaName !== 'study')) {
@@ -277,23 +242,16 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
     return getSecurableResources(getResourcesConfig);
 }
 
-export interface GetSecurableResourcesOptions {
+export interface GetSecurableResourcesOptions extends RequestCallbackOptions<{resources: SecurableResource}> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
     containerPath?: string
     /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
-     */
-    failure?: Function
-    /**
      * If set to true, the response will include the
      * list of effective permissions (unique names) the current user has to each resource (defaults to false).
-     * These permissions are calcualted based on the current user's group memberships and role assignments, and
+     * These permissions are calculated based on the current user's group memberships and role assignments, and
      * represent the actual permissions the user has to these resources at the time of the API call.
      */
     includeEffectivePermissions?: boolean
@@ -302,35 +260,15 @@ export interface GetSecurableResourcesOptions {
      * and their contained securable resources (defaults to false).
      */
     includeSubfolders?: boolean
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - data: an object with a property named "resources" which contains the root resource.
-     * Each resource has the following properties:
-     *     - id: The unique id of the resource (String, typically a GUID).
-     *     - name: The name of the resource suitable for showing to a user.
-     *     - description: The description of the reosurce.
-     *     - resourceClass: The fully-qualified Java class name of the resource.
-     *     - sourceModule: The name of the module in which the resource is defined and managed
-     *     - parentId: The parent resource's id (may be omitted if no parent)
-     *     - parentContainerPath: The parent resource's container path (may be omitted if no parent)</li>
-     *     - children: An array of child resource objects.
-     *     - effectivePermissions: An array of permission unique names the current user has on the resource. This will be
-     *       present only if the includeEffectivePermissions property was set to true on the config object.
-     * - response: The XMLHttpResponse object
-     */
-    success?: Function
 }
 
 /**
- * Returns the tree of securable resources from the current container downward
+ * Returns the tree of securable resources from the current container downward.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getSecurableResources(config: GetSecurableResourcesOptions): XMLHttpRequest {
     let params: any = {};
@@ -350,59 +288,24 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
     })
 }
 
-export interface GetUserPermissionsOptions {
-    containerPath?: string
+export interface GetUserPermissionsResponse extends PermissionsResponse {
+    /** Information object describing the user. */
+    user: {
+        /** The user's display name. */
+        displayName: string
+        /** The user's id. */
+        userId: number
+    }
+}
+
+export interface GetUserPermissionsOptions extends RequestCallbackOptions<GetUserPermissionsResponse> {
     /**
-     * A reference to a function to call when an error occurs. This
-     * function will be passed the following parameters:
-     * - errorInfo: an object containing detailed error information (may be null)
-     * - response: The XMLHttpResponse object
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
      */
-    failure?: (error?: any) => any
+    containerPath?: string
     /** Set to true to recurse down the subfolders (defaults to false) */
     includeSubfolders?: boolean
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    /**
-     * A reference to a function to call with the API results. This
-     * function will be passed the following parameters:
-     * - userPermsInfo: an object containing properties about the user's permissions.
-     * This object will have the following shape:
-     *     - container: information about the container and the groups the user belongs to in that container
-     *         - id: the container id
-     *         - name: the container name
-     *         - path: the container path
-     *         - roleLabel: (DEPRECATED) a description of the user's permission role in this container. This will correspond
-     *           to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
-     *         - role: (DEPRECATED) the user's role value (e.g., 'ADMIN'). Use this property for programmatic checks.
-     *         - permissions: (DEPRECATED) The user's effective permissions in this container as a bit mask.
-     *           Use this with the hasPermission() method to test for specific permissions.
-     *         - roles: An array of role unique names that this user is playing in the container. This replaces the
-     *           existing roleLabel, role and permissions properties. Users may now play multiple roles in a container
-     *           and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
-     *           about the roles, including which permissions are granted by each role.
-     *         - effectivePermissions: An array of effective permission unique names the user has.
-     *         - groups: an array of group objects to which the user belongs, each of which will have the following properties:
-     *             - id: the group id
-     *             - name: the group's name
-     *             - roleLabel: (DEPRECATED) a description of the group's permission role. This will correspond
-     *               to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
-     *             - role: (DEPRECATED) the group's role value (e.g., 'ADMIN'). Use this property for programmatic checks.
-     *             - permissions: (DEPRECATED) The group's effective permissions as a bit mask.
-     *               Use this with the hasPermission() method to test for specific permissions.
-     *             - roles: An array of role unique names that this group is playing in the container. This replaces the
-     *               existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
-     *               and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
-     *               about the roles, including which permissions are granted by each role.
-     *             - effectivePermissions: An array of effective permission unique names the group has.
-     *         - children: if includeSubfolders was true, this will contain an array of objects, each of
-     *           which will have the same shape as the parent container object.
-     *     - user: information about the requested user
-     *         - userId: the user's id
-     *         - displayName: the user's display name
-     * - response: The XMLHttpResponse object
-     */
-    success?: (data?: any) => any
     /** The email address (user name) of the user (specify only userId or userEmail, not both) */
     userEmail?: string
     /** The id of the user. Omit to get the current user's information */
@@ -410,13 +313,13 @@ export interface GetUserPermissionsOptions {
 }
 
 /**
- * Returns information about a user's permissions within a container. If you don't specify a user id, this
- * will return information about the current user.
+ * Returns information about a user's permissions within a container.
+ * If an user id is not specified, then this will return information about the current user.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRequest {
     let params: any = {};
@@ -444,25 +347,18 @@ export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRe
 /**
  * Returns true if the permission passed in 'desiredPermission' is in the permissions
  * array passed as 'effectivePermissions'. This is a local function and does not make a call to the server.
- * @param {Array} effectivePermissions The permission set, typically retrieved for a given user or group.
- * @param {String} desiredPermission A specific permission bit to check for.
- * @returns {boolean}
+ * @param effectivePermissions The permission set, typically retrieved for a given user or group.
+ * @param desiredPermission A specific permission bit to check for.
  */
-export function hasEffectivePermission(effectivePermissions: Array<string>, desiredPermission: string): boolean {
-    for (let i = 0; i < effectivePermissions.length; i++) {
-        if (effectivePermissions[i] === desiredPermission) {
-            return true;
-        }
-    }
-
-    return false;
+export function hasEffectivePermission(effectivePermissions: string[], desiredPermission: string): boolean {
+    return effectivePermissions.some((ep) => ep === desiredPermission);
 }
 
 /**
- * Returns true if the permission passed in 'perm' is on in the permissions
+ * Returns 1 if the permission passed in 'perm' is on in the permissions
  * set passed as 'perms'. This is a local function and does not make a call to the server.
- * @param {int} perms The permission set, typically retrieved for a given user or group.
- * @param {int} perm A specific permission bit to check for.
+ * @param perms The permission set, typically retrieved for a given user or group.
+ * @param perm A specific permission bit to check for.
  */
 export function hasPermission(perms: number, perm: number): number {
     // TODO: This says it returns true (or implied false), but it really returns 0 or 1.

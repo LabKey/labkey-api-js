@@ -17,6 +17,8 @@ import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
 import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray, RequestCallbackOptions } from '../Utils'
 
+import { Group } from './types'
+
 export interface AddGroupMembersOptions extends RequestCallbackOptions<{added: number[]}> {
     containerPath?: string
     /** The id of the group to which you want to add the member. */
@@ -115,20 +117,9 @@ export function deleteGroup(config: DeleteGroupOptions): XMLHttpRequest {
     });
 }
 
-export interface Group {
-    /** The unique id of the group. */
-    id: number
-    /** The name of the group. */
-    name: string
-    /** True if this group is defined at the project level. */
-    isProjectGroup: boolean
-    /** True if this group is defined at the system level. */
-    isSystemGroup: boolean
-}
-
 export interface GetGroupsForCurrentUserResponse {
     /** An array of group information objects. */
-    groups: Group[]
+    groups: Pick<Group, 'id'|'isProjectGroup'|'isSystemGroup'|'name'>[]
 }
 
 export interface GetGroupsForCurrentUserOptions extends RequestCallbackOptions<GetGroupsForCurrentUserResponse> {
