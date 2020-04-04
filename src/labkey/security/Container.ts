@@ -46,9 +46,9 @@ export interface CreateContainerOptions extends RequestCallbackOptions<Container
  * Creates a new container, which may be a project, folder, or workbook.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function createContainer(config: CreateContainerOptions): XMLHttpRequest {
     return request({
@@ -264,9 +264,9 @@ export interface GetModulesOptions extends RequestCallbackOptions<GetModulesResp
  * Retrieves the full set of modules that are installed on the server.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getModules(config: GetModulesOptions): XMLHttpRequest {
     return request({
