@@ -18,9 +18,8 @@ import { request } from '../../Ajax'
 import { apply, getCallbackWrapper, getOnFailure, getOnSuccess } from '../../Utils'
 
 import { Dimension } from './Dimension'
-import { getSuccessCallbackWrapper } from './Utils'
 
-function createDimensions(json: any): Array<Dimension> {
+function createDimensions(json: any): Dimension[] {
 
     let dimensions = [];
     if (json.dimensions && json.dimensions.length) {
@@ -87,7 +86,7 @@ export class Measure {
      * Returns the set of available [[Dimension]] objects for this measure.
      * @param {IMeasureGetDimensionsOptions} options
      */
-    getDimensions(options: IMeasureGetDimensionsOptions): void {
+    getDimensions(options: IMeasureGetDimensionsOptions): XMLHttpRequest {
 
         let params: any = {
             queryName: this.queryName,
@@ -98,11 +97,10 @@ export class Measure {
             params.includeDemographics = true;
         }
 
-        request({
-            url: buildURL('visualization', 'getDimensions'),
-            method: 'GET',
+        return request({
+            url: buildURL('visualization', 'getDimensions.api'),
             params,
-            success: getSuccessCallbackWrapper(createDimensions, getOnSuccess(options), options.scope),
+            success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createDimensions),
             failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
         });
     }

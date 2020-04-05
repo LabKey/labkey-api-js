@@ -498,6 +498,16 @@ export function getFileIconUrl(fileName: string): string {
     });
 }
 
+export function getMeasureAlias(measure: any, override?: boolean): string {
+    // TODO: Move this function out of Utils -- visualization specific
+    if (measure.alias && !override) {
+        return measure.alias;
+    }
+
+    let alias = measure.schemaName + '_' + measure.queryName + '_' + measure.name;
+    return alias.replace(/\//g, '_');
+}
+
 /**
  * Generates a display string from the response to an error from an AJAX request
  */
