@@ -75,9 +75,9 @@ export interface DeleteContainerOptions extends RequestCallbackOptions {
  * Deletes an existing container, which may be a project, folder, or workbook.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest {
     return request({
@@ -128,9 +128,9 @@ export interface GetContainersOptions extends RequestCallbackOptions<ContainerHi
  * about all descendants the user is allowed to see.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getContainers(config: GetContainersOptions): XMLHttpRequest {
     let params: any = {};
@@ -207,9 +207,9 @@ export interface GetFolderTypesOptions extends RequestCallbackOptions<GetFolderT
  * Retrieves the full set of folder types that are available on the server.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getFolderTypes(config: GetFolderTypesOptions): XMLHttpRequest {
     return request({
