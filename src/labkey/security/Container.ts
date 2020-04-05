@@ -88,13 +88,32 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
     });
 }
 
+export interface ModuleProperty {
+    /** The value of the property, including a value potentially inherited from parent containers. */
+    effectiveValue: any
+    /** Name of the module specifying this property. */
+    module: string
+    /** Name of the module property. */
+    name: string
+    /** The value of the property as set for this specific container. */
+    value: any
+}
+
 export interface ContainerHierarchy extends Container {
+    /**
+     * When the includeSubfolders parameter was true this will contain an array of child
+     * container objects with the same shape as the parent object.
+     */
     children: ContainerHierarchy[]
     /**
      * An array of effective permission unique names the group has. Only available if
-     * includeEffectivePermissions flag is set to true.
+     * includeEffectivePermissions parameter is set to true.
      */
     effectivePermissions?: string[]
+    /**
+     * If requested in the config object, an array of module properties for each included module.
+     */
+    moduleProperties: ModuleProperty[]
     /**
      * @deprecated
      * The permissions the current user has in the container.
@@ -102,7 +121,11 @@ export interface ContainerHierarchy extends Container {
     userPermissions: number
 }
 
-export interface GetContainersOptions extends RequestCallbackOptions<ContainerHierarchy> {
+// TODO: getContainers return type varies based on parameters. If "container" property is a string
+// it will return a ContainerHierarchy. If "container" property is string[] it will return
+// { containers: ContainerHierarchy[] }. We should consider making return type consistent (e.g. always an array).
+// For this reason the <ContainerHierarchy> type is commented out below leaving this API's response untyped.
+export interface GetContainersOptions extends RequestCallbackOptions/*<ContainerHierarchy>*/ {
     /**
      * A container id or full-path String or an Array of container id/full-path Strings.
      * If not present, the current container is used.
