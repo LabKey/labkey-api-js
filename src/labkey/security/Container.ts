@@ -90,6 +90,16 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
 
 export interface ContainerHierarchy extends Container {
     children: ContainerHierarchy[]
+    /**
+     * An array of effective permission unique names the group has. Only available if
+     * includeEffectivePermissions flag is set to true.
+     */
+    effectivePermissions?: string[]
+    /**
+     * @deprecated
+     * The permissions the current user has in the container.
+     */
+    userPermissions: number
 }
 
 export interface GetContainersOptions extends RequestCallbackOptions<ContainerHierarchy> {
