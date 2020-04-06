@@ -16,7 +16,6 @@
 import { buildURL } from './ActionURL'
 import { request } from './Ajax'
 import {
-    ExtendedXMLHttpRequest,
     getCallbackWrapper,
     getOnFailure,
     getOnSuccess,
@@ -32,12 +31,6 @@ import { Run, RunGroup } from './Exp'
  * The name of the protocol used by Experiment. This can be used for "protocolName".
  */
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
-
-/**
- * @hidden
- * @private
- */
-type ExperimentSuccessCallback<T> = (payload?: T, response?: XMLHttpRequest) => any;
 
 /**
  * Several Experiment API endpoints expose optional settings for the ExperimentJSONConverter.
@@ -81,16 +74,11 @@ function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOpt
     return params;
 }
 
-export interface ICreateHiddenRunGroupOptions {
+export interface ICreateHiddenRunGroupOptions extends RequestCallbackOptions<RunGroup> {
     /**
      * An alternate container path to get permissions from. If not specified, the current container path will be used.
      */
     containerPath?: string
-
-    /**
-     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
-     */
-    failure?: RequestFailure
 
     /**
      * An array of integer ids for the runs to be members of the group. Either runIds or selectionKey must be specified.
@@ -98,20 +86,10 @@ export interface ICreateHiddenRunGroupOptions {
     runIds?: Array<number>
 
     /**
-     * A scoping object for the success and failure callback functions (default to this).
-     */
-    scope?: any
-
-    /**
      * The DataRegion's selectionKey to be used to resolve the runs to be members of the group.
      * Either runIds or selectionKey must be specified.
      */
     selectionKey?: string
-
-    /**
-     * A reference to a function to call with the API results.
-     */
-    success: ExperimentSuccessCallback<RunGroup>
 }
 
 /**
@@ -138,9 +116,12 @@ export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): XML
         url: buildURL('experiment', 'createHiddenRunGroup.api', options.containerPath),
         method: 'POST',
         jsonData,
-        success: getSuccessCallbackWrapper<RunGroup>((json) => {
-            return new RunGroup(json);
-        }, getOnSuccess(options), options.scope),
+        success: getCallbackWrapper<RunGroup>(
+            getOnSuccess(options),
+            options.scope,
+            false,
+            (json) => new RunGroup(json)
+        ),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
@@ -175,75 +156,38 @@ function createRuns(json: any): Run[] {
 
 /**
  * @hidden
- * @private
+ * @ignore
  */
-function getSuccessCallbackWrapper<SuccessPayload>(
-    payloadProcessor: (json: any) => SuccessPayload,
-    success: any,
-    scope?: any) {
-
-    return getCallbackWrapper((json: any, response: ExtendedXMLHttpRequest) => {
-        if (success) {
-            success.call(scope || this, payloadProcessor(json), response);
-        }
-    });
+export function exportRuns(config: any) {
+    throw new Error('dom/Experiment.js required');
 }
 
 export interface IBaseSaveBatchOptions {
-    /**
-     * The assay protocol id
-     */
+    /** The assay protocol id. */
     assayId: number
-
-    /**
-     * The name of the assay.
-     */
+    /** The name of the assay. */
     assayName?: string
-
-    /**
-     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
-     */
-    failure?: RequestFailure
-
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
     protocolName?: string
-
-    /**
-     * The assay provider name.
-     */
+    /** The assay provider name. */
     providerName?: string
-
-    /**
-     * A scoping object for the success and failure callback functions (default to this).
-     */
-    scope?: any
 }
 
-export interface ISaveBatchOptions extends IBaseSaveBatchOptions {
+export interface ISaveBatchOptions extends IBaseSaveBatchOptions, RequestCallbackOptions<RunGroup> {
     /**
      * A modified RunGroup.
      */
     batch?: RunGroup
-
-    /**
-     * The function to call when loadBatches finishes successfully.
-     */
-    success?: ExperimentSuccessCallback<RunGroup>
 }
 
-export interface ISaveBatchesOptions extends IBaseSaveBatchOptions {
+export interface ISaveBatchesOptions extends IBaseSaveBatchOptions, RequestCallbackOptions<RunGroup[]> {
     /**
      * The modified RunGroups.
      */
-    batches?: Array<RunGroup>
-
-    /**
-     * The function to call when loadBatches finishes successfully.
-     */
-    success?: ExperimentSuccessCallback<Array<RunGroup>>
+    batches?: RunGroup[]
 }
 
 export interface LineageEdge {
@@ -315,7 +259,8 @@ export interface ILineageOptions extends ExperimentJSONConverterOptions, Request
     depth?: number
 
     /**
-     * Optional experiment type to filter response -- either "Data", "Material", or "ExperimentRun". Defaults to include all.
+     * Optional experiment type to filter response -- either "Data", "Material", or "ExperimentRun".
+     * Defaults to include all.
      */
     expType?: string
 
@@ -376,7 +321,7 @@ export function lineage(options: ILineageOptions): XMLHttpRequest {
     });    
 }
 
-export interface ILoadBatchOptions {
+export interface ILoadBatchOptions extends RequestCallbackOptions<RunGroup> {
     /**
      * The assay protocol id.
      */
@@ -393,11 +338,6 @@ export interface ILoadBatchOptions {
     batchId: number
 
     /**
-     * A reference to a function to call when an error occurs.
-     */
-    failure?: RequestFailure
-
-    /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
@@ -407,16 +347,6 @@ export interface ILoadBatchOptions {
      * The assay provider name.
      */
     providerName: string
-
-    /**
-     * A scoping object for the success and failure callback functions (default to this).
-     */
-    scope?: any
-
-    /**
-     * The function to call when loadBatch finishes successfully.
-     */
-    success: ExperimentSuccessCallback<RunGroup>
 }
 
 /**
@@ -443,54 +373,30 @@ export function loadBatch(options: ILoadBatchOptions): XMLHttpRequest {
             protocolName: options.protocolName,
             providerName: options.providerName
         },
-        success: getSuccessCallbackWrapper<RunGroup>((json) => {
-            return new RunGroup(json.batch);
-        }, getOnSuccess(options), options.scope),
+        success: getCallbackWrapper<RunGroup>(
+            getOnSuccess(options),
+            options.scope,
+            false,
+            (json: any) => new RunGroup(json.batch)
+        ),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
-export interface ILoadBatchesOptions {
-    /**
-     * The assay protocol id.
-     */
+export interface ILoadBatchesOptions extends RequestCallbackOptions<RunGroup[]> {
+    /** The assay protocol id. */
     assayId: number
-
-    /**
-     * The name of the assay.
-     */
+    /** The name of the assay. */
     assayName: string
-
-    /**
-     * An Array of batch ids.
-     */
+    /** An Array of batch ids. */
     batchIds: Array<number>
-
-    /**
-     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
-     */
-    failure?: RequestFailure
-
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
     protocolName?: string
-
-    /**
-     * The assay provider name.
-     */
+    /** The assay provider name. */
     providerName: string
-
-    /**
-     * A scoping object for the success and failure callback functions (default to this).
-     */
-    scope?: any
-
-    /**
-     * The function to call when loadBatches finishes successfully.
-     */
-    success: ExperimentSuccessCallback<Array<RunGroup>>
 }
 
 /**
@@ -508,36 +414,16 @@ export function loadBatches(options: ILoadBatchesOptions): XMLHttpRequest {
             protocolName: options.protocolName,
             providerName: options.providerName
         },
-        success: getSuccessCallbackWrapper<RunGroup[]>(createRunGroups, getOnSuccess(options), options.scope),
+        success: getCallbackWrapper<RunGroup[]>(getOnSuccess(options), options.scope, false, createRunGroups),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
-export interface ILoadRunsOptions extends ExperimentJSONConverterOptions {
-    /**
-     * A reference to a function to call when an error occurs. This function will be passed the following parameters:
-     */
-    failure?: RequestFailure
-
-    /**
-     * An Array of run LSIDs to fetch.
-     */
-    lsids?: Array<string>
-
-    /**
-     * An Array of run ids to fetch.
-     */
-    runIds?: Array<number>
-
-    /**
-     * A scoping object for the success and failure callback functions (default to this).
-     */
-    scope?: any
-
-    /**
-     * The function to call when loadRuns finishes successfully.
-     */
-    success: ExperimentSuccessCallback<Array<Run>>
+export interface ILoadRunsOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<Run[]> {
+    /** An Array of run LSIDs to fetch. */
+    lsids?: string[]
+    /** An Array of run ids to fetch. */
+    runIds?: number[]
 }
 
 export function loadRuns(options: ILoadRunsOptions): XMLHttpRequest {
@@ -554,7 +440,7 @@ export function loadRuns(options: ILoadRunsOptions): XMLHttpRequest {
         url: buildURL('assay', 'getAssayRuns.api'),
         method: 'POST',
         jsonData,
-        success: getSuccessCallbackWrapper<Run[]>(createRuns, getOnSuccess(options), options.scope),
+        success: getCallbackWrapper<Run[]>(getOnSuccess(options), options.scope, false, createRuns),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
@@ -591,7 +477,8 @@ export function resolve(options: IResolveOptions): XMLHttpRequest {
 // formerly, _saveBatches
 function requestSaveBatches<SuccessPayload>(
     rawOptions: ISaveBatchOptions & ISaveBatchesOptions,
-    payloadProcessor: (json: any) => SuccessPayload): XMLHttpRequest {
+    payloadProcessor: (json: any) => SuccessPayload
+): XMLHttpRequest {
 
     return request({
         url: buildURL('assay', 'saveAssayBatch.api'),
@@ -603,7 +490,7 @@ function requestSaveBatches<SuccessPayload>(
             protocolName: rawOptions.protocolName,
             providerName: rawOptions.providerName
         },
-        success: getSuccessCallbackWrapper<SuccessPayload>(payloadProcessor, getOnSuccess(rawOptions), rawOptions.scope),
+        success: getCallbackWrapper<SuccessPayload>(getOnSuccess(rawOptions), rawOptions.scope, false, payloadProcessor),
         failure: getCallbackWrapper(getOnFailure(rawOptions), rawOptions.scope, true)
     })
 }
@@ -700,47 +587,20 @@ export function saveMaterials(options: ISaveMaterialsOptions): XMLHttpRequest {
     })
 }
 
-export interface ISaveRunsOptions {
-    /**
-     * The assay protocol id.
-     */
+export interface ISaveRunsOptions extends RequestCallbackOptions {
+    /** The assay protocol id. */
     assayId?: number
-
-    /**
-     * The name of the assay.
-     */
+    /** The name of the assay. */
     assayName?: string
-
-    /**
-     * The function to call if this function encounters an error.
-     */
-    failure?: RequestFailure
-
     /**
      * Protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
     protocolName?: string
-
-    /**
-     * The assay provider name.
-     */
+    /** The assay provider name. */
     providerName?: string
-
-    /**
-     * The runs to be saved.
-     */
+    /** The runs to be saved. */
     runs: any // TODO: What is this type? Likely too strict to have Array<Run> as "Run-like" objects are also accepted.
-
-    /**
-     * A scoping object for the success and error callback functions (default to this).
-     */
-    scope?: any
-
-    /**
-     * The function to call when the function finishes successfully.
-     */
-    success?: ExperimentSuccessCallback<Array<Run>>
 }
 
 /**
@@ -757,7 +617,7 @@ export function saveRuns(options: ISaveRunsOptions): XMLHttpRequest {
             providerName: options.providerName,
             runs: options.runs,
         },
-        success: getSuccessCallbackWrapper<Run[]>(createRuns, getOnSuccess(options), options.scope),
+        success: getCallbackWrapper<Run[]>(getOnSuccess(options), options.scope, false, createRuns),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
