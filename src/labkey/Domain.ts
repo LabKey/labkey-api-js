@@ -333,13 +333,18 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
     });
 }
 
-interface ListDomainsParams {
-    domainKinds?: Array<string>
+export interface ListDomainsParams {
+    domainKinds?: string[]
     includeFields?: boolean
     includeProjectAndShared?: boolean
 }
 
-export interface ListDomainsOptions extends ListDomainsParams, RequestCallbackOptions<DomainDesign[]> {
+export interface ListDomainsResponse {
+    data: DomainDesign[]
+    success: boolean
+}
+
+export interface ListDomainsOptions extends ListDomainsParams, RequestCallbackOptions<ListDomainsResponse> {
     containerPath?: string
 }
 
