@@ -15,7 +15,13 @@
  */
 import { buildURL } from './ActionURL'
 import { request } from './Ajax'
-import { getCallbackWrapper, isString } from './Utils'
+import {
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    isString,
+    RequestCallbackOptions,
+} from './Utils'
 
 // This is effectively GWTDomain
 /**
@@ -64,7 +70,7 @@ export interface DomainDesign {
     templateDescription?: string
 }
 
-export interface CreateDomainOptions {
+export interface CreateDomainOptions extends RequestCallbackOptions {
     /** The container path in which to create the domain. */
     containerPath?: string
     /** When using a domain template, create the domain.  Defaults to true. */
@@ -77,7 +83,6 @@ export interface CreateDomainOptions {
     domainKind?: string
     /** The name of a domain template within the domain group. */
     domainTemplate?: string
-    failure?: (error?: any) => any
     /** When using a domain template, import initial data associated in the template.  Defaults to true. */
     importData?: boolean
     /** The domain kind to create. One of "IntList", "VarList", "SampleSet", or "DataClass". */
@@ -86,7 +91,6 @@ export interface CreateDomainOptions {
     module?: string
     /** Arguments used to create the specific domain type. */
     options?: any
-    success?: (data?: any) => any
     timeout?: number
 }
 
@@ -94,7 +98,8 @@ export interface CreateDomainOptions {
  * Create a new domain with the given kind, domainDesign, and options or
  * specify a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates)
  * to use for the domain creation. Not all domain kinds can be created through this API.
- * Currently supported domain kinds are: "IntList", "VarList", "SampleSet", "DataClass", "StudyDatasetDate", "StudyDatasetVisit".
+ * Currently supported domain kinds are: "IntList", "VarList", "SampleSet", "DataClass",
+ * "StudyDatasetDate", "StudyDatasetVisit".
  *
  * ```
  * LABKEY.Domain.create({
@@ -134,16 +139,16 @@ export interface CreateDomainOptions {
  * });
  * ```
  */
-export function create(config: CreateDomainOptions): void {
+export function create(config: CreateDomainOptions): XMLHttpRequest {
 
     let options = arguments.length > 1 ? mapCreateArguments(arguments) : config;
 
-    request({
+    return request({
         url: buildURL('property', 'createDomain.api', options.containerPath),
         method: 'POST',
         jsonData: options,
-        success: getCallbackWrapper(options.success),
-        failure: getCallbackWrapper(options.failure, this, true)
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
@@ -172,30 +177,29 @@ function mapCreateArguments(args: any): CreateDomainOptions {
     return options;
 }
 
-export interface DropDomainOptions {
-    /** The container path in which the requested Domain is defined.
+export interface DropDomainOptions extends RequestCallbackOptions {
+    /**
+     * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
      */
     containerPath?: string
     domainDesign?: any              // consider removing, this doesn't appear to be needed
-    failure?: (error?: any) => any
     /** The domain query name. */
     queryName: string
     /** The domain schema name. */
     schemaName: string
-    success?: () => any
 }
 
 /**
  * Delete a domain.
  */
-export function drop(config: DropDomainOptions): void {
+export function drop(config: DropDomainOptions): XMLHttpRequest {
 
-    request({
+    return request({
         url: buildURL('property', 'deleteDomain.api', config.containerPath),
         method: 'POST',
-        success: getCallbackWrapper(config.success),
-        failure: getCallbackWrapper(config.failure, this, true),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         jsonData: {
             domainDesign: config.domainDesign,
             schemaName: config.schemaName,
@@ -204,21 +208,21 @@ export function drop(config: DropDomainOptions): void {
     });
 }
 
-export interface GetDomainOptions {
-    /** The container path in which the requested Domain is defined.
+export interface GetDomainOptions extends RequestCallbackOptions {
+    /**
+     * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
      */
     containerPath?: string
-    failure?: (error?: any) => any
+    /**
+     * Id of the domain. This is an alternate way to identify the domain.
+     * SchemaName and queryName will be ignored if this value is not undefined or null.
+     */
+    domainId?: number
     /** The domain query name. */
     queryName?: string
     /** The domain schema name. */
     schemaName?: string
-    /** Id of the domain. This is an alternate way to identify the domain.
-     * SchemaName and queryName will be ignored if this value is not undefined or null.
-     */
-    domainId?: number
-    success?: (data?: any) => any
 }
 
 /**
@@ -239,10 +243,10 @@ export interface GetDomainOptions {
  *      alert('An error occurred retrieving data: ' + error);
  *  }
  *
- *  LABKEY.Domain.get(successHandler, errorHandler, 'study', 'StudyProperties');
+ *  LABKEY.Domain.getDomainDetails(successHandler, errorHandler, 'study', 'StudyProperties');
  * ```
  */
-export function getDomainDetails(config: GetDomainOptions): void {
+export function getDomainDetails(config: GetDomainOptions): XMLHttpRequest {
 
     let options: GetDomainOptions = arguments.length > 1 ? {
         containerPath: arguments[4],
@@ -252,18 +256,16 @@ export function getDomainDetails(config: GetDomainOptions): void {
         success: arguments[0]
     } : config;
 
-    request({
+    return request({
         url: buildURL('property', 'getDomainDetails.api', options.containerPath),
-        method: 'GET',
-        success: getCallbackWrapper(options.success),
-        failure: getCallbackWrapper(options.failure, this, true),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         params: {
             schemaName: options.schemaName,
             queryName: options.queryName,
             domainId: options.domainId
         }
     });
-
 }
 
 /**
@@ -272,7 +274,7 @@ export function getDomainDetails(config: GetDomainOptions): void {
  */
 export const get = getDomainDetails;
 
-export interface SaveDomainOptions {
+export interface SaveDomainOptions extends RequestCallbackOptions {
     /**
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
@@ -280,25 +282,29 @@ export interface SaveDomainOptions {
     containerPath?: string
     /** The domain design to save. */
     domainDesign?: any
-    failure?: (error?: any) => any
-    /** Name of the query. */
-    queryName?: string
-    /** Name of the schema. */
-    schemaName?: string
     /**
      * Id of the domain. This is an alternate way to identify the domain to update.
      * SchemaName and queryName will be ignored if this value is not undefined or null.
      */
     domainId?: number
-    success?: (data?: any) => any,
-    includeWarnings?: boolean,
-    options?: any,
+    /** Set to true to prevent save from completing when a server side warning occurs. */
+    includeWarnings?: boolean
+    /**
+     * Domain Kind specific properties. If not supplied, will be ignored.
+     * Note: Certain domain kind specific properties are read-only and cannot be updated.
+     * Read-only properties for 'IntList' & 'VarList' domain kinds: listId, domainId, keyName, keyType, and lastIndexed.
+     */
+    options?: any
+    /** Name of the query. */
+    queryName?: string
+    /** Name of the schema. */
+    schemaName?: string
 }
 
 /**
  * Saves the provided domain design.
  */
-export function save(config: SaveDomainOptions): void {
+export function save(config: SaveDomainOptions): XMLHttpRequest {
 
     let options: SaveDomainOptions = arguments.length > 1 ? {
         success: arguments[0],
@@ -311,11 +317,11 @@ export function save(config: SaveDomainOptions): void {
         options: arguments[7],
     } : config;
 
-    request({
+    return request({
         url: buildURL('property', 'saveDomain.api', options.containerPath),
         method: 'POST',
-        success: getCallbackWrapper(options.success),
-        failure: getCallbackWrapper(options.failure, this, true),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         jsonData: {
             domainDesign: options.domainDesign,
             schemaName: options.schemaName,
@@ -333,13 +339,11 @@ interface ListDomainsParams {
     includeProjectAndShared?: boolean
 }
 
-export interface ListDomainsOptions extends ListDomainsParams {
+export interface ListDomainsOptions extends ListDomainsParams, RequestCallbackOptions<DomainDesign[]> {
     containerPath?: string
-    failure?: (error?: any) => any
-    success?: (response: {data?: Array<DomainDesign>}) => any
 }
 
-export function listDomains(config: ListDomainsOptions): void {
+export function listDomains(config: ListDomainsOptions): XMLHttpRequest {
     const params: ListDomainsParams = { };
 
     if (config.domainKinds)
@@ -351,26 +355,24 @@ export function listDomains(config: ListDomainsOptions): void {
     if (config.includeProjectAndShared !== undefined)
         params.includeProjectAndShared = config.includeProjectAndShared;
 
-    request({
-        url: buildURL('property', 'listDomains.api', config.containerPath, params),
-        method: 'GET',
-        success: getCallbackWrapper(config.success),
-        failure: getCallbackWrapper(config.failure, this, true),
+    return request({
+        url: buildURL('property', 'listDomains.api', config.containerPath),
+        params,
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
 interface GetPropertiesParams {
-    propertyIds?: Array<number>
-    propertyURIs?: Array<string>
+    propertyIds?: number[]
+    propertyURIs?: string[]
 }
 
-export interface GetPropertiesOptions extends GetPropertiesParams{
+export interface GetPropertiesOptions extends GetPropertiesParams, RequestCallbackOptions {
     containerPath?: string
-    failure?: (error?: any) => any
-    success?: (response: {data?: Array<any /*DomainField*/>}) => any
 }
 
-export function getProperties(config: GetPropertiesOptions): void {
+export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
     const params: GetPropertiesParams = {};
 
     if (config.propertyIds)
@@ -379,11 +381,11 @@ export function getProperties(config: GetPropertiesOptions): void {
     if (config.propertyURIs)
         params.propertyURIs = config.propertyURIs;
 
-    request({
-        url: buildURL('property', 'getProperties.api', config.containerPath, params),
-        method: 'GET',
-        success: getCallbackWrapper(config.success),
-        failure: getCallbackWrapper(config.failure, this, true),
+    return request({
+        url: buildURL('property', 'getProperties.api', config.containerPath),
+        params,
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
