@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "0.0.46",
+  "version": "0.0.47",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",

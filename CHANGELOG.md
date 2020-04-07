@@ -1,3 +1,6 @@
+## 0.0.47 - 2020-04-06
+- Domain module updates.
+
 ## 0.0.46 - 2020-04-06
 - Security module updates.
 
