@@ -15,41 +15,26 @@
  */
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
-import { getOnSuccess, getCallbackWrapper, getOnFailure } from '../Utils'
-import { getServerContext } from '../constants'
+import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions, RequestFailure } from '../Utils'
 
-export interface DeletePolicyOptions {
+export interface DeletePolicyOptions extends RequestCallbackOptions {
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
     containerPath?: string
-    failure?: Function
+    /** The unique id of the securable resource. */
     resourceId: string
-    scope?: any
-    success?: Function
 }
 
 /**
  * Deletes the security policy for the requested resource id. This will cause resource to inherit its
  * security policy from its parent resource.
- * @param config A configuration object with the following properties
- * @param {String} config.resourceId The unique id of the securable resource.
- * @param {Function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>data:</b> a simple object with one property called 'success' which will be set to true.</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Object} [config.scope] A scoping object for the success and error callback functions (default to this).
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function deletePolicy(config: DeletePolicyOptions): XMLHttpRequest {
     return request({
@@ -63,17 +48,31 @@ export function deletePolicy(config: DeletePolicyOptions): XMLHttpRequest {
     });
 }
 
-export interface GetPolicyOptions {
-    containerPath?: string
-    failure?: Function
+export interface Policy {
+    assignments: {
+        role: string
+        userId: number
+    }[]
+    modified: string
+    modifiedMillis: number
     resourceId: string
-    scope?: any
-    success?: Function
+    requestedResourceId: string
 }
 
-export interface GetPolicyResponse {
-    policy: any
-    relevantRoles: any
+export interface GetPolicyOptions {
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
+    containerPath?: string
+    /** A reference to a function to call when an error occurs. */
+    failure?: RequestFailure
+    /** The unique id of the securable resource. */
+    resourceId: string
+    /** A scoping object for the success and error callback functions (default to this). */
+    scope?: any
+    /** A reference to a function to call with the API results. */
+    success?: (policy?: Policy, relevantRoles?: string[], request?: XMLHttpRequest) => any;
 }
 
 /**
@@ -82,28 +81,11 @@ export interface GetPolicyResponse {
  * is no explicit policy set on the requested resource. Use the isInherited method on the returned
  * LABKEY.SecurityPolicy object to determine if the policy is inherited or not.
  * Note that the securable resource must be within the current container, or one of its descendants.
- * @param config A configuration object with the following properties
- * @param {String} config.resourceId The unique id of the securable resource.
- * @param {Function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>policy:</b> an instance of a LABKEY.SecurityPolicy object.</li>
- * <li><b>relevantRoles:</b> an array of role ids that are relevant for the given resource.</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {object} [config.scope] A scoping object for the success and error callback functions (default to this).
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
+
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
     return request({
@@ -111,7 +93,7 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
         jsonData: {
             resourceId: config.resourceId
         },
-        success: getCallbackWrapper(function(data: GetPolicyResponse, req: any) {
+        success: getCallbackWrapper((data: { policy: Policy, relevantRoles: string[] }, req: XMLHttpRequest) => {
             data.policy.requestedResourceId = config.resourceId;
             getOnSuccess(config).call(config.scope || this, data.policy, data.relevantRoles, req);
         }, this),
@@ -119,12 +101,14 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
     });
 }
 
-export interface SavePolicyOptions {
+export interface SavePolicyOptions extends RequestCallbackOptions {
+    /**
+     * An alternate container path to get permissions from. If not specified,
+     * the current container path will be used.
+     */
     containerPath?: string
-    failure?: Function
+    /** The LABKEY.SecurityPolicy object. */
     policy: any
-    scope?: any
-    success?: Function
 }
 
 /**
@@ -133,27 +117,11 @@ export interface SavePolicyOptions {
  * the policy in between the time it was selected and this method is called, the save will fail with
  * an optimistic concurrency exception. To force your policy over the other, call the setModified()
  * method on the policy passing null.
- * @param config A configuration object with the following properties
- * @param {String} config.policy The LABKEY.SecurityPolicy object
- * @param {Function} config.success A reference to a function to call with the API results. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>data:</b> a simple object with one property called 'success' which will be set to true.</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Function} [config.failure] A reference to a function to call when an error occurs. This
- * function will be passed the following parameters:
- * <ul>
- * <li><b>errorInfo:</b> an object containing detailed error information (may be null)</li>
- * <li><b>response:</b> The XMLHttpResponse object</li>
- * </ul>
- * @param {Object} [config.scope] A scoping object for the success and error callback functions (default to this).
- * @param {string} [config.containerPath] An alternate container path to get permissions from. If not specified,
- * the current container path will be used.
+ *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
  */
 export function savePolicy(config: SavePolicyOptions): XMLHttpRequest {
     return request({

@@ -13,11 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-// Container, User imported due to TS4023
-// https://github.com/Microsoft/TypeScript/issues/5711#issuecomment-157793294
-import { Container, getServerContext, User } from '../constants'
-
-const LABKEY = getServerContext();
+import { getServerContext } from '../constants'
 
 /**
  * Exposes limited information about the current container. This property returns a JavaScript object
@@ -29,7 +25,7 @@ const LABKEY = getServerContext();
  * <li>type: the type of container, either project, folder or workbook</li>
  * </ul>
  */
-export const currentContainer = LABKEY.container;
+export const currentContainer = getServerContext().container;
 
 /**
  * Exposes limited information about the current user. This property returns a JavaScript object
@@ -50,7 +46,7 @@ export const currentContainer = LABKEY.container;
  * <li>isSignedIn: set to true if this user is signed in</li>
  * </ul>
  */
-export const currentUser = LABKEY.user;
+export const currentUser = getServerContext().user;
 
 /**
  * A map of commonly used effective permissions supported in the LabKey Server.

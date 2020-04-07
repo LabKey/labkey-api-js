@@ -14,25 +14,41 @@
  * limitations under the License.
  */
 export interface Container {
-    activeModules: Array<string>
+    /** Names of active modules in the container. */
+    activeModules: string[]
+    /** The name of the container's folder type. */
     folderType: string
+    /** Date format settings for this container. */
     formats: {
         dateFormat: string
         dateTimeFormat: string
         numberFormat: string
     }
+    /** True if any active modules in this container require site permissions. */
     hasRestrictedActiveModule: boolean
+    /** Server relative icon URL for this container. */
     iconHref: string
+    /** GUID of this container. */
     id: string
+    /** Indicates if this container is a Container Tab. */
     isContainerTab: boolean
+    /** Indicates if this container is a workbook. */
     isWorkbook: boolean
+    /** Name of the container. This is used in the container's path. */
     name: string
+    /** GUID of this container's parent container. */
     parentId: string
+    /** Path of this container's parent container. */
     parentPath: string
+    /** Path of this container. */
     path: string
+    /** The relative sort order of the requested container */
     sortOrder: number
+    /** Server relative start URL for this container. */
     startUrl: string
+    /** An optional non-unique title for the container. */
     title: string
+    /** Type of this container. (e.g. "project", "folder"). */
     type: string
 }
 

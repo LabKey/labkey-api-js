@@ -13,12 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { currentContainer, currentUser, effectivePermissions, permissions, roles, systemGroups } from './security/constants'
-import { createContainer, deleteContainer, getContainers, getFolderTypes, getHomeContainer, getModules, getSharedContainer, moveContainer } from './security/Container'
-import { getGroupPermissions, getRole, getRoles, getSchemaPermissions, getSecurableResources, getUserPermissions, hasEffectivePermission, hasPermission } from './security/Permission'
-import { createNewUser, ensureLogin, getUsers } from './security/User'
-import { addGroupMembers, createGroup, deleteGroup, removeGroupMembers, renameGroup } from './security/Group'
-import { deletePolicy, getPolicy, savePolicy } from './security/Policy'
+import {
+    currentContainer,
+    currentUser,
+    effectivePermissions,
+    permissions,
+    roles,
+    systemGroups
+} from './security/constants'
+import {
+    createContainer,
+    deleteContainer,
+    getContainers,
+    getFolderTypes,
+    getHomeContainer,
+    getModules,
+    getReadableContainers,
+    getSharedContainer,
+    moveContainer
+} from './security/Container'
+import {
+    getGroupPermissions,
+    getRole,
+    getRoles,
+    getSchemaPermissions,
+    getSecurableResources,
+    getUserPermissions,
+    hasEffectivePermission,
+    hasPermission
+} from './security/Permission'
+import {
+    createNewUser,
+    ensureLogin,
+    getUsers
+} from './security/User'
+import {
+    addGroupMembers,
+    createGroup,
+    deleteGroup,
+    getGroupsForCurrentUser,
+    removeGroupMembers,
+    renameGroup
+} from './security/Group'
+import {
+    deletePolicy,
+    getPolicy,
+    savePolicy
+} from './security/Policy'
 
 export {
     /* constants */
@@ -41,8 +82,10 @@ export {
     getContainers,
     getFolderTypes,
     getGroupPermissions,
+    getGroupsForCurrentUser,
     getHomeContainer,
     getModules,
+    getReadableContainers,
     getPolicy,
     getRole,
     getRoles,
