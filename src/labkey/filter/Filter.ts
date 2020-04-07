@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ensureRegionName, isArray, isString } from '../Utils'
+import { ensureRegionName, isArray } from '../Utils'
 import { getParameters } from '../ActionURL'
 import { FieldKey } from '../fieldKey/FieldKey'
 

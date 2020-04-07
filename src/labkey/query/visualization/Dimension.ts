@@ -17,9 +17,7 @@ import { buildURL } from '../../ActionURL'
 import { request } from '../../Ajax'
 import { apply, getCallbackWrapper, getOnFailure, getOnSuccess } from '../../Utils'
 
-import { getSuccessCallbackWrapper } from './Utils'
-
-function createValues(json: any): Array<any> {
+function createValues(json: any): any[] {
 
     if (json && json.success && json.values) {
         return json.values;
@@ -116,19 +114,17 @@ export class Dimension {
 
     /**
      * Returns the set of available unique values for this dimension.
-     * @param {IGetValuesOptions} options
      */
-    getValues(options: IGetValuesOptions): void {
+    getValues(options: IGetValuesOptions): XMLHttpRequest {
 
-        request({
-            url: buildURL('visualization', 'getDimensionValues'),
-            method: 'GET',
+        return request({
+            url: buildURL('visualization', 'getDimensionValues.api'),
             params: {
                 name: this.name,
                 queryName: this.queryName,
                 schemaName: this.schemaName
             },
-            success: getSuccessCallbackWrapper(createValues, getOnSuccess(options), options.scope),
+            success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createValues),
             failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
         });
     }

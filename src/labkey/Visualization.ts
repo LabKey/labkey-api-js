@@ -13,13 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Aggregate, Dimension, Filter, Interval, Measure, Type } from './query/Visualization'
+import {
+    Aggregate,
+    Dimension,
+    Filter,
+    get,
+    getData,
+    getDataFilterFromURL,
+    getFromUrl,
+    getMeasures,
+    getTypes,
+    Interval,
+    Measure,
+    save,
+    Type
+} from './query/Visualization'
 
 export {
     Aggregate,
     Dimension,
     Filter,
+    get,
+    getData,
+    getDataFilterFromURL,
+    getFromUrl,
+    getMeasures,
+    getTypes,
     Interval,
     Measure,
+    save,
     Type
 }

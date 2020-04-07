@@ -64,7 +64,8 @@ const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true);
 const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
-export const Types = {
+// Mutable due to "_define"
+export let Types: {[key:string]: IFilterType} = {
 
     //
     // These operators require a data value
@@ -281,13 +282,19 @@ export function registerFilterType(
     return type;
 }
 
-// Nick: I'm choosing to explicitly ignore this function. It would require that 'Types' be mutable.
-// Already indicated as @private and warned could be removed at any time.
-// export function _define(typeName: string, displayText: string, urlSuffix: string, isMultiType: boolean): void {
-//     if (!Types[typeName]) {
-//         Types[typeName] = registerFilterType(displayText, null, urlSuffix, true);
-//     }
-// }
+/**
+ * Not for public use. Can be changed or dropped at any time.
+ * @private
+ */
+export function _define(typeName: string, displayText: string, urlSuffix: string, isMultiType?: boolean): void {
+    if (!Types[typeName]) {
+        if (isMultiType) {
+            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true, ',');
+        } else {
+            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true);
+        }
+    }
+}
 
 /**
  * Return the default LABKEY.Filter.Type for a json type ("int", "double", "string", "boolean", "date").

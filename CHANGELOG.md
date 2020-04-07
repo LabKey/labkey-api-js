@@ -1,3 +1,28 @@
+## 0.1.0 - 2020-04-06
+- Feature parity with clientapi_core.
+
+**Experiment**
+- Adds and exports `exportRuns` method.
+- Replaces usages of local payload processor with `Utils.getCallbackWrapper`'s `responseTransformer`.
+
+**Filter**
+- Adds and exports `_define` method.
+
+**Utils**
+- Adds and exports `getMeasureAlias` method.
+
+**Visualization**
+- Adds and exports `save` method.
+- Exports `get`, `getData`, `getDataFilterFromURL`, `getFromUrl`, `getMeasures`, and `getTypes`. 
+All of these were previously declared but needed to be exported in the top-level module.
+- Replaces usages of local payload processor with `Utils.getCallbackWrapper`'s `responseTransformer`.
+- Removes visualization's private `Utils` module which defined no longer used `getSuccessCallbackWrapper` helper method.
+
+**Test**
+- Adds test to verify exported interface against a snapshot of "clientapi_core" as defined in LKS.
+- Provides script used to generate API snapshot.
+- Snapshot checked in as `core_api_snapshot.json`.
+
 ## 0.0.47 - 2020-04-06
 - Domain module updates.
 

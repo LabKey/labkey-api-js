@@ -22,7 +22,7 @@ export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
 }
 
 export type RequestFailure<E = any> = (errorInfo?: E, response?: XMLHttpRequest) => any;
-export type RequestSuccess<D = any> = (data?: D, request?: XMLHttpRequest, config?: RequestOptions) => any;
+export type RequestSuccess<D = any> = (data?: D, request?: ExtendedXMLHttpRequest, config?: RequestOptions) => any;
 
 export interface RequestCallbackOptions<S = any, F = any, SC = any> {
     /**
@@ -392,11 +392,11 @@ export function generateUUID(): string {
  * @param responseTransformer Function to be invoked to transform the response object before invoking the
  * primary callback function.
  */
-export function getCallbackWrapper(
+export function getCallbackWrapper<T = any>(
     fn: Function,
     scope?: any,
     isErrorCallback?: boolean,
-    responseTransformer?: Function
+    responseTransformer?: (json?: any) => T
 ): AjaxHandler {
     return (response: ExtendedXMLHttpRequest, options: RequestOptions) => {
         let json = response.responseJSON;
@@ -496,6 +496,16 @@ export function getFileIconUrl(fileName: string): string {
     return buildURL('core', 'getAttachmentIcon', '', {
         extension: (idx >= 0) ? fileName.substring(idx + 1) : '_generic'
     });
+}
+
+export function getMeasureAlias(measure: any, override?: boolean): string {
+    // TODO: Move this function out of Utils -- visualization specific
+    if (measure.alias && !override) {
+        return measure.alias;
+    }
+
+    let alias = measure.schemaName + '_' + measure.queryName + '_' + measure.name;
+    return alias.replace(/\//g, '_');
 }
 
 /**

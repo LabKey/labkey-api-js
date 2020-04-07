@@ -26,6 +26,7 @@ import {
     merge
 } from './filter/Filter'
 import {
+    _define,
     getDefaultFilterForType,
     getFilterTypeForURLSuffix,
     getFilterTypesForType,
@@ -35,6 +36,7 @@ import {
 } from './filter/Types'
 
 export {
+    _define,
     appendAggregateParams,
     appendFilterParams,
     create,
