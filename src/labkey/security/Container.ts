@@ -274,7 +274,7 @@ export type GetModulesModules = {
     /** Whether this module is required in the folder type specified above */
     required: boolean
 
-    /** */
+    /** Indicates if this module requires site permission */
     requireSitePermission: boolean
 
     /** name of the tab associated with this module */
