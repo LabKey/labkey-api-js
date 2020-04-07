@@ -710,6 +710,8 @@ export interface IQueryRequestOptions {
 
     /** Whether all of the deletes should be done in a single transaction, so they all succeed or all fail. Defaults to true. */
     transacted?: boolean
+
+    auditLevel?: string
 }
 
 // Formerly sendJsonQueryRequest
