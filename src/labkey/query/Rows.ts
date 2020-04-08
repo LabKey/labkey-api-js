@@ -713,7 +713,7 @@ export interface IQueryRequestOptions {
     transacted?: boolean
 
     /** Can be used to override the audit behavior for the table the query is acting on. (@link LABKEY.AuditBehaviorTypes}) */
-    auditBehaviorType?: AuditBehaviorTypes
+    auditBehavior?: AuditBehaviorTypes
 }
 
 // Formerly sendJsonQueryRequest
@@ -734,7 +734,7 @@ function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
             rows: options.rows || options.rowDataArray,
             transacted: options.transacted,
             extraContext: options.extraContext,
-            auditLevel: options.auditBehaviorType
+            auditBehavior: options.auditBehavior
         },
         timeout: options.timeout
     });
