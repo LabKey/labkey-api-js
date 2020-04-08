@@ -1,6 +1,9 @@
 ## TBD - TBD
 - Add optional auditLevel parameter to IQueryRequestOptions 
 
+## 0.1.1 - 2020-04-07
+- Fix for typings of Security.getUserPermissions response.
+
 ## 0.1.0 - 2020-04-06
 - Feature parity with clientapi_core.
 
