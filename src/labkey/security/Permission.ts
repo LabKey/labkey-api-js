@@ -288,7 +288,37 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
     })
 }
 
-export interface GetUserPermissionsResponse extends PermissionsResponse {
+export interface UserPermissionsContainer extends PermissionsContainer {
+    /** An array of effective permission unique names the user has in this container. */
+    effectivePermissions: string[]
+    /**
+     * @deprecated
+     * The permissions the current user has in the container.
+     */
+    permissions: number
+    /**
+     * @deprecated
+     * The user's role value (e.g., 'READER'). Use this property for programmatic checks.
+     */
+    role: string
+    /**
+     * @deprecated
+     * A description of the group's permission role. This will correspond
+     * to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
+     */
+    roleLabel: string
+    /**
+     * An array of role unique names that this group is playing in the container. This replaces the
+     * existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
+     * and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
+     * about the roles, including which permissions are granted by each role.
+     */
+    roles: string[]
+}
+
+export interface GetUserPermissionsResponse {
+    /** Information object describing the container's permission. */
+    container: UserPermissionsContainer
     /** Information object describing the user. */
     user: {
         /** The user's display name. */
