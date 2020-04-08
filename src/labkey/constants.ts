@@ -61,6 +61,13 @@ export enum ExperimentalFeatures {
     strictReturnUrl = 'strictReturnUrl',
 }
 
+/** THe different types of audit behaviors for query requests. May be used to override behavior for a specific requests. */
+export enum AuditBehaviorTypes {
+    NONE = "NONE",
+    DETAILED = "DETAILED",
+    SUMMARY = "SUMMARY"
+}
+
 export type ExperimentalFlags = {
     [key in ExperimentalFeatures]: boolean
 }
