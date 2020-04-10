@@ -72,20 +72,28 @@ export interface QueryViewSort {
 // TODO: This interface should overlap more closely with getQueries or at least be a strict
 // supserset of getQueries properties for any given query.
 export interface QueryDetailsResponse {
+    auditHistoryUrl?: string
     canEdit: boolean
     canEditSharedViews: boolean
     columns: QueryColumn[]
+    createDefinitionUrl?: string
     defaultView: { columns: QueryColumn[] }
     description: string
     editDefinitionUrl: string
+    exception?: string
+    iconURL?: string
     importTemplates: QueryImportTemplate[]
-    importUrl: string
+    importMessage?: string
+    importUrl?: string
+    importUrlDisabled?: boolean
     indices: { [index:string]: QueryIndex }
-    insertUrl: string
+    insertUrl?: string
+    insertUrlDisabled?: boolean
     isInherited: boolean
     isMetadataOverrideable: boolean
     isTemporary: boolean
     isUserDefined: boolean
+    moduleName?: string
     name: string
     schemaName: string
     targetContainers: Container[]
@@ -93,6 +101,7 @@ export interface QueryDetailsResponse {
     titleColumn: string
     viewDataUrl: string
     views: QueryView[]
+    warning?: string
 }
 
 export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDetailsResponse> {

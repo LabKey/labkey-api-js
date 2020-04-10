@@ -39,7 +39,7 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
      * Array of record objects in which each object has a property for each field.
      * The row data array needs to include only the primary key column value, not all columns.
      */
-    rows?: any[]
+    rows?: any
     /**
      * Name of a schema defined within the current container.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
