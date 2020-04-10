@@ -15,55 +15,44 @@
  */
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
-import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils'
 
 import { ContainerFilter, getSuccessCallbackWrapper } from './Utils'
 
-export interface IExecuteSqlOptions {
+export interface IExecuteSqlOptions extends RequestCallbackOptions {
     /**
      * One of the values of [[ContainerFilter]] that sets
      * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
      * config.containerPath.
      */
     containerFilter?: ContainerFilter
-
     /**
      * The path to the container in which the schema and query are defined,
      * if different than the current container. If not supplied, the current container's path will be used.
      */
     containerPath?: string
-
-    /**
-     * Function called when execution of the "executeSql" function fails.
-     * See [[selectRows]] for more information on the parameters passed to this function.
-     */
-    failure?: () => any
-
+    /** Include metadata for the selected columns. Defaults to true. */
+    includeMetadata?: boolean
     includeStyle?: boolean
-
     /**
      * Include the total number of rows available (defaults to true).
      * If false totalCount will equal number of rows returned (equal to maxRows unless maxRows == 0).
      */
     includeTotalCount?: boolean
-
     /** The maximum number of rows to return from the server (defaults to returning 100,000 rows). */
     maxRows?: number
-
     /**
      * The index of the first row to return from the server (defaults to 0).
      * Use this along with the maxRows config property to request pages of data.
      */
     offset?: number
-
     /**
      * Map of name (string)/value pairs for the values of parameters if the SQL
      * references underlying queries that are parameterized. For example, the following passes two parameters to the query: {'Gender': 'M', 'CD4': '400'}.
-     * The parameters are written to the request URL as follows: query.param.Gender=M&query.param.CD4=400.  For details on parameterized SQL queries, see
-     * <a href="https://www.labkey.org/Documentation/wiki-page.view?name=paramsql">Parameterized SQL Queries</a>.
+     * The parameters are written to the request URL as follows: query.param.Gender=M&query.param.CD4=400.
+     * For details on parameterized SQL queries, see [Parameterized SQL Queries](https://www.labkey.org/Documentation/wiki-page.view?name=paramsql).
      */
     parameters?: any
-
     /**
      * If not set, or set to "8.3", the success handler will be passed a {@link LABKEY.Query.SelectRowsResults}
      * object. If set to "9.1" the success handler will be passed a {@link LABKEY.Query.ExtendedSelectRowsResults}
@@ -77,7 +66,6 @@ export interface IExecuteSqlOptions {
      * In the "17.1" format, "formattedValue" may be included in the response as the display column's value formatted with the display column's format or folder format settings.
      */
     requiredVersion?: number | string
-
     /**
      * Whether or not the definition of this query should be stored for reuse during the current session.
      * If true, all information required to recreate the query will be stored on the server and a unique query name will be passed to the
@@ -85,13 +73,10 @@ export interface IExecuteSqlOptions {
      * as the current user's session remains active.
      */
     saveInSession?: boolean
-
     /** Name of the schema to query. */
     schemaName: string
-
     /** A scope for the callback functions. Defaults to "this". */
     scope?: any
-
     /**
      * A sort specification to apply over the rows returned by the SQL. In general, you should either include an
      * ORDER BY clause in your SQL, or specific a sort specification in this config property, but not both. The value
@@ -99,24 +84,13 @@ export interface IExecuteSqlOptions {
      * a column in descending order (e.g., 'LastName,-Age' to sort first by LastName, then by Age descending).
      */
     sort?: string
-
     /** The LabKey SQL to execute. */
     sql: string
-
-    stripHiddenColumns?: boolean
-
     /**
-     * Function called when the "selectRows" function executes successfully.
-     * This function will be called with the following arguments:
-     * * **data:** If config.requiredVersion is not set, or set to "8.3", the success handler will be passed a
-     * {@link LABKEY.Query.SelectRowsResults} object. If set to "9.1" the success handler will be passed a
-     * {@link LABKEY.Query.ExtendedSelectRowsResults} object. If requiredVersion is greater than 13.2 the success
-     * handler will be passed a [[Response]] object.
-     * * **responseObj:** The XMLHttpResponseObject instance used to make the AJAX request
-     * * **options:** The options used for the AJAX request
+     * If true, removes columns marked as "hidden" in response as well as data associated with that column.
+     * This is done in client-side post-processing.
      */
-    success: () => any
-
+    stripHiddenColumns?: boolean
     /**
      * The maximum number of milliseconds to allow for this operation before
      * generating a timeout error (defaults to 30000).
@@ -156,6 +130,10 @@ function buildParams(options: IExecuteSqlOptions): any {
 
     if (options.includeStyle) {
         jsonData.includeStyle = options.includeStyle;
+    }
+
+    if (options.includeMetadata !== undefined) {
+        jsonData.includeMetadata = options.includeMetadata;
     }
 
     if (options.parameters) {
@@ -204,18 +182,12 @@ function buildURLParams(options: IExecuteSqlOptions): any {
  *         success: writeTotals
  * });
  * ```
- * @see LABKEY.Query.SelectRowsOptions
- * @see LABKEY.Query.SelectRowsResults
- * @see LABKEY.Query.ExtendedSelectRowsResults
- * @see [[Response]]
- * @param {IExecuteSqlOptions} options
- * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see [Ext.data.Connection.abort](http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort)).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request. In server-side scripts,
+ * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function executeSql(options: IExecuteSqlOptions): XMLHttpRequest {
-
     return request({
         url: buildURL('query', 'executeSql.api', options.containerPath, buildURLParams(options)),
         method: 'POST',

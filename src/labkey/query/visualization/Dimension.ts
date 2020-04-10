@@ -15,7 +15,7 @@
  */
 import { buildURL } from '../../ActionURL'
 import { request } from '../../Ajax'
-import { apply, getCallbackWrapper, getOnFailure, getOnSuccess } from '../../Utils'
+import { apply, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../../Utils'
 
 function createValues(json: any): any[] {
 
@@ -26,24 +26,8 @@ function createValues(json: any): any[] {
     return [];
 }
 
-export interface IGetValuesOptions {
-    /**
-     * Function called when execution fails. Called with the following parameters:
-     * * **errorInfo:** an object containing detailed error information (may be null)
-     * * **response:** The XMLHttpResponse object
-     */
-    failure?: Function
-    scope?: any
-
-    /**
-     * Function called when execution succeeds. Will be called with one argument:
-     * **values**: an array of unique dimension values
-     */
-    success?: Function
-}
-
 /**
- * @namespace Dimensions are data elements (columns) on which [[Measure]] objects
+ * @namespace Dimension's are data elements (columns) on which [[Measure]] objects
  * can be pivoted or transformed. For example, the 'Analyte Name' dimension may be used to pivot a single 'Result' measure
  * into one series per Analyte.
  */
@@ -115,7 +99,7 @@ export class Dimension {
     /**
      * Returns the set of available unique values for this dimension.
      */
-    getValues(options: IGetValuesOptions): XMLHttpRequest {
+    getValues(options: RequestCallbackOptions<{value: any}[]>): XMLHttpRequest {
 
         return request({
             url: buildURL('visualization', 'getDimensionValues.api'),

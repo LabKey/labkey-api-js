@@ -37,11 +37,11 @@ import {
     deleteRows,
     insertRows,
     saveRows,
-    selectDistinctRows,
-    selectRows,
     truncateTable,
     updateRows
 } from './query/Rows'
+import { selectDistinctRows } from './query/SelectDistinctRows'
+import { selectRows } from './query/SelectRows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 import { Filter } from './filter/Filter'

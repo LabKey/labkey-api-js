@@ -54,7 +54,7 @@ export function create(options: ICreateOptions): string {
 export type TQueryType = 'ALL' | 'BUILT_IN' | 'CUSTOM' | 'DATASETS';
 
 /**
- * @namespace Possible query types for measure filters.  See [[Filter]].
+ * @namespace QueryType query types for measure filters.  See [[Filter]].
  */
 export const QueryType: {
     [key: string]: string

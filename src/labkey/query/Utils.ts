@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 import { buildURL } from '../ActionURL'
-import { AjaxHandler, request } from '../Ajax'
+import { AjaxHandler, request, RequestOptions } from '../Ajax'
 import { appendFilterParams, IFilter } from '../filter/Filter'
-import { applyTranslated, ensureRegionName, getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
+import {
+    applyTranslated,
+    ensureRegionName, ExtendedXMLHttpRequest,
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    RequestCallbackOptions,
+    RequestFailure,
+} from '../Utils'
 
 import { Response } from './Response'
+import { QueryColumn } from './types'
 
 /**
  * An enumeration of the various container filters available. Note that not all
@@ -65,8 +74,13 @@ export const URL_COLUMN_PREFIX = '_labkeyurl_';
  * @param dataRegionName
  * @returns {any}
  */
-export function buildQueryParams(schemaName: string, queryName: string, filterArray: Array<IFilter>, sort: string, dataRegionName?: string): any {
-
+export function buildQueryParams(
+    schemaName: string,
+    queryName: string,
+    filterArray: IFilter[],
+    sort: string,
+    dataRegionName?: string
+): any {
     const regionName = ensureRegionName(dataRegionName);
 
     let params: any = {
@@ -82,25 +96,22 @@ export function buildQueryParams(schemaName: string, queryName: string, filterAr
     return appendFilterParams(params, filterArray, regionName);
 }
 
-export interface IDeleteQueryViewOptions {
+export interface DeleteQueryViewOptions extends RequestCallbackOptions {
     containerPath?: string
-    failure?: Function
     queryName: string
     revert?: boolean
     schemaName: string
-    scope?: any
-    success?: Function
     viewName?: string
 }
 
-export interface IDeleteQueryViewPayload {
-    complete?: boolean
+export interface DeleteQueryViewPayload {
+    complete: boolean
     queryName: string
     schemaName: string
-    viewName?: string
+    viewName: string
 }
 
-export function deleteQueryView(options: IDeleteQueryViewOptions): XMLHttpRequest {
+export function deleteQueryView(options: DeleteQueryViewOptions): XMLHttpRequest {
 
     if (!options) {
         throw 'You must specify a configuration!';
@@ -112,7 +123,7 @@ export function deleteQueryView(options: IDeleteQueryViewOptions): XMLHttpReques
         throw 'You must specify a queryName!';
     }
 
-    let jsonData: IDeleteQueryViewPayload = {
+    let jsonData: Partial<DeleteQueryViewPayload> = {
         schemaName: options.schemaName,
         queryName: options.queryName
     };
@@ -137,17 +148,20 @@ export function deleteQueryView(options: IDeleteQueryViewOptions): XMLHttpReques
 export type IDataTypes = 'datasets' | 'queries' | 'reports';
 
 export interface IBrowseDataPayload {
-    dataTypes?: Array<IDataTypes>
+    dataTypes?: IDataTypes[]
     includeData?: boolean
     includeMetadata?: boolean
 }
 
 export interface IGetDataViewsOptions {
     containerPath?: string
-    dataTypes?: Array<IDataTypes>
-    failure?: Function
+    dataTypes?: IDataTypes[]
+    failure?: RequestFailure
     scope?: any
-    success?: Function
+    // Unfortunately, this flips options/response from what getCallbackWrapper normally does.
+    // getCallbackWrapper -> (data, response, options)
+    // getDataViews -> (data, options, response)
+    success?: (data?: any, options?: RequestOptions, request?: ExtendedXMLHttpRequest) => any
     timeout?: number
 }
 
@@ -188,24 +202,63 @@ export function getMethod(value: string): string {
     return 'GET';
 }
 
-export interface IGetQueriesOptions {
-    containerPath?: string
-    failure?: Function
-    includeColumns?: boolean
-    includeUserQueries?: boolean
-    includeSystemQueries?: boolean
-    queryDetailColumns?: boolean
+// TODO: This interface should overlap more closely with getQueryDetails or at least be a strict subset
+// of getQueryDetails properties for any given query.
+export interface GetQueryResponse {
+    canEdit: boolean
+    canEditSharedViews: boolean
+    /**
+     * Columns for the query.
+     * Note, if the "queryDetailColumns" option is false then these columns will only include
+     * the "caption", "name", and "shortCaption" properties.
+     */
+    columns: QueryColumn[]
+    description: string
+    hidden: boolean
+    inherit: boolean
+    isInherited: boolean
+    isMetadataOverrideable: boolean
+    isUserDefined: boolean
+    name: string
+    snapshot: boolean
+    title: string
+    viewDataUrl: string
+}
+
+export interface GetQueriesResponse {
+    queries: GetQueryResponse[]
     schemaName: string
-    scope?: any
-    success?: Function
+}
+
+export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResponse> {
+    /**
+     * A container path in which to execute this command. If not supplied,
+     * the current container will be used.
+     */
+    containerPath?: string
+    /**
+     * If set to false, information about the available columns in this query will not be included
+     * in the results. Default is true.
+     */
+    includeColumns?: boolean
+    /** If set to false, user-defined queries will not be included in the results. Default is true. */
+    includeUserQueries?: boolean
+    /** If set to false, system-defined queries will not be included in the results. Default is true. */
+    includeSystemQueries?: boolean
+    /**
+     * If set to true, and includeColumns is set to true, information about the available columns
+     * will be the same details as specified by [[getQueryDetails]] for columns.
+     * Defaults to false.
+     */
+    queryDetailColumns?: boolean
+    /** The name of the schema. */
+    schemaName: string
 }
 
 /**
  * Returns the set of queries available in a given schema.
- * @param {IGetQueriesOptions} options
- * @returns {XMLHttpRequest}
  */
-export function getQueries(options: IGetQueriesOptions): XMLHttpRequest {
+export function getQueries(options: GetQueriesOptions): XMLHttpRequest {
 
     let params = {};
 
@@ -220,30 +273,24 @@ export function getQueries(options: IGetQueriesOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('query', 'getQueries.api', options.containerPath),
-        method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params
     });
 }
 
-export interface IGetQueryViewsOptions {
+export interface GetQueryViewsOptions extends RequestCallbackOptions {
     containerPath?: string
-    failure?: Function
     metadata?: any
     queryName?: string
     schemaName?: string
-    scope?: any
-    success?: Function
     viewName?: string
 }
 
 /**
  * Returns the set of views available for a given query in a given schema.
- * @param {IGetQueryViewsOptions} options
- * @returns {XMLHttpRequest}
  */
-export function getQueryViews(options: IGetQueryViewsOptions): XMLHttpRequest {
+export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
 
     let params: any = {};
 
@@ -262,37 +309,31 @@ export function getQueryViews(options: IGetQueryViewsOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('query', 'getQueryViews.api', options.containerPath),
-        method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params
     });
 }
 
-export interface IGetSchemasOptions {
+export interface GetSchemasOptions extends RequestCallbackOptions {
     apiVersion?: string | number
     containerPath?: string
-    failure?: Function
     includeHidden?: boolean
     schemaName?: string
-    scope?: any
-    success?: Function
 }
 
-interface IGetSchemasParameters {
-    apiVersion?: string | number
-    includeHidden?: boolean
-    schemaName?: string
+interface GetSchemasParameters {
+    apiVersion: string | number
+    includeHidden: boolean
+    schemaName: string
 }
 
 /**
  * Returns the set of schemas available in the specified container.
- * @param {IGetSchemasOptions} options
- * @returns {XMLHttpRequest}
  */
-export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
+export function getSchemas(options: GetSchemasOptions): XMLHttpRequest {
 
-    let params: IGetSchemasParameters = {};
+    let params: Partial<GetSchemasParameters> = {};
     if (options.apiVersion) {
         params.apiVersion = options.apiVersion;
     }
@@ -305,92 +346,78 @@ export function getSchemas(options: IGetSchemasOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('query', 'getSchemas.api', options.containerPath),
-        method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params
     });
 }
 
-export interface IGetServerDateOptions {
-    /**
-     * The function to call if this function encounters an error.
-     * This function will be called with the following parameters:
-     * * **errorInfo:** An object with a property called "exception," which contains the error message.
-     */
-    failure?: Function
-    scope?: any
-
-    /**
-     * The function to call when the function finishes successfully.
-     * This function will be called with a single parameter of type Date.
-     */
-    success?: Function
-}
-
 /**
  * Returns the current date/time on the LabKey server.
- * @param {IGetServerDateOptions} options
- * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request. In server-side scripts,
+ * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
-export function getServerDate(options: IGetServerDateOptions): XMLHttpRequest {
+export function getServerDate(options: RequestCallbackOptions<Date>): XMLHttpRequest {
+    const onSuccess = getOnSuccess(options);
 
     return request({
         url: buildURL('query', 'getServerDate.api'),
-        success: getCallbackWrapper((json: any) => {
-            const onSuccess = getOnSuccess(options);
-            if (json && json.date && onSuccess) {
-                onSuccess(new Date(json.date));
+        success: getCallbackWrapper(
+            onSuccess,
+            options.scope,
+            false,
+            (json: any) => {
+                if (json && json.date && onSuccess) {
+                    return new Date(json.date);
+                }
             }
-        }, this),
-        // TODO: Possible bug, this should indicate "isErrorCallback".
-        failure: getCallbackWrapper(getOnFailure(options), options.scope)
+        ),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
 
-export function getSuccessCallbackWrapper(fn: Function, stripHiddenCols?: boolean, scope?: any, requiredVersion?: string | number): AjaxHandler {
+export function getSuccessCallbackWrapper(
+    onSuccess: Function,
+    stripHiddenCols?: boolean,
+    scope?: any,
+    requiredVersion?: number | string
+): AjaxHandler {
     if (requiredVersion) {
         const versionString = requiredVersion.toString();
         if (versionString === '13.2' || versionString === '16.2' || versionString === '17.1') {
-            return getCallbackWrapper((data: any, response: any, options: any) => {
-                if (data && fn) {
-                    fn.call(scope || this, new Response(data), response, options);
+            return getCallbackWrapper((data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) => {
+                if (data && onSuccess) {
+                    onSuccess.call(scope || this, new Response(data), response, options);
                 }
             }, this);
         }
     }
 
-    return getCallbackWrapper((data: any, response: any, options: any) => {
-        if (fn) {
+    return getCallbackWrapper((data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) => {
+        if (onSuccess) {
             if (data && data.rows && stripHiddenCols) {
                 stripHiddenColData(data);
             }
-            fn.call(scope || this, data, options, response);
+            onSuccess.call(scope || this, data, options, response);
         }
     }, this);
 }
 
-export interface ISaveQueryViewsOptions {
+export interface SaveQueryViewsOptions extends RequestCallbackOptions {
     containerPath?: string
-    failure?: Function
     metadata?: any
     queryName?: string
     schemaName?: string
-    scope?: any
-    success?: Function
     views?: string
 }
 
 /**
  * Creates or updates a custom view or views for a given query in a given schema.
  * The options object matches the viewInfos parameter of the getQueryViews.successCallback.
- * @param {ISaveQueryViewsOptions} options
- * @returns {XMLHttpRequest}
  */
-export function saveQueryViews(options: ISaveQueryViewsOptions): XMLHttpRequest {
+export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
 
     let jsonData: any = {};
     if (options.schemaName) {
@@ -456,7 +483,12 @@ export function sqlDateTimeLiteral(date: Date, withMS: boolean): string {
         const fmt3 = (a: number) => (a >= 100 ? '' + a : '0' + fmt2(a));
 
         return "{ts '" +
-            date.getFullYear() + "-" + fmt2(date.getMonth()+1) + "-" + fmt2(date.getDate()) + " " + fmt2(date.getHours()) + ":" + fmt2(date.getMinutes()) + ":" + fmt2(date.getSeconds()) +
+            date.getFullYear() + "-" +
+            fmt2(date.getMonth()+1) + "-" +
+            fmt2(date.getDate()) + " " +
+            fmt2(date.getHours()) + ":" +
+            fmt2(date.getMinutes()) + ":" +
+            fmt2(date.getSeconds()) +
             (withMS ? "." + fmt3(date.getMilliseconds()) : "")
             + "'}";
     }
@@ -466,8 +498,10 @@ export function sqlDateTimeLiteral(date: Date, withMS: boolean): string {
 
 /**
  * Converts a JavaScript string into a format suitable for using in a LabKey SQL query.
+ * It will properly escape single quote characters.
+ *
  * @param str String to use in query
- * @returns {String} value formatted for use in a LabKey query.  Will properly escape single quote characters.
+ * @returns The value formatted for use in a LabKey query.
  */
 export function sqlStringLiteral(str: string): string {
     if (str === undefined || str === null || str == '') {
@@ -506,43 +540,24 @@ function stripHiddenColData(data: any): void {
     }
 }
 
-export interface IValidateQueryOptions {
+export interface ValidateQueryOptions extends RequestCallbackOptions<{valid: boolean}> {
     /**
      * A container path in which to execute this command. If not supplied,
      * the current container will be used.
      */
     containerPath?: string
-
-    /**
-     * The function to call if this function encounters an error.
-     * This function will be called with the following parameters:
-     * * **errorInfo:** An object with a property called "exception," which contains the error message.
-     * If validateQueryMetadata was used, this will also hae a property called 'errors', which is an array of objects describing each error.
-     */
-    failure?: Function
-
-    /** A scope for the callback functions. Defaults to "this". */
-    scope?: any
-
-    /**
-     * The function to call when the function finishes successfully.
-     * This function will be called with a simple object with one property named "valid" set to true.
-     */
-    success?: Function
-
     /** If true, the query metadata and custom views will also be validated. */
     validateQueryMetadata?: boolean
 }
 
 /**
  * Validates the specified query by ensuring that it parses and executes without an exception.
- * @param {IValidateQueryOptions} options
- * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
+
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request. In server-side scripts,
+ * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
-export function validateQuery(options: IValidateQueryOptions): XMLHttpRequest {
+export function validateQuery(options: ValidateQueryOptions): XMLHttpRequest {
 
     const action = options.validateQueryMetadata ? 'validateQueryMetadata.api' : 'validateQuery.api';
 
@@ -556,7 +571,6 @@ export function validateQuery(options: IValidateQueryOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('query', action, options.containerPath),
-        method: 'GET',
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)

@@ -15,7 +15,7 @@
  */
 import { buildURL } from '../../ActionURL'
 import { request } from '../../Ajax'
-import { apply, getCallbackWrapper, getOnFailure, getOnSuccess } from '../../Utils'
+import { apply, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../../Utils'
 
 import { Dimension } from './Dimension'
 
@@ -31,27 +31,13 @@ function createDimensions(json: any): Dimension[] {
     return dimensions;
 }
 
-export interface IMeasureGetDimensionsOptions {
-    /**
-     * Function called when execution fails. Called with the following parameters:
-     * * **errorInfo:** an object containing detailed error information (may be null)
-     * * **response:** The XMLHttpResponse object
-     */
-    failure?: Function
-
+export interface IMeasureGetDimensionsOptions extends RequestCallbackOptions<{value: any}[]> {
     /**
      * Applies only to measures from study datasets.
      * Indicates whether dimensions from demographic datasets should be included
      * in the returned set. If false, only dimensions from the measure's query will be returned.
      */
     includeDemographics?: boolean
-    scope?: any
-
-    /**
-     * Function called when execution succeeds. Will be called with one argument:
-     * **values**: an array of unique dimension values
-     */
-    success?: Function
 }
 
 /**

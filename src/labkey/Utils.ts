@@ -21,8 +21,8 @@ export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
-export type RequestFailure<E = any> = (errorInfo?: E, response?: XMLHttpRequest) => any;
-export type RequestSuccess<D = any> = (data?: D, request?: ExtendedXMLHttpRequest, config?: RequestOptions) => any;
+export type RequestFailure<E = any> = (errorInfo: E, response: XMLHttpRequest) => any;
+export type RequestSuccess<D = any> = (data: D, request: ExtendedXMLHttpRequest, config: RequestOptions) => any;
 
 export interface RequestCallbackOptions<S = any, F = any, SC = any> {
     /**
@@ -393,7 +393,7 @@ export function generateUUID(): string {
  * primary callback function.
  */
 export function getCallbackWrapper<T = any>(
-    fn: Function,
+    fn: Function, // TODO: Improve this type
     scope?: any,
     isErrorCallback?: boolean,
     responseTransformer?: (json?: any) => T
@@ -546,7 +546,7 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
  * This function provides reverse compatibility by picking the failure callback argument out of a config object
  * be it named failure, failureCallback or errorCallback.
  */
-export function getOnFailure(config: {errorCallback?: Function, failure?: Function, failureCallback?: Function}): Function {
+export function getOnFailure(config: {errorCallback?: any, failure?: any, failureCallback?: any}): any {
     return config.failure || config.errorCallback || config.failureCallback;
     // maybe it be desirable for this fall all the way back to returning LABKEY.Utils.displayAjaxErrorResponse?
 }
@@ -556,7 +556,7 @@ export function getOnFailure(config: {errorCallback?: Function, failure?: Functi
  * This function provides reverse compatibility by picking the success callback argument out of a config object,
  * be it named success or successCallback.
  */
-export function getOnSuccess(config: {success?: Function, successCallback?: Function}): Function {
+export function getOnSuccess(config: {success?: any, successCallback?: any}): any {
     return config.success || config.successCallback;
 }
 
@@ -701,13 +701,10 @@ export function onReady(config: any): void {
     }
 }
 
-export interface IOnTrueOptions {
+export interface IOnTrueOptions extends RequestCallbackOptions {
     errorArguments?: Array<any>
-    failure?: Function
     maxTests?: number
-    scope?: any
     successArguments?: Array<any>
-    success: Function
     testArguments?: Array<any>
     testCallback: Function
 }
