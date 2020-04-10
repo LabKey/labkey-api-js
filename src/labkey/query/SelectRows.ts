@@ -116,10 +116,6 @@ export interface ISelectRowsOptions extends RequestCallbackOptions {
     viewName?: string
 }
 
-// TODO: Model ISelectRowsResults for each API version 8.3, 9.1, 13.2, 16.2, etc
-export interface ISelectRowsResults {
-}
-
 /**
  * @hidden
  * @private
