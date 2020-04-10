@@ -387,7 +387,7 @@ export function getSuccessCallbackWrapper(
     if (requiredVersion) {
         const versionString = requiredVersion.toString();
         if (versionString === '13.2' || versionString === '16.2' || versionString === '17.1') {
-            return getCallbackWrapper((data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) => {
+            return getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
                 if (data && onSuccess) {
                     onSuccess.call(scope || this, new Response(data), response, options);
                 }
@@ -395,7 +395,7 @@ export function getSuccessCallbackWrapper(
         }
     }
 
-    return getCallbackWrapper((data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) => {
+    return getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
         if (onSuccess) {
             if (data && data.rows && stripHiddenCols) {
                 stripHiddenColData(data);

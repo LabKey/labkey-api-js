@@ -383,8 +383,7 @@ export function generateUUID(): string {
 }
 
 /**
- * This is used internally by other class methods to automatically parse returned JSON
- * and call another success function passing that parsed JSON.
+ * This is used to automatically parse returned JSON and call another success function passing that parsed JSON.
  * @param fn The callback function to wrap.
  * @param scope The scope for the callback function.
  * @param isErrorCallback Set to true if the function is an error callback. If true, and you do not provide a
@@ -398,7 +397,10 @@ export function getCallbackWrapper<T = any>(
     isErrorCallback?: boolean,
     responseTransformer?: (json?: any) => T
 ): AjaxHandler {
-    return (response: ExtendedXMLHttpRequest, options: RequestOptions) => {
+    // Due to prior behavior the scope may not be explicitly specified (i.e. specified in the "scope"
+    // parameter) and still expect to be respected when applied via function.apply(). Thus, this
+    // return function cannot use => syntax and must return a classic function.
+    return function(response: ExtendedXMLHttpRequest, options: RequestOptions) {
         let json = response.responseJSON;
 
         if (!json) {

@@ -492,7 +492,7 @@ export function getStudyNabRuns(options: IGetStudyNabRunsOptions): void {
  * @private
  */
 function getSuccessCallbackWrapper(success: Function, scope: any): AjaxHandler {
-    return getCallbackWrapper((data: any, response: any) => {
+    return getCallbackWrapper(function(data: any, response: any) {
         if (success) {
             success.call(this, data.definitions, response);
         }

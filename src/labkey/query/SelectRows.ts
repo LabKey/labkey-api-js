@@ -248,7 +248,7 @@ export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
         options = selectRowArguments(arguments);
     }
 
-    if (!options.schemaName) {
+    if (!options || !options.schemaName) {
         throw 'You must specify a schemaName!';
     }
     if (!options.queryName) {
