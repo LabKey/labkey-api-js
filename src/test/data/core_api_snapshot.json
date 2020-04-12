@@ -206,7 +206,6 @@
     "applyTranslated",
     "capitalize",
     "caseInsensitiveEquals",
-    "collapseExpand",
     "decode",
     "deleteCookie",
     "displayAjaxErrorResponse",
@@ -238,7 +237,6 @@
     "isString",
     "merge",
     "mergeIf",
-    "notifyExpandCollapse",
     "onError",
     "onReady",
     "onTrue",
@@ -251,8 +249,7 @@
     "resizeToViewport",
     "roundNumber",
     "setCookie",
-    "textLink",
-    "toggleLink"
+    "textLink"
   ],
   "Visualization": [
     "Aggregate",

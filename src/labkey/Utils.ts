@@ -242,11 +242,6 @@ export function caseInsensitiveEquals(a: any, b: any): boolean {
     return String(a).toLowerCase() == String(b).toLowerCase();
 }
 
-export function collapseExpand(elem: any, notify?: boolean, targetTagName?: string): boolean {
-    stubWarning('collapseExpand');
-    return false;
-}
-
 // TODO: Need to remove this from the upper level namespace
 export function ensureRegionName(regionName?: string): string {
     return regionName && isString(regionName) ? regionName : 'query';
@@ -686,10 +681,6 @@ export function mergeIf(...props: any[]): any {
     return o;
 }
 
-export function notifyExpandCollapse(url?: string, collapse?: boolean): void {
-    stubWarning('notifyExpandCollapse');
-}
-
 export function onError(error: any): void {
     stubWarning('onError');
 }
@@ -945,9 +936,4 @@ export function textLink(options: ITextLinkOptions): string {
     }
 
     throw 'Config object not found for textLink.';
-}
-
-export function toggleLink(link: any, notify?: boolean, targetTagName?: string): boolean {
-    stubWarning('toggleLink');
-    return false;
 }
