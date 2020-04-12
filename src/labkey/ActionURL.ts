@@ -102,12 +102,10 @@ function buildParameterMap(paramString?: string): {[key:string]: any} {
  * @return URL constructed from the current container and context path, plus the specified controller and action.
  */
 export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: any }): string {
-    if (containerPath) {
-        containerPath = encodePath(containerPath);
+    if (!containerPath) {
+        containerPath = getContainer();
     }
-    else {
-        containerPath = getContainer(); // TODO: Shouldn't we be encoding this as well?
-    }
+    containerPath = encodePath(containerPath);
 
     // ensure that the container begins/ends with a "/"
     if (containerPath.charAt(0) != '/') {
@@ -335,7 +333,7 @@ function codePath(path: string, method: (v: string) => string): string {
  * @hidden
  * @private
  */
-function getPathFromLocation(): ActionPath {
+export function getPathFromLocation(): ActionPath {
 
     const { contextPath } = getServerContext();
     const start = contextPath ? contextPath.length : 0;
