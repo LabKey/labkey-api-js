@@ -63,7 +63,7 @@ export class Filter implements IFilter {
         if (value) {
             // If the filter is multi-valued and we were constructed with a single
             // string value, split the string into the individual parts.
-            value = filterType.splitValue(value);
+            value = filterType.parseValue(value);
         }
 
         this.columnName = columnName as string;

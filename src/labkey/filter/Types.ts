@@ -38,7 +38,7 @@ export interface IFilterType {
      * Split a filter String or Array value appropriately for this filter type.
      * @return {String|Array} For multi-valued filter types, an Array of values, otherwise the original filter value.
      */
-    splitValue: (value: string | Array<FilterValue>) => FilterValue | Array<FilterValue>
+    parseValue: (value: string | Array<FilterValue>) => FilterValue | Array<FilterValue>
     /**
      * Get the (unencoded) value that will be put on the URL.
      */
@@ -119,11 +119,16 @@ export let Types: {[key:string]: IFilterType} = {
 
     MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
 
+    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
+    EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, undefined, ' is parent of'),
+
     //
     // These are the 'no data value' operators
     //
 
-    HAS_ANY_VALUE: registerFilterType('Has Any Value'),
+    // NOTE: This type, for better or worse, uses empty string as it's urlSuffix.
+    // The result is a filter that is encoded as "<dataRegionName>.<columnName>~=".
+    HAS_ANY_VALUE: registerFilterType('Has Any Value', null, ''),
 
     ISBLANK: registerFilterType('Is Blank', null, 'isblank'),
     MISSING: registerFilterType('Is Blank', null, 'isblank'),
@@ -132,8 +137,6 @@ export let Types: {[key:string]: IFilterType} = {
 
     HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', null, 'hasmvvalue'),
     DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
-
-    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
 
     //
     // Table/Query-wise operators
@@ -209,10 +212,10 @@ export function registerFilterType(
     };
 
     const type: IFilterType = {
-        getDisplaySymbol: () => displaySymbol || null,
+        getDisplaySymbol: () => displaySymbol ?? null,
         getDisplayText: () => displayText,
         getLongDisplayText: () => longDisplayText || displayText,
-        getURLSuffix: () => urlSuffix || null,
+        getURLSuffix: () => urlSuffix ?? null,
         isDataValueRequired,
         isMultiValued,
         isTableWise,
@@ -221,15 +224,15 @@ export function registerFilterType(
         },
         getMultiValueMaxOccurs: () => maxOccurs,
         getMultiValueMinOccurs: () => minOccurs,
-        getMultiValueSeparator: () => multiValueSeparator || null,
+        getMultiValueSeparator: () => multiValueSeparator ?? null,
         getOpposite: () => {
             return oppositeMap[urlSuffix] ? urlMap[oppositeMap[urlSuffix]] : null;
         },
         getSingleValueFilter: () => {
-            return isMultiValued ? urlMap[multiValueToSingleMap[urlSuffix]] : null;
+            return isMultiValued() ? urlMap[multiValueToSingleMap[urlSuffix]] : urlMap[urlSuffix];
         },
 
-        splitValue: (value) => {
+        parseValue: (value) => {
             if (type.isMultiValued()) {
                 if (isString(value)) {
                     if (value.indexOf("{json:") === 0 && value.indexOf("}") === value.length-1) {
@@ -439,7 +442,7 @@ function validateMultiple(
     let values;
     try
     {
-        values = filterType.splitValue(value);
+        values = filterType.parseValue(value);
     }
     catch (x)
     {
