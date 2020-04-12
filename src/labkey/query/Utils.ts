@@ -22,6 +22,7 @@ import {
     getCallbackWrapper,
     getOnFailure,
     getOnSuccess,
+    parseDateString,
     RequestCallbackOptions,
     RequestFailure,
 } from '../Utils'
@@ -370,7 +371,7 @@ export function getServerDate(options: RequestCallbackOptions<Date>): XMLHttpReq
             false,
             (json: any) => {
                 if (json && json.date && onSuccess) {
-                    return new Date(json.date);
+                    return parseDateString(json.date);
                 }
             }
         ),
