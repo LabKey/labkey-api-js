@@ -32,6 +32,8 @@ export interface DomainDesign {
     allowFileLinkProperties?: boolean
     allowFlagProperties?: boolean
     container?: string
+    defaultDefaultValueType?: string
+    defaultValueOptions?: string[]
     /** The unique ID of this domain */
     domainId?: number
     /** The URI of this domain. */
@@ -64,9 +66,11 @@ export interface DomainDesign {
      */
     indices?: Array<any>
     /** The name of this domain. */
+    instructions?: string
     name?: string
     queryName?: string              // consider removing, queryName & schemaName may no longer be used
     schemaName?: string
+    showDefaultValueSettings?: boolean
     templateDescription?: string
 }
 
@@ -147,15 +151,15 @@ export function create(config: CreateDomainOptions): XMLHttpRequest {
         url: buildURL('property', 'createDomain.api', options.containerPath),
         method: 'POST',
         jsonData: options,
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        success: getCallbackWrapper(getOnSuccess(options), config.scope),
+        failure: getCallbackWrapper(getOnFailure(options), config.scope, true)
     });
 }
 
 /**
  * @private
  */
-function mapCreateArguments(args: any): CreateDomainOptions {
+function mapCreateArguments(args: IArguments): CreateDomainOptions {
 
     let options: CreateDomainOptions = {
         failure: args[1],
@@ -208,7 +212,7 @@ export function drop(config: DropDomainOptions): XMLHttpRequest {
     });
 }
 
-export interface GetDomainOptions extends RequestCallbackOptions {
+export interface BaseGetDomainOptions {
     /**
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
@@ -224,6 +228,15 @@ export interface GetDomainOptions extends RequestCallbackOptions {
     /** The domain schema name. */
     schemaName?: string
 }
+
+export interface GetDomainDetailsResponse {
+    domainDesign: DomainDesign
+    domainKindName: string
+    options?: any
+}
+
+export interface GetDomainDetailsOptions extends
+    BaseGetDomainOptions, RequestCallbackOptions<GetDomainDetailsResponse> { }
 
 /**
  * Gets a domain design.
@@ -246,9 +259,9 @@ export interface GetDomainOptions extends RequestCallbackOptions {
  *  LABKEY.Domain.getDomainDetails(successHandler, errorHandler, 'study', 'StudyProperties');
  * ```
  */
-export function getDomainDetails(config: GetDomainOptions): XMLHttpRequest {
+export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpRequest {
 
-    let options: GetDomainOptions = arguments.length > 1 ? {
+    let options: GetDomainDetailsOptions = arguments.length > 1 ? {
         containerPath: arguments[4],
         failure: arguments[1],
         queryName: arguments[3],
@@ -258,8 +271,8 @@ export function getDomainDetails(config: GetDomainOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('property', 'getDomainDetails.api', options.containerPath),
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: {
             schemaName: options.schemaName,
             queryName: options.queryName,
@@ -268,11 +281,32 @@ export function getDomainDetails(config: GetDomainOptions): XMLHttpRequest {
     });
 }
 
+export interface GetDomainOptions extends BaseGetDomainOptions, RequestCallbackOptions<DomainDesign> { }
+
 /**
- * Gets a domain design. This is a deprecated alias for [[getDomainDetails]].
+ * Gets a domain design. This is a deprecated. Use [[getDomainDetails]] instead.
  * @deprecated
  */
-export const get = getDomainDetails;
+export function get(config: GetDomainOptions): XMLHttpRequest {
+    let options: GetDomainOptions = arguments.length > 1 ? {
+        containerPath: arguments[4],
+        failure: arguments[1],
+        queryName: arguments[3],
+        schemaName: arguments[2],
+        success: arguments[0]
+    } : config;
+
+    return request({
+        url: buildURL('property', 'getDomain.api', options.containerPath),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        params: {
+            schemaName: options.schemaName,
+            queryName: options.queryName,
+            domainId: options.domainId
+        }
+    });
+}
 
 export interface SaveDomainOptions extends RequestCallbackOptions {
     /**
@@ -320,15 +354,15 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
     return request({
         url: buildURL('property', 'saveDomain.api', options.containerPath),
         method: 'POST',
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData: {
             domainDesign: options.domainDesign,
             schemaName: options.schemaName,
             queryName: options.queryName,
             domainId: options.domainId,
             includeWarnings: options.includeWarnings,
-            options: {...options.options},
+            options: options.options,
         }
     });
 }
