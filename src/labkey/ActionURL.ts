@@ -333,7 +333,7 @@ function codePath(path: string, method: (v: string) => string): string {
  * @hidden
  * @private
  */
-export function getPathFromLocation(): ActionPath {
+function getPathFromLocation(): ActionPath {
 
     const { contextPath } = getServerContext();
     const start = contextPath ? contextPath.length : 0;
