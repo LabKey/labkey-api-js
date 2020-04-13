@@ -270,8 +270,8 @@ export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
             commands: options.commands,
             containerPath: options.containerPath,
             extraContext: options.extraContext,
-            transacted: options.transacted === true,
-            validateOnly: options.validateOnly === true
+            transacted: options.transacted,
+            validateOnly: options.validateOnly
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),

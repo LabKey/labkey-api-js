@@ -62,8 +62,8 @@ export interface GetGroupPermissionsOptions extends RequestCallbackOptions<Permi
 export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttpRequest {
     let params: any = {};
 
-    if (config.includeSubfolders !== undefined) {
-        params.includeSubfolders = config.includeSubfolders === true;
+    if (config.includeSubfolders != undefined) {
+        params.includeSubfolders = config.includeSubfolders;
     }
 
     return request({
@@ -274,10 +274,10 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
     let params: any = {};
 
     if (config.includeSubfolders != undefined) {
-        params.includeSubfolders = config.includeSubfolders === true;
+        params.includeSubfolders = config.includeSubfolders;
     }
     if (config.includeEffectivePermissions != undefined) {
-        params.includeEffectivePermissions = config.includeEffectivePermissions === true;
+        params.includeEffectivePermissions = config.includeEffectivePermissions;
     }
 
     return request({
@@ -363,7 +363,7 @@ export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRe
     }
 
     if (config.includeSubfolders != undefined) {
-        params.includeSubfolders = config.includeSubfolders === true;
+        params.includeSubfolders = config.includeSubfolders;
     }
 
     return request({

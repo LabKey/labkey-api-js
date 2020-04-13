@@ -192,7 +192,7 @@ export function getData(options: IGetDataOptions): XMLHttpRequest {
 
         limit: options.limit,
         groupBys: options.groupBys,
-        metaDataOnly: options.metaDataOnly === true,
+        metaDataOnly: options.metaDataOnly,
 
         // specify that all source queries should join back to the first measure
         joinToFirst: options.joinToFirst === true
