@@ -210,11 +210,46 @@ export function applyTranslated(target: any, source: any, translationMap: any, a
     }
 }
 
-/** Display an error dialog. */
-export function alert(title: string, msg: string): void {
-    stubWarning('alert');
-    console.warn(title + ':', msg);
+// needed for DOMWrapper
+declare const LABKEY: any;
+
+// DOMWrapper's are cached to avoid infinite calls to the wrapper
+let DOMWrappers: {[key:string]: any} = {};
+
+/**
+ * Provides a function that wraps a stub implementation. If the concrete implementation is available at
+ * run-time it will call that with the arguments applied, otherwise, it will log a warning to the console.
+ * @hidden
+ * @private
+ * @param fnName
+ */
+function DOMWrapper<T>(fnName: string): T {
+    if (!fnName) {
+        throw new Error('DOMWrapper must wrap a named function.');
+    }
+
+    if (DOMWrappers.hasOwnProperty(fnName)) {
+        throw new Error(`DOMWrapper cannot wrap "${fnName}" more than once.`);
+    }
+
+    DOMWrappers[fnName] = function() {
+        if (LABKEY && LABKEY.Utils && isFunction(LABKEY.Utils[fnName]) &&
+            LABKEY.Utils[fnName] !== DOMWrappers[fnName]) {
+            LABKEY.Utils[fnName].apply(this, arguments);
+        } else {
+            console.warn(
+                `Utils.${fnName}: This is just a stub implementation. ` +
+                `Request the DOM version of the client API, ` +
+                `clientapi_dom.lib.xml, to get the concrete implementation.`
+            );
+        }
+    };
+
+    return DOMWrappers[fnName];
 }
+
+/** Display an error dialog. */
+export const alert = DOMWrapper<(title: string, msg: string) => void>('alert');
 
 /**
  * Returns the string value with the first char capitalized.
@@ -278,9 +313,12 @@ export function deleteCookie(name: string, pageOnly: boolean): void {
  * @param showExceptionClass Flag to display the java class of the exception.
  * @param msgPrefix Prefix to the error message (defaults to: 'An error occurred trying to load:')
  */
-export function displayAjaxErrorResponse(response?: any, exception?: any, showExceptionClass?: any, msgPrefix?: any) {
-    stubWarning('displayAjaxErrorResponse');
-}
+export const displayAjaxErrorResponse = DOMWrapper<(
+    response?: any,
+    exception?: any,
+    showExceptionClass?: any,
+    msgPrefix?: any
+) => void>('displayAjaxErrorResponse');
 
 export function encode(data: any): string {
     return JSON.stringify(data);
@@ -334,6 +372,11 @@ export function endsWith(value: string, ending: string): boolean {
     return value.substring(value.length - ending.length) == ending;
 }
 
+/**
+ * @deprecated
+ * @hidden
+ * @private
+ */
 export function ensureBoxVisible(): void {
     console.warn('ensureBoxVisible() has been migrated to the appropriate Ext scope. Consider LABKEY.ext.Utils.ensureBoxVisible or LABKEY.ext4.Util.ensureBoxVisible');
 }
@@ -681,18 +724,8 @@ export function mergeIf(...props: any[]): any {
     return o;
 }
 
-export function onError(error: any): void {
-    stubWarning('onError');
-}
-
-export function onReady(config: any): void {
-    stubWarning('onReady');
-
-    // TODO: This method should not take any action as it is only intended to be a stub for backward compatibility
-    if (typeof config === 'function') {
-        config();
-    }
-}
+export const onError = DOMWrapper<(error: any) => void>('onError');
+export const onReady = DOMWrapper<(config: any) => void>('onReady');
 
 export interface IOnTrueOptions extends RequestCallbackOptions {
     errorArguments?: Array<any>
@@ -854,6 +887,8 @@ export function requiresScript(file: string|string[], callback: Function, scope?
  * For Ext 3.4.1 see LABKEY.ext.Utils.resizeToViewport
  * For Ext 4.2.1 see LABKEY.ext4.Util.resizeToViewport
  * @deprecated
+ * @hidden
+ * @private
  */
 export function resizeToViewport(): void {
     console.warn('LABKEY.Utils.resizeToViewport has been migrated. See JavaScript API documentation for details.');
@@ -896,13 +931,6 @@ export function setCookie(name: string, value: string, pageOnly: boolean, days: 
     }
 
     document.cookie = name + '=' + value + expires + '; path=' + path;
-}
-
-/**
- * @private
- */
-function stubWarning(methodName: string): void {
-    console.warn(methodName + ': This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
 }
 
 export interface ITextLinkOptions {
