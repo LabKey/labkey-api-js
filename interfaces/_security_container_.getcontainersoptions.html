@@ -60,18 +60,37 @@
 					<a href="_security_container_.getcontainersoptions.html">GetContainersOptions</a>
 				</li>
 			</ul>
-			<h1>Interface GetContainersOptions</h1>
+			<h1>Interface GetContainersOptions&lt;S, F, SC&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>S</h4>
+					</li>
+					<li>
+						<h4>F</h4>
+					</li>
+					<li>
+						<h4>SC</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">GetContainersOptions</span>
+						<a href="_utils_.requestcallbackoptions.html" class="tsd-signature-type">RequestCallbackOptions</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">GetContainersOptions</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -85,12 +104,12 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#container" class="tsd-kind-icon">container</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#depth" class="tsd-kind-icon">depth</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#failure" class="tsd-kind-icon">failure</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_container_.getcontainersoptions.html#failure" class="tsd-kind-icon">failure</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#includeeffectivepermissions" class="tsd-kind-icon">include<wbr>Effective<wbr>Permissions</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#includesubfolders" class="tsd-kind-icon">include<wbr>Subfolders</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#moduleproperties" class="tsd-kind-icon">module<wbr>Properties</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#scope" class="tsd-kind-icon">scope</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_container_.getcontainersoptions.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_container_.getcontainersoptions.html#scope" class="tsd-kind-icon">scope</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_container_.getcontainersoptions.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
 					</div>
@@ -104,12 +123,13 @@
 					<div class="tsd-signature tsd-kind-icon">container<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L127">src/labkey/security/Container.ts:127</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Container.ts#L133">src/labkey/security/Container.ts:133</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A container id or full-path String or an Array of container id/full-path Strings.  If not present, the current container is used.</p>
+							<p>A container id or full-path String or an Array of container id/full-path Strings.
+							If not present, the current container is used.</p>
 						</div>
 					</div>
 				</section>
@@ -119,7 +139,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L132">src/labkey/security/Container.ts:132</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Container.ts#L138">src/labkey/security/Container.ts:138</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -135,7 +155,7 @@
 					<div class="tsd-signature tsd-kind-icon">depth<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L134">src/labkey/security/Container.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Container.ts#L140">src/labkey/security/Container.ts:140</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -144,39 +164,20 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestfailure" class="tsd-signature-type">RequestFailure</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#failure">failure</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L141">src/labkey/security/Container.ts:141</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L31">src/labkey/Utils.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A reference to a function to call when an error occurs. This
-							function will be passed the following parameters:</p>
-							<ul>
-								<li>errorInfo: an object containing detailed error information (may be null)</li>
-								<li>response: The XMLHttpResponse object</li>
-							</ul>
+							<p>This will be called upon failure to complete a request.</p>
 						</div>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -185,7 +186,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Effective<wbr>Permissions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L146">src/labkey/security/Container.ts:146</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Container.ts#L145">src/labkey/security/Container.ts:145</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -201,7 +202,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Subfolders<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L151">src/labkey/security/Container.ts:151</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Container.ts#L150">src/labkey/security/Container.ts:150</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -214,10 +215,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="moduleproperties" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> module<wbr>Properties</h3>
-					<div class="tsd-signature tsd-kind-icon">module<wbr>Properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">module<wbr>Properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L156">src/labkey/security/Container.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Container.ts#L155">src/labkey/security/Container.ts:155</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -227,81 +228,36 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="scope" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SC</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#scope">scope</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L158">src/labkey/security/Container.ts:158</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L36">src/labkey/Utils.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A scoping object for the success and error callback functions (default to this).</p>
+							<p>A scoping object for the success and failure callback functions (default to this).</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestsuccess" class="tsd-signature-type">RequestSuccess</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#success">success</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Container.ts#L189">src/labkey/security/Container.ts:189</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L41">src/labkey/Utils.ts:41</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A reference to a function to call with the API results. This
-							function will be passed the following parameters:</p>
+							<p>This will be called upon successfully completing a request.</p>
 						</div>
-						<ul>
-							<li>containersInfo:
-								If <code>container</code> is an Array, an object with property
-								<code>containers</code> and value Array of &#39;container info&#39; is returned.
-								If <code>container</code> is a String, a object of &#39;container info&#39; is returned.<ul>
-									<li>id: the id of the requested container</li>
-									<li>name: the name of the requested container</li>
-									<li>path: the path of the requested container</li>
-									<li>sortOrder: the relative sort order of the requested container</li>
-									<li>activeModules: an assay of the names (strings) of active modules in the container</li>
-									<li>folderType: the name (string) of the folder type, matched with getFolderTypes()</li>
-									<li>description: an optional description for the container (may be null or missing)</li>
-									<li>title: an optional non-unique title for the container (may be null or missing)</li>
-									<li>isWorkbook: true if this container is a workbook. Workbooks do not appear in the left-hand project tree.</li>
-									<li>isContainerTab: true if this container is a Container Tab. Container Tabs do not appear in the left-hand project tree.</li>
-									<li>userPermissions: (DEPRECATED) the permissions the current user has in the requested container.
-									Use this value with the hasPermission() method to test for specific permissions.</li>
-									<li>effectivePermissions: An array of effective permission unique names the group has.</li>
-									<li>children: if the includeSubfolders parameter was true, this will contain
-									an array of child container objects with the same shape as the parent object.</li>
-									<li>moduleProperties: if requested in the config object, an array of module properties for each included module:<ul>
-											<li>name: the name of the Module Property.</li>
-											<li>moduleName: the name of the module specifying this property.</li>
-											<li>effectiveValue: the value of the property, including a value potentially inherited from parent containers.</li>
-											<li>value: the value of the property as set for this specific container</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>response: The XMLHttpResponse object</li>
-						</ul>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</div>
 				</section>
 			</section>
@@ -320,14 +276,17 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_container_.containerhierarchy.html" class="tsd-kind-icon">Container<wbr>Hierarchy</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_container_.createcontaineroptions.html" class="tsd-kind-icon">Create<wbr>Container<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_container_.deletecontaineroptions.html" class="tsd-kind-icon">Delete<wbr>Container<wbr>Options</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_container_.getcontainersoptions.html" class="tsd-kind-icon">Get<wbr>Containers<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -339,7 +298,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_security_container_.getcontainersoptions.html#depth" class="tsd-kind-icon">depth</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_container_.getcontainersoptions.html#failure" class="tsd-kind-icon">failure</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -351,24 +310,45 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_security_container_.getcontainersoptions.html#moduleproperties" class="tsd-kind-icon">module<wbr>Properties</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_container_.getcontainersoptions.html#scope" class="tsd-kind-icon">scope</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_container_.getcontainersoptions.html#success" class="tsd-kind-icon">success</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_container_.getfoldertypesoptions.html" class="tsd-kind-icon">Get<wbr>Folder<wbr>Types<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_container_.getmodulesoptions.html" class="tsd-kind-icon">Get<wbr>Modules<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_container_.getmodulesresponse.html" class="tsd-kind-icon">Get<wbr>Modules<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_container_.getreadablecontainersoptions.html" class="tsd-kind-icon">Get<wbr>Readable<wbr>Containers<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_container_.moduleproperty.html" class="tsd-kind-icon">Module<wbr>Property</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_container_.movecontaineroptions.html" class="tsd-kind-icon">Move<wbr>Container<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_security_container_.html#foldertype" class="tsd-kind-icon">Folder<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_security_container_.html#foldertypewebparts" class="tsd-kind-icon">Folder<wbr>Type<wbr>Web<wbr>Parts</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_security_container_.html#getfoldertypesresponse" class="tsd-kind-icon">Get<wbr>Folder<wbr>Types<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_security_container_.html#getmodulesmodules" class="tsd-kind-icon">Get<wbr>Modules<wbr>Modules</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_security_container_.html#createcontainer" class="tsd-kind-icon">create<wbr>Container</a>
@@ -387,6 +367,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_security_container_.html#getmodules" class="tsd-kind-icon">get<wbr>Modules</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_security_container_.html#getreadablecontainers" class="tsd-kind-icon">get<wbr>Readable<wbr>Containers</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_security_container_.html#getsharedcontainer" class="tsd-kind-icon">get<wbr>Shared<wbr>Container</a>
@@ -414,6 +397,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">

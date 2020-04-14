@@ -71,11 +71,15 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.addgroupmembersoptions.html" class="tsd-kind-icon">Add<wbr>Group<wbr>Members<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.creategroupoptions.html" class="tsd-kind-icon">Create<wbr>Group<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.deletegroupoptions.html" class="tsd-kind-icon">Delete<wbr>Group<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.removegroupmembersoptions.html" class="tsd-kind-icon">Remove<wbr>Group<wbr>Members<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.renamegroupoptions.html" class="tsd-kind-icon">Rename<wbr>Group<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_group_.addgroupmembersoptions.html" class="tsd-kind-icon">Add<wbr>Group<wbr>Members<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_group_.creategroupoptions.html" class="tsd-kind-icon">Create<wbr>Group<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.creategroupresponse.html" class="tsd-kind-icon">Create<wbr>Group<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_group_.deletegroupoptions.html" class="tsd-kind-icon">Delete<wbr>Group<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_group_.getgroupsforcurrentuseroptions.html" class="tsd-kind-icon">Get<wbr>Groups<wbr>For<wbr>Current<wbr>User<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.getgroupsforcurrentuserresponse.html" class="tsd-kind-icon">Get<wbr>Groups<wbr>For<wbr>Current<wbr>User<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_group_.removegroupmembersoptions.html" class="tsd-kind-icon">Remove<wbr>Group<wbr>Members<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_group_.renamegroupoptions.html" class="tsd-kind-icon">Rename<wbr>Group<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_group_.renamegroupresponse.html" class="tsd-kind-icon">Rename<wbr>Group<wbr>Response</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -84,6 +88,7 @@
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_security_group_.html#addgroupmembers" class="tsd-kind-icon">add<wbr>Group<wbr>Members</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_security_group_.html#creategroup" class="tsd-kind-icon">create<wbr>Group</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_security_group_.html#deletegroup" class="tsd-kind-icon">delete<wbr>Group</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_security_group_.html#getgroupsforcurrentuser" class="tsd-kind-icon">get<wbr>Groups<wbr>For<wbr>Current<wbr>User</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_security_group_.html#removegroupmembers" class="tsd-kind-icon">remove<wbr>Group<wbr>Members</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_security_group_.html#renamegroup" class="tsd-kind-icon">rename<wbr>Group</a></li>
 							</ul>
@@ -103,7 +108,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Group.ts#L52">src/labkey/security/Group.ts:52</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Group.ts#L38">src/labkey/security/Group.ts:38</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -119,9 +124,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -135,7 +140,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Group.ts#L101">src/labkey/security/Group.ts:101</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Group.ts#L78">src/labkey/security/Group.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -153,9 +158,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -169,7 +174,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Group.ts#L147">src/labkey/security/Group.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Group.ts#L108">src/labkey/security/Group.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -185,9 +190,32 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getgroupsforcurrentuser" class="tsd-anchor"></a>
+					<h3>get<wbr>Groups<wbr>For<wbr>Current<wbr>User</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Groups<wbr>For<wbr>Current<wbr>User<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/_security_group_.getgroupsforcurrentuseroptions.html" class="tsd-signature-type">GetGroupsForCurrentUserOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Group.ts#L133">src/labkey/security/Group.ts:133</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="../interfaces/_security_group_.getgroupsforcurrentuseroptions.html" class="tsd-signature-type">GetGroupsForCurrentUserOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -201,7 +229,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Group.ts#L195">src/labkey/security/Group.ts:195</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Group.ts#L161">src/labkey/security/Group.ts:161</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -217,9 +245,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -233,7 +261,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Group.ts#L244">src/labkey/security/Group.ts:244</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Group.ts#L205">src/labkey/security/Group.ts:205</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -249,9 +277,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -270,20 +298,32 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_group_.addgroupmembersoptions.html" class="tsd-kind-icon">Add<wbr>Group<wbr>Members<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_group_.creategroupoptions.html" class="tsd-kind-icon">Create<wbr>Group<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_group_.creategroupresponse.html" class="tsd-kind-icon">Create<wbr>Group<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_group_.deletegroupoptions.html" class="tsd-kind-icon">Delete<wbr>Group<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_security_group_.removegroupmembersoptions.html" class="tsd-kind-icon">Remove<wbr>Group<wbr>Members<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../interfaces/_security_group_.getgroupsforcurrentuseroptions.html" class="tsd-kind-icon">Get<wbr>Groups<wbr>For<wbr>Current<wbr>User<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_group_.getgroupsforcurrentuserresponse.html" class="tsd-kind-icon">Get<wbr>Groups<wbr>For<wbr>Current<wbr>User<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../interfaces/_security_group_.removegroupmembersoptions.html" class="tsd-kind-icon">Remove<wbr>Group<wbr>Members<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_group_.renamegroupoptions.html" class="tsd-kind-icon">Rename<wbr>Group<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_group_.renamegroupresponse.html" class="tsd-kind-icon">Rename<wbr>Group<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_security_group_.html#addgroupmembers" class="tsd-kind-icon">add<wbr>Group<wbr>Members</a>
@@ -293,6 +333,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_security_group_.html#deletegroup" class="tsd-kind-icon">delete<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_security_group_.html#getgroupsforcurrentuser" class="tsd-kind-icon">get<wbr>Groups<wbr>For<wbr>Current<wbr>User</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_security_group_.html#removegroupmembers" class="tsd-kind-icon">remove<wbr>Group<wbr>Members</a>
@@ -319,10 +362,11 @@
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>

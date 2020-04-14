@@ -60,18 +60,37 @@
 					<a href="_security_policy_.deletepolicyoptions.html">DeletePolicyOptions</a>
 				</li>
 			</ul>
-			<h1>Interface DeletePolicyOptions</h1>
+			<h1>Interface DeletePolicyOptions&lt;S, F, SC&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>S</h4>
+					</li>
+					<li>
+						<h4>F</h4>
+					</li>
+					<li>
+						<h4>SC</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">DeletePolicyOptions</span>
+						<a href="_utils_.requestcallbackoptions.html" class="tsd-signature-type">RequestCallbackOptions</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">DeletePolicyOptions</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -83,10 +102,10 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_policy_.deletepolicyoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_policy_.deletepolicyoptions.html#failure" class="tsd-kind-icon">failure</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_policy_.deletepolicyoptions.html#failure" class="tsd-kind-icon">failure</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_policy_.deletepolicyoptions.html#resourceid" class="tsd-kind-icon">resource<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_policy_.deletepolicyoptions.html#scope" class="tsd-kind-icon">scope</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_policy_.deletepolicyoptions.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_policy_.deletepolicyoptions.html#scope" class="tsd-kind-icon">scope</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_policy_.deletepolicyoptions.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,19 +119,31 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Policy.ts#L22">src/labkey/security/Policy.ts:22</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Policy.ts#L25">src/labkey/security/Policy.ts:25</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An alternate container path to get permissions from. If not specified,
+							the current container path will be used.</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestfailure" class="tsd-signature-type">RequestFailure</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#failure">failure</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Policy.ts#L23">src/labkey/security/Policy.ts:23</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L31">src/labkey/Utils.ts:31</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This will be called upon failure to complete a request.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="resourceid" class="tsd-anchor"></a>
@@ -120,29 +151,46 @@
 					<div class="tsd-signature tsd-kind-icon">resource<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Policy.ts#L24">src/labkey/security/Policy.ts:24</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Policy.ts#L27">src/labkey/security/Policy.ts:27</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The unique id of the securable resource.</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="scope" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SC</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#scope">scope</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Policy.ts#L25">src/labkey/security/Policy.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L36">src/labkey/Utils.ts:36</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scoping object for the success and failure callback functions (default to this).</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestsuccess" class="tsd-signature-type">RequestSuccess</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#success">success</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Policy.ts#L26">src/labkey/security/Policy.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L41">src/labkey/Utils.ts:41</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This will be called upon successfully completing a request.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -161,22 +209,22 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_policy_.deletepolicyoptions.html" class="tsd-kind-icon">Delete<wbr>Policy<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_security_policy_.deletepolicyoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_policy_.deletepolicyoptions.html#failure" class="tsd-kind-icon">failure</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_security_policy_.deletepolicyoptions.html#resourceid" class="tsd-kind-icon">resource<wbr>Id</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_policy_.deletepolicyoptions.html#scope" class="tsd-kind-icon">scope</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_policy_.deletepolicyoptions.html#success" class="tsd-kind-icon">success</a>
 							</li>
 						</ul>
@@ -187,9 +235,9 @@
 						<a href="_security_policy_.getpolicyoptions.html" class="tsd-kind-icon">Get<wbr>Policy<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_policy_.getpolicyresponse.html" class="tsd-kind-icon">Get<wbr>Policy<wbr>Response</a>
+						<a href="_security_policy_.policy.html" class="tsd-kind-icon">Policy</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_policy_.savepolicyoptions.html" class="tsd-kind-icon">Save<wbr>Policy<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
@@ -221,6 +269,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GetRolesResponse | @labkey/api</title>
+	<title>SchemaPermissionsResponse | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../modules/_security_permission_.html">&quot;security/Permission&quot;</a>
 				</li>
 				<li>
-					<a href="_security_permission_.getrolesresponse.html">GetRolesResponse</a>
+					<a href="_security_permission_.schemapermissionsresponse.html">SchemaPermissionsResponse</a>
 				</li>
 			</ul>
-			<h1>Interface GetRolesResponse</h1>
+			<h1>Interface SchemaPermissionsResponse</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">GetRolesResponse</span>
+						<span class="target">SchemaPermissionsResponse</span>
 					</li>
 				</ul>
 			</section>
@@ -82,8 +82,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.getrolesresponse.html#permissions" class="tsd-kind-icon">permissions</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.getrolesresponse.html#roles" class="tsd-kind-icon">roles</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.schemapermissionsresponse.html#schemas" class="tsd-kind-icon">schemas</a></li>
 							</ul>
 						</section>
 					</div>
@@ -92,24 +91,37 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="permissions" class="tsd-anchor"></a>
-					<h3>permissions</h3>
-					<div class="tsd-signature tsd-kind-icon">permissions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>uniqueName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="schemas" class="tsd-anchor"></a>
+					<h3>schemas</h3>
+					<div class="tsd-signature tsd-kind-icon">schemas<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>study<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>queries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L144">src/labkey/security/Permission.ts:144</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L175">src/labkey/security/Permission.ts:175</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="roles" class="tsd-anchor"></a>
-					<h3>roles</h3>
-					<div class="tsd-signature tsd-kind-icon">roles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>permissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L145">src/labkey/security/Permission.ts:145</a></li>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter">
+								<h5>study<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>queries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> }</span></h5>
+								<ul class="tsd-parameters">
+									<li class="tsd-parameter">
+										<h5>queries<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span></h5>
+										<div class="tsd-comment tsd-typography">
+											<div class="lead">
+												<p>The queries object property with the name of each table/queries.</p>
+											</div>
+										</div>
+										<ul class="tsd-parameters">
+											<li class="tsd-parameter-index-signature">
+												<h5><span class="tsd-signature-symbol">[</span>queryName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_security_permission_.securableresourcewithpermissions.html" class="tsd-signature-type">SecurableResourceWithPermissions</a></h5>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
 						</ul>
-					</aside>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -126,35 +138,53 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_permission_.getgrouppermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Group<wbr>Permissions<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_permission_.getrolesoptions.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_permission_.getschemapermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Schema<wbr>Permissions<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_permission_.getsecurableresourcesoptions.html" class="tsd-kind-icon">Get<wbr>Securable<wbr>Resources<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_permission_.getuserpermissionsoptions.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.getuserpermissionsresponse.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.permissionscontainer.html" class="tsd-kind-icon">Permissions<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.permissionsresponse.html" class="tsd-kind-icon">Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.role.html" class="tsd-kind-icon">Role</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.rolepermission.html" class="tsd-kind-icon">Role<wbr>Permission</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_permission_.getrolesresponse.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Response</a>
+						<a href="_security_permission_.schemapermissionsresponse.html" class="tsd-kind-icon">Schema<wbr>Permissions<wbr>Response</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_security_permission_.getrolesresponse.html#permissions" class="tsd-kind-icon">permissions</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_security_permission_.getrolesresponse.html#roles" class="tsd-kind-icon">roles</a>
+								<a href="_security_permission_.schemapermissionsresponse.html#schemas" class="tsd-kind-icon">schemas</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_permission_.getschemapermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Schema<wbr>Permissions<wbr>Options</a>
+						<a href="_security_permission_.securableresourcewithpermissions.html" class="tsd-kind-icon">Securable<wbr>Resource<wbr>With<wbr>Permissions</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_permission_.getsecurableresourcesoptions.html" class="tsd-kind-icon">Get<wbr>Securable<wbr>Resources<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_permission_.getuserpermissionsoptions.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Options</a>
+						<a href="_security_permission_.userpermissionscontainer.html" class="tsd-kind-icon">User<wbr>Permissions<wbr>Container</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_security_permission_.html#getgrouppermissions" class="tsd-kind-icon">get<wbr>Group<wbr>Permissions</a>
@@ -200,6 +230,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">

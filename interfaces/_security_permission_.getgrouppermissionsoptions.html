@@ -60,18 +60,34 @@
 					<a href="_security_permission_.getgrouppermissionsoptions.html">GetGroupPermissionsOptions</a>
 				</li>
 			</ul>
-			<h1>Interface GetGroupPermissionsOptions</h1>
+			<h1>Interface GetGroupPermissionsOptions&lt;F, SC&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>F</h4>
+					</li>
+					<li>
+						<h4>SC</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">GetGroupPermissionsOptions</span>
+						<a href="_utils_.requestcallbackoptions.html" class="tsd-signature-type">RequestCallbackOptions</a><span class="tsd-signature-symbol">&lt;</span><a href="_security_permission_.permissionsresponse.html" class="tsd-signature-type">PermissionsResponse</a><span class="tsd-signature-symbol">&gt;</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">GetGroupPermissionsOptions</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -83,10 +99,10 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.getgrouppermissionsoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.getgrouppermissionsoptions.html#failure" class="tsd-kind-icon">failure</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_permission_.getgrouppermissionsoptions.html#failure" class="tsd-kind-icon">failure</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.getgrouppermissionsoptions.html#includesubfolders" class="tsd-kind-icon">include<wbr>Subfolders</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.getgrouppermissionsoptions.html#scope" class="tsd-kind-icon">scope</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_permission_.getgrouppermissionsoptions.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_permission_.getgrouppermissionsoptions.html#scope" class="tsd-kind-icon">scope</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_security_permission_.getgrouppermissionsoptions.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
 					</div>
@@ -100,7 +116,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L27">src/labkey/security/Permission.ts:27</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L48">src/labkey/security/Permission.ts:48</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -110,49 +126,20 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestfailure" class="tsd-signature-type">RequestFailure</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#failure">failure</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L35">src/labkey/security/Permission.ts:35</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L31">src/labkey/Utils.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A reference to a function to call when an error occurs. This
-							function will be passed the following parameters:</p>
-							<ul>
-								<li>errorInfo: an object containing detailed error information (may be null)</li>
-								<li>response: The XMLHttpResponse object</li>
-							</ul>
+							<p>This will be called upon failure to complete a request.</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>param</dt>
-							<dd></dd>
-						</dl>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5><span class="tsd-flag ts-flagOptional">Optional</span> error: <span class="tsd-signature-type">any</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
@@ -161,7 +148,7 @@
 					<div class="tsd-signature tsd-kind-icon">include<wbr>Subfolders<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L37">src/labkey/security/Permission.ts:37</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L50">src/labkey/security/Permission.ts:50</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -170,92 +157,36 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="scope" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SC</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#scope">scope</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L39">src/labkey/security/Permission.ts:39</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L36">src/labkey/Utils.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A scoping object for the success and error callback functions (default to this).</p>
+							<p>A scoping object for the success and failure callback functions (default to this).</p>
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestsuccess" class="tsd-signature-type">RequestSuccess</a><span class="tsd-signature-symbol">&lt;</span><a href="_security_permission_.permissionsresponse.html" class="tsd-signature-type">PermissionsResponse</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#success">success</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L69">src/labkey/security/Permission.ts:69</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L41">src/labkey/Utils.ts:41</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A reference to a function to call with the API results. This
-							function will be passed the following parameters:</p>
-							<ul>
-								<li>groupPermsInfo: an object containing properties about the container and group permissions.
-									This object will have the following shape:<ul>
-										<li>container<ul>
-												<li>id: the container id</li>
-												<li>name: the container name</li>
-												<li>path: the container path</li>
-												<li>isInheritingPerms: true if the container is inheriting permissions from its parent</li>
-												<li>groups: an array of group objects, each of which will have the following properties:<ul>
-														<li>id: the group id</li>
-														<li>name: the group&#39;s name</li>
-														<li>type: the group&#39;s type (&#39;g&#39; for group, &#39;r&#39; for role, &#39;m&#39; for module-specific)</li>
-														<li>roleLabel: (DEPRECATED) a description of the group&#39;s permission role. This will correspond
-														to the visible labels shown on the permissions page (e.g., &#39;Admin (all permissions)&#39;.</li>
-														<li>role: (DEPRECATED) the group&#39;s role value (e.g., &#39;ADMIN&#39;). Use this property for programmatic checks.</li>
-														<li>permissions: (DEPRECATED) The group&#39;s effective permissions as a bit mask.
-														Use this with the hasPermission() method to test for specific permissions.</li>
-														<li>roles: An array of role unique names that this group is playing in the container. This replaces the
-															existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
-															and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
-														about the roles, including which permissions are granted by each role.</li>
-														<li>effectivePermissions: An array of effective permission unique names the group has.</li>
-													</ul>
-												</li>
-												<li>children: if includeSubfolders was true, this will contain an array of objects, each of
-												which will have the same shape as the parent container object.</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-								<li>response: The XMLHttpResponse object</li>
-							</ul>
+							<p>This will be called upon successfully completing a request.</p>
 						</div>
-						<dl class="tsd-comment-tags">
-							<dt>param</dt>
-							<dd></dd>
-						</dl>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-property">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>data<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5><span class="tsd-flag ts-flagOptional">Optional</span> data: <span class="tsd-signature-type">any</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</div>
 				</section>
 			</section>
@@ -275,42 +206,63 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_permission_.getgrouppermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Group<wbr>Permissions<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_security_permission_.getgrouppermissionsoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_permission_.getgrouppermissionsoptions.html#failure" class="tsd-kind-icon">failure</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_security_permission_.getgrouppermissionsoptions.html#includesubfolders" class="tsd-kind-icon">include<wbr>Subfolders</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_permission_.getgrouppermissionsoptions.html#scope" class="tsd-kind-icon">scope</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_security_permission_.getgrouppermissionsoptions.html#success" class="tsd-kind-icon">success</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_permission_.getrolesoptions.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_permission_.getrolesresponse.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Response</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_permission_.getschemapermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Schema<wbr>Permissions<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_permission_.getsecurableresourcesoptions.html" class="tsd-kind-icon">Get<wbr>Securable<wbr>Resources<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_security_permission_.getuserpermissionsoptions.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.getuserpermissionsresponse.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.permissionscontainer.html" class="tsd-kind-icon">Permissions<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.permissionsresponse.html" class="tsd-kind-icon">Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.role.html" class="tsd-kind-icon">Role</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.rolepermission.html" class="tsd-kind-icon">Role<wbr>Permission</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.schemapermissionsresponse.html" class="tsd-kind-icon">Schema<wbr>Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.securableresourcewithpermissions.html" class="tsd-kind-icon">Securable<wbr>Resource<wbr>With<wbr>Permissions</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_security_permission_.userpermissionscontainer.html" class="tsd-kind-icon">User<wbr>Permissions<wbr>Container</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_security_permission_.html#getgrouppermissions" class="tsd-kind-icon">get<wbr>Group<wbr>Permissions</a>
@@ -356,6 +308,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">

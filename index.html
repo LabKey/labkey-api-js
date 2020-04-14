@@ -65,21 +65,25 @@
 				<a href="#labkeyapi" id="labkeyapi" style="color: inherit; text-decoration: none;">
 					<h1>@labkey/api</h1>
 				</a>
-				<p>JavaScript package for interacting with <a href="https://www.labkey.com/">LabKey Server</a>. The goal for this package is to provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the browser, on the server, and in pretty much any modern JavaScript environment.</p>
+				<p>JavaScript package for interacting with <a href="https://www.labkey.com/">LabKey Server</a>. The goal for this package is to
+					provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the
+				browser, on the server, and in pretty much any modern JavaScript environment.</p>
 				<p>Written with joy in TypeScript.</p>
-				<a href="#v0041---alpha" id="v0041---alpha" style="color: inherit; text-decoration: none;">
-					<h2>v0.0.41 - Alpha</h2>
+				<a href="#usage-advisory" id="usage-advisory" style="color: inherit; text-decoration: none;">
+					<h2>Usage Advisory</h2>
 				</a>
-				<p>This package is under development. We&#39;re preparing the 1.0.0 release but in the meantime treat this package as experimental. All code is subject to change.
-				See the <a href="CHANGELOG.md">CHANGELOG</a> for changes in this version.</p>
+				<p>This package is under development. We&#39;re preparing the 1.0.0 release but in the meantime treat this package as
+				experimental. All code is subject to change. See the <a href="CHANGELOG.md">CHANGELOG</a> for changes in this version.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
-				<p>The easiest way to use @labkey/api is to install it from npm and bundle it with your app. Before you run install you&#39;ll want to make sure you set the appropriate registry for the <code>@labkey</code> scope.</p>
+				<p>The easiest way to use @labkey/api is to install it from npm and bundle it with your app. Before you run install
+				you&#39;ll want to make sure you set the appropriate registry for the <code>@labkey</code> scope.</p>
 				<a href="#setting-the-registry-scope" id="setting-the-registry-scope" style="color: inherit; text-decoration: none;">
 					<h4>Setting the Registry Scope</h4>
 				</a>
-				<p>This package is currently availble on LabKey&#39;s Artifactory package registry. To include this package set the registry in npm for the <code>@labkey</code> scope. This can be done via command line using <code>npm config</code>:</p>
+				<p>This package is currently available on LabKey&#39;s Artifactory package registry. To include this package set the registry
+				in npm for the <code>@labkey</code> scope. This can be done via command line using <code>npm config</code>:</p>
 				<pre><code>npm config <span class="hljs-keyword">set</span> @labkey:registry <span class="hljs-comment">https:</span>//<span class="hljs-comment">artifactory.labkey.com</span>/artifactory/<span class="hljs-comment">api</span>/npm/<span class="hljs-comment">libs-client</span></code></pre><p>or via a <code>.npmrc</code> file</p>
 				<pre><code><span class="hljs-comment"># .npmrc</span>
 <span class="hljs-variable">@labkey</span><span class="hljs-symbol">:registry=https</span><span class="hljs-symbol">://artifactory</span>.labkey.com/artifactory/api/npm/libs-client</code></pre>
@@ -92,51 +96,34 @@
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>Development</h2>
 				</a>
-				<p>If you would like to contribute changes to this package it is straight-forward to get setup for development. First, clone this repository to a directory</p>
+				<p>If you would like to contribute changes to this package it is straight-forward to get setup for development.
+				First, clone this repository to a directory</p>
 				<pre><code class="language-sh">git <span class="hljs-built_in">clone</span> https://github.com/LabKey/labkey-api-js.git <span class="hljs-comment"># or via ssh</span></code></pre>
 				<p>Navigate into the package directory and run the following commands</p>
 				<pre><code class="language-sh">npm install
 npm run build</code></pre>
-				<p>Now that the distribution is built you can load it up by serving the index.html file found in the package root. To serve it up from IntelliJ you can &quot;Open in Browser&quot;. This will let you explore the API as it is exposed via the <code>LABKEY</code> global namespace.</p>
+				<p>Now that the distribution is built you can load it up by serving the index.html file found in the package root. To
+					serve it up from IntelliJ you can &quot;Open in Browser&quot;. This will let you explore the API as it is exposed via
+				the <code>LABKEY</code> global namespace.</p>
 				<a href="#running-against-a-labkey-server" id="running-against-a-labkey-server" style="color: inherit; text-decoration: none;">
 					<h3>Running against a LabKey Server</h3>
 				</a>
-				<p>If you would like to experiment with running this code against LabKey Server it is possible thanks to the provided wrapper for the <code>LABKEY</code> global namespace. The following assumes you have a <a href="https://www.labkey.org/Documentation/wiki-page.view?name=devMachine">LabKey development environment setup</a>.</p>
-				<a href="#deploy-using-experimental-build" id="deploy-using-experimental-build" style="color: inherit; text-decoration: none;">
-					<h4>Deploy Using Experimental Build</h4>
+				<p>If you would like to experiment with running this code against LabKey Server it is possible thanks to the provided
+					wrapper for the <code>LABKEY</code> global namespace. The following assumes you have a
+				<a href="https://www.labkey.org/Documentation/wiki-page.view?name=devMachine">LabKey development environment setup</a>.</p>
+				<a href="#deploy-using-experimental-flag" id="deploy-using-experimental-flag" style="color: inherit; text-decoration: none;">
+					<h4>Deploy Using Experimental Flag</h4>
 				</a>
-				<p>:warning: This will modify files in your git enlistment. Double check your commits and be sure to revert any changes when you are done experimenting!</p>
-				<p>To get started edit the <code>&lt;labkey root&gt;/server/modules/core/build.js</code> file and set <code>USE_LABKEY_API</code> to <code>true</code>.</p>
-				<pre><code class="language-js"><span class="hljs-keyword">const</span> USE_LABKEY_API = <span class="hljs-literal">true</span>;</code></pre>
-				<p>Next, perform a Gradle build from the top of your LabKey enlistment:</p>
-				<pre><code class="language-sh"><span class="hljs-comment"># From &lt;labkey root&gt;</span>
-./gradlew deployApp</code></pre>
-				<p>Once the build is complete, you can start the server and the code for the APIs will be supplied from this package.
-				This can be verified by opening the browser console and typing:</p>
-				<pre><code class="language-js">LABKEY.__package__</code></pre>
-				<p>If installed correctly, <code>__package__</code> will contain package information such as the version of the package you&#39;re using.</p>
-				<a href="#deploy-from-source" id="deploy-from-source" style="color: inherit; text-decoration: none;">
-					<h4>Deploy From Source</h4>
-				</a>
-				<p>Steps:</p>
-				<ol>
-					<li>Navigate to <code>&lt;labkey root&gt;/server/modules/platform/api/webapp/</code> and clone this repository.</li>
-					<li>Navigate to the package directory and run <code>npm install</code> followed by <code>npm run build</code>.</li>
-					<li>Open <code>&lt;labkey root&gt;/server/modules/platform/api/webapp/clientapi_core.lib.xml</code> and replace the contents</li>
-				</ol>
-				<pre><code class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">libraries</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">"http://labkey.org/clientLibrary/xml/"</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-name">library</span> <span class="hljs-attr">compileInProductionMode</span>=<span class="hljs-string">"false"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"labkey-api-js/dist/labkey-api-js-core.min.js"</span>/&gt;</span><span class="handlebars"><span class="xml">
-    <span class="hljs-tag">&lt;/<span class="hljs-name">library</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">libraries</span>&gt;</span></span></span></code></pre>
-				<p>Now you can start the server and the code for the APIs will be supplied from this package. This can be verified
-				by opening the browser console and typing:</p>
+				<p>Starting in version LabKey v20.5 this package can be used in LabKey Server by enabling
+				the &quot;Use @labkey/api on the client-side&quot; experimental feature.</p>
+				<p>You can verify the package version being used by opening the browser console and typing:</p>
 				<pre><code class="language-js">LABKEY.__package__</code></pre>
 				<p>If installed correctly, <code>__package__</code> will contain package information such as the version of the package you&#39;re using.</p>
 				<a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
 					<h2>Publishing</h2>
 				</a>
-				<p>To publish, increment the version number in accordance with <a href="https://semver.org/">SemVer</a>, update the Readme.md, and commit. Then from the package root run</p>
+				<p>To publish, increment the version number in accordance with <a href="https://semver.org/">SemVer</a>, update the Readme.md,
+				and commit. Then from the package root run</p>
 				<pre><code class="language-sh">npm publish</code></pre>
 			</div>
 		</div>
@@ -279,9 +266,6 @@ npm run build</code></pre>
 						<a href="modules/_query_visualization_measure_.html">&quot;query/visualization/<wbr>Measure&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_query_visualization_utils_.html">&quot;query/visualization/<wbr>Utils&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
 						<a href="modules/_query_visualization_constants_.html">&quot;query/visualization/constants&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -301,6 +285,9 @@ npm run build</code></pre>
 					</li>
 					<li class=" tsd-kind-module">
 						<a href="modules/_security_constants_.html">&quot;security/constants&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/_security_types_.html">&quot;security/types&quot;</a>
 					</li>
 				</ul>
 			</nav>
@@ -325,10 +312,11 @@ npm run build</code></pre>
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>

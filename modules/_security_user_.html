@@ -71,9 +71,13 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_user_.createnewuseroptions.html" class="tsd-kind-icon">Create<wbr>New<wbr>User<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_user_.ensureloginoptions.html" class="tsd-kind-icon">Ensure<wbr>Login<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_user_.getusersoptions.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_user_.createnewuseroptions.html" class="tsd-kind-icon">Create<wbr>New<wbr>User<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_user_.createnewuserresponse.html" class="tsd-kind-icon">Create<wbr>New<wbr>User<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_user_.ensureloginoptions.html" class="tsd-kind-icon">Ensure<wbr>Login<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_user_.getusersoptions.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_user_.getusersresponse.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_user_.getusersuser.html" class="tsd-kind-icon">Get<wbr>Users<wbr>User</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_user_.newuser.html" class="tsd-kind-icon">New<wbr>User</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section tsd-is-not-exported">
@@ -101,7 +105,7 @@
 					<div class="tsd-signature tsd-kind-icon">window<span class="tsd-signature-symbol">:</span> <a href="../classes/_constants_._window.html#window-1" class="tsd-signature-type">Window</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/User.ts#L21">src/labkey/security/User.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/User.ts#L21">src/labkey/security/User.ts:21</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -118,28 +122,25 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/User.ts#L59">src/labkey/security/User.ts:59</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/User.ts#L78">src/labkey/security/User.ts:78</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Creates a new user account</p>
+									<p>Creates a new user account.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>config: <a href="../interfaces/_security_user_.createnewuseroptions.html" class="tsd-signature-type">CreateNewUserOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A configuration object with the following properties:</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -153,28 +154,27 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/User.ts#L115">src/labkey/security/User.ts:115</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/User.ts#L121">src/labkey/security/User.ts:121</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Ensures that the current user is logged in.</p>
 								</div>
+								<p>Note that if the current user is already logged in, the success function will be called immediately,
+								passing the current user information from {@link LABKEY.Security.currentUser}.</p>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
 									<h5>config: <a href="../interfaces/_security_user_.ensureloginoptions.html" class="tsd-signature-type">EnsureLoginOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A configuration object with the following properties:</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">void</span></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -188,7 +188,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/User.ts#L198">src/labkey/security/User.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/User.ts#L199">src/labkey/security/User.ts:199</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -200,16 +200,13 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>config: <a href="../interfaces/_security_user_.getusersoptions.html" class="tsd-signature-type">GetUsersOptions</a></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>A configuration object containing the following properties</p>
-									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -228,14 +225,26 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_user_.createnewuseroptions.html" class="tsd-kind-icon">Create<wbr>New<wbr>User<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_user_.createnewuserresponse.html" class="tsd-kind-icon">Create<wbr>New<wbr>User<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_user_.ensureloginoptions.html" class="tsd-kind-icon">Ensure<wbr>Login<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_user_.getusersoptions.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_user_.getusersresponse.html" class="tsd-kind-icon">Get<wbr>Users<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_user_.getusersuser.html" class="tsd-kind-icon">Get<wbr>Users<wbr>User</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_user_.newuser.html" class="tsd-kind-icon">New<wbr>User</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
 						<a href="_security_user_.html#window" class="tsd-kind-icon">window</a>
@@ -268,10 +277,11 @@
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>

@@ -71,12 +71,19 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.getgrouppermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Group<wbr>Permissions<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.getrolesoptions.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.getrolesresponse.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Response</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.getschemapermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Schema<wbr>Permissions<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.getsecurableresourcesoptions.html" class="tsd-kind-icon">Get<wbr>Securable<wbr>Resources<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.getuserpermissionsoptions.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_permission_.getgrouppermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Group<wbr>Permissions<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_permission_.getrolesoptions.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_permission_.getschemapermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Schema<wbr>Permissions<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_permission_.getsecurableresourcesoptions.html" class="tsd-kind-icon">Get<wbr>Securable<wbr>Resources<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_security_permission_.getuserpermissionsoptions.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.getuserpermissionsresponse.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.permissionscontainer.html" class="tsd-kind-icon">Permissions<wbr>Container</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.permissionsresponse.html" class="tsd-kind-icon">Permissions<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.role.html" class="tsd-kind-icon">Role</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.rolepermission.html" class="tsd-kind-icon">Role<wbr>Permission</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.schemapermissionsresponse.html" class="tsd-kind-icon">Schema<wbr>Permissions<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.securableresourcewithpermissions.html" class="tsd-kind-icon">Securable<wbr>Resource<wbr>With<wbr>Permissions</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_security_permission_.userpermissionscontainer.html" class="tsd-kind-icon">User<wbr>Permissions<wbr>Container</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -107,7 +114,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L81">src/labkey/security/Permission.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L62">src/labkey/security/Permission.ts:62</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -124,9 +131,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -140,7 +147,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L104">src/labkey/security/Permission.ts:104</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L85">src/labkey/security/Permission.ts:85</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -179,7 +186,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L156">src/labkey/security/Permission.ts:156</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L137">src/labkey/security/Permission.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -195,9 +202,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -211,7 +218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L237">src/labkey/security/Permission.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L202">src/labkey/security/Permission.ts:202</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -228,9 +235,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -244,12 +251,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L335">src/labkey/security/Permission.ts:335</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L273">src/labkey/security/Permission.ts:273</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns the tree of securable resources from the current container downward</p>
+									<p>Returns the tree of securable resources from the current container downward.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -260,9 +267,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -276,13 +283,13 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L421">src/labkey/security/Permission.ts:421</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L354">src/labkey/security/Permission.ts:354</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns information about a user&#39;s permissions within a container. If you don&#39;t specify a user id, this
-									will return information about the current user.</p>
+									<p>Returns information about a user&#39;s permissions within a container.
+									If an user id is not specified, then this will return information about the current user.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -293,9 +300,9 @@
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
 							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
+								for the async request that can be used to cancel the request.
+								In server-side scripts, this method will return the JSON response object
+							(first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -303,13 +310,13 @@
 					<a name="haseffectivepermission" class="tsd-anchor"></a>
 					<h3>has<wbr>Effective<wbr>Permission</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">has<wbr>Effective<wbr>Permission<span class="tsd-signature-symbol">(</span>effectivePermissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span>, desiredPermission<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+						<li class="tsd-signature tsd-kind-icon">has<wbr>Effective<wbr>Permission<span class="tsd-signature-symbol">(</span>effectivePermissions<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, desiredPermission<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L451">src/labkey/security/Permission.ts:451</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L383">src/labkey/security/Permission.ts:383</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -321,7 +328,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>effectivePermissions: <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>effectivePermissions: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>The permission set, typically retrieved for a given user or group.</p>
 									</div>
@@ -347,12 +354,12 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Permission.ts#L467">src/labkey/security/Permission.ts:467</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Permission.ts#L393">src/labkey/security/Permission.ts:393</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Returns true if the permission passed in &#39;perm&#39; is on in the permissions
+									<p>Returns 1 if the permission passed in &#39;perm&#39; is on in the permissions
 									set passed as &#39;perms&#39;. This is a local function and does not make a call to the server.</p>
 								</div>
 							</div>
@@ -390,23 +397,44 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_permission_.getgrouppermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Group<wbr>Permissions<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_permission_.getrolesoptions.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_security_permission_.getrolesresponse.html" class="tsd-kind-icon">Get<wbr>Roles<wbr>Response</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_permission_.getschemapermissionsoptions.html" class="tsd-kind-icon">Get<wbr>Schema<wbr>Permissions<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_permission_.getsecurableresourcesoptions.html" class="tsd-kind-icon">Get<wbr>Securable<wbr>Resources<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_security_permission_.getuserpermissionsoptions.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.getuserpermissionsresponse.html" class="tsd-kind-icon">Get<wbr>User<wbr>Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.permissionscontainer.html" class="tsd-kind-icon">Permissions<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.permissionsresponse.html" class="tsd-kind-icon">Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.role.html" class="tsd-kind-icon">Role</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.rolepermission.html" class="tsd-kind-icon">Role<wbr>Permission</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.schemapermissionsresponse.html" class="tsd-kind-icon">Schema<wbr>Permissions<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.securableresourcewithpermissions.html" class="tsd-kind-icon">Securable<wbr>Resource<wbr>With<wbr>Permissions</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_security_permission_.userpermissionscontainer.html" class="tsd-kind-icon">User<wbr>Permissions<wbr>Container</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_security_permission_.html#getgrouppermissions" class="tsd-kind-icon">get<wbr>Group<wbr>Permissions</a>
@@ -451,10 +479,11 @@
 				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>

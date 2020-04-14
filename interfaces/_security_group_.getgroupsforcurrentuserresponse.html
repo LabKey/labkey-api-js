@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>GetPolicyResponse | @labkey/api</title>
+	<title>GetGroupsForCurrentUserResponse | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_security_policy_.html">&quot;security/Policy&quot;</a>
+					<a href="../modules/_security_group_.html">&quot;security/Group&quot;</a>
 				</li>
 				<li>
-					<a href="_security_policy_.getpolicyresponse.html">GetPolicyResponse</a>
+					<a href="_security_group_.getgroupsforcurrentuserresponse.html">GetGroupsForCurrentUserResponse</a>
 				</li>
 			</ul>
-			<h1>Interface GetPolicyResponse</h1>
+			<h1>Interface GetGroupsForCurrentUserResponse</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">GetPolicyResponse</span>
+						<span class="target">GetGroupsForCurrentUserResponse</span>
 					</li>
 				</ul>
 			</section>
@@ -82,8 +82,7 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_policy_.getpolicyresponse.html#policy" class="tsd-kind-icon">policy</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_policy_.getpolicyresponse.html#relevantroles" class="tsd-kind-icon">relevant<wbr>Roles</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_security_group_.getgroupsforcurrentuserresponse.html#groups" class="tsd-kind-icon">groups</a></li>
 							</ul>
 						</section>
 					</div>
@@ -92,24 +91,19 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="policy" class="tsd-anchor"></a>
-					<h3>policy</h3>
-					<div class="tsd-signature tsd-kind-icon">policy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="groups" class="tsd-anchor"></a>
+					<h3>groups</h3>
+					<div class="tsd-signature tsd-kind-icon">groups<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Pick</span><span class="tsd-signature-symbol">&lt;</span><a href="_security_types_.group.html" class="tsd-signature-type">Group</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">"id"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"isProjectGroup"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"isSystemGroup"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"name"</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Policy.ts#L75">src/labkey/security/Policy.ts:75</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/security/Group.ts#L122">src/labkey/security/Group.ts:122</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="relevantroles" class="tsd-anchor"></a>
-					<h3>relevant<wbr>Roles</h3>
-					<div class="tsd-signature tsd-kind-icon">relevant<wbr>Roles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/security/Policy.ts#L76">src/labkey/security/Policy.ts:76</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>An array of group information objects.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -120,44 +114,65 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_security_policy_.html">&quot;security/<wbr>Policy&quot;</a>
+						<a href="../modules/_security_group_.html">&quot;security/<wbr>Group&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_policy_.deletepolicyoptions.html" class="tsd-kind-icon">Delete<wbr>Policy<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_group_.addgroupmembersoptions.html" class="tsd-kind-icon">Add<wbr>Group<wbr>Members<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_group_.creategroupoptions.html" class="tsd-kind-icon">Create<wbr>Group<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_policy_.getpolicyoptions.html" class="tsd-kind-icon">Get<wbr>Policy<wbr>Options</a>
+						<a href="_security_group_.creategroupresponse.html" class="tsd-kind-icon">Create<wbr>Group<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_group_.deletegroupoptions.html" class="tsd-kind-icon">Delete<wbr>Group<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_group_.getgroupsforcurrentuseroptions.html" class="tsd-kind-icon">Get<wbr>Groups<wbr>For<wbr>Current<wbr>User<wbr>Options</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_policy_.getpolicyresponse.html" class="tsd-kind-icon">Get<wbr>Policy<wbr>Response</a>
+						<a href="_security_group_.getgroupsforcurrentuserresponse.html" class="tsd-kind-icon">Get<wbr>Groups<wbr>For<wbr>Current<wbr>User<wbr>Response</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_security_policy_.getpolicyresponse.html#policy" class="tsd-kind-icon">policy</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_security_policy_.getpolicyresponse.html#relevantroles" class="tsd-kind-icon">relevant<wbr>Roles</a>
+								<a href="_security_group_.getgroupsforcurrentuserresponse.html#groups" class="tsd-kind-icon">groups</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_group_.removegroupmembersoptions.html" class="tsd-kind-icon">Remove<wbr>Group<wbr>Members<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_security_group_.renamegroupoptions.html" class="tsd-kind-icon">Rename<wbr>Group<wbr>Options</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_security_policy_.savepolicyoptions.html" class="tsd-kind-icon">Save<wbr>Policy<wbr>Options</a>
+						<a href="_security_group_.renamegroupresponse.html" class="tsd-kind-icon">Rename<wbr>Group<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_security_policy_.html#deletepolicy" class="tsd-kind-icon">delete<wbr>Policy</a>
+						<a href="../modules/_security_group_.html#addgroupmembers" class="tsd-kind-icon">add<wbr>Group<wbr>Members</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_security_policy_.html#getpolicy" class="tsd-kind-icon">get<wbr>Policy</a>
+						<a href="../modules/_security_group_.html#creategroup" class="tsd-kind-icon">create<wbr>Group</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_security_policy_.html#savepolicy" class="tsd-kind-icon">save<wbr>Policy</a>
+						<a href="../modules/_security_group_.html#deletegroup" class="tsd-kind-icon">delete<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_security_group_.html#getgroupsforcurrentuser" class="tsd-kind-icon">get<wbr>Groups<wbr>For<wbr>Current<wbr>User</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_security_group_.html#removegroupmembers" class="tsd-kind-icon">remove<wbr>Group<wbr>Members</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_security_group_.html#renamegroup" class="tsd-kind-icon">rename<wbr>Group</a>
 					</li>
 				</ul>
 			</nav>
@@ -179,6 +194,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">

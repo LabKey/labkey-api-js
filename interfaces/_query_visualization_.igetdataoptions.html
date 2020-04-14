@@ -60,18 +60,37 @@
 					<a href="_query_visualization_.igetdataoptions.html">IGetDataOptions</a>
 				</li>
 			</ul>
-			<h1>Interface IGetDataOptions</h1>
+			<h1>Interface IGetDataOptions&lt;S, F, SC&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>S</h4>
+					</li>
+					<li>
+						<h4>F</h4>
+					</li>
+					<li>
+						<h4>SC</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IGetDataOptions</span>
+						<a href="_utils_.requestcallbackoptions.html" class="tsd-signature-type">RequestCallbackOptions</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">IGetDataOptions</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -84,7 +103,7 @@
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#endpoint" class="tsd-kind-icon">endpoint</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#failure" class="tsd-kind-icon">failure</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_query_visualization_.igetdataoptions.html#failure" class="tsd-kind-icon">failure</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#filterquery" class="tsd-kind-icon">filter<wbr>Query</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#filterurl" class="tsd-kind-icon">filter<wbr>Url</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#groupbys" class="tsd-kind-icon">group<wbr>Bys</a></li>
@@ -93,9 +112,9 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#measures" class="tsd-kind-icon">measures</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#metadataonly" class="tsd-kind-icon">meta<wbr>Data<wbr>Only</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#parameters" class="tsd-kind-icon">parameters</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#scope" class="tsd-kind-icon">scope</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_query_visualization_.igetdataoptions.html#scope" class="tsd-kind-icon">scope</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#sorts" class="tsd-kind-icon">sorts</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_.igetdataoptions.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_query_visualization_.igetdataoptions.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
 					</div>
@@ -109,7 +128,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L161">src/labkey/query/Visualization.ts:161</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L152">src/labkey/query/Visualization.ts:152</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -119,26 +138,23 @@
 					<div class="tsd-signature tsd-kind-icon">endpoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L162">src/labkey/query/Visualization.ts:162</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L153">src/labkey/query/Visualization.ts:153</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="failure" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestfailure" class="tsd-signature-type">RequestFailure</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#failure">failure</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L169">src/labkey/query/Visualization.ts:169</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L31">src/labkey/Utils.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Function called when execution fails.  Called with the following parameters:</p>
-							<ul>
-								<li><strong>errorInfo:</strong> an object containing detailed error information (may be null)</li>
-								<li><strong>response:</strong> The XMLHttpResponse object</li>
-							</ul>
+							<p>This will be called upon failure to complete a request.</p>
 						</div>
 					</div>
 				</section>
@@ -148,7 +164,7 @@
 					<div class="tsd-signature tsd-kind-icon">filter<wbr>Query<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L170">src/labkey/query/Visualization.ts:170</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L154">src/labkey/query/Visualization.ts:154</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -158,7 +174,7 @@
 					<div class="tsd-signature tsd-kind-icon">filter<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L171">src/labkey/query/Visualization.ts:171</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L155">src/labkey/query/Visualization.ts:155</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -168,7 +184,7 @@
 					<div class="tsd-signature tsd-kind-icon">group<wbr>Bys<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L172">src/labkey/query/Visualization.ts:172</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L156">src/labkey/query/Visualization.ts:156</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -178,7 +194,7 @@
 					<div class="tsd-signature tsd-kind-icon">join<wbr>ToFirst<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L178">src/labkey/query/Visualization.ts:178</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L162">src/labkey/query/Visualization.ts:162</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -194,7 +210,7 @@
 					<div class="tsd-signature tsd-kind-icon">limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L179">src/labkey/query/Visualization.ts:179</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L163">src/labkey/query/Visualization.ts:163</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -204,7 +220,7 @@
 					<div class="tsd-signature tsd-kind-icon">measures<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_query_visualization_.imeasureable.html" class="tsd-signature-type">IMeasureable</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L180">src/labkey/query/Visualization.ts:180</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L164">src/labkey/query/Visualization.ts:164</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -214,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">meta<wbr>Data<wbr>Only<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L183">src/labkey/query/Visualization.ts:183</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L167">src/labkey/query/Visualization.ts:167</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -229,19 +245,25 @@
 					<div class="tsd-signature tsd-kind-icon">parameters<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L184">src/labkey/query/Visualization.ts:184</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L168">src/labkey/query/Visualization.ts:168</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="scope" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SC</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#scope">scope</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L185">src/labkey/query/Visualization.ts:185</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L36">src/labkey/Utils.ts:36</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A scoping object for the success and failure callback functions (default to this).</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="sorts" class="tsd-anchor"></a>
@@ -249,7 +271,7 @@
 					<div class="tsd-signature tsd-kind-icon">sorts<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_query_visualization_dimension_.dimension.html" class="tsd-signature-type">Dimension</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_query_visualization_measure_.measure.html" class="tsd-signature-type">Measure</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="_query_visualization_.igetdatasortable.html" class="tsd-signature-type">IGetDataSortable</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L188">src/labkey/query/Visualization.ts:188</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Visualization.ts#L171">src/labkey/query/Visualization.ts:171</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -258,23 +280,19 @@
 						</div>
 					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 					<a name="success" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestsuccess" class="tsd-signature-type">RequestSuccess</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#success">success</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/a72323f/src/labkey/query/Visualization.ts#L196">src/labkey/query/Visualization.ts:196</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Utils.ts#L41">src/labkey/Utils.ts:41</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Function called when execution succeeds. Will be called with three arguments:</p>
-							<ul>
-								<li><strong>data</strong>: the parsed response data ({@link LABKEY.Query.SelectRowsResults})</li>
-								<li><strong>request</strong>: the XMLHttpRequest object</li>
-								<li><strong>options</strong>: a request options object ({@link LABKEY.Query.SelectRowsOptions})</li>
-							</ul>
+							<p>This will be called upon successfully completing a request.</p>
 						</div>
 					</div>
 				</section>
@@ -301,7 +319,7 @@
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_query_visualization_.igetdataoptions.html" class="tsd-kind-icon">IGet<wbr>Data<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -310,7 +328,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_query_visualization_.igetdataoptions.html#endpoint" class="tsd-kind-icon">endpoint</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_query_visualization_.igetdataoptions.html#failure" class="tsd-kind-icon">failure</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
@@ -337,13 +355,13 @@
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_query_visualization_.igetdataoptions.html#parameters" class="tsd-kind-icon">parameters</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_query_visualization_.igetdataoptions.html#scope" class="tsd-kind-icon">scope</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="_query_visualization_.igetdataoptions.html#sorts" class="tsd-kind-icon">sorts</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
 								<a href="_query_visualization_.igetdataoptions.html#success" class="tsd-kind-icon">success</a>
 							</li>
 						</ul>
@@ -353,23 +371,29 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_query_visualization_.igetdatasortable.html" class="tsd-kind-icon">IGet<wbr>Data<wbr>Sortable</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_visualization_.igetfromurloptions.html" class="tsd-kind-icon">IGet<wbr>From<wbr>Url<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_query_visualization_.igetmeasuresoptions.html" class="tsd-kind-icon">IGet<wbr>Measures<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="_query_visualization_.igetoptions.html" class="tsd-kind-icon">IGet<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_visualization_.igettypesoptions.html" class="tsd-kind-icon">IGet<wbr>Types<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_query_visualization_.imeasurelike.html" class="tsd-kind-icon">IMeasure<wbr>Like</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_query_visualization_.imeasureable.html" class="tsd-kind-icon">IMeasureable</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_visualization_.isaveoptions.html" class="tsd-kind-icon">ISave<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_query_visualization_.saveresponse.html" class="tsd-kind-icon">Save<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_query_visualization_.visualizationgetresponse.html" class="tsd-kind-icon">Visualization<wbr>Get<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_query_visualization_.html#icontype" class="tsd-kind-icon">Icon<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
 						<a href="../modules/_query_visualization_.html#createmeasures" class="tsd-kind-icon">create<wbr>Measures</a>
@@ -395,6 +419,9 @@
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_query_visualization_.html#gettypes" class="tsd-kind-icon">get<wbr>Types</a>
 					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_query_visualization_.html#save" class="tsd-kind-icon">save</a>
+					</li>
 				</ul>
 			</nav>
 		</div>
@@ -415,6 +442,7 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
