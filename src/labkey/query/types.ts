@@ -18,18 +18,29 @@ export interface QueryColumn {
     align: string
     calculated: boolean
     caption: string
+    cols?: number
     conceptURI: string
+    crosstabColumnDimension?: any
+    crosstabColumnMember?: any
     defaultScale: string
     defaultValue?: any
+    description?: string
     dimension: boolean
+    displayField?: string
+    displayFieldSqlType?: string
+    displayFieldJsonType?: string
+    excelFormat?: string
     excludeFromShifting: boolean
     ext?: any
+    extFormat?: string
+    extFormatFn?: string
     facetingBehaviorType: string
     fieldKey: string
     fieldKeyArray: string[]
     fieldKeyPath: string
     friendlyType: string
     hidden: boolean
+    importAliases?: string[]
     inputType: string
     isAutoIncrement: boolean
     isHidden: boolean
@@ -42,7 +53,10 @@ export interface QueryColumn {
     isVersionField: boolean
     jsonType: string
     keyField: string
+    label?: string
+    lookup?: QueryLookup
     measure: boolean
+    multiValue?: boolean
     mvEnabled: boolean
     name: string
     nullable: boolean
@@ -51,6 +65,7 @@ export interface QueryColumn {
     readOnly: boolean
     recommendedVariable: boolean
     required: boolean
+    rows?: number
     selectable: boolean
     shortCaption: string
     shownInDetailsView: boolean
@@ -58,7 +73,27 @@ export interface QueryColumn {
     shownInUpdateView: boolean
     sortable: boolean
     sqlType: string
+    tsvFormat?: string
     type: string
+    typeName?: string
+    typeURI?: string
     userEditable: boolean
     versionField: boolean
+    xtype?: string
+}
+
+export interface QueryLookup {
+    container?: string
+    containerPath?: string
+    displayColumn?: string
+    filterGroups?: any
+    isPublic: boolean
+    junctionLookup?: string
+    keyColumn: string
+    multiValued?: string
+    'public': boolean
+    queryName: string
+    schema: string
+    schemaName: string
+    table: string
 }

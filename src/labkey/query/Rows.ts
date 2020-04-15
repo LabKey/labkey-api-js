@@ -39,7 +39,7 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
      * Array of record objects in which each object has a property for each field.
      * The row data array needs to include only the primary key column value, not all columns.
      */
-    rows?: any
+    rows?: any[]
     /**
      * Name of a schema defined within the current container.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
@@ -85,7 +85,7 @@ export function deleteRows(options: QueryRequestOptions): XMLHttpRequest {
 /**
  * Insert rows.
  * #### Examples
- * ```
+ * ```js
  * // This snippet inserts data from the ReagentReqForm into a list.
  * // Upon success, it moves the user to the confirmation page and
  * // passes the current user's ID to that page.
@@ -146,14 +146,15 @@ export type CommandType = 'delete' | 'insert' | 'update';
  * - [LabKey Javascript tutorial](https://www.labkey.org/Documentation/wiki-page.view?name=javascriptTutorial)
  * - [Demo](https://www.labkey.org/home/Study/demo/wiki-page.view?name=reagentRequest)
  *
- * ```
- * {"schemaName": "lists",
+ * ```js
+ * {
+ *  "schemaName": "lists",
  *  "queryName": "API Test List",
  *  "rowsAffected": 1,
  *  "command": "insert",
  *  "errors": [],
  *  "rows": [{ Key: 3, StringField: 'NewValue'}]
- *  }
+ * }
  * ```
  */
 export interface ModifyRowsResults {

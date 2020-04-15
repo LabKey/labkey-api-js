@@ -324,7 +324,7 @@ export function getNAbRuns(options: IGetNAbRunsOptions): void {
         url: buildURL('nabassay', 'getNabRuns', options.containerPath),
         method: 'GET',
         params: appendFilterParams(params, options.filterArray),
-        success: getCallbackWrapper((data: any) => {
+        success: getCallbackWrapper(function(data: any) {
             if (success) {
                 success.call(options.scope, data.runs);
             }

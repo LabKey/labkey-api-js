@@ -215,7 +215,7 @@ function selectRowArguments(args: IArguments): ISelectRowsOptions {
  * Select rows.
  * #### Examples
  *
- * ```
+ * ```js
  * function onFailure(errorInfo, options, responseObj)
  * {
  *     if (errorInfo && errorInfo.exception)

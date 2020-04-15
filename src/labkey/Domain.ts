@@ -58,15 +58,15 @@ export interface DomainDesign {
      * - lookupSchema:</b> If this domain field is a lookup, this holds the schema in which to look. (string)
      * - lookupQuery:</b> if this domain field is a lookup, this holds the query in which to look. (string)
      */
-    fields?: Array<any>
+    fields?: any[]
     /**
      * An array of objects that each designate an index upon the domain.  Each object has the following properties
      * - columnNames : An array of strings, where each string is the name of a domain field that will be an index. (array).
      * - unique : Indicates whether the domain field is allowed to contain any duplicate values. (boolean).
      */
-    indices?: Array<any>
-    /** The name of this domain. */
+    indices?: any[]
     instructions?: string
+    /** The name of this domain. */
     name?: string
     queryName?: string              // consider removing, queryName & schemaName may no longer be used
     schemaName?: string
@@ -105,7 +105,7 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
  * Currently supported domain kinds are: "IntList", "VarList", "SampleSet", "DataClass",
  * "StudyDatasetDate", "StudyDatasetVisit".
  *
- * ```
+ * ```js
  * LABKEY.Domain.create({
  *  kind: "IntList",
  *  domainDesign: {
@@ -124,7 +124,7 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
  * });
  * ```
  * Create domain from a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates)
- * ```
+ * ```js
  * LABKEY.Domain.create({
  *  module: "mymodule",
  *  domainGroup: "codes",
@@ -133,7 +133,7 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
  * });
  * ```
  * Import the initial data from the domain template of a previously created domain:
- * ```
+ * ```js
  * LABKEY.Domain.create({
  *  module: "mymodule",
  *  domainGroup: "codes",
@@ -241,7 +241,7 @@ export interface GetDomainDetailsOptions extends
 /**
  * Gets a domain design.
  *
- * ```
+ * ```js
  *  function successHandler(domainDesign){
  *      var html = '';
  *
@@ -256,7 +256,12 @@ export interface GetDomainDetailsOptions extends
  *      alert('An error occurred retrieving data: ' + error);
  *  }
  *
- *  LABKEY.Domain.getDomainDetails(successHandler, errorHandler, 'study', 'StudyProperties');
+ *  LABKEY.Domain.getDomainDetails({
+ *      schemaName: 'study',
+ *      queryName: 'StudyProperties',
+ *      success: successHandler,
+ *      failure: errorHandler
+ *  });
  * ```
  */
 export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpRequest {

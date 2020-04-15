@@ -543,7 +543,7 @@ export class Data extends ExpObject {
         // }
 
         function getSuccessCallbackWrapper(success: Function, format: string, scope: any) {
-            return getCallbackWrapper((json: any, response: ExtendedXMLHttpRequest) => {
+            return getCallbackWrapper(function(json: any, response: ExtendedXMLHttpRequest) {
                 if (success) {
                     success.call(scope || this, json, format, response);
                 }

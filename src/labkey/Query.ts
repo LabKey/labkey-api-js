@@ -45,13 +45,17 @@ import { selectRows } from './query/SelectRows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 import { Filter } from './filter/Filter'
-import { Response, Row } from './query/Response';
+import { Response, Row } from './query/Response'
+import { QueryColumn } from './query/types'
 
 const experimental = {
     SQL
 };
 
 export {
+    // Interfaces
+    QueryColumn,
+
     ContainerFilter, // Enumeration
     containerFilter, // backwards compatible reference
     buildQueryParams,

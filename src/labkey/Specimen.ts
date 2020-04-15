@@ -275,7 +275,7 @@ export function getSpecimenWebPartGroups(options: APIOptions): void {
 
 function getSuccessCallbackWrapper(success: any, root?: string): AjaxHandler {
 
-    return getCallbackWrapper((data: any) => {
+    return getCallbackWrapper(function(data: any) {
         success(root ? data[root] : data);
     }, this);
 }

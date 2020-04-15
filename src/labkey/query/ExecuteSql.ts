@@ -75,8 +75,6 @@ export interface IExecuteSqlOptions extends RequestCallbackOptions {
     saveInSession?: boolean
     /** Name of the schema to query. */
     schemaName: string
-    /** A scope for the callback functions. Defaults to "this". */
-    scope?: any
     /**
      * A sort specification to apply over the rows returned by the SQL. In general, you should either include an
      * ORDER BY clause in your SQL, or specific a sort specification in this config property, but not both. The value
@@ -166,7 +164,7 @@ function buildURLParams(options: IExecuteSqlOptions): any {
  * Example, from the Reagent Request Confirmation [Tutorial](https://www.labkey.org/Documentation/wiki-page.view?name=reagentRequestConfirmation)
  * and [Demo](https://www.labkey.org/home/Study/demo/wiki-page.view?name=Confirmation):
  *
- * ```
+ * ```js
  * // This snippet extracts a table of UserID, TotalRequests and
  * // TotalQuantity from the "Reagent Requests" list.
  * // Upon success, the writeTotals function (not included here) uses the
