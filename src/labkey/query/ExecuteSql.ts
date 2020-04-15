@@ -134,15 +134,6 @@ function buildParams(options: IExecuteSqlOptions): any {
         jsonData.includeMetadata = options.includeMetadata;
     }
 
-    if (options.parameters) {
-        for (let propName in options.parameters) {
-            if (options.parameters.hasOwnProperty(propName)) {
-                // TODO: This should be changed to use a dataRegionName
-                jsonData['query.param.' + propName] = options.parameters[propName];
-            }
-        }
-    }
-
     return jsonData;
 }
 
@@ -152,6 +143,15 @@ function buildURLParams(options: IExecuteSqlOptions): any {
     if (options.sort) {
         // TODO: This should be changed to use a dataRegionName
         urlParams['query.sort'] = options.sort;
+    }
+
+    if (options.parameters) {
+        for (let propName in options.parameters) {
+            if (options.parameters.hasOwnProperty(propName)) {
+                // TODO: This should be changed to use a dataRegionName
+                urlParams['query.param.' + propName] = options.parameters[propName];
+            }
+        }
     }
 
     return urlParams;
