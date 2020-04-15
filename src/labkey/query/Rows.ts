@@ -18,6 +18,7 @@ import { IFilter } from '../filter/Filter'
 import { buildURL } from '../ActionURL'
 import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess, isArray } from '../Utils';
 import { buildQueryParams, ContainerFilter, getMethod, getSuccessCallbackWrapper } from './Utils'
+import { AuditBehaviorTypes } from '../constants';
 
 /**
  * Delete rows.
@@ -710,6 +711,9 @@ export interface IQueryRequestOptions {
 
     /** Whether all of the deletes should be done in a single transaction, so they all succeed or all fail. Defaults to true. */
     transacted?: boolean
+
+    /** Can be used to override the audit behavior for the table the query is acting on. ({@link LABKEY.AuditBehaviorTypes}) */
+    auditBehavior?: AuditBehaviorTypes
 }
 
 // Formerly sendJsonQueryRequest
@@ -729,7 +733,8 @@ function sendRequest(options: IQueryRequestOptions): XMLHttpRequest {
             queryName: options.queryName,
             rows: options.rows || options.rowDataArray,
             transacted: options.transacted,
-            extraContext: options.extraContext
+            extraContext: options.extraContext,
+            auditBehavior: options.auditBehavior
         },
         timeout: options.timeout
     });

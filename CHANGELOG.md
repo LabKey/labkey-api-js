@@ -1,3 +1,6 @@
+## 0.1.2 - 2020-04-15
+- Add optional auditBehavior parameter to IQueryRequestOptions 
+
 ## 0.1.1 - 2020-04-07
 - Fix for typings of Security.getUserPermissions response.
 

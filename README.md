@@ -42,7 +42,7 @@ import { Query, Security } from '@labkey/api';
 
 ## Development
 
-If you would like to contribute changes to this package it is straight-forward to get setup for development. 
+If you would like to contribute changes to this package it is straightforward to get set up for development. 
 First, clone this repository to a directory
 
 ```sh
@@ -81,7 +81,7 @@ If installed correctly, `__package__` will contain package information such as t
 
 ## Publishing
 
-To publish, increment the version number in accordance with [SemVer](https://semver.org/), update the Readme.md, 
+To publish, increment the version number in accordance with [SemVer](https://semver.org/), update the CHANGELOG.md, 
 and commit. Then from the package root run
 
 ```sh

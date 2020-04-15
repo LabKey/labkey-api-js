@@ -15,6 +15,7 @@
  */
 // constants
 import {
+    AuditBehaviorTypes,
     ExperimentalFeatures,
     LabKey,
     getServerContext,
@@ -49,6 +50,7 @@ import * as UtilsDOM from './labkey/dom/Utils';
 
 export {
     // constants
+    AuditBehaviorTypes,
     ExperimentalFeatures,
     LabKey,
     getServerContext,
