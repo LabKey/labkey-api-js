@@ -15,14 +15,7 @@
  */
 import { buildURL } from './ActionURL'
 import { request } from './Ajax'
-import {
-    getCallbackWrapper,
-    getOnFailure,
-    getOnSuccess,
-    RequestCallbackOptions,
-    RequestFailure,
-    RequestSuccess
-} from './Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
 import { insertRows } from './query/Rows'
 
 import { Run, RunGroup } from './Exp'
@@ -544,32 +537,11 @@ export function saveBatches(options: ISaveBatchesOptions): XMLHttpRequest {
     return requestSaveBatches<Array<RunGroup>>(options as any, createRunGroups);
 }
 
-export interface ISaveMaterialsOptions {
-
-    /**
-     * The function to call if this function encounters an error.
-     */
-    failure?: RequestFailure
-
-    /**
-     * An array of LABKEY.Exp.Material objects to be saved
-     */
+export interface ISaveMaterialsOptions extends RequestCallbackOptions {
+    /** An array of LABKEY.Exp.Material objects to be saved. */
     materials: any
-
-    /**
-     * Name of the sample set
-     */
+    /** Name of the sample set. */
     name: string
-
-    /**
-     * A scoping object for the success and error callback functions (default to this).
-     */
-    scope?: any
-
-    /**
-     * The function to call when the function finishes successfully.
-     */
-    success?: RequestSuccess
 }
 
 /**

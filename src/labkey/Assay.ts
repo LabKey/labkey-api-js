@@ -324,7 +324,7 @@ export function getNAbRuns(options: IGetNAbRunsOptions): void {
         url: buildURL('nabassay', 'getNabRuns', options.containerPath),
         method: 'GET',
         params: appendFilterParams(params, options.filterArray),
-        success: getCallbackWrapper((data: any) => {
+        success: getCallbackWrapper(function(data: any) {
             if (success) {
                 success.call(options.scope, data.runs);
             }
@@ -492,7 +492,7 @@ export function getStudyNabRuns(options: IGetStudyNabRunsOptions): void {
  * @private
  */
 function getSuccessCallbackWrapper(success: Function, scope: any): AjaxHandler {
-    return getCallbackWrapper((data: any, response: any) => {
+    return getCallbackWrapper(function(data: any, response: any) {
         if (success) {
             success.call(this, data.definitions, response);
         }

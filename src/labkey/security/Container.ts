@@ -181,7 +181,7 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
         }
 
         if (config.includeSubfolders != undefined) {
-            params.includeSubfolders = config.includeSubfolders === true;
+            params.includeSubfolders = config.includeSubfolders;
         }
         if (config.depth != undefined) {
             params.depth = config.depth;
@@ -190,7 +190,7 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
             params.moduleProperties = config.moduleProperties;
         }
         if (config.includeEffectivePermissions != undefined) {
-            params.includeEffectivePermissions = config.includeEffectivePermissions === true;
+            params.includeEffectivePermissions = config.includeEffectivePermissions;
         }
     }
 

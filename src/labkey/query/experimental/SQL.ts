@@ -171,9 +171,6 @@ function parseRows(text: string, sep: string, eol: string): IParsedRows {
         rows[r] = row;
     }
 
-    rows.pop();
-    rows.pop();
-
     return {
         names,
         rows,

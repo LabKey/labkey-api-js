@@ -1,3 +1,40 @@
+## 0.2.0 - 2020-04-15
+**ActionURL**
+- Fix container path encoding (match core behavior).
+
+**Domain**
+- Separate `get` from `getDomainDetails` as they have different response shapes. @labkey-ians 
+- Fix check for parameters to look at "options" and not "config" as originally supplied.
+This fixes support for multiple argument variants.
+
+**Experiment**
+- `saveMaterials` typings improved after updates to Query's `insertRows` typings.
+
+**Query**
+- Add payload response typings for `getQueries` and `getQueryDetails`.
+- Update request-based interfaces to use `RequestCallbackOptions`.
+- Separate `selectRows` and `selectDistinctRows` into own modules. `Rows` now contains insert, update, delete,
+and save operations.
+- Remove duplicate `saveRows` implementation (oops!).
+- Add regression unit tests for old-style method signatures.
+
+**Query/Filters**
+- Add `EXP_PARENT_OF` filter type.
+- Fix `getSingleValueFilter` to match core behavior.
+- Rename `splitValue` to `parseValue` to match core interface. @labkey-kevink 
+- Add regression snapshot coverage for all provided filter types.
+
+**Utils**
+- Ensure scoping of callback is consistent with core behavior. Added regression tests.
+- Remove `collapseExpand`, `notifyExpandCollapse`, and `toggleLink` as these have been migrated to DOM-based
+implementation only.
+- Add private `DOMWrapper` utility to declare "stubbed" methods that are expected to have a concrete implementation
+provided by our DOM-based libraries. Allows for type signatures and fall through to a console warning.
+
+**General**
+- Match logical behavior when configuring parameter/data values. Some cases had been made more strict in `@labkey/api`
+than what core is doing (e.g. using `=== true` when assigning to a `boolean` type).
+
 ## 0.1.2 - 2020-04-15
 - Add optional auditBehavior parameter to IQueryRequestOptions 
 

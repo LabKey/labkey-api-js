@@ -32,6 +32,8 @@ export interface DomainDesign {
     allowFileLinkProperties?: boolean
     allowFlagProperties?: boolean
     container?: string
+    defaultDefaultValueType?: string
+    defaultValueOptions?: string[]
     /** The unique ID of this domain */
     domainId?: number
     /** The URI of this domain. */
@@ -56,17 +58,19 @@ export interface DomainDesign {
      * - lookupSchema:</b> If this domain field is a lookup, this holds the schema in which to look. (string)
      * - lookupQuery:</b> if this domain field is a lookup, this holds the query in which to look. (string)
      */
-    fields?: Array<any>
+    fields?: any[]
     /**
      * An array of objects that each designate an index upon the domain.  Each object has the following properties
      * - columnNames : An array of strings, where each string is the name of a domain field that will be an index. (array).
      * - unique : Indicates whether the domain field is allowed to contain any duplicate values. (boolean).
      */
-    indices?: Array<any>
+    indices?: any[]
+    instructions?: string
     /** The name of this domain. */
     name?: string
     queryName?: string              // consider removing, queryName & schemaName may no longer be used
     schemaName?: string
+    showDefaultValueSettings?: boolean
     templateDescription?: string
 }
 
@@ -101,7 +105,7 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
  * Currently supported domain kinds are: "IntList", "VarList", "SampleSet", "DataClass",
  * "StudyDatasetDate", "StudyDatasetVisit".
  *
- * ```
+ * ```js
  * LABKEY.Domain.create({
  *  kind: "IntList",
  *  domainDesign: {
@@ -120,7 +124,7 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
  * });
  * ```
  * Create domain from a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates)
- * ```
+ * ```js
  * LABKEY.Domain.create({
  *  module: "mymodule",
  *  domainGroup: "codes",
@@ -129,7 +133,7 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
  * });
  * ```
  * Import the initial data from the domain template of a previously created domain:
- * ```
+ * ```js
  * LABKEY.Domain.create({
  *  module: "mymodule",
  *  domainGroup: "codes",
@@ -147,15 +151,15 @@ export function create(config: CreateDomainOptions): XMLHttpRequest {
         url: buildURL('property', 'createDomain.api', options.containerPath),
         method: 'POST',
         jsonData: options,
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        success: getCallbackWrapper(getOnSuccess(options), config.scope),
+        failure: getCallbackWrapper(getOnFailure(options), config.scope, true)
     });
 }
 
 /**
  * @private
  */
-function mapCreateArguments(args: any): CreateDomainOptions {
+function mapCreateArguments(args: IArguments): CreateDomainOptions {
 
     let options: CreateDomainOptions = {
         failure: args[1],
@@ -208,7 +212,7 @@ export function drop(config: DropDomainOptions): XMLHttpRequest {
     });
 }
 
-export interface GetDomainOptions extends RequestCallbackOptions {
+export interface BaseGetDomainOptions {
     /**
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
@@ -225,10 +229,19 @@ export interface GetDomainOptions extends RequestCallbackOptions {
     schemaName?: string
 }
 
+export interface GetDomainDetailsResponse {
+    domainDesign: DomainDesign
+    domainKindName: string
+    options?: any
+}
+
+export interface GetDomainDetailsOptions extends
+    BaseGetDomainOptions, RequestCallbackOptions<GetDomainDetailsResponse> { }
+
 /**
  * Gets a domain design.
  *
- * ```
+ * ```js
  *  function successHandler(domainDesign){
  *      var html = '';
  *
@@ -243,12 +256,17 @@ export interface GetDomainOptions extends RequestCallbackOptions {
  *      alert('An error occurred retrieving data: ' + error);
  *  }
  *
- *  LABKEY.Domain.getDomainDetails(successHandler, errorHandler, 'study', 'StudyProperties');
+ *  LABKEY.Domain.getDomainDetails({
+ *      schemaName: 'study',
+ *      queryName: 'StudyProperties',
+ *      success: successHandler,
+ *      failure: errorHandler
+ *  });
  * ```
  */
-export function getDomainDetails(config: GetDomainOptions): XMLHttpRequest {
+export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpRequest {
 
-    let options: GetDomainOptions = arguments.length > 1 ? {
+    let options: GetDomainDetailsOptions = arguments.length > 1 ? {
         containerPath: arguments[4],
         failure: arguments[1],
         queryName: arguments[3],
@@ -258,8 +276,8 @@ export function getDomainDetails(config: GetDomainOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('property', 'getDomainDetails.api', options.containerPath),
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: {
             schemaName: options.schemaName,
             queryName: options.queryName,
@@ -268,11 +286,32 @@ export function getDomainDetails(config: GetDomainOptions): XMLHttpRequest {
     });
 }
 
+export interface GetDomainOptions extends BaseGetDomainOptions, RequestCallbackOptions<DomainDesign> { }
+
 /**
- * Gets a domain design. This is a deprecated alias for [[getDomainDetails]].
+ * Gets a domain design. This is a deprecated. Use [[getDomainDetails]] instead.
  * @deprecated
  */
-export const get = getDomainDetails;
+export function get(config: GetDomainOptions): XMLHttpRequest {
+    let options: GetDomainOptions = arguments.length > 1 ? {
+        containerPath: arguments[4],
+        failure: arguments[1],
+        queryName: arguments[3],
+        schemaName: arguments[2],
+        success: arguments[0]
+    } : config;
+
+    return request({
+        url: buildURL('property', 'getDomain.api', options.containerPath),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        params: {
+            schemaName: options.schemaName,
+            queryName: options.queryName,
+            domainId: options.domainId
+        }
+    });
+}
 
 export interface SaveDomainOptions extends RequestCallbackOptions {
     /**
@@ -320,15 +359,15 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
     return request({
         url: buildURL('property', 'saveDomain.api', options.containerPath),
         method: 'POST',
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData: {
             domainDesign: options.domainDesign,
             schemaName: options.schemaName,
             queryName: options.queryName,
             domainId: options.domainId,
             includeWarnings: options.includeWarnings,
-            options: {...options.options},
+            options: options.options,
         }
     });
 }

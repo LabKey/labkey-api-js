@@ -1,4 +1,19 @@
-import { ContainerFilter, containerFilter } from './Utils'
+/*
+ * Copyright (c) 2020 LabKey Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { ContainerFilter, containerFilter, getSuccessCallbackWrapper } from './Utils'
 
 describe('ContainerFilter', () => {
     it('should be a case-sensitive string-based enum', () => {
@@ -16,7 +31,38 @@ describe('ContainerFilter', () => {
         expect(Object.keys(ContainerFilter).length).toEqual(7);
     });
     it('should be equivalent to "containerFilter"', () => {
-        // Backwards compatibilty suppport
+        // Backwards compatibility support
         expect(ContainerFilter).toStrictEqual(containerFilter);
+    });
+});
+
+describe('getSuccessCallbackWrapper', () => {
+    const mockJSONResponse = () => {
+        const response = new XMLHttpRequest();
+        response.open('GET', 'test');
+        response.setRequestHeader('Content-Type', 'application/json');
+        return response;
+    };
+
+    it('should ignore apply scope', () => {
+        const me = this;
+        const onSuccess = getSuccessCallbackWrapper(function() {
+            expect(this === me).toBe(false);
+        });
+
+        // An explicit scope is not provided to getSuccessCallbackWrapper so the returned
+        // function wrapper should respect scope being applied.
+        onSuccess.apply(me, [mockJSONResponse(), { url: 'test'}]);
+    });
+    it('should respect explicit scope', () => {
+        const me = this;
+        const other = {};
+        const onSuccess = getSuccessCallbackWrapper(function() {
+            expect(this).toStrictEqual(other);
+        }, false, other);
+
+        // An explicit scope is provided to getSuccessCallbackWrapper so the returned function
+        // wrapper should respect the explicit scope over the applied scope.
+        onSuccess.apply(me, [mockJSONResponse(), { url: 'test' }]);
     });
 });

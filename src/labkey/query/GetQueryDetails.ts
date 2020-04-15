@@ -15,62 +15,110 @@
  */
 import { request } from '../Ajax'
 import { buildURL } from '../ActionURL'
-import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils'
+import { Container } from '../constants'
+import { QueryColumn } from './types'
 
-export interface IGetQueryDetailsOptions {
+export interface QueryImportTemplate {
+    label: string
+    url: string
+}
+
+export interface QueryIndex {
+    columns: string[]
+    type: string
+}
+
+export interface QueryView {
+    analyticsProviders: any[]
+    columns: QueryViewColumn[]
+    containerFilter: any
+    containerPath: string
+    'default': boolean
+    deletable: boolean
+    editable: boolean
+    fields: QueryColumn[]
+    filter: QueryViewFilter[]
+    hidden: boolean
+    inherit: boolean
+    label: string
+    name: string
+    owner: string
+    revertable: boolean
+    savable: boolean
+    session: boolean
+    shared: boolean
+    sort: QueryViewSort[]
+    viewDataUrl: string
+}
+
+export interface QueryViewColumn {
+    fieldKey: string
+    key: string
+    name: string
+}
+
+export interface QueryViewFilter {
+    fieldKey: string
+    op: string
+    value: string
+}
+
+export interface QueryViewSort {
+    dir: string
+    fieldKey: string
+}
+
+// TODO: This interface should overlap more closely with getQueries or at least be a strict
+// supserset of getQueries properties for any given query.
+export interface QueryDetailsResponse {
+    auditHistoryUrl?: string
+    canEdit: boolean
+    canEditSharedViews: boolean
+    columns: QueryColumn[]
+    createDefinitionUrl?: string
+    defaultView: { columns: QueryColumn[] }
+    description: string
+    editDefinitionUrl: string
+    exception?: string
+    iconURL?: string
+    importTemplates: QueryImportTemplate[]
+    importMessage?: string
+    importUrl?: string
+    importUrlDisabled?: boolean
+    indices: { [index:string]: QueryIndex }
+    insertUrl?: string
+    insertUrlDisabled?: boolean
+    isInherited: boolean
+    isMetadataOverrideable: boolean
+    isTemporary: boolean
+    isUserDefined: boolean
+    moduleName?: string
+    name: string
+    schemaName: string
+    targetContainers: Container[]
+    title: string
+    titleColumn: string
+    viewDataUrl: string
+    views: QueryView[]
+    warning?: string
+}
+
+export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDetailsResponse> {
     /**
      * A container path in which to execute this command. If not supplied,
      * the current container will be used.
      */
     containerPath?: string
-
-    /**
-     * The function to call if this function encounters an error.
-     * This function will be called with the following parameters:
-     * * **errorInfo:** An object with a property called "exception," which contains the error message.
-     */
-    failure?: Function
-
     /** A field key or Array of field keys to include in the metadata. */
     fields?: any
-
     fk?: any
-
     /** Initialize the view based on the default view iff the view doesn't yet exist. */
     initializeMissingView?: boolean
-
     /** The name of the query. */
-    queryName?: string
-
+    queryName: string
     /** The name of the schema. */
-    schemaName?: string
-
-    /** A scope for the callback functions. Defaults to "this". */
-    scope?: any
-
-    /**
-     * The function to call when the function finishes successfully.
-     * This function will be called with the following parameters:
-     * * **queryInfo:** An object with the following properties
-     *   * **schemaName:** the name of the requested schema
-     *   * **name:** the name of the requested query
-     *   * **isUserDefined:** true if this is a user-defined query
-     *   * **canEdit:** true if the current user can edit this query
-     *   * **isMetadataOverrideable:** true if the current user may override the query's metadata
-     *   * **moduleName:** the module that defines this query
-     *   * **isInherited:** true if this query is defined in a different container.
-     *   * **containerPath:** if <code>isInherited</code>, the container path where this query is defined.
-     *   * **viewDataUrl:** The URL to navigate to for viewing the data returned from this query
-     *   * **title:** If a value has been set, this is the label used when displaying this table
-     *   * **description:** A description for this query (if provided)
-     *   * **columns:** Information about all columns in this query. This is an array of LABKEY.Query.FieldMetaData objects.
-     *   * **defaultView:** An array of column information for the columns in the current user's default view of this query.
-     *      The shape of each column info is the same as in the columns array.
-     *   * **views:** An array of view info (XXX: same as views.getQueryViews()
-     * @see LABKEY.Query.FieldMetaData
-     */
-    success?: Function
-
+    schemaName: string
     /**
      * A view name or Array of view names to include custom view details.
      * Use '*' to include all views for the query.
@@ -78,8 +126,16 @@ export interface IGetQueryDetailsOptions {
     viewName?: string
 }
 
-function buildParams(options: IGetQueryDetailsOptions): IGetQueryDetailsOptions {
-    let params: IGetQueryDetailsOptions = {};
+/**
+ * Returns details about a given query including detailed information about result columns.
+ *
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request. In server-side scripts,
+ * this method will return the JSON response object (first parameter of the success or failure callbacks).
+ */
+export function getQueryDetails(options: GetQueryDetailsOptions): XMLHttpRequest {
+
+    let params: any = {};
 
     if (options.schemaName) {
         params.schemaName = options.schemaName;
@@ -105,24 +161,10 @@ function buildParams(options: IGetQueryDetailsOptions): IGetQueryDetailsOptions 
         params.initializeMissingView = options.initializeMissingView;
     }
 
-    return params;
-}
-
-/**
- * Returns details about a given query including detailed information about result columns
- * @param {IGetQueryDetailsOptions} options
- * @returns {XMLHttpRequest} In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request
- * (see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
- * In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)
- */
-export function getQueryDetails(options: IGetQueryDetailsOptions): XMLHttpRequest {
-
     return request({
         url: buildURL('query', 'getQueryDetails.api', options.containerPath),
-        method: 'GET',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        params: buildParams(options)
+        params,
     });
 }

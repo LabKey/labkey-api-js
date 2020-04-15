@@ -69,7 +69,7 @@ export function getFileStatus(config: IGetFileStatusOptions): void {
         url: buildURL('pipeline-analysis', 'getFileStatus.api', config.containerPath),
         method: 'POST',
         params,
-        success: getCallbackWrapper((data: any, response: any) => {
+        success: getCallbackWrapper(function(data: any, response: any) {
             onSuccess.call(this, data.files, data.submitType, response);
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
@@ -163,7 +163,7 @@ export function getProtocols(config: IGetProtocolsOptions): void {
         url: buildURL('pipeline-analysis', 'getSavedProtocols.api', config.containerPath),
         method: 'POST',
         params,
-        success: getCallbackWrapper((data: any, response: any) => {
+        success: getCallbackWrapper(function(data: any, response: any) {
             onSuccess.call(this, data.protocols, data.defaultProtocolName, response);
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)

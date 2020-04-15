@@ -154,7 +154,7 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
 
 function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
 
-    return getCallbackWrapper((data: any, response: any, options: any) => {
+    return getCallbackWrapper(function(data: any, response: any, options: any) {
         if (data && data.outputParams) {
             for (let i = 0; i < data.outputParams.length; i++) {
                 let param = data.outputParams[i];

@@ -81,7 +81,7 @@ export function createNewUser(config: CreateNewUserOptions): XMLHttpRequest {
         method: 'POST',
         jsonData: {
             email: config.email,
-            sendEmail: config.sendEmail === true,
+            sendEmail: config.sendEmail,
             optionalMessage: config.optionalMessage
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),

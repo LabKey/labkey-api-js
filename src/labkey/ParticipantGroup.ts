@@ -73,7 +73,7 @@ export function updateParticipantGroup(config: IUpdateParticipantGroupOptions): 
         url: buildURL('participant-group', 'updateParticipantGroup.api', config.containerPath),
         method: config.method || 'POST',
         jsonData,
-        success: getCallbackWrapper((data: any) => {
+        success: getCallbackWrapper(function(data: any) {
             config.success(data.group);
         }, this),
         failure: getCallbackWrapper(config.failure, this, true)

@@ -93,7 +93,7 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
         jsonData: {
             resourceId: config.resourceId
         },
-        success: getCallbackWrapper((data: { policy: Policy, relevantRoles: string[] }, req: XMLHttpRequest) => {
+        success: getCallbackWrapper(function(data: { policy: Policy, relevantRoles: string[] }, req: XMLHttpRequest) {
             data.policy.requestedResourceId = config.resourceId;
             getOnSuccess(config).call(config.scope || this, data.policy, data.relevantRoles, req);
         }, this),

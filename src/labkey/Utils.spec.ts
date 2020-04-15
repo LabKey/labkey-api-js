@@ -53,10 +53,45 @@ describe('ensureRegionName', () => {
     });
 });
 
-// describe('getCallbackWrapper', () => {
-//     it('should return an AjaxHandler', () => {
-//     });
-// });
+describe('getCallbackWrapper', () => {
+
+    const mockJSONResponse = () => {
+        const response = new XMLHttpRequest();
+        response.open('GET', 'test');
+        response.setRequestHeader('Content-Type', 'application/json');
+        return response;
+    };
+
+    it('should apply scope', () => {
+        const me = this;
+        const onSuccess = Utils.getCallbackWrapper(function() {
+            expect(this).toStrictEqual(me);
+        });
+
+        // An explicit scope is not provided to Utils.getCallbackWrapper so the returned
+        // function wrapper should respect scope being applied.
+        onSuccess.apply(me, [mockJSONResponse(), { url: 'test'}]);
+    });
+    it('should respect explicit scope', () => {
+        const me = this;
+        const other = {};
+        const onSuccess = Utils.getCallbackWrapper(function() {
+            expect(this).toStrictEqual(other);
+        }, other);
+
+        // An explicit scope is provided to Utils.getCallbackWrapper so the returned function
+        // wrapper should respect the explicit scope over the applied scope.
+        onSuccess.apply(me, [mockJSONResponse(), { url: 'test' }]);
+    });
+    it('should return value provided by responseTransformer', () => {
+        const expected = { x: 123 };
+        const onSuccess = Utils.getCallbackWrapper((data: any) => {
+            expect(data === expected).toBe(true);
+        }, undefined, false, () => expected);
+
+        onSuccess(mockJSONResponse(), { url: 'test'});
+    });
+});
 
 describe('getOnFailure', () => {
     const failure = () => {};

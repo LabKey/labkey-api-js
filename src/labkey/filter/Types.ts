@@ -38,7 +38,7 @@ export interface IFilterType {
      * Split a filter String or Array value appropriately for this filter type.
      * @return {String|Array} For multi-valued filter types, an Array of values, otherwise the original filter value.
      */
-    splitValue: (value: string | Array<FilterValue>) => FilterValue | Array<FilterValue>
+    parseValue: (value: string | Array<FilterValue>) => FilterValue | Array<FilterValue>
     /**
      * Get the (unencoded) value that will be put on the URL.
      */
@@ -119,11 +119,16 @@ export let Types: {[key:string]: IFilterType} = {
 
     MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
 
+    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
+    EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, undefined, ' is parent of'),
+
     //
     // These are the 'no data value' operators
     //
 
-    HAS_ANY_VALUE: registerFilterType('Has Any Value'),
+    // NOTE: This type, for better or worse, uses empty string as it's urlSuffix.
+    // The result is a filter that is encoded as "<dataRegionName>.<columnName>~=".
+    HAS_ANY_VALUE: registerFilterType('Has Any Value', null, ''),
 
     ISBLANK: registerFilterType('Is Blank', null, 'isblank'),
     MISSING: registerFilterType('Is Blank', null, 'isblank'),
@@ -132,8 +137,6 @@ export let Types: {[key:string]: IFilterType} = {
 
     HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', null, 'hasmvvalue'),
     DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
-
-    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
 
     //
     // Table/Query-wise operators
@@ -184,52 +187,22 @@ export function registerFilterType(
     const isMultiValued = () => multiValueSeparator != null;
     const isTableWise = () => tableWise === true;
 
-    const doValidate = (value: FilterValue, jsonType: JsonType, columnName: string): string | undefined => {
-        if (!isDataValueRequired()) {
-            return undefined;
-        }
-
-        let f = TYPES_BY_JSON_TYPE[jsonType.toLowerCase()];
-        let found = false;
-
-        for (let i=0; !found && i < f.length; i++) {
-            if (f[i].getURLSuffix() == urlSuffix) {
-                found = true;
-            }
-        }
-
-        if (!found) {
-            alert("Filter type '" + displayText + "' can't be applied to " + type + " types.");
-            return undefined;
-        }
-
-        if (isMultiValued())
-            return validateMultiple(type, jsonType, value, columnName, multiValueSeparator, minOccurs, maxOccurs);
-        return validate(jsonType, value, columnName);
-    };
-
     const type: IFilterType = {
-        getDisplaySymbol: () => displaySymbol || null,
+        getDisplaySymbol: () => displaySymbol ?? null,
         getDisplayText: () => displayText,
         getLongDisplayText: () => longDisplayText || displayText,
-        getURLSuffix: () => urlSuffix || null,
+        getURLSuffix: () => urlSuffix ?? null,
         isDataValueRequired,
         isMultiValued,
         isTableWise,
-        getMultiValueFilter: () => {
-            return isMultiValued() ? null : urlMap[singleValueToMultiMap[urlSuffix]];
-        },
+        getMultiValueFilter: () => isMultiValued() ? null : urlMap[singleValueToMultiMap[urlSuffix]],
         getMultiValueMaxOccurs: () => maxOccurs,
         getMultiValueMinOccurs: () => minOccurs,
-        getMultiValueSeparator: () => multiValueSeparator || null,
-        getOpposite: () => {
-            return oppositeMap[urlSuffix] ? urlMap[oppositeMap[urlSuffix]] : null;
-        },
-        getSingleValueFilter: () => {
-            return isMultiValued ? urlMap[multiValueToSingleMap[urlSuffix]] : null;
-        },
+        getMultiValueSeparator: () => multiValueSeparator ?? null,
+        getOpposite: () => oppositeMap[urlSuffix] ? urlMap[oppositeMap[urlSuffix]] : null,
+        getSingleValueFilter: () => isMultiValued() ? urlMap[multiValueToSingleMap[urlSuffix]] : urlMap[urlSuffix],
 
-        splitValue: (value) => {
+        parseValue: (value) => {
             if (type.isMultiValued()) {
                 if (isString(value)) {
                     if (value.indexOf("{json:") === 0 && value.indexOf("}") === value.length-1) {
@@ -250,7 +223,7 @@ export function registerFilterType(
             return value;
         },
 
-        getURLParameterValue: function (value) {
+        getURLParameterValue: (value: any): any => {
             if (!type.isDataValueRequired()) {
                 return '';
             }
@@ -274,7 +247,32 @@ export function registerFilterType(
             return value;
         },
 
-        validate: doValidate
+        validate: (value: FilterValue, jsonType: JsonType, columnName: string): string | boolean | undefined => {
+            if (!isDataValueRequired()) {
+                return true; // TODO: This method is all over the place with it's return type. WTB sanity...
+            }
+
+            let f = TYPES_BY_JSON_TYPE[jsonType.toLowerCase()];
+            let found = false;
+
+            for (let i=0; !found && i < f.length; i++) {
+                if (f[i].getURLSuffix() == urlSuffix) {
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                // TODO: Use Utils.alert
+                alert("Filter type '" + displayText + "' can't be applied to " + type + " types.");
+                return undefined;
+            }
+
+            if (isMultiValued()) {
+                return validateMultiple(type, jsonType, value, columnName, multiValueSeparator, minOccurs, maxOccurs);
+            } else {
+                return validate(jsonType, value, columnName);
+            }
+        }
     };
 
     urlMap[urlSuffix] = type;
@@ -350,6 +348,7 @@ function twoDigit(num: number): string {
 function validate(jsonType: JsonType, value: FilterValue, columnName: string): string | undefined {
     const strValue = value.toString();
 
+    // TODO: Use Utils.alert throughout this method
     if (jsonType === 'boolean') {
         let upperVal = strValue.toUpperCase();
         if (upperVal == 'TRUE' || upperVal == '1' || upperVal == 'YES' || upperVal == 'Y' || upperVal == 'ON' || upperVal == 'T') {
@@ -413,6 +412,9 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
             alert(strValue + " is not a valid decimal number for field '" + columnName + "'.");
             return undefined;
         }
+        else {
+            return '' + decVal;
+        }
     }
     else if (jsonType === 'int') {
         let intVal = parseInt(strValue);
@@ -439,7 +441,7 @@ function validateMultiple(
     let values;
     try
     {
-        values = filterType.splitValue(value);
+        values = filterType.parseValue(value);
     }
     catch (x)
     {

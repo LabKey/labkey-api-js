@@ -21,8 +21,8 @@ export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
     responseJSON: any
 }
 
-export type RequestFailure<E = any> = (errorInfo?: E, response?: XMLHttpRequest) => any;
-export type RequestSuccess<D = any> = (data?: D, request?: ExtendedXMLHttpRequest, config?: RequestOptions) => any;
+export type RequestFailure<E = any> = (errorInfo: E, response: XMLHttpRequest) => any;
+export type RequestSuccess<D = any> = (data: D, request: ExtendedXMLHttpRequest, config: RequestOptions) => any;
 
 export interface RequestCallbackOptions<S = any, F = any, SC = any> {
     /**
@@ -210,11 +210,46 @@ export function applyTranslated(target: any, source: any, translationMap: any, a
     }
 }
 
-/** Display an error dialog. */
-export function alert(title: string, msg: string): void {
-    stubWarning('alert');
-    console.warn(title + ':', msg);
+// needed for DOMWrapper
+declare const LABKEY: any;
+
+// DOMWrapper's are cached to avoid infinite calls to the wrapper
+let DOMWrappers: {[key:string]: any} = {};
+
+/**
+ * Provides a function that wraps a stub implementation. If the concrete implementation is available at
+ * run-time it will call that with the arguments applied, otherwise, it will log a warning to the console.
+ * @hidden
+ * @private
+ * @param fnName
+ */
+function DOMWrapper<T>(fnName: string): T {
+    if (!fnName) {
+        throw new Error('DOMWrapper must wrap a named function.');
+    }
+
+    if (DOMWrappers.hasOwnProperty(fnName)) {
+        throw new Error(`DOMWrapper cannot wrap "${fnName}" more than once.`);
+    }
+
+    DOMWrappers[fnName] = function() {
+        if (LABKEY && LABKEY.Utils && isFunction(LABKEY.Utils[fnName]) &&
+            LABKEY.Utils[fnName] !== DOMWrappers[fnName]) {
+            LABKEY.Utils[fnName].apply(this, arguments);
+        } else {
+            console.warn(
+                `Utils.${fnName}: This is just a stub implementation. ` +
+                `Request the DOM version of the client API, ` +
+                `clientapi_dom.lib.xml, to get the concrete implementation.`
+            );
+        }
+    };
+
+    return DOMWrappers[fnName];
 }
+
+/** Display an error dialog. */
+export const alert = DOMWrapper<(title: string, msg: string) => void>('alert');
 
 /**
  * Returns the string value with the first char capitalized.
@@ -240,11 +275,6 @@ export function capitalize(value: string): string {
  */
 export function caseInsensitiveEquals(a: any, b: any): boolean {
     return String(a).toLowerCase() == String(b).toLowerCase();
-}
-
-export function collapseExpand(elem: any, notify?: boolean, targetTagName?: string): boolean {
-    stubWarning('collapseExpand');
-    return false;
 }
 
 // TODO: Need to remove this from the upper level namespace
@@ -283,9 +313,12 @@ export function deleteCookie(name: string, pageOnly: boolean): void {
  * @param showExceptionClass Flag to display the java class of the exception.
  * @param msgPrefix Prefix to the error message (defaults to: 'An error occurred trying to load:')
  */
-export function displayAjaxErrorResponse(response?: any, exception?: any, showExceptionClass?: any, msgPrefix?: any) {
-    stubWarning('displayAjaxErrorResponse');
-}
+export const displayAjaxErrorResponse = DOMWrapper<(
+    response?: any,
+    exception?: any,
+    showExceptionClass?: any,
+    msgPrefix?: any
+) => void>('displayAjaxErrorResponse');
 
 export function encode(data: any): string {
     return JSON.stringify(data);
@@ -339,6 +372,11 @@ export function endsWith(value: string, ending: string): boolean {
     return value.substring(value.length - ending.length) == ending;
 }
 
+/**
+ * @deprecated
+ * @hidden
+ * @private
+ */
 export function ensureBoxVisible(): void {
     console.warn('ensureBoxVisible() has been migrated to the appropriate Ext scope. Consider LABKEY.ext.Utils.ensureBoxVisible or LABKEY.ext4.Util.ensureBoxVisible');
 }
@@ -383,8 +421,7 @@ export function generateUUID(): string {
 }
 
 /**
- * This is used internally by other class methods to automatically parse returned JSON
- * and call another success function passing that parsed JSON.
+ * This is used to automatically parse returned JSON and call another success function passing that parsed JSON.
  * @param fn The callback function to wrap.
  * @param scope The scope for the callback function.
  * @param isErrorCallback Set to true if the function is an error callback. If true, and you do not provide a
@@ -393,12 +430,15 @@ export function generateUUID(): string {
  * primary callback function.
  */
 export function getCallbackWrapper<T = any>(
-    fn: Function,
+    fn: Function, // TODO: Improve this type
     scope?: any,
     isErrorCallback?: boolean,
     responseTransformer?: (json?: any) => T
 ): AjaxHandler {
-    return (response: ExtendedXMLHttpRequest, options: RequestOptions) => {
+    // Due to prior behavior the scope may not be explicitly specified (i.e. specified in the "scope"
+    // parameter) and still expect to be respected when applied via function.apply(). Thus, this
+    // return function cannot use => syntax and must return a classic function.
+    return function(response: ExtendedXMLHttpRequest, options: RequestOptions) {
         let json = response.responseJSON;
 
         if (!json) {
@@ -546,7 +586,7 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
  * This function provides reverse compatibility by picking the failure callback argument out of a config object
  * be it named failure, failureCallback or errorCallback.
  */
-export function getOnFailure(config: {errorCallback?: Function, failure?: Function, failureCallback?: Function}): Function {
+export function getOnFailure(config: {errorCallback?: any, failure?: any, failureCallback?: any}): any {
     return config.failure || config.errorCallback || config.failureCallback;
     // maybe it be desirable for this fall all the way back to returning LABKEY.Utils.displayAjaxErrorResponse?
 }
@@ -556,7 +596,7 @@ export function getOnFailure(config: {errorCallback?: Function, failure?: Functi
  * This function provides reverse compatibility by picking the success callback argument out of a config object,
  * be it named success or successCallback.
  */
-export function getOnSuccess(config: {success?: Function, successCallback?: Function}): Function {
+export function getOnSuccess(config: {success?: any, successCallback?: any}): any {
     return config.success || config.successCallback;
 }
 
@@ -684,30 +724,13 @@ export function mergeIf(...props: any[]): any {
     return o;
 }
 
-export function notifyExpandCollapse(url?: string, collapse?: boolean): void {
-    stubWarning('notifyExpandCollapse');
-}
+export const onError = DOMWrapper<(error: any) => void>('onError');
+export const onReady = DOMWrapper<(config: any) => void>('onReady');
 
-export function onError(error: any): void {
-    stubWarning('onError');
-}
-
-export function onReady(config: any): void {
-    stubWarning('onReady');
-
-    // TODO: This method should not take any action as it is only intended to be a stub for backward compatibility
-    if (typeof config === 'function') {
-        config();
-    }
-}
-
-export interface IOnTrueOptions {
+export interface IOnTrueOptions extends RequestCallbackOptions {
     errorArguments?: Array<any>
-    failure?: Function
     maxTests?: number
-    scope?: any
     successArguments?: Array<any>
-    success: Function
     testArguments?: Array<any>
     testCallback: Function
 }
@@ -864,6 +887,8 @@ export function requiresScript(file: string|string[], callback: Function, scope?
  * For Ext 3.4.1 see LABKEY.ext.Utils.resizeToViewport
  * For Ext 4.2.1 see LABKEY.ext4.Util.resizeToViewport
  * @deprecated
+ * @hidden
+ * @private
  */
 export function resizeToViewport(): void {
     console.warn('LABKEY.Utils.resizeToViewport has been migrated. See JavaScript API documentation for details.');
@@ -908,13 +933,6 @@ export function setCookie(name: string, value: string, pageOnly: boolean, days: 
     document.cookie = name + '=' + value + expires + '; path=' + path;
 }
 
-/**
- * @private
- */
-function stubWarning(methodName: string): void {
-    console.warn(methodName + ': This is just a stub implementation, request the dom version of the client API : clientapi_dom.lib.xml to get the concrete implementation');
-}
-
 export interface ITextLinkOptions {
     href?: string
     onClick?: string
@@ -946,9 +964,4 @@ export function textLink(options: ITextLinkOptions): string {
     }
 
     throw 'Config object not found for textLink.';
-}
-
-export function toggleLink(link: any, notify?: boolean, targetTagName?: string): boolean {
-    stubWarning('toggleLink');
-    return false;
 }
