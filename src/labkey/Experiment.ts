@@ -152,6 +152,7 @@ function createRuns(json: any): Run[] {
  * @ignore
  */
 export function exportRuns(config: any) {
+    // TODO: This needs to use DOMWrapper or be removed
     throw new Error('dom/Experiment.js required');
 }
 

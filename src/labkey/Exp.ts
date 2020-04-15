@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 LabKey Corporation
+ * Copyright (c) 2019-2020 LabKey Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,15 @@
  */
 import { buildURL } from './ActionURL'
 import { request, RequestOptions } from './Ajax'
-import { ExtendedXMLHttpRequest, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
-import {create, DomainDesign, getDomainDetails, KINDS} from './Domain'
+import {
+    ExtendedXMLHttpRequest,
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    RequestFailure,
+    RequestSuccess
+} from './Utils'
+import { create, DomainDesign, getDomainDetails, KINDS } from './Domain'
 
 /**
  * The experiment object base class which describes basic characteristics of a protocol
@@ -568,12 +575,12 @@ export interface IDeleteRunOptions {
     /**
      * A reference to a function to call when an error occurs.
      */
-    failure?: () => any
+    failure?: RequestFailure
 
     /**
      * A reference to a function to call with the API results.
      */
-    success?: () => any
+    success?: RequestSuccess
 }
 
 /**
@@ -670,8 +677,8 @@ export class Run extends ExpObject {
      * Deletes the run from the database.
      * @param options
      */
-    deleteRun(options: IDeleteRunOptions): void {
-        request({
+    deleteRun(options: IDeleteRunOptions): XMLHttpRequest {
+        return request({
             url: buildURL('experiment', 'deleteRun.api'),
             method: 'POST',
             params: {
