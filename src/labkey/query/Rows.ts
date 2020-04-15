@@ -712,7 +712,7 @@ export interface IQueryRequestOptions {
     /** Whether all of the deletes should be done in a single transaction, so they all succeed or all fail. Defaults to true. */
     transacted?: boolean
 
-    /** Can be used to override the audit behavior for the table the query is acting on. (@link LABKEY.AuditBehaviorTypes}) */
+    /** Can be used to override the audit behavior for the table the query is acting on. ({@link LABKEY.AuditBehaviorTypes}) */
     auditBehavior?: AuditBehaviorTypes
 }
 
