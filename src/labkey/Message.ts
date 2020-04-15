@@ -15,7 +15,7 @@
  */
 import { buildURL } from './ActionURL'
 import { request } from './Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
 
 export interface IMsgContent {
     content: string
@@ -23,7 +23,7 @@ export interface IMsgContent {
 }
 
 /**
- * A utility function to create a message content object used in sendMessage.
+ * A utility function to create a message content object used in [[sendMessage]].
  * @param type The content type of this message part
  * @param content The message part content.
  */
@@ -40,9 +40,9 @@ export interface IPrincipalRecipient {
 }
 
 /**
- * A utility function to create a recipient object (based on a user ID or group ID) used in LABKEY.Message.sendMessage.
+ * A utility function to create a recipient object (based on a user ID or group ID) used in [[sendMessage]].
  * Note: only server side validation or transformation scripts can specify a user or group ID.
- * @param [[RecipientType]] type Determines where the recipient email address will appear in the message.
+ * @param type Determines where the recipient email address will appear in the message.
  * @param principalId The user or group id of the recipient.
  */
 export function createPrincipalIdRecipient(type: RecipientType, principalId: number): IPrincipalRecipient {
@@ -58,7 +58,7 @@ export interface IRecipient {
 }
 
 /**
- * A utility function to create a recipient object used in sendMessage.
+ * A utility function to create a recipient object used in [[sendMessage]].
  * @param type Determines where the recipient email address will appear in the message.
  * @param address The email address of the recipient.
  */
@@ -101,8 +101,7 @@ export const recipientType: IRecipientTypeCollection = {
     to: 'TO'
 };
 
-export interface ISendMessageOptions {
-    failure?: () => any
+export interface ISendMessageOptions extends RequestCallbackOptions {
     /**
      * An array of content objects which have the following properties:
      * - type: the message content type, must be one of the values from: [[msgType]].
@@ -110,7 +109,7 @@ export interface ISendMessageOptions {
      *
      * The utility function [[createMsgContent]] can be used to help create these objects.
      */
-    msgContent?: Array<string>
+    msgContent?: string[]
     /** The email address that appears on the email from line. */
     msgFrom?: string
     /**
@@ -122,11 +121,9 @@ export interface ISendMessageOptions {
      * Recipients whose accounts have been deactivated or have never been logged into will be silently dropped from
      * the message.
      */
-    msgRecipients?: Array<string>
+    msgRecipients?: string[]
+    /** The value that appears on the email subject line. */
     msgSubject?: string
-    /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
-    success?: () => any
 }
 
 /**
@@ -134,7 +131,10 @@ export interface ISendMessageOptions {
  * must exist as valid accounts, or the current user account must have permission to send to addresses
  * not associated with a LabKey Server account at the site-level, or an error will be thrown.
  *
- * ```
+ * Recipients whose accounts have been deactivated or have never been logged into will be silently dropped from
+ * the message.
+ *
+ * ```js
  * function errorHandler(errorInfo, responseObj){
  *  LABKEY.Utils.displayAjaxErrorResponse(responseObj, errorInfo);
  * }
