@@ -47,6 +47,14 @@ export interface RequestOptions {
     callback?: AjaxCallbackHandler
 
     /**
+     * Save the response as a file. Only works in browser environments.
+     * When downloadFile is true, the download filename should be included in the response header (e.g. `Content-Disposition: attachment; filename=data.xlsx`)
+     * When downloadFile is a string, the download value will be used as the download filename.
+     * The success or failure functions will still be called.
+     */
+    downloadFile?: boolean | string
+
+    /**
      * A function called when a failure response is received (determined by XHR readyState, status, or ontimeout
      * if supplied). It will be passed the following arguments:
      * * <b>xhr:</b> The XMLHttpRequest where the text of the response can be found on xhr.responseText amongst other properties
@@ -234,6 +242,48 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
 }
 
 /**
+ * Download the file from the ajax response.
+ * For now, we assume we are in a browser environment and use the browser's download file prompt
+ * by clicking an anchor tag element or navigating by updating window.location.
+ * @hidden
+ * @private
+ */
+function downloadFile(xhr: XMLHttpRequest, config: any): void {
+    let filename = '';
+    if (typeof config.downloadFile === 'string') {
+        filename = config.downloadFile;
+    }
+    else {
+        // parse the filename out of the Content-Disposition header. Example:
+        //   Content-Disposition: attachment; filename=data.xlsx
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+        const disposition = xhr.getResponseHeader('Content-Disposition');
+        if (disposition && disposition.indexOf('attachment') !== -1) {
+            const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+            if (matches != null && matches[1]) {
+                filename = matches[1].replace(/['"]/g, '');
+            }
+        }
+    }
+
+    const blob = xhr.response;
+    const downloadUrl = URL.createObjectURL(blob);
+
+    if (filename) {
+        // use HTML5 a[download] attribute to specify filename
+        let a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+    } else {
+        window.location.href = downloadUrl;
+    }
+
+    setTimeout(() => { URL.revokeObjectURL(downloadUrl); }, 100); // cleanup
+}
+
+/**
  * Make a XMLHttpRequest nominally to a LabKey instance. Includes success/failure callback mechanism,
  * HTTP header configuration, support for FormData, and parameter encoding amongst other features.
  */
@@ -242,9 +292,17 @@ export function request(config: RequestOptions): XMLHttpRequest {
     let scope = config.hasOwnProperty('scope') && config.scope !== null ? config.scope : this;
     let xhr = new XMLHttpRequest();
 
+    if (config.downloadFile) {
+        xhr.responseType = 'blob';
+    }
+
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             let success = (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304;
+
+            if (success && config.downloadFile) {
+                downloadFile(xhr, config);
+            }
 
             callback(success ? config.success : config.failure, scope, [xhr, config]);
             callback(config.callback, scope, [config, success, xhr]);
