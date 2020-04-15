@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 LabKey Corporation
+ * Copyright (c) 2017-2020 LabKey Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,28 +15,18 @@
  */
 import { buildURL } from './ActionURL'
 import { AjaxHandler, request } from './Ajax'
-import { decode, getCallbackWrapper, getOnFailure, getOnSuccess } from './Utils'
+import { decode, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
 
-export interface ICreateSessionOptions {
+export interface CreateSessionsResponse {
+    /** Session ID for the created session */
+    reportSessionId: string
+}
+
+export interface ICreateSessionOptions extends RequestCallbackOptions<CreateSessionsResponse> {
     /** Client supplied identifier returned in a call to getSessions() */
     clientContext: any
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * A function to call if an error occurs. This function
-     * will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: () => any
-    /** The scope to use when calling the callbacks (defaults to this). */
-    scope?: any
-    /**
-     * The function to call with the resulting information.
-     * This function will be passed a single parameter of type object, which will have the following
-     * properties:
-     * - reportSessionId: A unique identifier that represents the new underlying report session, a String
-     */
-    success?: () => any
 }
 
 /**
@@ -45,10 +35,9 @@ export interface ICreateSessionOptions {
  * subsequent R scripts.
  * @param options
  */
-export function createSession(options: ICreateSessionOptions): void {
-
-    request({
-        url: buildURL('reports', 'createSession', options.containerPath),
+export function createSession(options: ICreateSessionOptions): XMLHttpRequest {
+    return request({
+        url: buildURL('reports', 'createSession.api', options.containerPath),
         method: 'POST',
         jsonData: {
             clientContext: options.clientContext
@@ -58,31 +47,20 @@ export function createSession(options: ICreateSessionOptions): void {
     });
 }
 
-export interface IDeleteSessionOptions {
+export interface IDeleteSessionOptions extends RequestCallbackOptions {
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * A function to call if an error occurs. This function
-     * will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: () => any
     /** reportSessionId Identifier for the report session to delete. */
     reportSessionId: string
-    /** The scope to use when calling the callbacks (defaults to this). */
-    scope?: any
-    /** The function to call if the operation is successful. */
-    success?: () => any
 }
 
 /**
  * Deletes an underlying report session
  * @param options
  */
-export function deleteSession(options: IDeleteSessionOptions): void {
-
-    request({
-        url: buildURL('reports', 'deleteSession', options.containerPath),
+export function deleteSession(options: IDeleteSessionOptions): XMLHttpRequest {
+    return request({
+        url: buildURL('reports', 'deleteSession.api', options.containerPath),
         method: 'POST',
         params: {
             reportSessionId: options.reportSessionId
@@ -92,15 +70,19 @@ export function deleteSession(options: IDeleteSessionOptions): void {
     });
 }
 
-export interface IRequestExecuteOptions {
+export interface RequestExecuteResponse {
+    /** Information written by the script to the console */
+    console: string[]
+    /** Any exception thrown by the script that halted execution */
+    errors: string[]
+    /** Any output parameters (imgout, jsonout, etc) returned by the script */
+    outputParams: any[]
+}
+
+export interface IRequestExecuteOptions extends RequestCallbackOptions<RequestExecuteResponse> {
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * A function to call if an error preventing script execution occurs.
-     * This function will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: () => any
+    /** The name of the function to execute */
     functionName?: string
     /** An object with properties for input parameters. */
     inputParams?: any
@@ -108,21 +90,11 @@ export interface IRequestExecuteOptions {
     reportId?: string
     /** name of the report to execute if the id is unknown */
     reportName?: string
-    /** Execute within the existsing report session. */
+    /** Execute within the existing report session. */
     reportSessionId?: string
     queryName?: string
     /** schema to which this report belongs (only used if reportName is used) */
     schemaName?: string
-    /** The scope to use when calling the callbacks (defaults to this). */
-    scope?: any
-    /**
-     * The function to call if the operation is successful.  This function will
-     * receive an object with the following properties
-     * - console:  a string[] of information written by the script to the console
-     * - error:  any exception thrown by the script that halted execution
-     * - ouputParams:  an outputParam[] of any output parameters (imgout, jsonout, etc) returned by the script
-     */
-    success?: () => any
 }
 
 export interface IRequestExecuteParams {
@@ -134,7 +106,7 @@ export interface IRequestExecuteParams {
     reportId?: string
     /** name of the report to execute if the id is unknown */
     reportName?: string
-    /** Execute within the existsing report session. */
+    /** Execute within the existing report session. */
     reportSessionId?: string
     queryName?: string
     /** schema to which this report belongs (only used if reportName is used) */
@@ -142,9 +114,8 @@ export interface IRequestExecuteParams {
 }
 
 function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XMLHttpRequest {
-
     return request({
-        url: buildURL('reports', 'execute', options.containerPath),
+        url: buildURL('reports', 'execute.api', options.containerPath),
         method: 'POST',
         jsonData: populateParams(options, isReport),
         success: requestExecuteWrapper(getOnSuccess(options), options.scope),
@@ -152,9 +123,13 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
     });
 }
 
+/**
+ * @hidden
+ * @private
+ */
 function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
-
     return getCallbackWrapper(function(data: any, response: any, options: any) {
+        // TODO: This could be done with getCallbackWrapper "responseTransformer"
         if (data && data.outputParams) {
             for (let i = 0; i < data.outputParams.length; i++) {
                 let param = data.outputParams[i];
@@ -164,6 +139,9 @@ function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
             }
         }
         if (callback) {
+            // Unfortunately, this callback flips the arguments, otherwise,
+            // requestExecuteWrapper() could be replaced by just calling getCallbackWrapper() directly.
+            // (data, response, options) -> (data, options, response)
             callback.call(scope || this, data, options, response);
         }
     }, this);
@@ -216,33 +194,23 @@ export function executeFunction(options: IExecuteFunctionOptions): XMLHttpReques
     return requestExecute(options, false);
 }
 
-export interface IGetSessionsOptions {
+export interface GetSessionsResponse {
+    /** Any sessions that have been created by the client */
+    reportSessions: any[]
+}
+
+export interface IGetSessionsOptions extends RequestCallbackOptions<GetSessionsResponse> {
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * A function to call if an error occurs. This function
-     * will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: () => any
-    /** The scope to use when calling the callbacks (defaults to this). */
-    scope?: any
-    /**
-     * The function to call if the operation is successful.  This function will
-     * receive an object with the following properties
-     * - reportSessions:  a reportSession[] of any sessions that have been created by the client
-     */
-    success?: () => any
 }
 
 /**
  * Returns a list of report sessions created via createSession
  * @param options
  */
-export function getSessions(options: IGetSessionsOptions): void {
-
-    request({
-        url: buildURL('reports', 'getSessions', options.containerPath),
+export function getSessions(options: IGetSessionsOptions): XMLHttpRequest {
+    return request({
+        url: buildURL('reports', 'getSessions.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
@@ -250,7 +218,8 @@ export function getSessions(options: IGetSessionsOptions): void {
 }
 
 /**
- * @param isReport true if a report is being executed
+ * @hidden
+ * @private
  */
 function populateParams(options: IRequestExecuteOptions, isReport: boolean): IRequestExecuteParams {
     let execParams: IRequestExecuteParams = {};
