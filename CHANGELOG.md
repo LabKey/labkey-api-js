@@ -1,3 +1,7 @@
+## 0.2.1 - 2020-04-17
+- Module updates for `Exp`, `Message`, `Pipeline`, and `Report`.
+- Fix for `Security.getSchemaPermissions()` to defensively copy configuration for `getSecurableResources` call.
+
 ## 0.2.0 - 2020-04-15
 **ActionURL**
 - Fix container path encoding (match core behavior).

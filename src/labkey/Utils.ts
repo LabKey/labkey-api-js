@@ -430,7 +430,7 @@ export function generateUUID(): string {
  * primary callback function.
  */
 export function getCallbackWrapper<T = any>(
-    fn: Function, // TODO: Improve this type
+    fn: Function, // TODO: Improve this type -- (data: T, response: ExtendedXMLHttpRequest, options: RequestOptions) => any
     scope?: any,
     isErrorCallback?: boolean,
     responseTransformer?: (json?: any) => T

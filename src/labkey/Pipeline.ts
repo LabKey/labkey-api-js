@@ -14,31 +14,32 @@
  * limitations under the License.
  */
 import { buildURL } from './ActionURL'
-import { request } from './Ajax'
-import { encode, getCallbackWrapper, getOnFailure, getOnSuccess, isString } from './Utils'
+import { request, RequestOptions } from './Ajax'
+import {
+    encode,
+    ExtendedXMLHttpRequest,
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    isObject,
+    isString,
+    RequestCallbackOptions,
+    RequestFailure,
+} from './Utils'
 
 export interface IGetFileStatusOptions {
-    // required
+    /** The container in which to make the request (defaults to current container) */
+    containerPath?: string
+    /** This will be called upon failure to complete a request. */
+    failure?: RequestFailure
     /** names of the file within the subdirectory described by the path property */
-    files: Array<string>
+    files: string[]
+    includeWorkbooks?: boolean
     /** relative path from the folder's pipeline root */
     path: string
     /** name of the analysis protocol */
     protocolName: string
-    /** Identifier for the pipeline. */
-    taskId: string
-
-    // optional
-    /** The container in which to make the request (defaults to current container) */
-    containerPath?: string
-    /**
-     * A function to call if an error occurs. This function
-     * will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: () => any
-    includeWorkbooks?: boolean
-    /** The scope to use when calling the callbacks (defaults to this). */
+    /** A scoping object for the success and failure callback functions (default to this). */
     scope?: any
     /**
      * The function to call with the resulting information.
@@ -48,91 +49,74 @@ export interface IGetFileStatusOptions {
      * - name: name of the file, a String.
      * - status: status of the file, a String
      */
-    success?: () => any
+    success?: (files: any[], submitType: any, request: ExtendedXMLHttpRequest, config: RequestOptions) => any
+    /** Identifier for the pipeline. */
+    taskId: string
 }
 
 /**
  * Gets the status of analysis using a particular protocol for a particular pipeline.
  */
-export function getFileStatus(config: IGetFileStatusOptions): void {
-    let params = {
-        taskId: config.taskId,
-        path: config.path,
-        file: config.files,
-        protocolName: config.protocolName
-    };
-
+export function getFileStatus(config: IGetFileStatusOptions): XMLHttpRequest {
     const onSuccess = getOnSuccess(config);
 
-    // note, it does not return the request
-    request({
+    return request({
         url: buildURL('pipeline-analysis', 'getFileStatus.api', config.containerPath),
         method: 'POST',
-        params,
-        success: getCallbackWrapper(function(data: any, response: any) {
-            onSuccess.call(this, data.files, data.submitType, response);
+        params: {
+            file: config.files,
+            path: config.path,
+            protocolName: config.protocolName,
+            taskId: config.taskId,
+        },
+        success: getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+            if (onSuccess) {
+                onSuccess.call(this, data.files, data.submitType, response, options);
+            }
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         timeout: 60000000
     });
 }
 
-export interface IGetPipelineContainerOptions {
+export interface PipelineContainerResponse {
+    /**
+     * The container path in which the pipeline is defined.
+     * If no pipeline has been defined in this container hierarchy, then the value of this property will be null.
+     */
+    containerPath: string
+    /** the WebDavURL for the pipeline root. */
+    webDavURL: string
+}
+
+export interface IGetPipelineContainerOptions extends RequestCallbackOptions<PipelineContainerResponse> {
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * A function to call if an error occurs. This function
-     * will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: Function
-    /** The scope to use when calling the callbacks (defaults to this). */
-    scope?: any
-    /**
-     * The function to call with the resulting information.
-     * This function will be passed a single parameter of type object, which will have the following
-     * properties:
-     * - containerPath: the container path in which the pipeline is defined. If no pipeline has
-     * been defined in this container hierarchy, the value of this property will be null.
-     * - webDavURL: the WebDavURL for the pipeline root.
-     */
-    success?: Function
 }
 
 /**
  * Gets the container in which the pipeline for this container is defined. This may be the
  * container in which the request was made, or a parent container if the pipeline was defined
  * there.
- * @returns {XMLHttpRequest}
  */
 export function getPipelineContainer(config: IGetPipelineContainerOptions): XMLHttpRequest {
     return request({
         url: buildURL('pipeline', 'getPipelineContainer.api', config.containerPath),
-        method: 'GET',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
 export interface IGetProtocolsOptions {
-    // required
-    /** relative path from the folder's pipeline root */
-    path: string
-    /** Identifier for the pipeline. */
-    taskId: string
-
-    // optional
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * A function to call if an error occurs. This function
-     * will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: Function
+    /** This will be called upon failure to complete a request. */
+    failure?: RequestFailure
     /** If true, protocols from workbooks under the selected container will also be included */
     includeWorkbooks?: boolean
-    /** The scope to use when calling the callbacks (defaults to this). */
+    /** relative path from the folder's pipeline root */
+    path: string
+    /** A scoping object for the success and failure callback functions (default to this). */
     scope?: any
     /**
      * The function to call with the resulting information.
@@ -143,39 +127,43 @@ export interface IGetProtocolsOptions {
      * - jsonParameters: JSON representation of the parameters defined by this protocol.
      * - containerPath: The container path where this protocol was saved
      */
-    success?: Function
+    success?: (protocols: any[], defaultProtocolName: string, request: ExtendedXMLHttpRequest, config: RequestOptions) => any
+    /** Identifier for the pipeline. */
+    taskId: string
 }
 
 /**
  * Gets the protocols that have been saved for a particular pipeline.
  */
-export function getProtocols(config: IGetProtocolsOptions): void {
-    let params = {
-        taskId: config.taskId,
-        includeWorkbooks: !!config.includeWorkbooks,
-        path: config.path
-    };
-
+export function getProtocols(config: IGetProtocolsOptions): XMLHttpRequest {
     const onSuccess = getOnSuccess(config);
 
-    // note, it does not return the request
-    request({
+    return request({
         url: buildURL('pipeline-analysis', 'getSavedProtocols.api', config.containerPath),
         method: 'POST',
-        params,
-        success: getCallbackWrapper(function(data: any, response: any) {
-            onSuccess.call(this, data.protocols, data.defaultProtocolName, response);
+        params: {
+            includeWorkbooks: !!config.includeWorkbooks,
+            path: config.path,
+            taskId: config.taskId,
+        },
+        success: getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+            if (onSuccess) {
+                onSuccess.call(this, data.protocols, data.defaultProtocolName, response, options);
+            }
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
 }
 
-export interface IStartAnalysisOptions {
-    // required
+export interface IStartAnalysisOptions extends RequestCallbackOptions {
     /** names of the file within the subdirectory described by the path property */
-    files: Array<string>
-    /** data IDs of files be to used as inputs for this pipeline.  these correspond to the rowIds from the table ext.data.  they do not need to be located within the file path provided.  the user does need read access to the container associated with each file. */
-    fileIds: Array<number>
+    files: string[]
+    /**
+     * Data IDs of files be to used as inputs for this pipeline. These correspond to the rowIds from
+     * the table ext.data. They do not need to be located within the file path provided. The user does need read
+     * access to the container associated with each file.
+     */
+    fileIds: number[]
     /** relative path from the folder's pipeline root */
     path: string
     /** name of the analysis protocol */
@@ -187,12 +175,6 @@ export interface IStartAnalysisOptions {
     allowNonExistentFiles?: boolean
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * A function to call if an error occurs. This function
-     * will receive one parameter of type object with the following properties:
-     * - exception: The exception message.
-     */
-    failure?: () => any
     /**
      * JSON representation of the protocol description. Not allowed
      * if a protocol with the same name has already been saved. If no protocol with the same name exists, either
@@ -208,10 +190,6 @@ export interface IStartAnalysisOptions {
      * this protocol definition for future use. Defaults to true.
      */
     saveProtocol?: string
-    /** The scope to use when calling the callbacks (defaults to this). */
-    scope?: any
-    /** A function to call if this operation is successful. */
-    success?: () => any
     /**
      * XML representation of the protocol description. Not allowed
      * if a protocol with the same name has already been saved. If no protocol with the same name exists, either
@@ -235,9 +213,13 @@ export interface IStartAnalysisParams {
      */
     configureXml?: string
     /** names of the file within the subdirectory described by the path property */
-    file?: Array<string>
-    /** data IDs of files be to used as inputs for this pipeline.  these correspond to the rowIds from the table ext.data.  they do not need to be located within the file path provided.  the user does need read access to the container associated with each file. */
-    fileIds?: Array<number>
+    file?: string[]
+    /**
+     * Data IDs of files be to used as inputs for this pipeline. These correspond to the rowIds from the
+     * table ext.data. They do not need to be located within the file path provided. The user does need read
+     * access to the container associated with each file.
+     */
+    fileIds?: number[]
     /** relative path from the folder's pipeline root */
     path?: string
     /** description displayed in the pipeline */
@@ -258,7 +240,7 @@ export interface IStartAnalysisParams {
 /**
  * Starts analysis of a set of files using a particular protocol definition with a particular pipeline.
  */
-export function startAnalysis(config: IStartAnalysisOptions): void {
+export function startAnalysis(config: IStartAnalysisOptions): XMLHttpRequest {
     if (!config.protocolName) {
         throw 'Invalid config, must include protocolName property';
     }
@@ -276,7 +258,7 @@ export function startAnalysis(config: IStartAnalysisOptions): void {
     };
 
     if (config.xmlParameters) {
-        if (typeof config.xmlParameters == 'object')
+        if (isObject(config.xmlParameters))
             throw new Error('The xml configuration is deprecated, please user the jsonParameters option to specify your protocol description.');
         else
             params.configureXml = config.xmlParameters;
@@ -285,7 +267,7 @@ export function startAnalysis(config: IStartAnalysisOptions): void {
         params.configureJson = isString(config.jsonParameters) ? config.jsonParameters : encode(config.jsonParameters);
     }
 
-    request({
+    return request({
         url: buildURL('pipeline-analysis', 'startAnalysis.api', config.containerPath),
         method: 'POST',
         params,

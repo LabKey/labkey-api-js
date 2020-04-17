@@ -204,42 +204,41 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
         throw 'Method only works for the study schema';
     }
 
-    let getResourcesConfig: any = config;
-
-    getResourcesConfig.includeEffectivePermissions = true;
-    getResourcesConfig.success = function(json: any, response: any) {
-        // First lets make sure there is a study in here.
-        let studyResource: any = null;
-        for (let i = 0; i < json.resources.children.length; i++) {
-            let resource: any = json.resources.children[i];
-            if (resource.resourceClass == 'org.labkey.study.model.StudyImpl') {
-                studyResource = resource;
-                break;
+    return getSecurableResources({
+        ...config,
+        includeEffectivePermissions: true,
+        success: function(json, response) {
+            // First lets make sure there is a study in here.
+            let studyResource: SecurableResource = null;
+            for (let i = 0; i < json.resources.children.length; i++) {
+                let resource = json.resources.children[i];
+                if (resource.resourceClass == 'org.labkey.study.model.StudyImpl') {
+                    studyResource = resource;
+                    break;
+                }
             }
-        }
 
-        if (null == studyResource) {
-            config.failure.apply(config.scope || this, [{description: 'No study found in container.'}, response]);
-            return;
-        }
-
-        let result: any = {
-            queries: {}
-        }, dataset: any;
-
-        for (let i = 0; i < studyResource.children.length; i++) {
-            dataset = studyResource.children[i];
-            result.queries[dataset.name] = dataset;
-            dataset.permissionMap = {};
-            for (let j=0; j < dataset.effectivePermissions.length; j++) {
-                dataset.permissionMap[dataset.effectivePermissions[j]] = true;
+            if (null == studyResource) {
+                config.failure.apply(config.scope || this, [{description: 'No study found in container.'}, response]);
+                return;
             }
+
+            let result: any = {
+                queries: {}
+            }, dataset: any;
+
+            for (let i = 0; i < studyResource.children.length; i++) {
+                dataset = studyResource.children[i];
+                result.queries[dataset.name] = dataset;
+                dataset.permissionMap = {};
+                for (let j=0; j < dataset.effectivePermissions.length; j++) {
+                    dataset.permissionMap[dataset.effectivePermissions[j]] = true;
+                }
+            }
+
+            config.success.apply(config.scope || this, [{schemas: {study: result}}, response]);
         }
-
-        config.success.apply(config.scope || this, [{schemas: {study: result}}, response]);
-    };
-
-    return getSecurableResources(getResourcesConfig);
+    });
 }
 
 export interface GetSecurableResourcesOptions extends RequestCallbackOptions<{resources: SecurableResource}> {
