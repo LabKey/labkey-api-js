@@ -379,21 +379,23 @@ export function getServerDate(options: RequestCallbackOptions<Date>): XMLHttpReq
     });
 }
 
+// TODO: Support for requiredVersion on the client-side needs to be improved.
+// We effectively support string | number, however, the user will receive different
+// response processing depending on if they used string | number (e.g. 17.1 vs "17.1" will be processed differently).
+const SUPPORTED_VERSIONS = [13.2, '13.2', 16.2, 17.1];
+
 export function getSuccessCallbackWrapper(
     onSuccess: Function,
     stripHiddenCols?: boolean,
     scope?: any,
     requiredVersion?: number | string
 ): AjaxHandler {
-    if (requiredVersion) {
-        const versionString = requiredVersion.toString();
-        if (versionString === '13.2' || versionString === '16.2' || versionString === '17.1') {
-            return getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
-                if (data && onSuccess) {
-                    onSuccess.call(scope || this, new Response(data), response, options);
-                }
-            }, this);
-        }
+    if (SUPPORTED_VERSIONS.indexOf(requiredVersion) > -1) {
+        return getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+            if (data && onSuccess) {
+                onSuccess.call(scope || this, new Response(data), response, options);
+            }
+        }, this);
     }
 
     return getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
