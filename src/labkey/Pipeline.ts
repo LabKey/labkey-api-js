@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 import { buildURL } from './ActionURL'
-import { request } from './Ajax'
+import { request, RequestOptions } from './Ajax'
 import {
     encode,
+    ExtendedXMLHttpRequest,
     getCallbackWrapper,
     getOnFailure,
     getOnSuccess,
     isObject,
     isString,
     RequestCallbackOptions,
-    RequestSuccess
+    RequestFailure,
 } from './Utils'
 
-export interface IGetFileStatusOptions extends RequestCallbackOptions {
-    // required
+export interface IGetFileStatusOptions {
+    /** The container in which to make the request (defaults to current container) */
+    containerPath?: string
+    /** This will be called upon failure to complete a request. */
+    failure?: RequestFailure
     /** names of the file within the subdirectory described by the path property */
     files: string[]
+    includeWorkbooks?: boolean
     /** relative path from the folder's pipeline root */
     path: string
     /** name of the analysis protocol */
     protocolName: string
-    /** Identifier for the pipeline. */
-    taskId: string
-
-    // optional
-    /** The container in which to make the request (defaults to current container) */
-    containerPath?: string
-    includeWorkbooks?: boolean
+    /** A scoping object for the success and failure callback functions (default to this). */
+    scope?: any
     /**
      * The function to call with the resulting information.
      * This function will be passed two arguments, a list of file status objects (described below) and the
@@ -49,46 +49,49 @@ export interface IGetFileStatusOptions extends RequestCallbackOptions {
      * - name: name of the file, a String.
      * - status: status of the file, a String
      */
-    success?: RequestSuccess
+    success?: (files: any[], submitType: any, request: ExtendedXMLHttpRequest, config: RequestOptions) => any
+    /** Identifier for the pipeline. */
+    taskId: string
 }
 
 /**
  * Gets the status of analysis using a particular protocol for a particular pipeline.
  */
 export function getFileStatus(config: IGetFileStatusOptions): XMLHttpRequest {
-    let params = {
-        taskId: config.taskId,
-        path: config.path,
-        file: config.files,
-        protocolName: config.protocolName
-    };
-
     const onSuccess = getOnSuccess(config);
 
     return request({
         url: buildURL('pipeline-analysis', 'getFileStatus.api', config.containerPath),
         method: 'POST',
-        params,
-        success: getCallbackWrapper(function(data: any, response: any) {
-            onSuccess.call(this, data.files, data.submitType, response);
+        params: {
+            file: config.files,
+            path: config.path,
+            protocolName: config.protocolName,
+            taskId: config.taskId,
+        },
+        success: getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+            if (onSuccess) {
+                onSuccess.call(this, data.files, data.submitType, response, options);
+            }
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         timeout: 60000000
     });
 }
 
-export interface IGetPipelineContainerOptions extends RequestCallbackOptions {
+export interface PipelineContainerResponse {
+    /**
+     * The container path in which the pipeline is defined.
+     * If no pipeline has been defined in this container hierarchy, then the value of this property will be null.
+     */
+    containerPath: string
+    /** the WebDavURL for the pipeline root. */
+    webDavURL: string
+}
+
+export interface IGetPipelineContainerOptions extends RequestCallbackOptions<PipelineContainerResponse> {
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
-    /**
-     * The function to call with the resulting information.
-     * This function will be passed a single parameter of type object, which will have the following
-     * properties:
-     * - containerPath: the container path in which the pipeline is defined. If no pipeline has
-     * been defined in this container hierarchy, the value of this property will be null.
-     * - webDavURL: the WebDavURL for the pipeline root.
-     */
-    success?: RequestSuccess
 }
 
 /**
@@ -104,18 +107,17 @@ export function getPipelineContainer(config: IGetPipelineContainerOptions): XMLH
     });
 }
 
-export interface IGetProtocolsOptions extends RequestCallbackOptions {
-    // required
-    /** relative path from the folder's pipeline root */
-    path: string
-    /** Identifier for the pipeline. */
-    taskId: string
-
-    // optional
+export interface IGetProtocolsOptions {
     /** The container in which to make the request (defaults to current container) */
     containerPath?: string
+    /** This will be called upon failure to complete a request. */
+    failure?: RequestFailure
     /** If true, protocols from workbooks under the selected container will also be included */
     includeWorkbooks?: boolean
+    /** relative path from the folder's pipeline root */
+    path: string
+    /** A scoping object for the success and failure callback functions (default to this). */
+    scope?: any
     /**
      * The function to call with the resulting information.
      * This function will be passed a list of protocol objects, which will have the following properties:
@@ -125,27 +127,29 @@ export interface IGetProtocolsOptions extends RequestCallbackOptions {
      * - jsonParameters: JSON representation of the parameters defined by this protocol.
      * - containerPath: The container path where this protocol was saved
      */
-    success?: RequestSuccess
+    success?: (protocols: any[], defaultProtocolName: string, request: ExtendedXMLHttpRequest, config: RequestOptions) => any
+    /** Identifier for the pipeline. */
+    taskId: string
 }
 
 /**
  * Gets the protocols that have been saved for a particular pipeline.
  */
 export function getProtocols(config: IGetProtocolsOptions): XMLHttpRequest {
-    let params = {
-        taskId: config.taskId,
-        includeWorkbooks: !!config.includeWorkbooks,
-        path: config.path
-    };
-
     const onSuccess = getOnSuccess(config);
 
     return request({
         url: buildURL('pipeline-analysis', 'getSavedProtocols.api', config.containerPath),
         method: 'POST',
-        params,
-        success: getCallbackWrapper(function(data: any, response: any) {
-            onSuccess.call(this, data.protocols, data.defaultProtocolName, response);
+        params: {
+            includeWorkbooks: !!config.includeWorkbooks,
+            path: config.path,
+            taskId: config.taskId,
+        },
+        success: getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+            if (onSuccess) {
+                onSuccess.call(this, data.protocols, data.defaultProtocolName, response, options);
+            }
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
