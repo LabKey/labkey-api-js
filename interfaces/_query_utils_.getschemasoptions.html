@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IGetServerDateOptions | @labkey/api</title>
+	<title>GetSchemasOptions | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,21 +57,40 @@
 					<a href="../modules/_query_utils_.html">&quot;query/Utils&quot;</a>
 				</li>
 				<li>
-					<a href="_query_utils_.igetserverdateoptions.html">IGetServerDateOptions</a>
+					<a href="_query_utils_.getschemasoptions.html">GetSchemasOptions</a>
 				</li>
 			</ul>
-			<h1>Interface IGetServerDateOptions</h1>
+			<h1>Interface GetSchemasOptions&lt;S, F, SC&gt;</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>S</h4>
+					</li>
+					<li>
+						<h4>F</h4>
+					</li>
+					<li>
+						<h4>SC</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IGetServerDateOptions</span>
+						<a href="_utils_.requestcallbackoptions.html" class="tsd-signature-type">RequestCallbackOptions</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">GetSchemasOptions</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -82,9 +101,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.igetserverdateoptions.html#failure" class="tsd-kind-icon">failure</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.igetserverdateoptions.html#scope" class="tsd-kind-icon">scope</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.igetserverdateoptions.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.getschemasoptions.html#apiversion" class="tsd-kind-icon">api<wbr>Version</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.getschemasoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_query_utils_.getschemasoptions.html#failure" class="tsd-kind-icon">failure</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.getschemasoptions.html#includehidden" class="tsd-kind-icon">include<wbr>Hidden</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.getschemasoptions.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_query_utils_.getschemasoptions.html#scope" class="tsd-kind-icon">scope</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-inherited"><a href="_query_utils_.getschemasoptions.html#success" class="tsd-kind-icon">success</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,47 +116,90 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="failure" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<a name="apiversion" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> api<wbr>Version</h3>
+					<div class="tsd-signature tsd-kind-icon">api<wbr>Version<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L321">src/labkey/query/Utils.ts:321</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Utils.ts#L320">src/labkey/query/Utils.ts:320</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="containerpath" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> container<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Utils.ts#L321">src/labkey/query/Utils.ts:321</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="failure" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
+					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestfailure" class="tsd-signature-type">RequestFailure</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">F</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#failure">failure</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Utils.ts#L31">src/labkey/Utils.ts:31</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The function to call if this function encounters an error.
-							This function will be called with the following parameters:</p>
-							<ul>
-								<li><strong>errorInfo:</strong> An object with a property called &quot;exception,&quot; which contains the error message.</li>
-							</ul>
+							<p>This will be called upon failure to complete a request.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scope" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="includehidden" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> include<wbr>Hidden</h3>
+					<div class="tsd-signature tsd-kind-icon">include<wbr>Hidden<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L322">src/labkey/query/Utils.ts:322</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Utils.ts#L322">src/labkey/query/Utils.ts:322</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="success" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<a name="schemaname" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> schema<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L328">src/labkey/query/Utils.ts:328</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Utils.ts#L323">src/labkey/query/Utils.ts:323</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="scope" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
+					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SC</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#scope">scope</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Utils.ts#L36">src/labkey/Utils.ts:36</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The function to call when the function finishes successfully.
-							This function will be called with a single parameter of type Date.</p>
+							<p>A scoping object for the success and failure callback functions (default to this).</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+					<a name="success" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
+					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <a href="../modules/_utils_.html#requestsuccess" class="tsd-signature-type">RequestSuccess</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">S</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="_utils_.requestcallbackoptions.html">RequestCallbackOptions</a>.<a href="_utils_.requestcallbackoptions.html#success">success</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Utils.ts#L41">src/labkey/Utils.ts:41</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>This will be called upon successfully completing a request.</p>
 						</div>
 					</div>
 				</section>
@@ -155,53 +221,68 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-module">
 						<a href="../enums/_query_utils_.containerfilter.html" class="tsd-kind-icon">Container<wbr>Filter</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ibrowsedatapayload.html" class="tsd-kind-icon">IBrowse<wbr>Data<wbr>Payload</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.deletequeryviewoptions.html" class="tsd-kind-icon">Delete<wbr>Query<wbr>View<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ideletequeryviewoptions.html" class="tsd-kind-icon">IDelete<wbr>Query<wbr>View<wbr>Options</a>
+						<a href="_query_utils_.deletequeryviewpayload.html" class="tsd-kind-icon">Delete<wbr>Query<wbr>View<wbr>Payload</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.getqueriesoptions.html" class="tsd-kind-icon">Get<wbr>Queries<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ideletequeryviewpayload.html" class="tsd-kind-icon">IDelete<wbr>Query<wbr>View<wbr>Payload</a>
+						<a href="_query_utils_.getqueriesresponse.html" class="tsd-kind-icon">Get<wbr>Queries<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetdataviewsoptions.html" class="tsd-kind-icon">IGet<wbr>Data<wbr>Views<wbr>Options</a>
+						<a href="_query_utils_.getqueryresponse.html" class="tsd-kind-icon">Get<wbr>Query<wbr>Response</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetqueriesoptions.html" class="tsd-kind-icon">IGet<wbr>Queries<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetqueryviewsoptions.html" class="tsd-kind-icon">IGet<wbr>Query<wbr>Views<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetschemasoptions.html" class="tsd-kind-icon">IGet<wbr>Schemas<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_query_utils_.igetschemasparameters.html" class="tsd-kind-icon">IGet<wbr>Schemas<wbr>Parameters</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.getqueryviewsoptions.html" class="tsd-kind-icon">Get<wbr>Query<wbr>Views<wbr>Options</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetserverdateoptions.html" class="tsd-kind-icon">IGet<wbr>Server<wbr>Date<wbr>Options</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.getschemasoptions.html" class="tsd-kind-icon">Get<wbr>Schemas<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.igetserverdateoptions.html#failure" class="tsd-kind-icon">failure</a>
+								<a href="_query_utils_.getschemasoptions.html#apiversion" class="tsd-kind-icon">api<wbr>Version</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.igetserverdateoptions.html#scope" class="tsd-kind-icon">scope</a>
+								<a href="_query_utils_.getschemasoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="_query_utils_.getschemasoptions.html#failure" class="tsd-kind-icon">failure</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.igetserverdateoptions.html#success" class="tsd-kind-icon">success</a>
+								<a href="_query_utils_.getschemasoptions.html#includehidden" class="tsd-kind-icon">include<wbr>Hidden</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_query_utils_.getschemasoptions.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="_query_utils_.getschemasoptions.html#scope" class="tsd-kind-icon">scope</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-inherited">
+								<a href="_query_utils_.getschemasoptions.html#success" class="tsd-kind-icon">success</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.isavequeryviewsoptions.html" class="tsd-kind-icon">ISave<wbr>Query<wbr>Views<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_query_utils_.getschemasparameters.html" class="tsd-kind-icon">Get<wbr>Schemas<wbr>Parameters</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ivalidatequeryoptions.html" class="tsd-kind-icon">IValidate<wbr>Query<wbr>Options</a>
+						<a href="_query_utils_.ibrowsedatapayload.html" class="tsd-kind-icon">IBrowse<wbr>Data<wbr>Payload</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_query_utils_.igetdataviewsoptions.html" class="tsd-kind-icon">IGet<wbr>Data<wbr>Views<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.savequeryviewsoptions.html" class="tsd-kind-icon">Save<wbr>Query<wbr>Views<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.validatequeryoptions.html" class="tsd-kind-icon">Validate<wbr>Query<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_query_utils_.html#idatatypes" class="tsd-kind-icon">IData<wbr>Types</a>

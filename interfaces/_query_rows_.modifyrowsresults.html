@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_saverows_.html">&quot;query/SaveRows&quot;</a>
+					<a href="../modules/_query_rows_.html">&quot;query/Rows&quot;</a>
 				</li>
 				<li>
-					<a href="_query_saverows_.modifyrowsresults.html">ModifyRowsResults</a>
+					<a href="_query_rows_.modifyrowsresults.html">ModifyRowsResults</a>
 				</li>
 			</ul>
 			<h1>Interface ModifyRowsResults</h1>
@@ -81,13 +81,14 @@
 							<li><a href="https://www.labkey.org/home/Study/demo/wiki-page.view?name=reagentRequest">Demo</a></li>
 						</ul>
 					</div>
-					<pre><code>{<span class="hljs-string">"schemaName"</span>: <span class="hljs-string">"lists"</span>,
+					<pre><code class="language-js">{
+ <span class="hljs-string">"schemaName"</span>: <span class="hljs-string">"lists"</span>,
  <span class="hljs-string">"queryName"</span>: <span class="hljs-string">"API Test List"</span>,
  <span class="hljs-string">"rowsAffected"</span>: <span class="hljs-number">1</span>,
  <span class="hljs-string">"command"</span>: <span class="hljs-string">"insert"</span>,
  <span class="hljs-string">"errors"</span>: [],
- <span class="hljs-string">"rows"</span>: [{ Key: <span class="hljs-number">3</span>, StringField: 'NewValue'}]
- }</code></pre>
+ <span class="hljs-string">"rows"</span>: [{ <span class="hljs-attr">Key</span>: <span class="hljs-number">3</span>, <span class="hljs-attr">StringField</span>: <span class="hljs-string">'NewValue'</span>}]
+}</code></pre>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
@@ -105,13 +106,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.modifyrowsresults.html#command" class="tsd-kind-icon">command</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.modifyrowsresults.html#errors" class="tsd-kind-icon">errors</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.modifyrowsresults.html#field" class="tsd-kind-icon">field</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.modifyrowsresults.html#queryname" class="tsd-kind-icon">query<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.modifyrowsresults.html#rows" class="tsd-kind-icon">rows</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.modifyrowsresults.html#rowsaffected" class="tsd-kind-icon">rows<wbr>Affected</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.modifyrowsresults.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.modifyrowsresults.html#command" class="tsd-kind-icon">command</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.modifyrowsresults.html#errors" class="tsd-kind-icon">errors</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.modifyrowsresults.html#field" class="tsd-kind-icon">field</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.modifyrowsresults.html#queryname" class="tsd-kind-icon">query<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.modifyrowsresults.html#rows" class="tsd-kind-icon">rows</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.modifyrowsresults.html#rowsaffected" class="tsd-kind-icon">rows<wbr>Affected</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.modifyrowsresults.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
 							</ul>
 						</section>
 					</div>
@@ -122,10 +123,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="command" class="tsd-anchor"></a>
 					<h3>command</h3>
-					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <a href="../modules/_query_rows_.html#commandtype" class="tsd-signature-type">CommandType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L136">src/labkey/query/SaveRows.ts:136</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L162">src/labkey/query/Rows.ts:162</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -137,10 +138,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="errors" class="tsd-anchor"></a>
 					<h3>errors</h3>
-					<div class="tsd-signature tsd-kind-icon">errors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">errors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L141">src/labkey/query/SaveRows.ts:141</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L167">src/labkey/query/Rows.ts:167</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -156,7 +157,7 @@
 					<div class="tsd-signature tsd-kind-icon">field<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L130">src/labkey/query/SaveRows.ts:130</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L168">src/labkey/query/Rows.ts:168</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -166,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">query<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L134">src/labkey/query/SaveRows.ts:134</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L185">src/labkey/query/Rows.ts:185</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -178,10 +179,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="rows" class="tsd-anchor"></a>
 					<h3>rows</h3>
-					<div class="tsd-signature tsd-kind-icon">rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L156">src/labkey/query/SaveRows.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L178">src/labkey/query/Rows.ts:178</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -202,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">rows<wbr>Affected<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L146">src/labkey/query/SaveRows.ts:146</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L183">src/labkey/query/Rows.ts:183</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -218,7 +219,7 @@
 					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L132">src/labkey/query/SaveRows.ts:132</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L187">src/labkey/query/Rows.ts:187</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -236,56 +237,74 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_query_saverows_.html">&quot;query/<wbr>Save<wbr>Rows&quot;</a>
+						<a href="../modules/_query_rows_.html">&quot;query/<wbr>Rows&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.icommand.html" class="tsd-kind-icon">ICommand</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.isaverowsoptions.html" class="tsd-kind-icon">ISave<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.modifyrowsoptions.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Options</a>
+						<a href="_query_rows_.command.html" class="tsd-kind-icon">Command</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.modifyrowsresults.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Results</a>
+						<a href="_query_rows_.modifyrowsresults.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Results</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.modifyrowsresults.html#command" class="tsd-kind-icon">command</a>
+								<a href="_query_rows_.modifyrowsresults.html#command" class="tsd-kind-icon">command</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.modifyrowsresults.html#errors" class="tsd-kind-icon">errors</a>
+								<a href="_query_rows_.modifyrowsresults.html#errors" class="tsd-kind-icon">errors</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.modifyrowsresults.html#field" class="tsd-kind-icon">field</a>
+								<a href="_query_rows_.modifyrowsresults.html#field" class="tsd-kind-icon">field</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.modifyrowsresults.html#queryname" class="tsd-kind-icon">query<wbr>Name</a>
+								<a href="_query_rows_.modifyrowsresults.html#queryname" class="tsd-kind-icon">query<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.modifyrowsresults.html#rows" class="tsd-kind-icon">rows</a>
+								<a href="_query_rows_.modifyrowsresults.html#rows" class="tsd-kind-icon">rows</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.modifyrowsresults.html#rowsaffected" class="tsd-kind-icon">rows<wbr>Affected</a>
+								<a href="_query_rows_.modifyrowsresults.html#rowsaffected" class="tsd-kind-icon">rows<wbr>Affected</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.modifyrowsresults.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
+								<a href="_query_rows_.modifyrowsresults.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_query_saverows_.html#maparguments" class="tsd-kind-icon">map<wbr>Arguments</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_rows_.queryrequestoptions.html" class="tsd-kind-icon">Query<wbr>Request<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_rows_.saverowsoptions.html" class="tsd-kind-icon">Save<wbr>Rows<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_query_rows_.saverowsresponse.html" class="tsd-kind-icon">Save<wbr>Rows<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_query_rows_.sendrequestoptions.html" class="tsd-kind-icon">Send<wbr>Request<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_query_rows_.html#commandtype" class="tsd-kind-icon">Command<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_saverows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a>
+						<a href="../modules/_query_rows_.html#deleterows" class="tsd-kind-icon">delete<wbr>Rows</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_query_rows_.html#insertrows" class="tsd-kind-icon">insert<wbr>Rows</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_query_rows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_query_rows_.html#truncatetable" class="tsd-kind-icon">truncate<wbr>Table</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_query_rows_.html#updaterows" class="tsd-kind-icon">update<wbr>Rows</a>
 					</li>
 				</ul>
 			</nav>

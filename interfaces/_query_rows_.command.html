@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ICommand | @labkey/api</title>
+	<title>Command | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../modules/_query_rows_.html">&quot;query/Rows&quot;</a>
 				</li>
 				<li>
-					<a href="_query_rows_.icommand.html">ICommand</a>
+					<a href="_query_rows_.command.html">Command</a>
 				</li>
 			</ul>
-			<h1>Interface ICommand</h1>
+			<h1>Interface Command</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ICommand</span>
+						<span class="target">Command</span>
 					</li>
 				</ul>
 			</section>
@@ -82,9 +82,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.icommand.html#command" class="tsd-kind-icon">command</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.icommand.html#extracontext" class="tsd-kind-icon">extra<wbr>Context</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.icommand.html#rows" class="tsd-kind-icon">rows</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.command.html#command" class="tsd-kind-icon">command</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.command.html#extracontext" class="tsd-kind-icon">extra<wbr>Context</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.command.html#rows" class="tsd-kind-icon">rows</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,10 +95,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="command" class="tsd-anchor"></a>
 					<h3>command</h3>
-					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"delete"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"insert"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"update"</span></div>
+					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <a href="../modules/_query_rows_.html#commandtype" class="tsd-signature-type">CommandType</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L128">src/labkey/query/Rows.ts:128</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L192">src/labkey/query/Rows.ts:192</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -113,7 +113,7 @@
 					<div class="tsd-signature tsd-kind-icon">extra<wbr>Context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L131">src/labkey/query/Rows.ts:131</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L194">src/labkey/query/Rows.ts:194</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -125,10 +125,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="rows" class="tsd-anchor"></a>
 					<h3>rows</h3>
-					<div class="tsd-signature tsd-kind-icon">rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L137">src/labkey/query/Rows.ts:137</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Rows.ts#L199">src/labkey/query/Rows.ts:199</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -156,44 +156,38 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.icommand.html" class="tsd-kind-icon">ICommand</a>
+						<a href="_query_rows_.command.html" class="tsd-kind-icon">Command</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.icommand.html#command" class="tsd-kind-icon">command</a>
+								<a href="_query_rows_.command.html#command" class="tsd-kind-icon">command</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.icommand.html#extracontext" class="tsd-kind-icon">extra<wbr>Context</a>
+								<a href="_query_rows_.command.html#extracontext" class="tsd-kind-icon">extra<wbr>Context</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.icommand.html#rows" class="tsd-kind-icon">rows</a>
+								<a href="_query_rows_.command.html#rows" class="tsd-kind-icon">rows</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iqueryarguments.html" class="tsd-kind-icon">IQuery<wbr>Arguments</a>
+						<a href="_query_rows_.modifyrowsresults.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Results</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_rows_.queryrequestoptions.html" class="tsd-kind-icon">Query<wbr>Request<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_rows_.saverowsoptions.html" class="tsd-kind-icon">Save<wbr>Rows<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iqueryrequestoptions.html" class="tsd-kind-icon">IQuery<wbr>Request<wbr>Options</a>
+						<a href="_query_rows_.saverowsresponse.html" class="tsd-kind-icon">Save<wbr>Rows<wbr>Response</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.isaverowsoptions.html" class="tsd-kind-icon">ISave<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectdistinctoptions.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectdistinctresult.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Result</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectrowsoptions.html" class="tsd-kind-icon">ISelect<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectrowsresults.html" class="tsd-kind-icon">ISelect<wbr>Rows<wbr>Results</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter tsd-is-not-exported">
+						<a href="_query_rows_.sendrequestoptions.html" class="tsd-kind-icon">Send<wbr>Request<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#showrows" class="tsd-kind-icon">Show<wbr>Rows</a>
+						<a href="../modules/_query_rows_.html#commandtype" class="tsd-kind-icon">Command<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_query_rows_.html#deleterows" class="tsd-kind-icon">delete<wbr>Rows</a>
@@ -203,12 +197,6 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_query_rows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#selectdistinctrows" class="tsd-kind-icon">select<wbr>Distinct<wbr>Rows</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#selectrows" class="tsd-kind-icon">select<wbr>Rows</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_query_rows_.html#truncatetable" class="tsd-kind-icon">truncate<wbr>Table</a>

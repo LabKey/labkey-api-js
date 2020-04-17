@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IQueryArguments | @labkey/api</title>
+	<title>BaseGetDomainOptions | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_rows_.html">&quot;query/Rows&quot;</a>
+					<a href="../modules/_domain_.html">&quot;Domain&quot;</a>
 				</li>
 				<li>
-					<a href="_query_rows_.iqueryarguments.html">IQueryArguments</a>
+					<a href="_domain_.basegetdomainoptions.html">BaseGetDomainOptions</a>
 				</li>
 			</ul>
-			<h1>Interface IQueryArguments</h1>
+			<h1>Interface BaseGetDomainOptions</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,15 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IQueryArguments</span>
+						<span class="target">BaseGetDomainOptions</span>
+						<ul class="tsd-hierarchy">
+							<li>
+								<a href="_domain_.getdomaindetailsoptions.html" class="tsd-signature-type">GetDomainDetailsOptions</a>
+							</li>
+							<li>
+								<a href="_domain_.getdomainoptions.html" class="tsd-signature-type">GetDomainOptions</a>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -82,11 +90,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iqueryarguments.html#failure" class="tsd-kind-icon">failure</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iqueryarguments.html#queryname" class="tsd-kind-icon">query<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iqueryarguments.html#rows" class="tsd-kind-icon">rows</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iqueryarguments.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iqueryarguments.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_domain_.basegetdomainoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_domain_.basegetdomainoptions.html#domainid" class="tsd-kind-icon">domain<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_domain_.basegetdomainoptions.html#queryname" class="tsd-kind-icon">query<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_domain_.basegetdomainoptions.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
 							</ul>
 						</section>
 					</div>
@@ -95,54 +102,66 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="failure" class="tsd-anchor"></a>
-					<h3>failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<a name="containerpath" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> container<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L103">src/labkey/query/Rows.ts:103</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L220">src/labkey/Domain.ts:220</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The container path in which the requested Domain is defined.
+							If not supplied, the current container path will be used.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="domainid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> domain<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">domain<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L225">src/labkey/Domain.ts:225</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Id of the domain. This is an alternate way to identify the domain.
+							SchemaName and queryName will be ignored if this value is not undefined or null.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="queryname" class="tsd-anchor"></a>
-					<h3>query<wbr>Name</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> query<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">query<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L104">src/labkey/query/Rows.ts:104</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L227">src/labkey/Domain.ts:227</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="rows" class="tsd-anchor"></a>
-					<h3>rows</h3>
-					<div class="tsd-signature tsd-kind-icon">rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L105">src/labkey/query/Rows.ts:105</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The domain query name.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="schemaname" class="tsd-anchor"></a>
-					<h3>schema<wbr>Name</h3>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> schema<wbr>Name</h3>
 					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L106">src/labkey/query/Rows.ts:106</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L229">src/labkey/Domain.ts:229</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="success" class="tsd-anchor"></a>
-					<h3>success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L107">src/labkey/query/Rows.ts:107</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The domain schema name.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -153,80 +172,92 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_query_rows_.html">&quot;query/<wbr>Rows&quot;</a>
+						<a href="../modules/_domain_.html">&quot;<wbr>Domain&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.icommand.html" class="tsd-kind-icon">ICommand</a>
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/_domain_.kinds.html" class="tsd-kind-icon">KINDS</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iqueryarguments.html" class="tsd-kind-icon">IQuery<wbr>Arguments</a>
+						<a href="_domain_.basegetdomainoptions.html" class="tsd-kind-icon">Base<wbr>Get<wbr>Domain<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iqueryarguments.html#failure" class="tsd-kind-icon">failure</a>
+								<a href="_domain_.basegetdomainoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iqueryarguments.html#queryname" class="tsd-kind-icon">query<wbr>Name</a>
+								<a href="_domain_.basegetdomainoptions.html#domainid" class="tsd-kind-icon">domain<wbr>Id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iqueryarguments.html#rows" class="tsd-kind-icon">rows</a>
+								<a href="_domain_.basegetdomainoptions.html#queryname" class="tsd-kind-icon">query<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iqueryarguments.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iqueryarguments.html#success" class="tsd-kind-icon">success</a>
+								<a href="_domain_.basegetdomainoptions.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iqueryrequestoptions.html" class="tsd-kind-icon">IQuery<wbr>Request<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_domain_.createdomainoptions.html" class="tsd-kind-icon">Create<wbr>Domain<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.isaverowsoptions.html" class="tsd-kind-icon">ISave<wbr>Rows<wbr>Options</a>
+						<a href="_domain_.domaindesign.html" class="tsd-kind-icon">Domain<wbr>Design</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_domain_.dropdomainoptions.html" class="tsd-kind-icon">Drop<wbr>Domain<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_domain_.getdomaindetailsoptions.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Details<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectdistinctoptions.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Options</a>
+						<a href="_domain_.getdomaindetailsresponse.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Details<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_domain_.getdomainoptions.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_domain_.getpropertiesoptions.html" class="tsd-kind-icon">Get<wbr>Properties<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_domain_.getpropertiesparams.html" class="tsd-kind-icon">Get<wbr>Properties<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_domain_.listdomainsoptions.html" class="tsd-kind-icon">List<wbr>Domains<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectdistinctresult.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Result</a>
+						<a href="_domain_.listdomainsparams.html" class="tsd-kind-icon">List<wbr>Domains<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectrowsoptions.html" class="tsd-kind-icon">ISelect<wbr>Rows<wbr>Options</a>
+						<a href="_domain_.listdomainsresponse.html" class="tsd-kind-icon">List<wbr>Domains<wbr>Response</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectrowsresults.html" class="tsd-kind-icon">ISelect<wbr>Rows<wbr>Results</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#showrows" class="tsd-kind-icon">Show<wbr>Rows</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_domain_.savedomainoptions.html" class="tsd-kind-icon">Save<wbr>Domain<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#deleterows" class="tsd-kind-icon">delete<wbr>Rows</a>
+						<a href="../modules/_domain_.html#create" class="tsd-kind-icon">create</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#insertrows" class="tsd-kind-icon">insert<wbr>Rows</a>
+						<a href="../modules/_domain_.html#drop" class="tsd-kind-icon">drop</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a>
+						<a href="../modules/_domain_.html#get" class="tsd-kind-icon">get</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#selectdistinctrows" class="tsd-kind-icon">select<wbr>Distinct<wbr>Rows</a>
+						<a href="../modules/_domain_.html#getdomaindetails" class="tsd-kind-icon">get<wbr>Domain<wbr>Details</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#selectrows" class="tsd-kind-icon">select<wbr>Rows</a>
+						<a href="../modules/_domain_.html#getproperties" class="tsd-kind-icon">get<wbr>Properties</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#truncatetable" class="tsd-kind-icon">truncate<wbr>Table</a>
+						<a href="../modules/_domain_.html#listdomains" class="tsd-kind-icon">list<wbr>Domains</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#updaterows" class="tsd-kind-icon">update<wbr>Rows</a>
+						<a href="../modules/_domain_.html#save" class="tsd-kind-icon">save</a>
 					</li>
 				</ul>
 			</nav>

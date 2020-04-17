@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;query/SaveRows&quot; | @labkey/api</title>
+	<title>&quot;query/SelectDistinctRows&quot; | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_query_saverows_.html">&quot;query/SaveRows&quot;</a>
+					<a href="_query_selectdistinctrows_.html">&quot;query/SelectDistinctRows&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;query/SaveRows&quot;</h1>
+			<h1>Module &quot;query/SelectDistinctRows&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -71,17 +71,14 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_query_saverows_.icommand.html" class="tsd-kind-icon">ICommand</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_query_saverows_.isaverowsoptions.html" class="tsd-kind-icon">ISave<wbr>Rows<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_query_saverows_.modifyrowsoptions.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Options</a></li>
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_query_saverows_.modifyrowsresults.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Results</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_query_selectdistinctrows_.iselectdistinctoptions.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_query_selectdistinctrows_.selectdistinctresponse.html" class="tsd-kind-icon">Select<wbr>Distinct<wbr>Response</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-not-exported"><a href="_query_saverows_.html#maparguments" class="tsd-kind-icon">map<wbr>Arguments</a></li>
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_query_saverows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_query_selectdistinctrows_.html#selectdistinctrows" class="tsd-kind-icon">select<wbr>Distinct<wbr>Rows</a></li>
 							</ul>
 						</section>
 					</div>
@@ -89,66 +86,31 @@
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-					<a name="maparguments" class="tsd-anchor"></a>
-					<h3>map<wbr>Arguments</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<li class="tsd-signature tsd-kind-icon">map<wbr>Arguments<span class="tsd-signature-symbol">(</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_saverows_.isaverowsoptions.html" class="tsd-signature-type">ISaveRowsOptions</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L20">src/labkey/query/SaveRows.ts:20</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>args: <span class="tsd-signature-type">any</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_query_saverows_.isaverowsoptions.html" class="tsd-signature-type">ISaveRowsOptions</a></h4>
-						</li>
-					</ul>
-				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="saverows" class="tsd-anchor"></a>
-					<h3>save<wbr>Rows</h3>
+					<a name="selectdistinctrows" class="tsd-anchor"></a>
+					<h3>select<wbr>Distinct<wbr>Rows</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">save<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_saverows_.isaverowsoptions.html" class="tsd-signature-type">ISaveRowsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
+						<li class="tsd-signature tsd-kind-icon">select<wbr>Distinct<wbr>Rows<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/_query_selectdistinctrows_.iselectdistinctoptions.html" class="tsd-signature-type">ISelectDistinctOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L237">src/labkey/query/SaveRows.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/SelectDistinctRows.ts#L135">src/labkey/query/SelectDistinctRows.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Save inserts, updates, and/or deletes to potentially multiple tables with a single request.</p>
+									<p>Select Distinct Rows</p>
 								</div>
-								<dl class="tsd-comment-tags">
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/_query_saverows_.modifyrowsresults.html">ModifyRowsResults</a></p>
-									</dd>
-									<dt>see</dt>
-									<dd><p><a href="../interfaces/_query_saverows_.modifyrowsoptions.html">ModifyRowsOptions</a></p>
-									</dd>
-								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/_query_saverows_.isaverowsoptions.html" class="tsd-signature-type">ISaveRowsOptions</a></h5>
+									<h5>options: <a href="../interfaces/_query_selectdistinctrows_.iselectdistinctoptions.html" class="tsd-signature-type">ISelectDistinctOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
-							<p>In client-side scripts, this method will return a transaction id
-								for the async request that can be used to cancel the request
-								(see <a href="http://dev.sencha.com/deploy/dev/docs/?class=Ext.data.Connection&member=abort" target="_blank">Ext.data.Connection.abort</a>).
-							In server-side scripts, this method will return the JSON response object (first parameter of the success or failure callbacks.)</p>
 						</li>
 					</ul>
 				</section>
@@ -161,29 +123,20 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_query_saverows_.html">&quot;query/<wbr>Save<wbr>Rows&quot;</a>
+						<a href="_query_selectdistinctrows_.html">&quot;query/<wbr>Select<wbr>Distinct<wbr>Rows&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_query_saverows_.icommand.html" class="tsd-kind-icon">ICommand</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../interfaces/_query_selectdistinctrows_.iselectdistinctoptions.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_query_saverows_.isaverowsoptions.html" class="tsd-kind-icon">ISave<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_query_saverows_.modifyrowsoptions.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/_query_saverows_.modifyrowsresults.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Results</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_query_saverows_.html#maparguments" class="tsd-kind-icon">map<wbr>Arguments</a>
+						<a href="../interfaces/_query_selectdistinctrows_.selectdistinctresponse.html" class="tsd-kind-icon">Select<wbr>Distinct<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_query_saverows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a>
+						<a href="_query_selectdistinctrows_.html#selectdistinctrows" class="tsd-kind-icon">select<wbr>Distinct<wbr>Rows</a>
 					</li>
 				</ul>
 			</nav>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IDeleteQueryViewOptions | @labkey/api</title>
+	<title>GetQueriesResponse | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -57,10 +57,10 @@
 					<a href="../modules/_query_utils_.html">&quot;query/Utils&quot;</a>
 				</li>
 				<li>
-					<a href="_query_utils_.ideletequeryviewoptions.html">IDeleteQueryViewOptions</a>
+					<a href="_query_utils_.getqueriesresponse.html">GetQueriesResponse</a>
 				</li>
 			</ul>
-			<h1>Interface IDeleteQueryViewOptions</h1>
+			<h1>Interface GetQueriesResponse</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IDeleteQueryViewOptions</span>
+						<span class="target">GetQueriesResponse</span>
 					</li>
 				</ul>
 			</section>
@@ -82,14 +82,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#failure" class="tsd-kind-icon">failure</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#queryname" class="tsd-kind-icon">query<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#revert" class="tsd-kind-icon">revert</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#scope" class="tsd-kind-icon">scope</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#success" class="tsd-kind-icon">success</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.ideletequeryviewoptions.html#viewname" class="tsd-kind-icon">view<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.getqueriesresponse.html#queries" class="tsd-kind-icon">queries</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_utils_.getqueriesresponse.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,42 +92,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="containerpath" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> container<wbr>Path</h3>
-					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="queries" class="tsd-anchor"></a>
+					<h3>queries</h3>
+					<div class="tsd-signature tsd-kind-icon">queries<span class="tsd-signature-symbol">:</span> <a href="_query_utils_.getqueryresponse.html" class="tsd-signature-type">GetQueryResponse</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L86">src/labkey/query/Utils.ts:86</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="failure" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L87">src/labkey/query/Utils.ts:87</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="queryname" class="tsd-anchor"></a>
-					<h3>query<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">query<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L88">src/labkey/query/Utils.ts:88</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="revert" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> revert</h3>
-					<div class="tsd-signature tsd-kind-icon">revert<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L89">src/labkey/query/Utils.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Utils.ts#L230">src/labkey/query/Utils.ts:230</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -143,37 +107,7 @@
 					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L90">src/labkey/query/Utils.ts:90</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scope" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L91">src/labkey/query/Utils.ts:91</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="success" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L92">src/labkey/query/Utils.ts:92</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="viewname" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> view<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">view<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Utils.ts#L93">src/labkey/query/Utils.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/Utils.ts#L231">src/labkey/query/Utils.ts:231</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -195,68 +129,53 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-module">
 						<a href="../enums/_query_utils_.containerfilter.html" class="tsd-kind-icon">Container<wbr>Filter</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.deletequeryviewoptions.html" class="tsd-kind-icon">Delete<wbr>Query<wbr>View<wbr>Options</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ibrowsedatapayload.html" class="tsd-kind-icon">IBrowse<wbr>Data<wbr>Payload</a>
+						<a href="_query_utils_.deletequeryviewpayload.html" class="tsd-kind-icon">Delete<wbr>Query<wbr>View<wbr>Payload</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.getqueriesoptions.html" class="tsd-kind-icon">Get<wbr>Queries<wbr>Options</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ideletequeryviewoptions.html" class="tsd-kind-icon">IDelete<wbr>Query<wbr>View<wbr>Options</a>
+						<a href="_query_utils_.getqueriesresponse.html" class="tsd-kind-icon">Get<wbr>Queries<wbr>Response</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a>
+								<a href="_query_utils_.getqueriesresponse.html#queries" class="tsd-kind-icon">queries</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#failure" class="tsd-kind-icon">failure</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#queryname" class="tsd-kind-icon">query<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#revert" class="tsd-kind-icon">revert</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#scope" class="tsd-kind-icon">scope</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#success" class="tsd-kind-icon">success</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_utils_.ideletequeryviewoptions.html#viewname" class="tsd-kind-icon">view<wbr>Name</a>
+								<a href="_query_utils_.getqueriesresponse.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ideletequeryviewpayload.html" class="tsd-kind-icon">IDelete<wbr>Query<wbr>View<wbr>Payload</a>
+						<a href="_query_utils_.getqueryresponse.html" class="tsd-kind-icon">Get<wbr>Query<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.getqueryviewsoptions.html" class="tsd-kind-icon">Get<wbr>Query<wbr>Views<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.getschemasoptions.html" class="tsd-kind-icon">Get<wbr>Schemas<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
+						<a href="_query_utils_.getschemasparameters.html" class="tsd-kind-icon">Get<wbr>Schemas<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_query_utils_.ibrowsedatapayload.html" class="tsd-kind-icon">IBrowse<wbr>Data<wbr>Payload</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="_query_utils_.igetdataviewsoptions.html" class="tsd-kind-icon">IGet<wbr>Data<wbr>Views<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetqueriesoptions.html" class="tsd-kind-icon">IGet<wbr>Queries<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.savequeryviewsoptions.html" class="tsd-kind-icon">Save<wbr>Query<wbr>Views<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetqueryviewsoptions.html" class="tsd-kind-icon">IGet<wbr>Query<wbr>Views<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetschemasoptions.html" class="tsd-kind-icon">IGet<wbr>Schemas<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported">
-						<a href="_query_utils_.igetschemasparameters.html" class="tsd-kind-icon">IGet<wbr>Schemas<wbr>Parameters</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.igetserverdateoptions.html" class="tsd-kind-icon">IGet<wbr>Server<wbr>Date<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.isavequeryviewsoptions.html" class="tsd-kind-icon">ISave<wbr>Query<wbr>Views<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_utils_.ivalidatequeryoptions.html" class="tsd-kind-icon">IValidate<wbr>Query<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_utils_.validatequeryoptions.html" class="tsd-kind-icon">Validate<wbr>Query<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
 						<a href="../modules/_query_utils_.html#idatatypes" class="tsd-kind-icon">IData<wbr>Types</a>

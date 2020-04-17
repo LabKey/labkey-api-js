@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ISelectDistinctResult | @labkey/api</title>
+	<title>QueryViewFilter | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_rows_.html">&quot;query/Rows&quot;</a>
+					<a href="../modules/_query_getquerydetails_.html">&quot;query/GetQueryDetails&quot;</a>
 				</li>
 				<li>
-					<a href="_query_rows_.iselectdistinctresult.html">ISelectDistinctResult</a>
+					<a href="_query_getquerydetails_.queryviewfilter.html">QueryViewFilter</a>
 				</li>
 			</ul>
-			<h1>Interface ISelectDistinctResult</h1>
+			<h1>Interface QueryViewFilter</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ISelectDistinctResult</span>
+						<span class="target">QueryViewFilter</span>
 					</li>
 				</ul>
 			</section>
@@ -82,9 +82,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectdistinctresult.html#queryname" class="tsd-kind-icon">query<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectdistinctresult.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_rows_.iselectdistinctresult.html#values" class="tsd-kind-icon">values</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_getquerydetails_.queryviewfilter.html#fieldkey" class="tsd-kind-icon">field<wbr>Key</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_getquerydetails_.queryviewfilter.html#op" class="tsd-kind-icon">op</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_getquerydetails_.queryviewfilter.html#value" class="tsd-kind-icon">value</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,32 +93,32 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="queryname" class="tsd-anchor"></a>
-					<h3>query<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">query<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="fieldkey" class="tsd-anchor"></a>
+					<h3>field<wbr>Key</h3>
+					<div class="tsd-signature tsd-kind-icon">field<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L237">src/labkey/query/Rows.ts:237</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/GetQueryDetails.ts#L62">src/labkey/query/GetQueryDetails.ts:62</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="schemaname" class="tsd-anchor"></a>
-					<h3>schema<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="op" class="tsd-anchor"></a>
+					<h3>op</h3>
+					<div class="tsd-signature tsd-kind-icon">op<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L238">src/labkey/query/Rows.ts:238</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/GetQueryDetails.ts#L63">src/labkey/query/GetQueryDetails.ts:63</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="values" class="tsd-anchor"></a>
-					<h3>values</h3>
-					<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<a name="value" class="tsd-anchor"></a>
+					<h3>value</h3>
+					<div class="tsd-signature tsd-kind-icon">value<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/Rows.ts#L239">src/labkey/query/Rows.ts:239</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/GetQueryDetails.ts#L64">src/labkey/query/GetQueryDetails.ts:64</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -131,74 +131,53 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_query_rows_.html">&quot;query/<wbr>Rows&quot;</a>
+						<a href="../modules/_query_getquerydetails_.html">&quot;query/<wbr>Get<wbr>Query<wbr>Details&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.icommand.html" class="tsd-kind-icon">ICommand</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_getquerydetails_.getquerydetailsoptions.html" class="tsd-kind-icon">Get<wbr>Query<wbr>Details<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iqueryarguments.html" class="tsd-kind-icon">IQuery<wbr>Arguments</a>
+						<a href="_query_getquerydetails_.querydetailsresponse.html" class="tsd-kind-icon">Query<wbr>Details<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iqueryrequestoptions.html" class="tsd-kind-icon">IQuery<wbr>Request<wbr>Options</a>
+						<a href="_query_getquerydetails_.queryimporttemplate.html" class="tsd-kind-icon">Query<wbr>Import<wbr>Template</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.isaverowsoptions.html" class="tsd-kind-icon">ISave<wbr>Rows<wbr>Options</a>
+						<a href="_query_getquerydetails_.queryindex.html" class="tsd-kind-icon">Query<wbr>Index</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectdistinctoptions.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Options</a>
+						<a href="_query_getquerydetails_.queryview.html" class="tsd-kind-icon">Query<wbr>View</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_query_getquerydetails_.queryviewcolumn.html" class="tsd-kind-icon">Query<wbr>View<wbr>Column</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectdistinctresult.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Result</a>
+						<a href="_query_getquerydetails_.queryviewfilter.html" class="tsd-kind-icon">Query<wbr>View<wbr>Filter</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iselectdistinctresult.html#queryname" class="tsd-kind-icon">query<wbr>Name</a>
+								<a href="_query_getquerydetails_.queryviewfilter.html#fieldkey" class="tsd-kind-icon">field<wbr>Key</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iselectdistinctresult.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
+								<a href="_query_getquerydetails_.queryviewfilter.html#op" class="tsd-kind-icon">op</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_rows_.iselectdistinctresult.html#values" class="tsd-kind-icon">values</a>
+								<a href="_query_getquerydetails_.queryviewfilter.html#value" class="tsd-kind-icon">value</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectrowsoptions.html" class="tsd-kind-icon">ISelect<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_rows_.iselectrowsresults.html" class="tsd-kind-icon">ISelect<wbr>Rows<wbr>Results</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#showrows" class="tsd-kind-icon">Show<wbr>Rows</a>
+						<a href="_query_getquerydetails_.queryviewsort.html" class="tsd-kind-icon">Query<wbr>View<wbr>Sort</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#deleterows" class="tsd-kind-icon">delete<wbr>Rows</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#insertrows" class="tsd-kind-icon">insert<wbr>Rows</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#selectdistinctrows" class="tsd-kind-icon">select<wbr>Distinct<wbr>Rows</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#selectrows" class="tsd-kind-icon">select<wbr>Rows</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#truncatetable" class="tsd-kind-icon">truncate<wbr>Table</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_rows_.html#updaterows" class="tsd-kind-icon">update<wbr>Rows</a>
+						<a href="../modules/_query_getquerydetails_.html#getquerydetails" class="tsd-kind-icon">get<wbr>Query<wbr>Details</a>
 					</li>
 				</ul>
 			</nav>

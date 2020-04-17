@@ -77,9 +77,12 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_domain_.basegetdomainoptions.html" class="tsd-kind-icon">Base<wbr>Get<wbr>Domain<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_domain_.createdomainoptions.html" class="tsd-kind-icon">Create<wbr>Domain<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_domain_.domaindesign.html" class="tsd-kind-icon">Domain<wbr>Design</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_domain_.dropdomainoptions.html" class="tsd-kind-icon">Drop<wbr>Domain<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_domain_.getdomaindetailsoptions.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Details<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/_domain_.getdomaindetailsresponse.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Details<wbr>Response</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_domain_.getdomainoptions.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter"><a href="../interfaces/_domain_.getpropertiesoptions.html" class="tsd-kind-icon">Get<wbr>Properties<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module tsd-is-not-exported"><a href="../interfaces/_domain_.getpropertiesparams.html" class="tsd-kind-icon">Get<wbr>Properties<wbr>Params</a></li>
@@ -90,44 +93,17 @@
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_domain_.html#get" class="tsd-kind-icon">get</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_domain_.html#create" class="tsd-kind-icon">create</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_domain_.html#drop" class="tsd-kind-icon">drop</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_domain_.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_domain_.html#getdomaindetails" class="tsd-kind-icon">get<wbr>Domain<wbr>Details</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_domain_.html#getproperties" class="tsd-kind-icon">get<wbr>Properties</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_domain_.html#listdomains" class="tsd-kind-icon">list<wbr>Domains</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_domain_.html#save" class="tsd-kind-icon">save</a></li>
 							</ul>
 						</section>
-					</div>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="get" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> get</h3>
-					<div class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">:</span> <a href="_domain_.html#getdomaindetails" class="tsd-signature-type">getDomainDetails</a><span class="tsd-signature-symbol"> = getDomainDetails</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Domain.ts#L275">src/labkey/Domain.ts:275</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Gets a domain design. This is a deprecated alias for <a href="_domain_.html#getdomaindetails">getDomainDetails</a>.</p>
-						</div>
-						<dl class="tsd-comment-tags">
-							<dt>deprecated</dt>
-							<dd></dd>
-						</dl>
 					</div>
 				</section>
 			</section>
@@ -143,7 +119,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Domain.ts#L142">src/labkey/Domain.ts:142</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L146">src/labkey/Domain.ts:146</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -154,34 +130,36 @@
 										Currently supported domain kinds are: &quot;IntList&quot;, &quot;VarList&quot;, &quot;SampleSet&quot;, &quot;DataClass&quot;,
 									&quot;StudyDatasetDate&quot;, &quot;StudyDatasetVisit&quot;.</p>
 								</div>
-								<pre><code><span class="hljs-selector-tag">LABKEY</span><span class="hljs-selector-class">.Domain</span><span class="hljs-selector-class">.create</span>({
- <span class="hljs-attribute">kind</span>: <span class="hljs-string">"IntList"</span>,
- <span class="hljs-attribute">domainDesign</span>: {
-     <span class="hljs-attribute">name</span>: <span class="hljs-string">"LookupCodes"</span>,
-     <span class="hljs-attribute">description</span>: <span class="hljs-string">"integer key list"</span>,
-     <span class="hljs-attribute">fields</span>: [{
-         <span class="hljs-attribute">name</span>: <span class="hljs-string">"id"</span>, <span class="hljs-attribute">rangeURI</span>: <span class="hljs-string">"int"</span>
+								<pre><code class="language-js">LABKEY.Domain.create({
+ <span class="hljs-attr">kind</span>: <span class="hljs-string">"IntList"</span>,
+ <span class="hljs-attr">domainDesign</span>: {
+     <span class="hljs-attr">name</span>: <span class="hljs-string">"LookupCodes"</span>,
+     <span class="hljs-attr">description</span>: <span class="hljs-string">"integer key list"</span>,
+     <span class="hljs-attr">fields</span>: [{
+         <span class="hljs-attr">name</span>: <span class="hljs-string">"id"</span>, <span class="hljs-attr">rangeURI</span>: <span class="hljs-string">"int"</span>
          },{
-         <span class="hljs-attribute">name</span>: <span class="hljs-string">"code"</span>,
-         <span class="hljs-attribute">rangeURI</span>: <span class="hljs-string">"string"</span>, <span class="hljs-attribute">scale</span>: <span class="hljs-number">4</span>
+         <span class="hljs-attr">name</span>: <span class="hljs-string">"code"</span>,
+         <span class="hljs-attr">rangeURI</span>: <span class="hljs-string">"string"</span>, <span class="hljs-attr">scale</span>: <span class="hljs-number">4</span>
      }]
  },
- <span class="hljs-attribute">options</span>: {
-     <span class="hljs-attribute">keyName</span>: <span class="hljs-string">"id"</span>
+ <span class="hljs-attr">options</span>: {
+     <span class="hljs-attr">keyName</span>: <span class="hljs-string">"id"</span>
  }
-});</code></pre><p>Create domain from a <a href="https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates">domain template</a></p>
-								<pre><code><span class="hljs-selector-tag">LABKEY</span><span class="hljs-selector-class">.Domain</span><span class="hljs-selector-class">.create</span>({
- <span class="hljs-attribute">module</span>: <span class="hljs-string">"mymodule"</span>,
- domainGroup: <span class="hljs-string">"codes"</span>,
- domainTemplate: <span class="hljs-string">"LookupCodes"</span>,
- importData: false
-});</code></pre><p>Import the initial data from the domain template of a previously created domain:</p>
-								<pre><code><span class="hljs-selector-tag">LABKEY</span><span class="hljs-selector-class">.Domain</span><span class="hljs-selector-class">.create</span>({
- <span class="hljs-attribute">module</span>: <span class="hljs-string">"mymodule"</span>,
- domainGroup: <span class="hljs-string">"codes"</span>,
- domainTemplate: <span class="hljs-string">"LookupCodes"</span>,
- createDomain: false,
- importData: true
+});</code></pre>
+								<p>Create domain from a <a href="https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates">domain template</a></p>
+								<pre><code class="language-js">LABKEY.Domain.create({
+ <span class="hljs-attr">module</span>: <span class="hljs-string">"mymodule"</span>,
+ <span class="hljs-attr">domainGroup</span>: <span class="hljs-string">"codes"</span>,
+ <span class="hljs-attr">domainTemplate</span>: <span class="hljs-string">"LookupCodes"</span>,
+ <span class="hljs-attr">importData</span>: <span class="hljs-literal">false</span>
+});</code></pre>
+								<p>Import the initial data from the domain template of a previously created domain:</p>
+								<pre><code class="language-js">LABKEY.Domain.create({
+ <span class="hljs-attr">module</span>: <span class="hljs-string">"mymodule"</span>,
+ <span class="hljs-attr">domainGroup</span>: <span class="hljs-string">"codes"</span>,
+ <span class="hljs-attr">domainTemplate</span>: <span class="hljs-string">"LookupCodes"</span>,
+ <span class="hljs-attr">createDomain</span>: <span class="hljs-literal">false</span>,
+ <span class="hljs-attr">importData</span>: <span class="hljs-literal">true</span>
 });</code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -204,7 +182,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Domain.ts#L196">src/labkey/Domain.ts:196</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L200">src/labkey/Domain.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -223,23 +201,55 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="getdomaindetails" class="tsd-anchor"></a>
-					<h3>get<wbr>Domain<wbr>Details</h3>
+					<a name="get" class="tsd-anchor"></a>
+					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Domain<wbr>Details<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/_domain_.getdomainoptions.html" class="tsd-signature-type">GetDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/_domain_.getdomainoptions.html" class="tsd-signature-type">GetDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Domain.ts#L249">src/labkey/Domain.ts:249</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L295">src/labkey/Domain.ts:295</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Gets a domain design. This is a deprecated. Use <a href="_domain_.html#getdomaindetails">getDomainDetails</a> instead.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="../interfaces/_domain_.getdomainoptions.html" class="tsd-signature-type">GetDomainOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getdomaindetails" class="tsd-anchor"></a>
+					<h3>get<wbr>Domain<wbr>Details</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Domain<wbr>Details<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/_domain_.getdomaindetailsoptions.html" class="tsd-signature-type">GetDomainDetailsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L267">src/labkey/Domain.ts:267</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Gets a domain design.</p>
 								</div>
-								<pre><code> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">successHandler</span>(<span class="hljs-params">domainDesign</span>)</span>{
+								<pre><code class="language-js"> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">successHandler</span>(<span class="hljs-params">domainDesign</span>)</span>{
      <span class="hljs-keyword">var</span> html = <span class="hljs-string">''</span>;
 
      html += <span class="hljs-string">'&lt;b&gt;'</span> + domainDesign.name + <span class="hljs-string">':&lt;/b&gt;&lt;br&gt; '</span>;
@@ -253,12 +263,17 @@
      alert(<span class="hljs-string">'An error occurred retrieving data: '</span> + error);
  }
 
- LABKEY.Domain.getDomainDetails(successHandler, errorHandler, <span class="hljs-string">'study'</span>, <span class="hljs-string">'StudyProperties'</span>);</code></pre>
+ LABKEY.Domain.getDomainDetails({
+     <span class="hljs-attr">schemaName</span>: <span class="hljs-string">'study'</span>,
+     <span class="hljs-attr">queryName</span>: <span class="hljs-string">'StudyProperties'</span>,
+     <span class="hljs-attr">success</span>: successHandler,
+     <span class="hljs-attr">failure</span>: errorHandler
+ });</code></pre>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/_domain_.getdomainoptions.html" class="tsd-signature-type">GetDomainOptions</a></h5>
+									<h5>config: <a href="../interfaces/_domain_.getdomaindetailsoptions.html" class="tsd-signature-type">GetDomainDetailsOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_utils_.extendedxmlhttprequest.html#xmlhttprequest" class="tsd-signature-type">XMLHttpRequest</a></h4>
@@ -275,7 +290,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Domain.ts#L380">src/labkey/Domain.ts:380</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L419">src/labkey/Domain.ts:419</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -298,7 +313,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Domain.ts#L351">src/labkey/Domain.ts:351</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L390">src/labkey/Domain.ts:390</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -321,7 +336,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/Domain.ts#L307">src/labkey/Domain.ts:307</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Domain.ts#L346">src/labkey/Domain.ts:346</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -357,6 +372,9 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-module">
 						<a href="../enums/_domain_.kinds.html" class="tsd-kind-icon">KINDS</a>
 					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_domain_.basegetdomainoptions.html" class="tsd-kind-icon">Base<wbr>Get<wbr>Domain<wbr>Options</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_domain_.createdomainoptions.html" class="tsd-kind-icon">Create<wbr>Domain<wbr>Options</a>
 					</li>
@@ -365,6 +383,12 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_domain_.dropdomainoptions.html" class="tsd-kind-icon">Drop<wbr>Domain<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="../interfaces/_domain_.getdomaindetailsoptions.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Details<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/_domain_.getdomaindetailsresponse.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Details<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_domain_.getdomainoptions.html" class="tsd-kind-icon">Get<wbr>Domain<wbr>Options</a>
@@ -387,14 +411,14 @@
 					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
 						<a href="../interfaces/_domain_.savedomainoptions.html" class="tsd-kind-icon">Save<wbr>Domain<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="_domain_.html#get" class="tsd-kind-icon">get</a>
-					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_domain_.html#create" class="tsd-kind-icon">create</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_domain_.html#drop" class="tsd-kind-icon">drop</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_domain_.html#get" class="tsd-kind-icon">get</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_domain_.html#getdomaindetails" class="tsd-kind-icon">get<wbr>Domain<wbr>Details</a>

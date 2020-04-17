@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IGetValuesOptions | @labkey/api</title>
+	<title>SelectDistinctResponse | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_visualization_dimension_.html">&quot;query/visualization/Dimension&quot;</a>
+					<a href="../modules/_query_selectdistinctrows_.html">&quot;query/SelectDistinctRows&quot;</a>
 				</li>
 				<li>
-					<a href="_query_visualization_dimension_.igetvaluesoptions.html">IGetValuesOptions</a>
+					<a href="_query_selectdistinctrows_.selectdistinctresponse.html">SelectDistinctResponse</a>
 				</li>
 			</ul>
-			<h1>Interface IGetValuesOptions</h1>
+			<h1>Interface SelectDistinctResponse</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">IGetValuesOptions</span>
+						<span class="target">SelectDistinctResponse</span>
 					</li>
 				</ul>
 			</section>
@@ -82,9 +82,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_dimension_.igetvaluesoptions.html#failure" class="tsd-kind-icon">failure</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_dimension_.igetvaluesoptions.html#scope" class="tsd-kind-icon">scope</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_visualization_dimension_.igetvaluesoptions.html#success" class="tsd-kind-icon">success</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_selectdistinctrows_.selectdistinctresponse.html#queryname" class="tsd-kind-icon">query<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_selectdistinctrows_.selectdistinctresponse.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_selectdistinctrows_.selectdistinctresponse.html#values" class="tsd-kind-icon">values</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,49 +93,34 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="failure" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> failure</h3>
-					<div class="tsd-signature tsd-kind-icon">failure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<a name="queryname" class="tsd-anchor"></a>
+					<h3>query<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">query<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/visualization/Dimension.ts#L35">src/labkey/query/visualization/Dimension.ts:35</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Function called when execution fails. Called with the following parameters:</p>
-							<ul>
-								<li><strong>errorInfo:</strong> an object containing detailed error information (may be null)</li>
-								<li><strong>response:</strong> The XMLHttpResponse object</li>
-							</ul>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="scope" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> scope</h3>
-					<div class="tsd-signature tsd-kind-icon">scope<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/visualization/Dimension.ts#L36">src/labkey/query/visualization/Dimension.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/SelectDistinctRows.ts#L24">src/labkey/query/SelectDistinctRows.ts:24</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="success" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> success</h3>
-					<div class="tsd-signature tsd-kind-icon">success<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span></div>
+					<a name="schemaname" class="tsd-anchor"></a>
+					<h3>schema<wbr>Name</h3>
+					<div class="tsd-signature tsd-kind-icon">schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/visualization/Dimension.ts#L42">src/labkey/query/visualization/Dimension.ts:42</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/SelectDistinctRows.ts#L25">src/labkey/query/SelectDistinctRows.ts:25</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Function called when execution succeeds. Will be called with one argument:
-							<strong>values</strong>: an array of unique dimension values</p>
-						</div>
-					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="values" class="tsd-anchor"></a>
+					<h3>values</h3>
+					<div class="tsd-signature tsd-kind-icon">values<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/query/SelectDistinctRows.ts#L26">src/labkey/query/SelectDistinctRows.ts:26</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -146,35 +131,35 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_query_visualization_dimension_.html">&quot;query/visualization/<wbr>Dimension&quot;</a>
+						<a href="../modules/_query_selectdistinctrows_.html">&quot;query/<wbr>Select<wbr>Distinct<wbr>Rows&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-class tsd-parent-kind-module">
-						<a href="../classes/_query_visualization_dimension_.dimension.html" class="tsd-kind-icon">Dimension</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_query_selectdistinctrows_.iselectdistinctoptions.html" class="tsd-kind-icon">ISelect<wbr>Distinct<wbr>Options</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_visualization_dimension_.igetvaluesoptions.html" class="tsd-kind-icon">IGet<wbr>Values<wbr>Options</a>
+						<a href="_query_selectdistinctrows_.selectdistinctresponse.html" class="tsd-kind-icon">Select<wbr>Distinct<wbr>Response</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_visualization_dimension_.igetvaluesoptions.html#failure" class="tsd-kind-icon">failure</a>
+								<a href="_query_selectdistinctrows_.selectdistinctresponse.html#queryname" class="tsd-kind-icon">query<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_visualization_dimension_.igetvaluesoptions.html#scope" class="tsd-kind-icon">scope</a>
+								<a href="_query_selectdistinctrows_.selectdistinctresponse.html#schemaname" class="tsd-kind-icon">schema<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_visualization_dimension_.igetvaluesoptions.html#success" class="tsd-kind-icon">success</a>
+								<a href="_query_selectdistinctrows_.selectdistinctresponse.html#values" class="tsd-kind-icon">values</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_query_visualization_dimension_.html#createvalues" class="tsd-kind-icon">create<wbr>Values</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_query_selectdistinctrows_.html#selectdistinctrows" class="tsd-kind-icon">select<wbr>Distinct<wbr>Rows</a>
 					</li>
 				</ul>
 			</nav>

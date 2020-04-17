@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ICommand | @labkey/api</title>
+	<title>PipelineContainerResponse | @labkey/api</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -54,13 +54,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_query_saverows_.html">&quot;query/SaveRows&quot;</a>
+					<a href="../modules/_pipeline_.html">&quot;Pipeline&quot;</a>
 				</li>
 				<li>
-					<a href="_query_saverows_.icommand.html">ICommand</a>
+					<a href="_pipeline_.pipelinecontainerresponse.html">PipelineContainerResponse</a>
 				</li>
 			</ul>
-			<h1>Interface ICommand</h1>
+			<h1>Interface PipelineContainerResponse</h1>
 		</div>
 	</div>
 </header>
@@ -71,7 +71,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">ICommand</span>
+						<span class="target">PipelineContainerResponse</span>
 					</li>
 				</ul>
 			</section>
@@ -82,9 +82,8 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.icommand.html#command" class="tsd-kind-icon">command</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.icommand.html#extracontext" class="tsd-kind-icon">extra<wbr>Context</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_query_saverows_.icommand.html#rows" class="tsd-kind-icon">rows</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pipeline_.pipelinecontainerresponse.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_pipeline_.pipelinecontainerresponse.html#webdavurl" class="tsd-kind-icon">web<wbr>DavURL</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,48 +92,33 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="command" class="tsd-anchor"></a>
-					<h3>command</h3>
-					<div class="tsd-signature tsd-kind-icon">command<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"delete"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"insert"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"update"</span></div>
+					<a name="containerpath" class="tsd-anchor"></a>
+					<h3>container<wbr>Path</h3>
+					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L33">src/labkey/query/SaveRows.ts:33</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Pipeline.ts#L87">src/labkey/Pipeline.ts:87</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Name of the command to be performed. Must be one of &quot;insert&quot;, &quot;update&quot;, or &quot;delete&quot;.</p>
+							<p>The container path in which the pipeline is defined.
+							If no pipeline has been defined in this container hierarchy, then the value of this property will be null.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="extracontext" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> extra<wbr>Context</h3>
-					<div class="tsd-signature tsd-kind-icon">extra<wbr>Context<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="webdavurl" class="tsd-anchor"></a>
+					<h3>web<wbr>DavURL</h3>
+					<div class="tsd-signature tsd-kind-icon">web<wbr>DavURL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L36">src/labkey/query/SaveRows.ts:36</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Pipeline.ts#L89">src/labkey/Pipeline.ts:89</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p><em>Experimental:*</em> Optional extra context object passed into the transformation/validation script environment.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="rows" class="tsd-anchor"></a>
-					<h3>rows</h3>
-					<div class="tsd-signature tsd-kind-icon">rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/1e496a8/src/labkey/query/SaveRows.ts#L42">src/labkey/query/SaveRows.ts:42</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An array of data for each row to be changed. See <a href="../modules/_query_rows_.html#insertrows">insertRows</a>,
-							<a href="../modules/_query_rows_.html#updaterows">updateRows</a>, or <a href="../modules/_query_rows_.html#deleterows">deleteRows</a> for requirements of what data must be included for each row.</p>
+							<p>the WebDavURL for the pipeline root.</p>
 						</div>
 					</div>
 				</section>
@@ -147,44 +131,53 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_query_saverows_.html">&quot;query/<wbr>Save<wbr>Rows&quot;</a>
+						<a href="../modules/_pipeline_.html">&quot;<wbr>Pipeline&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_pipeline_.igetfilestatusoptions.html" class="tsd-kind-icon">IGet<wbr>File<wbr>Status<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_pipeline_.igetpipelinecontaineroptions.html" class="tsd-kind-icon">IGet<wbr>Pipeline<wbr>Container<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_pipeline_.igetprotocolsoptions.html" class="tsd-kind-icon">IGet<wbr>Protocols<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_pipeline_.istartanalysisoptions.html" class="tsd-kind-icon">IStart<wbr>Analysis<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="_pipeline_.istartanalysisparams.html" class="tsd-kind-icon">IStart<wbr>Analysis<wbr>Params</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.icommand.html" class="tsd-kind-icon">ICommand</a>
+						<a href="_pipeline_.pipelinecontainerresponse.html" class="tsd-kind-icon">Pipeline<wbr>Container<wbr>Response</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.icommand.html#command" class="tsd-kind-icon">command</a>
+								<a href="_pipeline_.pipelinecontainerresponse.html#containerpath" class="tsd-kind-icon">container<wbr>Path</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.icommand.html#extracontext" class="tsd-kind-icon">extra<wbr>Context</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_query_saverows_.icommand.html#rows" class="tsd-kind-icon">rows</a>
+								<a href="_pipeline_.pipelinecontainerresponse.html#webdavurl" class="tsd-kind-icon">web<wbr>DavURL</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.isaverowsoptions.html" class="tsd-kind-icon">ISave<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.modifyrowsoptions.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_query_saverows_.modifyrowsresults.html" class="tsd-kind-icon">Modify<wbr>Rows<wbr>Results</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_query_saverows_.html#maparguments" class="tsd-kind-icon">map<wbr>Arguments</a>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_pipeline_.html#getfilestatus" class="tsd-kind-icon">get<wbr>File<wbr>Status</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_query_saverows_.html#saverows" class="tsd-kind-icon">save<wbr>Rows</a>
+						<a href="../modules/_pipeline_.html#getpipelinecontainer" class="tsd-kind-icon">get<wbr>Pipeline<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_pipeline_.html#getprotocols" class="tsd-kind-icon">get<wbr>Protocols</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="../modules/_pipeline_.html#startanalysis" class="tsd-kind-icon">start<wbr>Analysis</a>
 					</li>
 				</ul>
 			</nav>
