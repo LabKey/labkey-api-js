@@ -1,3 +1,6 @@
+## 0.2.2 - 2020-04-20
+- Explicitly only support `[13.2, '13.2', 16.2, 17.1]` values for `requiredVersion` to process as a `Query.Response`.
+
 ## 0.2.1 - 2020-04-17
 - Module updates for `Exp`, `Message`, `Pipeline`, and `Report`.
 - Fix for `Security.getSchemaPermissions()` to defensively copy configuration for `getSecurableResources` call.
