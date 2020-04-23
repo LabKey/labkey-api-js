@@ -1,3 +1,7 @@
+## TBD - TBD
+- Report.ts fix for populateParams() handling of inputParams as key value pairs on the execParams object 
+    instead of as a nested object within it
+
 ## 0.2.2 - 2020-04-20
 - Explicitly only support `[13.2, '13.2', 16.2, 17.1]` values for `requiredVersion` to process as a `Query.Response`.
 

@@ -100,8 +100,6 @@ export interface IRequestExecuteOptions extends RequestCallbackOptions<RequestEx
 export interface IRequestExecuteParams {
     /** The name of the function to execute */
     functionName?: string
-    /** An object with properties for input parameters. */
-    inputParams?: any
     /** Identifier for the report to execute */
     reportId?: string
     /** name of the report to execute if the id is unknown */
@@ -222,7 +220,7 @@ export function getSessions(options: IGetSessionsOptions): XMLHttpRequest {
  * @private
  */
 function populateParams(options: IRequestExecuteOptions, isReport: boolean): IRequestExecuteParams {
-    let execParams: IRequestExecuteParams = {};
+    let execParams: any = {};
 
     // fill in these parameters if we are executing a report
     if (isReport) {
@@ -255,11 +253,9 @@ function populateParams(options: IRequestExecuteOptions, isReport: boolean): IRe
 
     // bind client input params to our parameter map
     if (options.inputParams) {
-        execParams.inputParams = {};
-
         for (let i in options.inputParams) {
             if (options.inputParams.hasOwnProperty(i)) {
-                execParams.inputParams[i] = options.inputParams[i];
+                execParams["inputParams[" + i + "]"] = options.inputParams[i];
             }
         }
     }
