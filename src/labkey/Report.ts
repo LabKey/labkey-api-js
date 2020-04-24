@@ -97,25 +97,51 @@ export interface IRequestExecuteOptions extends RequestCallbackOptions<RequestEx
     schemaName?: string
 }
 
-export interface IRequestExecuteParams {
-    /** The name of the function to execute */
-    functionName?: string
-    /** Identifier for the report to execute */
-    reportId?: string
-    /** name of the report to execute if the id is unknown */
-    reportName?: string
-    /** Execute within the existing report session. */
-    reportSessionId?: string
-    queryName?: string
-    /** schema to which this report belongs (only used if reportName is used) */
-    schemaName?: string
-}
-
 function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XMLHttpRequest {
+    let jsonData: any = {};
+
+    // fill in these parameters if we are executing a report
+    if (isReport) {
+        if (options.reportId) {
+            jsonData.reportId = options.reportId;
+        }
+
+        if (options.reportName) {
+            jsonData.reportName = options.reportName;
+        }
+
+        if (options.schemaName) {
+            jsonData.schemaName = options.schemaName;
+        }
+
+        if (options.queryName) {
+            jsonData.queryName = options.queryName;
+        }
+    }
+    else {
+        if (options.functionName) {
+            jsonData.functionName = options.functionName;
+        }
+    }
+
+    // the rest are common
+    if (options.reportSessionId) {
+        jsonData.reportSessionId = options.reportSessionId;
+    }
+
+    // bind client input params to our parameter map
+    if (options.inputParams) {
+        for (let i in options.inputParams) {
+            if (options.inputParams.hasOwnProperty(i)) {
+                jsonData['inputParams[' + i + ']'] = options.inputParams[i];
+            }
+        }
+    }
+
     return request({
         url: buildURL('reports', 'execute.api', options.containerPath),
         method: 'POST',
-        jsonData: populateParams(options, isReport),
+        jsonData,
         success: requestExecuteWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
@@ -147,9 +173,9 @@ function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
 
 export interface IExecuteOptions extends IRequestExecuteOptions {
     /** reportId Identifier for the report to execute */
-    reportId: string
+    reportId?: string
     /** name of the report to execute if the id is unknown */
-    reportName: string
+    reportName?: string
 }
 
 /**
@@ -213,52 +239,4 @@ export function getSessions(options: IGetSessionsOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
-}
-
-/**
- * @hidden
- * @private
- */
-function populateParams(options: IRequestExecuteOptions, isReport: boolean): IRequestExecuteParams {
-    let execParams: any = {};
-
-    // fill in these parameters if we are executing a report
-    if (isReport) {
-        if (options.reportId) {
-            execParams.reportId = options.reportId;
-        }
-
-        if (options.reportName) {
-            execParams.reportName = options.reportName;
-        }
-
-        if (options.schemaName) {
-            execParams.schemaName = options.schemaName;
-        }
-
-        if (options.queryName) {
-            execParams.queryName = options.queryName;
-        }
-    }
-    else {
-        if (options.functionName) {
-            execParams.functionName = options.functionName;
-        }
-    }
-
-    // the rest are common
-    if (options.reportSessionId) {
-        execParams.reportSessionId = options.reportSessionId;
-    }
-
-    // bind client input params to our parameter map
-    if (options.inputParams) {
-        for (let i in options.inputParams) {
-            if (options.inputParams.hasOwnProperty(i)) {
-                execParams["inputParams[" + i + "]"] = options.inputParams[i];
-            }
-        }
-    }
-
-    return execParams;
 }
