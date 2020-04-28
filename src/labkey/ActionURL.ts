@@ -286,8 +286,9 @@ export function queryString(parameters?: {[key:string]: string | Array<string>})
         if (parameters.hasOwnProperty(parameter)) {
             pval = parameters[parameter];
 
-            if (pval === null || pval === undefined)
+            if (pval === null || pval === undefined) {
                 pval = '';
+            }
             else if (isFunction(pval)) {
                 continue;
             }
