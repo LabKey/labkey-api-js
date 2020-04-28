@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { getLocation, getServerContext } from './constants'
-import { isArray } from './Utils'
+import { isArray, isFunction } from './Utils'
 
 /**
  * @hidden
@@ -286,8 +286,12 @@ export function queryString(parameters?: {[key:string]: string | Array<string>})
         if (parameters.hasOwnProperty(parameter)) {
             pval = parameters[parameter];
 
-            if (pval === null || pval === undefined)
+            if (pval === null || pval === undefined) {
                 pval = '';
+            }
+            else if (isFunction(pval)) {
+                continue;
+            }
 
             if (isArray(pval)) {
                 for (let idx = 0; idx < pval.length; ++idx) {

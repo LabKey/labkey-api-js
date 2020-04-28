@@ -1,3 +1,7 @@
+## 0.2.4 - 2020-04-28
+- Module updates for 'Assay'.
+- Fix for `ActionURL.queryString()` to no longer parse functions as URL parameters.
+ 
 ## 0.2.3 - 2020-04-24
 - Report.ts fix for populateParams() handling of inputParams as key value pairs on the execParams object 
     instead of as a nested object within it
