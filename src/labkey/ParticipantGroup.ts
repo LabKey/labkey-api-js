@@ -15,67 +15,65 @@
  */
 import { buildURL } from './ActionURL'
 import { request } from './Ajax'
-import { getCallbackWrapper } from './Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
 
-export interface IUpdateParticipantGroupOptions {
-    // required
-    /** The integer ID of the desired participant group */
-    rowId: number
-
-    // optional
-    /** The container path in which the relevant study is defined. If not supplied, the current container path will be used.*/
+export interface UpdateParticipantGroupOptions extends RequestCallbackOptions {
+    /**
+     * The container path in which the relevant study is defined.
+     * If not supplied, the current container path will be used.
+     */
     containerPath?: string
     /** Set of IDs to be removed from the group if they are already members */
-    deleteParticipantIds?: Array<string>
+    deleteParticipantIds?: string[]
     /** The new value for the description of the group */
     description?: string
     /** Set of IDs to be added to the group if they are not already members */
-    ensureParticipantIds?: Array<string>
-    failure?: () => any
+    ensureParticipantIds?: string[]
     filters?: any
     /** The new value for the label of the group */
     label?: string
-    method?: string
     /** Set of IDs to be members of the group */
-    participantIds?: Array<string>
-    success?: (group?: any) => any
+    participantIds?: string[]
+    /** The integer ID of the desired participant group */
+    rowId: number
 }
 
 /**
  * Updates an existing participant group, already saved and accessible to the current user on the server.
  */
-export function updateParticipantGroup(config: IUpdateParticipantGroupOptions): void {
-
-    let jsonData: IUpdateParticipantGroupOptions = {
-        rowId: config.rowId
+export function updateParticipantGroup(options: UpdateParticipantGroupOptions): XMLHttpRequest {
+    let jsonData: any = {
+        rowId: options.rowId
     };
 
-    if (config.participantIds) {
-        jsonData.participantIds = config.participantIds;
+    if (options.participantIds) {
+        jsonData.participantIds = options.participantIds;
     }
-    if (config.ensureParticipantIds) {
-        jsonData.ensureParticipantIds = config.ensureParticipantIds;
+    if (options.ensureParticipantIds) {
+        jsonData.ensureParticipantIds = options.ensureParticipantIds;
     }
-    if (config.deleteParticipantIds) {
-        jsonData.deleteParticipantIds = config.deleteParticipantIds;
+    if (options.deleteParticipantIds) {
+        jsonData.deleteParticipantIds = options.deleteParticipantIds;
     }
-    if (config.label) {
-        jsonData.label = config.label;
+    if (options.label) {
+        jsonData.label = options.label;
     }
-    if (config.description) {
-        jsonData.description = config.description;
+    if (options.description) {
+        jsonData.description = options.description;
     }
-    if (config.filters) {
-        jsonData.filters = config.filters;
+    if (options.filters) {
+        jsonData.filters = options.filters;
     }
 
-    request({
-        url: buildURL('participant-group', 'updateParticipantGroup.api', config.containerPath),
-        method: config.method || 'POST',
+    return request({
+        url: buildURL('participant-group', 'updateParticipantGroup.api', options.containerPath),
+        method: 'POST',
         jsonData,
-        success: getCallbackWrapper(function(data: any) {
-            config.success(data.group);
-        }, this),
-        failure: getCallbackWrapper(config.failure, this, true)
+        success: getCallbackWrapper(
+            getOnSuccess(options),
+            options.scope,
+            false,
+            (data) => data.group),
+        failure: getCallbackWrapper(getOnFailure(options), this, true)
     });
 }
