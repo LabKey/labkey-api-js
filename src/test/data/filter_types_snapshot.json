@@ -287,6 +287,38 @@
     "isMultiValued": false,
     "isTableWise": false
   },
+  "EXP_DIRECT_CHILD_OF": {
+    "getDisplaySymbol": null,
+    "getDisplayText": "Is Immediate Child Of",
+    "getLongDisplayText": " is immediate child of",
+    "getMultiValueFilter": "undefined",
+    "getMultiValueMaxOccurs": "undefined",
+    "getMultiValueMinOccurs": "undefined",
+    "getMultiValueSeparator": null,
+    "getOpposite": null,
+    "getSingleValueFilter": "exp:directchildof",
+    "getURLParameterValue": "undefined",
+    "getURLSuffix": "exp:directchildof",
+    "isDataValueRequired": true,
+    "isMultiValued": false,
+    "isTableWise": false
+  },
+  "EXP_DIRECT_PARENT_OF": {
+    "getDisplaySymbol": null,
+    "getDisplayText": "Is Immediate Parent Of",
+    "getLongDisplayText": " is immediate parent of",
+    "getMultiValueFilter": "undefined",
+    "getMultiValueMaxOccurs": "undefined",
+    "getMultiValueMinOccurs": "undefined",
+    "getMultiValueSeparator": null,
+    "getOpposite": null,
+    "getSingleValueFilter": "exp:directparentof",
+    "getURLParameterValue": "undefined",
+    "getURLSuffix": "exp:directparentof",
+    "isDataValueRequired": true,
+    "isMultiValued": false,
+    "isTableWise": false
+  },
   "GREATER_THAN": {
     "getDisplaySymbol": ">",
     "getDisplayText": "Is Greater Than",

@@ -1,3 +1,6 @@
+## TBD
+- Add EXP_DIRECT_CHILD_OF and EXP_DIRECT_PARENT_OF filter types
+
 ## 0.2.4 - 2020-04-28
 - Module updates for 'Assay'.
 - Fix for `ActionURL.queryString()` to no longer parse functions as URL parameters.
