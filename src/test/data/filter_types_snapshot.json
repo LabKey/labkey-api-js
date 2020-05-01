@@ -300,7 +300,7 @@
     "getURLParameterValue": "undefined",
     "getURLSuffix": "exp:lineageof",
     "isDataValueRequired": true,
-    "isMultiValued": false,
+    "isMultiValued": true,
     "isTableWise": false
   },
   "GREATER_THAN": {
