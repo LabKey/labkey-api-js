@@ -22,7 +22,8 @@ import {
     getOnSuccess,
     isFunction,
     RequestCallbackOptions,
-    RequestFailure
+    RequestFailure,
+    RequestSuccess
 } from './Utils'
 
 export interface AddSamplesToRequestOptions extends RequestCallbackOptions {
@@ -59,7 +60,7 @@ export function addSamplesToRequest(options: AddSamplesToRequestOptions): XMLHtt
             requestId: options.requestId,
             specimenHashes: options.specimenHashArray
         },
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
     });
 }
@@ -101,7 +102,7 @@ export function addVialsToRequest(options: AddVialsToRequestOptions): XMLHttpReq
             requestId: options.requestId,
             vialIds: options.vialIdArray
         },
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
     });
 }
@@ -134,7 +135,7 @@ export function cancelRequest(options: CancelRequestOptions): XMLHttpRequest {
         jsonData: {
             requestId: options.requestId
         },
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
     });
 }
@@ -166,7 +167,7 @@ export function getOpenRequests(options: GetOpenRequestsOptions): XMLHttpRequest
             allUsers: options.allUsers
         },
         success: getCallbackWrapper(
-            getOnSuccess(options),
+            onSpecimenSuccess(options),
             options.scope,
             false,
             (data) => data.requests),
@@ -200,7 +201,7 @@ export function getProvidingLocations(options: GetProvidingLocationsOptions): XM
             specimenHashes: options.specimenHashArray
         },
         success: getCallbackWrapper(
-            getOnSuccess(options),
+            onSpecimenSuccess(options),
             options.scope,
             false,
             (data) => data.locations),
@@ -233,7 +234,7 @@ export function getRepositories(options: GetRepositoriesOptions): XMLHttpRequest
             'Content-Type': 'application/json'
         },
         success: getCallbackWrapper(
-            getOnSuccess(options),
+            onSpecimenSuccess(options),
             options.scope,
             false,
             (data) => data.repositories),
@@ -267,7 +268,7 @@ export function getRequest(options: GetRequestOptions): XMLHttpRequest {
             requestId: options.requestId
         },
         success: getCallbackWrapper(
-            getOnSuccess(options),
+            onSpecimenSuccess(options),
             options.scope,
             false,
             (data) => data.request),
@@ -291,7 +292,7 @@ export function getSpecimenWebPartGroups(options: GetSpecimenWebPartGroupsOption
         headers: {
             'Content-Type': 'application/json'
         },
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
     });
 }
@@ -322,7 +323,7 @@ export function getVialsByRowId(options: GetVialsByRowIdOptions): XMLHttpRequest
             rowIds: options.vialRowIdArray
         },
         success: getCallbackWrapper(
-            getOnSuccess(options),
+            onSpecimenSuccess(options),
             options.scope,
             false,
             (data) => data.vials),
@@ -346,7 +347,7 @@ export function getVialTypeSummary(options: GetVialTypeSummaryOptions): XMLHttpR
         headers: {
             'Content-Type': 'application/json'
         },
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
     });
 }
@@ -388,9 +389,34 @@ export function removeVialsFromRequest(options: RemoveVialsFromRequestOptions): 
             requestId: options.requestId,
             vialIds: options.vialIdArray
         },
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
     });
+}
+
+/**
+ * @hidden
+ * @private
+ */
+function onSpecimenSuccess(options: RequestCallbackOptions): RequestSuccess {
+    const success = getOnSuccess(options);
+    const { scope } = options;
+
+    if (success) {
+        if (scope) {
+            // Explicit scope requested. Let getCallbackWrapper() handle scoped callback.
+            return success;
+        } else {
+            // backward compatibility: maintain caller's scope.
+            // Cannot use "return success" as this would alter scope.
+            return function(data, request, requestOptions): void {
+                success(data, request, requestOptions);
+            };
+        }
+    }
+
+    // success not specified
+    return undefined;
 }
 
 /**
@@ -401,6 +427,10 @@ function remapArguments(options: any, args: IArguments): boolean {
     return options && (isFunction(options) || args.length > 1);
 }
 
+/**
+ * @hidden
+ * @private
+ */
 const REBIND: RequestFailure = (err, response): any => displayAjaxErrorResponse(response, err);
 
 /**
