@@ -1,5 +1,5 @@
 ## TBD
-- Add EXP_DIRECT_CHILD_OF and EXP_DIRECT_PARENT_OF filter types
+- Add EXP_LINEAGE_OF filter type
 
 ## 0.2.4 - 2020-04-28
 - Module updates for 'Assay'.

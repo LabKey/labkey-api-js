@@ -121,8 +121,7 @@ export let Types: {[key:string]: IFilterType} = {
 
     EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
     EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, undefined, ' is parent of'),
-    EXP_DIRECT_CHILD_OF: registerFilterType('Is Immediate Child Of', null, 'exp:directchildof', true, undefined, ' is immediate child of'),
-    EXP_DIRECT_PARENT_OF: registerFilterType('Is Immediate Parent Of', null, 'exp:directparentof', true, undefined, ' is immediate parent of'),
+    EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', null, 'exp:lineageof', true, ',', ' in the lineage of'),
 
     //
     // These are the 'no data value' operators
