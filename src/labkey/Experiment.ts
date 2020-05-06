@@ -20,28 +20,18 @@ import { insertRows } from './query/Rows'
 
 import { Run, RunGroup } from './Exp'
 
-/**
- * The name of the protocol used by Experiment. This can be used for "protocolName".
- */
+/** The name of the protocol used by Experiment. This can be used for "protocolName". */
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
 
 /**
  * Several Experiment API endpoints expose optional settings for the ExperimentJSONConverter.
  */
 export interface ExperimentJSONConverterOptions {
-    /**
-     * Include run and step inputs and outputs.
-     */
+    /** Include run and step inputs and outputs. */
     includeInputsAndOutputs?: boolean
-
-    /**
-     * Include properties set on the experiment objects.
-     */
+    /** Include properties set on the experiment objects. */
     includeProperties?: boolean
-
-    /**
-     * Include run steps.
-     */
+    /** Include run steps. */
     includeRunSteps?: boolean
 }
 
@@ -67,17 +57,17 @@ function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOpt
     return params;
 }
 
-export interface ICreateHiddenRunGroupOptions extends RequestCallbackOptions<RunGroup> {
+export interface CreateHiddenRunGroupOptions extends RequestCallbackOptions<RunGroup> {
     /**
-     * An alternate container path to get permissions from. If not specified, the current container path will be used.
+     * An alternate container path to get permissions from.
+     * If not specified, the current container path will be used.
      */
     containerPath?: string
-
     /**
-     * An array of integer ids for the runs to be members of the group. Either runIds or selectionKey must be specified.
+     * An array of integer ids for the runs to be members of the group.
+     * Either runIds or selectionKey must be specified.
      */
-    runIds?: Array<number>
-
+    runIds?: number[]
     /**
      * The DataRegion's selectionKey to be used to resolve the runs to be members of the group.
      * Either runIds or selectionKey must be specified.
@@ -89,7 +79,7 @@ export interface ICreateHiddenRunGroupOptions extends RequestCallbackOptions<Run
  * Create or recycle an existing run group. Run groups are the basis for some operations, like comparing
  * MS2 runs to one another.
  */
-export function createHiddenRunGroup(options: ICreateHiddenRunGroupOptions): XMLHttpRequest {
+export function createHiddenRunGroup(options: CreateHiddenRunGroupOptions): XMLHttpRequest {
     let jsonData: any = {};
 
     if (options.runIds && options.selectionKey) {
@@ -156,11 +146,16 @@ export function exportRuns(config: any) {
     throw new Error('dom/Experiment.js required');
 }
 
-export interface IBaseSaveBatchOptions {
+export interface BaseSaveBatchOptions {
     /** The assay protocol id. */
     assayId: number
     /** The name of the assay. */
     assayName?: string
+    /**
+     * Save batch(es) to a specific container. If not specified, the batch(es) will be saved
+     * to the current container.
+     */
+    containerPath?: string
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
@@ -170,17 +165,13 @@ export interface IBaseSaveBatchOptions {
     providerName?: string
 }
 
-export interface ISaveBatchOptions extends IBaseSaveBatchOptions, RequestCallbackOptions<RunGroup> {
-    /**
-     * A modified RunGroup.
-     */
+export interface SaveBatchOptions extends BaseSaveBatchOptions, RequestCallbackOptions<RunGroup> {
+    /** A modified RunGroup. */
     batch?: RunGroup
 }
 
-export interface ISaveBatchesOptions extends IBaseSaveBatchOptions, RequestCallbackOptions<RunGroup[]> {
-    /**
-     * The modified RunGroups.
-     */
+export interface SaveBatchesOptions extends BaseSaveBatchOptions, RequestCallbackOptions<RunGroup[]> {
+    /** The modified RunGroups. */
     batches?: RunGroup[]
 }
 
@@ -194,91 +185,99 @@ export interface LineagePKFilter {
     value: any
 }
 
-export interface LineageNode {
-    absolutePath: string
-    children: LineageEdge[]
-    cpasType: string
+export interface LineageItemBase {
+    container: string
+    cpasType?: string
     created: string
     createdBy: string
-    dataFileURL: string
-    distance: number
+    expType: string
     id: number
-    listURL: string
     lsid: string
     modified: string
     modifiedBy: string
     name: string
-    parents: LineageEdge[]
-    pipelinePath: string
     pkFilters: LineagePKFilter[]
-    properties: any
     queryName: string
     schemaName: string
-    type: string
-    url: string
+    type?: string
+    url?: string
 }
 
-export interface LineageResponse {
-    /**
-     * Object containing all lineage nodes in this lineage result. Keyed by node LSID.
-     */
-    nodes: {[lsid:string]: LineageNode}
+export interface LineageIOConfig {
+    dataInputs?: LineageItemBase[]
+    dataOutputs?: LineageItemBase[]
+    materialInputs?: LineageItemBase[]
+    materialOutputs?: LineageItemBase[]
+}
 
+export interface LineageRunStepBase {
+    applicationType: string
+    activityDate: string
+    activitySequence: number
+    protocol: LineageItemBase
+}
+
+export type LineageRunStep = LineageItemBase & LineageIOConfig & LineageRunStepBase;
+
+export interface LineageNodeBase {
+    absolutePath: string
+    children: LineageEdge[]
+    dataFileURL: string
+    distance: number
+    listURL: string
+    parents: LineageEdge[]
+    pipelinePath: string
+    properties: any
+    steps?: LineageRunStep[]
+}
+
+export type LineageNode = LineageItemBase & LineageIOConfig & LineageNodeBase;
+
+export interface LineageResponse {
+    /** Object containing all lineage nodes in this lineage result. Keyed by node LSID. */
+    nodes: {[lsid:string]: LineageNode}
     /**
-     * When request is made with "lsid" option the response will include a singluar "seed".
+     * When request is made with "lsid" option the response will include a singular "seed".
      * @deprecated since 19.3. Use "seeds" instead.
      */
     seed: string
-
-    /**
-     * LSID "seeds" for this lineage result.
-     */
+    /** LSID "seeds" for this lineage result. */
     seeds: string[]
 }
 
-export interface ILineageOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<LineageResponse> {
-    /**
-     * Include children in the lineage response. Defaults to true.
-     */
+export interface LineageOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<LineageResponse> {
+    /** Include children in the lineage response. Defaults to true. */
     children?: boolean
-
     /**
-     * Optional LSID of a SampleSet or DataClass to filter the response. Defaults to include all.
+     * The path to the container in which the LSIDs are defined. If not supplied, the current container's
+     * path will be used. All requested LSID's must be defined in the same container. If they are not, then
+     * you should consider making separate requests per container.
      */
+    containerPath?: string
+    /** Optional LSID of a SampleSet or DataClass to filter the response. Defaults to include all. */
     cpasType?: string
-
-    /**
-     * An optional depth argument.  Defaults to include all.
-     */
+    /** An optional depth argument. Defaults to include all. */
     depth?: number
-
     /**
      * Optional experiment type to filter response -- either "Data", "Material", or "ExperimentRun".
      * Defaults to include all.
      */
     expType?: string
-
     /**
      * The LSID for the seed ExpData, ExpMaterials, or ExpRun.
      * @deprecated since 19.3. Use "lsids" instead.
      */
     lsid: string
-
-    /**
-     * Array of LSIDs for the seed ExpData, ExpMaterials, or ExpRun.
-     */
+    /** Array of LSIDs for the seed ExpData, ExpMaterials, or ExpRun. */
     lsids?: string[]
-
-    /**
-     * Include parents in the lineage response.  Defaults to true.
-     */
+    /** Include parents in the lineage response. Defaults to true. */
     parents?: boolean
 }
 
 /**
  * Get parent/child relationships of ExpData, ExpMaterial, or ExpRun.
  */
-export function lineage(options: ILineageOptions): XMLHttpRequest {
+export function lineage(options: LineageOptions): XMLHttpRequest {
     let params = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.lsids) {
@@ -308,38 +307,28 @@ export function lineage(options: ILineageOptions): XMLHttpRequest {
     }
 
     return request({
-        url: buildURL('experiment', 'lineage.api'),
+        url: buildURL('experiment', 'lineage.api', options.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });    
 }
 
-export interface ILoadBatchOptions extends RequestCallbackOptions<RunGroup> {
-    /**
-     * The assay protocol id.
-     */
+export interface LoadBatchOptions extends RequestCallbackOptions<RunGroup> {
+    /** The assay protocol id. */
     assayId: number
-
-    /**
-     * The name of the assay.
-     */
+    /** The name of the assay. */
     assayName: string
-
-    /**
-     * The batch id.
-     */
+    /** The batch id. */
     batchId: number
-
+    /** Load batch from a specific container. If not specified, the batch will be loaded from the current container. */
+    containerPath?: string
     /**
-     * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
-     * is supported.
+     * Optional protocol name to be used for non-assay backed runs.
+     * Currently only SAMPLE_DERIVATION_PROTOCOL is supported.
      */
     protocolName?: string
-
-    /**
-     * The assay provider name.
-     */
+    /** The assay provider name. */
     providerName: string
 }
 
@@ -356,9 +345,9 @@ export interface ILoadBatchOptions extends RequestCallbackOptions<RunGroup> {
  * });
  * ```
  */
-export function loadBatch(options: ILoadBatchOptions): XMLHttpRequest {
+export function loadBatch(options: LoadBatchOptions): XMLHttpRequest {
     return request({
-        url: buildURL('assay', 'getAssayBatch.api'),
+        url: buildURL('assay', 'getAssayBatch.api', options.containerPath),
         method: 'POST',
         jsonData: {
             assayId: options.assayId,
@@ -377,13 +366,18 @@ export function loadBatch(options: ILoadBatchOptions): XMLHttpRequest {
     });
 }
 
-export interface ILoadBatchesOptions extends RequestCallbackOptions<RunGroup[]> {
+export interface LoadBatchesOptions extends RequestCallbackOptions<RunGroup[]> {
     /** The assay protocol id. */
     assayId: number
     /** The name of the assay. */
     assayName: string
     /** An Array of batch ids. */
-    batchIds: Array<number>
+    batchIds: number[]
+    /**
+     * Load batches from a specific container. If not specified, the batches will be loaded from
+     * the current container.
+     */
+    containerPath?: string
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
@@ -397,9 +391,9 @@ export interface ILoadBatchesOptions extends RequestCallbackOptions<RunGroup[]> 
  * Loads batches from the server. See the [Module Assay](https://www.labkey.org/Documentation/wiki-page.view?name=moduleassay)
  * documentation for more information.
  */
-export function loadBatches(options: ILoadBatchesOptions): XMLHttpRequest {
+export function loadBatches(options: LoadBatchesOptions): XMLHttpRequest {
     return request({
-        url: buildURL('assay', 'getAssayBatches.api'),
+        url: buildURL('assay', 'getAssayBatches.api', options.containerPath),
         method: 'POST',
         jsonData: {
             assayId: options.assayId,
@@ -413,14 +407,16 @@ export function loadBatches(options: ILoadBatchesOptions): XMLHttpRequest {
     });
 }
 
-export interface ILoadRunsOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<Run[]> {
+export interface LoadRunsOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<Run[]> {
+    /** Load runs from a specific container. If not specified, the runs will be loaded from the current container. */
+    containerPath?: string;
     /** An Array of run LSIDs to fetch. */
     lsids?: string[]
     /** An Array of run ids to fetch. */
     runIds?: number[]
 }
 
-export function loadRuns(options: ILoadRunsOptions): XMLHttpRequest {
+export function loadRuns(options: LoadRunsOptions): XMLHttpRequest {
     let jsonData = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.runIds) {
@@ -431,7 +427,7 @@ export function loadRuns(options: ILoadRunsOptions): XMLHttpRequest {
     }
 
     return request({
-        url: buildURL('assay', 'getAssayRuns.api'),
+        url: buildURL('assay', 'getAssayRuns.api', options.containerPath),
         method: 'POST',
         jsonData,
         success: getCallbackWrapper<Run[]>(getOnSuccess(options), options.scope, false, createRuns),
@@ -443,17 +439,19 @@ export interface ResolveResponse {
     data: LineageNode[]
 }
 
-export interface IResolveOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<ResolveResponse> {
+export interface ResolveOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<ResolveResponse> {
     /**
-     * The list of run lsids.
+     * The path to the container in which the LSIDs are defined. If not supplied, the current container's
+     * path will be used. All requested LSID's must be defined in the same container. If they are not, then
+     * you should consider making separate requests per container.
      */
+    containerPath?: string
+    /** The list of run lsids. */
     lsids?: string[]
 }
 
-/**
- * Resolve LSIDs.
- */
-export function resolve(options: IResolveOptions): XMLHttpRequest {
+/** Resolve LSIDs. */
+export function resolve(options: ResolveOptions): XMLHttpRequest {
     let params = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.lsids) {
@@ -461,7 +459,7 @@ export function resolve(options: IResolveOptions): XMLHttpRequest {
     }
     
     return request({
-        url: buildURL('experiment', 'resolve.api'),
+        url: buildURL('experiment', 'resolve.api', options.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
@@ -470,12 +468,12 @@ export function resolve(options: IResolveOptions): XMLHttpRequest {
 
 // formerly, _saveBatches
 function requestSaveBatches<SuccessPayload>(
-    rawOptions: ISaveBatchOptions & ISaveBatchesOptions,
+    rawOptions: SaveBatchOptions & SaveBatchesOptions,
     payloadProcessor: (json: any) => SuccessPayload
 ): XMLHttpRequest {
 
     return request({
-        url: buildURL('assay', 'saveAssayBatch.api'),
+        url: buildURL('assay', 'saveAssayBatch.api', rawOptions.containerPath),
         method: 'POST',
         jsonData: {
             assayId: rawOptions.assayId,
@@ -518,7 +516,7 @@ function requestSaveBatches<SuccessPayload>(
  * });
  * ```
  */
-export function saveBatch(options: ISaveBatchOptions): XMLHttpRequest {
+export function saveBatch(options: SaveBatchOptions): XMLHttpRequest {
     return requestSaveBatches<RunGroup>(options as any, (json: any) => {
         if (json.batches) {
             return new RunGroup(json.batches[0]);
@@ -534,22 +532,19 @@ export function saveBatch(options: ISaveBatchOptions): XMLHttpRequest {
  * more information.
  * @param options
  */
-export function saveBatches(options: ISaveBatchesOptions): XMLHttpRequest {
-    return requestSaveBatches<Array<RunGroup>>(options as any, createRunGroups);
+export function saveBatches(options: SaveBatchesOptions): XMLHttpRequest {
+    return requestSaveBatches<RunGroup[]>(options as any, createRunGroups);
 }
 
-export interface ISaveMaterialsOptions extends RequestCallbackOptions {
+export interface SaveMaterialsOptions extends RequestCallbackOptions {
     /** An array of LABKEY.Exp.Material objects to be saved. */
     materials: any
     /** Name of the sample set. */
     name: string
 }
 
-/**
- * Saves materials.
- * @param options
- */
-export function saveMaterials(options: ISaveMaterialsOptions): XMLHttpRequest {
+/** Saves materials. */
+export function saveMaterials(options: SaveMaterialsOptions): XMLHttpRequest {
     return insertRows({
         schemaName: 'Samples',
         queryName: options.name,
@@ -560,11 +555,13 @@ export function saveMaterials(options: ISaveMaterialsOptions): XMLHttpRequest {
     })
 }
 
-export interface ISaveRunsOptions extends RequestCallbackOptions {
+export interface SaveRunsOptions extends RequestCallbackOptions {
     /** The assay protocol id. */
     assayId?: number
     /** The name of the assay. */
     assayName?: string
+    /** Save runs to a specific container. If not specified, the runs will be saved to the current container. */
+    containerPath?: string;
     /**
      * Protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
@@ -576,12 +573,10 @@ export interface ISaveRunsOptions extends RequestCallbackOptions {
     runs: any // TODO: What is this type? Likely too strict to have Array<Run> as "Run-like" objects are also accepted.
 }
 
-/**
- * Save modified runs.
- */
-export function saveRuns(options: ISaveRunsOptions): XMLHttpRequest {
+/** Save modified runs. */
+export function saveRuns(options: SaveRunsOptions): XMLHttpRequest {
     return request({
-        url: buildURL('assay', 'saveAssayRuns.api'),
+        url: buildURL('assay', 'saveAssayRuns.api', options.containerPath),
         method: 'POST',
         jsonData: {
             assayId: options.assayId,
