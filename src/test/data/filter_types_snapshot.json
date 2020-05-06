@@ -287,6 +287,22 @@
     "isMultiValued": false,
     "isTableWise": false
   },
+  "EXP_LINEAGE_OF": {
+    "getDisplaySymbol": null,
+    "getDisplayText": "In The Lineage Of",
+    "getLongDisplayText": " in the lineage of",
+    "getMultiValueFilter": null,
+    "getMultiValueMaxOccurs": "undefined",
+    "getMultiValueMinOccurs": "undefined",
+    "getMultiValueSeparator": ",",
+    "getOpposite": null,
+    "getSingleValueFilter": "undefined",
+    "getURLParameterValue": "undefined",
+    "getURLSuffix": "exp:lineageof",
+    "isDataValueRequired": true,
+    "isMultiValued": true,
+    "isTableWise": false
+  },
   "GREATER_THAN": {
     "getDisplaySymbol": ">",
     "getDisplayText": "Is Greater Than",

@@ -1,3 +1,6 @@
+## 0.2.6 - 2020-05-05
+- Add EXP_LINEAGE_OF filter type
+
 ## 0.2.5 - 2020-04-28
 - Adds `containerPath` property to all `Experiment` module actions.
 - Improve typings for `Experiment.lineage()` and `Experiment.resolve()` return types.
