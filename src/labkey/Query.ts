@@ -40,8 +40,8 @@ import {
     truncateTable,
     updateRows
 } from './query/Rows'
-import { selectDistinctRows } from './query/SelectDistinctRows'
-import { selectRows } from './query/SelectRows'
+import { SelectDistinctOptions, SelectDistinctResponse, selectDistinctRows } from './query/SelectDistinctRows'
+import { SelectRowsOptions, selectRows } from './query/SelectRows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 import { Filter } from './filter/Filter'
@@ -76,7 +76,10 @@ export {
     Row,
     saveQueryViews,
     saveRows,
+    SelectDistinctOptions,
+    SelectDistinctResponse,
     selectDistinctRows,
+    SelectRowsOptions,
     selectRows,
     sqlDateLiteral,
     sqlDateTimeLiteral,
