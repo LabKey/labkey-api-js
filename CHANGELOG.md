@@ -1,4 +1,4 @@
-## TBD
+## 0.2.6 - 2020-05-05
 - Add EXP_LINEAGE_OF filter type
 
 ## 0.2.5 - 2020-04-28
