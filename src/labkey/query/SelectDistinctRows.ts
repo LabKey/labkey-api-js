@@ -26,7 +26,7 @@ export interface SelectDistinctResponse {
     values: any[]
 }
 
-export interface ISelectDistinctOptions extends RequestCallbackOptions<SelectDistinctResponse> {
+export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDistinctResponse> {
     /**
      * A single column for which the distinct results will be requested.
      * This column must exist within the specified query.
@@ -89,7 +89,7 @@ export interface ISelectDistinctOptions extends RequestCallbackOptions<SelectDis
  * @hidden
  * @private
  */
-function buildSelectDistinctParams(options: ISelectDistinctOptions): any {
+function buildSelectDistinctParams(options: SelectDistinctOptions): any {
     let params = buildQueryParams(
         options.schemaName,
         options.queryName,
@@ -132,7 +132,7 @@ function buildSelectDistinctParams(options: ISelectDistinctOptions): any {
 /**
  * Select Distinct Rows
  */
-export function selectDistinctRows(options: ISelectDistinctOptions): XMLHttpRequest {
+export function selectDistinctRows(options: SelectDistinctOptions): XMLHttpRequest {
     if (!options.schemaName)
         throw 'You must specify a schemaName!';
     if (!options.queryName)

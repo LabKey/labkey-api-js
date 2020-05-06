@@ -1,3 +1,6 @@
+## 0.2.7 - 2020-05-06
+- Export SelectDistinctOptions, SelectDistinctResponse, SelectRowsOptions
+
 ## 0.2.6 - 2020-05-05
 - Add EXP_LINEAGE_OF filter type
 

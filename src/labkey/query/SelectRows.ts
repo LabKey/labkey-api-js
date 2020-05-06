@@ -22,7 +22,7 @@ import { buildQueryParams, ContainerFilter, getMethod, getSuccessCallbackWrapper
 
 export type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 
-export interface ISelectRowsOptions extends RequestCallbackOptions {
+export interface SelectRowsOptions extends RequestCallbackOptions {
     /**
      * An Array of columns or a comma-delimited list of column names you wish to select from the specified query.
      * By default, selectRows will return the set of columns defined in the default value for this query, as defined
@@ -120,7 +120,7 @@ export interface ISelectRowsOptions extends RequestCallbackOptions {
  * @hidden
  * @private
  */
-function buildSelectRowsParams(options: ISelectRowsOptions): any {
+function buildSelectRowsParams(options: SelectRowsOptions): any {
 
     let params = buildQueryParams(
         options.schemaName,
@@ -199,7 +199,7 @@ function buildSelectRowsParams(options: ISelectRowsOptions): any {
  * @private
  * Provides backwards compatibility with pre-1.0 selectRows() argument configuration.
  */
-function selectRowArguments(args: IArguments): ISelectRowsOptions {
+function selectRowArguments(args: IArguments): SelectRowsOptions {
     return {
         schemaName: args[0],
         queryName: args[1],
@@ -242,7 +242,7 @@ function selectRowArguments(args: IArguments): ISelectRowsOptions {
  * for the async request that can be used to cancel the request. In server-side scripts,
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
-export function selectRows(options: ISelectRowsOptions): XMLHttpRequest {
+export function selectRows(options: SelectRowsOptions): XMLHttpRequest {
 
     if (arguments.length > 1) {
         options = selectRowArguments(arguments);
