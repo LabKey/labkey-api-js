@@ -1,3 +1,13 @@
+## 0.2.8 - 2020-05-07
+- Module updates for `ParticipantGroup` and `Specimen`.
+- Utilize `RequestCallBackOptions` for option interfaces.
+- Rename interfaces away from `I<Name>` pattern to `<Name>`.
+- Use common `getCallbackWrapper()` pattern allowing for `scope` and additional arguments. 
+Backwards compatibility wrapper for original scoping behavior (see `onSpecimenSuccess`).
+- Utilize `responseTransformer` argument on `getCallbackWrapper()` in lieu of custom "keyed" handling 
+formerly done by `getSuccessCallbackWrapper()` which has been removed.
+- Package updates.
+
 ## 0.2.7 - 2020-05-06
 - Export SelectDistinctOptions, SelectDistinctResponse, SelectRowsOptions
 
