@@ -55,6 +55,10 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
      * Defaults to true.
      */
     transacted?: boolean
+    /**
+     * Experimental provenance information for APIs that support it
+     */
+    provenance?: any
 }
 
 /**
@@ -301,7 +305,8 @@ function sendRequest(options: SendRequestOptions): XMLHttpRequest {
             rows: options.rows || options.rowDataArray,
             transacted: options.transacted,
             extraContext: options.extraContext,
-            auditBehavior: options.auditBehavior
+            auditBehavior: options.auditBehavior,
+            provenance: options.provenance
         },
         timeout: options.timeout
     });
