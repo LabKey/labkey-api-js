@@ -1,3 +1,6 @@
+## 0.2.9 - 2020-05-22
+- Domain.getDomainDetails API support for domainKind parameter
+
 ## 0.2.8 - 2020-05-07
 - Module updates for `ParticipantGroup` and `Specimen`.
 - Utilize `RequestCallBackOptions` for option interfaces.
