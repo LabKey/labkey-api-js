@@ -29,6 +29,7 @@ declare let LABKEY: any;
 
 LABKEY.ActionURL = API.ActionURL;
 LABKEY.Ajax = API.Ajax;
+LABKEY.App = API.App;
 LABKEY.Assay = API.Assay;
 LABKEY.Domain = API.Domain;
 LABKEY.Exp = API.Exp;
@@ -49,3 +50,6 @@ LABKEY.Specimen = API.Specimen;
 LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
 LABKEY.__package__ = __package__;
+
+// The app registry needs to be initialized after the namespace has been established.
+API.App.init(LABKEY);

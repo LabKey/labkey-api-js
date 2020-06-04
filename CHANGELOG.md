@@ -1,3 +1,6 @@
+## 0.3.0 - 2020-06-04
+- Introduce "App" module `registerApp` / `loadApp`
+
 ## 0.2.9 - 2020-05-22
 - Domain.getDomainDetails API support for domainKind parameter
 
