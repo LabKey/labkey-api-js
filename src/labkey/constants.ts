@@ -52,6 +52,17 @@ export interface Container {
     type: string
 }
 
+export interface Project {
+    /** GUID of this project. */
+    id: string
+    /** Name of the project. This is used in the project's container path. */
+    name: string
+    /** Path of this project. */
+    path: string
+    /** GUID of the root container, which is the parent for the project. */
+    rootId: string
+}
+
 export enum ExperimentalFeatures {
     containerRelativeURL = 'containerRelativeURL',
     disableGuestAccount = 'disableGuestAccount',
@@ -91,6 +102,7 @@ export type LabKey = {
     moduleContext: any
     Mothership: any
     postParameters?: any
+    project: Project
     requiresCss?: Function
     requiresScript: Function
     Security: any
@@ -103,6 +115,7 @@ export type LabKey = {
     uuids: Array<string>
     verbose: boolean
     vis: any
+    WebSocket: any
 }
 
 export interface User {
