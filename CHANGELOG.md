@@ -1,3 +1,6 @@
+## 0.3.1 - 2020-06-05
+- Item 7373: Add "project" and "WebSocket" to LabKey typing, which will allow for main.d.ts file overrides to be removed in a few modules
+
 ## 0.3.0 - 2020-06-04
 - Introduce "App" module `registerApp` / `loadApp`
 
