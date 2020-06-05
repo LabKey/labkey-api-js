@@ -118,16 +118,20 @@ export type LabKey = {
     WebSocket: any
 }
 
-export interface User {
+export interface UserProps {
     avatar: string
     email: string
+    displayName: string
+    id: number
+    phone: string
+}
+
+export interface UserPermissionsProps {
     canDelete: boolean
     canDeleteOwn: boolean
     canInsert: boolean
     canUpdate: boolean
     canUpdateOwn: boolean
-    displayName: string
-    id: number
     isAdmin: boolean
     isAnalyst: boolean
     isDeveloper: boolean
@@ -136,8 +140,9 @@ export interface User {
     isSignedIn: boolean
     isSystemAdmin: boolean
     isTrusted: boolean
-    phone: string
 }
+
+export type User = UserProps & UserPermissionsProps;
 
 declare let LABKEY: LabKey;
 
