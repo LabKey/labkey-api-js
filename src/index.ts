@@ -21,8 +21,7 @@ import {
     LabKey,
     getServerContext,
     User,
-    UserPermissionsProps,
-    UserProps,
+    UserWithPermissions,
 } from './labkey/constants';
 
 // modules
@@ -61,8 +60,7 @@ export {
     LabKey,
     getServerContext,
     User,
-    UserPermissionsProps,
-    UserProps,
+    UserWithPermissions,
 
     // modules
     ActionURL,

@@ -45,7 +45,8 @@ import {
 import {
     createNewUser,
     ensureLogin,
-    getUsers
+    getUsers,
+    getUsersWithPermissions
 } from './security/User'
 import {
     addGroupMembers,
@@ -94,6 +95,7 @@ export {
     getSharedContainer,
     getUserPermissions,
     getUsers,
+    getUsersWithPermissions,
     hasEffectivePermission,
     hasPermission,
     moveContainer,

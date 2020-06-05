@@ -146,20 +146,13 @@ export function ensureLogin(config: EnsureLoginOptions): XMLHttpRequest | void {
     }
 }
 
-export interface GetUsersUser {
-    /** The user's display name. */
-    displayName: string
-    /** The user's email address. */
-    email: string
-    /** The user's userId. */
-    userId: number
-}
-
 export interface GetUsersResponse {
     /** The path of the requested container. */
     container: string
+    /** If "name" property is specified on request, then it's value will be included in the response. */
+    name?: string
     /** An array of users matching the request criteria. */
-    users: GetUsersUser[]
+    users: User[]
 }
 
 export interface GetUsersOptions extends RequestCallbackOptions<GetUsersResponse> {
@@ -197,6 +190,37 @@ export interface GetUsersOptions extends RequestCallbackOptions<GetUsersResponse
  * (first parameter of the success or failure callbacks.)
  */
 export function getUsers(config: GetUsersOptions): XMLHttpRequest {
+    return getUsersRequest('getUsers.api', config);
+}
+
+export interface GetUsersWithPermissionsOptions extends GetUsersOptions {
+    /**
+     * A permissions string or an Array of permissions strings.
+     * If multiple permissions are specified, then all returned users will have all specified permissions.
+     */
+    permissions: string | string[]
+}
+
+/**
+ * Retrieves the set of users that have all of a specified set of permissions.  A group
+ * may be provided and only users within that group will be returned.  A name (prefix) may be
+ * provided and only users whose email or display name starts with the prefix will be returned.
+ * This will not return any deactivated users (since they do not have permissions of any sort).
+ *
+ * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
+ */
+export function getUsersWithPermissions(config: GetUsersWithPermissionsOptions): XMLHttpRequest {
+    return getUsersRequest('getUsersWithPermissions.api', config);
+}
+
+/**
+ * @hidden
+ * @private
+ */
+function getUsersRequest(endpoint: string, config: GetUsersOptions): XMLHttpRequest {
     let params: any = {};
 
     // TODO: These undefined checked should be !==
@@ -207,7 +231,7 @@ export function getUsers(config: GetUsersOptions): XMLHttpRequest {
         params.group = config.group;
     }
 
-    if (config.name != undefined) {
+    if (config.name) {
         params.name = config.name;
     }
 
@@ -229,9 +253,9 @@ export function getUsers(config: GetUsersOptions): XMLHttpRequest {
     }
 
     return request({
-        url: buildURL('user', 'getUsers.api', config.containerPath),
+        url: buildURL('user', endpoint, config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
-    })
+    });
 }
