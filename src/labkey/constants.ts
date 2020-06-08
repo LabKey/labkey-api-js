@@ -124,6 +124,8 @@ export interface User {
     displayName: string
     id: number
     phone: string
+    // Some LabKey Server API responses specify "userId" in addition to "id" when serializing a User response.
+    // This will not always be available but is made available in the typings for ease of use of this interface.
     userId?: number
 }
 
