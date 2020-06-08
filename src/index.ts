@@ -24,7 +24,7 @@ import {
     UserWithPermissions,
 } from './labkey/constants';
 
-import { PermissionTypes } from './labkey/Security/constants';
+import { PermissionTypes } from './labkey/security/constants';
 
 // modules
 import * as ActionURL from './labkey/ActionURL';
