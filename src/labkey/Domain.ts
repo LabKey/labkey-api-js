@@ -236,7 +236,10 @@ export interface GetDomainDetailsResponse {
 }
 
 export interface GetDomainDetailsOptions extends
-    BaseGetDomainOptions, RequestCallbackOptions<GetDomainDetailsResponse> { }
+    BaseGetDomainOptions, RequestCallbackOptions<GetDomainDetailsResponse> {
+    /** The domain kind, used for the create domain case when you want to get the details/options for the given domain kind. */
+    domainKind?: string
+}
 
 /**
  * Gets a domain design.
@@ -281,7 +284,8 @@ export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpReques
         params: {
             schemaName: options.schemaName,
             queryName: options.queryName,
-            domainId: options.domainId
+            domainId: options.domainId,
+            domainKind: options.domainKind
         }
     });
 }

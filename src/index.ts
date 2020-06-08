@@ -24,6 +24,7 @@ import {
 // modules
 import * as ActionURL from './labkey/ActionURL';
 import * as Ajax from './labkey/Ajax';
+import * as App from './labkey/App';
 import * as Assay from './labkey/Assay';
 import * as Domain from './labkey/Domain';
 import * as Exp from './labkey/Exp';
@@ -58,6 +59,7 @@ export {
     // modules
     ActionURL,
     Ajax,
+    App,
     Assay,
     AssayDOM,
     Domain,
