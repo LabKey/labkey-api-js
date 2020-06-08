@@ -17,6 +17,7 @@ import {
     currentContainer,
     currentUser,
     effectivePermissions,
+    PermissionTypes,
     permissions,
     roles,
     systemGroups
@@ -67,6 +68,7 @@ export {
     currentContainer,
     currentUser,
     effectivePermissions,
+    PermissionTypes,
     permissions,
     roles,
     systemGroups,
