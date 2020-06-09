@@ -17,6 +17,7 @@ import {
     currentContainer,
     currentUser,
     effectivePermissions,
+    PermissionTypes,
     permissions,
     roles,
     systemGroups
@@ -45,7 +46,8 @@ import {
 import {
     createNewUser,
     ensureLogin,
-    getUsers
+    getUsers,
+    getUsersWithPermissions
 } from './security/User'
 import {
     addGroupMembers,
@@ -66,6 +68,7 @@ export {
     currentContainer,
     currentUser,
     effectivePermissions,
+    PermissionTypes,
     permissions,
     roles,
     systemGroups,
@@ -94,6 +97,7 @@ export {
     getSharedContainer,
     getUserPermissions,
     getUsers,
+    getUsersWithPermissions,
     hasEffectivePermission,
     hasPermission,
     moveContainer,

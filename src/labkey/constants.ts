@@ -111,7 +111,7 @@ export type LabKey = {
     submit: boolean
     unloadMessage: string
     useMDYDateParsing?: boolean
-    user: Partial<User>
+    user: Partial<UserWithPermissions>
     uuids: Array<string>
     verbose: boolean
     vis: any
@@ -121,13 +121,20 @@ export type LabKey = {
 export interface User {
     avatar: string
     email: string
+    displayName: string
+    id: number
+    phone: string
+    // Some LabKey Server API responses specify "userId" in addition to "id" when serializing a User response.
+    // This will not always be available but is made available in the typings for ease of use of this interface.
+    userId?: number
+}
+
+export interface UserWithPermissions extends User {
     canDelete: boolean
     canDeleteOwn: boolean
     canInsert: boolean
     canUpdate: boolean
     canUpdateOwn: boolean
-    displayName: string
-    id: number
     isAdmin: boolean
     isAnalyst: boolean
     isDeveloper: boolean
@@ -136,7 +143,6 @@ export interface User {
     isSignedIn: boolean
     isSystemAdmin: boolean
     isTrusted: boolean
-    phone: string
 }
 
 declare let LABKEY: LabKey;
@@ -149,7 +155,7 @@ export function getServerContext(): LabKey {
     return LABKEY;
 }
 
-export function setGlobalUser(user: User): LabKey {
+export function setGlobalUser(user: UserWithPermissions): LabKey {
     LABKEY.user = user;
     return LABKEY;
 }

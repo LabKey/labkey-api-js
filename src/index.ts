@@ -16,10 +16,15 @@
 // constants
 import {
     AuditBehaviorTypes,
+    Container,
     ExperimentalFeatures,
     LabKey,
     getServerContext,
+    User,
+    UserWithPermissions,
 } from './labkey/constants';
+
+import { PermissionTypes } from './labkey/security/constants';
 
 // modules
 import * as ActionURL from './labkey/ActionURL';
@@ -52,9 +57,13 @@ import * as UtilsDOM from './labkey/dom/Utils';
 export {
     // constants
     AuditBehaviorTypes,
+    Container,
     ExperimentalFeatures,
     LabKey,
     getServerContext,
+    PermissionTypes,
+    User,
+    UserWithPermissions,
 
     // modules
     ActionURL,
