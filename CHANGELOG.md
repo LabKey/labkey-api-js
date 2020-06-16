@@ -1,3 +1,6 @@
+## 0.3.3 - 2020-06-16
+- Package updates.
+
 ## 0.3.2 - 2020-06-08
 * Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()` 
 as they share payload processing on the server.
