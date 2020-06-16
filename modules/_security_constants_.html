@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>&quot;security/constants&quot; | @labkey/api</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for @labkey/api">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -69,6 +69,12 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Enumerations</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-enum tsd-parent-kind-module"><a href="../enums/_security_constants_.permissiontypes.html" class="tsd-kind-icon">Permission<wbr>Types</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_security_constants_.html#currentcontainer" class="tsd-kind-icon">current<wbr>Container</a></li>
@@ -95,19 +101,12 @@
 					<div class="tsd-signature tsd-kind-icon">current<wbr>Container<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = getServerContext().container</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L28">src/labkey/security/constants.ts:28</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L21">src/labkey/security/constants.ts:21</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Exposes limited information about the current container. This property returns a JavaScript object
-							with the following properties:</p>
-							<ul>
-								<li>id: the container's unique id (entityid)</li>
-								<li>name: the name of the container</li>
-								<li>path: the path of the current container</li>
-								<li>type: the type of container, either project, folder or workbook</li>
-							</ul>
+							<p>Exposes limited information about the current container.</p>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">
@@ -122,28 +121,12 @@
 					<div class="tsd-signature tsd-kind-icon">current<wbr>User<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = getServerContext().user</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L49">src/labkey/security/constants.ts:49</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L26">src/labkey/security/constants.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Exposes limited information about the current user. This property returns a JavaScript object
-							with the following properties:</p>
-							<ul>
-								<li>id: the user's unique id number</li>
-								<li>displayName: the user's display name</li>
-								<li>email: the user's email address</li>
-								<li>canInsert: set to true if this user can insert data in the current folder</li>
-								<li>canUpdate: set to true if this user can update data in the current folder</li>
-								<li>canUpdateOwn: set to true if this user can update data this user created in the current folder</li>
-								<li>canDelete: set to true if this user can delete data in the current folder</li>
-								<li>canDeleteOwn: set to true if this user can delete data this user created in the current folder</li>
-								<li>isAdmin: set to true if this user has admin permissions in the current folder</li>
-								<li>isGuest: set to true if this user is the guest (anonymous) user</li>
-								<li>isSystemAdmin: set to true if this user is a system administrator</li>
-								<li>isDeveloper: set to true if this user is a developer</li>
-								<li>isSignedIn: set to true if this user is signed in</li>
-							</ul>
+							<p>Exposes limited information about the current user.</p>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">
@@ -161,7 +144,7 @@
 					<div class="tsd-signature tsd-kind-icon">effective<wbr>Permissions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L66">src/labkey/security/constants.ts:66</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L70">src/labkey/security/constants.ts:70</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -177,67 +160,72 @@
 								<li>del</li>
 								<li>readOwn</li>
 							</ul>
-							For example, to refer to the update permission, the syntax would be:<br/>
-							<pre><code>LABKEY.Security.effectivePermissions.update</code></pre>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>Use <a href="../enums/_security_constants_.permissiontypes.html">PermissionTypes</a> instead.
+								For example, to refer to the update permission, the syntax would be:<br/></p>
+								<pre><code>LABKEY.Security.effectivePermissions.update</code></pre>
+							</dd>
+						</dl>
 					</div>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="effectivepermissions.admin" class="tsd-anchor"></a>
 						<h3>admin</h3>
-						<div class="tsd-signature tsd-kind-icon">admin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;org.labkey.api.security.permissions.AdminPermission&quot;</span></div>
+						<div class="tsd-signature tsd-kind-icon">admin<span class="tsd-signature-symbol">:</span> <a href="../enums/_security_constants_.permissiontypes.html" class="tsd-signature-type">PermissionTypes</a><span class="tsd-signature-symbol"> = PermissionTypes.Admin</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L69">src/labkey/security/constants.ts:69</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L73">src/labkey/security/constants.ts:73</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="effectivepermissions.del" class="tsd-anchor"></a>
 						<h3>del</h3>
-						<div class="tsd-signature tsd-kind-icon">del<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;org.labkey.api.security.permissions.DeletePermission&quot;</span></div>
+						<div class="tsd-signature tsd-kind-icon">del<span class="tsd-signature-symbol">:</span> <a href="../enums/_security_constants_.permissiontypes.html" class="tsd-signature-type">PermissionTypes</a><span class="tsd-signature-symbol"> = PermissionTypes.Delete</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L70">src/labkey/security/constants.ts:70</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L74">src/labkey/security/constants.ts:74</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="effectivepermissions.insert" class="tsd-anchor"></a>
 						<h3>insert</h3>
-						<div class="tsd-signature tsd-kind-icon">insert<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;org.labkey.api.security.permissions.InsertPermission&quot;</span></div>
+						<div class="tsd-signature tsd-kind-icon">insert<span class="tsd-signature-symbol">:</span> <a href="../enums/_security_constants_.permissiontypes.html" class="tsd-signature-type">PermissionTypes</a><span class="tsd-signature-symbol"> = PermissionTypes.Insert</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L67">src/labkey/security/constants.ts:67</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L71">src/labkey/security/constants.ts:71</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="effectivepermissions.read" class="tsd-anchor"></a>
 						<h3>read</h3>
-						<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;org.labkey.api.security.permissions.ReadPermission&quot;</span></div>
+						<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <a href="../enums/_security_constants_.permissiontypes.html" class="tsd-signature-type">PermissionTypes</a><span class="tsd-signature-symbol"> = PermissionTypes.Read</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L68">src/labkey/security/constants.ts:68</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L72">src/labkey/security/constants.ts:72</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="effectivepermissions.readown" class="tsd-anchor"></a>
 						<h3>read<wbr>Own</h3>
-						<div class="tsd-signature tsd-kind-icon">read<wbr>Own<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;org.labkey.api.security.permissions.ReadSomePermission&quot;</span></div>
+						<div class="tsd-signature tsd-kind-icon">read<wbr>Own<span class="tsd-signature-symbol">:</span> <a href="../enums/_security_constants_.permissiontypes.html" class="tsd-signature-type">PermissionTypes</a><span class="tsd-signature-symbol"> = PermissionTypes.ReadSome</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L71">src/labkey/security/constants.ts:71</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L75">src/labkey/security/constants.ts:75</a></li>
 							</ul>
 						</aside>
 					</section>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal">
 						<a name="effectivepermissions.update" class="tsd-anchor"></a>
 						<h3>update</h3>
-						<div class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;org.labkey.api.security.permissions.UpdatePermission&quot;</span></div>
+						<div class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">:</span> <a href="../enums/_security_constants_.permissiontypes.html" class="tsd-signature-type">PermissionTypes</a><span class="tsd-signature-symbol"> = PermissionTypes.Update</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L72">src/labkey/security/constants.ts:72</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L76">src/labkey/security/constants.ts:76</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -248,7 +236,7 @@
 					<div class="tsd-signature tsd-kind-icon">permissions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L93">src/labkey/security/constants.ts:93</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L97">src/labkey/security/constants.ts:97</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -277,7 +265,7 @@
 						<div class="tsd-signature tsd-kind-icon">admin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 32768</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L101">src/labkey/security/constants.ts:101</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L105">src/labkey/security/constants.ts:105</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -287,7 +275,7 @@
 						<div class="tsd-signature tsd-kind-icon">all<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 65535</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L102">src/labkey/security/constants.ts:102</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L106">src/labkey/security/constants.ts:106</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -297,7 +285,7 @@
 						<div class="tsd-signature tsd-kind-icon">del<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 8</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L97">src/labkey/security/constants.ts:97</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L101">src/labkey/security/constants.ts:101</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -307,7 +295,7 @@
 						<div class="tsd-signature tsd-kind-icon">delete<wbr>Own<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 128</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L100">src/labkey/security/constants.ts:100</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L104">src/labkey/security/constants.ts:104</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -317,7 +305,7 @@
 						<div class="tsd-signature tsd-kind-icon">insert<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 2</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L95">src/labkey/security/constants.ts:95</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L99">src/labkey/security/constants.ts:99</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -327,7 +315,7 @@
 						<div class="tsd-signature tsd-kind-icon">read<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L94">src/labkey/security/constants.ts:94</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L98">src/labkey/security/constants.ts:98</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -337,7 +325,7 @@
 						<div class="tsd-signature tsd-kind-icon">read<wbr>Own<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 16</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L98">src/labkey/security/constants.ts:98</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L102">src/labkey/security/constants.ts:102</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -347,7 +335,7 @@
 						<div class="tsd-signature tsd-kind-icon">update<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 4</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L96">src/labkey/security/constants.ts:96</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L100">src/labkey/security/constants.ts:100</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -357,7 +345,7 @@
 						<div class="tsd-signature tsd-kind-icon">update<wbr>Own<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 64</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L99">src/labkey/security/constants.ts:99</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L103">src/labkey/security/constants.ts:103</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -368,7 +356,7 @@
 					<div class="tsd-signature tsd-kind-icon">roles<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L119">src/labkey/security/constants.ts:119</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L123">src/labkey/security/constants.ts:123</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -393,7 +381,7 @@
 						<div class="tsd-signature tsd-kind-icon">admin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 65535</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L122">src/labkey/security/constants.ts:122</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L126">src/labkey/security/constants.ts:126</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -403,7 +391,7 @@
 						<div class="tsd-signature tsd-kind-icon">author<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 195</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L124">src/labkey/security/constants.ts:124</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L128">src/labkey/security/constants.ts:128</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -413,7 +401,7 @@
 						<div class="tsd-signature tsd-kind-icon">editor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 15</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L123">src/labkey/security/constants.ts:123</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L127">src/labkey/security/constants.ts:127</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -423,7 +411,7 @@
 						<div class="tsd-signature tsd-kind-icon">no<wbr>Perms<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L128">src/labkey/security/constants.ts:128</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L132">src/labkey/security/constants.ts:132</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -433,7 +421,7 @@
 						<div class="tsd-signature tsd-kind-icon">reader<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 1</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L125">src/labkey/security/constants.ts:125</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L129">src/labkey/security/constants.ts:129</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -443,7 +431,7 @@
 						<div class="tsd-signature tsd-kind-icon">restricted<wbr>Reader<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 16</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L126">src/labkey/security/constants.ts:126</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L130">src/labkey/security/constants.ts:130</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -453,7 +441,7 @@
 						<div class="tsd-signature tsd-kind-icon">submitter<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 2</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L127">src/labkey/security/constants.ts:127</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L131">src/labkey/security/constants.ts:131</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -464,7 +452,7 @@
 					<div class="tsd-signature tsd-kind-icon">system<wbr>Groups<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L144">src/labkey/security/constants.ts:144</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L148">src/labkey/security/constants.ts:148</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -488,7 +476,7 @@
 						<div class="tsd-signature tsd-kind-icon">administrators<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -1</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L145">src/labkey/security/constants.ts:145</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L149">src/labkey/security/constants.ts:149</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -498,7 +486,7 @@
 						<div class="tsd-signature tsd-kind-icon">developers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -4</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L148">src/labkey/security/constants.ts:148</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L152">src/labkey/security/constants.ts:152</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -508,7 +496,7 @@
 						<div class="tsd-signature tsd-kind-icon">guests<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -3</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L147">src/labkey/security/constants.ts:147</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L151">src/labkey/security/constants.ts:151</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -518,7 +506,7 @@
 						<div class="tsd-signature tsd-kind-icon">users<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = -2</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/security/constants.ts#L146">src/labkey/security/constants.ts:146</a></li>
+								<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/security/constants.ts#L150">src/labkey/security/constants.ts:150</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -538,6 +526,9 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-module">
+						<a href="../enums/_security_constants_.permissiontypes.html" class="tsd-kind-icon">Permission<wbr>Types</a>
+					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
 						<a href="_security_constants_.html#currentcontainer" class="tsd-kind-icon">current<wbr>Container</a>
 					</li>

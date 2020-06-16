@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Data | @labkey/api</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for @labkey/api">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -82,17 +82,17 @@
 					<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"upload-run-form"</span> <span class="hljs-attr">enctype</span>=<span class="hljs-string">"multipart/form-data"</span> <span class="hljs-attr">method</span>=<span class="hljs-string">"POST"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"upload-run-button"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="actionscript">
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span>&gt;</span><span class="javascript">
     LABKEY.Utils.requiresScript(<span class="hljs-string">"FileUploadField.js"</span>);
-    Ext.onReady(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{
+    Ext.onReady(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
        <span class="hljs-keyword">var</span> form = <span class="hljs-keyword">new</span> Ext.form.BasicForm(
        Ext.get(<span class="hljs-string">"upload-run-form"</span>), {
-          fileUpload: <span class="hljs-literal">true</span>,
-          frame: <span class="hljs-literal">false</span>,
+          <span class="hljs-attr">fileUpload</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">frame</span>: <span class="hljs-literal">false</span>,
           <span class="hljs-comment">// Optional - specify a protocolId so that the Exp.Data object is assigned the related LSID namespace.</span>
-          url: LABKEY.ActionURL.buildURL(<span class="hljs-string">"assay"</span>, <span class="hljs-string">"assayFileUpload"</span>, <span class="hljs-literal">undefined</span>, { protocolId: <span class="hljs-number">50</span> }),
-          listeners: {
-             actioncomplete : <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(form, action)</span> </span>{
+          <span class="hljs-attr">url</span>: LABKEY.ActionURL.buildURL(<span class="hljs-string">"assay"</span>, <span class="hljs-string">"assayFileUpload"</span>, <span class="hljs-literal">undefined</span>, { <span class="hljs-attr">protocolId</span>: <span class="hljs-number">50</span> }),
+          <span class="hljs-attr">listeners</span>: {
+             <span class="hljs-attr">actioncomplete</span> : <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">form, action</span>) </span>{
                 alert(<span class="hljs-string">'Upload successful!'</span>);
                 <span class="hljs-keyword">var</span> data = <span class="hljs-keyword">new</span> LABKEY.Exp.Data(action.result);
 
@@ -105,20 +105,20 @@
                 <span class="hljs-comment">// fetch the parsed file contents from the data object</span>
                 <span class="hljs-comment">// using the LABKEY.Exp.Data#getContent() method.</span>
              },
-             actionfailed: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(form, action)</span> </span>{
+             <span class="hljs-attr">actionfailed</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">form, action</span>) </span>{
                 alert(<span class="hljs-string">'Upload failed!'</span>);
              }
           }
        });
 
        <span class="hljs-keyword">var</span> uploadField = <span class="hljs-keyword">new</span> Ext.form.FileUploadField({
-          id: <span class="hljs-string">"upload-run-field"</span>,
-          renderTo: <span class="hljs-string">"upload-run-button"</span>,
-          buttonText: <span class="hljs-string">"Upload Data..."</span>,
-          buttonOnly: <span class="hljs-literal">true</span>,
-          buttonCfg: { cls: <span class="hljs-string">"labkey-button"</span> },
-          listeners: {
-             <span class="hljs-string">"fileselected"</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(fb, v)</span> </span>{
+          <span class="hljs-attr">id</span>: <span class="hljs-string">"upload-run-field"</span>,
+          <span class="hljs-attr">renderTo</span>: <span class="hljs-string">"upload-run-button"</span>,
+          <span class="hljs-attr">buttonText</span>: <span class="hljs-string">"Upload Data..."</span>,
+          <span class="hljs-attr">buttonOnly</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">buttonCfg</span>: { <span class="hljs-attr">cls</span>: <span class="hljs-string">"labkey-button"</span> },
+          <span class="hljs-attr">listeners</span>: {
+             <span class="hljs-string">"fileselected"</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">fb, v</span>) </span>{
                 form.submit();
              }
           }
@@ -209,7 +209,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#constructor">constructor</a></p>
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L424">src/labkey/Exp.ts:424</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L424">src/labkey/Exp.ts:424</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -232,7 +232,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#comment">comment</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L38">src/labkey/Exp.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L38">src/labkey/Exp.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -248,7 +248,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#created">created</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L43">src/labkey/Exp.ts:43</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L43">src/labkey/Exp.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -264,7 +264,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#createdby">createdBy</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L48">src/labkey/Exp.ts:48</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L48">src/labkey/Exp.ts:48</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -279,7 +279,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>Class<span class="tsd-signature-symbol">:</span> <a href="../modules/_exp_.html#expdatadataclass" class="tsd-signature-type">ExpDataDataClass</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L404">src/labkey/Exp.ts:404</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L404">src/labkey/Exp.ts:404</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -294,7 +294,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>FileURL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L409">src/labkey/Exp.ts:409</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L409">src/labkey/Exp.ts:409</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -309,7 +309,7 @@
 					<div class="tsd-signature tsd-kind-icon">data<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L414">src/labkey/Exp.ts:414</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L414">src/labkey/Exp.ts:414</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -325,7 +325,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#id">id</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L53">src/labkey/Exp.ts:53</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L53">src/labkey/Exp.ts:53</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -341,7 +341,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#lsid">lsid</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L58">src/labkey/Exp.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L58">src/labkey/Exp.ts:58</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -357,7 +357,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#modified">modified</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L63">src/labkey/Exp.ts:63</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L63">src/labkey/Exp.ts:63</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -373,7 +373,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#modifiedby">modifiedBy</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L68">src/labkey/Exp.ts:68</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L68">src/labkey/Exp.ts:68</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -389,7 +389,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#name">name</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L73">src/labkey/Exp.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L73">src/labkey/Exp.ts:73</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -404,7 +404,7 @@
 					<div class="tsd-signature tsd-kind-icon">pipeline<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L419">src/labkey/Exp.ts:419</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L419">src/labkey/Exp.ts:419</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -420,7 +420,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#properties">properties</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L83">src/labkey/Exp.ts:83</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L83">src/labkey/Exp.ts:83</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -448,7 +448,7 @@
 					<div class="tsd-signature tsd-kind-icon">role<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L424">src/labkey/Exp.ts:424</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L424">src/labkey/Exp.ts:424</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -464,7 +464,7 @@
 					<aside class="tsd-sources">
 						<p>Inherited from <a href="_exp_.expobject.html">ExpObject</a>.<a href="_exp_.expobject.html#rowid">rowId</a></p>
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L88">src/labkey/Exp.ts:88</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L88">src/labkey/Exp.ts:88</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -486,7 +486,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Exp.ts#L542">src/labkey/Exp.ts:542</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Exp.ts#L542">src/labkey/Exp.ts:542</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>AssayDesign | @labkey/api</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for @labkey/api">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -109,7 +109,7 @@
 					<div class="tsd-signature tsd-kind-icon">container<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L98">src/labkey/Assay.ts:98</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L113">src/labkey/Assay.ts:113</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -124,7 +124,7 @@
 					<div class="tsd-signature tsd-kind-icon">description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L100">src/labkey/Assay.ts:100</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L115">src/labkey/Assay.ts:115</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,10 +136,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="domaintypes" class="tsd-anchor"></a>
 					<h3>domain<wbr>Types</h3>
-					<div class="tsd-signature tsd-kind-icon">domain<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">domain<wbr>Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L110">src/labkey/Assay.ts:110</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L125">src/labkey/Assay.ts:125</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -148,14 +148,22 @@
 							The value is a domain name which can be used as a key lookup into the &quot;domain&quot; object.</p>
 						</div>
 					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>domainType: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><span class="tsd-signature-type">string</span></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="domains" class="tsd-anchor"></a>
 					<h3>domains</h3>
-					<div class="tsd-signature tsd-kind-icon">domains<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<div class="tsd-signature tsd-kind-icon">domains<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L105">src/labkey/Assay.ts:105</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L120">src/labkey/Assay.ts:120</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -164,6 +172,14 @@
 							Each domain is associated with an array of objects that each describe a domain field.</p>
 						</div>
 					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-index-signature">
+								<h5><span class="tsd-signature-symbol">[</span>domainName: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">]: </span><a href="_query_types_.querycolumn.html" class="tsd-signature-type">QueryColumn</a></h5>
+							</li>
+						</ul>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="id" class="tsd-anchor"></a>
@@ -171,7 +187,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L112">src/labkey/Assay.ts:112</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L127">src/labkey/Assay.ts:127</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -186,7 +202,7 @@
 					<div class="tsd-signature tsd-kind-icon">import<wbr>Action<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L114">src/labkey/Assay.ts:114</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L129">src/labkey/Assay.ts:129</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -201,7 +217,7 @@
 					<div class="tsd-signature tsd-kind-icon">import<wbr>Controller<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L116">src/labkey/Assay.ts:116</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L131">src/labkey/Assay.ts:131</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -216,7 +232,7 @@
 					<div class="tsd-signature tsd-kind-icon">links<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><a href="../enums/_assay_.assaylink.html" class="tsd-signature-type">AssayLink</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L118">src/labkey/Assay.ts:118</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L133">src/labkey/Assay.ts:133</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -231,7 +247,7 @@
 					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L96">src/labkey/Assay.ts:96</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L111">src/labkey/Assay.ts:111</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -246,7 +262,7 @@
 					<div class="tsd-signature tsd-kind-icon">plate<wbr>Template<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L120">src/labkey/Assay.ts:120</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L135">src/labkey/Assay.ts:135</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -261,7 +277,7 @@
 					<div class="tsd-signature tsd-kind-icon">project<wbr>Level<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L122">src/labkey/Assay.ts:122</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L137">src/labkey/Assay.ts:137</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -276,7 +292,7 @@
 					<div class="tsd-signature tsd-kind-icon">protocol<wbr>Schema<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L124">src/labkey/Assay.ts:124</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L139">src/labkey/Assay.ts:139</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -291,7 +307,7 @@
 					<div class="tsd-signature tsd-kind-icon">template<wbr>Link<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L127">src/labkey/Assay.ts:127</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L141">src/labkey/Assay.ts:141</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -306,7 +322,7 @@
 					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/62f1e23/src/labkey/Assay.ts#L129">src/labkey/Assay.ts:129</a></li>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/16e352f/src/labkey/Assay.ts#L143">src/labkey/Assay.ts:143</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -384,26 +400,29 @@
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_assay_.igetassaysoptions.html" class="tsd-kind-icon">IGet<wbr>Assays<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_assay_.getassaysoptions.html" class="tsd-kind-icon">Get<wbr>Assays<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_assay_.getbyidoptions.html" class="tsd-kind-icon">Get<wbr>ById<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_assay_.getbynameoptions.html" class="tsd-kind-icon">Get<wbr>ByName<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_assay_.getbytypeoptions.html" class="tsd-kind-icon">Get<wbr>ByType<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_assay_.getnabrunsoptions.html" class="tsd-kind-icon">GetNAb<wbr>Runs<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_assay_.getstudynabgraphurloptions.html" class="tsd-kind-icon">Get<wbr>Study<wbr>Nab<wbr>GraphURLOptions</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_assay_.igetbyidoptions.html" class="tsd-kind-icon">IGet<wbr>ById<wbr>Options</a>
+						<a href="_assay_.getstudynabgraphurlresponse.html" class="tsd-kind-icon">Get<wbr>Study<wbr>Nab<wbr>GraphURLResponse</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_assay_.igetbynameoptions.html" class="tsd-kind-icon">IGet<wbr>ByName<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_assay_.igetbytypeoptions.html" class="tsd-kind-icon">IGet<wbr>ByType<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_assay_.igetnabrunsoptions.html" class="tsd-kind-icon">IGetNAb<wbr>Runs<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_assay_.igetstudynabgraphurloptions.html" class="tsd-kind-icon">IGet<wbr>Study<wbr>Nab<wbr>GraphURLOptions</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_assay_.igetstudynabrunsoptions.html" class="tsd-kind-icon">IGet<wbr>Study<wbr>Nab<wbr>Runs<wbr>Options</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_assay_.getstudynabrunsoptions.html" class="tsd-kind-icon">Get<wbr>Study<wbr>Nab<wbr>Runs<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="../modules/_assay_.html#getall" class="tsd-kind-icon">get<wbr>All</a>
