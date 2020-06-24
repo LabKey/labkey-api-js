@@ -1,3 +1,14 @@
+## 0.3.3 - 2020-06-16
+- Package updates.
+
+## 0.3.2 - 2020-06-08
+* Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()` 
+as they share payload processing on the server.
+* Split `User` interface into `User` and `UserWithPermissions` to better model server response shapes.
+* Publically export `Container`, `User`, and `UserWithPermissions` interfaces.
+* Migrated `PermissionTypes` from `@labkey/components` and switched it to an enum. Deprecated `effectivePermissions` 
+that was previously declared.
+
 ## 0.3.1 - 2020-06-05
 - Item 7373: Add "project" and "WebSocket" to LabKey typing, which will allow for main.d.ts file overrides to be removed in a few modules
 

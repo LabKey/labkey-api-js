@@ -16,37 +16,40 @@
 import { getServerContext } from '../constants'
 
 /**
- * Exposes limited information about the current container. This property returns a JavaScript object
- * with the following properties:
- * <ul>
- * <li>id: the container's unique id (entityid)</li>
- * <li>name: the name of the container</li>
- * <li>path: the path of the current container</li>
- * <li>type: the type of container, either project, folder or workbook</li>
- * </ul>
+ * Exposes limited information about the current container.
  */
 export const currentContainer = getServerContext().container;
 
 /**
- * Exposes limited information about the current user. This property returns a JavaScript object
- * with the following properties:
- * <ul>
- * <li>id: the user's unique id number</li>
- * <li>displayName: the user's display name</li>
- * <li>email: the user's email address</li>
- * <li>canInsert: set to true if this user can insert data in the current folder</li>
- * <li>canUpdate: set to true if this user can update data in the current folder</li>
- * <li>canUpdateOwn: set to true if this user can update data this user created in the current folder</li>
- * <li>canDelete: set to true if this user can delete data in the current folder</li>
- * <li>canDeleteOwn: set to true if this user can delete data this user created in the current folder</li>
- * <li>isAdmin: set to true if this user has admin permissions in the current folder</li>
- * <li>isGuest: set to true if this user is the guest (anonymous) user</li>
- * <li>isSystemAdmin: set to true if this user is a system administrator</li>
- * <li>isDeveloper: set to true if this user is a developer</li>
- * <li>isSignedIn: set to true if this user is signed in</li>
- * </ul>
+ * Exposes limited information about the current user.
  */
 export const currentUser = getServerContext().user;
+
+/**
+ * An enumeration of commonly used permission types supported in LabKey Server.
+ * This can be used in conjunction with the hasEffectivePermission() method to test if
+ * a user or group has a particular permission.
+ */
+export enum PermissionTypes {
+    // CRUD
+    Admin = 'org.labkey.api.security.permissions.AdminPermission',
+    Delete = 'org.labkey.api.security.permissions.DeletePermission',
+    Insert = 'org.labkey.api.security.permissions.InsertPermission',
+    Read = 'org.labkey.api.security.permissions.ReadPermission',
+    Update = 'org.labkey.api.security.permissions.UpdatePermission',
+
+    // Other
+    ApplicationAdmin = 'org.labkey.api.security.permissions.ApplicationAdminPermission',
+    DesignAssay = 'org.labkey.api.assay.security.DesignAssayPermission',
+    DesignDataClass = 'org.labkey.api.security.permissions.DesignDataClassPermission',
+    DesignList = 'org.labkey.api.lists.permissions.DesignListPermission',
+    DesignSampleSet = 'org.labkey.api.security.permissions.DesignSampleSetPermission',
+    ReadSome = 'org.labkey.api.security.permissions.ReadSomePermission',
+    UserManagement = 'org.labkey.api.security.permissions.UserManagementPermission',
+
+    // Assay QC
+    QCAnalyst = 'org.labkey.api.security.permissions.QCAnalystPermission',
+}
 
 /**
  * A map of commonly used effective permissions supported in the LabKey Server.
@@ -60,16 +63,17 @@ export const currentUser = getServerContext().user;
  * <li>del</li>
  * <li>readOwn</li>
  * </ul>
+ * @deprecated Use [[PermissionTypes]] instead.
  * For example, to refer to the update permission, the syntax would be:<br/>
  * <pre><code>LABKEY.Security.effectivePermissions.update</code></pre>
  */
 export const effectivePermissions = {
-    insert: 'org.labkey.api.security.permissions.InsertPermission',
-    read: 'org.labkey.api.security.permissions.ReadPermission',
-    admin: 'org.labkey.api.security.permissions.AdminPermission',
-    del: 'org.labkey.api.security.permissions.DeletePermission',
-    readOwn: 'org.labkey.api.security.permissions.ReadSomePermission',
-    update: 'org.labkey.api.security.permissions.UpdatePermission'
+    insert: PermissionTypes.Insert,
+    read: PermissionTypes.Read,
+    admin: PermissionTypes.Admin,
+    del: PermissionTypes.Delete,
+    readOwn: PermissionTypes.ReadSome,
+    update: PermissionTypes.Update,
 };
 
 /**
