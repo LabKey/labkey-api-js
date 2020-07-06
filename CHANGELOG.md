@@ -1,3 +1,8 @@
+## 1.0.0 - 2020-07-07
+- Replaces the original JavaScript API served under `LABKEY` global namespace on LabKey Server pages.
+- Universal module definition (UMD) published package targeting ES6.
+- Full fidelity TypeScript definitions.
+
 ## 0.3.4 - 2020-07-07
 - getFiltersFromParameters: Use Object.keys instead of "for(paramName in params)".
 
