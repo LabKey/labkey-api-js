@@ -19,8 +19,8 @@ LabKey Server and is included with LabKey Server v20.7. Release highlights:
 
 ### Pre-v1.0 usage
 
-It is highly recommended you update to the 1.x version of this package as soon as possible. Any releases pre-1.0 are considered
-experimental and were used only for development purposes.
+It is highly recommended you update to the 1.x version of this package as soon as possible. Any pre-1.0 releases are 
+considered experimental and were used only for development purposes.
 
 ## Installation
 
