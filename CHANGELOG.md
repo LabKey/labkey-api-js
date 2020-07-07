@@ -1,12 +1,15 @@
+## 0.3.4 - 2020-07-07
+- getFiltersFromParameters: Use Object.keys instead of "for(paramName in params)".
+
 ## 0.3.3 - 2020-06-16
 - Package updates.
 
 ## 0.3.2 - 2020-06-08
-* Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()` 
+- Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()` 
 as they share payload processing on the server.
-* Split `User` interface into `User` and `UserWithPermissions` to better model server response shapes.
-* Publically export `Container`, `User`, and `UserWithPermissions` interfaces.
-* Migrated `PermissionTypes` from `@labkey/components` and switched it to an enum. Deprecated `effectivePermissions` 
+- Split `User` interface into `User` and `UserWithPermissions` to better model server response shapes.
+- Publically export `Container`, `User`, and `UserWithPermissions` interfaces.
+- Migrated `PermissionTypes` from `@labkey/components` and switched it to an enum. Deprecated `effectivePermissions` 
 that was previously declared.
 
 ## 0.3.1 - 2020-06-05

@@ -254,32 +254,29 @@ export function getFiltersFromParameters(params: {[key:string]: any}, dataRegion
     let filters: Array<IFilter> = [];
     const regionName = ensureRegionName(dataRegionName);
 
-    for (const paramName in params) {
-        if (params.hasOwnProperty(paramName)) {
-            // Look for parameters that have the right prefix
-            if (paramName.indexOf(regionName + '.') == 0) {
-                let tilde = paramName.indexOf('~');
+    Object.keys(params).forEach(paramName => {
+        if (paramName.indexOf(regionName + '.') == 0) {
+            let tilde = paramName.indexOf('~');
 
-                if (tilde != -1) {
-                    let columnName = paramName.substring(regionName.length + 1, tilde);
-                    let filterName = paramName.substring(tilde + 1);
-                    let filterType = getFilterTypeForURLSuffix(filterName);
+            if (tilde != -1) {
+                let columnName = paramName.substring(regionName.length + 1, tilde);
+                let filterName = paramName.substring(tilde + 1);
+                let filterType = getFilterTypeForURLSuffix(filterName);
 
-                    let values = params[paramName];
-                    // Create separate Filter objects if the filter parameter appears on the URL more than once.
-                    if (isArray(values)) {
-                        for (let i = 0; i < values.length; i++) {
-                            filters.push(create(columnName, values[i], filterType));
-                        }
+                let values = params[paramName];
+                // Create separate Filter objects if the filter parameter appears on the URL more than once.
+                if (isArray(values)) {
+                    for (let i = 0; i < values.length; i++) {
+                        filters.push(create(columnName, values[i], filterType));
                     }
-                    else {
-                        filters.push(create(columnName, values, filterType));
-                    }
-
                 }
+                else {
+                    filters.push(create(columnName, values, filterType));
+                }
+
             }
         }
-    }
+    });
 
     return filters;
 }
