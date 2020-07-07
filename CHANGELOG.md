@@ -1,4 +1,4 @@
-## 0.3.4 - 2020-07-??
+## 0.3.4 - 2020-07-07
 - getFiltersFromParameters: Use Object.keys instead of "for(paramName in params)".
 
 ## 0.3.3 - 2020-06-16
