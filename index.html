@@ -65,15 +65,26 @@
 				<a href="#labkeyapi" id="labkeyapi" style="color: inherit; text-decoration: none;">
 					<h1>@labkey/api</h1>
 				</a>
+				<p><a href="https://labkey.github.io/labkey-api-js/">API Docs</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md">Change Log</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/LICENSE">License</a></p>
 				<p>JavaScript package for interacting with <a href="https://www.labkey.com/">LabKey Server</a>. The goal for this package is to
 					provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the
 				browser, on the server, and in pretty much any modern JavaScript environment.</p>
 				<p>Written with joy in TypeScript.</p>
-				<a href="#usage-advisory" id="usage-advisory" style="color: inherit; text-decoration: none;">
-					<h2>Usage Advisory</h2>
+				<a href="#v10---official-stable-release" id="v10---official-stable-release" style="color: inherit; text-decoration: none;">
+					<h2>v1.0 - Official stable release</h2>
 				</a>
-				<p>This package is under development. We&#39;re preparing the 1.0.0 release but in the meantime treat this package as
-				experimental. All code is subject to change. See the <a href="CHANGELOG.md">CHANGELOG</a> for changes in this version.</p>
+				<p>v1.0 is the first stable release of the <code>@labkey/api</code> package. This package is the official JavaScript API package for
+				LabKey Server and is included with LabKey Server v20.7. Release highlights:</p>
+				<ul>
+					<li>Replaces the original JavaScript API served under <code>LABKEY</code> global namespace on LabKey Server pages.</li>
+					<li>Universal module definition (UMD) published package targeting ES6.</li>
+					<li>Full fidelity TypeScript definitions.</li>
+				</ul>
+				<a href="#pre-v10-usage" id="pre-v10-usage" style="color: inherit; text-decoration: none;">
+					<h3>Pre-v1.0 usage</h3>
+				</a>
+				<p>It is highly recommended you update to the 1.x version of this package as soon as possible. Any pre-1.0 releases are
+				considered experimental and were used only for development purposes.</p>
 				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
 					<h2>Installation</h2>
 				</a>
@@ -105,20 +116,31 @@ npm run build</code></pre>
 				<p>Now that the distribution is built you can load it up by serving the index.html file found in the package root. To
 					serve it up from IntelliJ you can &quot;Open in Browser&quot;. This will let you explore the API as it is exposed via
 				the <code>LABKEY</code> global namespace.</p>
-				<a href="#running-against-a-labkey-server" id="running-against-a-labkey-server" style="color: inherit; text-decoration: none;">
-					<h3>Running against a LabKey Server</h3>
+				<a href="#local-labkey-server" id="local-labkey-server" style="color: inherit; text-decoration: none;">
+					<h3>Local LabKey Server</h3>
 				</a>
-				<p>If you would like to experiment with running this code against LabKey Server it is possible thanks to the provided
-					wrapper for the <code>LABKEY</code> global namespace. The following assumes you have a
-				<a href="https://www.labkey.org/Documentation/wiki-page.view?name=devMachine">LabKey development environment setup</a>.</p>
-				<a href="#deploy-using-experimental-flag" id="deploy-using-experimental-flag" style="color: inherit; text-decoration: none;">
-					<h4>Deploy Using Experimental Flag</h4>
+				<p>To make changes to this package and serve those changes from a local LabKey Server instance you
+				can do so via the following steps:</p>
+				<ol>
+					<li>Build the package (as described above).</li>
+					<li>Copy the package&#39;s <code>/dist</code> directory to <code>/&lt;labkey root&gt;/server/modules/platform/core/node_modules/@labkey/api/dist</code>.</li>
+					<li>Navigate to <code>/&lt;labkey root&gt;/server/modules/platform/core</code>.</li>
+					<li>Run <code>node build.js</code> from the <code>core</code> module directory.</li>
+				</ol>
+				<p>Your changes will now be included in the bundle served by your local LabKey Server instance.</p>
+				<a href="#determining-package-version" id="determining-package-version" style="color: inherit; text-decoration: none;">
+					<h4>Determining package version</h4>
 				</a>
-				<p>Starting in version LabKey v20.5 this package can be used in LabKey Server by enabling
-				the &quot;Use @labkey/api on the client-side&quot; experimental feature.</p>
-				<p>You can verify the package version being used by opening the browser console and typing:</p>
+				<p>If you&#39;re using this package from a LabKey Server page you can verify the package version being used by opening the
+				browser console and typing:</p>
 				<pre><code class="language-js">LABKEY.__package__</code></pre>
-				<p>If installed correctly, <code>__package__</code> will contain package information such as the version of the package you&#39;re using.</p>
+				<p>The <code>__package__</code> object will contain package information such as the version of the package you&#39;re using.</p>
+				<pre><code class="language-js"><span class="hljs-comment">// LABKEY.__package__</span>
+{
+  <span class="hljs-attr">description</span>: <span class="hljs-string">"JavaScript client API for LabKey Server"</span>,
+  <span class="hljs-attr">name</span>: <span class="hljs-string">"@labkey/api"</span>,
+  <span class="hljs-attr">version</span>: <span class="hljs-string">"1.0.0"</span>
+}</code></pre>
 				<a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
 					<h2>Publishing</h2>
 				</a>
