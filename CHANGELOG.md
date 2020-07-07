@@ -13,7 +13,7 @@
 - Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()` 
 as they share payload processing on the server.
 - Split `User` interface into `User` and `UserWithPermissions` to better model server response shapes.
-- Publically export `Container`, `User`, and `UserWithPermissions` interfaces.
+- Publicly export `Container`, `User`, and `UserWithPermissions` interfaces.
 - Migrated `PermissionTypes` from `@labkey/components` and switched it to an enum. Deprecated `effectivePermissions` 
 that was previously declared.
 
