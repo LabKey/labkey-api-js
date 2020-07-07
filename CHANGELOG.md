@@ -1,3 +1,8 @@
+## 1.0.0 - 2020-07-07
+- Replaces the original JavaScript API served under `LABKEY` global namespace on LabKey Server pages.
+- Universal module definition (UMD) published package targeting ES6.
+- Full fidelity TypeScript definitions.
+
 ## 0.3.4 - 2020-07-07
 - getFiltersFromParameters: Use Object.keys instead of "for(paramName in params)".
 
@@ -8,7 +13,7 @@
 - Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()` 
 as they share payload processing on the server.
 - Split `User` interface into `User` and `UserWithPermissions` to better model server response shapes.
-- Publically export `Container`, `User`, and `UserWithPermissions` interfaces.
+- Publicly export `Container`, `User`, and `UserWithPermissions` interfaces.
 - Migrated `PermissionTypes` from `@labkey/components` and switched it to an enum. Deprecated `effectivePermissions` 
 that was previously declared.
 

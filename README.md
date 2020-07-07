@@ -1,15 +1,26 @@
 # @labkey/api
 
+[API Docs](https://labkey.github.io/labkey-api-js/) | [Change Log](https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md) | [License](https://github.com/LabKey/labkey-api-js/blob/master/LICENSE)
+
 JavaScript package for interacting with [LabKey Server](https://www.labkey.com/). The goal for this package is to 
 provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the 
 browser, on the server, and in pretty much any modern JavaScript environment.
 
 Written with joy in TypeScript.
 
-## Usage Advisory
+## v1.0 - Official stable release
 
-This package is under development. We're preparing the 1.0.0 release but in the meantime treat this package as 
-experimental. All code is subject to change. See the [CHANGELOG](CHANGELOG.md) for changes in this version.
+v1.0 is the first stable release of the `@labkey/api` package. This package is the official JavaScript API package for
+LabKey Server and is included with LabKey Server v20.7. Release highlights:
+
+- Replaces the original JavaScript API served under `LABKEY` global namespace on LabKey Server pages.
+- Universal module definition (UMD) published package targeting ES6.
+- Full fidelity TypeScript definitions.
+
+### Pre-v1.0 usage
+
+It is highly recommended you update to the 1.x version of this package as soon as possible. Any pre-1.0 releases are 
+considered experimental and were used only for development purposes.
 
 ## Installation
 
@@ -60,24 +71,37 @@ Now that the distribution is built you can load it up by serving the index.html 
 serve it up from IntelliJ you can "Open in Browser". This will let you explore the API as it is exposed via 
 the `LABKEY` global namespace.
 
-### Running against a LabKey Server
+### Local LabKey Server
 
-If you would like to experiment with running this code against LabKey Server it is possible thanks to the provided 
-wrapper for the `LABKEY` global namespace. The following assumes you have a 
-[LabKey development environment setup](https://www.labkey.org/Documentation/wiki-page.view?name=devMachine).
+To make changes to this package and serve those changes from a local LabKey Server instance you
+can do so via the following steps:
 
-#### Deploy Using Experimental Flag
+1. Build the package (as described above).
+1. Copy the package's `/dist` directory to `/<labkey root>/server/modules/platform/core/node_modules/@labkey/api/dist`.
+1. Navigate to `/<labkey root>/server/modules/platform/core`.
+1. Run `node build.js` from the `core` module directory.
 
-Starting in version LabKey v20.5 this package can be used in LabKey Server by enabling 
-the "Use @labkey/api on the client-side" experimental feature.
+Your changes will now be included in the bundle served by your local LabKey Server instance.
 
-You can verify the package version being used by opening the browser console and typing:
+#### Determining package version
+
+If you're using this package from a LabKey Server page you can verify the package version being used by opening the 
+browser console and typing:
 
 ```js
 LABKEY.__package__
 ```
 
-If installed correctly, `__package__` will contain package information such as the version of the package you're using.
+The `__package__` object will contain package information such as the version of the package you're using.
+
+```js
+// LABKEY.__package__
+{
+  description: "JavaScript client API for LabKey Server",
+  name: "@labkey/api",
+  version: "1.0.0"
+}
+```
 
 ## Publishing
 
