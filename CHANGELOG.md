@@ -1,3 +1,6 @@
+## 1.0.1 - 2020-07-20
+- Package updates.
+
 ## 1.0.0 - 2020-07-07
 - Replaces the original JavaScript API served under `LABKEY` global namespace on LabKey Server pages.
 - Universal module definition (UMD) published package targeting ES6.
