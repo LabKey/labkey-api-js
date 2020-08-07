@@ -1,3 +1,6 @@
+## 1.0.2 - 2020-08-07
+- Clean-up distribution
+
 ## 1.0.1 - 2020-07-20
 - Package updates.
 
