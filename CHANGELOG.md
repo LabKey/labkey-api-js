@@ -1,3 +1,6 @@
+## TBD - TBD
+- Add optional auditUserComment parameter to request objects for inclusion in some audit log records
+
 ## 1.0.2 - 2020-08-07
 - Clean-up distribution
 
