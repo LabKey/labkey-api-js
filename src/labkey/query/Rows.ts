@@ -22,6 +22,8 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
     apiVersion?: number | string
     /** Can be used to override the audit behavior for the table the query is acting on. See [[AuditBehaviorTypes]]. */
     auditBehavior?: AuditBehaviorTypes
+    /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
+    auditUserComment?: string
     /**
      * The container path in which the schema and query name are defined.
      * If not supplied, the current container path will be used.
@@ -301,7 +303,8 @@ function sendRequest(options: SendRequestOptions): XMLHttpRequest {
             rows: options.rows || options.rowDataArray,
             transacted: options.transacted,
             extraContext: options.extraContext,
-            auditBehavior: options.auditBehavior
+            auditBehavior: options.auditBehavior,
+            auditUserComment: options.auditUserComment
         },
         timeout: options.timeout
     });
