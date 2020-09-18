@@ -1,3 +1,6 @@
+## 1.1.1 - 2020-09-18
+- Add additional properties exposed via `getServerContext()` to typings
+
 ## 1.1.0 - 2020-08-27
 - Add optional auditUserComment parameter to request objects for inclusion in some audit log records
 
