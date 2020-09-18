@@ -86,34 +86,49 @@ export type ExperimentalFlags = {
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
 export type LabKey = {
+    adminOnlyMode?: boolean
+    analyticProviders?: { [providerName: string]: string }
     container: Partial<Container>
     contextPath: string
     CSRF: string
-    defaultHeaders: {[key: string]: string}
+    defaultHeaders: { [key: string]: string }
     demoMode: boolean
     devMode: boolean
     dirty: boolean
     experimental: ExperimentalFlags
+    extDateInputFormat: string
+    extDefaultDateFormat: string
+    extDefaultDateTimeFormat: string
+    extDefaultNumberFormat?: string
+    extJsRoot: string
+    extThemeName_42: string
     getModuleContext: any
+    hash: string
     helpLinkPrefix: string
     homeContainer: string
     imagePath: string
+    impersonatingUser?: Partial<UserWithPermissions>
     isDocumentClosed: string
-    moduleContext: any
+    jdkJavaDocLinkPrefix: string
+    moduleContext?: { [key: string]: any }
     Mothership: any
+    pageAdminMode: boolean
     postParameters?: any
     project: Project
     requiresCss?: Function
     requiresScript: Function
     Security: any
     SecurityPolicy: any
-    sharedContainer: string
+    serverName: string
+    sharedContainer?: string
     submit: boolean
+    tours: any
     unloadMessage: string
     useMDYDateParsing?: boolean
     user: Partial<UserWithPermissions>
-    uuids: Array<string>
+    uuids: string[]
     verbose: boolean
+    versionString: string
     vis: any
     WebSocket: any
 }
