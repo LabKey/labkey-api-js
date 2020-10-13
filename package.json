@@ -12,8 +12,7 @@
     "prepublishOnly": "npm run build",
     "deploy": "gh-pages -t -d docs",
     "setup": "npm install",
-    "test": "cross-env NODE_ENV=test jest",
-    "test_teamcity": "cross-env NODE_ENV=test jest --testResultsProcessor=jest-teamcity-reporter"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "keywords": [
     "labkey",
@@ -69,6 +68,7 @@
       "js"
     ],
     "preset": "ts-jest",
+    "testResultsProcessor": "jest-teamcity-reporter",
     "testRegex": "(\\.(spec))\\.(ts)$"
   }
 }
