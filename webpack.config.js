@@ -25,12 +25,10 @@ const apiGlobalConfig = {
         rules: [
             {
                 test: /^(?!.*spec\.ts?$).*\.ts?$/,
-                loaders: [{
-                    loader: 'ts-loader',
-                    options: {
-                        onlyCompileBundledFiles: true
-                    }
-                }],
+                loader: 'ts-loader',
+                options: {
+                    onlyCompileBundledFiles: true
+                }
             }
         ]
     },
@@ -58,18 +56,16 @@ const umdPackageConfig = {
         rules: [
             {
                 test: /^(?!.*spec\.ts?$).*\.ts?$/,
-                loaders: [{
-                    loader: 'ts-loader',
-                    options: {
-                        compilerOptions: {
-                            outDir: path.resolve(__dirname, 'dist'),
-                            declaration: true,
-                            removeComments: true,
-                            target: 'ES6',
-                        },
-                        onlyCompileBundledFiles: true
-                    }
-                }],
+                loader: 'ts-loader',
+                options: {
+                    compilerOptions: {
+                        outDir: path.resolve(__dirname, 'dist'),
+                        declaration: true,
+                        removeComments: true,
+                        target: 'ES6',
+                    },
+                    onlyCompileBundledFiles: true
+                },
                 exclude: /node_modules/
             }
         ]
