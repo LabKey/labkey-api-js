@@ -6,42 +6,6 @@
 'use strict';
 const path = require('path');
 
-const apiGlobalConfig = {
-
-    mode: 'production',
-
-    devtool: 'source-map',
-
-    entry: {
-        'core': [
-            './src/wrapper.ts'
-        ],
-        'dom': [
-            './src/wrapper-dom.ts'
-        ]
-    },
-
-    module: {
-        rules: [
-            {
-                test: /^(?!.*spec\.ts?$).*\.ts?$/,
-                loader: 'ts-loader',
-                options: {
-                    onlyCompileBundledFiles: true
-                }
-            }
-        ]
-    },
-
-    output: {
-        filename: 'labkey-api-js-[name].min.js'
-    },
-
-    resolve: {
-        extensions: [ '.ts' ]
-    }
-};
-
 const umdPackageConfig = {
 
     entry: './src/index.ts',
@@ -89,6 +53,5 @@ const umdPackageConfig = {
 };
 
 module.exports = [
-    apiGlobalConfig,
     umdPackageConfig
 ];
