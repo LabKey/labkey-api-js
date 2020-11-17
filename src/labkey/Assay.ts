@@ -27,28 +27,6 @@ import {
     RequestCallbackOptions,
 } from './Utils';
 
-/**
- * Applies arguments for backwards compatible function signature support.
- * @hidden
- * @private
- */
-function applyArguments(args: IArguments, options: GetAssaysOptions, parameter?: string): GetAssaysOptions {
-    let _options: GetAssaysOptions;
-
-    if (args.length > 1) {
-        _options = {
-            success: args[0],
-            failure: args[1],
-            parameters: parameter ? { [parameter]: args[2] } : {},
-            containerPath: parameter ? args[3] : args[2],
-        };
-    } else {
-        _options = options;
-    }
-
-    return _options;
-}
-
 export type GetAssaysParameters = {
     /** Applies a filter to match against only assay designs with the provided "id". */
     id?: number;
@@ -124,6 +102,15 @@ export interface AssayDesign {
 }
 
 /**
+ * @deprecated Use {@link getAssays} instead.
+ * Gets all assay designs.
+ * @see {@link AssayDesign}
+ */
+export function getAll(options: GetAssaysOptions): XMLHttpRequest {
+    return getAssays(options);
+}
+
+/**
  * Gets assay designs available in a folder. Optionally, filter the results based on criteria.
  * #### Examples
  *
@@ -170,15 +157,6 @@ export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
     });
 }
 
-/**
- * @deprecated Use {@link getAssays} instead.
- * Gets all assay designs.
- * @see {@link AssayDesign}
- */
-export function getAll(options: GetAssaysOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options));
-}
-
 export interface GetByIdOptions extends GetAssaysOptions {
     /** Unique integer ID for the assay. */
     id: number;
@@ -190,7 +168,7 @@ export interface GetByIdOptions extends GetAssaysOptions {
  * @see {@link AssayDesign}
  */
 export function getById(options: GetByIdOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options, 'id'));
+    return getAssays(options);
 }
 
 export interface GetByNameOptions extends GetAssaysOptions {
@@ -205,7 +183,7 @@ export interface GetByNameOptions extends GetAssaysOptions {
  * @see {@link AssayDesign}
  */
 export function getByName(options: GetByNameOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options, 'name'));
+    return getAssays(options);
 }
 
 export interface GetByTypeOptions extends GetAssaysOptions {
@@ -220,7 +198,7 @@ export interface GetByTypeOptions extends GetAssaysOptions {
  * @see {@link AssayDesign}
  */
 export function getByType(options: GetByTypeOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options, 'type'));
+    return getAssays(options);
 }
 
 export interface GetNAbRunsOptions extends RequestCallbackOptions {

@@ -19,13 +19,6 @@ import { create } from '../Filter';
 import { selectRows } from './SelectRows';
 
 describe('selectRows', () => {
-    const applyDataRegionName = (params: any, dataRegionName = 'query'): any => {
-        const result: any = {};
-        Object.keys(params).forEach(key => {
-            result[`${dataRegionName}.${key}`] = params[key];
-        });
-        return result;
-    };
 
     it('should error without required properties', () => {
         expect(() => {
@@ -37,39 +30,6 @@ describe('selectRows', () => {
         expect(() => {
             (selectRows as any)({ schemaName: 'SSS' });
         }).toThrow('You must specify a queryName!');
-    });
-
-    it('should support original method signature', () => {
-        // Original method signature:
-        // selectRows(schemaName, queryName, success, failure, filterArray, sort, viewName)
-
-        // Arrange
-        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
-        const schemaName = 'SSS';
-        const queryName = 'QQQ';
-        const filters = [create('x', 42)];
-        const sort = '+x,-y';
-        const viewName = 'allTheColumns';
-
-        // Act
-        (selectRows as any)(schemaName, queryName, undefined, undefined, filters, sort, viewName);
-
-        // Assert
-        expect(requestSpy).toHaveBeenCalledWith(
-            expect.objectContaining({
-                // default to 'query' dataRegionName
-                params: {
-                    ...applyDataRegionName({
-                        queryName,
-                        sort,
-                        viewName,
-                        'x~eq': 42,
-                    }),
-                    dataRegionName: 'query',
-                    schemaName,
-                },
-            })
-        );
     });
 
     it('should respect defaults', () => {
