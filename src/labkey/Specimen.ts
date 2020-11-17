@@ -41,17 +41,6 @@ export interface AddSpecimensToRequestOptions extends RequestCallbackOptions {
  * @param options
  */
 export function addSpecimensToRequest(options: AddSpecimensToRequestOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            requestId: arguments[1],
-            specimenHashArray: arguments[2],
-            preferredLocation: arguments[3],
-            failure: arguments[4],
-            containerPath: arguments[5],
-        };
-    }
-
     return request({
         url: buildURL('specimen-api', 'addSpecimensToRequest.api', options.containerPath),
         method: 'POST',
@@ -85,17 +74,6 @@ export interface AddVialsToRequestOptions extends RequestCallbackOptions {
  * @param options
  */
 export function addVialsToRequest(options: AddVialsToRequestOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            requestId: arguments[1],
-            vialIdArray: arguments[2],
-            idType: arguments[3],
-            failure: arguments[4],
-            containerPath: arguments[5],
-        };
-    }
-
     if (!options.idType) {
         options.idType = 'GlobalUniqueId';
     }
@@ -126,15 +104,6 @@ export interface CancelRequestOptions extends RequestCallbackOptions {
  * @param options
  */
 export function cancelRequest(options: CancelRequestOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            requestId: arguments[1],
-            failure: arguments[2],
-            containerPath: arguments[3],
-        };
-    }
-
     return request({
         url: buildURL('specimen-api', 'cancelRequest.api', options.containerPath),
         method: 'POST',
@@ -157,15 +126,6 @@ export interface GetOpenRequestsOptions extends RequestCallbackOptions {
  * @param options
  */
 export function getOpenRequests(options: GetOpenRequestsOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            allUsers: arguments[1],
-            failure: arguments[2],
-            containerPath: arguments[3],
-        };
-    }
-
     return request({
         url: buildURL('specimen-api', 'getOpenRequests.api', options.containerPath),
         method: 'POST',
@@ -187,15 +147,6 @@ export interface GetProvidingLocationsOptions extends RequestCallbackOptions {
  * @param options
  */
 export function getProvidingLocations(options: GetProvidingLocationsOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            specimenHashArray: arguments[1],
-            failure: arguments[2],
-            containerPath: arguments[3],
-        };
-    }
-
     return request({
         url: buildURL('specimen-api', 'getProvidingLocations.api', options.containerPath),
         method: 'POST',
@@ -216,14 +167,6 @@ export interface GetRepositoriesOptions extends RequestCallbackOptions {
  * @param options
  */
 export function getRepositories(options: GetRepositoriesOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            failure: arguments[1],
-            containerPath: arguments[2],
-        };
-    }
-
     return request({
         url: buildURL('specimen-api', 'getRepositories.api', options.containerPath),
         method: 'POST',
@@ -246,15 +189,6 @@ export interface GetRequestOptions extends RequestCallbackOptions {
  * @param options
  */
 export function getRequest(options: GetRequestOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            requestId: arguments[1],
-            failure: arguments[2],
-            containerPath: arguments[3],
-        };
-    }
-
     return request({
         url: buildURL('specimen-api', 'getRequest.api', options.containerPath),
         method: 'POST',
@@ -297,15 +231,6 @@ export interface GetVialsByRowIdOptions extends RequestCallbackOptions {
  * @param options
  */
 export function getVialsByRowId(options: GetVialsByRowIdOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            vialRowIdArray: arguments[1],
-            failure: arguments[2],
-            containerPath: arguments[3],
-        };
-    }
-
     return request({
         url: buildURL('specimen-api', 'getVialsByRowId.api', options.containerPath),
         method: 'POST',
@@ -352,17 +277,6 @@ export interface RemoveVialsFromRequestOptions extends RequestCallbackOptions {
  * @param options
  */
 export function removeVialsFromRequest(options: RemoveVialsFromRequestOptions): XMLHttpRequest {
-    if (remapArguments(options, arguments)) {
-        options = {
-            success: arguments[0],
-            requestId: arguments[1],
-            vialIdArray: arguments[2],
-            idType: arguments[3],
-            failure: arguments[4],
-            containerPath: arguments[5],
-        };
-    }
-
     if (!options.idType) {
         options.idType = 'GlobalUniqueId';
     }
@@ -403,14 +317,6 @@ function onSpecimenSuccess(options: RequestCallbackOptions): RequestSuccess {
 
     // success not specified
     return undefined;
-}
-
-/**
- * @hidden
- * @private
- */
-function remapArguments(options: any, args: IArguments): boolean {
-    return options && (isFunction(options) || args.length > 1);
 }
 
 /**

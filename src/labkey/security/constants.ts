@@ -75,31 +75,6 @@ export enum PermissionTypes {
 }
 
 /**
- * A map of commonly used effective permissions supported in the LabKey Server.
- * You can use these values with the hasEffectivePermission() method to test if
- * a user or group has a particular permission. The values in this map
- * are as follows:
- * <ul>
- * <li>read</li>
- * <li>insert</li>
- * <li>update</li>
- * <li>del</li>
- * <li>readOwn</li>
- * </ul>
- * @deprecated Use {@link PermissionTypes} instead.
- * For example, to refer to the update permission, the syntax would be:<br/>
- * <pre><code>LABKEY.Security.effectivePermissions.update</code></pre>
- */
-export const effectivePermissions = {
-    insert: PermissionTypes.Insert,
-    read: PermissionTypes.Read,
-    admin: PermissionTypes.Admin,
-    del: PermissionTypes.Delete,
-    readOwn: PermissionTypes.ReadSome,
-    update: PermissionTypes.Update,
-};
-
-/**
  * A map of the various permission bits supported in the LabKey Server.
  * You can use these values with the hasPermission() method to test if
  * a user or group has a particular permission. The values in this map

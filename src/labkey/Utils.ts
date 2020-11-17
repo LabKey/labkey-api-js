@@ -116,36 +116,6 @@ const DATEALTFORMATS_DayMonth = [
 const DATETIMEFORMAT_WithMS = 'Y-m-d H:i:s.u';
 
 /**
- * @private
- */
-function _copy(o: any, depth: any): any {
-    if (depth == 0 || !isObject(o)) {
-        return o;
-    }
-    const copy: any = {};
-    for (const key in o) {
-        copy[key] = _copy(o[key], depth - 1);
-    }
-    return copy;
-}
-
-// like a general version of Ext.apply() or mootools.merge()
-/**
- * @private
- */
-function _merge(to: any, from: any, overwrite: any, depth: any): void {
-    for (const key in from) {
-        if (from.hasOwnProperty(key)) {
-            if (isObject(to[key]) && isObject(from[key])) {
-                _merge(to[key], from[key], overwrite, depth - 1);
-            } else if (undefined === to[key] || overwrite) {
-                to[key] = _copy(from[key], depth - 1);
-            }
-        }
-    }
-}
-
-/**
  * Applies config properties to the specified object.
  */
 export function apply(object: any, config: any): any {
@@ -381,17 +351,6 @@ export function endsWith(value: string, ending: string): boolean {
         return false;
     }
     return value.substring(value.length - ending.length) == ending;
-}
-
-/**
- * @deprecated
- * @hidden
- * @private
- */
-export function ensureBoxVisible(): void {
-    console.warn(
-        'ensureBoxVisible() has been migrated to the appropriate Ext scope. Consider LABKEY.ext.Utils.ensureBoxVisible or LABKEY.ext4.Util.ensureBoxVisible'
-    );
 }
 
 /**
@@ -724,68 +683,8 @@ export function isString(value: any): value is string {
     return typeof value === 'string';
 }
 
-/**
- * Apply properties from b, c, ...  to a.  Properties of each subsequent
- * object overwrites the previous.
- *
- * The first object is modified.
- *
- * Use `merge({}, o)` to create a deep copy of o.
- */
-export function merge(...props: any[]): any {
-    const o = props[0];
-    for (let i = 1; i < props.length; i++) {
-        _merge(o, props[i], true, 50);
-    }
-    return o;
-}
-
-export function mergeIf(...props: any[]): any {
-    const o = props[0];
-    for (let i = 1; i < props.length; i++) {
-        _merge(o, props[i], false, 50);
-    }
-    return o;
-}
-
 export const onError = DOMWrapper<(error: any) => void>('onError');
 export const onReady = DOMWrapper<(config: any) => void>('onReady');
-
-export interface IOnTrueOptions extends RequestCallbackOptions {
-    errorArguments?: any[];
-    maxTests?: number;
-    successArguments?: any[];
-    testArguments?: any[];
-    testCallback: Function;
-}
-
-/**
- * Iteratively calls a tester function you provide, calling another callback function once the
- * tester function returns true. This function is useful for advanced JavaScript scenarios, such
- * as cases where you are including common script files dynamically using the requiresScript()
- * method, and need to wait until classes defined in those files are parsed and ready for use.
- */
-export function onTrue(options: IOnTrueOptions): void {
-    // TODO: 2.x Remove this method
-    options.maxTests = options.maxTests || 1000;
-    try {
-        if (options.testCallback.apply(options.scope || this, options.testArguments || [])) {
-            getOnSuccess(options).apply(options.scope || this, options.successArguments || []);
-        } else {
-            if (options.maxTests <= 0) {
-                throw 'Maximum number of tests reached!';
-            } else {
-                --options.maxTests;
-                // TODO: Figure out how this is presently working...defer() is not a built-in function property
-                // onTrue.defer(10, this, [options]);
-            }
-        }
-    } catch (e) {
-        if (getOnFailure(options)) {
-            getOnFailure(options).apply(options.scope || this, [e, options.errorArguments]);
-        }
-    }
-}
 
 /**
  * Will pad the input string with zeros to the desired length.
@@ -867,51 +766,6 @@ export function pluralBasic(count: number, singlar: string): string {
 
 export function pluralize(count: number, singular: string, plural: string): string {
     return count.toLocaleString() + ' ' + (count === 1 ? singular : plural);
-}
-
-/**
- * Includes a Cascading Style Sheet (CSS) file into the page. If the file was already included by some other code, this
- * function will simply ignore the call. This may be used to include CSS files defined in your module's web/ directory.
- * @param filePath The path to the script file to include. This path should be relative to the web application
- * root. So for example, if you wanted to include a file in your module's web/mymodule/styles/ directory,
- * the path would be "mymodule/styles/mystyles.css"
- */
-export function requiresCSS(filePath: string): void {
-    // TODO: 2.x Remove this method
-    const { requiresCss } = getServerContext();
-    requiresCss(filePath);
-}
-
-/**
- * Loads JavaScript file(s) from the server.
- * @param file A file or Array of files to load.
- * @param callback Callback for when all dependencies are loaded.
- * @param scope Scope of callback.
- * @param inOrder True to load the scripts in the order they are passed in. Default is false.
- * ```html
- * <script type="text/javascript">
- *     LABKEY.Utils.requiresScript("myModule/myScript.js", function() {
- *         // your script is loaded
- *     });
- * </script>
- * ```
- */
-export function requiresScript(file: string | string[], callback: Function, scope?: any, inOrder?: boolean): void {
-    // TODO: 2.x Remove this method
-    const { requiresScript } = getServerContext();
-    requiresScript(file, callback, scope, inOrder);
-}
-
-/**
- * This method has been migrated to specific instances for both Ext 3.4.1 and Ext 4.2.1.
- * For Ext 3.4.1 see LABKEY.ext.Utils.resizeToViewport
- * For Ext 4.2.1 see LABKEY.ext4.Util.resizeToViewport
- * @deprecated
- * @hidden
- * @private
- */
-export function resizeToViewport(): void {
-    console.warn('LABKEY.Utils.resizeToViewport has been migrated. See JavaScript API documentation for details.');
 }
 
 /**

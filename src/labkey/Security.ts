@@ -16,7 +16,6 @@
 import {
     currentContainer,
     currentUser,
-    effectivePermissions,
     PermissionRoles,
     PermissionTypes,
     permissions,
@@ -53,7 +52,6 @@ import {
 import {
     getGroupPermissions,
     GetGroupPermissionsOptions,
-    getRole,
     getRoles,
     GetRolesOptions,
     getSchemaPermissions,
@@ -118,7 +116,6 @@ export {
     /* constants */
     currentContainer,
     currentUser,
-    effectivePermissions,
     PermissionRoles,
     PermissionTypes,
     permissions,
@@ -192,7 +189,6 @@ export {
     getModules,
     getReadableContainers,
     getPolicy,
-    getRole,
     getRoles,
     getSchemaPermissions,
     getSecurableResources,

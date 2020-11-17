@@ -16,7 +16,6 @@
 import {
     buildQueryParams,
     ContainerFilter,
-    containerFilter,
     deleteQueryView,
     DeleteQueryViewOptions,
     getDataViews,
@@ -90,7 +89,6 @@ export {
     Row,
     /* constants */
     ContainerFilter, // Enumeration
-    containerFilter, // backwards compatible reference
     experimental,
     URL_COLUMN_PREFIX,
     /* interfaces */
