@@ -74,24 +74,6 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
     });
 }
 
-/**
- * Returns the name of the security role represented by the permissions passed as 'perms'.
- * The return value will be the name of a property in the LABKEY.Security.roles map.
- * This is a local function, and does not make a call to the server.
- * @param {int} perms The permissions set
- * @deprecated Do not use this anymore. Use the roles array in the various responses and the
- * getRoles() method to obtain extra information about each role.
- */
-export function getRole(perms: number): string {
-    for (const role in roles) {
-        if (roles.hasOwnProperty(role)) {
-            if (perms === roles[role]) {
-                return role;
-            }
-        }
-    }
-}
-
 export interface RolePermission {
     /** The description of the permission. */
     description: string;

@@ -68,11 +68,6 @@ export enum ContainerFilter {
     currentPlusProjectAndShared = 'CurrentPlusProjectAndShared',
 }
 
-/**
- * @deprecated Backwards compatible reference to {@link ContainerFilter}.
- */
-export const containerFilter = ContainerFilter;
-
 export const URL_COLUMN_PREFIX = '_labkeyurl_';
 
 /**
