@@ -40,7 +40,6 @@ import * as Experiment from './labkey/Experiment';
 import { FieldKey } from './labkey/FieldKey';
 import * as Filter from './labkey/Filter';
 import * as List from './labkey/List';
-import { MultiRequest } from './labkey/MultiRequest';
 import * as Message from './labkey/Message';
 import * as ParticipantGroup from './labkey/ParticipantGroup';
 import * as Pipeline from './labkey/Pipeline';
@@ -86,7 +85,6 @@ export {
     Filter,
     List,
     Message,
-    MultiRequest,
     ParticipantGroup,
     Pipeline,
     Query,
