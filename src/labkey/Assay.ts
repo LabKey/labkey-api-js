@@ -28,28 +28,6 @@ import {
 } from './Utils';
 
 /**
- * Applies arguments for backwards compatible function signature support.
- * @hidden
- * @private
- */
-function applyArguments(args: IArguments, options: GetAssaysOptions, parameter?: string): GetAssaysOptions {
-    let _options: GetAssaysOptions;
-
-    if (args.length > 1) {
-        _options = {
-            success: args[0],
-            failure: args[1],
-            parameters: parameter ? { [parameter]: args[2] } : {},
-            containerPath: parameter ? args[3] : args[2],
-        };
-    } else {
-        _options = options;
-    }
-
-    return _options;
-}
-
-/**
  * Gets all assays
  * #### Examples
  *
@@ -83,7 +61,7 @@ function applyArguments(args: IArguments, options: GetAssaysOptions, parameter?:
  * @see {@link AssayDesign}
  */
 export function getAll(options: GetAssaysOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options));
+    return getAssays(options);
 }
 
 export interface GetAssaysOptions extends RequestCallbackOptions<AssayDesign[]> {
@@ -173,7 +151,7 @@ export interface GetByIdOptions extends GetAssaysOptions {
  * @see {@link AssayDesign}
  */
 export function getById(options: GetByIdOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options, 'id'));
+    return getAssays(options);
 }
 
 export interface GetByNameOptions extends GetAssaysOptions {
@@ -187,7 +165,7 @@ export interface GetByNameOptions extends GetAssaysOptions {
  * @see {@link AssayDesign}
  */
 export function getByName(options: GetByNameOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options, 'name'));
+    return getAssays(options);
 }
 
 export interface GetByTypeOptions extends GetAssaysOptions {
@@ -201,7 +179,7 @@ export interface GetByTypeOptions extends GetAssaysOptions {
  * @see {@link AssayDesign}
  */
 export function getByType(options: GetByTypeOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options, 'type'));
+    return getAssays(options);
 }
 
 export interface GetNAbRunsOptions extends RequestCallbackOptions {

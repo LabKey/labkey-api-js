@@ -30,12 +30,9 @@ describe('assayList.api requests', () => {
         requestSpy.mockRestore();
     });
 
-    test('#getAll original signature', () => {
-        // Original method signature:
-        // getAll(success, failure, containerPath)
-
+    test('#getAll', () => {
         // Act
-        (getAll as any)(success, failure, containerPath);
+        getAll({ containerPath, failure, success });
 
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
@@ -45,15 +42,12 @@ describe('assayList.api requests', () => {
         );
     });
 
-    test('#getById original signature', () => {
-        // Original method signature:
-        // getById(success, failure, id, containerPath)
-
+    test('#getById', () => {
         // Arrange
         const assayId = 1557;
 
         // Act
-        (getById as any)(success, failure, assayId, containerPath);
+        getById({ success, failure, id: assayId, containerPath });
 
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
@@ -64,15 +58,12 @@ describe('assayList.api requests', () => {
         );
     });
 
-    test('#getByName original signature', () => {
-        // Original method signature:
-        // getByName(success, failure, assayName, containerPath)
-
+    test('#getByName', () => {
         // Arrange
         const assayName = 'MyAssayName';
 
         // Act
-        (getByName as any)(success, failure, assayName, containerPath);
+        getByName({ success, failure, name: assayName, containerPath });
 
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
@@ -83,15 +74,12 @@ describe('assayList.api requests', () => {
         );
     });
 
-    test('#getByType original signature', () => {
-        // Original method signature:
-        // getByType(success, failure, assayType, containerPath)
-
+    test('#getByType', () => {
         // Arrange
         const assayType = 'EliSpot';
 
         // Act
-        (getByType as any)(success, failure, assayType, containerPath);
+        getByType({ success, failure, type: assayType, containerPath });
 
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(

@@ -184,23 +184,6 @@ function buildSelectRowsParams(options: SelectRowsOptions): any {
 }
 
 /**
- * @hidden
- * @private
- * Provides backwards compatibility with pre-1.0 selectRows() argument configuration.
- */
-function selectRowArguments(args: IArguments): SelectRowsOptions {
-    return {
-        schemaName: args[0],
-        queryName: args[1],
-        success: args[2],
-        failure: args[3],
-        filterArray: args[4],
-        sort: args[5],
-        viewName: args[6],
-    };
-}
-
-/**
  * Select rows.
  * #### Examples
  *
@@ -232,10 +215,6 @@ function selectRowArguments(args: IArguments): SelectRowsOptions {
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function selectRows(options: SelectRowsOptions): XMLHttpRequest {
-    if (arguments.length > 1) {
-        options = selectRowArguments(arguments);
-    }
-
     if (!options || !options.schemaName) {
         throw 'You must specify a schemaName!';
     }

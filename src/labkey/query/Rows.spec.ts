@@ -17,11 +17,8 @@ import * as Ajax from '../Ajax';
 
 import { bindFormData, deleteRows, insertRows, updateRows } from './Rows';
 
-describe('deleteRows', () => {
-    it('should support original method signature', () => {
-        // Original method signature:
-        // deleteRows(schemaName, queryName, rows, success, failure)
-
+describe('Query row interfaces', () => {
+    it('#deleteRows', () => {
         // Arrange
         const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
         const schemaName = 'SSS';
@@ -29,7 +26,7 @@ describe('deleteRows', () => {
         const rows = [{ rowId: 1 }, { rowId: 2 }];
 
         // Act
-        (deleteRows as any)(schemaName, queryName, rows, undefined, undefined);
+        deleteRows({ schemaName, queryName, rows });
 
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
@@ -44,13 +41,7 @@ describe('deleteRows', () => {
             })
         );
     });
-});
-
-describe('insertRows', () => {
-    it('should support original method signature', () => {
-        // Original method signature:
-        // insertRows(schemaName, queryName, rows, success, failure)
-
+    it('#insertRows', () => {
         // Arrange
         const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
         const schemaName = 'SSS';
@@ -58,7 +49,7 @@ describe('insertRows', () => {
         const rows = [{ rowId: 1 }, { rowId: 2 }];
 
         // Act
-        (insertRows as any)(schemaName, queryName, rows, undefined, undefined);
+        insertRows({ schemaName, queryName, rows });
 
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
@@ -135,7 +126,7 @@ describe('updateRows', () => {
         const rows = [{ rowId: 1 }, { rowId: 2 }];
 
         // Act
-        (updateRows as any)(schemaName, queryName, rows, undefined, undefined);
+        updateRows({ schemaName, queryName, rows });
 
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
