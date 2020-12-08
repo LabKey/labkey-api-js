@@ -41,7 +41,7 @@ export class Filter implements IFilter {
     readonly filterType: IFilterType;
     readonly value: FilterValue;
 
-    constructor(columnName: string | Array<string> | FieldKey, value: FilterValue, filterType?: IFilterType) {
+    constructor(columnName: string | string[] | FieldKey, value: FilterValue, filterType?: IFilterType) {
 
         if (columnName) {
             if (columnName instanceof FieldKey) {
@@ -102,7 +102,7 @@ export class Filter implements IFilter {
  * Create an object suitable for QueryWebPart, etc
  * @private
  */
-export function appendAggregateParams(params: any, aggregates: Array<Aggregate>, dataRegionName?: string): any {
+export function appendAggregateParams(params: any, aggregates: Aggregate[], dataRegionName?: string): any {
     const prefix = ensureRegionName(dataRegionName) + '.agg.';
     let _params = params || {};
 
@@ -137,8 +137,7 @@ export function appendAggregateParams(params: any, aggregates: Array<Aggregate>,
  * Create an Object suitable for Query.selectRows, etc
  * @private
  */
-export function appendFilterParams(params: any, filterArray: Array<IFilter>, dataRegionName?: string): any {
-
+export function appendFilterParams(params: any, filterArray: IFilter[], dataRegionName?: string): any {
     let regionName = ensureRegionName(dataRegionName);
     let filterParams = params || {};
 
@@ -173,29 +172,27 @@ export function appendFilterParams(params: any, filterArray: Array<IFilter>, dat
 
 /**
  * Creates a filter
+ * @param column The name of a column that is available in the associated query.
+ * @param value Value(s) to be filtered upon.
+ * @param type Filter type for the filter. Defaults to `LABKEY.Filter.Types.EQUAL`.
+ * @return A filter instance.
  *
  * ```
- * function onFailure(errorInfo, options, responseObj){
- *  if(errorInfo && errorInfo.exception)
- *      alert("Failure: " + errorInfo.exception);
- *  else
- *      alert("Failure: " + responseObj.statusText);
- * }
- *
- * function onSuccess(data){
- *  alert("Success! " + data.rowCount + " rows returned.");
- * }
- *
+ * // Create a request with the data filtered
  * LABKEY.Query.selectRows({
- *  schemaName: 'lists',
- *  queryName: 'People',
- *  success: onSuccess,
- *  failure: onFailure,
- *  filterArray: [
- *      LABKEY.Filter.create('FirstName', 'Johnny'),
- *      LABKEY.Filter.create('Age', 15, LABKEY.Filter.Types.LESS_THAN_OR_EQUAL)
- *      LABKEY.Filter.create('LastName', ['A', 'B'], LABKEY.Filter.Types.DOES_NOT_START_WITH)
- *  ]
+ *   schemaName: 'lists',
+ *   queryName: 'People',
+ *   filterArray: [
+ *       LABKEY.Filter.create('FirstName', 'Johnny'),
+ *       LABKEY.Filter.create('Age', 15, LABKEY.Filter.Types.LESS_THAN_OR_EQUAL)
+ *       LABKEY.Filter.create('LastName', ['A', 'B'], LABKEY.Filter.Types.DOES_NOT_START_WITH),
+ *   ]
+ *   success: function (data) {
+ *       console.log("Success! " + data.rowCount + " rows returned.");
+ *   },
+ *   failure: function (errorInfo, options, responseObj) {
+ *       console.error("Failed to query 'lists.People'.", errorInfo);
+ *   },
  * });
  * ```
  */
@@ -204,11 +201,20 @@ export function create(column: string, value: FilterValue, type?: IFilterType): 
 }
 
 /**
- * Convert from URL syntax filters to a human readable description, like "Is Greater Than 10 AND Is Less Than 100"
- * @param {String} url URL containing the filter parameters
- * @param {String} dataRegionName String name of the data region the column is a part of
- * @param {String} columnName String name of the column to filter
- * @return {String} human readable version of the filter
+ * Convert from URL syntax filters to a human readable description
+ * (e.g. "Is Greater Than 10 AND Is Less Than 100").
+ * @param url URL containing the filter parameters
+ * @param dataRegionName Name of the data region the column is a part of
+ * @param columnName Name of the column to filter
+ * @return Human readable version of the filter
+ *
+ * ```js
+ * var url = 'mylab.org?qwp1.priority~gt=10&qwp1.priority~lte=75';
+ *
+ * var description = LABKEY.Filter.getFilterDescription(url, 'qwp1', 'priority');
+ *
+ * console.log(description); // "Is Greater Than 10 AND Is Less Than or Equal To 75"
+ * ```
  */
 export function getFilterDescription(url: string, dataRegionName: string, columnName: string): string {
     const params = getParameters(url);
@@ -250,8 +256,8 @@ export function getFilterDescription(url: string, dataRegionName: string, column
     return result;
 }
 
-export function getFiltersFromParameters(params: {[key:string]: any}, dataRegionName?: string) : Array<IFilter> {
-    let filters: Array<IFilter> = [];
+export function getFiltersFromParameters(params: Record<string, any>, dataRegionName?: string): IFilter[] {
+    const filters: IFilter[] = [];
     const regionName = ensureRegionName(dataRegionName);
 
     Object.keys(params).forEach(paramName => {
@@ -273,7 +279,6 @@ export function getFiltersFromParameters(params: {[key:string]: any}, dataRegion
                 else {
                     filters.push(create(columnName, values, filterType));
                 }
-
             }
         }
     });
@@ -282,19 +287,22 @@ export function getFiltersFromParameters(params: {[key:string]: any}, dataRegion
 }
 
 /**
- * Create an array of LABKEY.Filter objects from the filter parameters on the URL
+ * Create an array of [[IFilter]] objects from the filter parameters on the URL.
+ * @param url The URL to parse filters from.
+ * @param dataRegionName The data region name scope for the filters. Defaults to "query".
  */
-export function getFiltersFromUrl(url: string, dataRegionName?: string): Array<IFilter> {
-
+export function getFiltersFromUrl(url: string, dataRegionName?: string): IFilter[] {
     return getFiltersFromParameters(getParameters(url), dataRegionName);
 }
 
-export function getQueryParamsFromUrl(url: string, dataRegionName: string): any {
-
-    let queryParams: {
-        [key:string]: string
-    } = {};
-    
+/**
+ * Retrieves parameters used by [parameterized queries](https://www.labkey.org/Documentation/wiki-page.view?name=paramsql)
+ * from the passed in URL for a given data region name
+ * @param url The URL to parse the query parameters from.
+ * @param dataRegionName The data region name scope for this query. Defaults to "query".
+ */
+export function getQueryParamsFromUrl(url: string, dataRegionName?: string): Record<string, any> {
+    const queryParams: Record<string, any> = {};
     const params = getParameters(url);
     const key = ensureRegionName(dataRegionName) + '.param.';
 
@@ -310,9 +318,13 @@ export function getQueryParamsFromUrl(url: string, dataRegionName: string): any 
     return queryParams;
 }
 
-export function getSortFromUrl(url: string, dataRegionName: string): string {
+/**
+ * Retrieves the raw sort value from a URL's query parameters for a data region scoped sort.
+ * @param url The URL to parse the sorts from.
+ * @param dataRegionName The data region name scope for this query. Defaults to "query".
+ */
+export function getSortFromUrl(url: string, dataRegionName?: string): string {
     const regionName = ensureRegionName(dataRegionName);
-
     const params = getParameters(url);
     return params[regionName + '.sort'];
 }
@@ -321,12 +333,12 @@ export function getSortFromUrl(url: string, dataRegionName: string): string {
  * Given an array of filter objects, return a new filterArray with old filters from a column
  * removed and new filters for the column added. If new filters are null, simply remove all old filters
  * from baseFilters that refer to this column.
- * @param {Array} baseFilters  Array of existing filters created by {@link LABKEY.Filter.create}
- * @param {String} columnName  Column name of filters to replace
- * @param {Array} columnFilters Array of new filters created by {@link LABKEY.Filter.create}. Will replace any filters referring to columnName
+ * @param baseFilters Array of existing filters created by [[create]]
+ * @param columnName Column name of filters to replace
+ * @param columnFilters Array of new filters created by [[create]]. Will replace any filters referring to columnName
  */
-export function merge(baseFilters: Array<IFilter>, columnName: string, columnFilters: Array<IFilter>): Array<IFilter> {
-    let newFilters: Array<IFilter> = [];
+export function merge(baseFilters: IFilter[], columnName: string, columnFilters: IFilter[]): IFilter[] {
+    const newFilters: IFilter[] = [];
 
     if (baseFilters && baseFilters.length > 0) {
         for (let i=0; i < baseFilters.length; i++) {

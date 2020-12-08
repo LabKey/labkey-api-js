@@ -177,9 +177,18 @@ export function setGlobalUser(user: UserWithPermissions): LabKey {
 
 // The following will be removed in favor of a proper "global" initialization pattern. For now,
 // just throw an error if the world hasn't been setup (aka labkey.js wasn't loaded prior)
+/**
+ * @hidden
+ * @private
+ */
 class _Window extends Window {
     LABKEY: any
 }
+
+/**
+ * @hidden
+ * @private
+ */
 declare const window: _Window;
 
 if (!window.LABKEY) {

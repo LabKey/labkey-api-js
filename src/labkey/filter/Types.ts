@@ -16,9 +16,7 @@
 import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants';
 import { isArray, isString } from '../Utils';
 
-let urlMap: {
-    [suffix:string]: IFilterType
-} = {};
+let urlMap: Record<string, IFilterType> = {};
 
 export interface IFilterType {
     getDisplaySymbol: () => string
@@ -36,9 +34,9 @@ export interface IFilterType {
     getSingleValueFilter:() => IFilterType
     /**
      * Split a filter String or Array value appropriately for this filter type.
-     * @return {String|Array} For multi-valued filter types, an Array of values, otherwise the original filter value.
+     * @return For multi-valued filter types, an Array of values, otherwise the original filter value.
      */
-    parseValue: (value: string | Array<FilterValue>) => FilterValue | Array<FilterValue>
+    parseValue: (value: string | FilterValue[]) => FilterValue | FilterValue[]
     /**
      * Get the (unencoded) value that will be put on the URL.
      */
@@ -65,7 +63,7 @@ const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, 
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
 // Mutable due to "_define"
-export let Types: {[key:string]: IFilterType} = {
+export let Types: Record<string, IFilterType> = {
 
     //
     // These operators require a data value
@@ -147,9 +145,8 @@ export let Types: {[key:string]: IFilterType} = {
 
 export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
 
-export const TYPES_BY_JSON_TYPE: {
-    [jsonType: string]: Array<IFilterType>
-} = {
+// TODO: Update to Record<JsonType, IFilterType[]>
+export const TYPES_BY_JSON_TYPE: Record<string, IFilterType[]> = {
     'boolean': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
     'date': [Types.HAS_ANY_VALUE, Types.DATE_EQUAL, Types.DATE_NOT_EQUAL, Types.ISBLANK, Types.NONBLANK, Types.DATE_GREATER_THAN, Types.DATE_LESS_THAN, Types.DATE_GREATER_THAN_OR_EQUAL, Types.DATE_LESS_THAN_OR_EQUAL],
     'float': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN],
@@ -157,15 +154,64 @@ export const TYPES_BY_JSON_TYPE: {
     'string': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.CONTAINS, Types.DOES_NOT_CONTAIN, Types.DOES_NOT_START_WITH, Types.STARTS_WITH, Types.IN, Types.NOT_IN, Types.CONTAINS_ONE_OF, Types.CONTAINS_NONE_OF, Types.BETWEEN, Types.NOT_BETWEEN]
 };
 
-export const TYPES_BY_JSON_TYPE_DEFAULT: {
-    [jsonType: string]: IFilterType
-} = {
+// TODO: Update to Record<JsonType, IFilterType[]>
+export const TYPES_BY_JSON_TYPE_DEFAULT: Record<string, IFilterType> = {
     'boolean': Types.EQUAL,
     'date': Types.DATE_EQUAL,
     'float': Types.EQUAL,
     'int': Types.EQUAL,
     'string': Types.CONTAINS
 };
+
+/**
+ * Not for public use. Can be changed or dropped at any time.
+ * @private
+ */
+export function _define(typeName: string, displayText: string, urlSuffix: string, isMultiType?: boolean): void {
+    if (!Types[typeName]) {
+        if (isMultiType) {
+            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true, ',');
+        } else {
+            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true);
+        }
+    }
+}
+
+/**
+ * Return the default LABKEY.Filter.Type for a json type ("int", "double", "string", "boolean", "date").
+ * @private
+ */
+export function getDefaultFilterForType(jsonType: JsonType): IFilterType {
+    if (jsonType && TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()]) {
+        return TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()];
+    }
+
+    return Types.EQUAL;
+}
+
+export function getFilterTypeForURLSuffix(urlSuffix: string): IFilterType {
+    return urlMap[urlSuffix];
+}
+
+/**
+ * Returns an Array of filter types that can be used with the given
+ * json type ("int", "double", "string", "boolean", "date")
+ * @private
+ */
+export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): IFilterType[] {
+    let types: IFilterType[] = [];
+
+    if (jsonType && TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]) {
+        types = types.concat(TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]);
+    }
+
+    if (mvEnabled) {
+        types.push(Types.HAS_MISSING_VALUE);
+        types.push(Types.DOES_NOT_HAVE_MISSING_VALUE);
+    }
+
+    return types;
+}
 
 /**
  * Creates a FilterType object and stores it in the global URL Map used by Filter.getFilterTypeForURLSuffix
@@ -279,56 +325,6 @@ export function registerFilterType(
     urlMap[urlSuffix] = type;
 
     return type;
-}
-
-/**
- * Not for public use. Can be changed or dropped at any time.
- * @private
- */
-export function _define(typeName: string, displayText: string, urlSuffix: string, isMultiType?: boolean): void {
-    if (!Types[typeName]) {
-        if (isMultiType) {
-            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true, ',');
-        } else {
-            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true);
-        }
-    }
-}
-
-/**
- * Return the default LABKEY.Filter.Type for a json type ("int", "double", "string", "boolean", "date").
- * @private
- */
-export function getDefaultFilterForType(jsonType: JsonType): IFilterType {
-    if (jsonType && TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()]) {
-        return TYPES_BY_JSON_TYPE_DEFAULT[jsonType.toLowerCase()];
-    }
-
-    return Types.EQUAL;
-}
-
-export function getFilterTypeForURLSuffix(urlSuffix: string): IFilterType {
-    return urlMap[urlSuffix];
-}
-
-/**
- * Returns an Array of filter types that can be used with the given
- * json type ("int", "double", "string", "boolean", "date")
- * @private
- */
-export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): Array<IFilterType> {
-    let types: Array<IFilterType> = [];
-
-    if (jsonType && TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]) {
-        types = types.concat(TYPES_BY_JSON_TYPE[jsonType.toLowerCase()]);
-    }
-
-    if (mvEnabled) {
-        types.push(Types.HAS_MISSING_VALUE);
-        types.push(Types.DOES_NOT_HAVE_MISSING_VALUE);
-    }
-
-    return types;
 }
 
 function twoDigit(num: number): string {
