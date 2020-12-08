@@ -15,7 +15,7 @@
  */
 import { ensureRegionName, isArray } from '../Utils'
 import { getParameters } from '../ActionURL'
-import { FieldKey } from '../fieldKey/FieldKey'
+import { FieldKey } from '../FieldKey'
 
 import { FilterValue } from './constants'
 import { IFilterType, getFilterTypeForURLSuffix, Types } from './Types'

@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { isString } from '../Utils'
-
+import { isString } from './Utils'
 import { QueryKey } from './QueryKey'
 
-export class SchemaKey extends QueryKey {
+export class FieldKey extends QueryKey {
 
     /**
-     * Create new SchemaKey from an Array of unencoded SchemaKey string parts.
-     * @returns {SchemaKey}
+     * Create new FieldKey from an Array of unencoded FieldKey string parts.
+     * @param parts
+     * @returns {FieldKey}
      */
-    static fromParts(parts?: any): SchemaKey {
-        let ret: SchemaKey = null;
+    static fromParts(parts?: any) {
+        let ret: FieldKey = null;
 
         for (let i=0; i < arguments.length; i++) {
             let arg = arguments[i];
             if (isString(arg)) {
-                ret = new SchemaKey(ret, arg);
+                ret = new FieldKey(ret, arg);
             }
             else if (arg && arg.length) {
                 for (let j=0; j < arg.length; j++) {
-                    ret = new SchemaKey(ret, arg[j]);
+                    ret = new FieldKey(ret, arg[j]);
                 }
             }
             else {
@@ -45,26 +45,22 @@ export class SchemaKey extends QueryKey {
     }
 
     /**
-     * Create new SchemaKey from a SchemaKey encoded string with parts separated by '.' characters.
+     * Create new FieldKey from a FieldKey encoded string with parts separated by '/' characters.
      * @param s
-     * @returns {null}
+     * @returns {FieldKey}
      */
-    static fromString(s: string): SchemaKey {
-        let r  = s.split('.');
-        let ret: SchemaKey = null;
+    static fromString(s: string): FieldKey {
+        let ret: FieldKey = null;
+        let r = s.split('/');
 
         for (let i=0; i < r.length; i++) {
-            ret = new SchemaKey(ret, QueryKey.decodePart(r[i]));
+            ret = new FieldKey(ret, QueryKey.decodePart(r[i]));
         }
 
         return ret;
     }
 
-    /**
-     * Returns an encoded SchemaKey string suitable for sending to the server.
-     * @returns {string}
-     */
     toString() {
-        return super.toString('.');
+        return super.toString('/');
     }
 }
