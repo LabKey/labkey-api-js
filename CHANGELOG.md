@@ -1,4 +1,4 @@
-## 1.1.# - 2020-12-##
+## 1.1.2 - 2020-12-09
 - [41969](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=41969): Fix MultiRequest to return instance. Add unit tests.
 
 ## 1.1.1 - 2020-09-18
