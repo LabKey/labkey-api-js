@@ -84,38 +84,11 @@ import { getOnFailure, getOnSuccess, isArray } from './Utils'
  * ```
 */
 export const MultiRequest = function(config: any) {
-    config = config || {};
-
-    let doneCallbacks: Array<any> = [];
-    let listeners;
-    let requests;
+    let doneCallbacks: any[] = [];
     let self = this;
     let sending = false;
-    let sendQ: Array<any> = [];
-    let waitQ: Array<any> = [];
-
-    if (isArray(config)) {
-        requests = config;
-    }
-    else {
-        requests = config.requests;
-        listeners = config.listeners;
-    }
-
-    if (requests) {
-        for (let i = 0; i < requests.length; i++) {
-            let request = requests[i];
-            this.add(request[0], request[1]);
-        }
-    }
-
-    if (listeners && listeners.done) {
-        applyCallback(listeners.done, listeners.scope);
-    }
-
-    if (waitQ.length && doneCallbacks.length > 0) {
-        this.send();
-    }
+    let sendQ: any[] = [];
+    let waitQ: any[] = [];
     
     function applyCallback(callback: any, scope: any) {
         if (typeof callback == 'function') {
@@ -124,7 +97,7 @@ export const MultiRequest = function(config: any) {
                 scope
             });
         }
-        else if (typeof callback.fn == 'function') {
+        else if (callback && typeof callback.fn == 'function') {
             doneCallbacks.push({
                 fn: callback.fn,
                 scope: callback.scope || scope
@@ -234,4 +207,33 @@ export const MultiRequest = function(config: any) {
 
         applyCallback(callback, scope);
     };
+
+    const cfg = config || {};
+    let listeners;
+    let requests;
+
+    if (isArray(cfg)) {
+        requests = cfg;
+    }
+    else {
+        requests = cfg.requests;
+        listeners = cfg.listeners;
+    }
+
+    if (requests) {
+        for (let i = 0; i < requests.length; i++) {
+            let request = requests[i];
+            this.add(request[0], request[1]);
+        }
+    }
+
+    if (listeners && listeners.done) {
+        applyCallback(listeners.done, listeners.scope);
+    }
+
+    if (waitQ.length && doneCallbacks.length > 0) {
+        this.send();
+    }
+
+    return this;
 };
