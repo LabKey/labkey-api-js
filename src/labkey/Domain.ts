@@ -145,8 +145,11 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
  *            scale: 4,
  *        }]
  *    },
+ *    // Domain kind specific options
  *    options: {
+ *        // These options are specific to an 'IntList'
  *        keyName: 'id',
+ *        keyType: 'Integer', // or 'AutoIncrementInteger'
  *    },
  * });
  * ```
