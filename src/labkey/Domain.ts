@@ -42,23 +42,39 @@ export interface DomainDesign {
     description?: string
     /**
      * An array of objects that each describe a domain field.  Each object has the following properties:
-     * - propertyId : The unique ID of this field.
-     * - propertyURI:</b> The URI of this field. (string)
-     * - ontologyURI:</b> The URI of the ontology this field belongs to. (string)
-     * - name:</b> The name of this field. (string)
-     * - description:</b> The description of this field (may be blank). (string)
-     * - rangeURI:</b> The URI for this field's range definition. (string)
      * - conceptURI:</b> The URI of this field's concept. (string)
-     * - label:</b> The friendly label for this field. (string)
-     * - searchTerms:</b> The search terms for this field. (string)
-     * - semanticType:</b> The semantic type of this field. (string)
+     * - description:</b> The description of this field (may be blank). (string)
      * - format:</b> The format string defined for this field. (string)
-     * - required:</b> Indicates whether this field is required to have a value (i.e. cannot be null). (boolean)
+     * - label:</b> The friendly label for this field. (string)
      * - lookupContainer:</b> If this domain field is a lookup, this holds the container in which to look. (string)
      * - lookupSchema:</b> If this domain field is a lookup, this holds the schema in which to look. (string)
      * - lookupQuery:</b> if this domain field is a lookup, this holds the query in which to look. (string)
+     * - name:</b> The name of this field. (string)
+     * - propertyId : The unique ID of this field.
+     * - propertyURI:</b> The URI of this field. (string)
+     * - ontologyURI:</b> The URI of the ontology this field belongs to. (string)
+     * - rangeURI:</b> The URI for this field's range definition. Accepted values:
+     *   - attachment
+     *   - binary
+     *   - boolean
+     *   - date
+     *   - dateTime
+     *   - decimal
+     *   - double
+     *   - fileLink
+     *   - float
+     *   - int
+     *   - long
+     *   - multiLine
+     *   - Resource
+     *   - string
+     *   - text-xml
+     *   - time
+     * - required:</b> Indicates whether this field is required to have a value (i.e. cannot be null). (boolean)
+     * - searchTerms:</b> The search terms for this field. (string)
+     * - semanticType:</b> The semantic type of this field. (string)
      */
-    fields?: any[]
+    fields?: any[] // TODO: Convert this into a type "DomainField[]"
     /**
      * An array of objects that each designate an index upon the domain.  Each object has the following properties
      * - columnNames : An array of strings, where each string is the name of a domain field that will be an index. (array).
@@ -89,7 +105,15 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
     domainTemplate?: string
     /** When using a domain template, import initial data associated in the template.  Defaults to true. */
     importData?: boolean
-    /** The domain kind to create. One of "IntList", "VarList", "SampleSet", or "DataClass". */
+    /**
+     * The domain kind to create. Currently supported:
+     * - DataClass
+     * - IntList
+     * - SampleSet
+     * - StudyDatasetDate
+     * - StudyDatasetVisit
+     * - VarList
+     */
     kind?: string
     /** The name of a module that contains the domain template group. */
     module?: string
@@ -101,45 +125,48 @@ export interface CreateDomainOptions extends RequestCallbackOptions {
 /**
  * Create a new domain with the given kind, domainDesign, and options or
  * specify a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates)
- * to use for the domain creation. Not all domain kinds can be created through this API.
- * Currently supported domain kinds are: "IntList", "VarList", "SampleSet", "DataClass",
- * "StudyDatasetDate", "StudyDatasetVisit".
+ * to use for the domain creation. Not all domain kinds can be created through this API. See {@link CreateDomainOptions.kind}
+ * for supported domain kinds.
+ *
+ * For each domain you can specify each field's metadata. The properties for field's can be found on {@link DomainDesign.fields}.
  *
  * ```js
  * LABKEY.Domain.create({
- *  kind: "IntList",
- *  domainDesign: {
- *      name: "LookupCodes",
- *      description: "integer key list",
- *      fields: [{
- *          name: "id", rangeURI: "int"
- *          },{
- *          name: "code",
- *          rangeURI: "string", scale: 4
- *      }]
- *  },
- *  options: {
- *      keyName: "id"
- *  }
+ *    kind: 'IntList',
+ *    domainDesign: {
+ *        name: 'LookupCodes',
+ *        description: 'integer key list',
+ *        fields: [{
+ *            name: 'id',
+ *            rangeURI: 'int',
+ *        },{
+ *            name: 'code',
+ *            rangeURI: 'string',
+ *            scale: 4,
+ *        }]
+ *    },
+ *    options: {
+ *        keyName: 'id',
+ *    },
  * });
  * ```
- * Create domain from a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates)
+ * Create domain from a [domain template](https://www.labkey.org/Documentation/wiki-page.view?name=domainTemplates):
  * ```js
  * LABKEY.Domain.create({
- *  module: "mymodule",
- *  domainGroup: "codes",
- *  domainTemplate: "LookupCodes",
- *  importData: false
+ *    module: 'mymodule',
+ *    domainGroup: 'codes',
+ *    domainTemplate: 'LookupCodes',
+ *    importData: false,
  * });
  * ```
  * Import the initial data from the domain template of a previously created domain:
  * ```js
  * LABKEY.Domain.create({
- *  module: "mymodule",
- *  domainGroup: "codes",
- *  domainTemplate: "LookupCodes",
- *  createDomain: false,
- *  importData: true
+ *    module: 'mymodule',
+ *    domainGroup: 'codes',
+ *    domainTemplate: 'LookupCodes',
+ *    createDomain: false,
+ *    importData: true,
  * });
  * ```
  */
