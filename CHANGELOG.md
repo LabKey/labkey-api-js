@@ -1,4 +1,4 @@
-## 1.1.# - 2020-12-##
+## 1.1.3 - 2020-12-10
 - Update TypeDoc to `0.20.0-beta.26` and update our `typedoc.js` to improve documentation layout.
 - Move "fieldKey" modules to top-level so they better align with how they're actually exported.
 - Improve documentation for filters and their types. Done as part of an exercise to see how TypeDoc handled inline docs.
