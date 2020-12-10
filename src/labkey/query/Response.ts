@@ -15,8 +15,8 @@
  */
 import { isArray, isDefined, isFunction } from '../Utils'
 
-import { FieldKey } from '../fieldKey/FieldKey'
-import { SchemaKey } from '../fieldKey/SchemaKey'
+import { FieldKey } from '../FieldKey'
+import { SchemaKey } from '../SchemaKey'
 
 interface ExtRoot {
     Ext?: any

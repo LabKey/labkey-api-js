@@ -15,8 +15,8 @@
  */
 import { buildURL } from '../ActionURL'
 import { request } from '../Ajax'
-import { FieldKey } from '../fieldKey/FieldKey'
-import { SchemaKey } from '../fieldKey/SchemaKey'
+import { FieldKey } from '../FieldKey'
+import { SchemaKey } from '../SchemaKey'
 import { decode, isArray, isFunction, isString } from '../Utils'
 
 import { Response } from './Response'

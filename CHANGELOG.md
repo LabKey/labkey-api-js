@@ -1,3 +1,10 @@
+## 1.1.3 - 2020-12-10
+- Update TypeDoc to `0.20.0-beta.26` and update our `typedoc.js` to improve documentation layout.
+- Move "fieldKey" modules to top-level so they better align with how they're actually exported.
+- Improve documentation for filters and their types. Done as part of an exercise to see how TypeDoc handled inline docs.
+- Fix issues [42014](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=42014) and [40724](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=40724) with improvements to `Domain` documentation. 
+- Package updates.
+
 ## 1.1.2 - 2020-12-09
 - [41969](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=41969): Fix MultiRequest to return instance. Add unit tests.
 
