@@ -1,0 +1,296 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>MultiRequest | @labkey/api</title>
+	<meta name="description" content="Documentation for @labkey/api">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@labkey/api</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">@labkey/api</a>
+				</li>
+				<li>
+					<a href="multirequest.html">MultiRequest</a>
+				</li>
+			</ul>
+			<h1>Module MultiRequest</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="multirequest.html#multirequest-1" class="tsd-kind-icon">Multi<wbr>Request</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="multirequest-1" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Multi<wbr>Request</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">Multi<wbr>Request<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/MultiRequest.ts#L86">MultiRequest.ts:86</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Make multiple ajax requests and invokes a callback when all are complete.
+										Requests are added as [function, config] array pairs where the config object
+										is passed as the argument to the request function.  The request function&#39;s config
+										object argument must accept a success callback named &#39;success&#39; and a failure
+									callback named &#39;failure&#39;.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <span class="tsd-signature-type">any</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Either an array of [function, config] array pairs
+										to be added or a config object with the shape:</p>
+										<ul>
+											<li>listeners: a config object containing event handlers.</li>
+											<li>requests: an array of [function, config] array pairs to be added.</li>
+										</ul>
+										<pre><code><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">config</span><span style="color: #000000"> = {</span>
+<span style="color: #000000"> </span><span style="color: #001080">schemaName :</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;assay&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000"> </span><span style="color: #001080">queryName :</span><span style="color: #000000"> </span><span style="color: #001080">protocolName</span><span style="color: #000000"> + </span><span style="color: #A31515">&quot; Data&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000"> </span><span style="color: #001080">containerPath :</span><span style="color: #000000"> </span><span style="color: #A31515">&quot;/Test&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000"> </span><span style="color: #795E26">success</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">data</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">, </span><span style="color: #001080">response</span><span style="color: #000000">) {</span>
+<span style="color: #000000">     </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;selectRows success: &quot;</span><span style="color: #000000"> + </span><span style="color: #001080">data</span><span style="color: #000000">.</span><span style="color: #001080">rowCount</span><span style="color: #000000">);</span>
+<span style="color: #000000"> },</span>
+<span style="color: #000000"> </span><span style="color: #795E26">failure</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">response</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">) {</span>
+<span style="color: #000000">     </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;selectRows failure&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000"> },</span>
+<span style="color: #000000"> </span><span style="color: #001080">scope:</span><span style="color: #000000"> </span><span style="color: #001080">scope</span><span style="color: #000000"> </span><span style="color: #008000">// scope to execute success and failure callbacks in.</span>
+<span style="color: #000000">};</span>
+
+<span style="color: #008000">// add the requests and config arguments one by one</span>
+<span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">multi</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">LABKEY</span><span style="color: #000000">.</span><span style="color: #267F99">MultiRequest</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">requestScope</span><span style="color: #000000"> = ... </span><span style="color: #008000">// scope to execute the request function in.</span>
+<span style="color: #001080">multi</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">, </span><span style="color: #001080">requestScope</span><span style="color: #000000">);</span>
+<span style="color: #001080">multi</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">, </span><span style="color: #001080">requestScope</span><span style="color: #000000">);</span>
+<span style="color: #001080">multi</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">, </span><span style="color: #001080">requestScope</span><span style="color: #000000">);</span>
+<span style="color: #001080">multi</span><span style="color: #000000">.</span><span style="color: #795E26">send</span><span style="color: #000000">(</span>
+<span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> () { </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;send complete&quot;</span><span style="color: #000000">); },</span>
+<span style="color: #000000"> </span><span style="color: #001080">sendCallbackScope</span><span style="color: #000000"> </span><span style="color: #008000">// scope to execute &#039;send complete&#039; callback in.</span>
+<span style="color: #000000">);</span>
+
+<span style="color: #008000">// additional requests won&#039;t be sent while other requests are in progress</span>
+<span style="color: #001080">multi</span><span style="color: #000000">.</span><span style="color: #795E26">add</span><span style="color: #000000">(</span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000">);</span>
+<span style="color: #001080">multi</span><span style="color: #000000">.</span><span style="color: #795E26">send</span><span style="color: #000000">(</span><span style="color: #0000FF">function</span><span style="color: #000000"> () { </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;send complete&quot;</span><span style="color: #000000">); }, </span><span style="color: #001080">sendCallbackScope</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// constructor can take an array of requests [function, config] pairs</span>
+<span style="color: #001080">multi</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">LABKEY</span><span style="color: #000000">.</span><span style="color: #267F99">MultiRequest</span><span style="color: #000000">([</span>
+<span style="color: #000000"> [ </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000"> ],</span>
+<span style="color: #000000"> [ </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000"> ],</span>
+<span style="color: #000000"> [ </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000"> ]</span>
+<span style="color: #000000">]);</span>
+<span style="color: #001080">multi</span><span style="color: #000000">.</span><span style="color: #795E26">send</span><span style="color: #000000">();</span>
+
+<span style="color: #008000">// constructor can take a config object with listeners and requests.</span>
+<span style="color: #008000">// if there is a &#039;done&#039; listener, the requests will be sent immediately.</span>
+<span style="color: #001080">multi</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">LABKEY</span><span style="color: #000000">.</span><span style="color: #267F99">MultiRequest</span><span style="color: #000000">({</span>
+<span style="color: #000000"> </span><span style="color: #001080">listeners :</span><span style="color: #000000"> { </span><span style="color: #A31515">&#039;done&#039;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> () { </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;send complete&quot;</span><span style="color: #000000">); }, </span><span style="color: #001080">scope:</span><span style="color: #000000"> </span><span style="color: #001080">sendCallbackScope</span><span style="color: #000000"> },</span>
+<span style="color: #000000"> </span><span style="color: #001080">requests :</span><span style="color: #000000"> [ [ </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000"> ],</span>
+<span style="color: #000000">     [ </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000"> ],</span>
+<span style="color: #000000">     [ </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #001080">selectRows</span><span style="color: #000000">, </span><span style="color: #001080">config</span><span style="color: #000000"> ] ]</span>
+<span style="color: #000000"> });</span>
+
+<span style="color: #000000"> </span><span style="color: #008000">// Alternate syntax for adding the &#039;done&#039; event listener.</span>
+<span style="color: #000000"> </span><span style="color: #001080">multi</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">LABKEY</span><span style="color: #000000">.</span><span style="color: #267F99">MultiRequest</span><span style="color: #000000">({</span>
+<span style="color: #000000">     </span><span style="color: #001080">listeners :</span><span style="color: #000000"> {</span>
+<span style="color: #000000">         </span><span style="color: #A31515">&#039;done&#039;</span><span style="color: #001080">:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">             </span><span style="color: #795E26">fn</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> () { </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;send complete&quot;</span><span style="color: #000000">); }</span>
+<span style="color: #000000">             </span><span style="color: #001080">scope</span><span style="color: #000000">: </span><span style="color: #001080">sendCallbackScope</span>
+<span style="color: #000000">         }</span>
+<span style="color: #000000">     }</span>
+<span style="color: #000000"> });</span>
+</code></pre>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="actionurl.html">ActionURL</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="ajax.html">Ajax</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="app.html">App</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="assay.html">Assay</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="domain.html">Domain</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="exp.html">Exp</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="experiment.html">Experiment</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="fieldkey.html">Field<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="filter.html">Filter</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="list.html">List</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="message.html">Message</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="multirequest.html">Multi<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="participantgroup.html">Participant<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="pipeline.html">Pipeline</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="query.html">Query</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="querykey.html">Query<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="report.html">Report</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="schemakey.html">Schema<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="security.html">Security</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="specimen.html">Specimen</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="utils.html">Utils</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="visualization.html">Visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="constants.html">constants</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="multirequest.html#multirequest-1" class="tsd-kind-icon">Multi<wbr>Request</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

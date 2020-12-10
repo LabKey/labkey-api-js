@@ -1,0 +1,665 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Filter | @labkey/api</title>
+	<meta name="description" content="Documentation for @labkey/api">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@labkey/api</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">@labkey/api</a>
+				</li>
+				<li>
+					<a href="filter.html">Filter</a>
+				</li>
+			</ul>
+			<h1>Module Filter</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/filter.ifilter.html" class="tsd-kind-icon">IFilter</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/filter.ifiltertype.html" class="tsd-kind-icon">IFilter<wbr>Type</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Variables</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="filter.html#types" class="tsd-kind-icon">Types</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#create" class="tsd-kind-icon">create</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#getfilterdescription" class="tsd-kind-icon">get<wbr>Filter<wbr>Description</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#getfiltertypeforurlsuffix" class="tsd-kind-icon">get<wbr>Filter<wbr>Type<wbr>ForURLSuffix</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#getfiltersfromparameters" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Parameters</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#getfiltersfromurl" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Url</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#getqueryparamsfromurl" class="tsd-kind-icon">get<wbr>Query<wbr>Params<wbr>From<wbr>Url</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#getsortfromurl" class="tsd-kind-icon">get<wbr>Sort<wbr>From<wbr>Url</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#merge" class="tsd-kind-icon">merge</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="filter.html#registerfiltertype" class="tsd-kind-icon">register<wbr>Filter<wbr>Type</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
+					<a name="types" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagLet">Let</span> Types</h3>
+					<div class="tsd-signature tsd-kind-icon">Types<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="../interfaces/filter.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {//// These operators require a data value//EQUAL,DATE_EQUAL: registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), &#x27;dateeq&#x27;, true),NOT_EQUAL,NEQ: NOT_EQUAL,DATE_NOT_EQUAL: registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), &#x27;dateneq&#x27;, true),NEQ_OR_NULL,NOT_EQUAL_OR_MISSING: NEQ_OR_NULL,GREATER_THAN,GT: GREATER_THAN,DATE_GREATER_THAN: registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), &#x27;dategt&#x27;, true),LESS_THAN,LT: LESS_THAN,DATE_LESS_THAN: registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), &#x27;datelt&#x27;, true),GREATER_THAN_OR_EQUAL,GTE : GREATER_THAN_OR_EQUAL,DATE_GREATER_THAN_OR_EQUAL: registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), &#x27;dategte&#x27;, true),LESS_THAN_OR_EQUAL,LTE: LESS_THAN_OR_EQUAL,DATE_LESS_THAN_OR_EQUAL: registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), &#x27;datelte&#x27;, true),STARTS_WITH: registerFilterType(&#x27;Starts With&#x27;, null, &#x27;startswith&#x27;, true),DOES_NOT_START_WITH: registerFilterType(&#x27;Does Not Start With&#x27;, null, &#x27;doesnotstartwith&#x27;, true),CONTAINS: registerFilterType(&#x27;Contains&#x27;, null, &#x27;contains&#x27;, true),DOES_NOT_CONTAIN: registerFilterType(&#x27;Does Not Contain&#x27;, null, &#x27;doesnotcontain&#x27;, true),CONTAINS_ONE_OF: registerFilterType(&#x27;Contains One Of&#x27;, null, &#x27;containsoneof&#x27;, true, &#x27;;&#x27;, &#x27;Contains One Of (example usage: a;b;c)&#x27;),CONTAINS_NONE_OF: registerFilterType(&#x27;Does Not Contain Any Of&#x27;, null, &#x27;containsnoneof&#x27;, true, &#x27;;&#x27;, &#x27;Does Not Contain Any Of (example usage: a;b;c)&#x27;),// NOTE: for some reason IN is aliased as EQUALS_ONE_OF. Not sure if this is for legacy purposes or it was// determined EQUALS_ONE_OF was a better phrase to follow this pattern I did the same for IN_OR_MISSINGIN,EQUALS_ONE_OF: IN,NOT_IN,EQUALS_NONE_OF: NOT_IN,BETWEEN: registerFilterType(&#x27;Between&#x27;, null, &#x27;between&#x27;, true, &#x27;,&#x27;, &#x27;Between, Inclusive (example usage: -4,4)&#x27;, 2, 2),NOT_BETWEEN: registerFilterType(&#x27;Not Between&#x27;, null, &#x27;notbetween&#x27;, true, &#x27;,&#x27;, &#x27;Not Between, Exclusive (example usage: -4,4)&#x27;, 2, 2),MEMBER_OF: registerFilterType(&#x27;Member Of&#x27;, null, &#x27;memberof&#x27;, true, undefined, &#x27;Member Of&#x27;),EXP_CHILD_OF: registerFilterType(&#x27;Is Child Of&#x27;, null, &#x27;exp:childof&#x27;, true, undefined, &#x27; is child of&#x27;),EXP_PARENT_OF: registerFilterType(&#x27;Is Parent Of&#x27;, null, &#x27;exp:parentof&#x27;, true, undefined, &#x27; is parent of&#x27;),EXP_LINEAGE_OF: registerFilterType(&#x27;In The Lineage Of&#x27;, null, &#x27;exp:lineageof&#x27;, true, &#x27;,&#x27;, &#x27; in the lineage of&#x27;),//// These are the &#x27;no data value&#x27; operators//// NOTE: This type, for better or worse, uses empty string as it&#x27;s urlSuffix.// The result is a filter that is encoded as &quot;&lt;dataRegionName&gt;.&lt;columnName&gt;~&#x3D;&quot;.HAS_ANY_VALUE: registerFilterType(&#x27;Has Any Value&#x27;, null, &#x27;&#x27;),ISBLANK: registerFilterType(&#x27;Is Blank&#x27;, null, &#x27;isblank&#x27;),MISSING: registerFilterType(&#x27;Is Blank&#x27;, null, &#x27;isblank&#x27;),NONBLANK: registerFilterType(&#x27;Is Not Blank&#x27;, null, &#x27;isnonblank&#x27;),NOT_MISSING: registerFilterType(&#x27;Is Not Blank&#x27;, null, &#x27;isnonblank&#x27;),HAS_MISSING_VALUE: registerFilterType(&#x27;Has a missing value indicator&#x27;, null, &#x27;hasmvvalue&#x27;),DOES_NOT_HAVE_MISSING_VALUE: registerFilterType(&#x27;Does not have a missing value indicator&#x27;, null, &#x27;nomvvalue&#x27;),//// Table/Query-wise operators//Q: registerFilterType(&#x27;Search&#x27;, null, &#x27;q&#x27;, true, undefined, &#x27;Search across all columns&#x27;, undefined, undefined, true)}</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Types.ts#L66">filter/Types.ts:66</a></li>
+						</ul>
+					</aside>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="create" class="tsd-anchor"></a>
+					<h3>create</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>column<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">FilterValue</span>, type<span class="tsd-signature-symbol">?: </span><a href="../interfaces/filter.ifiltertype.html" class="tsd-signature-type">IFilterType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Filter.ts#L199">filter/Filter.ts:199</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a filter</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>column: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The name of a column that is available in the associated query.</p>
+									</div>
+								</li>
+								<li>
+									<h5>value: <span class="tsd-signature-type">FilterValue</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Value(s) to be filtered upon.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> type: <a href="../interfaces/filter.ifiltertype.html" class="tsd-signature-type">IFilterType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Filter type for the filter. Defaults to <code>LABKEY.Filter.Types.EQUAL</code>.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a></h4>
+							<p>A filter instance.</p>
+							<pre><code><span style="color: #008000">// Create a request with the data filtered</span>
+<span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Query</span><span style="color: #000000">.</span><span style="color: #795E26">selectRows</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">schemaName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;lists&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">queryName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;People&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">filterArray:</span><span style="color: #000000"> [</span>
+<span style="color: #000000">      </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Filter</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;FirstName&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;Johnny&#039;</span><span style="color: #000000">),</span>
+<span style="color: #000000">      </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Filter</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Age&#039;</span><span style="color: #000000">, </span><span style="color: #098658">15</span><span style="color: #000000">, </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Filter</span><span style="color: #000000">.</span><span style="color: #001080">Types</span><span style="color: #000000">.</span><span style="color: #0070C1">LESS_THAN_OR_EQUAL</span><span style="color: #000000">)</span>
+<span style="color: #000000">      </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Filter</span><span style="color: #000000">.</span><span style="color: #795E26">create</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;LastName&#039;</span><span style="color: #000000">, [</span><span style="color: #A31515">&#039;A&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;B&#039;</span><span style="color: #000000">], </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Filter</span><span style="color: #000000">.</span><span style="color: #001080">Types</span><span style="color: #000000">.</span><span style="color: #0070C1">DOES_NOT_START_WITH</span><span style="color: #000000">),</span>
+<span style="color: #000000">  ]</span>
+<span style="color: #000000">  </span><span style="color: #001080">success</span><span style="color: #000000">: </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">data</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Success! &quot;</span><span style="color: #000000"> + </span><span style="color: #001080">data</span><span style="color: #000000">.</span><span style="color: #001080">rowCount</span><span style="color: #000000"> + </span><span style="color: #A31515">&quot; rows returned.&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #795E26">failure</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">errorInfo</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">, </span><span style="color: #001080">responseObj</span><span style="color: #000000">) {</span>
+<span style="color: #000000">      </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Failed to query &#039;lists.People&#039;.&quot;</span><span style="color: #000000">, </span><span style="color: #001080">errorInfo</span><span style="color: #000000">);</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">});</span>
+</code></pre>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getfilterdescription" class="tsd-anchor"></a>
+					<h3>get<wbr>Filter<wbr>Description</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Filter<wbr>Description<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dataRegionName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, columnName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Filter.ts#L219">filter/Filter.ts:219</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Convert from URL syntax filters to a human readable description
+									(e.g. &quot;Is Greater Than 10 AND Is Less Than 100&quot;).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>URL containing the filter parameters</p>
+									</div>
+								</li>
+								<li>
+									<h5>dataRegionName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Name of the data region the column is a part of</p>
+									</div>
+								</li>
+								<li>
+									<h5>columnName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Name of the column to filter</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+							<p>Human readable version of the filter</p>
+							<pre><code class="language-js"><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">url</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;mylab.org?qwp1.priority~gt=10&amp;qwp1.priority~lte=75&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">description</span><span style="color: #000000"> = </span><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">Filter</span><span style="color: #000000">.</span><span style="color: #795E26">getFilterDescription</span><span style="color: #000000">(</span><span style="color: #001080">url</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;qwp1&#039;</span><span style="color: #000000">, </span><span style="color: #A31515">&#039;priority&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #001080">description</span><span style="color: #000000">); </span><span style="color: #008000">// &quot;Is Greater Than 10 AND Is Less Than or Equal To 75&quot;</span>
+</code></pre>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getfiltertypeforurlsuffix" class="tsd-anchor"></a>
+					<h3>get<wbr>Filter<wbr>Type<wbr>ForURLSuffix</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Filter<wbr>Type<wbr>ForURLSuffix<span class="tsd-signature-symbol">(</span>urlSuffix<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifiltertype.html" class="tsd-signature-type">IFilterType</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Types.ts#L192">filter/Types.ts:192</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>urlSuffix: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/filter.ifiltertype.html" class="tsd-signature-type">IFilterType</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getfiltersfromparameters" class="tsd-anchor"></a>
+					<h3>get<wbr>Filters<wbr>From<wbr>Parameters</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Parameters<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Filter.ts#L259">filter/Filter.ts:259</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>params: <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataRegionName: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getfiltersfromurl" class="tsd-anchor"></a>
+					<h3>get<wbr>Filters<wbr>From<wbr>Url</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Filter.ts#L294">filter/Filter.ts:294</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create an array of <a href="../interfaces/filter.ifilter.html">IFilter</a> objects from the filter parameters on the URL.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The URL to parse filters from.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataRegionName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The data region name scope for the filters. Defaults to &quot;query&quot;.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getqueryparamsfromurl" class="tsd-anchor"></a>
+					<h3>get<wbr>Query<wbr>Params<wbr>From<wbr>Url</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Query<wbr>Params<wbr>From<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Filter.ts#L304">filter/Filter.ts:304</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieves parameters used by <a href="https://www.labkey.org/Documentation/wiki-page.view?name=paramsql">parameterized queries</a>
+									from the passed in URL for a given data region name</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The URL to parse the query parameters from.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataRegionName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The data region name scope for this query. Defaults to &quot;query&quot;.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getsortfromurl" class="tsd-anchor"></a>
+					<h3>get<wbr>Sort<wbr>From<wbr>Url</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Sort<wbr>From<wbr>Url<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, dataRegionName<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Filter.ts#L326">filter/Filter.ts:326</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieves the raw sort value from a URL&#39;s query parameters for a data region scoped sort.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The URL to parse the sorts from.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataRegionName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The data region name scope for this query. Defaults to &quot;query&quot;.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="merge" class="tsd-anchor"></a>
+					<h3>merge</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">merge<span class="tsd-signature-symbol">(</span>baseFilters<span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span>, columnName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, columnFilters<span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Filter.ts#L340">filter/Filter.ts:340</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Given an array of filter objects, return a new filterArray with old filters from a column
+										removed and new filters for the column added. If new filters are null, simply remove all old filters
+									from baseFilters that refer to this column.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>baseFilters: <a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Array of existing filters created by <a href="filter.html#create">create</a></p>
+									</div>
+								</li>
+								<li>
+									<h5>columnName: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Column name of filters to replace</p>
+									</div>
+								</li>
+								<li>
+									<h5>columnFilters: <a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Array of new filters created by <a href="filter.html#create">create</a>. Will replace any filters referring to columnName</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/filter.ifilter.html" class="tsd-signature-type">IFilter</a><span class="tsd-signature-symbol">[]</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="registerfiltertype" class="tsd-anchor"></a>
+					<h3>register<wbr>Filter<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">register<wbr>Filter<wbr>Type<span class="tsd-signature-symbol">(</span>displayText<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, displaySymbol<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, urlSuffix<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, dataValueRequired<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span>, multiValueSeparator<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, longDisplayText<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span>, minOccurs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, maxOccurs<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, tableWise<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/filter.ifiltertype.html" class="tsd-signature-type">IFilterType</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/filter/Types.ts#L228">filter/Types.ts:228</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Creates a FilterType object and stores it in the global URL Map used by Filter.getFilterTypeForURLSuffix</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>displayText: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The text to display in a filter menu</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> displaySymbol: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The symbol to display in a filter menu</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> urlSuffix: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The suffix used when adding the filter to a URL</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> dataValueRequired: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>Boolean used to indicate if a data value is required for the filter type</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> multiValueSeparator: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The separator to use if multiple values are allowed for the filter type</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> longDisplayText: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The text to display in a filter help menu</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> minOccurs: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The minimum number of times the filter can be applied</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> maxOccurs: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The maximum number of times the filter can be applied</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> tableWise: <span class="tsd-signature-type">boolean</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>true if the filter applies to all columns on the table</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/filter.ifiltertype.html" class="tsd-signature-type">IFilterType</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="actionurl.html">ActionURL</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="ajax.html">Ajax</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="app.html">App</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="assay.html">Assay</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="domain.html">Domain</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="exp.html">Exp</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="experiment.html">Experiment</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="fieldkey.html">Field<wbr>Key</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="filter.html">Filter</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="list.html">List</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="message.html">Message</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="multirequest.html">Multi<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="participantgroup.html">Participant<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="pipeline.html">Pipeline</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="query.html">Query</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="querykey.html">Query<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="report.html">Report</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="schemakey.html">Schema<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="security.html">Security</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="specimen.html">Specimen</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="utils.html">Utils</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="visualization.html">Visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="constants.html">constants</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/filter.ifilter.html" class="tsd-kind-icon">IFilter</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/filter.ifiltertype.html" class="tsd-kind-icon">IFilter<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-parent-kind-module">
+						<a href="filter.html#types" class="tsd-kind-icon">Types</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#create" class="tsd-kind-icon">create</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#getfilterdescription" class="tsd-kind-icon">get<wbr>Filter<wbr>Description</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#getfiltertypeforurlsuffix" class="tsd-kind-icon">get<wbr>Filter<wbr>Type<wbr>ForURLSuffix</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#getfiltersfromparameters" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#getfiltersfromurl" class="tsd-kind-icon">get<wbr>Filters<wbr>From<wbr>Url</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#getqueryparamsfromurl" class="tsd-kind-icon">get<wbr>Query<wbr>Params<wbr>From<wbr>Url</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#getsortfromurl" class="tsd-kind-icon">get<wbr>Sort<wbr>From<wbr>Url</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#merge" class="tsd-kind-icon">merge</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="filter.html#registerfiltertype" class="tsd-kind-icon">register<wbr>Filter<wbr>Type</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for @labkey/api">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -38,8 +39,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -49,11 +48,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>@labkey/api</h1>
 		</div>
 	</div>
@@ -65,7 +59,7 @@
 				<a href="#labkeyapi" id="labkeyapi" style="color: inherit; text-decoration: none;">
 					<h1>@labkey/api</h1>
 				</a>
-				<p><a href="https://labkey.github.io/labkey-api-js/">API Docs</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md">Change Log</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/LICENSE">License</a></p>
+				<p><a href="https://labkey.github.io/labkey-api-js/">API Docs</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md">Change Log</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/LICENSE">License</a> | <a href="https://teamcity.labkey.org/viewType.html?buildTypeId=LabKey_Publishing_Client_JavaScriptApiTest"><img src="https://teamcity.labkey.org/app/rest/builds/buildType:(id:LabKey_Publishing_Client_JavaScriptApiTest)/statusIcon" alt="Build Status"></a></p>
 				<p>JavaScript package for interacting with <a href="https://www.labkey.com/">LabKey Server</a>. The goal for this package is to
 					provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the
 				browser, on the server, and in pretty much any modern JavaScript environment.</p>
@@ -95,21 +89,27 @@
 				</a>
 				<p>This package is currently available on LabKey&#39;s Artifactory package registry. To include this package set the registry
 				in npm for the <code>@labkey</code> scope. This can be done via command line using <code>npm config</code>:</p>
-				<pre><code>npm config set @labkey:registry https:<span class="hljs-regexp">//</span>artifactory.labkey.com<span class="hljs-regexp">/artifactory/</span>api<span class="hljs-regexp">/npm/</span>libs-client</code></pre><p>or via a <code>.npmrc</code> file</p>
-				<pre><code><span class="hljs-comment"># .npmrc</span>
-@labkey:registry=https:<span class="hljs-regexp">//</span>artifactory.labkey.com<span class="hljs-regexp">/artifactory/</span>api<span class="hljs-regexp">/npm/</span>libs-client</code></pre>
+				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">config</span><span style="color: #000000"> </span><span style="color: #001080">set</span><span style="color: #000000"> @</span><span style="color: #001080">labkey</span><span style="color: #000000">:</span><span style="color: #001080">registry</span><span style="color: #000000"> https:</span><span style="color: #008000">//artifactory.labkey.com/artifactory/api/npm/libs-client</span>
+</code></pre>
+				<p>or via a <code>.npmrc</code> file</p>
+				<pre><code><span style="color: #000000"># .</span><span style="color: #001080">npmrc</span>
+<span style="color: #000000">@</span><span style="color: #001080">labkey</span><span style="color: #000000">:</span><span style="color: #001080">registry</span><span style="color: #000000">=</span><span style="color: #001080">https</span><span style="color: #000000">:</span><span style="color: #008000">//artifactory.labkey.com/artifactory/api/npm/libs-client</span>
+</code></pre>
 				<a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
 					<h4>Installing</h4>
 				</a>
 				<p>To install using npm</p>
-				<pre><code><span class="hljs-built_in">npm</span> install @labkey/api</code></pre><p>You can then import @labkey/api in your application as follows:</p>
-				<pre><code class="language-js"><span class="hljs-keyword">import</span> { Query, Security } <span class="hljs-keyword">from</span> <span class="hljs-string">'@labkey/api'</span>;</code></pre>
+				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">install</span><span style="color: #000000"> @</span><span style="color: #001080">labkey</span><span style="color: #000000">/</span><span style="color: #001080">api</span>
+</code></pre>
+				<p>You can then import @labkey/api in your application as follows:</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Query</span><span style="color: #000000">, </span><span style="color: #001080">Security</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@labkey/api&#039;</span><span style="color: #000000">;</span>
+</code></pre>
 				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
 					<h2>Development</h2>
 				</a>
 				<p>If you would like to contribute changes to this package it is straightforward to get set up for development.
 				First, clone this repository to a directory</p>
-				<pre><code class="language-sh">git <span class="hljs-built_in">clone</span> https://github.com/LabKey/labkey-api-js.git <span class="hljs-comment"># or via ssh</span></code></pre>
+				<pre><code class="language-sh">git clone https://github.com/LabKey/labkey-api-js.git # or via ssh</code></pre>
 				<p>Navigate into the package directory and run the following commands</p>
 				<pre><code class="language-sh">npm install
 npm run build</code></pre>
@@ -133,14 +133,16 @@ npm run build</code></pre>
 				</a>
 				<p>If you&#39;re using this package from a LabKey Server page you can verify the package version being used by opening the
 				browser console and typing:</p>
-				<pre><code class="language-js">LABKEY.__package__</code></pre>
+				<pre><code class="language-js"><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">__package__</span>
+</code></pre>
 				<p>The <code>__package__</code> object will contain package information such as the version of the package you&#39;re using.</p>
-				<pre><code class="language-js"><span class="hljs-comment">// LABKEY.__package__</span>
-{
-  <span class="hljs-attr">description</span>: <span class="hljs-string">"JavaScript client API for LabKey Server"</span>,
-  <span class="hljs-attr">name</span>: <span class="hljs-string">"@labkey/api"</span>,
-  <span class="hljs-attr">version</span>: <span class="hljs-string">"1.0.0"</span>
-}</code></pre>
+				<pre><code class="language-js"><span style="color: #008000">// LABKEY.__package__</span>
+<span style="color: #000000">{</span>
+<span style="color: #000000">  description: </span><span style="color: #A31515">&quot;JavaScript client API for LabKey Server&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  name: </span><span style="color: #A31515">&quot;@labkey/api&quot;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  version: </span><span style="color: #A31515">&quot;1.0.0&quot;</span>
+<span style="color: #000000">}</span>
+</code></pre>
 				<a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
 					<h2>Publishing</h2>
 				</a>
@@ -152,173 +154,77 @@ npm run build</code></pre>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_actionurl_.html">&quot;<wbr>ActionURL&quot;</a>
+						<a href="modules/actionurl.html">ActionURL</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_ajax_.html">&quot;<wbr>Ajax&quot;</a>
+						<a href="modules/ajax.html">Ajax</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_app_.html">&quot;<wbr>App&quot;</a>
+						<a href="modules/app.html">App</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_assay_.html">&quot;<wbr>Assay&quot;</a>
+						<a href="modules/assay.html">Assay</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_domain_.html">&quot;<wbr>Domain&quot;</a>
+						<a href="modules/domain.html">Domain</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_exp_.html">&quot;<wbr>Exp&quot;</a>
+						<a href="modules/exp.html">Exp</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_experiment_.html">&quot;<wbr>Experiment&quot;</a>
+						<a href="modules/experiment.html">Experiment</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_filter_.html">&quot;<wbr>Filter&quot;</a>
+						<a href="modules/fieldkey.html">Field<wbr>Key</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_list_.html">&quot;<wbr>List&quot;</a>
+						<a href="modules/filter.html">Filter</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_message_.html">&quot;<wbr>Message&quot;</a>
+						<a href="modules/list.html">List</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_multirequest_.html">&quot;<wbr>Multi<wbr>Request&quot;</a>
+						<a href="modules/message.html">Message</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_participantgroup_.html">&quot;<wbr>Participant<wbr>Group&quot;</a>
+						<a href="modules/multirequest.html">Multi<wbr>Request</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_pipeline_.html">&quot;<wbr>Pipeline&quot;</a>
+						<a href="modules/participantgroup.html">Participant<wbr>Group</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_query_.html">&quot;<wbr>Query&quot;</a>
+						<a href="modules/pipeline.html">Pipeline</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_report_.html">&quot;<wbr>Report&quot;</a>
+						<a href="modules/query.html">Query</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_security_.html">&quot;<wbr>Security&quot;</a>
+						<a href="modules/querykey.html">Query<wbr>Key</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_specimen_.html">&quot;<wbr>Specimen&quot;</a>
+						<a href="modules/report.html">Report</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_utils_.html">&quot;<wbr>Utils&quot;</a>
+						<a href="modules/schemakey.html">Schema<wbr>Key</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_visualization_.html">&quot;<wbr>Visualization&quot;</a>
+						<a href="modules/security.html">Security</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_constants_.html">&quot;constants&quot;</a>
+						<a href="modules/specimen.html">Specimen</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_dom_assay_.html">&quot;dom/<wbr>Assay&quot;</a>
+						<a href="modules/utils.html">Utils</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_dom_form_.html">&quot;dom/<wbr>Form&quot;</a>
+						<a href="modules/visualization.html">Visualization</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="modules/_dom_query_.html">&quot;dom/<wbr>Query&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dom_security_.html">&quot;dom/<wbr>Security&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dom_utils_.html">&quot;dom/<wbr>Utils&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dom_constants_.html">&quot;dom/constants&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_dom_index_.html">&quot;dom/index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_fieldkey_fieldkey_.html">&quot;field<wbr>Key/<wbr>Field<wbr>Key&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_fieldkey_querykey_.html">&quot;field<wbr>Key/<wbr>Query<wbr>Key&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_fieldkey_schemakey_.html">&quot;field<wbr>Key/<wbr>Schema<wbr>Key&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_filter_filter_.html">&quot;filter/<wbr>Filter&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_filter_types_.html">&quot;filter/<wbr>Types&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_filter_constants_.html">&quot;filter/constants&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_executesql_.html">&quot;query/<wbr>Execute<wbr>Sql&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_getdata_.html">&quot;query/<wbr>Get<wbr>Data&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_getquerydetails_.html">&quot;query/<wbr>Get<wbr>Query<wbr>Details&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_response_.html">&quot;query/<wbr>Response&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_rows_.html">&quot;query/<wbr>Rows&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_selectdistinctrows_.html">&quot;query/<wbr>Select<wbr>Distinct<wbr>Rows&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_selectrows_.html">&quot;query/<wbr>Select<wbr>Rows&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_utils_.html">&quot;query/<wbr>Utils&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_visualization_.html">&quot;query/<wbr>Visualization&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_experimental_sql_.html">&quot;query/experimental/SQL&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_types_.html">&quot;query/types&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_visualization_dimension_.html">&quot;query/visualization/<wbr>Dimension&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_visualization_filter_.html">&quot;query/visualization/<wbr>Filter&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_visualization_measure_.html">&quot;query/visualization/<wbr>Measure&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_query_visualization_constants_.html">&quot;query/visualization/constants&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_security_container_.html">&quot;security/<wbr>Container&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_security_group_.html">&quot;security/<wbr>Group&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_security_permission_.html">&quot;security/<wbr>Permission&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_security_policy_.html">&quot;security/<wbr>Policy&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_security_user_.html">&quot;security/<wbr>User&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_security_constants_.html">&quot;security/constants&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/_security_types_.html">&quot;security/types&quot;</a>
+						<a href="modules/constants.html">constants</a>
 					</li>
 				</ul>
 			</nav>
@@ -335,7 +241,6 @@ npm run build</code></pre>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
 				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
@@ -360,6 +265,5 @@ npm run build</code></pre>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

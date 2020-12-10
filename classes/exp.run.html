@@ -1,0 +1,745 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Run | @labkey/api</title>
+	<meta name="description" content="Documentation for @labkey/api">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@labkey/api</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">@labkey/api</a>
+				</li>
+				<li>
+					<a href="../modules/exp.html">Exp</a>
+				</li>
+				<li>
+					<a href="exp.run.html">Run</a>
+				</li>
+			</ul>
+			<h1>Class Run</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The Exp.Run class describes an experiment run. An experiment run is an application of an experimental
+							protocol to concrete inputs, producing concrete outputs. In object-oriented terminology, a protocol would be a class
+							while a run would be an instance. For more information see
+						<a href="https://www.labkey.org/Documentation/wiki-page.view?name=experiment">additional documentation</a>.</p>
+					</div>
+					<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+						<h4>Examples</h4>
+					</a>
+					<pre><code class="language-js"><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">result</span><span style="color: #000000"> = </span><span style="color: #008000">// ... result of uploading a new assay results file</span>
+<span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">data</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">LABKEY</span><span style="color: #000000">.</span><span style="color: #267F99">Exp</span><span style="color: #000000">.</span><span style="color: #267F99">Data</span><span style="color: #000000">(</span><span style="color: #001080">result</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">run</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">LABKEY</span><span style="color: #000000">.</span><span style="color: #267F99">Exp</span><span style="color: #000000">.</span><span style="color: #267F99">Run</span><span style="color: #000000">();</span>
+<span style="color: #001080">run</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000"> = </span><span style="color: #001080">data</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">;</span>
+<span style="color: #001080">run</span><span style="color: #000000">.</span><span style="color: #001080">properties</span><span style="color: #000000"> = { </span><span style="color: #A31515">&quot;MyRunProperty&quot;</span><span style="color: #001080"> :</span><span style="color: #000000"> </span><span style="color: #098658">3</span><span style="color: #000000"> };</span>
+<span style="color: #001080">run</span><span style="color: #000000">.</span><span style="color: #001080">dataInputs</span><span style="color: #000000"> = [ </span><span style="color: #001080">data</span><span style="color: #000000"> ];</span>
+
+<span style="color: #001080">data</span><span style="color: #000000">.</span><span style="color: #795E26">getContent</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">format:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;jsonTSV&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #795E26">success</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">content</span><span style="color: #000000">, </span><span style="color: #001080">format</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">data</span><span style="color: #000000">.</span><span style="color: #001080">content</span><span style="color: #000000"> = </span><span style="color: #001080">content</span><span style="color: #000000">;</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">sheet</span><span style="color: #000000"> = </span><span style="color: #001080">content</span><span style="color: #000000">.</span><span style="color: #001080">sheets</span><span style="color: #000000">[</span><span style="color: #098658">0</span><span style="color: #000000">];</span>
+<span style="color: #000000">    </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">filedata</span><span style="color: #000000"> = </span><span style="color: #001080">sheet</span><span style="color: #000000">.</span><span style="color: #001080">data</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">    </span><span style="color: #008000">// transform the file content into the dataRows array used by the run</span>
+<span style="color: #000000">    </span><span style="color: #001080">run</span><span style="color: #000000">.</span><span style="color: #001080">dataRows</span><span style="color: #000000"> = [];</span>
+<span style="color: #000000">    </span><span style="color: #AF00DB">for</span><span style="color: #000000"> (</span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">i</span><span style="color: #000000"> = </span><span style="color: #098658">1</span><span style="color: #000000">; </span><span style="color: #001080">i</span><span style="color: #000000"> &lt; </span><span style="color: #001080">filedata</span><span style="color: #000000">.</span><span style="color: #001080">length</span><span style="color: #000000">; </span><span style="color: #001080">i</span><span style="color: #000000">++) {</span>
+<span style="color: #000000">      </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">row</span><span style="color: #000000"> = </span><span style="color: #001080">filedata</span><span style="color: #000000">[</span><span style="color: #001080">i</span><span style="color: #000000">];</span>
+<span style="color: #000000">      </span><span style="color: #001080">run</span><span style="color: #000000">.</span><span style="color: #001080">dataRows</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">({</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&quot;SampleId&quot;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #001080">row</span><span style="color: #000000">[</span><span style="color: #098658">0</span><span style="color: #000000">],</span>
+<span style="color: #000000">        </span><span style="color: #A31515">&quot;DataValue&quot;</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #001080">row</span><span style="color: #000000">[</span><span style="color: #098658">1</span><span style="color: #000000">],</span>
+<span style="color: #000000">        </span><span style="color: #008000">// ... other columns</span>
+<span style="color: #000000">      });</span>
+<span style="color: #000000">    }</span>
+
+<span style="color: #000000">    </span><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">batch</span><span style="color: #000000"> = </span><span style="color: #008000">// ... the LABKEY.Exp.RunGroup object</span>
+<span style="color: #000000">    </span><span style="color: #001080">batch</span><span style="color: #000000">.</span><span style="color: #001080">runs</span><span style="color: #000000">.</span><span style="color: #795E26">push</span><span style="color: #000000">(</span><span style="color: #001080">run</span><span style="color: #000000">);</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #795E26">failure</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> (</span><span style="color: #001080">error</span><span style="color: #000000">, </span><span style="color: #001080">format</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #795E26">alert</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;error: &quot;</span><span style="color: #000000"> + </span><span style="color: #001080">error</span><span style="color: #000000">);</span>
+<span style="color: #000000">  }</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<a href="exp.expobject.html" class="tsd-signature-type">ExpObject</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">Run</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Properties</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#comment" class="tsd-kind-icon">comment</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#created" class="tsd-kind-icon">created</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#createdby" class="tsd-kind-icon">created<wbr>By</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#datainputs" class="tsd-kind-icon">data<wbr>Inputs</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#dataoutputs" class="tsd-kind-icon">data<wbr>Outputs</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#datarows" class="tsd-kind-icon">data<wbr>Rows</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#experiments" class="tsd-kind-icon">experiments</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#filepathroot" class="tsd-kind-icon">file<wbr>Path<wbr>Root</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#lsid" class="tsd-kind-icon">lsid</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#materialinputs" class="tsd-kind-icon">material<wbr>Inputs</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#materialoutputs" class="tsd-kind-icon">material<wbr>Outputs</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#modified" class="tsd-kind-icon">modified</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#modifiedby" class="tsd-kind-icon">modified<wbr>By</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#objectproperties" class="tsd-kind-icon">object<wbr>Properties</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#properties" class="tsd-kind-icon">properties</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="exp.run.html#protocol" class="tsd-kind-icon">protocol</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="exp.run.html#rowid" class="tsd-kind-icon">row<wbr>Id</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="exp.run.html#deleterun" class="tsd-kind-icon">delete<wbr>Run</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Run<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="exp.run.html" class="tsd-signature-type">Run</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="exp.run.html" class="tsd-signature-type">Run</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L653">Exp.ts:653</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="exp.run.html" class="tsd-signature-type">Run</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="exp.run.html" class="tsd-signature-type">Run</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="comment" class="tsd-anchor"></a>
+					<h3>comment</h3>
+					<div class="tsd-signature tsd-kind-icon">comment<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#comment">comment</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L38">Exp.ts:38</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>User editable comment.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="created" class="tsd-anchor"></a>
+					<h3>created</h3>
+					<div class="tsd-signature tsd-kind-icon">created<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#created">created</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L43">Exp.ts:43</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The person who created the ExpObject.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="createdby" class="tsd-anchor"></a>
+					<h3>created<wbr>By</h3>
+					<div class="tsd-signature tsd-kind-icon">created<wbr>By<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#createdby">createdBy</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L48">Exp.ts:48</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The person who created the ExpObject.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="datainputs" class="tsd-anchor"></a>
+					<h3>data<wbr>Inputs</h3>
+					<div class="tsd-signature tsd-kind-icon">data<wbr>Inputs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="exp.data.html" class="tsd-signature-type">Data</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L636">Exp.ts:636</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Array of <a href="exp.data.html">Data</a> objects that are the inputs to this run.
+							Datas typically represents a file on the server&#39;s file system.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="dataoutputs" class="tsd-anchor"></a>
+					<h3>data<wbr>Outputs</h3>
+					<div class="tsd-signature tsd-kind-icon">data<wbr>Outputs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="exp.data.html" class="tsd-signature-type">Data</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L642">Exp.ts:642</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Array of <a href="exp.data.html">Data</a> objects that are the outputs from this run.
+							Datas typically represent a file on the server&#39;s file system.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="datarows" class="tsd-anchor"></a>
+					<h3>data<wbr>Rows</h3>
+					<div class="tsd-signature tsd-kind-icon">data<wbr>Rows<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L647">Exp.ts:647</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Array of Objects where each Object corresponds to a row in the results domain.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="experiments" class="tsd-anchor"></a>
+					<h3>experiments</h3>
+					<div class="tsd-signature tsd-kind-icon">experiments<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L648">Exp.ts:648</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="filepathroot" class="tsd-anchor"></a>
+					<h3>file<wbr>Path<wbr>Root</h3>
+					<div class="tsd-signature tsd-kind-icon">file<wbr>Path<wbr>Root<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L649">Exp.ts:649</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="id" class="tsd-anchor"></a>
+					<h3>id</h3>
+					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#id">id</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L53">Exp.ts:53</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The id of the ExpObject</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="lsid" class="tsd-anchor"></a>
+					<h3>lsid</h3>
+					<div class="tsd-signature tsd-kind-icon">lsid<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#lsid">lsid</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L58">Exp.ts:58</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The LSID of the ExpObject</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="materialinputs" class="tsd-anchor"></a>
+					<h3>material<wbr>Inputs</h3>
+					<div class="tsd-signature tsd-kind-icon">material<wbr>Inputs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="exp.material.html" class="tsd-signature-type">Material</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L650">Exp.ts:650</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="materialoutputs" class="tsd-anchor"></a>
+					<h3>material<wbr>Outputs</h3>
+					<div class="tsd-signature tsd-kind-icon">material<wbr>Outputs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Array</span><span class="tsd-signature-symbol">&lt;</span><a href="exp.material.html" class="tsd-signature-type">Material</a><span class="tsd-signature-symbol">&gt;</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L651">Exp.ts:651</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="modified" class="tsd-anchor"></a>
+					<h3>modified</h3>
+					<div class="tsd-signature tsd-kind-icon">modified<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#modified">modified</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L63">Exp.ts:63</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>When the ExpObject was last modified.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="modifiedby" class="tsd-anchor"></a>
+					<h3>modified<wbr>By</h3>
+					<div class="tsd-signature tsd-kind-icon">modified<wbr>By<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#modifiedby">modifiedBy</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L68">Exp.ts:68</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The person who last modified the ExpObject.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="name" class="tsd-anchor"></a>
+					<h3>name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#name">name</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L73">Exp.ts:73</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name of the ExpObject</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="objectproperties" class="tsd-anchor"></a>
+					<h3>object<wbr>Properties</h3>
+					<div class="tsd-signature tsd-kind-icon">object<wbr>Properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L652">Exp.ts:652</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="properties" class="tsd-anchor"></a>
+					<h3>properties</h3>
+					<div class="tsd-signature tsd-kind-icon">properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#properties">properties</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L83">Exp.ts:83</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Map of property descriptor names to values. Most types, such as strings and
+								numbers, are just stored as simple properties. Properties of type FileLink will be returned by the server in the
+								same format as <a href="exp.data.html">Data</a> objects (missing many properties such as id and createdBy if they exist on disk
+								but have no row with metadata in the database). FileLink values are accepted from the client in the same way,
+								or a simple value of the following three types: the data&#39;s RowId, the data&#39;s LSID, or the full path
+							on the server&#39;s file system.</p>
+						</div>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="protocol" class="tsd-anchor"></a>
+					<h3>protocol</h3>
+					<div class="tsd-signature tsd-kind-icon">protocol<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L653">Exp.ts:653</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+					<a name="rowid" class="tsd-anchor"></a>
+					<h3>row<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">row<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<p>Inherited from <a href="exp.expobject.html">ExpObject</a>.<a href="exp.expobject.html#rowid">rowId</a></p>
+						<ul>
+							<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L88">Exp.ts:88</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The id of the ExpObject (alias of id property)</p>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="deleterun" class="tsd-anchor"></a>
+					<h3>delete<wbr>Run</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Run<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/exp.ideleterunoptions.html" class="tsd-signature-type">IDeleteRunOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Exp.ts#L680">Exp.ts:680</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Deletes the run from the database.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <a href="../interfaces/exp.ideleterunoptions.html" class="tsd-signature-type">IDeleteRunOptions</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/actionurl.html">ActionURL</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/ajax.html">Ajax</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/app.html">App</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/assay.html">Assay</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/domain.html">Domain</a>
+					</li>
+					<li class="current tsd-kind-module">
+						<a href="../modules/exp.html">Exp</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/experiment.html">Experiment</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/fieldkey.html">Field<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/filter.html">Filter</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/list.html">List</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/message.html">Message</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/multirequest.html">Multi<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/participantgroup.html">Participant<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/pipeline.html">Pipeline</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/query.html">Query</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/querykey.html">Query<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/report.html">Report</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/schemakey.html">Schema<wbr>Key</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/security.html">Security</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/specimen.html">Specimen</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/utils.html">Utils</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/visualization.html">Visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/constants.html">constants</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="exp.data.html" class="tsd-kind-icon">Data</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="exp.dataclass.html" class="tsd-kind-icon">Data<wbr>Class</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="exp.expobject.html" class="tsd-kind-icon">Exp<wbr>Object</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="exp.material.html" class="tsd-kind-icon">Material</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-module">
+						<a href="exp.run.html" class="tsd-kind-icon">Run</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#comment" class="tsd-kind-icon">comment</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#created" class="tsd-kind-icon">created</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#createdby" class="tsd-kind-icon">created<wbr>By</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#datainputs" class="tsd-kind-icon">data<wbr>Inputs</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#dataoutputs" class="tsd-kind-icon">data<wbr>Outputs</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#datarows" class="tsd-kind-icon">data<wbr>Rows</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#experiments" class="tsd-kind-icon">experiments</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#filepathroot" class="tsd-kind-icon">file<wbr>Path<wbr>Root</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#id" class="tsd-kind-icon">id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#lsid" class="tsd-kind-icon">lsid</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#materialinputs" class="tsd-kind-icon">material<wbr>Inputs</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#materialoutputs" class="tsd-kind-icon">material<wbr>Outputs</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#modified" class="tsd-kind-icon">modified</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#modifiedby" class="tsd-kind-icon">modified<wbr>By</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#name" class="tsd-kind-icon">name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#objectproperties" class="tsd-kind-icon">object<wbr>Properties</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#properties" class="tsd-kind-icon">properties</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="exp.run.html#protocol" class="tsd-kind-icon">protocol</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+								<a href="exp.run.html#rowid" class="tsd-kind-icon">row<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="exp.run.html#deleterun" class="tsd-kind-icon">delete<wbr>Run</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="exp.rungroup.html" class="tsd-kind-icon">Run<wbr>Group</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-module">
+						<a href="exp.sampleset.html" class="tsd-kind-icon">Sample<wbr>Set</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/exp.icreatedataclassdomain.html" class="tsd-kind-icon">ICreate<wbr>Data<wbr>Class<wbr>Domain</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/exp.icreatesamplesetdomain.html" class="tsd-kind-icon">ICreate<wbr>Sample<wbr>Set<wbr>Domain</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/exp.ideleterunoptions.html" class="tsd-kind-icon">IDelete<wbr>Run<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/exp.igetcontentoptions.html" class="tsd-kind-icon">IGet<wbr>Content<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/exp.igetexpobjectdomain.html" class="tsd-kind-icon">IGet<wbr>Exp<wbr>Object<wbr>Domain</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/exp.html#expdatadataclass" class="tsd-kind-icon">Exp<wbr>Data<wbr>Data<wbr>Class</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/exp.html#expmaterialsampleset" class="tsd-kind-icon">Exp<wbr>Material<wbr>Sample<wbr>Set</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
