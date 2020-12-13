@@ -1,5 +1,5 @@
 ## TBD
-- Add optional auditBehavior parameter to IImportDataOptions
+- Add optional useAsync parameter to IImportDataOptions
 
 ## 1.1.3 - 2020-12-10
 - Update TypeDoc to `0.20.0-beta.26` and update our `typedoc.js` to improve documentation layout.
