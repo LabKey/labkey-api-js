@@ -117,6 +117,7 @@ export interface IImportDataOptions {
     success?: Function
     text?: string
     timeout?: number
+    useAsync?: boolean
 }
 
 export function importData(options: IImportDataOptions): XMLHttpRequest {
@@ -151,6 +152,9 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
         // FormData only accept string | Blob
         // https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
         form.append('importLookupByAlternateKey', options.importLookupByAlternateKey.toString());
+    }
+    if (options.useAsync !== undefined) {
+        form.append('useAsync', options.useAsync.toString());
     }
     if (options.saveToPipeline !== undefined) {
         form.append('saveToPipeline', options.saveToPipeline.toString());

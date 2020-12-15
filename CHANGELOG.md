@@ -1,8 +1,11 @@
+## 1.1.4 - 2020-12-15
+- Add optional useAsync parameter to IImportDataOptions
+
 ## 1.1.3 - 2020-12-10
 - Update TypeDoc to `0.20.0-beta.26` and update our `typedoc.js` to improve documentation layout.
 - Move "fieldKey" modules to top-level so they better align with how they're actually exported.
 - Improve documentation for filters and their types. Done as part of an exercise to see how TypeDoc handled inline docs.
-- Fix issues [42014](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=42014) and [40724](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=40724) with improvements to `Domain` documentation. 
+- Fix issues [42014](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=42014) and [40724](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=40724) with improvements to `Domain` documentation.
 - Package updates.
 
 ## 1.1.2 - 2020-12-09
@@ -32,11 +35,11 @@
 - Package updates.
 
 ## 0.3.2 - 2020-06-08
-- Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()` 
+- Add `Security.getUsersWithPermissions()` which shares parameter parsing with `Security.getUsers()`
 as they share payload processing on the server.
 - Split `User` interface into `User` and `UserWithPermissions` to better model server response shapes.
 - Publicly export `Container`, `User`, and `UserWithPermissions` interfaces.
-- Migrated `PermissionTypes` from `@labkey/components` and switched it to an enum. Deprecated `effectivePermissions` 
+- Migrated `PermissionTypes` from `@labkey/components` and switched it to an enum. Deprecated `effectivePermissions`
 that was previously declared.
 
 ## 0.3.1 - 2020-06-05
@@ -52,9 +55,9 @@ that was previously declared.
 - Module updates for `ParticipantGroup` and `Specimen`.
 - Utilize `RequestCallBackOptions` for option interfaces.
 - Rename interfaces away from `I<Name>` pattern to `<Name>`.
-- Use common `getCallbackWrapper()` pattern allowing for `scope` and additional arguments. 
+- Use common `getCallbackWrapper()` pattern allowing for `scope` and additional arguments.
 Backwards compatibility wrapper for original scoping behavior (see `onSpecimenSuccess`).
-- Utilize `responseTransformer` argument on `getCallbackWrapper()` in lieu of custom "keyed" handling 
+- Utilize `responseTransformer` argument on `getCallbackWrapper()` in lieu of custom "keyed" handling
 formerly done by `getSuccessCallbackWrapper()` which has been removed.
 - Package updates.
 
@@ -72,9 +75,9 @@ formerly done by `getSuccessCallbackWrapper()` which has been removed.
 ## 0.2.4 - 2020-04-28
 - Module updates for 'Assay'.
 - Fix for `ActionURL.queryString()` to no longer parse functions as URL parameters.
- 
+
 ## 0.2.3 - 2020-04-24
-- Report.ts fix for populateParams() handling of inputParams as key value pairs on the execParams object 
+- Report.ts fix for populateParams() handling of inputParams as key value pairs on the execParams object
     instead of as a nested object within it
 
 ## 0.2.2 - 2020-04-20
@@ -89,7 +92,7 @@ formerly done by `getSuccessCallbackWrapper()` which has been removed.
 - Fix container path encoding (match core behavior).
 
 **Domain**
-- Separate `get` from `getDomainDetails` as they have different response shapes. @labkey-ians 
+- Separate `get` from `getDomainDetails` as they have different response shapes. @labkey-ians
 - Fix check for parameters to look at "options" and not "config" as originally supplied.
 This fixes support for multiple argument variants.
 
@@ -107,7 +110,7 @@ and save operations.
 **Query/Filters**
 - Add `EXP_PARENT_OF` filter type.
 - Fix `getSingleValueFilter` to match core behavior.
-- Rename `splitValue` to `parseValue` to match core interface. @labkey-kevink 
+- Rename `splitValue` to `parseValue` to match core interface. @labkey-kevink
 - Add regression snapshot coverage for all provided filter types.
 
 **Utils**
@@ -122,7 +125,7 @@ provided by our DOM-based libraries. Allows for type signatures and fall through
 than what core is doing (e.g. using `=== true` when assigning to a `boolean` type).
 
 ## 0.1.2 - 2020-04-15
-- Add optional auditBehavior parameter to IQueryRequestOptions 
+- Add optional auditBehavior parameter to IQueryRequestOptions
 
 ## 0.1.1 - 2020-04-07
 - Fix for typings of Security.getUserPermissions response.
@@ -142,7 +145,7 @@ than what core is doing (e.g. using `=== true` when assigning to a `boolean` typ
 
 **Visualization**
 - Adds and exports `save` method.
-- Exports `get`, `getData`, `getDataFilterFromURL`, `getFromUrl`, `getMeasures`, and `getTypes`. 
+- Exports `get`, `getData`, `getDataFilterFromURL`, `getFromUrl`, `getMeasures`, and `getTypes`.
 All of these were previously declared but needed to be exported in the top-level module.
 - Replaces usages of local payload processor with `Utils.getCallbackWrapper`'s `responseTransformer`.
 - Removes visualization's private `Utils` module which defined no longer used `getSuccessCallbackWrapper` helper method.
@@ -191,7 +194,7 @@ All of these were previously declared but needed to be exported in the top-level
 - Doc updates (migrated from legacy API)
 
 ## 0.0.37 - 2020-02-27
-- Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save (#35) 
+- Item 6848: Add Domain.getDomainDetails and add support for domain kind options in Domain.save (#35)
 
 ## 0.0.36 - 2020-02-27
 - Add jest-teamcity-reporter for improved CI test reporting
