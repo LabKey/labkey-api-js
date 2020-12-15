@@ -1,4 +1,4 @@
-## TBD
+## 1.1.4 - 2020-12-15
 - Add optional useAsync parameter to IImportDataOptions
 
 ## 1.1.3 - 2020-12-10
