@@ -36,6 +36,9 @@ export interface IImportRunOptions {
     reRunId?: number | string
     runFilePath?: string
     saveDataAsFile?: boolean
+    jobDescription?: string
+    jobNotificationProvider?: string
+    forceAsync?: boolean
     scope?: any
     success: Function
 }
@@ -89,6 +92,15 @@ export function importRun(options: IImportRunOptions): void {
     }
     if (options.saveDataAsFile) {
         formData.append('saveDataAsFile', options.saveDataAsFile ? "true" : "false");
+    }
+    if (options.jobDescription) {
+        formData.append('jobDescription', options.jobDescription);
+    }
+    if (options.jobNotificationProvider) {
+        formData.append('jobNotificationProvider', options.jobNotificationProvider);
+    }
+    if (options.forceAsync) {
+        formData.append('forceAsync', options.forceAsync ? "true" : "false");
     }
 
     if (options.properties) {
