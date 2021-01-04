@@ -1,3 +1,6 @@
+## TBD
+- Add `ActionURL.getReturnUrl`
+
 ## 1.1.4 - 2020-12-15
 - Add optional useAsync parameter to IImportDataOptions
 

@@ -230,6 +230,13 @@ export function getParameter(parameterName: string): any {
 }
 
 /**
+ * Get the 'returnUrl' parameter from the URL.
+ */
+export function getReturnUrl(): string {
+    return getParameter('returnUrl');
+}
+
+/**
  * Gets a URL parameter by name. This method will always return an array of values, one for
  * each instance of the parameter name in the query string. If the parameter name appears only once
  * this method will return a one-element array.
