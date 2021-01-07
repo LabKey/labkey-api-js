@@ -1,4 +1,4 @@
-## TBD
+## 1.1.5 - 2021-01-07
 - Add `ActionURL.getReturnUrl`
 
 ## 1.1.4 - 2020-12-15
