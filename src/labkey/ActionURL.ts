@@ -265,6 +265,13 @@ export function getParameters(url?: string): {[key:string]: any} {
 }
 
 /**
+ * Get the 'returnUrl' parameter from the URL.
+ */
+export function getReturnUrl(): string {
+    return getParameter('returnUrl');
+}
+
+/**
  * Turn the parameter object into a query string (e.g. {x:'fred'} -> "x=fred").
  * The returned query string is not prepended by a question mark ('?').
  *
