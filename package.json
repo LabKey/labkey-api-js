@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "1.1.7-fb-smAssayAsync.1",
+  "version": "1.1.7",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",

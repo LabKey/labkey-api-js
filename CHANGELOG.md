@@ -1,4 +1,4 @@
-## XXX
+## 1.1.7 - 2021-01-11
 - Add optional fields to assay IImportRunOptions
 
 ## 1.1.6 - 2021-01-07
