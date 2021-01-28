@@ -34,7 +34,6 @@ export interface IGetFileStatusOptions {
     failure?: RequestFailure
     /** names of the file within the subdirectory described by the path property */
     files: string[]
-    includeWorkbooks?: boolean
     /** relative path from the folder's pipeline root */
     path: string
     /** name of the analysis protocol */
@@ -159,7 +158,7 @@ export interface IStartAnalysisOptions extends RequestCallbackOptions {
     /** names of the file within the subdirectory described by the path property */
     files: string[]
     /**
-     * Data IDs of files be to used as inputs for this pipeline. These correspond to the rowIds from
+     * Data IDs of files to be used as inputs for this pipeline. These correspond to the rowIds from
      * the table ext.data. They do not need to be located within the file path provided. The user does need read
      * access to the container associated with each file.
      */
@@ -259,7 +258,7 @@ export function startAnalysis(config: IStartAnalysisOptions): XMLHttpRequest {
 
     if (config.xmlParameters) {
         if (isObject(config.xmlParameters))
-            throw new Error('The xml configuration is deprecated, please user the jsonParameters option to specify your protocol description.');
+            throw new Error('The xml configuration is deprecated, please use the jsonParameters option to specify your protocol description.');
         else
             params.configureXml = config.xmlParameters;
     }
