@@ -57,8 +57,9 @@ export function init(LABKEY: any) {
  * @param appName
  * @param appTarget
  * @param appContext
+ * @param forceInit used when you know the loadApp will be called after DOMContentLoaded
  */
-export function loadApp<CTX = any>(appName: string, appTarget: string, appContext: CTX): void {
+export function loadApp<CTX = any>(appName: string, appTarget: string, appContext: CTX, forceInit?: boolean): void {
     const appRegistry = getRegistry();
 
     if (appRegistry.registry.hasOwnProperty(appName)) {
@@ -67,7 +68,7 @@ export function loadApp<CTX = any>(appName: string, appTarget: string, appContex
             appRegistry.registry[appName].targets.push(appTarget);
         }
 
-        if (appRegistry.isDOMContentLoaded) {
+        if (appRegistry.isDOMContentLoaded || forceInit) {
             appRegistry.registry[appName].onInit(appTarget, appContext);
         } else {
             window.addEventListener(

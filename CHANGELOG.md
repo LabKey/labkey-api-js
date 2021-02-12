@@ -1,3 +1,6 @@
+## TBD - TBD
+- Item 8335: LABKEY.App.loadApp: add forceInit param for case when the loadApp will be called after DOMContentLoaded 
+
 ## 1.1.7 - 2021-01-11
 - Add optional fields to assay IImportRunOptions
 
