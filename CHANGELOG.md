@@ -1,5 +1,5 @@
 ## TBD - TBD
-- Item 8335: LABKEY.App change use document.readyState and readystatechange to update isDOMContentLoaded 
+- Item 8335: LABKEY.App change to use document.readyState and readystatechange to update isDOMContentLoaded prop 
 
 ## 1.1.7 - 2021-01-11
 - Add optional fields to assay IImportRunOptions
