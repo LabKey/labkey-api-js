@@ -1,5 +1,5 @@
-## TBD - TBD
-- Item 8335: LABKEY.App change to use document.readyState and readystatechange to update isDOMContentLoaded prop. 
+## 1.1.8 - TBD
+- Issue 41508: LABKEY.App change to use document.readyState and readystatechange to update isDOMContentLoaded prop. 
 - Support specimen feature migration rename of `study-samples-api` to `specimen-api`.
 - Fix for Query `Response` to support response when `includeMetadata` flag is set to false.
 
