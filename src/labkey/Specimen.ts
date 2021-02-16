@@ -26,7 +26,7 @@ import {
     RequestSuccess
 } from './Utils'
 
-export interface AddSamplesToRequestOptions extends RequestCallbackOptions {
+export interface AddSpecimensToRequestOptions extends RequestCallbackOptions {
     containerPath?: string
     preferredLocation: number
     requestId: number
@@ -40,7 +40,7 @@ export interface AddSamplesToRequestOptions extends RequestCallbackOptions {
  * state. Administrators may add vials to any request at any time.
  * @param options
  */
-export function addSamplesToRequest(options: AddSamplesToRequestOptions): XMLHttpRequest {
+export function addSpecimensToRequest(options: AddSpecimensToRequestOptions): XMLHttpRequest {
     if (remapArguments(options, arguments)) {
         options = {
             success: arguments[0],
@@ -53,7 +53,7 @@ export function addSamplesToRequest(options: AddSamplesToRequestOptions): XMLHtt
     }
 
     return request({
-        url: buildURL('study-samples-api', 'addSamplesToRequest.api', options.containerPath),
+        url: buildURL('specimens-api', 'addSpecimensToRequest.api', options.containerPath),
         method: 'POST',
         jsonData: {
             preferredLocation: options.preferredLocation,
@@ -64,6 +64,12 @@ export function addSamplesToRequest(options: AddSamplesToRequestOptions): XMLHtt
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
     });
 }
+
+/**
+ * Don't use this... use [[addSpecimensToRequest]] instead.
+ * @deprecated
+ */
+export const addSamplesToRequest = addSpecimensToRequest;
 
 export interface AddVialsToRequestOptions extends RequestCallbackOptions {
     containerPath?: string
@@ -95,7 +101,7 @@ export function addVialsToRequest(options: AddVialsToRequestOptions): XMLHttpReq
     }
 
     return request({
-        url: buildURL('study-samples-api', 'addVialsToRequest.api', options.containerPath),
+        url: buildURL('specimens-api', 'addVialsToRequest.api', options.containerPath),
         method: 'POST',
         jsonData: {
             idType: options.idType,
@@ -130,7 +136,7 @@ export function cancelRequest(options: CancelRequestOptions): XMLHttpRequest {
     }
 
     return request({
-        url: buildURL('study-samples-api', 'cancelRequest.api', options.containerPath),
+        url: buildURL('specimens-api', 'cancelRequest.api', options.containerPath),
         method: 'POST',
         jsonData: {
             requestId: options.requestId
@@ -161,7 +167,7 @@ export function getOpenRequests(options: GetOpenRequestsOptions): XMLHttpRequest
     }
 
     return request({
-        url: buildURL('study-samples-api', 'getOpenRequests.api', options.containerPath),
+        url: buildURL('specimens-api', 'getOpenRequests.api', options.containerPath),
         method: 'POST',
         jsonData: {
             allUsers: options.allUsers
@@ -195,7 +201,7 @@ export function getProvidingLocations(options: GetProvidingLocationsOptions): XM
     }
 
     return request({
-        url: buildURL('study-samples-api', 'getProvidingLocations.api', options.containerPath),
+        url: buildURL('specimens-api', 'getProvidingLocations.api', options.containerPath),
         method: 'POST',
         jsonData: {
             specimenHashes: options.specimenHashArray
@@ -227,7 +233,7 @@ export function getRepositories(options: GetRepositoriesOptions): XMLHttpRequest
     }
 
     return request({
-        url: buildURL('study-samples-api', 'getRepositories.api', options.containerPath),
+        url: buildURL('specimens-api', 'getRepositories.api', options.containerPath),
         method: 'POST',
         // No jsonData, still json request
         headers: {
@@ -262,7 +268,7 @@ export function getRequest(options: GetRequestOptions): XMLHttpRequest {
     }
 
     return request({
-        url: buildURL('study-samples-api', 'getRequest.api', options.containerPath),
+        url: buildURL('specimens-api', 'getRequest.api', options.containerPath),
         method: 'POST',
         jsonData: {
             requestId: options.requestId
@@ -286,7 +292,7 @@ export interface GetSpecimenWebPartGroupsOptions extends RequestCallbackOptions 
  */
 export function getSpecimenWebPartGroups(options: GetSpecimenWebPartGroupsOptions): XMLHttpRequest {
     return request({
-        url: buildURL('study-samples-api', 'getSpecimenWebPartGroups.api', options.containerPath),
+        url: buildURL('specimens-api', 'getSpecimenWebPartGroups.api', options.containerPath),
         method: 'POST',
         // No jsonData, still json request
         headers: {
@@ -317,7 +323,7 @@ export function getVialsByRowId(options: GetVialsByRowIdOptions): XMLHttpRequest
     }
 
     return request({
-        url: buildURL('study-samples-api', 'getVialsByRowId.api', options.containerPath),
+        url: buildURL('specimens-api', 'getVialsByRowId.api', options.containerPath),
         method: 'POST',
         jsonData: {
             rowIds: options.vialRowIdArray
@@ -341,7 +347,7 @@ export interface GetVialTypeSummaryOptions extends RequestCallbackOptions {
  */
 export function getVialTypeSummary(options: GetVialTypeSummaryOptions): XMLHttpRequest {
     return request({
-        url: buildURL('study-samples-api', 'getVialTypeSummary.api', options.containerPath),
+        url: buildURL('specimens-api', 'getVialTypeSummary.api', options.containerPath),
         method: 'POST',
         // No jsonData, still json request
         headers: {
@@ -382,7 +388,7 @@ export function removeVialsFromRequest(options: RemoveVialsFromRequestOptions): 
     }
 
     return request({
-        url: buildURL('study-samples-api', 'removeVialsFromRequest', options.containerPath),
+        url: buildURL('specimens-api', 'removeVialsFromRequest', options.containerPath),
         method: 'POST',
         jsonData: {
             idType: options.idType,
