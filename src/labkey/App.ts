@@ -43,9 +43,13 @@ export function init(LABKEY: any) {
         // Defensively avoid redundant calls to init()
         if (!LABKEY.App.__app__) {
             LABKEY.App.__app__ = {
-                isDOMContentLoaded: false,
+                isDOMContentLoaded: document.readyState !== 'loading',
                 registry: {},
             };
+
+            document.addEventListener('readystatechange', (event) => {
+                LABKEY.App.__app__.isDOMContentLoaded = document.readyState !== 'loading';
+            });
         }
     } else {
         console.log('LABKEY.App is not available. Unable to initialize application registry.');
@@ -57,9 +61,8 @@ export function init(LABKEY: any) {
  * @param appName
  * @param appTarget
  * @param appContext
- * @param forceInit used when you know the loadApp will be called after DOMContentLoaded
  */
-export function loadApp<CTX = any>(appName: string, appTarget: string, appContext: CTX, forceInit?: boolean): void {
+export function loadApp<CTX = any>(appName: string, appTarget: string, appContext: CTX): void {
     const appRegistry = getRegistry();
 
     if (appRegistry.registry.hasOwnProperty(appName)) {
@@ -68,13 +71,12 @@ export function loadApp<CTX = any>(appName: string, appTarget: string, appContex
             appRegistry.registry[appName].targets.push(appTarget);
         }
 
-        if (appRegistry.isDOMContentLoaded || forceInit) {
+        if (appRegistry.isDOMContentLoaded) {
             appRegistry.registry[appName].onInit(appTarget, appContext);
         } else {
             window.addEventListener(
                 'DOMContentLoaded',
                 () => {
-                    appRegistry.isDOMContentLoaded = true;
                     appRegistry.registry[appName].onInit(appTarget, appContext);
                 },
                 { once: true }
