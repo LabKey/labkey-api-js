@@ -61,6 +61,8 @@ export interface Project {
     path: string
     /** GUID of the root container, which is the parent for the project. */
     rootId: string
+    /** Title of the project. If none set, this will be the same as the project name. */
+    title: string
 }
 
 export enum ExperimentalFeatures {
