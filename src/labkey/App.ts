@@ -43,9 +43,13 @@ export function init(LABKEY: any) {
         // Defensively avoid redundant calls to init()
         if (!LABKEY.App.__app__) {
             LABKEY.App.__app__ = {
-                isDOMContentLoaded: false,
+                isDOMContentLoaded: document.readyState !== 'loading',
                 registry: {},
             };
+
+            document.addEventListener('readystatechange', (event) => {
+                LABKEY.App.__app__.isDOMContentLoaded = document.readyState !== 'loading';
+            });
         }
     } else {
         console.log('LABKEY.App is not available. Unable to initialize application registry.');
@@ -73,7 +77,6 @@ export function loadApp<CTX = any>(appName: string, appTarget: string, appContex
             window.addEventListener(
                 'DOMContentLoaded',
                 () => {
-                    appRegistry.isDOMContentLoaded = true;
                     appRegistry.registry[appName].onInit(appTarget, appContext);
                 },
                 { once: true }

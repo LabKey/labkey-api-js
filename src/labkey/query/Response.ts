@@ -103,41 +103,46 @@ export class Response {
         // Wrap the Schema, Lookup, and Field Keys.
         this.schemaKey = SchemaKey.fromParts(rawResponse.schemaName);
 
-        const fields = rawResponse.metaData.fields;
+        // Metadata optionally available (e.g. if "includeMetadata" is set to false)
+        if (rawResponse.metaData?.fields?.length > 0) {
+            const fields = rawResponse.metaData.fields;
 
-        for (let i=0; i < fields.length; i++) {
-            let field = Object.assign({}, fields[i]);
-            const lookup = field.lookup;
+            for (let i = 0; i < fields.length; i++) {
+                let field = Object.assign({}, fields[i]);
+                const lookup = field.lookup;
 
-            field.fieldKey = FieldKey.fromParts(field.fieldKey);
+                field.fieldKey = FieldKey.fromParts(field.fieldKey);
 
-            if (lookup && lookup.schemaName) {
-                lookup.schemaName = SchemaKey.fromParts(lookup.schemaName);
-            }
-
-            if (field.displayField) {
-                field.displayField = FieldKey.fromParts(field.displayField);
-                field.getDisplayField = generateGetDisplayField(field.displayField, fields);
-            }
-
-            // Only parse the 'extFormatFn' if ExtJS is present
-            // checking to see if the fn ExtJS version and the window ExtJS version match
-            if (field.extFormatFn) {
-                const ext4Index = field.extFormatFn.indexOf('Ext4.'),
-                      isExt4Fn = ext4Index === 0 || ext4Index === 1,
-                      canEvalExt3 = !isExt4Fn && window && isDefined(window.Ext),
-                      canEvalExt4 = isExt4Fn && window && isDefined(window.Ext4);
-
-                if (canEvalExt3 || canEvalExt4) {
-                    field.extFormatFn = eval(field.extFormatFn);
+                if (lookup && lookup.schemaName) {
+                    lookup.schemaName = SchemaKey.fromParts(lookup.schemaName);
                 }
+
+                if (field.displayField) {
+                    field.displayField = FieldKey.fromParts(field.displayField);
+                    field.getDisplayField = generateGetDisplayField(field.displayField, fields);
+                }
+
+                // Only parse the 'extFormatFn' if ExtJS is present
+                // checking to see if the fn ExtJS version and the window ExtJS version match
+                if (field.extFormatFn) {
+                    const ext4Index = field.extFormatFn.indexOf('Ext4.'),
+                          isExt4Fn = ext4Index === 0 || ext4Index === 1,
+                          canEvalExt3 = !isExt4Fn && window && isDefined(window.Ext),
+                          canEvalExt4 = isExt4Fn && window && isDefined(window.Ext4);
+
+                    if (canEvalExt3 || canEvalExt4) {
+                        field.extFormatFn = eval(field.extFormatFn);
+                    }
+                }
+
+                this.metaData.fields[i] = field;
             }
 
-            this.metaData.fields[i] = field;
+            // Generate Column Model
+            this.columnModel = generateColumnModel(this.metaData.fields);
+        } else {
+            this.columnModel = [];
         }
-
-        // Generate Column Model
-        this.columnModel = generateColumnModel(this.metaData.fields);
 
         // Wrap the rows -- may not be in the response (e.g. maxRows: 0)
         if (this.rows !== undefined) {
