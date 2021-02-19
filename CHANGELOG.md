@@ -1,7 +1,8 @@
-## 1.1.8 - TBD
+## 1.1.8 - 2021-02-19
 - Issue 41508: LABKEY.App change to use document.readyState and readystatechange to update isDOMContentLoaded prop. 
 - Support specimen feature migration rename of `study-samples-api` to `specimen-api`.
 - Fix for Query `Response` to support response when `includeMetadata` flag is set to false.
+- Add "title" property to the Project interface
 
 ## 1.1.7 - 2021-01-11
 - Add optional fields to assay IImportRunOptions
