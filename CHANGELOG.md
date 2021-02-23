@@ -1,4 +1,4 @@
-## 1.#.# - 2021-02-##
+## 1.1.9 - 2021-02-23
 - Add enumeration for Security.PermissionRoles
 - Correct controller name "specimens-api" -> "specimen-api" 
 
