@@ -1,3 +1,7 @@
+## 1.1.9 - 2021-02-23
+- Add enumeration for Security.PermissionRoles
+- Correct controller name "specimens-api" -> "specimen-api" 
+
 ## 1.1.8 - 2021-02-19
 - Issue 41508: LABKEY.App change to use document.readyState and readystatechange to update isDOMContentLoaded prop. 
 - Support specimen feature migration rename of `study-samples-api` to `specimen-api`.
