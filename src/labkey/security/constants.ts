@@ -25,6 +25,15 @@ export const currentContainer = getServerContext().container;
  */
 export const currentUser = getServerContext().user;
 
+/** An enumeration of commonly used permission roles supported in LabKey Server. */
+export enum PermissionRoles {
+    ApplicationAdmin = 'org.labkey.api.security.roles.ApplicationAdminRole',
+    Author = 'rg.labkey.api.security.roles.AuthorRole',
+    Editor = 'org.labkey.api.security.roles.EditorRole',
+    FolderAdmin = 'org.labkey.api.security.roles.FolderAdminRole',
+    Reader = 'org.labkey.api.security.roles.ReaderRole',
+}
+
 /**
  * An enumeration of commonly used permission types supported in LabKey Server.
  * This can be used in conjunction with the hasEffectivePermission() method to test if
