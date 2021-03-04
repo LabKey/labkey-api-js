@@ -523,15 +523,6 @@ export class Data extends ExpObject {
      * ```
      */
     getContent(options: IGetContentOptions): void {
-        // NK: I'm choosing to not implement this call to "alert". There are plenty of places where we
-        // "require" arguments and fail less gracefully. In this case, not supplying a success just means the call
-        // is useless but I think a user of this API will quickly come to realize that they need to get access
-        // to the object somehow and investigate further.
-
-        // if (getOnSuccess(options)) {
-        //     alert('Error', 'You must specify a callback function in config.success when calling LABKEY.Exp.Data.getContent()');
-        // }
-
         function getSuccessCallbackWrapper(success: Function, format: string, scope: any) {
             return getCallbackWrapper(function (json: any, response: ExtendedXMLHttpRequest) {
                 if (success) {

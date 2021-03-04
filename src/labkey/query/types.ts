@@ -31,9 +31,9 @@ export interface QueryColumn {
     displayFieldSqlType?: string;
     excelFormat?: string;
     excludeFromShifting: boolean;
-    ext?: any;
-    extFormat?: string;
-    extFormatFn?: string;
+    // ext?: any                 -- no longer supported
+    // extFormat?: string        -- no longer supported
+    // extFormatFn?: string      -- no longer supported
     facetingBehaviorType: string;
     fieldKey: string;
     fieldKeyArray: string[];

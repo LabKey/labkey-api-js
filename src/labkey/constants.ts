@@ -118,8 +118,8 @@ export type LabKey = {
     extDefaultDateFormat: string;
     extDefaultDateTimeFormat: string;
     extDefaultNumberFormat?: string;
-    extJsRoot: string;
-    extThemeName_42: string;
+    // extJsRoot: string;         -- no longer supported
+    // extThemeName_42: string;   -- no longer supported
     getModuleContext: any;
     hash: string;
     helpLinkPrefix: string;

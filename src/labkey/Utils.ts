@@ -70,6 +70,7 @@ const ID_PREFIX = 'lk-gen';
  */
 let idSeed = 100;
 
+// TODO: Determine if these DATEALTFORMATS are still needed in lieu of move away from ExtJS.
 /**
  * When using Ext dateFields you can use DATEALTFORMATS for the altFormat: config option.
  * @private
@@ -475,6 +476,7 @@ export function getCookie(name: string, defaultValue: string): string {
     return defaultValue;
 }
 
+// TODO: Determine if this is still needed and can be updated to provide non-ExtJS date formats (maybe moment)
 /**
  * Returns date formats for use in an Ext.form.DateField. Useful when using a DateField in an Ext object,
  * it contains a very large set of date formats, which helps make a DateField more robust. For example, a
@@ -488,7 +490,6 @@ export function getDateAltFormats(): string {
 /**
  * Returns date format with timestamp including milliseconds. Useful for parsing the date in
  * "yyyy-MM-dd HH:mm:ss.SSS" format as returned by DateUtil.getJsonDateTimeFormatString().
- * ex. Ext4.Date.parse("2019-02-15 17:15:10.123", 'Y-m-d H:i:s.u')
  */
 export function getDateTimeFormatWithMS(): string {
     return DATETIMEFORMAT_WithMS;
