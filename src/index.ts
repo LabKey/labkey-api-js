@@ -39,7 +39,6 @@ import * as Exp from './labkey/Exp';
 import * as Experiment from './labkey/Experiment';
 import { FieldKey } from './labkey/FieldKey';
 import * as Filter from './labkey/Filter';
-import * as List from './labkey/List';
 import * as Message from './labkey/Message';
 import * as ParticipantGroup from './labkey/ParticipantGroup';
 import * as Pipeline from './labkey/Pipeline';
@@ -83,7 +82,6 @@ export {
     Experiment,
     FieldKey,
     Filter,
-    List,
     Message,
     ParticipantGroup,
     Pipeline,
