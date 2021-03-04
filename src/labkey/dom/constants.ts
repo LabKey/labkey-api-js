@@ -17,7 +17,6 @@ import { LabKey } from '../constants';
 
 export interface LabKeyDOM extends LabKey {
     $: any;
-    requiresExt4ClientAPI: Function;
 }
 
 declare const LABKEY: LabKeyDOM;

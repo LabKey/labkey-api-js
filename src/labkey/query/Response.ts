@@ -13,19 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { isArray, isDefined, isFunction } from '../Utils';
+import { isArray, isFunction } from '../Utils';
 
 import { FieldKey } from '../FieldKey';
 import { SchemaKey } from '../SchemaKey';
-
-interface ExtRoot {
-    Ext?: any;
-    Ext4?: any;
-}
-
-declare type ExtWindow = Window & ExtRoot;
-
-declare const window: ExtWindow;
 
 export interface ResponseColumn {
     align: string;
@@ -213,19 +204,6 @@ export class Response {
                     field.getDisplayField = generateGetDisplayField(field.displayField, fields);
                 }
 
-                // Only parse the 'extFormatFn' if ExtJS is present
-                // checking to see if the fn ExtJS version and the window ExtJS version match
-                if (field.extFormatFn) {
-                    const ext4Index = field.extFormatFn.indexOf('Ext4.'),
-                        isExt4Fn = ext4Index === 0 || ext4Index === 1,
-                        canEvalExt3 = !isExt4Fn && window && isDefined(window.Ext),
-                        canEvalExt4 = isExt4Fn && window && isDefined(window.Ext4);
-
-                    if (canEvalExt3 || canEvalExt4) {
-                        field.extFormatFn = eval(field.extFormatFn);
-                    }
-                }
-
                 this.metaData.fields[i] = field;
             }
 
@@ -246,7 +224,7 @@ export class Response {
     }
 
     /**
-     * Returns an array of objects that can be used to assist in creating grids using ExtJS.
+     * Returns an array of objects that can be used to assist in creating grids.
      */
     getColumnModel(): ResponseColumn[] {
         return this.columnModel;

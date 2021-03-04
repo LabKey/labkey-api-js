@@ -295,8 +295,9 @@ export interface GetStudyNabGraphURLOptions extends RequestCallbackOptions<GetSt
  * #### Examples
  *
  * ```
+ * <div id="graphDiv">
  * <script type="text/javascript">
- *  function showGraph(data){
+ *  function showGraph(data) {
  *      var el = document.getElementById("graphDiv");
  *      if (data.objectIds && data.objectIds.length > 0)
  *          el.innerHTML = '<img src=\"' + data.url + '\">';
@@ -304,7 +305,7 @@ export interface GetStudyNabGraphURLOptions extends RequestCallbackOptions<GetSt
  *          el.innerHTML = 'No graph available.  Insufficient permissions, ' + 'or no matching results were found.';
  *  }
  *
- *  function initiateGraph(ids){
+ *  function initiateGraph(ids) {
  *      LABKEY.Assay.getStudyNabGraphURL({
  *          objectIds: ids,
  *          success: showGraph,
@@ -312,13 +313,12 @@ export interface GetStudyNabGraphURLOptions extends RequestCallbackOptions<GetSt
  *          chartTitle: 'My NAb Chart',
  *          height: 500,
  *          width: 700,
- *          fitType: 'FOUR_PARAMETER'
+ *          fitType: 'FOUR_PARAMETER',
  *      });
  *  }
  *
- *  Ext.onReady(initiateGraph([185, 165]));
+ *  initiateGraph([185, 165]);
  * </script>
- * <div id="graphDiv">
  * ```
  * @param options
  */

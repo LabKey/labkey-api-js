@@ -20,8 +20,6 @@ import { buildURL } from '../ActionURL';
 
 import { loadDOMContext } from './constants';
 
-declare const Ext: any;
-declare const Ext4: any;
 declare const window: Window;
 
 const { $, CSRF } = loadDOMContext();
@@ -107,11 +105,7 @@ function submitForm(url: string, formData?: Record<string, any>, formProps?: Par
  * Display an error dialog
  */
 export function alert(title: string, msg?: string) {
-    if (typeof Ext4 !== 'undefined') {
-        Ext4.Msg.alert(title ? Ext4.htmlEncode(title) : '', msg ? Ext4.htmlEncode(msg) : '');
-    } else if (typeof Ext !== 'undefined') {
-        Ext.Msg.alert(title ? Ext.util.Format.htmlEncode(title) : '', msg ? Ext.util.Format.htmlEncode(msg) : '');
-    } else if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
         window.alert(encodeHtml(title + ' : ' + msg));
     }
 }

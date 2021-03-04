@@ -316,80 +316,6 @@ export type ExpDataDataClass = {
  * The Exp.Data class describes the data input or output of a {@link Run}. This typically
  * corresponds to an assay results file uploaded to the LabKey server. To create an Exp.Data object, upload
  * a file using to the "assayFileUpload" action of the "assay" controller.
- *
- * #### Examples
- * TODO: UPDATE THIS EXAMPLE! Will not work as written
- * To perform a file upload over HTTP:
- *
- * ```html
- * <form id="upload-run-form" enctype="multipart/form-data" method="POST">
- *     <div id="upload-run-button"></div>
- * </form>
- * <script type="text/javascript">
- *     LABKEY.Utils.requiresScript("FileUploadField.js");
- *     Ext.onReady(function() {
- *        var form = new Ext.form.BasicForm(
- *        Ext.get("upload-run-form"), {
- *           fileUpload: true,
- *           frame: false,
- *           // Optional - specify a protocolId so that the Exp.Data object is assigned the related LSID namespace.
- *           url: LABKEY.ActionURL.buildURL("assay", "assayFileUpload", undefined, { protocolId: 50 }),
- *           listeners: {
- *              actioncomplete : function (form, action) {
- *                 alert('Upload successful!');
- *                 var data = new LABKEY.Exp.Data(action.result);
- *
- *                 // now add the data as a dataInput to a LABKEY.Exp.Run
- *                 var run = new LABKEY.Exp.Run();
- *                 run.name = data.name;
- *                 run.dataInputs = [ data ];
- *
- *                 // add the new run to a LABKEY.Exp.Batch object and
- *                 // fetch the parsed file contents from the data object
- *                 // using the LABKEY.Exp.Data#getContent() method.
- *              },
- *              actionfailed: function (form, action) {
- *                 alert('Upload failed!');
- *              }
- *           }
- *        });
- *
- *        var uploadField = new Ext.form.FileUploadField({
- *           id: "upload-run-field",
- *           renderTo: "upload-run-button",
- *           buttonText: "Upload Data...",
- *           buttonOnly: true,
- *           buttonCfg: { cls: "labkey-button" },
- *           listeners: {
- *              "fileselected": function (fb, v) {
- *                 form.submit();
- *              }
- *           }
- *        });
- *     });
- * </script>
- * ```
- *
- * Or, to upload the contents of a JavaScript string as a file:
- *
- * ```js
- * Ext.onReady(function() {
- *  LABKEY.Ajax.request({
- *    url: LABKEY.ActionURL.buildURL("assay", "assayFileUpload"),
- *    params: { fileName: 'test.txt', fileContent: 'Some text!' },
- *    success: function(response, options) {
- *       var data = new LABKEY.Exp.Data(Ext.util.JSON.decode(response.responseText));
- *
- *       // now add the data as a dataInput to a LABKEY.Exp.Run
- *       var run = new LABKEY.Exp.Run();
- *       run.name = data.name;
- *       run.dataInputs = [ data ];
- *
- *       // add the new run to a LABKEY.Exp.Batch object here
- *    }
- *  });
- * });
- * ```
  */
 export class Data extends ExpObject {
     /**
@@ -534,15 +460,6 @@ export class Data extends ExpObject {
      * ```
      */
     getContent(options: IGetContentOptions): void {
-        // NK: I'm choosing to not implement this call to "alert". There are plenty of places where we
-        // "require" arguments and fail less gracefully. In this case, not supplying a success just means the call
-        // is useless but I think a user of this API will quickly come to realize that they need to get access
-        // to the object somehow and investigate further.
-
-        // if (getOnSuccess(options)) {
-        //     alert('Error', 'You must specify a callback function in config.success when calling LABKEY.Exp.Data.getContent()');
-        // }
-
         function getSuccessCallbackWrapper(success: Function, format: string, scope: any) {
             return getCallbackWrapper(function (json: any, response: ExtendedXMLHttpRequest) {
                 if (success) {
