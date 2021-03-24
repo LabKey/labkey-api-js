@@ -139,7 +139,6 @@ export interface User {
     email: string;
     displayName: string;
     id: number;
-    maxAllowedPHI: string;
     phone: string;
     // Some LabKey Server API responses specify "userId" in addition to "id" when serializing a User response.
     // This will not always be available but is made available in the typings for ease of use of this interface.
@@ -160,6 +159,7 @@ export interface UserWithPermissions extends User {
     isSignedIn: boolean;
     isSystemAdmin: boolean;
     isTrusted: boolean;
+    maxAllowedPHI: string;
 }
 
 declare let LABKEY: LabKey;
