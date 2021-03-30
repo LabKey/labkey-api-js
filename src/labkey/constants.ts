@@ -159,7 +159,7 @@ export interface UserWithPermissions extends User {
     isSignedIn: boolean;
     isSystemAdmin: boolean;
     isTrusted: boolean;
-    maxAllowedPHI: string;
+    maxAllowedPhi: string;
 }
 
 declare let LABKEY: LabKey;
