@@ -1,3 +1,9 @@
+## 1.2.1 - 2021-02-23
+- maxAllowedPHI renamed to maxAllowedPhi
+
+## 1.2.0 - 2021-02-23
+- Add maxAllowedPHI to UserWithPermissions
+
 ## 1.1.9 - 2021-02-23
 - Add enumeration for Security.PermissionRoles
 - Correct controller name "specimens-api" -> "specimen-api" 
