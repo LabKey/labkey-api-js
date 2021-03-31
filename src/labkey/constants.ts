@@ -15,54 +15,54 @@
  */
 export interface Container {
     /** Names of active modules in the container. */
-    activeModules: string[]
+    activeModules: string[];
     /** The name of the container's folder type. */
-    folderType: string
+    folderType: string;
     /** Date format settings for this container. */
     formats: {
-        dateFormat: string
-        dateTimeFormat: string
-        numberFormat: string
-    }
+        dateFormat: string;
+        dateTimeFormat: string;
+        numberFormat: string;
+    };
     /** True if any active modules in this container require site permissions. */
-    hasRestrictedActiveModule: boolean
+    hasRestrictedActiveModule: boolean;
     /** Server relative icon URL for this container. */
-    iconHref: string
+    iconHref: string;
     /** GUID of this container. */
-    id: string
+    id: string;
     /** Indicates if this container is a Container Tab. */
-    isContainerTab: boolean
+    isContainerTab: boolean;
     /** Indicates if this container is a workbook. */
-    isWorkbook: boolean
+    isWorkbook: boolean;
     /** Name of the container. This is used in the container's path. */
-    name: string
+    name: string;
     /** GUID of this container's parent container. */
-    parentId: string
+    parentId: string;
     /** Path of this container's parent container. */
-    parentPath: string
+    parentPath: string;
     /** Path of this container. */
-    path: string
+    path: string;
     /** The relative sort order of the requested container */
-    sortOrder: number
+    sortOrder: number;
     /** Server relative start URL for this container. */
-    startUrl: string
+    startUrl: string;
     /** An optional non-unique title for the container. */
-    title: string
+    title: string;
     /** Type of this container. (e.g. "project", "folder"). */
-    type: string
+    type: string;
 }
 
 export interface Project {
     /** GUID of this project. */
-    id: string
+    id: string;
     /** Name of the project. This is used in the project's container path. */
-    name: string
+    name: string;
     /** Path of this project. */
-    path: string
+    path: string;
     /** GUID of the root container, which is the parent for the project. */
-    rootId: string
+    rootId: string;
     /** Title of the project. If none set, this will be the same as the project name. */
-    title: string
+    title: string;
 }
 
 export enum ExperimentalFeatures {
@@ -87,78 +87,79 @@ export type ExperimentalFlags = {
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
 export type LabKey = {
-    adminOnlyMode?: boolean
-    analyticProviders?: { [providerName: string]: string }
-    container: Partial<Container>
-    contextPath: string
-    CSRF: string
-    defaultHeaders: { [key: string]: string }
-    demoMode: boolean
-    devMode: boolean
-    dirty: boolean
-    experimental: ExperimentalFlags
-    extDateInputFormat: string
-    extDefaultDateFormat: string
-    extDefaultDateTimeFormat: string
-    extDefaultNumberFormat?: string
-    extJsRoot: string
-    extThemeName_42: string
-    getModuleContext: any
-    hash: string
-    helpLinkPrefix: string
-    homeContainer: string
-    imagePath: string
-    impersonatingUser?: Partial<UserWithPermissions>
-    isDocumentClosed: string
-    jdkJavaDocLinkPrefix: string
-    moduleContext?: { [key: string]: any }
-    Mothership: any
-    pageAdminMode: boolean
-    postParameters?: any
-    project: Project
-    requiresCss?: Function
-    requiresScript: Function
-    Security: any
-    SecurityPolicy: any
-    serverName: string
-    sharedContainer?: string
-    submit: boolean
-    tours: any
-    unloadMessage: string
-    useMDYDateParsing?: boolean
-    user: Partial<UserWithPermissions>
-    uuids: string[]
-    verbose: boolean
-    versionString: string
-    vis: any
-    WebSocket: any
+    adminOnlyMode?: boolean;
+    analyticProviders?: { [providerName: string]: string };
+    container: Partial<Container>;
+    contextPath: string;
+    CSRF: string;
+    defaultHeaders: { [key: string]: string };
+    demoMode: boolean;
+    devMode: boolean;
+    dirty: boolean;
+    experimental: ExperimentalFlags;
+    extDateInputFormat: string;
+    extDefaultDateFormat: string;
+    extDefaultDateTimeFormat: string;
+    extDefaultNumberFormat?: string;
+    extJsRoot: string;
+    extThemeName_42: string;
+    getModuleContext: any;
+    hash: string;
+    helpLinkPrefix: string;
+    homeContainer: string;
+    imagePath: string;
+    impersonatingUser?: Partial<UserWithPermissions>;
+    isDocumentClosed: string;
+    jdkJavaDocLinkPrefix: string;
+    moduleContext?: { [key: string]: any };
+    Mothership: any;
+    pageAdminMode: boolean;
+    postParameters?: any;
+    project: Project;
+    requiresCss?: Function;
+    requiresScript: Function;
+    Security: any;
+    SecurityPolicy: any;
+    serverName: string;
+    sharedContainer?: string;
+    submit: boolean;
+    tours: any;
+    unloadMessage: string;
+    useMDYDateParsing?: boolean;
+    user: Partial<UserWithPermissions>;
+    uuids: string[];
+    verbose: boolean;
+    versionString: string;
+    vis: any;
+    WebSocket: any;
 }
 
 export interface User {
-    avatar: string
-    email: string
-    displayName: string
-    id: number
-    phone: string
+    avatar: string;
+    email: string;
+    displayName: string;
+    id: number;
+    phone: string;
     // Some LabKey Server API responses specify "userId" in addition to "id" when serializing a User response.
     // This will not always be available but is made available in the typings for ease of use of this interface.
-    userId?: number
+    userId?: number;
 }
 
 export interface UserWithPermissions extends User {
-    canDelete: boolean
-    canDeleteOwn: boolean
-    canInsert: boolean
-    canUpdate: boolean
-    canUpdateOwn: boolean
-    isAdmin: boolean
-    isAnalyst: boolean
-    isDeveloper: boolean
-    isGuest: boolean
-    isRootAdmin: boolean
-    isSignedIn: boolean
-    isSystemAdmin: boolean
-    isTrusted: boolean
+    canDelete: boolean;
+    canDeleteOwn: boolean;
+    canInsert: boolean;
+    canUpdate: boolean;
+    canUpdateOwn: boolean;
+    isAdmin: boolean;
+    isAnalyst: boolean;
+    isDeveloper: boolean;
+    isGuest: boolean;
+    isRootAdmin: boolean;
+    isSignedIn: boolean;
+    isSystemAdmin: boolean;
+    isTrusted: boolean;
+    maxAllowedPhi: string;
 }
 
 declare let LABKEY: LabKey;
