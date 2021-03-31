@@ -1,5 +1,5 @@
 ## XX
-- Add materialRunType for Experiment.LineageOptions
+- Add runProtocolLsid for Experiment.LineageOptions
 
 ## 1.1.9 - 2021-02-23
 - Add enumeration for Security.PermissionRoles

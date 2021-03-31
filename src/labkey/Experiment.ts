@@ -273,10 +273,10 @@ export interface LineageOptions extends ExperimentJSONConverterOptions, RequestC
     /** Include parents in the lineage response. Defaults to true. */
     parents?: boolean
     /**
-     * Optional material lineage type to filter response -- either "AliquotationOnly" or "DerivationOnly".
+     * Optional Exp Run Protocol Lsid to filter response.
      * Defaults to include all.
      */
-    materialRunType?: string
+    runProtocolLsid?: string
 }
 
 /**
@@ -310,8 +310,8 @@ export function lineage(options: LineageOptions): XMLHttpRequest {
     if (options.cpasType) {
         params.cpasType = options.cpasType;
     }
-    if (options.materialRunType) {
-        params.materialRunType = options.materialRunType;
+    if (options.runProtocolLsid) {
+        params.runProtocolLsid = options.runProtocolLsid;
     }
 
     return request({
