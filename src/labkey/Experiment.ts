@@ -272,6 +272,11 @@ export interface LineageOptions extends ExperimentJSONConverterOptions, RequestC
     lsids?: string[]
     /** Include parents in the lineage response. Defaults to true. */
     parents?: boolean
+    /**
+     * Optional Exp Run Protocol Lsid to filter response.
+     * Defaults to include all.
+     */
+    runProtocolLsid?: string
 }
 
 /**
@@ -304,6 +309,9 @@ export function lineage(options: LineageOptions): XMLHttpRequest {
     }
     if (options.cpasType) {
         params.cpasType = options.cpasType;
+    }
+    if (options.runProtocolLsid) {
+        params.runProtocolLsid = options.runProtocolLsid;
     }
 
     return request({
