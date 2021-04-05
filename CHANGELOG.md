@@ -1,10 +1,10 @@
-## XX
+## 1.2.2 - 2021-04-05
 - Add runProtocolLsid for Experiment.LineageOptions
 
-## 1.2.1 - 2021-02-23
+## 1.2.1 - 2021-03-30
 - maxAllowedPHI renamed to maxAllowedPhi
 
-## 1.2.0 - 2021-02-23
+## 1.2.0 - 2021-03-30
 - Add maxAllowedPHI to UserWithPermissions
 
 ## 1.1.9 - 2021-02-23
