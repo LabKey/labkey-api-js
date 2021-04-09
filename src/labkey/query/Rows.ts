@@ -32,6 +32,11 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
     /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
     extraContext?: any
     /**
+     * FormData or Object consumable by FormData that can be used to POST key/value pairs of form information.
+     * For more information, see <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData">FormData documentation</a>.
+     */
+    form?: FormData | HTMLFormElement
+    /**
      * Name of a query table associated with the chosen schema.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
@@ -297,6 +302,7 @@ function sendRequest(options: SendRequestOptions): XMLHttpRequest {
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        form: options.form,
         jsonData: {
             schemaName: options.schemaName,
             queryName: options.queryName,

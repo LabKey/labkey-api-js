@@ -1,3 +1,6 @@
+## TBD - TBD
+- Item 8735: Allow for FormData to be passed via SendRequestOptions
+
 ## 1.2.2 - 2021-04-05
 - Add runProtocolLsid for Experiment.LineageOptions
 
