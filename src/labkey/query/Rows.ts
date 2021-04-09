@@ -34,6 +34,7 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
     /**
      * FormData or Object consumable by FormData that can be used to POST key/value pairs of form information.
      * For more information, see <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData">FormData documentation</a>.
+     * Note that if both form and rows are provided, the form object will be used.
      */
     form?: FormData | HTMLFormElement
     /**
@@ -45,6 +46,7 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
     /**
      * Array of record objects in which each object has a property for each field.
      * The row data array needs to include only the primary key column value, not all columns.
+     * Note that if both form and rows are provided, the form object will be used.
      */
     rows?: any[]
     /**
@@ -297,21 +299,28 @@ interface SendRequestOptions extends QueryRequestOptions {
  * @private
  */
 function sendRequest(options: SendRequestOptions): XMLHttpRequest {
+    const jsonData = {
+        schemaName: options.schemaName,
+        queryName: options.queryName,
+        rows: options.rows || options.rowDataArray,
+        transacted: options.transacted,
+        extraContext: options.extraContext,
+        auditBehavior: options.auditBehavior,
+        auditUserComment: options.auditUserComment
+    };
+
+    // if the caller has provided a FormData object, put the config props into the form as a json string
+    if (options.form && options.form instanceof FormData && !options.form.has('json')) {
+        options.form.append('json', JSON.stringify(jsonData));
+    }
+
     return request({
         url: buildURL('query', options.action, options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         form: options.form,
-        jsonData: {
-            schemaName: options.schemaName,
-            queryName: options.queryName,
-            rows: options.rows || options.rowDataArray,
-            transacted: options.transacted,
-            extraContext: options.extraContext,
-            auditBehavior: options.auditBehavior,
-            auditUserComment: options.auditUserComment
-        },
+        jsonData,
         timeout: options.timeout
     });
 }
