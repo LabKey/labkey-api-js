@@ -1,4 +1,4 @@
-## TBD - TBD
+## 1.3.0 - 2021-04-15
 - Item 8735: Allow for FormData to be passed via SendRequestOptions
 
 ## 1.2.2 - 2021-04-05
