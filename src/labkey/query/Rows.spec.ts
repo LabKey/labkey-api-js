@@ -72,6 +72,32 @@ describe('insertRows', () => {
             url: '/query/insertRows.api',
         }));
     });
+
+    it('should support form data', () => {
+        // Arrange
+        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+        const schemaName = 'SSS';
+        const queryName = 'QQQ';
+        const rows = [{ rowId: 1 }, { rowId: 2 }];
+
+        const form = new FormData();
+        form.append('test1', 'test2');
+
+        // Act
+        (insertRows as any)({ schemaName, queryName, rows, form });
+
+        // Assert
+        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
+            method: 'POST',
+            form: expect.anything(),
+            jsonData: expect.objectContaining({
+                queryName,
+                rows,
+                schemaName,
+            }),
+            url: '/query/insertRows.api',
+        }));
+    });
 });
 
 describe('updateRows', () => {
@@ -91,6 +117,32 @@ describe('updateRows', () => {
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
             method: 'POST',
+            jsonData: expect.objectContaining({
+                queryName,
+                rows,
+                schemaName,
+            }),
+            url: '/query/updateRows.api',
+        }));
+    });
+
+    it('should support form data', () => {
+        // Arrange
+        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+        const schemaName = 'SSS';
+        const queryName = 'QQQ';
+        const rows = [{ rowId: 1 }, { rowId: 2 }];
+
+        const form = new FormData();
+        form.append('test1', 'test2');
+
+        // Act
+        (updateRows as any)({ schemaName, queryName, rows, form });
+
+        // Assert
+        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
+            method: 'POST',
+            form: expect.anything(),
             jsonData: expect.objectContaining({
                 queryName,
                 rows,
