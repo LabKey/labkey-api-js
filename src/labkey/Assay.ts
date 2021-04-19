@@ -399,7 +399,7 @@ export interface GetStudyNabRunsOptions extends RequestCallbackOptions {
 }
 
 /**
- * Select detailed NAb information for runs with summary data that has been copied to a study folder. Note that this
+ * Select detailed NAb information for runs with summary data that has been linked to a study folder. Note that this
  * method must be executed against the study folder containing the copied NAb summary data.
  * @param options
  */
