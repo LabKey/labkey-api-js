@@ -165,7 +165,6 @@ export const TYPES_BY_JSON_TYPE_DEFAULT: Record<string, IFilterType> = {
     'float': Types.EQUAL,
     'int': Types.EQUAL,
     'string': Types.CONTAINS,
-    'concept': Types.EQUAL,
 };
 
 /**
