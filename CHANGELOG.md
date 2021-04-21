@@ -1,3 +1,6 @@
+## 1.3.TBD - TBD
+- Item 8670: Add ontology based filters for data region filtering
+
 ## 1.3.0 - 2021-04-15
 - Item 8735: Allow for FormData to be passed via SendRequestOptions
 
