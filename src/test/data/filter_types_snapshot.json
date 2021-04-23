@@ -671,7 +671,7 @@
     "isMultiValued": false,
     "isTableWise": false
   },
-    "ONTOLOGY_NOT_IN_SUBTREE": {
+  "ONTOLOGY_NOT_IN_SUBTREE": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Not In Subtree",
     "getLongDisplayText": "Is Not In Subtree",

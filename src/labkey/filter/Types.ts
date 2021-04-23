@@ -144,8 +144,8 @@ export let Types: Record<string, IFilterType> = {
     //
     // Ontology operators
     //
-    ONTOLOGY_IN_SUBTREE : registerFilterType("Is In Subtree", null, "concept:insubtree", true,),
-    ONTOLOGY_NOT_IN_SUBTREE : registerFilterType("Is Not In Subtree", null, "concept:notinsubtree", true,)
+    ONTOLOGY_IN_SUBTREE : registerFilterType("Is In Subtree", null, "concept:insubtree", true),
+    ONTOLOGY_NOT_IN_SUBTREE : registerFilterType("Is Not In Subtree", null, "concept:notinsubtree", true)
 };
 
 export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
