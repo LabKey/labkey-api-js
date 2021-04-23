@@ -655,6 +655,38 @@
     "isMultiValued": false,
     "isTableWise": false
   },
+  "ONTOLOGY_IN_SUBTREE": {
+    "getDisplaySymbol": null,
+    "getDisplayText": "Is In Subtree",
+    "getLongDisplayText": "Is In Subtree",
+    "getMultiValueFilter": "undefined",
+    "getMultiValueMaxOccurs": "undefined",
+    "getMultiValueMinOccurs": "undefined",
+    "getMultiValueSeparator": null,
+    "getOpposite": null,
+    "getSingleValueFilter": "concept:insubtree",
+    "getURLParameterValue": "undefined",
+    "getURLSuffix": "concept:insubtree",
+    "isDataValueRequired": true,
+    "isMultiValued": false,
+    "isTableWise": false
+  },
+    "ONTOLOGY_NOT_IN_SUBTREE": {
+    "getDisplaySymbol": null,
+    "getDisplayText": "Is Not In Subtree",
+    "getLongDisplayText": "Is Not In Subtree",
+    "getMultiValueFilter": "undefined",
+    "getMultiValueMaxOccurs": "undefined",
+    "getMultiValueMinOccurs": "undefined",
+    "getMultiValueSeparator": null,
+    "getOpposite": null,
+    "getSingleValueFilter": "concept:notinsubtree",
+    "getURLParameterValue": "undefined",
+    "getURLSuffix": "concept:notinsubtree",
+    "isDataValueRequired": true,
+    "isMultiValued": false,
+    "isTableWise": false
+  },
   "Q": {
     "getDisplaySymbol": null,
     "getDisplayText": "Search",
