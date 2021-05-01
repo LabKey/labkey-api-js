@@ -1,4 +1,4 @@
-## 1.3.TBD - TBD
+## 1.4.0 - 2021-05-01
 - Item 8670: Add ontology based filters for data region filtering
 
 ## 1.3.0 - 2021-04-15
