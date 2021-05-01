@@ -56,7 +56,9 @@ export const oppositeMap: {
     hasmvvalue: 'nomvvalue',
     nomvvalue: 'hasmvvalue',
     between: 'notbetween',
-    notbetween: 'between'
+    notbetween: 'between',
+    insubtree: 'notinsubtree',
+    notinsubtree: 'insubtree',
 };
 
 export const singleValueToMultiMap: {
