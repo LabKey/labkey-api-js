@@ -1,3 +1,6 @@
+## TBD - TBD
+- Item 8709: Add permission class for managing sample picklists
+
 ## 1.4.0 - 2021-05-01
 - Item 8670: Add ontology based filters for data region filtering
 
