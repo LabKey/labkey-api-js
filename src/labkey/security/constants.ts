@@ -54,8 +54,10 @@ export enum PermissionTypes {
     DesignDataClass = 'org.labkey.api.security.permissions.DesignDataClassPermission',
     DesignList = 'org.labkey.api.lists.permissions.DesignListPermission',
     DesignSampleSet = 'org.labkey.api.security.permissions.DesignSampleSetPermission',
+    ManagePicklists = 'org.labkey.api.lists.permissions.ManagePicklistsPermission',
     ReadSome = 'org.labkey.api.security.permissions.ReadSomePermission',
     UserManagement = 'org.labkey.api.security.permissions.UserManagementPermission',
+
 
     // Assay QC
     QCAnalyst = 'org.labkey.api.security.permissions.QCAnalystPermission',
