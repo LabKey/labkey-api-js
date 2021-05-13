@@ -1,4 +1,4 @@
-## TBD - TBD
+## 1.5.0 - 2021-05-13
 - Item 8709: Add permission class for managing sample picklists
 
 ## 1.4.0 - 2021-05-01
