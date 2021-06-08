@@ -49,7 +49,9 @@ export enum PermissionTypes {
     Update = 'org.labkey.api.security.permissions.UpdatePermission',
 
     // Other
+    AddUser = 'org.labkey.api.security.permissions.AddUserPermission',
     ApplicationAdmin = 'org.labkey.api.security.permissions.ApplicationAdminPermission',
+    CanSeeAuditLog = 'org.labkey.api.audit.permissions.CanSeeAuditLogPermission',
     DesignAssay = 'org.labkey.api.assay.security.DesignAssayPermission',
     DesignDataClass = 'org.labkey.api.security.permissions.DesignDataClassPermission',
     DesignList = 'org.labkey.api.lists.permissions.DesignListPermission',
@@ -57,7 +59,6 @@ export enum PermissionTypes {
     ManagePicklists = 'org.labkey.api.lists.permissions.ManagePicklistsPermission',
     ReadSome = 'org.labkey.api.security.permissions.ReadSomePermission',
     UserManagement = 'org.labkey.api.security.permissions.UserManagementPermission',
-
 
     // Assay QC
     QCAnalyst = 'org.labkey.api.security.permissions.QCAnalystPermission',

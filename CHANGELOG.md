@@ -1,3 +1,6 @@
+## TBD - TBD
+- Item 8958: Add permission classes for AddUserPermission and CanSeeAuditLogPermission
+
 ## 1.5.0 - 2021-05-13
 - Item 8709: Add permission class for managing sample picklists
 
