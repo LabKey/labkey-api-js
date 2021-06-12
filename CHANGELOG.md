@@ -1,6 +1,3 @@
-## 1.6.# - 2021-06-##
-- Package updates.
-
 ## 1.6.0 - 2021-06-10
 - Item 8958: Add permission classes for AddUserPermission and CanSeeAuditLogPermission
 
