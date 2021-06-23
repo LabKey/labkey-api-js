@@ -1,3 +1,6 @@
+## TBD - TBD
+- Item 9807: Domain properties APIs: `Domain.getProperties()`, `Domain.getPropertyUsages()`, `Domain.updateDomain()`
+
 ## 1.6.0 - 2021-06-10
 - Item 8958: Add permission classes for AddUserPermission and CanSeeAuditLogPermission
 

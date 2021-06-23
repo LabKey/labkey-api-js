@@ -22,6 +22,7 @@ import {
     isString,
     RequestCallbackOptions,
 } from './Utils'
+import { LineageItemBase } from './Experiment';
 
 // This is effectively GWTDomain
 /**
@@ -406,6 +407,42 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
     });
 }
 
+export interface UpdateDomainParams {
+    createFields?: []
+    deleteFields?: [number]
+    domainId: number
+    includeWarnings?: boolean
+    updateFields?: []
+}
+
+export interface UpdateDomainOptions extends UpdateDomainParams, RequestCallbackOptions {
+    containerPath?: string
+}
+
+export function updateDomain(config: UpdateDomainOptions): XMLHttpRequest {
+    const params: UpdateDomainParams = {
+        domainId: config.domainId,
+        includeWarnings: config.includeWarnings
+    };
+
+    if (config.createFields)
+        params.createFields = config.createFields;
+
+    if (config.updateFields)
+        params.updateFields = config.updateFields;
+
+    if (config.deleteFields)
+        params.deleteFields = config.deleteFields;
+
+    return request({
+        url: buildURL('property', 'updateDomain.api', config.containerPath),
+        method: 'POST',
+        jsonData: params,
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+    });
+}
+
 export interface ListDomainsParams {
     domainKinds?: string[]
     includeFields?: boolean
@@ -442,8 +479,39 @@ export function listDomains(config: ListDomainsOptions): XMLHttpRequest {
 }
 
 interface GetPropertiesParams {
+    /**
+     * Get properties from the given set of domains.
+     */
+    domainIds?: number[]
+    /**
+     * Get properties from the given set of domain kinds. For example, "Vocabulary" or "SampleSet"
+     */
+    domainKinds?: string[]
+    /**
+     * Get properties matching the query filters.
+     * For example, `query.measure~eq=true` will find all measure properties.
+     */
+    filters?: string[]
+    maxRows?: number;
+    offset?: number;
+    /**
+     * Get the properties for the property IDs.
+     */
     propertyIds?: number[]
+    /**
+     * Get the properties for the property IDs.
+     */
     propertyURIs?: string[]
+    /**
+     * Get properties that match the search term.  The property `name`, `label`, `description`,
+     * and `importAliases` will be considered when searching.
+     */
+    search?: string;
+    /**
+     * Property descriptor field to sort the results by.
+     * By default, the results will be returned in `propertyId` order.
+     */
+    sort?: string;
 }
 
 export interface GetPropertiesOptions extends GetPropertiesParams, RequestCallbackOptions {
@@ -451,7 +519,66 @@ export interface GetPropertiesOptions extends GetPropertiesParams, RequestCallba
 }
 
 export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
-    const params: GetPropertiesParams = {};
+    const params: GetPropertiesParams = { };
+
+    if (config.domainIds)
+        params.domainIds = config.domainIds;
+
+    if (config.domainKinds)
+        params.domainKinds = config.domainKinds;
+
+    if (config.filters)
+        params.filters = config.filters;
+
+    if (config.maxRows !== undefined)
+        params.maxRows = config.maxRows;
+
+    if (config.offset !== undefined)
+        params.offset = config.offset;
+
+    if (config.propertyIds)
+        params.propertyIds = config.propertyIds;
+
+    if (config.propertyURIs)
+        params.propertyURIs = config.propertyURIs;
+
+    if (config.search)
+        params.search = config.search;
+
+    if (config.sort)
+        params.sort = config.sort;
+
+    return request({
+        url: buildURL('property', 'getProperties.api', config.containerPath),
+        params,
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+    });
+}
+
+export interface PropertyUsagesParams {
+    maxUsageCount?: number
+    propertyIds?: [number]
+    propertyURIs?: [string]
+}
+
+export interface PropertyUsagesResponse {
+    data: [{
+        propertyId: number,
+        propertyURI: string,
+        usageCount: number,
+        objects: [LineageItemBase]
+    }]
+}
+
+export interface PropertyUsagesOptions extends PropertyUsagesParams, RequestCallbackOptions<PropertyUsagesResponse> {
+    containerPath?: string
+}
+
+export function getPropertyUsages(config: PropertyUsagesOptions): XMLHttpRequest {
+    const params: PropertyUsagesParams = {
+        maxUsageCount: config.maxUsageCount
+    };
 
     if (config.propertyIds)
         params.propertyIds = config.propertyIds;
@@ -460,11 +587,11 @@ export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
         params.propertyURIs = config.propertyURIs;
 
     return request({
-        url: buildURL('property', 'getProperties.api', config.containerPath),
+        url: buildURL('property', 'propertyUsages.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
-    });
+    })
 }
 
 export enum KINDS {
