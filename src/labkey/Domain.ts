@@ -529,7 +529,7 @@ export interface GetPropertiesOptions extends GetPropertiesParams, RequestCallba
  * Find properties that match the criteria.
  */
 export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
-    const params: GetPropertiesParams = { };
+    const params: Omit<GetPropertiesParams, "filters"> & { filters?: string[] } = {};
 
     if (config.domainIds)
         params.domainIds = config.domainIds;
@@ -537,8 +537,10 @@ export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
     if (config.domainKinds)
         params.domainKinds = config.domainKinds;
 
-    if (config.filters)
-        params.filters = appendFilterParams(null, config.filters, "query");
+    if (config.filters) {
+        // convert the IFilter array into a string array (e.g. ["query.measure~eq=true"] )
+        params.filters = config.filters.map(f => f.getURLParameterName('query') + '=' + f.getURLParameterValue());
+    }
 
     if (config.maxRows !== undefined)
         params.maxRows = config.maxRows;
@@ -560,7 +562,8 @@ export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('property', 'getProperties.api', config.containerPath),
-        params,
+        method: 'POST',
+        jsonData: params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
