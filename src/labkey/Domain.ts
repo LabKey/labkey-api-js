@@ -594,9 +594,10 @@ export interface PropertyUsagesOptions extends PropertyUsagesParams, RequestCall
  * will be included in the response.
  */
 export function getPropertyUsages(config: PropertyUsagesOptions): XMLHttpRequest {
-    const params: PropertyUsagesParams = {
-        maxUsageCount: config.maxUsageCount
-    };
+    const params: PropertyUsagesParams = { };
+
+    if (config.maxUsageCount !== undefined)
+        params.maxUsageCount = config.maxUsageCount;
 
     if (config.propertyIds)
         params.propertyIds = config.propertyIds;
