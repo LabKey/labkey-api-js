@@ -1,4 +1,4 @@
-## TBD - TBD
+## 1.6.1 - 2021-06-25
 - Item 9807: Domain properties APIs: `Domain.getProperties()`, `Domain.getPropertyUsages()`, `Domain.updateDomain()`
 
 ## 1.6.0 - 2021-06-10
