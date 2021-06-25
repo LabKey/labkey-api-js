@@ -22,6 +22,8 @@ import {
     isString,
     RequestCallbackOptions,
 } from './Utils'
+import { LineageItemBase } from './Experiment';
+import { appendFilterParams, IFilter } from './filter/Filter';
 
 // This is effectively GWTDomain
 /**
@@ -406,6 +408,45 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
     });
 }
 
+export interface UpdateDomainParams {
+    createFields?: []
+    deleteFields?: number[]
+    domainId: number
+    includeWarnings?: boolean
+    updateFields?: []
+}
+
+export interface UpdateDomainOptions extends UpdateDomainParams, RequestCallbackOptions {
+    containerPath?: string
+}
+
+/**
+ * Add, update, or delete fields from an existing domain.
+ */
+export function updateDomain(config: UpdateDomainOptions): XMLHttpRequest {
+    const params: UpdateDomainParams = {
+        domainId: config.domainId,
+        includeWarnings: config.includeWarnings
+    };
+
+    if (config.createFields)
+        params.createFields = config.createFields;
+
+    if (config.updateFields)
+        params.updateFields = config.updateFields;
+
+    if (config.deleteFields)
+        params.deleteFields = config.deleteFields;
+
+    return request({
+        url: buildURL('property', 'updateDomain.api', config.containerPath),
+        method: 'POST',
+        jsonData: params,
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+    });
+}
+
 export interface ListDomainsParams {
     domainKinds?: string[]
     includeFields?: boolean
@@ -421,6 +462,9 @@ export interface ListDomainsOptions extends ListDomainsParams, RequestCallbackOp
     containerPath?: string
 }
 
+/**
+ * List domains by domain kind and optionally include the field definitions.
+ */
 export function listDomains(config: ListDomainsOptions): XMLHttpRequest {
     const params: ListDomainsParams = { };
 
@@ -442,16 +486,118 @@ export function listDomains(config: ListDomainsOptions): XMLHttpRequest {
 }
 
 interface GetPropertiesParams {
+    /**
+     * Get properties from the given set of domains.
+     */
+    domainIds?: number[]
+    /**
+     * Get properties from the given set of domain kinds. For example, "Vocabulary" or "SampleSet"
+     */
+    domainKinds?: string[]
+    /**
+     * Get properties matching the query filters.
+     * For example, `Filter.create('measure', true)` will find all measure properties.
+     */
+    filters?: IFilter[]
+    maxRows?: number;
+    offset?: number;
+    /**
+     * Get the properties for the property IDs.
+     */
     propertyIds?: number[]
+    /**
+     * Get the properties for the property URIs.
+     */
     propertyURIs?: string[]
+    /**
+     * Get properties that match the search term.  The property `name`, `label`, `description`,
+     * and `importAliases` will be considered when searching.
+     */
+    search?: string;
+    /**
+     * Property descriptor field to sort the results by.
+     * By default, the results will be returned in `propertyId` order.
+     */
+    sort?: string;
 }
 
 export interface GetPropertiesOptions extends GetPropertiesParams, RequestCallbackOptions {
     containerPath?: string
 }
 
+/**
+ * Find properties that match the criteria.
+ */
 export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
-    const params: GetPropertiesParams = {};
+    const params: Omit<GetPropertiesParams, "filters"> & { filters?: string[] } = {};
+
+    if (config.domainIds)
+        params.domainIds = config.domainIds;
+
+    if (config.domainKinds)
+        params.domainKinds = config.domainKinds;
+
+    if (config.filters) {
+        // convert the IFilter array into a string array (e.g. ["query.measure~eq=true"] )
+        params.filters = config.filters.map(f => f.getURLParameterName('query') + '=' + f.getURLParameterValue());
+    }
+
+    if (config.maxRows !== undefined)
+        params.maxRows = config.maxRows;
+
+    if (config.offset !== undefined)
+        params.offset = config.offset;
+
+    if (config.propertyIds)
+        params.propertyIds = config.propertyIds;
+
+    if (config.propertyURIs)
+        params.propertyURIs = config.propertyURIs;
+
+    if (config.search)
+        params.search = config.search;
+
+    if (config.sort)
+        params.sort = config.sort;
+
+    return request({
+        url: buildURL('property', 'getProperties.api', config.containerPath),
+        method: 'POST',
+        jsonData: params,
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+    });
+}
+
+export interface PropertyUsagesParams {
+    maxUsageCount?: number
+    propertyIds?: number[]
+    propertyURIs?: string[]
+}
+
+export interface PropertyUsages {
+    propertyId: number,
+    propertyURI: string,
+    usageCount: number,
+    objects: LineageItemBase[]
+}
+export interface PropertyUsagesResponse {
+    data: PropertyUsages[]
+}
+
+export interface PropertyUsagesOptions extends PropertyUsagesParams, RequestCallbackOptions<PropertyUsages[]> {
+    containerPath?: string
+}
+
+/**
+ * Get usages of one or more properties.  Up to <code>maxUsageCount</code> objects
+ * will be included in the response.
+ */
+export function getPropertyUsages(config: PropertyUsagesOptions): XMLHttpRequest {
+    const params: PropertyUsagesParams = { };
+
+    if (config.maxUsageCount !== undefined)
+        params.maxUsageCount = config.maxUsageCount;
 
     if (config.propertyIds)
         params.propertyIds = config.propertyIds;
@@ -460,11 +606,11 @@ export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
         params.propertyURIs = config.propertyURIs;
 
     return request({
-        url: buildURL('property', 'getProperties.api', config.containerPath),
+        url: buildURL('property', 'propertyUsages.api', config.containerPath),
         params,
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope, false, (json: any) => json.data),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
-    });
+    })
 }
 
 export enum KINDS {
