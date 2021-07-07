@@ -1,4 +1,4 @@
-## XXX - XXX
+## 1.6.2 - 2021-07-07
 - Update PermissionTypes.DesignSampleSet
 
 ## 1.6.1 - 2021-06-25
