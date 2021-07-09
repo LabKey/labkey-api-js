@@ -113,6 +113,8 @@ export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDeta
     /** A field key or Array of field keys to include in the metadata. */
     fields?: any
     fk?: any
+    /** Include trigger metadata in the response. */
+    includeTriggers?: boolean
     /** Initialize the view based on the default view iff the view doesn't yet exist. */
     initializeMissingView?: boolean
     /** The name of the query. */
@@ -159,6 +161,10 @@ export function getQueryDetails(options: GetQueryDetailsOptions): XMLHttpRequest
 
     if (options.initializeMissingView) {
         params.initializeMissingView = options.initializeMissingView;
+    }
+
+    if (options.includeTriggers !== undefined) {
+        params.includeTriggers = options.includeTriggers;
     }
 
     return request({
