@@ -1,3 +1,6 @@
+## 1.6.3 - 2021-07-12
+- Add `includeTriggers` option to `Query.getQueryDetails`
+
 ## 1.6.2 - 2021-07-07
 - Update PermissionTypes.DesignSampleSet
 
