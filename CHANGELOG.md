@@ -1,3 +1,6 @@
+## 1.6.4 - 2021-07-26
+- Add the `allowCrossRunFileInputs` flag to the `Assay.importRun()` API
+
 ## 1.6.3 - 2021-07-12
 - Add `includeTriggers` option to `Query.getQueryDetails`
 
