@@ -22,6 +22,7 @@ import { FormWindow } from './constants'
 declare let window: FormWindow;
 
 export interface IImportRunOptions {
+    allowCrossRunFileInputs?: boolean
     assayId?: number | string
     batchId?: number | string
     batchProperties?: any
@@ -90,7 +91,7 @@ export function importRun(options: IImportRunOptions): void {
     if (options.reRunId) {
         formData.append('reRunId', options.reRunId as string);
     }
-    if (options.saveDataAsFile) {
+    if (options.saveDataAsFile !== undefined) {
         formData.append('saveDataAsFile', options.saveDataAsFile ? "true" : "false");
     }
     if (options.jobDescription) {
@@ -99,8 +100,11 @@ export function importRun(options: IImportRunOptions): void {
     if (options.jobNotificationProvider) {
         formData.append('jobNotificationProvider', options.jobNotificationProvider);
     }
-    if (options.forceAsync) {
+    if (options.forceAsync !== undefined) {
         formData.append('forceAsync', options.forceAsync ? "true" : "false");
+    }
+    if (options.allowCrossRunFileInputs !== undefined) {
+        formData.append('allowCrossRunFileInputs', options.allowCrossRunFileInputs ? "true" : "false");
     }
 
     if (options.properties) {
