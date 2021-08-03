@@ -1,3 +1,6 @@
+## 1.6.# - 2021-08-##
+- QueryColumn: add `nameExpression` to interface
+
 ## 1.6.4 - 2021-07-26
 - Add the `allowCrossRunFileInputs` flag to the `Assay.importRun()` API
 
