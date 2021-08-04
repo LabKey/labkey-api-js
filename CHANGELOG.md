@@ -1,4 +1,4 @@
-## 1.6.# - 2021-08-##
+## 1.6.5 - 2021-08-04
 - QueryColumn: add `nameExpression` to interface
 
 ## 1.6.4 - 2021-07-26
