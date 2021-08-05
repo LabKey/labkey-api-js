@@ -59,6 +59,7 @@ export interface QueryColumn {
     multiValue?: boolean
     mvEnabled: boolean
     name: string
+    nameExpression: string
     nullable: boolean
     phi: string
     rangeURI: string
