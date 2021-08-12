@@ -198,7 +198,17 @@ export interface ModifyRowsResults {
 
 export interface Command {
     /** Name of the command to be performed. Must be one of "insert", "update", or "delete". */
-    command: CommandType
+    command: CommandType    
+    /**
+     * Name of a schema defined within the current container.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
+     */
+    schemaName: string
+    /**
+     * Name of a query table associated with the chosen schema.
+     * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
+     */
+    queryName: string		    
     /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
     extraContext?: any
     /**
