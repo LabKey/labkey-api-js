@@ -1,3 +1,6 @@
+## 1.6.6 - 2021-08-13
+- SaveRows: Update interface with schemaName/queryName (thanks @bbimber).
+
 ## 1.6.5 - 2021-08-04
 - QueryColumn: add `nameExpression` to interface
 
