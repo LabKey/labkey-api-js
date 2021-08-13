@@ -70,7 +70,7 @@
 						<section class="tsd-index-section ">
 							<h3>Interfaces</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/specimen.addsamplestorequestoptions.html" class="tsd-kind-icon">Add<wbr>Samples<wbr>ToRequest<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/specimen.addspecimenstorequestoptions.html" class="tsd-kind-icon">Add<wbr>Specimens<wbr>ToRequest<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/specimen.addvialstorequestoptions.html" class="tsd-kind-icon">Add<wbr>Vials<wbr>ToRequest<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/specimen.cancelrequestoptions.html" class="tsd-kind-icon">Cancel<wbr>Request<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/specimen.getopenrequestsoptions.html" class="tsd-kind-icon">Get<wbr>Open<wbr>Requests<wbr>Options</a></li>
@@ -87,6 +87,7 @@
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="specimen.html#addsamplestorequest" class="tsd-kind-icon">add<wbr>Samples<wbr>ToRequest</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="specimen.html#addspecimenstorequest" class="tsd-kind-icon">add<wbr>Specimens<wbr>ToRequest</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="specimen.html#addvialstorequest" class="tsd-kind-icon">add<wbr>Vials<wbr>ToRequest</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="specimen.html#cancelrequest" class="tsd-kind-icon">cancel<wbr>Request</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="specimen.html#getopenrequests" class="tsd-kind-icon">get<wbr>Open<wbr>Requests</a></li>
@@ -106,15 +107,47 @@
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
 					<a name="addsamplestorequest" class="tsd-anchor"></a>
-					<h3>add<wbr>Samples<wbr>ToRequest</h3>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> add<wbr>Samples<wbr>ToRequest</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Samples<wbr>ToRequest<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.addsamplestorequestoptions.html" class="tsd-signature-type">AddSamplesToRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Samples<wbr>ToRequest<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.addspecimenstorequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">AddSpecimensToRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L43">Specimen.ts:43</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L72">Specimen.ts:72</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Don&#39;t use this... use <a href="specimen.html#addspecimenstorequest">addSpecimensToRequest</a> instead.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>deprecated</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>options: <a href="../interfaces/specimen.addspecimenstorequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">AddSpecimensToRequestOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="addspecimenstorequest" class="tsd-anchor"></a>
+					<h3>add<wbr>Specimens<wbr>ToRequest</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Specimens<wbr>ToRequest<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.addspecimenstorequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">AddSpecimensToRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L43">Specimen.ts:43</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -128,7 +161,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.addsamplestorequestoptions.html" class="tsd-signature-type">AddSamplesToRequestOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.addspecimenstorequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">AddSpecimensToRequestOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -141,13 +174,13 @@
 					<a name="addvialstorequest" class="tsd-anchor"></a>
 					<h3>add<wbr>Vials<wbr>ToRequest</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">add<wbr>Vials<wbr>ToRequest<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.addvialstorequestoptions.html" class="tsd-signature-type">AddVialsToRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Vials<wbr>ToRequest<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.addvialstorequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">AddVialsToRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L81">Specimen.ts:81</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L87">Specimen.ts:87</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -160,7 +193,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.addvialstorequestoptions.html" class="tsd-signature-type">AddVialsToRequestOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.addvialstorequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">AddVialsToRequestOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -173,13 +206,13 @@
 					<a name="cancelrequest" class="tsd-anchor"></a>
 					<h3>cancel<wbr>Request</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">cancel<wbr>Request<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.cancelrequestoptions.html" class="tsd-signature-type">CancelRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">cancel<wbr>Request<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.cancelrequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">CancelRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L122">Specimen.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L128">Specimen.ts:128</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -193,7 +226,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.cancelrequestoptions.html" class="tsd-signature-type">CancelRequestOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.cancelrequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">CancelRequestOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -206,13 +239,13 @@
 					<a name="getopenrequests" class="tsd-anchor"></a>
 					<h3>get<wbr>Open<wbr>Requests</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Open<wbr>Requests<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getopenrequestsoptions.html" class="tsd-signature-type">GetOpenRequestsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Open<wbr>Requests<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getopenrequestsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetOpenRequestsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L153">Specimen.ts:153</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L159">Specimen.ts:159</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -224,7 +257,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.getopenrequestsoptions.html" class="tsd-signature-type">GetOpenRequestsOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.getopenrequestsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetOpenRequestsOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -237,13 +270,13 @@
 					<a name="getprovidinglocations" class="tsd-anchor"></a>
 					<h3>get<wbr>Providing<wbr>Locations</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Providing<wbr>Locations<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getprovidinglocationsoptions.html" class="tsd-signature-type">GetProvidingLocationsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Providing<wbr>Locations<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getprovidinglocationsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetProvidingLocationsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L187">Specimen.ts:187</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L193">Specimen.ts:193</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -254,7 +287,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.getprovidinglocationsoptions.html" class="tsd-signature-type">GetProvidingLocationsOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.getprovidinglocationsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetProvidingLocationsOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -267,13 +300,13 @@
 					<a name="getrepositories" class="tsd-anchor"></a>
 					<h3>get<wbr>Repositories</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Repositories<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getrepositoriesoptions.html" class="tsd-signature-type">GetRepositoriesOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Repositories<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getrepositoriesoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetRepositoriesOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L220">Specimen.ts:220</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L226">Specimen.ts:226</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -284,7 +317,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.getrepositoriesoptions.html" class="tsd-signature-type">GetRepositoriesOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.getrepositoriesoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetRepositoriesOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -297,13 +330,13 @@
 					<a name="getrequest" class="tsd-anchor"></a>
 					<h3>get<wbr>Request</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Request<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getrequestoptions.html" class="tsd-signature-type">GetRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Request<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getrequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L254">Specimen.ts:254</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L260">Specimen.ts:260</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -314,7 +347,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.getrequestoptions.html" class="tsd-signature-type">GetRequestOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.getrequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetRequestOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -327,13 +360,13 @@
 					<a name="getspecimenwebpartgroups" class="tsd-anchor"></a>
 					<h3>get<wbr>Specimen<wbr>Web<wbr>Part<wbr>Groups</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Specimen<wbr>Web<wbr>Part<wbr>Groups<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getspecimenwebpartgroupsoptions.html" class="tsd-signature-type">GetSpecimenWebPartGroupsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Specimen<wbr>Web<wbr>Part<wbr>Groups<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getspecimenwebpartgroupsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetSpecimenWebPartGroupsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L287">Specimen.ts:287</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L293">Specimen.ts:293</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -344,7 +377,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.getspecimenwebpartgroupsoptions.html" class="tsd-signature-type">GetSpecimenWebPartGroupsOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.getspecimenwebpartgroupsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetSpecimenWebPartGroupsOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -357,13 +390,13 @@
 					<a name="getvialtypesummary" class="tsd-anchor"></a>
 					<h3>get<wbr>Vial<wbr>Type<wbr>Summary</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Vial<wbr>Type<wbr>Summary<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getvialtypesummaryoptions.html" class="tsd-signature-type">GetVialTypeSummaryOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Vial<wbr>Type<wbr>Summary<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getvialtypesummaryoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetVialTypeSummaryOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L342">Specimen.ts:342</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L348">Specimen.ts:348</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -374,7 +407,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.getvialtypesummaryoptions.html" class="tsd-signature-type">GetVialTypeSummaryOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.getvialtypesummaryoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetVialTypeSummaryOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -387,13 +420,13 @@
 					<a name="getvialsbyrowid" class="tsd-anchor"></a>
 					<h3>get<wbr>Vials<wbr>ByRow<wbr>Id</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Vials<wbr>ByRow<wbr>Id<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getvialsbyrowidoptions.html" class="tsd-signature-type">GetVialsByRowIdOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Vials<wbr>ByRow<wbr>Id<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.getvialsbyrowidoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetVialsByRowIdOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L309">Specimen.ts:309</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L315">Specimen.ts:315</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -404,7 +437,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.getvialsbyrowidoptions.html" class="tsd-signature-type">GetVialsByRowIdOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.getvialsbyrowidoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetVialsByRowIdOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -417,13 +450,13 @@
 					<a name="removevialsfromrequest" class="tsd-anchor"></a>
 					<h3>remove<wbr>Vials<wbr>From<wbr>Request</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">remove<wbr>Vials<wbr>From<wbr>Request<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.removevialsfromrequestoptions.html" class="tsd-signature-type">RemoveVialsFromRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">remove<wbr>Vials<wbr>From<wbr>Request<span class="tsd-signature-symbol">(</span>options<span class="tsd-signature-symbol">: </span><a href="../interfaces/specimen.removevialsfromrequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RemoveVialsFromRequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Specimen.ts#L368">Specimen.ts:368</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Specimen.ts#L374">Specimen.ts:374</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -436,7 +469,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>options: <a href="../interfaces/specimen.removevialsfromrequestoptions.html" class="tsd-signature-type">RemoveVialsFromRequestOptions</a></h5>
+									<h5>options: <a href="../interfaces/specimen.removevialsfromrequestoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RemoveVialsFromRequestOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 									</div>
 								</li>
@@ -527,7 +560,7 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="../interfaces/specimen.addsamplestorequestoptions.html" class="tsd-kind-icon">Add<wbr>Samples<wbr>ToRequest<wbr>Options</a>
+						<a href="../interfaces/specimen.addspecimenstorequestoptions.html" class="tsd-kind-icon">Add<wbr>Specimens<wbr>ToRequest<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/specimen.addvialstorequestoptions.html" class="tsd-kind-icon">Add<wbr>Vials<wbr>ToRequest<wbr>Options</a>
@@ -561,6 +594,9 @@
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="specimen.html#addsamplestorequest" class="tsd-kind-icon">add<wbr>Samples<wbr>ToRequest</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="specimen.html#addspecimenstorequest" class="tsd-kind-icon">add<wbr>Specimens<wbr>ToRequest</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="specimen.html#addvialstorequest" class="tsd-kind-icon">add<wbr>Vials<wbr>ToRequest</a>

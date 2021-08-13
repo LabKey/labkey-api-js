@@ -87,7 +87,13 @@
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.listdomainsoptions.html" class="tsd-kind-icon">List<wbr>Domains<wbr>Options</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.listdomainsparams.html" class="tsd-kind-icon">List<wbr>Domains<wbr>Params</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.listdomainsresponse.html" class="tsd-kind-icon">List<wbr>Domains<wbr>Response</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.propertyusages.html" class="tsd-kind-icon">Property<wbr>Usages</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.propertyusagesoptions.html" class="tsd-kind-icon">Property<wbr>Usages<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.propertyusagesparams.html" class="tsd-kind-icon">Property<wbr>Usages<wbr>Params</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.propertyusagesresponse.html" class="tsd-kind-icon">Property<wbr>Usages<wbr>Response</a></li>
 								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.savedomainoptions.html" class="tsd-kind-icon">Save<wbr>Domain<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.updatedomainoptions.html" class="tsd-kind-icon">Update<wbr>Domain<wbr>Options</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/domain.updatedomainparams.html" class="tsd-kind-icon">Update<wbr>Domain<wbr>Params</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -98,8 +104,10 @@
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="domain.html#get" class="tsd-kind-icon">get</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="domain.html#getdomaindetails" class="tsd-kind-icon">get<wbr>Domain<wbr>Details</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="domain.html#getproperties" class="tsd-kind-icon">get<wbr>Properties</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="domain.html#getpropertyusages" class="tsd-kind-icon">get<wbr>Property<wbr>Usages</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="domain.html#listdomains" class="tsd-kind-icon">list<wbr>Domains</a></li>
 								<li class="tsd-kind-function tsd-parent-kind-module"><a href="domain.html#save" class="tsd-kind-icon">save</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="domain.html#updatedomain" class="tsd-kind-icon">update<wbr>Domain</a></li>
 							</ul>
 						</section>
 					</div>
@@ -111,13 +119,13 @@
 					<a name="create" class="tsd-anchor"></a>
 					<h3>create</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.createdomainoptions.html" class="tsd-signature-type">CreateDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.createdomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">CreateDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Domain.ts#L176">Domain.ts:176</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L178">Domain.ts:178</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -171,7 +179,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/domain.createdomainoptions.html" class="tsd-signature-type">CreateDomainOptions</a></h5>
+									<h5>config: <a href="../interfaces/domain.createdomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">CreateDomainOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
@@ -182,13 +190,13 @@
 					<a name="drop" class="tsd-anchor"></a>
 					<h3>drop</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">drop<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.dropdomainoptions.html" class="tsd-signature-type">DropDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">drop<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.dropdomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DropDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Domain.ts#L230">Domain.ts:230</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L232">Domain.ts:232</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -199,7 +207,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/domain.dropdomainoptions.html" class="tsd-signature-type">DropDomainOptions</a></h5>
+									<h5>config: <a href="../interfaces/domain.dropdomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">DropDomainOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
@@ -210,13 +218,13 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>get</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.getdomainoptions.html" class="tsd-signature-type">GetDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.getdomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Domain.ts#L329">Domain.ts:329</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L331">Domain.ts:331</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -231,7 +239,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/domain.getdomainoptions.html" class="tsd-signature-type">GetDomainOptions</a></h5>
+									<h5>config: <a href="../interfaces/domain.getdomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetDomainOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
@@ -242,13 +250,13 @@
 					<a name="getdomaindetails" class="tsd-anchor"></a>
 					<h3>get<wbr>Domain<wbr>Details</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Domain<wbr>Details<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.getdomaindetailsoptions.html" class="tsd-signature-type">GetDomainDetailsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Domain<wbr>Details<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.getdomaindetailsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetDomainDetailsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Domain.ts#L300">Domain.ts:300</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L302">Domain.ts:302</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -280,7 +288,7 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/domain.getdomaindetailsoptions.html" class="tsd-signature-type">GetDomainDetailsOptions</a></h5>
+									<h5>config: <a href="../interfaces/domain.getdomaindetailsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetDomainDetailsOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
@@ -291,19 +299,53 @@
 					<a name="getproperties" class="tsd-anchor"></a>
 					<h3>get<wbr>Properties</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Properties<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.getpropertiesoptions.html" class="tsd-signature-type">GetPropertiesOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Properties<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.getpropertiesoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetPropertiesOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Domain.ts#L453">Domain.ts:453</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L531">Domain.ts:531</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Find properties that match the criteria.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/domain.getpropertiesoptions.html" class="tsd-signature-type">GetPropertiesOptions</a></h5>
+									<h5>config: <a href="../interfaces/domain.getpropertiesoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">GetPropertiesOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="getpropertyusages" class="tsd-anchor"></a>
+					<h3>get<wbr>Property<wbr>Usages</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Property<wbr>Usages<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.propertyusagesoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PropertyUsagesOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L596">Domain.ts:596</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get usages of one or more properties.  Up to <code>maxUsageCount</code> objects
+									will be included in the response.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="../interfaces/domain.propertyusagesoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">PropertyUsagesOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
@@ -314,19 +356,24 @@
 					<a name="listdomains" class="tsd-anchor"></a>
 					<h3>list<wbr>Domains</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">list<wbr>Domains<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.listdomainsoptions.html" class="tsd-signature-type">ListDomainsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">list<wbr>Domains<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.listdomainsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">ListDomainsOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Domain.ts#L424">Domain.ts:424</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L468">Domain.ts:468</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>List domains by domain kind and optionally include the field definitions.</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/domain.listdomainsoptions.html" class="tsd-signature-type">ListDomainsOptions</a></h5>
+									<h5>config: <a href="../interfaces/domain.listdomainsoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">ListDomainsOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
@@ -337,13 +384,13 @@
 					<a name="save" class="tsd-anchor"></a>
 					<h3>save</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">save<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.savedomainoptions.html" class="tsd-signature-type">SaveDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+						<li class="tsd-signature tsd-kind-icon">save<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.savedomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SaveDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/f5f74f4/src/labkey/Domain.ts#L380">Domain.ts:380</a></li>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L382">Domain.ts:382</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -354,7 +401,35 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <a href="../interfaces/domain.savedomainoptions.html" class="tsd-signature-type">SaveDomainOptions</a></h5>
+									<h5>config: <a href="../interfaces/domain.savedomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SaveDomainOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="updatedomain" class="tsd-anchor"></a>
+					<h3>update<wbr>Domain</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Domain<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><a href="../interfaces/domain.updatedomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">UpdateDomainOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">XMLHttpRequest</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/LabKey/labkey-api-js/blob/24125f4/src/labkey/Domain.ts#L426">Domain.ts:426</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add, update, or delete fields from an existing domain.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>config: <a href="../interfaces/domain.updatedomainoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">UpdateDomainOptions</a></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">XMLHttpRequest</span></h4>
@@ -479,7 +554,25 @@
 						<a href="../interfaces/domain.listdomainsresponse.html" class="tsd-kind-icon">List<wbr>Domains<wbr>Response</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/domain.propertyusages.html" class="tsd-kind-icon">Property<wbr>Usages</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/domain.propertyusagesoptions.html" class="tsd-kind-icon">Property<wbr>Usages<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/domain.propertyusagesparams.html" class="tsd-kind-icon">Property<wbr>Usages<wbr>Params</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/domain.propertyusagesresponse.html" class="tsd-kind-icon">Property<wbr>Usages<wbr>Response</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
 						<a href="../interfaces/domain.savedomainoptions.html" class="tsd-kind-icon">Save<wbr>Domain<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/domain.updatedomainoptions.html" class="tsd-kind-icon">Update<wbr>Domain<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/domain.updatedomainparams.html" class="tsd-kind-icon">Update<wbr>Domain<wbr>Params</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="domain.html#create" class="tsd-kind-icon">create</a>
@@ -497,10 +590,16 @@
 						<a href="domain.html#getproperties" class="tsd-kind-icon">get<wbr>Properties</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="domain.html#getpropertyusages" class="tsd-kind-icon">get<wbr>Property<wbr>Usages</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="domain.html#listdomains" class="tsd-kind-icon">list<wbr>Domains</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="domain.html#save" class="tsd-kind-icon">save</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="domain.html#updatedomain" class="tsd-kind-icon">update<wbr>Domain</a>
 					</li>
 				</ul>
 			</nav>
