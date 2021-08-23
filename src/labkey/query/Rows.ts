@@ -25,6 +25,13 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
     /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
     auditUserComment?: string
     /**
+     * Flag that specifies if row data should be parsed and transformed into FormData when File data is present.
+     * Defaults to false.
+     * This is useful for endpoints that support File data. The client-side supports parsing and transforming
+     * the request payload into FormData for handling File data.
+     */
+    autoFormFileData?: boolean
+    /**
      * The container path in which the schema and query name are defined.
      * If not supplied, the current container path will be used.
      */
@@ -125,7 +132,7 @@ export function deleteRows(options: QueryRequestOptions): XMLHttpRequest {
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function insertRows(options: QueryRequestOptions): XMLHttpRequest {
-    return sendRequest(applyArguments(options, arguments, 'insertRows.api'));
+    return sendRequest(applyArguments(options, arguments, 'insertRows.api'), true);
 }
 
 // previously configFromArgs
@@ -304,12 +311,59 @@ interface SendRequestOptions extends QueryRequestOptions {
     action: string
 }
 
+// Exported for unit testing
+export function bindFormData(jsonData: { rows?: any[] }, options: SendRequestOptions, supportsFiles = false): FormData {
+    let form: FormData;
+    // if the caller has provided a FormData object, put the config props into the form as a json string
+    if (options.form instanceof FormData) {
+        if (!options.form.has('json')) {
+            options.form.append('json', JSON.stringify(jsonData));
+        }
+        form = options.form;
+    } else if (supportsFiles && options.autoFormFileData) {
+        // A form was not explicitly provided, however, this endpoint supports File data in the rows payload.
+        const hasFileData = jsonData.rows?.find(row => {
+            return !!row && Object.values(row).find(value => value instanceof File);
+        });
+
+        if (hasFileData) {
+            form = new FormData();
+
+            // Process and extract File data with row offsets
+            const rows: Record<string, any>[] = [];
+
+            jsonData.rows.forEach((row, i) => {
+                if (!!row) {
+                    const _row: Record<string, any> = {};
+
+                    Object.keys(row).forEach((k) => {
+                        // Extract File values from the row
+                        if (row[k] instanceof File) {
+                            form.append(`${k}::${i}`, row[k]);
+                        } else {
+                            _row[k] = row[k];
+                        }
+                    });
+
+                    rows.push(_row);
+                } else {
+                    rows.push(row);
+                }
+            });
+
+            form.append('json', JSON.stringify({ ...jsonData, rows }));
+        }
+    }
+
+    return form;
+}
+
 // Formerly sendJsonQueryRequest
 /**
  * @hidden
  * @private
  */
-function sendRequest(options: SendRequestOptions): XMLHttpRequest {
+function sendRequest(options: SendRequestOptions, supportsFiles?: boolean): XMLHttpRequest {
     const jsonData = {
         schemaName: options.schemaName,
         queryName: options.queryName,
@@ -320,19 +374,15 @@ function sendRequest(options: SendRequestOptions): XMLHttpRequest {
         auditUserComment: options.auditUserComment
     };
 
-    // if the caller has provided a FormData object, put the config props into the form as a json string
-    if (options.form && options.form instanceof FormData && !options.form.has('json')) {
-        options.form.append('json', JSON.stringify(jsonData));
-    }
+    const form = bindFormData(jsonData, options, supportsFiles);
 
     return request({
         url: buildURL('query', options.action, options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        form: options.form,
-        jsonData,
-        timeout: options.timeout
+        ...(form ? { form } : { jsonData }),
+        timeout: options.timeout,
     });
 }
 
@@ -356,5 +406,5 @@ export function truncateTable(options: QueryRequestOptions): XMLHttpRequest {
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function updateRows(options: QueryRequestOptions): XMLHttpRequest {
-    return sendRequest(applyArguments(options, arguments, 'updateRows.api'));
+    return sendRequest(applyArguments(options, arguments, 'updateRows.api'), true);
 }
