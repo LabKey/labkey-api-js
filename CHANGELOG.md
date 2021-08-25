@@ -1,3 +1,7 @@
+## 1.6.7 - 2021-08-25
+- InsertRows/UpdateRows: Add capability to parse and transform row data into FormData when File data is present. 
+  This is accessible via a configuration flag `autoFormFileData`. 
+
 ## 1.6.6 - 2021-08-13
 - SaveRows: Update interface with schemaName/queryName (thanks @bbimber).
 
