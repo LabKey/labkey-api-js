@@ -3,15 +3,16 @@
 [API Docs](https://labkey.github.io/labkey-api-js/) | [Change Log](https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md) | [License](https://github.com/LabKey/labkey-api-js/blob/master/LICENSE) | [![Build Status](https://teamcity.labkey.org/app/rest/builds/buildType:(id:LabKey_Publishing_Client_JavaScriptApiTest)/statusIcon)](https://teamcity.labkey.org/viewType.html?buildTypeId=LabKey_Publishing_Client_JavaScriptApiTest)
 
 JavaScript package for interacting with [LabKey Server](https://www.labkey.com/). The goal for this package is to 
-provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the 
-browser, on the server, and in pretty much any modern JavaScript environment.
+provide a robust set of JavaScript tools for working with LabKey Servers. Our eventual hope is to have it working 
+in the browser, on the server, and in pretty much any modern JavaScript environment. The package currently only 
+supports use in the browser.
 
 Written with joy in TypeScript.
 
 ## v1.0 - Official stable release
 
 v1.0 is the first stable release of the `@labkey/api` package. This package is the official JavaScript API package for
-LabKey Server and is included with LabKey Server v20.7. Release highlights:
+LabKey Server and is included starting with LabKey Server v20.7. Release highlights:
 
 - Replaces the original JavaScript API served under `LABKEY` global namespace on LabKey Server pages.
 - Universal module definition (UMD) published package targeting ES6.
