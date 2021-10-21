@@ -1,3 +1,6 @@
+## 1.6.8 - 2021-10-21
+- importRun: Add support for workflowTask param.
+
 ## 1.6.7 - 2021-08-25
 - InsertRows/UpdateRows: Add capability to parse and transform row data into FormData when File data is present. 
   This is accessible via a configuration flag `autoFormFileData`. 
