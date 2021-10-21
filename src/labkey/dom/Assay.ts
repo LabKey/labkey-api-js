@@ -42,7 +42,7 @@ export interface IImportRunOptions {
     forceAsync?: boolean
     scope?: any
     success: Function
-    workflowTask: number
+    workflowTask?: number
 }
 
 export function importRun(options: IImportRunOptions): void {
