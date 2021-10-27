@@ -1,4 +1,4 @@
-## 1.6.8 - 2021-10-21
+## 1.6.8 - 2021-10-27
 - importRun: Add support for workflowTask param.
 
 ## 1.6.7 - 2021-08-25
