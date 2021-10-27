@@ -42,6 +42,7 @@ export interface IImportRunOptions {
     forceAsync?: boolean
     scope?: any
     success: Function
+    workflowTask?: number
 }
 
 export function importRun(options: IImportRunOptions): void {
@@ -105,6 +106,9 @@ export function importRun(options: IImportRunOptions): void {
     }
     if (options.allowCrossRunFileInputs !== undefined) {
         formData.append('allowCrossRunFileInputs', options.allowCrossRunFileInputs ? "true" : "false");
+    }
+    if (options.workflowTask !== undefined) {
+        formData.append('workflowTask', options.workflowTask.toString(10));
     }
 
     if (options.properties) {
