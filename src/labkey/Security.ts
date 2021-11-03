@@ -24,6 +24,7 @@ import {
     systemGroups
 } from './security/constants'
 import {
+    ContainerHierarchy,
     createContainer,
     CreateContainerOptions,
     deleteContainer,
@@ -83,6 +84,7 @@ export {
     systemGroups,
 
     /* interfaces */
+    ContainerHierarchy,
     CreateContainerOptions,
     DeleteContainerOptions,
     GetContainersOptions,
