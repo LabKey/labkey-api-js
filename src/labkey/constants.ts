@@ -16,6 +16,11 @@
 export interface Container {
     /** Names of active modules in the container. */
     activeModules: string[];
+    /**
+     * Permissions the requesting user has in the container.
+     * Only available when explicitly requested via Security.getContainers().
+     */
+    effectivePermissions?: string[];
     /** The name of the container's folder type. */
     folderType: string;
     /** Date format settings for this container. */
