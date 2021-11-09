@@ -22,6 +22,7 @@ import { Run, RunGroup } from './Exp'
 
 /** The name of the protocol used by Experiment. This can be used for "protocolName". */
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
+export const SAMPLE_ALIQUOT_PROTOCOL = 'Sample Aliquot Protocol';
 
 /**
  * Several Experiment API endpoints expose optional settings for the ExperimentJSONConverter.
