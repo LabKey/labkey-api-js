@@ -1,3 +1,6 @@
+## 1.6.9 - 2021-11-10
+- Add SAMPLE_ALIQUOT_PROTOCOL const to Experiment
+
 ## 1.6.8 - 2021-10-27
 - importRun: Add support for workflowTask param.
 
