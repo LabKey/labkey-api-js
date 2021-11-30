@@ -24,12 +24,13 @@ describe('ContainerFilter', () => {
         expect(ContainerFilter.currentAndFirstChildren).toEqual('CurrentAndFirstChildren');
         expect(ContainerFilter.currentAndParents).toEqual('CurrentAndParents');
         expect(ContainerFilter.currentAndSubfolders).toEqual('CurrentAndSubfolders');
+        expect(ContainerFilter.currentAndSubfoldersPlusShared).toEqual('CurrentAndSubfoldersPlusShared');
         expect(ContainerFilter.currentPlusProject).toEqual('CurrentPlusProject');
         expect(ContainerFilter.currentPlusProjectAndShared).toEqual('CurrentPlusProjectAndShared');
 
         // All "values" of the ContainerFilter enum should be covered here -- if it has changed
         // this test will fail and the test should be updated accordingly.
-        expect(Object.keys(ContainerFilter).length).toEqual(7);
+        expect(Object.keys(ContainerFilter).length).toEqual(8);
     });
     it('should be equivalent to "containerFilter"', () => {
         // Backwards compatibility support

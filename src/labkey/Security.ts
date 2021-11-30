@@ -24,15 +24,23 @@ import {
     systemGroups
 } from './security/constants'
 import {
+    ContainerHierarchy,
     createContainer,
+    CreateContainerOptions,
     deleteContainer,
+    DeleteContainerOptions,
     getContainers,
+    GetContainersOptions,
     getFolderTypes,
+    GetFolderTypesOptions,
     getHomeContainer,
     getModules,
+    GetModulesOptions,
     getReadableContainers,
+    GetReadableContainersOptions,
     getSharedContainer,
-    moveContainer
+    moveContainer,
+    MoveContainerOptions,
 } from './security/Container'
 import {
     getGroupPermissions,
@@ -74,6 +82,16 @@ export {
     permissions,
     roles,
     systemGroups,
+
+    /* interfaces */
+    ContainerHierarchy,
+    CreateContainerOptions,
+    DeleteContainerOptions,
+    GetContainersOptions,
+    GetFolderTypesOptions,
+    GetModulesOptions,
+    GetReadableContainersOptions,
+    MoveContainerOptions,
 
     /* methods */
     addGroupMembers,

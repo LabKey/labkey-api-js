@@ -52,6 +52,9 @@ export enum ContainerFilter {
     /** Include the current folder and all subfolders. */
     currentAndSubfolders = 'CurrentAndSubfolders',
 
+    /** Include the current folder, all subfolders of the current folder, and the Shared folder. */
+    currentAndSubfoldersPlusShared = 'CurrentAndSubfoldersPlusShared',
+
     /** Include the current folder and the project that contains it. */
     currentPlusProject = 'CurrentPlusProject',
 
