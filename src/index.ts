@@ -18,6 +18,7 @@ import {
     AuditBehaviorTypes,
     Container,
     ExperimentalFeatures,
+    ExperimentalFlags,
     LabKey,
     getServerContext,
     User,
@@ -55,9 +56,8 @@ import * as QueryDOM from './labkey/dom/Query';
 import * as UtilsDOM from './labkey/dom/Utils';
 
 export {
-    // constants
+    /* constants */
     AuditBehaviorTypes,
-    Container,
     ExperimentalFeatures,
     LabKey,
     getServerContext,
@@ -66,7 +66,11 @@ export {
     User,
     UserWithPermissions,
 
-    // modules
+    /* interfaces */
+    Container,
+    ExperimentalFlags,
+
+    /* modules */
     ActionURL,
     Ajax,
     App,

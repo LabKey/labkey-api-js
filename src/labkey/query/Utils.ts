@@ -60,7 +60,7 @@ export enum ContainerFilter {
 
     /** Include the current folder plus its project plus any shared folders. */
     currentPlusProjectAndShared = 'CurrentPlusProjectAndShared',
-};
+}
 
 /**
  * @deprecated Backwards compatible reference to [[ContainerFilter]].
@@ -157,7 +157,7 @@ export interface IBrowseDataPayload {
     includeMetadata?: boolean
 }
 
-export interface IGetDataViewsOptions {
+export interface GetDataViewsOptions {
     containerPath?: string
     dataTypes?: IDataTypes[]
     failure?: RequestFailure
@@ -171,10 +171,10 @@ export interface IGetDataViewsOptions {
 
 /**
  * Returns a list of reports, views and/or datasets in a container
- * @param {IGetDataViewsOptions} options
+ * @param {GetDataViewsOptions} options
  * @returns {XMLHttpRequest}
  */
-export function getDataViews(options: IGetDataViewsOptions): XMLHttpRequest {
+export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
     let jsonData: IBrowseDataPayload = {
         includeData: true,
         includeMetadata: false

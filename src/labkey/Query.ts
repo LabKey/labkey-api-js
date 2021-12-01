@@ -18,53 +18,116 @@ import {
     ContainerFilter,
     containerFilter,
     deleteQueryView,
+    DeleteQueryViewOptions,
     getDataViews,
+    GetDataViewsOptions,
     getQueries,
+    GetQueriesOptions,
+    GetQueriesResponse,
+    GetQueryResponse,
     getQueryViews,
+    GetQueryViewsOptions,
     getSchemas,
+    GetSchemasOptions,
     getServerDate,
+    IDataTypes,
     saveQueryViews,
+    SaveQueryViewsOptions,
     sqlDateLiteral,
     sqlDateTimeLiteral,
     sqlStringLiteral,
     URL_COLUMN_PREFIX,
-    validateQuery
+    validateQuery,
+    ValidateQueryOptions
 } from './query/Utils'
-import { executeSql } from './query/ExecuteSql'
+import { ExecuteSqlOptions, executeSql } from './query/ExecuteSql'
 import * as GetData from './query/GetData'
-import { getQueryDetails } from './query/GetQueryDetails'
 import {
+    GetQueryDetailsOptions,
+    QueryDetailsResponse,
+    getQueryDetails,
+    QueryImportTemplate,
+    QueryIndex,
+    QueryView,
+    QueryViewColumn,
+    QueryViewFilter,
+    QueryViewSort
+} from './query/GetQueryDetails'
+import {
+    Command,
+    CommandType,
     deleteRows,
     insertRows,
+    ModifyRowsResults,
+    QueryRequestOptions,
     saveRows,
+    SaveRowsOptions,
+    SaveRowsResponse,
     truncateTable,
     updateRows
 } from './query/Rows'
 import { SelectDistinctOptions, SelectDistinctResponse, selectDistinctRows } from './query/SelectDistinctRows'
-import { SelectRowsOptions, selectRows } from './query/SelectRows'
+import { SelectRowsOptions, selectRows, ShowRows } from './query/SelectRows'
 import * as SQL from './query/experimental/SQL'
 import * as Visualization from './query/Visualization'
 import { Filter } from './filter/Filter'
 import { Response, Row } from './query/Response'
-import { QueryColumn } from './query/types'
+import { QueryColumn, QueryLookup } from './query/types'
 
+/** @hidden */
 const experimental = {
     SQL
 };
 
 export {
-    // Interfaces
-    QueryColumn,
+    /* classes */
+    Response,
+    Row,
 
+    /* constants */
     ContainerFilter, // Enumeration
     containerFilter, // backwards compatible reference
+    experimental,
+    URL_COLUMN_PREFIX,
+
+    /* interfaces */
+    Command,
+    CommandType,
+    DeleteQueryViewOptions,
+    ExecuteSqlOptions,
+    GetDataViewsOptions,
+    GetQueriesOptions,
+    GetQueriesResponse,
+    GetQueryDetailsOptions,
+    GetQueryResponse,
+    GetQueryViewsOptions,
+    GetSchemasOptions,
+    IDataTypes,
+    ModifyRowsResults,
+    QueryColumn,
+    QueryDetailsResponse,
+    QueryImportTemplate,
+    QueryIndex,
+    QueryLookup,
+    QueryRequestOptions,
+    QueryView,
+    QueryViewColumn,
+    QueryViewFilter,
+    QueryViewSort,
+    SaveQueryViewsOptions,
+    SaveRowsOptions,
+    SaveRowsResponse,
+    SelectDistinctOptions,
+    SelectDistinctResponse,
+    SelectRowsOptions,
+    ShowRows,
+    ValidateQueryOptions,
+
+    /* methods */
     buildQueryParams,
     deleteQueryView,
     deleteRows,
     executeSql,
-    experimental,
-    Filter,
-    GetData,
     getDataViews,
     getQueries,
     getQueryDetails,
@@ -72,21 +135,19 @@ export {
     getSchemas,
     getServerDate,
     insertRows,
-    Response,
-    Row,
     saveQueryViews,
     saveRows,
-    SelectDistinctOptions,
-    SelectDistinctResponse,
     selectDistinctRows,
-    SelectRowsOptions,
     selectRows,
     sqlDateLiteral,
     sqlDateTimeLiteral,
     sqlStringLiteral,
     truncateTable,
     updateRows,
-    URL_COLUMN_PREFIX,
     validateQuery,
-    Visualization
+
+    /* namespaces */
+    Filter,
+    GetData,
+    Visualization,
 }

@@ -31,7 +31,7 @@ function createDimensions(json: any): Dimension[] {
     return dimensions;
 }
 
-export interface IMeasureGetDimensionsOptions extends RequestCallbackOptions<{value: any}[]> {
+export interface MeasureGetDimensionsOptions extends RequestCallbackOptions<{value: any}[]> {
     /**
      * Applies only to measures from study datasets.
      * Indicates whether dimensions from demographic datasets should be included
@@ -41,7 +41,7 @@ export interface IMeasureGetDimensionsOptions extends RequestCallbackOptions<{va
 }
 
 /**
- * @namespace Measures are plottable data elements (columns).  They may be of numeric or date types.
+ * @namespace Measure Measures are plottable data elements (columns).  They may be of numeric or date types.
  */
 export class Measure {
 
@@ -70,9 +70,9 @@ export class Measure {
 
     /**
      * Returns the set of available [[Dimension]] objects for this measure.
-     * @param {IMeasureGetDimensionsOptions} options
+     * @param {MeasureGetDimensionsOptions} options
      */
-    getDimensions(options: IMeasureGetDimensionsOptions): XMLHttpRequest {
+    getDimensions(options: MeasureGetDimensionsOptions): XMLHttpRequest {
 
         let params: any = {
             queryName: this.queryName,
