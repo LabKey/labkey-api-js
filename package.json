@@ -43,7 +43,7 @@
     "@types/sinon": "10.0.6",
     "cross-env": "7.0.3",
     "gh-pages": "3.2.3",
-    "jest": "27.4.2",
+    "jest": "27.4.3",
     "jest-teamcity-reporter": "0.9.0",
     "rimraf": "3.0.2",
     "sinon": "12.0.1",
