@@ -52,15 +52,15 @@ describe('getSuccessCallbackWrapper', () => {
         return response;
     };
 
-    it('should ignore apply scope', () => {
-        const me = this;
+    it('should apply scope', () => {
+        const other = {};
         const onSuccess = getSuccessCallbackWrapper(function() {
-            expect(this === me).toBe(false);
-        });
+            expect(this).toStrictEqual(other);
+        } /* scope not provided as argument here */);
 
         // An explicit scope is not provided to getSuccessCallbackWrapper so the returned
         // function wrapper should respect scope being applied.
-        onSuccess.apply(me, [mockJSONResponse(), { url: 'test'}]);
+        onSuccess.apply(other, [mockJSONResponse(), { url: 'test' }]);
     });
 
     it('should respect explicit scope', () => {
@@ -68,7 +68,7 @@ describe('getSuccessCallbackWrapper', () => {
         const other = {};
         const onSuccess = getSuccessCallbackWrapper(function() {
             expect(this).toStrictEqual(other);
-        }, false, other);
+        }, false, other /* scope set to "other" */);
 
         // An explicit scope is provided to getSuccessCallbackWrapper so the returned function
         // wrapper should respect the explicit scope over the applied scope.
