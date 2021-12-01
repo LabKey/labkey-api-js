@@ -1,3 +1,9 @@
+## 1.#.# - 2021-12-##
+- Package updates.
+- Rehydrate `package-lock.json`.
+- Update configuration of TypeDoc to align with latest version. Breaking changes had been introduced with `v0.22.x`.
+- [Issue 41034](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=41034): Export most types defined by the package to improve documentation and support external usage of the types.
+
 ## 1.6.10 - 2021-11-30
 - Add `currentAndSubfoldersPlusShared` container filter type to enumeration.
 - Allow for `effectivePermissions` to be declared on a `Container`. Only relevant when supplied by certain endpoints, so it is marked as optional.
