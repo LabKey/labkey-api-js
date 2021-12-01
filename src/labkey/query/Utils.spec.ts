@@ -52,11 +52,11 @@ describe('getSuccessCallbackWrapper', () => {
         return response;
     };
 
-    it('should apply scope', () => {
+    it('should respect applied scope', () => {
         const other = {};
         const onSuccess = getSuccessCallbackWrapper(function() {
             expect(this).toStrictEqual(other);
-        } /* scope not provided as argument here */);
+        } /* explicit scope not provided as argument here */);
 
         // An explicit scope is not provided to getSuccessCallbackWrapper so the returned
         // function wrapper should respect scope being applied.
