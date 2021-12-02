@@ -21,13 +21,14 @@ import { IFilter as QueryFilter } from '../filter/Filter'
 import { Aggregate, Interval, TAggregate, TInterval, Type } from './visualization/constants'
 import { Dimension } from './visualization/Dimension'
 import * as Filter from './visualization/Filter'
-import { Measure } from './visualization/Measure'
+import { MeasureGetDimensionsOptions, Measure } from './visualization/Measure'
 
 export {
     Aggregate,
     Dimension,
     Filter,
     Interval,
+    MeasureGetDimensionsOptions,
     Measure,
     Type
 }

@@ -17,6 +17,7 @@
  * The intent of this file is to a "single-source of truth" export of
  * relevant package information.
  */
+// @ts-ignore error when referencing file outside of the TS "rootDir".
 import { description, name, version } from '../package.json'
 
 export {

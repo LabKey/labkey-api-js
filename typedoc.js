@@ -4,6 +4,8 @@
  * Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
  */
 module.exports = {
+    cleanOutputDir: true,
+    entryPoints: ["src/index.ts"],
     exclude: [
         // Tests
         "**/*+(.spec).ts",
@@ -11,9 +13,6 @@ module.exports = {
 
         // Sub-modules
         "./src/labkey/dom/**",
-        "./src/labkey/filter/**",
-        "./src/labkey/query/**",
-        "./src/labkey/security/**",
 
         // Wrappers
         "./src/package.ts",
@@ -24,6 +23,6 @@ module.exports = {
     excludePrivate: true,
     excludeProtected: true,
     externalPattern: "**/node_modules/** ",
+    out: "docs",
     theme: "default",
-    out: "./docs"
 };

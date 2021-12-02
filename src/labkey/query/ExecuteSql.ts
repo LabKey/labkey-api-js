@@ -19,7 +19,7 @@ import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions 
 
 import { ContainerFilter, getSuccessCallbackWrapper } from './Utils'
 
-export interface IExecuteSqlOptions extends RequestCallbackOptions {
+export interface ExecuteSqlOptions extends RequestCallbackOptions {
     /**
      * One of the values of [[ContainerFilter]] that sets
      * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
@@ -96,7 +96,7 @@ export interface IExecuteSqlOptions extends RequestCallbackOptions {
     timeout?: number
 }
 
-function buildParams(options: IExecuteSqlOptions): any {
+function buildParams(options: ExecuteSqlOptions): any {
 
     let jsonData: any = {
         schemaName: options.schemaName,
@@ -137,7 +137,7 @@ function buildParams(options: IExecuteSqlOptions): any {
     return jsonData;
 }
 
-function buildURLParams(options: IExecuteSqlOptions): any {
+function buildURLParams(options: ExecuteSqlOptions): any {
     let urlParams: any = {};
 
     if (options.sort) {
@@ -171,13 +171,13 @@ function buildURLParams(options: IExecuteSqlOptions): any {
  * // returned data object to display total requests and total quantities.
  *
  * LABKEY.Query.executeSql({
- *         containerPath: 'home/Study/demo/guestaccess',
- *         schemaName: 'lists',
- *         sql: 'SELECT "Reagent Requests".UserID AS UserID, \
- *             Count("Reagent Requests".UserID) AS TotalRequests, \
- *             Sum("Reagent Requests".Quantity) AS TotalQuantity \
- *             FROM "Reagent Requests" Group BY "Reagent Requests".UserID',
- *         success: writeTotals
+ *     containerPath: 'home/Study/demo/guestaccess',
+ *     schemaName: 'lists',
+ *     sql: 'SELECT "Reagent Requests".UserID AS UserID, \
+ *         Count("Reagent Requests".UserID) AS TotalRequests, \
+ *         Sum("Reagent Requests".Quantity) AS TotalQuantity \
+ *         FROM "Reagent Requests" Group BY "Reagent Requests".UserID',
+ *     success: writeTotals
  * });
  * ```
 
@@ -185,7 +185,7 @@ function buildURLParams(options: IExecuteSqlOptions): any {
  * for the async request that can be used to cancel the request. In server-side scripts,
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
-export function executeSql(options: IExecuteSqlOptions): XMLHttpRequest {
+export function executeSql(options: ExecuteSqlOptions): XMLHttpRequest {
     return request({
         url: buildURL('query', 'executeSql.api', options.containerPath, buildURLParams(options)),
         method: 'POST',
