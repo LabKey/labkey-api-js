@@ -1,3 +1,6 @@
+## XXX - 2021-XX
+- Add validateNameExpressions method to Domain
+
 ## 1.6.10 - 2021-11-30
 - Add `currentAndSubfoldersPlusShared` container filter type to enumeration.
 - Allow for `effectivePermissions` to be declared on a `Container`. Only relevant when supplied by certain endpoints, so it is marked as optional.
