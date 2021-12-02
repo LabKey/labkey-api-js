@@ -1,4 +1,4 @@
-## 1.#.# - 2021-12-##
+## 1.7.0 - 2021-12-02
 - Package updates.
 - Rehydrate `package-lock.json`.
 - Update configuration of TypeDoc to align with latest version. Breaking changes had been introduced with `v0.22.x`.
