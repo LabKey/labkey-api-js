@@ -411,23 +411,25 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
 /**
  * Validate name expression(s) for domain design.
  */
-export function validateNameExpressions(config: SaveDomainOptions): XMLHttpRequest {
+export function validateNameExpressions(config: CreateDomainOptions): XMLHttpRequest {
 
-    let options: SaveDomainOptions = arguments.length > 1 ? {
+    let options: CreateDomainOptions = arguments.length > 1 ? {
         success: arguments[0],
         failure: arguments[1],
         domainDesign: arguments[2],
         options: arguments[3],
+        kind: arguments[4],
     } : config;
 
     return request({
         url: buildURL('property', 'validateNameExpressions.api', options.containerPath),
-        method: 'GET',
+        method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData: {
             domainDesign: options.domainDesign,
             options: options.options,
+            kind: options.kind
         }
     });
 }
