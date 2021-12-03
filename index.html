@@ -1,272 +1,101 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@labkey/api</title>
-	<meta name="description" content="Documentation for @labkey/api">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">@labkey/api</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<h1>@labkey/api</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<a href="#labkeyapi" id="labkeyapi" style="color: inherit; text-decoration: none;">
-					<h1>@labkey/api</h1>
-				</a>
-				<p><a href="https://labkey.github.io/labkey-api-js/">API Docs</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md">Change Log</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/LICENSE">License</a> | <a href="https://teamcity.labkey.org/viewType.html?buildTypeId=LabKey_Publishing_Client_JavaScriptApiTest"><img src="https://teamcity.labkey.org/app/rest/builds/buildType:(id:LabKey_Publishing_Client_JavaScriptApiTest)/statusIcon" alt="Build Status"></a></p>
-				<p>JavaScript package for interacting with <a href="https://www.labkey.com/">LabKey Server</a>. The goal for this package is to
-					provide a robust set of JavaScript tools for working with LabKey Servers. Our hope is to have it working in the
-				browser, on the server, and in pretty much any modern JavaScript environment.</p>
-				<p>Written with joy in TypeScript.</p>
-				<a href="#v10---official-stable-release" id="v10---official-stable-release" style="color: inherit; text-decoration: none;">
-					<h2>v1.0 - Official stable release</h2>
-				</a>
-				<p>v1.0 is the first stable release of the <code>@labkey/api</code> package. This package is the official JavaScript API package for
-				LabKey Server and is included with LabKey Server v20.7. Release highlights:</p>
-				<ul>
-					<li>Replaces the original JavaScript API served under <code>LABKEY</code> global namespace on LabKey Server pages.</li>
-					<li>Universal module definition (UMD) published package targeting ES6.</li>
-					<li>Full fidelity TypeScript definitions.</li>
-				</ul>
-				<a href="#pre-v10-usage" id="pre-v10-usage" style="color: inherit; text-decoration: none;">
-					<h3>Pre-v1.0 usage</h3>
-				</a>
-				<p>It is highly recommended you update to the 1.x version of this package as soon as possible. Any pre-1.0 releases are
-				considered experimental and were used only for development purposes.</p>
-				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
-					<h2>Installation</h2>
-				</a>
-				<p>The easiest way to use @labkey/api is to install it from npm and bundle it with your app. Before you run install
-				you&#39;ll want to make sure you set the appropriate registry for the <code>@labkey</code> scope.</p>
-				<a href="#setting-the-registry-scope" id="setting-the-registry-scope" style="color: inherit; text-decoration: none;">
-					<h4>Setting the Registry Scope</h4>
-				</a>
-				<p>This package is currently available on LabKey&#39;s Artifactory package registry. To include this package set the registry
-				in npm for the <code>@labkey</code> scope. This can be done via command line using <code>npm config</code>:</p>
-				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">config</span><span style="color: #000000"> </span><span style="color: #001080">set</span><span style="color: #000000"> @</span><span style="color: #001080">labkey</span><span style="color: #000000">:</span><span style="color: #001080">registry</span><span style="color: #000000"> https:</span><span style="color: #008000">//artifactory.labkey.com/artifactory/api/npm/libs-client</span>
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@labkey/api</title><meta name="description" content="Documentation for @labkey/api"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@labkey/api</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>@labkey/api</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<a href="#labkeyapi" id="labkeyapi" style="color: inherit; text-decoration: none;">
+  <h1>@labkey/api</h1>
+</a>
+<p><a href="https://labkey.github.io/labkey-api-js/">API Docs</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md">Change Log</a> | <a href="https://github.com/LabKey/labkey-api-js/blob/master/LICENSE">License</a> | <a href="https://teamcity.labkey.org/viewType.html?buildTypeId=LabKey_Publishing_Client_JavaScriptApiTest"><img src="https://teamcity.labkey.org/app/rest/builds/buildType:(id:LabKey_Publishing_Client_JavaScriptApiTest)/statusIcon" alt="Build Status"></a></p>
+<p>JavaScript package for interacting with <a href="https://www.labkey.com/">LabKey Server</a>. The goal for this package is to 
+provide a robust set of JavaScript tools for working with LabKey Servers. Our eventual hope is to have it working 
+in the browser, on the server, and in pretty much any modern JavaScript environment. The package currently only 
+supports use in the browser.</p>
+<p>Written with joy in TypeScript.</p>
+
+<a href="#v10---official-stable-release" id="v10---official-stable-release" style="color: inherit; text-decoration: none;">
+  <h2>v1.0 - Official stable release</h2>
+</a>
+<p>v1.0 is the first stable release of the <code>@labkey/api</code> package. This package is the official JavaScript API package for
+LabKey Server and is included starting with LabKey Server v20.7. Release highlights:</p>
+<ul>
+<li>Replaces the original JavaScript API served under <code>LABKEY</code> global namespace on LabKey Server pages.</li>
+<li>Universal module definition (UMD) published package targeting ES6.</li>
+<li>Full fidelity TypeScript definitions.</li>
+</ul>
+
+<a href="#pre-v10-usage" id="pre-v10-usage" style="color: inherit; text-decoration: none;">
+  <h3>Pre-v1.0 usage</h3>
+</a>
+<p>It is highly recommended you update to the 1.x version of this package as soon as possible. Any pre-1.0 releases are 
+considered experimental and were used only for development purposes.</p>
+
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+<p>The easiest way to use @labkey/api is to install it from npm and bundle it with your app. Before you run install 
+you&#39;ll want to make sure you set the appropriate registry for the <code>@labkey</code> scope.</p>
+
+<a href="#setting-the-registry-scope" id="setting-the-registry-scope" style="color: inherit; text-decoration: none;">
+  <h4>Setting the Registry Scope</h4>
+</a>
+<p>This package is currently available on LabKey&#39;s Artifactory package registry. To include this package set the registry 
+in npm for the <code>@labkey</code> scope. This can be done via command line using <code>npm config</code>:</p>
+<pre><code><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-2">config</span><span class="hl-1"> </span><span class="hl-2">set</span><span class="hl-1"> @</span><span class="hl-2">labkey</span><span class="hl-1">:</span><span class="hl-2">registry</span><span class="hl-1"> </span><span class="hl-7">https</span><span class="hl-1">:</span><span class="hl-5">//artifactory.labkey.com/artifactory/api/npm/libs-client</span>
 </code></pre>
-				<p>or via a <code>.npmrc</code> file</p>
-				<pre><code><span style="color: #000000"># .</span><span style="color: #001080">npmrc</span>
-<span style="color: #000000">@</span><span style="color: #001080">labkey</span><span style="color: #000000">:</span><span style="color: #001080">registry</span><span style="color: #000000">=</span><span style="color: #001080">https</span><span style="color: #000000">:</span><span style="color: #008000">//artifactory.labkey.com/artifactory/api/npm/libs-client</span>
+<p>or via a <code>.npmrc</code> file</p>
+<pre><code><span class="hl-1"># .</span><span class="hl-2">npmrc</span><br/><span class="hl-1">@</span><span class="hl-2">labkey</span><span class="hl-1">:</span><span class="hl-2">registry</span><span class="hl-1">=</span><span class="hl-2">https</span><span class="hl-1">:</span><span class="hl-5">//artifactory.labkey.com/artifactory/api/npm/libs-client</span>
 </code></pre>
-				<a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
-					<h4>Installing</h4>
-				</a>
-				<p>To install using npm</p>
-				<pre><code><span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">install</span><span style="color: #000000"> @</span><span style="color: #001080">labkey</span><span style="color: #000000">/</span><span style="color: #001080">api</span>
+
+<a href="#installing" id="installing" style="color: inherit; text-decoration: none;">
+  <h4>Installing</h4>
+</a>
+<p>To install using npm</p>
+<pre><code><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> @</span><span class="hl-2">labkey</span><span class="hl-1">/</span><span class="hl-2">api</span>
 </code></pre>
-				<p>You can then import @labkey/api in your application as follows:</p>
-				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">Query</span><span style="color: #000000">, </span><span style="color: #001080">Security</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;@labkey/api&#039;</span><span style="color: #000000">;</span>
+<p>You can then import @labkey/api in your application as follows:</p>
+<pre><code class="language-js"><span class="hl-8">import</span><span class="hl-1"> { </span><span class="hl-2">Query</span><span class="hl-1">, </span><span class="hl-2">Security</span><span class="hl-1"> } </span><span class="hl-8">from</span><span class="hl-1"> </span><span class="hl-3">&#39;@labkey/api&#39;</span><span class="hl-1">;</span>
 </code></pre>
-				<a href="#development" id="development" style="color: inherit; text-decoration: none;">
-					<h2>Development</h2>
-				</a>
-				<p>If you would like to contribute changes to this package it is straightforward to get set up for development.
-				First, clone this repository to a directory</p>
-				<pre><code class="language-sh"><span style="color: #000000">git clone https://github.com/LabKey/labkey-api-js.git </span><span style="color: #008000"># or via ssh</span>
+
+<a href="#development" id="development" style="color: inherit; text-decoration: none;">
+  <h2>Development</h2>
+</a>
+<p>If you would like to contribute changes to this package it is straightforward to get set up for development. 
+First, clone this repository to a directory</p>
+<pre><code class="language-sh"><span class="hl-1">git clone https://github.com/LabKey/labkey-api-js.git </span><span class="hl-5"># or via ssh</span>
 </code></pre>
-				<p>Navigate into the package directory and run the following commands</p>
-				<pre><code class="language-sh"><span style="color: #000000">npm install</span>
-<span style="color: #000000">npm run build</span>
+<p>Navigate into the package directory and run the following commands</p>
+<pre><code class="language-sh"><span class="hl-1">npm install</span><br/><span class="hl-1">npm run build</span>
 </code></pre>
-				<p>Now that the distribution is built you can load it up by serving the index.html file found in the package root. To
-					serve it up from IntelliJ you can &quot;Open in Browser&quot;. This will let you explore the API as it is exposed via
-				the <code>LABKEY</code> global namespace.</p>
-				<a href="#local-labkey-server" id="local-labkey-server" style="color: inherit; text-decoration: none;">
-					<h3>Local LabKey Server</h3>
-				</a>
-				<p>To make changes to this package and serve those changes from a local LabKey Server instance you
-				can do so via the following steps:</p>
-				<ol>
-					<li>Build the package (as described above).</li>
-					<li>Copy the package&#39;s <code>/dist</code> directory to <code>/&lt;labkey root&gt;/server/modules/platform/core/node_modules/@labkey/api/dist</code>.</li>
-					<li>Navigate to <code>/&lt;labkey root&gt;/server/modules/platform/core</code>.</li>
-					<li>Run <code>node build.js</code> from the <code>core</code> module directory.</li>
-				</ol>
-				<p>Your changes will now be included in the bundle served by your local LabKey Server instance.</p>
-				<a href="#determining-package-version" id="determining-package-version" style="color: inherit; text-decoration: none;">
-					<h4>Determining package version</h4>
-				</a>
-				<p>If you&#39;re using this package from a LabKey Server page you can verify the package version being used by opening the
-				browser console and typing:</p>
-				<pre><code class="language-js"><span style="color: #0070C1">LABKEY</span><span style="color: #000000">.</span><span style="color: #001080">__package__</span>
+<p>Now that the distribution is built you can load it up by serving the index.html file found in the package root. To 
+serve it up from IntelliJ you can &quot;Open in Browser&quot;. This will let you explore the API as it is exposed via 
+the <code>LABKEY</code> global namespace.</p>
+
+<a href="#local-labkey-server" id="local-labkey-server" style="color: inherit; text-decoration: none;">
+  <h3>Local LabKey Server</h3>
+</a>
+<p>To make changes to this package and serve those changes from a local LabKey Server instance you
+can do so via the following steps:</p>
+<ol>
+<li>Build the package (as described above).</li>
+<li>Copy the package&#39;s <code>/dist</code> directory to <code>/&lt;labkey root&gt;/server/modules/platform/core/node_modules/@labkey/api/dist</code>.</li>
+<li>Navigate to <code>/&lt;labkey root&gt;/server/modules/platform/core</code>.</li>
+<li>Run <code>node build.js</code> from the <code>core</code> module directory.</li>
+</ol>
+<p>Your changes will now be included in the bundle served by your local LabKey Server instance.</p>
+
+<a href="#determining-package-version" id="determining-package-version" style="color: inherit; text-decoration: none;">
+  <h4>Determining package version</h4>
+</a>
+<p>If you&#39;re using this package from a LabKey Server page you can verify the package version being used by opening the 
+browser console and typing:</p>
+<pre><code class="language-js"><span class="hl-6">LABKEY</span><span class="hl-1">.</span><span class="hl-2">__package__</span>
 </code></pre>
-				<p>The <code>__package__</code> object will contain package information such as the version of the package you&#39;re using.</p>
-				<pre><code class="language-js"><span style="color: #008000">// LABKEY.__package__</span>
-<span style="color: #000000">{</span>
-<span style="color: #000000">  description: </span><span style="color: #A31515">&quot;JavaScript client API for LabKey Server&quot;</span><span style="color: #000000">,</span>
-<span style="color: #000000">  name: </span><span style="color: #A31515">&quot;@labkey/api&quot;</span><span style="color: #000000">,</span>
-<span style="color: #000000">  version: </span><span style="color: #A31515">&quot;1.0.0&quot;</span>
-<span style="color: #000000">}</span>
+<p>The <code>__package__</code> object will contain package information such as the version of the package you&#39;re using.</p>
+<pre><code class="language-js"><span class="hl-5">// LABKEY.__package__</span><br/><span class="hl-1">{</span><br/><span class="hl-1">  </span><span class="hl-7">description</span><span class="hl-1">: </span><span class="hl-3">&quot;JavaScript client API for LabKey Server&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">name</span><span class="hl-1">: </span><span class="hl-3">&quot;@labkey/api&quot;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-7">version</span><span class="hl-1">: </span><span class="hl-3">&quot;1.0.0&quot;</span><br/><span class="hl-1">}</span>
 </code></pre>
-				<a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
-					<h2>Publishing</h2>
-				</a>
-				<p>To publish, increment the version number in accordance with <a href="https://semver.org/">SemVer</a>, update the CHANGELOG.md,
-				and commit. Then from the package root run</p>
-				<pre><code class="language-sh"><span style="color: #000000">npm publish</span>
+
+<a href="#publishing" id="publishing" style="color: inherit; text-decoration: none;">
+  <h2>Publishing</h2>
+</a>
+<p>To publish, increment the version number in accordance with <a href="https://semver.org/">SemVer</a>, update the CHANGELOG.md, 
+and commit. Then from the package root run</p>
+<pre><code class="language-sh"><span class="hl-1">npm publish</span>
 </code></pre>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class=" ">
-						<a href="modules.html">Exports</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/actionurl.html">ActionURL</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/ajax.html">Ajax</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/app.html">App</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/assay.html">Assay</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/domain.html">Domain</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/exp.html">Exp</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/experiment.html">Experiment</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/fieldkey.html">Field<wbr>Key</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/filter.html">Filter</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/list.html">List</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/message.html">Message</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/multirequest.html">Multi<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/participantgroup.html">Participant<wbr>Group</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/pipeline.html">Pipeline</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/query.html">Query</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/querykey.html">Query<wbr>Key</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/report.html">Report</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/schemakey.html">Schema<wbr>Key</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/security.html">Security</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/specimen.html">Specimen</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/utils.html">Utils</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/visualization.html">Visualization</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/constants.html">constants</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li><li class=" tsd-kind-namespace"><a href="modules/ActionURL.html">ActionURL</a></li><li class=" tsd-kind-namespace"><a href="modules/Ajax.html">Ajax</a></li><li class=" tsd-kind-namespace"><a href="modules/App.html">App</a></li><li class=" tsd-kind-namespace"><a href="modules/Assay.html">Assay</a></li><li class=" tsd-kind-namespace"><a href="modules/Domain.html">Domain</a></li><li class=" tsd-kind-namespace"><a href="modules/Exp.html">Exp</a></li><li class=" tsd-kind-namespace"><a href="modules/Experiment.html">Experiment</a></li><li class=" tsd-kind-namespace"><a href="modules/Filter.html">Filter</a></li><li class=" tsd-kind-namespace"><a href="modules/List.html">List</a></li><li class=" tsd-kind-namespace"><a href="modules/Message.html">Message</a></li><li class=" tsd-kind-namespace"><a href="modules/ParticipantGroup.html">Participant<wbr/>Group</a></li><li class=" tsd-kind-namespace"><a href="modules/Pipeline.html">Pipeline</a></li><li class=" tsd-kind-namespace"><a href="modules/Query.html">Query</a></li><li class=" tsd-kind-namespace"><a href="modules/Report.html">Report</a></li><li class=" tsd-kind-namespace"><a href="modules/Security.html">Security</a></li><li class=" tsd-kind-namespace"><a href="modules/Specimen.html">Specimen</a></li><li class=" tsd-kind-namespace"><a href="modules/Utils.html">Utils</a></li><li class=" tsd-kind-namespace"><a href="modules/Visualization.html">Visualization</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/AuditBehaviorTypes.html" class="tsd-kind-icon">Audit<wbr/>Behavior<wbr/>Types</a></li><li class="tsd-kind-enum"><a href="enums/PermissionRoles.html" class="tsd-kind-icon">Permission<wbr/>Roles</a></li><li class="tsd-kind-enum"><a href="enums/PermissionTypes.html" class="tsd-kind-icon">Permission<wbr/>Types</a></li><li class="tsd-kind-class"><a href="classes/FieldKey.html" class="tsd-kind-icon">Field<wbr/>Key</a></li><li class="tsd-kind-class"><a href="classes/QueryKey.html" class="tsd-kind-icon">Query<wbr/>Key</a></li><li class="tsd-kind-class"><a href="classes/SchemaKey.html" class="tsd-kind-icon">Schema<wbr/>Key</a></li><li class="tsd-kind-interface"><a href="interfaces/Container.html" class="tsd-kind-icon">Container</a></li><li class="tsd-kind-interface"><a href="interfaces/User.html" class="tsd-kind-icon">User</a></li><li class="tsd-kind-interface"><a href="interfaces/UserWithPermissions.html" class="tsd-kind-icon">User<wbr/>With<wbr/>Permissions</a></li><li class="tsd-kind-function"><a href="modules.html#MultiRequest" class="tsd-kind-icon">Multi<wbr/>Request</a></li><li class="tsd-kind-function"><a href="modules.html#getServerContext" class="tsd-kind-icon">get<wbr/>Server<wbr/>Context</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li><li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li></ul><ul class="tsd-legend"><li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
