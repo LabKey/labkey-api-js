@@ -319,7 +319,7 @@ export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpReques
             queryName: options.queryName,
             domainId: options.domainId,
             domainKind: options.domainKind,
-            includeNamePreview: options.includeNamePreview
+            includeNamePreview: !!options.includeNamePreview
         }
     });
 }
