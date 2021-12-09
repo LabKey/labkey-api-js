@@ -95,7 +95,7 @@ export interface GetAssaysOptions extends RequestCallbackOptions<AssayDesign[]> 
     parameters?: any
 }
 
-enum AssayLink {
+export enum AssayLink {
     BATCHES = 'batches',
     BEGIN = 'begin',
     DESIGN_COPY = 'designCopy',

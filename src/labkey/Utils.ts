@@ -795,7 +795,7 @@ export function padString(input: string | number, length: number, padChar: strin
 
 export function parseDateString(dateString: string): Date {
     try {
-        if (!!window.MSInputMethodContext && !!(document as any).documentMode) {
+        if (!!(window as any).MSInputMethodContext && !!(document as any).documentMode) {
             // This method call can throw exceptions, either due to string split on undefined or if any of the
             // date or time parts are NaN after parseInt.
             return parseDateStringIE11(dateString);

@@ -271,6 +271,7 @@ export interface GetDomainDetailsOptions extends
     BaseGetDomainOptions, RequestCallbackOptions<GetDomainDetailsResponse> {
     /** The domain kind, used for the create domain case when you want to get the details/options for the given domain kind. */
     domainKind?: string
+    includeNamePreview?: boolean
 }
 
 /**
@@ -317,7 +318,8 @@ export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpReques
             schemaName: options.schemaName,
             queryName: options.queryName,
             domainId: options.domainId,
-            domainKind: options.domainKind
+            domainKind: options.domainKind,
+            includeNamePreview: options.includeNamePreview
         }
     });
 }
@@ -408,17 +410,21 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
     });
 }
 
+export interface ValidateDomainNameExpressionOptions extends CreateDomainOptions {
+    includeNamePreview: boolean
+}
 /**
  * Validate name expression(s) for domain design.
  */
-export function validateNameExpressions(config: CreateDomainOptions): XMLHttpRequest {
+export function validateNameExpressions(config: ValidateDomainNameExpressionOptions): XMLHttpRequest {
 
-    let options: CreateDomainOptions = arguments.length > 1 ? {
+    let options: ValidateDomainNameExpressionOptions = arguments.length > 1 ? {
         success: arguments[0],
         failure: arguments[1],
         domainDesign: arguments[2],
         options: arguments[3],
         kind: arguments[4],
+        includeNamePreview: arguments[5],
     } : config;
 
     return request({
