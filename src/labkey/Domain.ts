@@ -416,46 +416,32 @@ export interface ValidateDomainNameExpressionOptions extends CreateDomainOptions
  */
 export function validateNameExpressions(config: ValidateDomainNameExpressionOptions): XMLHttpRequest {
 
-    let options: ValidateDomainNameExpressionOptions = arguments.length > 1 ? {
-        success: arguments[0],
-        failure: arguments[1],
-        domainDesign: arguments[2],
-        options: arguments[3],
-        kind: arguments[4],
-        includeNamePreview: arguments[5],
-    } : config;
-
     return request({
-        url: buildURL('property', 'validateNameExpressions.api', options.containerPath),
+        url: buildURL('property', 'validateNameExpressions.api', config.containerPath),
         method: 'POST',
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         jsonData: {
-            domainDesign: options.domainDesign,
-            options: options.options,
-            kind: options.kind
+            domainDesign: config.domainDesign,
+            options: config.options,
+            kind: config.kind
         }
     });
 }
 
+/**
+ * Get preview name(s) generated from name expressions for domain design.
+ */
 export function getDomainNamePreviews(config: GetDomainDetailsOptions): XMLHttpRequest {
 
-    let options: GetDomainDetailsOptions = arguments.length > 1 ? {
-        containerPath: arguments[4],
-        failure: arguments[1],
-        queryName: arguments[3],
-        schemaName: arguments[2],
-        success: arguments[0]
-    } : config;
-
     return request({
-        url: buildURL('property', 'getDomainNamePreviews.api', options.containerPath),
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        url: buildURL('property', 'getDomainNamePreviews.api', config.containerPath),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         params: {
-            schemaName: options.schemaName,
-            queryName: options.queryName,
-            domainId: options.domainId
+            schemaName: config.schemaName,
+            queryName: config.queryName,
+            domainId: config.domainId
         }
     });
 }
