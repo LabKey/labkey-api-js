@@ -1,3 +1,6 @@
+## 1.7.1 - 2021-12-23
+- Add validateNameExpressions, getDomainNamePreviews methods to Domain
+
 ## 1.7.0 - 2021-12-02
 - Package updates.
 - Rehydrate `package-lock.json`.

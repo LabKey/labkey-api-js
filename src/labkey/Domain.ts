@@ -408,6 +408,44 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
     });
 }
 
+export interface ValidateDomainNameExpressionOptions extends CreateDomainOptions {
+    includeNamePreview: boolean
+}
+/**
+ * Validate name expression(s) for domain design.
+ */
+export function validateNameExpressions(config: ValidateDomainNameExpressionOptions): XMLHttpRequest {
+
+    return request({
+        url: buildURL('property', 'validateNameExpressions.api', config.containerPath),
+        method: 'POST',
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        jsonData: {
+            domainDesign: config.domainDesign,
+            options: config.options,
+            kind: config.kind
+        }
+    });
+}
+
+/**
+ * Get preview name(s) generated from name expressions for domain design.
+ */
+export function getDomainNamePreviews(config: GetDomainDetailsOptions): XMLHttpRequest {
+
+    return request({
+        url: buildURL('property', 'getDomainNamePreviews.api', config.containerPath),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        params: {
+            schemaName: config.schemaName,
+            queryName: config.queryName,
+            domainId: config.domainId
+        }
+    });
+}
+
 export interface UpdateDomainParams {
     createFields?: []
     deleteFields?: number[]
