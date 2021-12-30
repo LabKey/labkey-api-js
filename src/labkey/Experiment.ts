@@ -598,3 +598,44 @@ export function saveRuns(options: SaveRunsOptions): XMLHttpRequest {
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
     });
 }
+
+export interface GenIdActionsOptions extends RequestCallbackOptions {
+    containerPath?: string
+    rowId: number
+    kindName: 'SampleSet' | "DataClass"
+    genId?: number
+
+}
+/**
+ * Set the current genId sequence for the data type (sampleset or dataclass)
+ */
+export function setGenId(config: GenIdActionsOptions): XMLHttpRequest {
+
+    return request({
+        url: buildURL('experiment', 'setGenId.api', config.containerPath),
+        method: 'POST',
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        jsonData: {
+            rowId: config.rowId,
+            kindName: config.kindName,
+            genId: config.genId
+        }
+    });
+}
+
+/**
+ * Get the current genId for the data type (sampleset or dataclass)
+ */
+export function getGenId(config: GenIdActionsOptions): XMLHttpRequest {
+
+    return request({
+        url: buildURL('experiment', 'getGenId.api', config.containerPath),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        params: {
+            rowId: config.rowId,
+            kindName: config.kindName
+        }
+    });
+}

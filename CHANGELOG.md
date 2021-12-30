@@ -1,3 +1,6 @@
+## XXX - XXX
+- Add setGenId, getGenId methods to Experiment
+
 ## 1.7.1 - 2021-12-23
 - Add validateNameExpressions, getDomainNamePreviews methods to Domain
 
