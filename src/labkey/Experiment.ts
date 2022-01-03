@@ -607,7 +607,7 @@ export interface GenIdActionsOptions extends RequestCallbackOptions {
 
 }
 /**
- * Set the current genId sequence for the data type (sampleset or dataclass)
+ * Set the current genId sequence value for the data type (sampleset or dataclass)
  */
 export function setGenId(config: GenIdActionsOptions): XMLHttpRequest {
 
