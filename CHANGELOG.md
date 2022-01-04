@@ -1,4 +1,4 @@
-## XXX - XXX
+## 1.7.2 - 2022-01-04
 - Add setGenId, getGenId methods to Experiment
 
 ## 1.7.1 - 2021-12-23
