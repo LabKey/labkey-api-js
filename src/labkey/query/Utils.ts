@@ -416,7 +416,10 @@ export interface SaveQueryViewsOptions extends RequestCallbackOptions {
     metadata?: any
     queryName?: string
     schemaName?: string
-    views?: string
+    views?: any
+    shared?: boolean
+    session?: boolean
+    hidden?: boolean
 }
 
 /**
@@ -434,6 +437,15 @@ export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
     }
     if (options.views) {
         jsonData.views = options.views;
+    }
+    if (options.shared) {
+        jsonData.shared = true;
+    }
+    if (options.session) {
+        jsonData.session = true;
+    }
+    if (options.hidden) {
+        jsonData.hidden = true;
     }
 
     return request({

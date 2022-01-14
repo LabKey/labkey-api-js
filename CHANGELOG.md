@@ -1,3 +1,6 @@
+## TBD - 2022-TBD
+- Update interface of `Query.saveQueryViews`, fixing types and adding supported options
+
 ## 1.7.2 - 2022-01-04
 - Add setGenId, getGenId methods to Experiment
 
