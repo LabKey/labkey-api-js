@@ -1,4 +1,4 @@
-## TBD - 2022-TBD
+## 1.7.3 - 2022-01-21
 - Update interface of `Query.saveQueryViews`, fixing types and adding supported options
 
 ## 1.7.2 - 2022-01-04
