@@ -59,7 +59,7 @@ export enum PermissionTypes {
     DesignStorage = 'org.labkey.api.inventory.security.StorageDesignPermission',
     EditStorageData = 'org.labkey.api.inventory.security.StorageDataUpdatePermission',
     ManagePicklists = 'org.labkey.api.lists.permissions.ManagePicklistsPermission',
-    ManageSampleWorkflows = 'org.labkey.api.security.permissions.SampleWorkflowJobPermissions',
+    ManageSampleWorkflows = 'org.labkey.api.security.permissions.SampleWorkflowJobPermission',
     ReadSome = 'org.labkey.api.security.permissions.ReadSomePermission',
     UserManagement = 'org.labkey.api.security.permissions.UserManagementPermission',
 
