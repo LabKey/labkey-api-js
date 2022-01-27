@@ -1,3 +1,6 @@
+## TBD - TBD
+- Add new storage permission classes
+
 ## 1.7.3 - 2022-01-21
 - Update interface of `Query.saveQueryViews`, fixing types and adding supported options
 
