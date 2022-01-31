@@ -1,4 +1,4 @@
-## TBD - TBD
+## 1.8.0 - 2022-01-31
 - Add new storage permission classes
 
 ## 1.7.3 - 2022-01-21
