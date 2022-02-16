@@ -1,3 +1,6 @@
+## 1.9.0 - 2022-02-16
+- Add new reader permission classes
+
 ## 1.8.0 - 2022-01-31
 - Add new storage permission classes
 
