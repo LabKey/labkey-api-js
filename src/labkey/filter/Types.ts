@@ -47,22 +47,22 @@ export interface IFilterType {
 }
 
 /** Finds rows where the column value matches the given filter value. Case-sensitivity depends upon how your underlying relational database was configured.*/
-const EQUAL = registerFilterType('Equals', '=', 'eq', true, '=');
+const EQUAL = registerFilterType('Equals', '=', 'eq', true, undefined, undefined, undefined, undefined, false, '=');
 /** Finds rows where the column value is greater than the filter value.*/
-const GREATER_THAN = registerFilterType('Is Greater Than', '>', 'gt', true, '>');
+const GREATER_THAN = registerFilterType('Is Greater Than', '>', 'gt', true, undefined, undefined, undefined, undefined, false, '>');
 /** Finds rows where the column value is greater than or equal to the filter value.*/
-const GREATER_THAN_OR_EQUAL = registerFilterType('Is Greater Than or Equal To', '>=', 'gte', true, '>=');
+const GREATER_THAN_OR_EQUAL = registerFilterType('Is Greater Than or Equal To', '>=', 'gte', true, undefined, undefined, undefined, undefined, false, '>=');
 /** Finds rows where the column value equals one of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
-const IN = registerFilterType('Equals One Of', null, 'in', true, null, ';', 'Equals One Of (example usage: a;b;c)');
+const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of (example usage: a;b;c)');
 /** Finds rows where the column value is less than the filter value.*/
-const LESS_THAN = registerFilterType('Is Less Than', '<', 'lt', true, '<');
+const LESS_THAN = registerFilterType('Is Less Than', '<', 'lt', true, undefined, undefined, undefined, undefined, false, '<');
 /** Finds rows where the column value is less than or equal to the filter value.*/
-const LESS_THAN_OR_EQUAL = registerFilterType('Is Less Than or Equal To', '=<', 'lte', true, '<=');
+const LESS_THAN_OR_EQUAL = registerFilterType('Is Less Than or Equal To', '=<', 'lte', true, undefined, undefined, undefined, undefined, false, '<=');
 /** Finds rows where the column value does not equal the filter value.*/
-const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true, '<>');
+const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true, undefined, undefined, undefined, undefined, false, '<>');
 /** Finds rows where the column value is not in any of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
-const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, null, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
-const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true, null);
+const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
+const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
 // Mutable due to "_define"
 export let Types: Record<string, IFilterType> = {
@@ -72,30 +72,30 @@ export let Types: Record<string, IFilterType> = {
     //
 
     EQUAL,
-    DATE_EQUAL: registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), 'dateeq', true, EQUAL.getLabKeySqlOperator()),
+    DATE_EQUAL: registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), 'dateeq', true, undefined, undefined, undefined, undefined, false, EQUAL.getLabKeySqlOperator()),
 
     NOT_EQUAL,
     NEQ: NOT_EQUAL,
-    DATE_NOT_EQUAL: registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'dateneq', true, NOT_EQUAL.getLabKeySqlOperator()),
+    DATE_NOT_EQUAL: registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'dateneq', true, undefined, undefined, undefined, undefined, false, NOT_EQUAL.getLabKeySqlOperator()),
 
     NEQ_OR_NULL,
     NOT_EQUAL_OR_MISSING: NEQ_OR_NULL,
 
     GREATER_THAN,
     GT: GREATER_THAN,
-    DATE_GREATER_THAN: registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), 'dategt', true, GREATER_THAN.getLabKeySqlOperator()),
+    DATE_GREATER_THAN: registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), 'dategt', true, undefined, undefined, undefined, undefined, false, GREATER_THAN.getLabKeySqlOperator()),
 
     LESS_THAN,
     LT: LESS_THAN,
-    DATE_LESS_THAN: registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), 'datelt', true, LESS_THAN.getLabKeySqlOperator()),
+    DATE_LESS_THAN: registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), 'datelt', true, undefined, undefined, undefined, undefined, false, LESS_THAN.getLabKeySqlOperator()),
 
     GREATER_THAN_OR_EQUAL,
     GTE : GREATER_THAN_OR_EQUAL,
-    DATE_GREATER_THAN_OR_EQUAL: registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), 'dategte', true, GREATER_THAN_OR_EQUAL.getLabKeySqlOperator()),
+    DATE_GREATER_THAN_OR_EQUAL: registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), 'dategte', true, undefined, undefined, undefined, undefined, false, GREATER_THAN_OR_EQUAL.getLabKeySqlOperator()),
 
     LESS_THAN_OR_EQUAL,
     LTE: LESS_THAN_OR_EQUAL,
-    DATE_LESS_THAN_OR_EQUAL: registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), 'datelte', true, LESS_THAN_OR_EQUAL.getLabKeySqlOperator()),
+    DATE_LESS_THAN_OR_EQUAL: registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), 'datelte', true, undefined, undefined, undefined, undefined, false, LESS_THAN_OR_EQUAL.getLabKeySqlOperator()),
 
     STARTS_WITH: registerFilterType('Starts With', null, 'startswith', true),
     DOES_NOT_START_WITH: registerFilterType('Does Not Start With', null, 'doesnotstartwith', true),
@@ -103,8 +103,8 @@ export let Types: Record<string, IFilterType> = {
     CONTAINS: registerFilterType('Contains', null, 'contains', true),
     DOES_NOT_CONTAIN: registerFilterType('Does Not Contain', null, 'doesnotcontain', true),
 
-    CONTAINS_ONE_OF: registerFilterType('Contains One Of', null, 'containsoneof', true, null, ';', 'Contains One Of (example usage: a;b;c)'),
-    CONTAINS_NONE_OF: registerFilterType('Does Not Contain Any Of', null, 'containsnoneof', true, null, ';', 'Does Not Contain Any Of (example usage: a;b;c)'),
+    CONTAINS_ONE_OF: registerFilterType('Contains One Of', null, 'containsoneof', true, ';', 'Contains One Of (example usage: a;b;c)'),
+    CONTAINS_NONE_OF: registerFilterType('Does Not Contain Any Of', null, 'containsnoneof', true, ';', 'Does Not Contain Any Of (example usage: a;b;c)'),
 
     // NOTE: for some reason IN is aliased as EQUALS_ONE_OF. Not sure if this is for legacy purposes or it was
     // determined EQUALS_ONE_OF was a better phrase to follow this pattern I did the same for IN_OR_MISSING
@@ -114,14 +114,14 @@ export let Types: Record<string, IFilterType> = {
     NOT_IN,
     EQUALS_NONE_OF: NOT_IN,
 
-    BETWEEN: registerFilterType('Between', null, 'between', true, null,  ',', 'Between, Inclusive (example usage: -4,4)', 2, 2),
-    NOT_BETWEEN: registerFilterType('Not Between', null, 'notbetween', true, null,  ',', 'Not Between, Exclusive (example usage: -4,4)', 2, 2),
+    BETWEEN: registerFilterType('Between', null, 'between', true, ',', 'Between, Inclusive (example usage: -4,4)', 2, 2),
+    NOT_BETWEEN: registerFilterType('Not Between', null, 'notbetween', true, ',', 'Not Between, Exclusive (example usage: -4,4)', 2, 2),
 
-    MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, null,  undefined, 'Member Of'),
+    MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
 
-    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, null,  undefined, ' is child of'),
-    EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, null, undefined, ' is parent of'),
-    EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', null, 'exp:lineageof', true, null, ',', ' in the lineage of'),
+    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
+    EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, undefined, ' is parent of'),
+    EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', null, 'exp:lineageof', true, ',', ' in the lineage of'),
 
     //
     // These are the 'no data value' operators
@@ -131,10 +131,10 @@ export let Types: Record<string, IFilterType> = {
     // The result is a filter that is encoded as "<dataRegionName>.<columnName>~=".
     HAS_ANY_VALUE: registerFilterType('Has Any Value', null, ''),
 
-    ISBLANK: registerFilterType('Is Blank', null, 'isblank', false, 'IS NULL'),
-    MISSING: registerFilterType('Is Blank', null, 'isblank', false, 'IS NULL'),
-    NONBLANK: registerFilterType('Is Not Blank', null, 'isnonblank', false, 'IS NOT NULL'),
-    NOT_MISSING: registerFilterType('Is Not Blank', null, 'isnonblank', false, 'IS NOT NULL'),
+    ISBLANK: registerFilterType('Is Blank', null, 'isblank', false, undefined, undefined, undefined, undefined, false, 'IS NULL'),
+    MISSING: registerFilterType('Is Blank', null, 'isblank', false, undefined, undefined, undefined, undefined, false, 'IS NULL'),
+    NONBLANK: registerFilterType('Is Not Blank', null, 'isnonblank', false, undefined, undefined, undefined, undefined, false, 'IS NOT NULL'),
+    NOT_MISSING: registerFilterType('Is Not Blank', null, 'isnonblank', false, undefined, undefined, undefined, undefined, false, 'IS NOT NULL'),
 
     HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', null, 'hasmvvalue'),
     DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
@@ -142,7 +142,7 @@ export let Types: Record<string, IFilterType> = {
     //
     // Table/Query-wise operators
     //
-    Q: registerFilterType('Search', null, 'q', true, null, undefined, 'Search across all columns', undefined, undefined, true),
+    Q: registerFilterType('Search', null, 'q', true, undefined, 'Search across all columns', undefined, undefined, true),
     //
     // Ontology operators
     //
@@ -230,11 +230,12 @@ export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): 
  * @param minOccurs The minimum number of times the filter can be applied
  * @param maxOccurs The maximum number of times the filter can be applied
  * @param tableWise true if the filter applies to all columns on the table
+ * @param labkeySqlOperator The simple operator to use for generating labkey sql
  */
 export function registerFilterType(
     displayText: string, displaySymbol?: string, urlSuffix?: string,
-    dataValueRequired?: boolean, labkeySqlOperator?: string, multiValueSeparator?: string, longDisplayText?: string,
-    minOccurs?: number, maxOccurs?: number, tableWise?: boolean
+    dataValueRequired?: boolean, multiValueSeparator?: string, longDisplayText?: string,
+    minOccurs?: number, maxOccurs?: number, tableWise?: boolean, labkeySqlOperator?: string
 ): IFilterType {
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
