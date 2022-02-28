@@ -42,7 +42,9 @@ export interface IFilterType {
      */
     getURLParameterValue: (value: FilterValue) => FilterValue
     validate: (value: FilterValue, jsonType: string, columnName: string) => any
-
+    /**
+     * Get the LabKey SQL operator for simple filter types (=, >=, <>)
+     */
     getLabKeySqlOperator: () => string
 }
 

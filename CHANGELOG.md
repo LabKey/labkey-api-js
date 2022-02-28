@@ -1,4 +1,4 @@
-## 1.XX.0 - 2022-02-XX
+## 1.10.0 - 2022-02-28
 - Add getLabKeySqlOperator to IFilterType
 
 ## 1.9.0 - 2022-02-16
