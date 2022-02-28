@@ -1,3 +1,6 @@
+## 1.10.0 - 2022-02-28
+- Add getLabKeySqlOperator to IFilterType
+
 ## 1.9.0 - 2022-02-16
 - Add new reader permission classes
 

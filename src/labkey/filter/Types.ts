@@ -42,22 +42,26 @@ export interface IFilterType {
      */
     getURLParameterValue: (value: FilterValue) => FilterValue
     validate: (value: FilterValue, jsonType: string, columnName: string) => any
+    /**
+     * Get the LabKey SQL operator for simple filter types (=, >=, <>)
+     */
+    getLabKeySqlOperator: () => string
 }
 
 /** Finds rows where the column value matches the given filter value. Case-sensitivity depends upon how your underlying relational database was configured.*/
-const EQUAL = registerFilterType('Equals', '=', 'eq', true);
+const EQUAL = registerFilterType('Equals', '=', 'eq', true, undefined, undefined, undefined, undefined, false, '=');
 /** Finds rows where the column value is greater than the filter value.*/
-const GREATER_THAN = registerFilterType('Is Greater Than', '>', 'gt', true);
+const GREATER_THAN = registerFilterType('Is Greater Than', '>', 'gt', true, undefined, undefined, undefined, undefined, false, '>');
 /** Finds rows where the column value is greater than or equal to the filter value.*/
-const GREATER_THAN_OR_EQUAL = registerFilterType('Is Greater Than or Equal To', '>=', 'gte', true);
+const GREATER_THAN_OR_EQUAL = registerFilterType('Is Greater Than or Equal To', '>=', 'gte', true, undefined, undefined, undefined, undefined, false, '>=');
 /** Finds rows where the column value equals one of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
 const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of (example usage: a;b;c)');
 /** Finds rows where the column value is less than the filter value.*/
-const LESS_THAN = registerFilterType('Is Less Than', '<', 'lt', true);
+const LESS_THAN = registerFilterType('Is Less Than', '<', 'lt', true, undefined, undefined, undefined, undefined, false, '<');
 /** Finds rows where the column value is less than or equal to the filter value.*/
-const LESS_THAN_OR_EQUAL = registerFilterType('Is Less Than or Equal To', '=<', 'lte', true);
+const LESS_THAN_OR_EQUAL = registerFilterType('Is Less Than or Equal To', '=<', 'lte', true, undefined, undefined, undefined, undefined, false, '<=');
 /** Finds rows where the column value does not equal the filter value.*/
-const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true);
+const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true, undefined, undefined, undefined, undefined, false, '<>');
 /** Finds rows where the column value is not in any of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
 const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
@@ -70,30 +74,30 @@ export let Types: Record<string, IFilterType> = {
     //
 
     EQUAL,
-    DATE_EQUAL: registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), 'dateeq', true),
+    DATE_EQUAL: registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), 'dateeq', true, undefined, undefined, undefined, undefined, false, EQUAL.getLabKeySqlOperator()),
 
     NOT_EQUAL,
     NEQ: NOT_EQUAL,
-    DATE_NOT_EQUAL: registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'dateneq', true),
+    DATE_NOT_EQUAL: registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'dateneq', true, undefined, undefined, undefined, undefined, false, NOT_EQUAL.getLabKeySqlOperator()),
 
     NEQ_OR_NULL,
     NOT_EQUAL_OR_MISSING: NEQ_OR_NULL,
 
     GREATER_THAN,
     GT: GREATER_THAN,
-    DATE_GREATER_THAN: registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), 'dategt', true),
+    DATE_GREATER_THAN: registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), 'dategt', true, undefined, undefined, undefined, undefined, false, GREATER_THAN.getLabKeySqlOperator()),
 
     LESS_THAN,
     LT: LESS_THAN,
-    DATE_LESS_THAN: registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), 'datelt', true),
+    DATE_LESS_THAN: registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), 'datelt', true, undefined, undefined, undefined, undefined, false, LESS_THAN.getLabKeySqlOperator()),
 
     GREATER_THAN_OR_EQUAL,
     GTE : GREATER_THAN_OR_EQUAL,
-    DATE_GREATER_THAN_OR_EQUAL: registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), 'dategte', true),
+    DATE_GREATER_THAN_OR_EQUAL: registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), 'dategte', true, undefined, undefined, undefined, undefined, false, GREATER_THAN_OR_EQUAL.getLabKeySqlOperator()),
 
     LESS_THAN_OR_EQUAL,
     LTE: LESS_THAN_OR_EQUAL,
-    DATE_LESS_THAN_OR_EQUAL: registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), 'datelte', true),
+    DATE_LESS_THAN_OR_EQUAL: registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), 'datelte', true, undefined, undefined, undefined, undefined, false, LESS_THAN_OR_EQUAL.getLabKeySqlOperator()),
 
     STARTS_WITH: registerFilterType('Starts With', null, 'startswith', true),
     DOES_NOT_START_WITH: registerFilterType('Does Not Start With', null, 'doesnotstartwith', true),
@@ -129,10 +133,10 @@ export let Types: Record<string, IFilterType> = {
     // The result is a filter that is encoded as "<dataRegionName>.<columnName>~=".
     HAS_ANY_VALUE: registerFilterType('Has Any Value', null, ''),
 
-    ISBLANK: registerFilterType('Is Blank', null, 'isblank'),
-    MISSING: registerFilterType('Is Blank', null, 'isblank'),
-    NONBLANK: registerFilterType('Is Not Blank', null, 'isnonblank'),
-    NOT_MISSING: registerFilterType('Is Not Blank', null, 'isnonblank'),
+    ISBLANK: registerFilterType('Is Blank', null, 'isblank', false, undefined, undefined, undefined, undefined, false, 'IS NULL'),
+    MISSING: registerFilterType('Is Blank', null, 'isblank', false, undefined, undefined, undefined, undefined, false, 'IS NULL'),
+    NONBLANK: registerFilterType('Is Not Blank', null, 'isnonblank', false, undefined, undefined, undefined, undefined, false, 'IS NOT NULL'),
+    NOT_MISSING: registerFilterType('Is Not Blank', null, 'isnonblank', false, undefined, undefined, undefined, undefined, false, 'IS NOT NULL'),
 
     HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', null, 'hasmvvalue'),
     DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
@@ -228,11 +232,12 @@ export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): 
  * @param minOccurs The minimum number of times the filter can be applied
  * @param maxOccurs The maximum number of times the filter can be applied
  * @param tableWise true if the filter applies to all columns on the table
+ * @param labkeySqlOperator The simple operator to use for generating labkey sql
  */
 export function registerFilterType(
     displayText: string, displaySymbol?: string, urlSuffix?: string,
     dataValueRequired?: boolean, multiValueSeparator?: string, longDisplayText?: string,
-    minOccurs?: number, maxOccurs?: number, tableWise?: boolean
+    minOccurs?: number, maxOccurs?: number, tableWise?: boolean, labkeySqlOperator?: string
 ): IFilterType {
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
@@ -323,6 +328,10 @@ export function registerFilterType(
             } else {
                 return validate(jsonType, value, columnName);
             }
+        },
+
+        getLabKeySqlOperator: () : string => {
+            return labkeySqlOperator;
         }
     };
 

@@ -2,6 +2,7 @@
   "BETWEEN": {
     "getDisplaySymbol": null,
     "getDisplayText": "Between",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Between, Inclusive (example usage: -4,4)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": 2,
@@ -18,6 +19,7 @@
   "CONTAINS": {
     "getDisplaySymbol": null,
     "getDisplayText": "Contains",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Contains",
     "getMultiValueFilter": "containsoneof",
     "getMultiValueMaxOccurs": "undefined",
@@ -34,6 +36,7 @@
   "CONTAINS_NONE_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "Does Not Contain Any Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does Not Contain Any Of (example usage: a;b;c)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": "undefined",
@@ -50,6 +53,7 @@
   "CONTAINS_ONE_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "Contains One Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Contains One Of (example usage: a;b;c)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": "undefined",
@@ -66,6 +70,7 @@
   "DATE_EQUAL": {
     "getDisplaySymbol": "=",
     "getDisplayText": "Equals",
+    "getLabKeySqlOperator": "=",
     "getLongDisplayText": "Equals",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -82,6 +87,7 @@
   "DATE_GREATER_THAN": {
     "getDisplaySymbol": ">",
     "getDisplayText": "Is Greater Than",
+    "getLabKeySqlOperator": ">",
     "getLongDisplayText": "Is Greater Than",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -98,6 +104,7 @@
   "DATE_GREATER_THAN_OR_EQUAL": {
     "getDisplaySymbol": ">=",
     "getDisplayText": "Is Greater Than or Equal To",
+    "getLabKeySqlOperator": ">=",
     "getLongDisplayText": "Is Greater Than or Equal To",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -114,6 +121,7 @@
   "DATE_LESS_THAN": {
     "getDisplaySymbol": "<",
     "getDisplayText": "Is Less Than",
+    "getLabKeySqlOperator": "<",
     "getLongDisplayText": "Is Less Than",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -130,6 +138,7 @@
   "DATE_LESS_THAN_OR_EQUAL": {
     "getDisplaySymbol": "=<",
     "getDisplayText": "Is Less Than or Equal To",
+    "getLabKeySqlOperator": "<=",
     "getLongDisplayText": "Is Less Than or Equal To",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -146,6 +155,7 @@
   "DATE_NOT_EQUAL": {
     "getDisplaySymbol": "<>",
     "getDisplayText": "Does Not Equal",
+    "getLabKeySqlOperator": "<>",
     "getLongDisplayText": "Does Not Equal",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -162,6 +172,7 @@
   "DOES_NOT_CONTAIN": {
     "getDisplaySymbol": null,
     "getDisplayText": "Does Not Contain",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does Not Contain",
     "getMultiValueFilter": "containsnoneof",
     "getMultiValueMaxOccurs": "undefined",
@@ -178,6 +189,7 @@
   "DOES_NOT_HAVE_MISSING_VALUE": {
     "getDisplaySymbol": null,
     "getDisplayText": "Does not have a missing value indicator",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does not have a missing value indicator",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -194,6 +206,7 @@
   "DOES_NOT_START_WITH": {
     "getDisplaySymbol": null,
     "getDisplayText": "Does Not Start With",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does Not Start With",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -210,6 +223,7 @@
   "EQUAL": {
     "getDisplaySymbol": "=",
     "getDisplayText": "Equals",
+    "getLabKeySqlOperator": "=",
     "getLongDisplayText": "Equals",
     "getMultiValueFilter": "in",
     "getMultiValueMaxOccurs": "undefined",
@@ -226,6 +240,7 @@
   "EQUALS_NONE_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "Does Not Equal Any Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does Not Equal Any Of (example usage: a;b;c)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": "undefined",
@@ -242,6 +257,7 @@
   "EQUALS_ONE_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "Equals One Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Equals One Of (example usage: a;b;c)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": "undefined",
@@ -258,6 +274,7 @@
   "EXP_CHILD_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Child Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": " is child of",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -274,6 +291,7 @@
   "EXP_PARENT_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Parent Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": " is parent of",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -290,6 +308,7 @@
   "EXP_LINEAGE_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "In The Lineage Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": " in the lineage of",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": "undefined",
@@ -306,6 +325,7 @@
   "GREATER_THAN": {
     "getDisplaySymbol": ">",
     "getDisplayText": "Is Greater Than",
+    "getLabKeySqlOperator": ">",
     "getLongDisplayText": "Is Greater Than",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -322,6 +342,7 @@
   "GREATER_THAN_OR_EQUAL": {
     "getDisplaySymbol": ">=",
     "getDisplayText": "Is Greater Than or Equal To",
+    "getLabKeySqlOperator": ">=",
     "getLongDisplayText": "Is Greater Than or Equal To",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -338,6 +359,7 @@
   "GT": {
     "getDisplaySymbol": ">",
     "getDisplayText": "Is Greater Than",
+    "getLabKeySqlOperator": ">",
     "getLongDisplayText": "Is Greater Than",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -354,6 +376,7 @@
   "GTE": {
     "getDisplaySymbol": ">=",
     "getDisplayText": "Is Greater Than or Equal To",
+    "getLabKeySqlOperator": ">=",
     "getLongDisplayText": "Is Greater Than or Equal To",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -370,6 +393,7 @@
   "HAS_ANY_VALUE": {
     "getDisplaySymbol": null,
     "getDisplayText": "Has Any Value",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Has Any Value",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -386,6 +410,7 @@
   "HAS_MISSING_VALUE": {
     "getDisplaySymbol": null,
     "getDisplayText": "Has a missing value indicator",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Has a missing value indicator",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -402,6 +427,7 @@
   "IN": {
     "getDisplaySymbol": null,
     "getDisplayText": "Equals One Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Equals One Of (example usage: a;b;c)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": "undefined",
@@ -418,6 +444,7 @@
   "ISBLANK": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Blank",
+    "getLabKeySqlOperator": "IS NULL",
     "getLongDisplayText": "Is Blank",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -434,6 +461,7 @@
   "LESS_THAN": {
     "getDisplaySymbol": "<",
     "getDisplayText": "Is Less Than",
+    "getLabKeySqlOperator": "<",
     "getLongDisplayText": "Is Less Than",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -450,6 +478,7 @@
   "LESS_THAN_OR_EQUAL": {
     "getDisplaySymbol": "=<",
     "getDisplayText": "Is Less Than or Equal To",
+    "getLabKeySqlOperator": "<=",
     "getLongDisplayText": "Is Less Than or Equal To",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -466,6 +495,7 @@
   "LT": {
     "getDisplaySymbol": "<",
     "getDisplayText": "Is Less Than",
+    "getLabKeySqlOperator": "<",
     "getLongDisplayText": "Is Less Than",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -482,6 +512,7 @@
   "LTE": {
     "getDisplaySymbol": "=<",
     "getDisplayText": "Is Less Than or Equal To",
+    "getLabKeySqlOperator": "<=",
     "getLongDisplayText": "Is Less Than or Equal To",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -498,6 +529,7 @@
   "MEMBER_OF": {
     "getDisplaySymbol": null,
     "getDisplayText": "Member Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Member Of",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -514,6 +546,7 @@
   "MISSING": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Blank",
+    "getLabKeySqlOperator": "IS NULL",
     "getLongDisplayText": "Is Blank",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -530,6 +563,7 @@
   "NEQ": {
     "getDisplaySymbol": "<>",
     "getDisplayText": "Does Not Equal",
+    "getLabKeySqlOperator": "<>",
     "getLongDisplayText": "Does Not Equal",
     "getMultiValueFilter": "notin",
     "getMultiValueMaxOccurs": "undefined",
@@ -546,6 +580,7 @@
   "NEQ_OR_NULL": {
     "getDisplaySymbol": "<>",
     "getDisplayText": "Does Not Equal",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does Not Equal",
     "getMultiValueFilter": "notin",
     "getMultiValueMaxOccurs": "undefined",
@@ -562,6 +597,7 @@
   "NONBLANK": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Not Blank",
+    "getLabKeySqlOperator": "IS NOT NULL",
     "getLongDisplayText": "Is Not Blank",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -578,6 +614,7 @@
   "NOT_BETWEEN": {
     "getDisplaySymbol": null,
     "getDisplayText": "Not Between",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Not Between, Exclusive (example usage: -4,4)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": 2,
@@ -594,6 +631,7 @@
   "NOT_EQUAL": {
     "getDisplaySymbol": "<>",
     "getDisplayText": "Does Not Equal",
+    "getLabKeySqlOperator": "<>",
     "getLongDisplayText": "Does Not Equal",
     "getMultiValueFilter": "notin",
     "getMultiValueMaxOccurs": "undefined",
@@ -610,6 +648,7 @@
   "NOT_EQUAL_OR_MISSING": {
     "getDisplaySymbol": "<>",
     "getDisplayText": "Does Not Equal",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does Not Equal",
     "getMultiValueFilter": "notin",
     "getMultiValueMaxOccurs": "undefined",
@@ -626,6 +665,7 @@
   "NOT_IN": {
     "getDisplaySymbol": null,
     "getDisplayText": "Does Not Equal Any Of",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Does Not Equal Any Of (example usage: a;b;c)",
     "getMultiValueFilter": null,
     "getMultiValueMaxOccurs": "undefined",
@@ -642,6 +682,7 @@
   "NOT_MISSING": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Not Blank",
+    "getLabKeySqlOperator": "IS NOT NULL",
     "getLongDisplayText": "Is Not Blank",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -658,6 +699,7 @@
   "ONTOLOGY_IN_SUBTREE": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is In Subtree",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Is In Subtree",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -674,6 +716,7 @@
   "ONTOLOGY_NOT_IN_SUBTREE": {
     "getDisplaySymbol": null,
     "getDisplayText": "Is Not In Subtree",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Is Not In Subtree",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -690,6 +733,7 @@
   "Q": {
     "getDisplaySymbol": null,
     "getDisplayText": "Search",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Search across all columns",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
@@ -706,6 +750,7 @@
   "STARTS_WITH": {
     "getDisplaySymbol": null,
     "getDisplayText": "Starts With",
+    "getLabKeySqlOperator": "undefined",
     "getLongDisplayText": "Starts With",
     "getMultiValueFilter": "undefined",
     "getMultiValueMaxOccurs": "undefined",
