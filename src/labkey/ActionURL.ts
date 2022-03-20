@@ -306,30 +306,35 @@ export interface ActionPath {
 export function getPathFromLocation(pathname?: string, contextPath?: string): ActionPath {
     const ctxPath = contextPath ?? getContextPath();
     const start = ctxPath ? ctxPath.length : 0;
-
     let path = pathname ?? getLocation().pathname;
-    const end = path.lastIndexOf('/');
 
+    const qMarkIdx = path.indexOf('?');
+    if (qMarkIdx > -1) {
+        path = path.substring(0, qMarkIdx);
+    }
+
+    const end = path.lastIndexOf('/');
     let action = path.substring(end + 1);
     path = path.substring(start, end);
 
-    let controller: string;
-    const dash = action.indexOf('-');
+    let controller;
 
-    if (0 < dash) {
+    const dash = action.lastIndexOf('-');
+    if (dash > 0) {
         controller = action.substring(0, dash);
         action = action.substring(dash + 1);
     } else {
-        let slash = path.indexOf('/', 1);
-        if (slash < 0) // Issue 21945: e.g. '/admin'
+        const slash = path.indexOf('/', 1);
+        if (slash < 0) { // 21945: e.g. '/admin'
             controller = path.substring(1);
-        else
+        } else {
             controller = path.substring(1, slash);
+        }
         path = path.substring(slash);
     }
 
     const dot = action.indexOf('.');
-    if (0 < dot) {
+    if (dot > 0) {
         action = action.substring(0, dot);
     }
 
