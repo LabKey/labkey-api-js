@@ -21,6 +21,7 @@ import {
     ExperimentalFlags,
     LabKey,
     getServerContext,
+    Project,
     User,
     UserWithPermissions,
 } from './labkey/constants';
@@ -69,6 +70,7 @@ export {
     /* interfaces */
     Container,
     ExperimentalFlags,
+    Project,
 
     /* modules */
     ActionURL,
