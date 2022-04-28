@@ -1,3 +1,6 @@
+## TBD
+- Adjust request to enable reading error messages on failed downloads
+
 ## 1.10.0 - 2022-02-28
 - Add getLabKeySqlOperator to IFilterType
 
