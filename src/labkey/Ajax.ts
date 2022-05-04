@@ -306,6 +306,12 @@ export function request(config: RequestOptions): XMLHttpRequest {
 
             callback(success ? config.success : config.failure, scope, [xhr, config]);
             callback(config.callback, scope, [config, success, xhr]);
+        } else if (xhr.readyState === 2 && xhr.responseType === 'blob' ) {
+            // Change response type of download requests to allow reading any error messages upon failure
+            let success = (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304;
+            if (!success) {
+                xhr.responseType = 'text';
+            }
         }
     };
 

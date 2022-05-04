@@ -1,3 +1,6 @@
+## 1.12.0 - 2022-05-03
+- Adjust request to enable reading error messages on failed downloads
+
 ## 1.11.0 - 2022-04-28
 - Export `ActionURL.getPathFromLocation()` and update to accept input parameters for `pathname` and `contextPath`.
 - Add `contextPath` as a part of the return value from `ActionURL.getPathFromLocation()`.
