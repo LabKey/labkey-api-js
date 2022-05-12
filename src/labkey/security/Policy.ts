@@ -79,7 +79,7 @@ export interface GetPolicyOptions {
  * Retrieves the security policy for the requested resource id. Note that this will return the
  * policy in effect for this resource, which might be the policy from a parent resource if there
  * is no explicit policy set on the requested resource. Use the isInherited method on the returned
- * LABKEY.SecurityPolicy object to determine if the policy is inherited or not.
+ * policy object to determine if the policy is inherited or not.
  * Note that the securable resource must be within the current container, or one of its descendants.
 
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
@@ -107,13 +107,12 @@ export interface SavePolicyOptions extends RequestCallbackOptions {
      * the current container path will be used.
      */
     containerPath?: string
-    /** The LABKEY.SecurityPolicy object. */
     policy: any
 }
 
 /**
- * Saves the supplied security policy. This object should be a LABKEY.SecurityPolicy object. This
- * method will completely overwrite the existing policy for the resource. If another user has changed
+ * Saves the supplied security policy.
+ * This method will completely overwrite the existing policy for the resource. If another user has changed
  * the policy in between the time it was selected and this method is called, the save will fail with
  * an optimistic concurrency exception. To force your policy over the other, call the setModified()
  * method on the policy passing null.
@@ -127,7 +126,7 @@ export function savePolicy(config: SavePolicyOptions): XMLHttpRequest {
     return request({
         url: buildURL('security', 'savePolicy.api', config.containerPath),
         method: 'POST',
-        jsonData: config.policy.policy,
+        jsonData: config.policy.policy ?? config.policy,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
     });
