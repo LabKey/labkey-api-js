@@ -1,3 +1,6 @@
+## 1.12.1 - 2022-05-13
+- Issue 45091: savePolicy update to support unwrapped policy object
+
 ## 1.12.0 - 2022-05-03
 - Adjust request to enable reading error messages on failed downloads
 
