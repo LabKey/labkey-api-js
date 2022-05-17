@@ -41,3 +41,18 @@ else {
 export function loadDOMContext(): LabKeyDOM {
     return LABKEY;
 }
+
+// Maps to TSVWriter.DELIM for delimited data export
+export enum DelimiterType {
+    COMMA = 'COMMA',
+    TAB = 'TAB',
+    SEMICOLON = 'SEMICOLON',
+    COLON = 'COLON',
+}
+
+// Maps to TSVWriter.QUOTE for delimited data export
+export enum QuoteCharType {
+    DOUBLE = 'DOUBLE',
+    SINGLE = 'SINGLE',
+    NONE = 'NONE',
+}
