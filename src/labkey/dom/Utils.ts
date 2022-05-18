@@ -15,7 +15,7 @@
  */
 import { CSRF_HEADER } from '../constants'
 import { decode, encodeHtml, generateUUID, id } from '../Utils'
-import { DelimiterType, loadDOMContext, QuoteCharType } from './constants';
+import { loadDOMContext } from './constants';
 import { buildURL } from '../ActionURL';
 
 declare const Ext: any;
@@ -277,4 +277,19 @@ export interface TextTableForm {
     fileNamePrefix?: string;
     newlineChar?: string;
     rows: any[];
+}
+
+// Maps to TSVWriter.DELIM for delimited data export
+export enum DelimiterType {
+    COMMA = 'COMMA',
+    TAB = 'TAB',
+    SEMICOLON = 'SEMICOLON',
+    COLON = 'COLON',
+}
+
+// Maps to TSVWriter.QUOTE for delimited data export
+export enum QuoteCharType {
+    DOUBLE = 'DOUBLE',
+    SINGLE = 'SINGLE',
+    NONE = 'NONE',
 }
