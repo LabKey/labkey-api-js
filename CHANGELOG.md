@@ -1,4 +1,4 @@
-## 1.12.TBD - TBD
+## 1.13.0 - 2022-05-31
 - Issue 45270: Add AdminOperationsPermission
 
 ## 1.12.1 - 2022-05-13
