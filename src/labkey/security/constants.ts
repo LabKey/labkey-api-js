@@ -50,6 +50,7 @@ export enum PermissionTypes {
 
     // Other
     AddUser = 'org.labkey.api.security.permissions.AddUserPermission',
+    AdminOperationsPermission = 'org.labkey.api.security.permissions.AdminOperationsPermission',
     ApplicationAdmin = 'org.labkey.api.security.permissions.ApplicationAdminPermission',
     CanSeeAuditLog = 'org.labkey.api.audit.permissions.CanSeeAuditLogPermission',
     DesignAssay = 'org.labkey.api.assay.security.DesignAssayPermission',
