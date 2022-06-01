@@ -24,6 +24,39 @@ declare const window: Window;
 
 const { $, CSRF } = loadDOMContext();
 
+export interface Worksheet {
+    name?: string;
+    data: any[];
+}
+
+export interface Workbook {
+    fileName?: string;
+    sheets: Worksheet[];
+}
+
+export interface ConvertToTableOptions {
+    delim?: DelimiterType;
+    quoteChar?: QuoteCharType;
+    fileNamePrefix?: string;
+    newlineChar?: string;
+    rows: any[];
+}
+
+// Maps to TSVWriter.DELIM for delimited data export
+export enum DelimiterType {
+    COLON = 'COLON',
+    COMMA = 'COMMA',
+    SEMICOLON = 'SEMICOLON',
+    TAB = 'TAB',
+}
+
+// Maps to TSVWriter.QUOTE for delimited data export
+export enum QuoteCharType {
+    DOUBLE = 'DOUBLE',
+    NONE = 'NONE',
+    SINGLE = 'SINGLE',
+}
+
 /**
  * Insert a hidden html <form> into to page, put the form values into it, and submit it - the server's response
  * will make the browser pop up a dialog.
@@ -178,55 +211,37 @@ export function signalWebDriverTest(signalName: string, signalResult?: any): voi
 }
 
 /**
- * Sends a JSON object to the server which turns it into an Excel file and returns it to the browser to be saved or opened.
- * @memberOf LABKEY.Utils
- * @function
- * @static
- * @name convertToExcel
- * @param {Object} workbook the JavaScript representation of the data
- * @param {String} workbook.fileName name to suggest to the browser for saving the file. If the fileName is
- * specified and ends with ".xlsx", it will be returned in Excel 2007 format.
- * @param {String} workbook.sheets array of sheets, which are objects with properties:
- * <ul>
- * <li><b>name:</b> name of the Excel sheet</li>
- * <li><b>data:</b> two dimensional array of values</li>
- * </ul>
- * The value array may be either primitives (booleans, numbers, Strings, and dates), or may be a map with
- * the following structure:
- * <ul>
- * <li><b>value:</b> the boolean, number, String, or date value of the cell</li>
- * <li><b>formatString:</b> for dates and numbers, the Java format string used with SimpleDateFormat
- * or DecimalFormat to control how the value is formatted</li>
- * <li><b>timeOnly:</b> for dates, whether the date part should be ignored and only the time value is important</li>
- * <li><b>forceString:</b> force the value to be treated as a string (i.e. prevent attempt to convert it to a date)</li>
- * </ul>
- * @example &lt;script type="text/javascript"&gt;
- LABKEY.Utils.convertToExcel(
- {
-         fileName: 'output.xls',
-         sheets:
-         [
-             {
-                 name: 'FirstSheet',
-                 data:
-                 [
-                     ['Row1Col1', 'Row1Col2'],
-                     ['Row2Col1', 'Row2Col2']
-                 ]
-             },
-             {
-                 name: 'SecondSheet',
-                 data:
-                 [
-                     ['Col1Header', 'Col2Header'],
-                     [{value: 1000.5, formatString: '0,000.00'}, {value: '5 Mar 2009 05:14:17', formatString: 'yyyy MMM dd'}],
-                     [{value: 2000.6, formatString: '0,000.00'}, {value: '6 Mar 2009 07:17:10', formatString: 'yyyy MMM dd'}]
-
-                 ]
-             }
-         ]
-     });
- &lt;/script&gt;
+ * Sends a JSON object to the server which turns it into an Excel file
+ * #### Examples
+ *
+ *  ```js
+ *  LABKEY.Utils.convertToExcel(
+ *  {
+ *      fileName: 'output.xls',
+ *      sheets:
+ *      [
+ *          {
+ *              name: 'FirstSheet',
+ *              data:
+ *              [
+ *                  ['Row1Col1', 'Row1Col2'],
+ *                  ['Row2Col1', 'Row2Col2']
+ *             ]
+ *          },
+ *          {
+ *              name: 'SecondSheet',
+ *              data:
+ *              [
+ *                  ['Col1Header', 'Col2Header'],
+ *                  [{value: 1000.5, formatString: '0,000.00'}, {value: '5 Mar 2009 05:14:17', formatString: 'yyyy MMM dd'}],
+ *                  [{value: 2000.6, formatString: '0,000.00'}, {value: '6 Mar 2009 07:17:10', formatString: 'yyyy MMM dd'}]
+ *              ]
+ *          }
+ *     ]
+ *  });
+ *  ```
+ *
+ *  @returns an Excel file to the browser to be saved or opened.
  */
 export const convertToExcel = (workbook: Workbook): void => {
     const formData = { 'json': JSON.stringify(workbook) };
@@ -235,61 +250,22 @@ export const convertToExcel = (workbook: Workbook): void => {
 
 /**
  * Sends a JSON object to the server which turns it into an TSV or CSV file and returns it to the browser to be saved or opened.
- * @memberOf LABKEY.Utils
- * @function
- * @static
- * @name convertToTable
- * @param {Object} config.  The config object
- * @param {String} config.fileNamePrefix name to suggest to the browser for saving the file. The appropriate extension (either ".txt" or ".csv", will be appended based on the delim character used (see below).  Defaults to 'Export'
- * @param {String} config.delim The separator between fields.  Allowable values are 'COMMA' or 'TAB'.
- * @param {String} config.quoteChar The character that will be used to quote each field.  Allowable values are 'DOUBLE' (ie. double-quote character), 'SINGLE' (ie. single-quote character) or 'NONE' (ie. no character used).  Defaults to none.
- * @param {String} config.newlineChar The character that will be used to separate each line.  Defaults to '\n'
- * @param {String} config.rows array of rows, which are arrays with values for each cell.
- * @example &lt;script type="text/javascript"&gt;
- LABKEY.Utils.convertToTable({
-         fileNamePrefix: 'output',
-         rows: [
-             ['Row1Col1', 'Row1Col2'],
-             ['Row2Col1', 'Row2Col2']
-         ],
-         delim: 'COMMA'
-     });
- &lt;/script&gt;
+ *
+ * #### Examples
+ *
+ * ```js
+ * LABKEY.Utils.convertToTable({
+ *      fileNamePrefix: 'output',
+ *      rows: [
+ *          ['Row1Col1', 'Row1Col2'],
+ *          ['Row2Col1', 'Row2Col2']
+ *      ],
+ *      delim: DelimiterType.COMMA,
+ *      quoteChar: QuoteCharType.DOUBLE
+ * });
+ * ```
  */
-export const convertToTable = (config: TextTableForm): void => {
+export const convertToTable = (config: ConvertToTableOptions): void => {
     const formData = { 'json': JSON.stringify(config) };
     submitForm(buildURL("experiment", "convertArraysToTable"), formData);
 };
-
-export interface Worksheet {
-    name?: string;
-    data: any[];
-}
-
-export interface Workbook {
-    fileName?: string;
-    sheets: Worksheet[];
-}
-
-export interface TextTableForm {
-    delim?: DelimiterType;
-    quoteChar?: QuoteCharType;
-    fileNamePrefix?: string;
-    newlineChar?: string;
-    rows: any[];
-}
-
-// Maps to TSVWriter.DELIM for delimited data export
-export enum DelimiterType {
-    COMMA = 'COMMA',
-    TAB = 'TAB',
-    SEMICOLON = 'SEMICOLON',
-    COLON = 'COLON',
-}
-
-// Maps to TSVWriter.QUOTE for delimited data export
-export enum QuoteCharType {
-    DOUBLE = 'DOUBLE',
-    SINGLE = 'SINGLE',
-    NONE = 'NONE',
-}
