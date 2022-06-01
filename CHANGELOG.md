@@ -1,6 +1,9 @@
 ## TBD - TBD
 - Migrate the convertToTable and convertToExcel utilities from LABKEY.js.
 
+## 1.13.0 - 2022-05-31
+- Issue 45270: Add AdminOperationsPermission
+
 ## 1.12.1 - 2022-05-13
 - Issue 45091: savePolicy update to support unwrapped policy object
 
