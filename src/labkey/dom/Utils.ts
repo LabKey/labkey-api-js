@@ -55,8 +55,8 @@ function submitForm(url: string, formData?: Record<string, any>, formProps?: Par
 
         const inputElement = document.createElement('input');
         inputElement.type = 'hidden';
-        inputElement.name = encodeHtml(name);
-        inputElement.value = encodeHtml(value);
+        inputElement.name = name;
+        inputElement.value = value;
 
         formElement.appendChild(inputElement);
     });
