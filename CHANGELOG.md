@@ -1,3 +1,7 @@
+## 1.14.0 - 2022-06-02
+* Package updates.
+* [Issue 45592](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=45592): Remove html encoding of name/value for form submission
+
 ## 1.13.0 - 2022-05-31
 - Issue 45270: Add AdminOperationsPermission
 

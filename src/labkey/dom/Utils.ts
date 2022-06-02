@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017-2018 LabKey Corporation
+ * Copyright (c) 2017-2022 LabKey Corporation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ const { $, CSRF } = loadDOMContext();
  * Insert a hidden html <form> into to page, put the form values into it, and submit it - the server's response
  * will make the browser pop up a dialog.
  */
-function submitForm(url: string, formData?: {[key: string]: any}): void {
+function submitForm(url: string, formData?: Record<string, any>, formProps?: Partial<HTMLFormElement>): void {
     if (!formData) {
         formData = {};
     }
@@ -35,27 +35,34 @@ function submitForm(url: string, formData?: {[key: string]: any}): void {
         formData[CSRF_HEADER] = CSRF;
     }
 
-    const formId = generateUUID();
+    const formElement = document.createElement('form');
+    formElement.action = url;
+    formElement.id = generateUUID();
+    formElement.method = 'POST';
 
-    let html = [];
-    html.push('<f');   // avoid form tag, it causes skipfish false positive
-    html.push('orm method="POST" id="' + formId + '"action="' + url + '">');
-    for (let name in formData) {
-        if (formData.hasOwnProperty(name)) {
-            let value = formData[name];
-            if (value === undefined) {
-                continue;
-            }
-
-            html.push('<input type="hidden"' +
-                ' name="' + encodeHtml(name) + '"' +
-                ' value="' + encodeHtml(value) + '" />');
-        }
+    if (formProps) {
+        Object.keys(formProps).forEach((prop) => {
+            formElement[prop] = formProps[prop];
+        });
     }
-    html.push("</form>");
 
-    $('body').append(html.join(''));
-    $('form#' + formId).submit();
+    Object.keys(formData).forEach((name) => {
+        const value = formData[name];
+
+        if (value === undefined) {
+            return;
+        }
+
+        const inputElement = document.createElement('input');
+        inputElement.type = 'hidden';
+        inputElement.name = name;
+        inputElement.value = value;
+
+        formElement.appendChild(inputElement);
+    });
+
+    document.body.appendChild(formElement);
+    formElement.submit();
 }
 
 /**
@@ -133,17 +140,22 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
 /**
  * POSTs the form values to the given href, including CSRF token.
  */
-export function postToAction(href: string, formData?: {[key: string]: any}): void {
-    submitForm(href, formData);
+export function postToAction(href: string, formData?: Record<string, any>, formProps?: Partial<HTMLFormElement>): void {
+    submitForm(href, formData, formProps);
 }
 
 /**
  * POSTs the form values to the given href, including CSRF token.
  * Displays a confirmation dialog with the specified message and then, if confirmed, POSTs the form values to the href, using {postToAction}.
  */
-export function confirmAndPost(message: string, href: string, formData?: {[key: string]: any}): boolean {
+export function confirmAndPost(
+    message: string,
+    href: string,
+    formData?: Record<string, any>,
+    formProps?: Partial<HTMLFormElement>
+): boolean {
     if (confirm(message)) {
-        submitForm(href, formData);
+        submitForm(href, formData, formProps);
         return true;
     }
 
