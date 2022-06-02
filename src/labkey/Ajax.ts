@@ -18,7 +18,7 @@ import { queryString } from './ActionURL';
 
 const { CSRF, defaultHeaders } = getServerContext();
 
-export let DEFAULT_HEADERS: { [key: string]: string } = {
+export let DEFAULT_HEADERS: Record<string, string> = {
     [CSRF_HEADER]: CSRF,
 };
 
@@ -71,7 +71,7 @@ export interface RequestOptions {
     /**
      * Object specifying additional HTTP headers to add the request.
      */
-    headers?: { [key: string]: string };
+    headers?: Record<string, string>;
 
     initialConfig?: any;
 
@@ -92,7 +92,7 @@ export interface RequestOptions {
      * An object representing URL parameters that will be added to the URL. Note, that if the request is method
      * "POST" and jsonData is not provided these params will be sent via the body of the request.
      */
-    params?: { [key: string]: any };
+    params?: Record<string, any>;
 
     /**
      * A scope for the callback functions. Defaults to "this".

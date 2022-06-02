@@ -79,7 +79,7 @@ export class ExpObject {
      * or a simple value of the following three types: the data's RowId, the data's LSID, or the full path
      * on the server's file system.
      */
-    properties: { [key: string]: any };
+    properties: Record<string, any>;
 
     /**
      * The id of the ExpObject (alias of id property)

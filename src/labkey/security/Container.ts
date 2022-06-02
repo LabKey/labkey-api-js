@@ -199,7 +199,7 @@ export type FolderTypeWebParts = {
     /** Name of the web part */
     name: string;
     /** Map of properties that are automatically set */
-    properties: { [key: string]: any };
+    properties: Record<string, any>;
 };
 
 export type FolderType = {

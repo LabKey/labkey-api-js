@@ -4,7 +4,7 @@ import apiSnapshot from './test/data/core_api_snapshot.json';
 declare let LABKEY: any;
 
 describe('LABKEY wrapper', () => {
-    const snapshot: { [key: string]: string[] } = apiSnapshot;
+    const snapshot: Record<string, string[]> = apiSnapshot;
 
     it('should not export anything', () => {
         expect(wrapper).toEqual({});

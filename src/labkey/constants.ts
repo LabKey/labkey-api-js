@@ -113,7 +113,7 @@ export type LabKey = {
     analyticProviders?: { [providerName: string]: string };
     container: Partial<Container>;
     contextPath: string;
-    defaultHeaders: { [key: string]: string };
+    defaultHeaders: Record<string, string>;
     extDateInputFormat: string;
     extDefaultDateFormat: string;
     extDefaultDateTimeFormat: string;
@@ -128,7 +128,7 @@ export type LabKey = {
     impersonatingUser?: Partial<UserWithPermissions>;
     isDocumentClosed: string;
     jdkJavaDocLinkPrefix: string;
-    moduleContext?: { [key: string]: any };
+    moduleContext?: Record<string, any>;
     demoMode: boolean;
     pageAdminMode: boolean;
     postParameters?: any;

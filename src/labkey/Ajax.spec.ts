@@ -32,7 +32,7 @@ function mockXHR() {
 // These are properties found on XMLHttpRequest that the TypeScript/XMLHttpRequest definition does not declare
 interface FakeXMLHttpRequest extends XMLHttpRequest {
     readonly method: string;
-    readonly requestHeaders: { [key: string]: any };
+    readonly requestHeaders: Record<string, any>;
     readonly url: string;
 }
 

@@ -20,7 +20,7 @@ import { isArray, isFunction } from './Utils';
  * @hidden
  * @private
  */
-function buildParameterMap(paramString?: string): { [key: string]: any } {
+function buildParameterMap(paramString?: string): Record<string, any> {
     const { postParameters } = getServerContext();
 
     if (!paramString && postParameters) {
@@ -103,7 +103,7 @@ export function buildURL(
     controller: string,
     action: string,
     containerPath?: string,
-    parameters?: { [key: string]: any }
+    parameters?: Record<string, any>
 ): string {
     if (!containerPath) {
         containerPath = getContainer();
@@ -252,7 +252,7 @@ export function getParameterArray(parameterName: string): string[] {
  * @param url The URL to parse. If not specified, the browser's current location will be used.
  * @return Object of parameter names to values.
  */
-export function getParameters(url?: string): { [key: string]: any } {
+export function getParameters(url?: string): Record<string, any> {
     if (!url) {
         return buildParameterMap(url);
     }
@@ -364,7 +364,7 @@ export function getReturnUrl(): string {
  * Parameters will be encoded automatically. Parameter values that are arrays will be appended as multiple parameters
  * with the same name. (Defaults to no parameters.)
  */
-export function queryString(parameters?: { [key: string]: string | string[] }): string {
+export function queryString(parameters?: Record<string, string | string[]>): string {
     if (!parameters) {
         return '';
     }

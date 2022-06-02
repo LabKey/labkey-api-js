@@ -224,7 +224,7 @@ export function applyTranslated(
 declare const LABKEY: any;
 
 // DOMWrapper's are cached to avoid infinite calls to the wrapper
-const DOMWrappers: { [key: string]: any } = {};
+const DOMWrappers: Record<string, any> = {};
 
 /**
  * Provides a function that wraps a stub implementation. If the concrete implementation is available at
