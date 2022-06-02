@@ -7,6 +7,6 @@ dist
 docs
 node_modules
 
-# white-list files
+# include files
 !*.js
 !*.ts
