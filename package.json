@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.18.2",
-    "@labkey/eslint-config-base": "0.0.11-fb-add-linting.0",
+    "@labkey/eslint-config-base": "0.0.11-fb-add-linting.1",
     "@types/jest": "27.5.1",
     "@types/sinon": "10.0.11",
     "cross-env": "7.0.3",
