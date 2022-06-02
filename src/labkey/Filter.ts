@@ -23,8 +23,8 @@ import {
     getQueryParamsFromUrl,
     getSortFromUrl,
     IFilter,
-    merge
-} from './filter/Filter'
+    merge,
+} from './filter/Filter';
 import {
     _define,
     getDefaultFilterForType,
@@ -32,8 +32,8 @@ import {
     getFilterTypesForType,
     registerFilterType,
     IFilterType,
-    Types
-} from './filter/Types'
+    Types,
+} from './filter/Types';
 
 export {
     _define,
@@ -51,8 +51,7 @@ export {
     merge,
     registerFilterType,
     Types,
-
     /* TypeScript interfaces */
     IFilter,
-    IFilterType
-}
+    IFilterType,
+};

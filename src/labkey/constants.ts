@@ -79,14 +79,14 @@ export enum ExperimentalFeatures {
     disableGuestAccount = 'disableGuestAccount',
     javascriptErrorServerLogging = 'javascriptErrorServerLogging',
     javascriptMothership = 'javascriptMothership',
-    useExperimentalCoreUI = 'useExperimentalCoreUI'
+    useExperimentalCoreUI = 'useExperimentalCoreUI',
 }
 
 /** THe different types of audit behaviors for query requests. May be used to override behavior for a specific requests. */
 export enum AuditBehaviorTypes {
-    NONE = "NONE",
-    DETAILED = "DETAILED",
-    SUMMARY = "SUMMARY"
+    DETAILED = 'DETAILED',
+    NONE = 'NONE',
+    SUMMARY = 'SUMMARY',
 }
 
 /**
@@ -94,8 +94,8 @@ export enum AuditBehaviorTypes {
  * @private
  */
 export type ExperimentalFlags = {
-    [key in ExperimentalFeatures]: boolean
-}
+    [key in ExperimentalFeatures]: boolean;
+};
 
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
@@ -104,16 +104,16 @@ export const CSRF_HEADER = 'X-LABKEY-CSRF';
  * @private
  */
 export type LabKey = {
+    CSRF: string;
+    Mothership: any;
+    Security: any;
+    SecurityPolicy: any;
+    WebSocket: any;
     adminOnlyMode?: boolean;
     analyticProviders?: { [providerName: string]: string };
     container: Partial<Container>;
     contextPath: string;
-    CSRF: string;
     defaultHeaders: { [key: string]: string };
-    demoMode: boolean;
-    devMode: boolean;
-    dirty: boolean;
-    experimental: ExperimentalFlags;
     extDateInputFormat: string;
     extDefaultDateFormat: string;
     extDefaultDateTimeFormat: string;
@@ -129,14 +129,14 @@ export type LabKey = {
     isDocumentClosed: string;
     jdkJavaDocLinkPrefix: string;
     moduleContext?: { [key: string]: any };
-    Mothership: any;
+    demoMode: boolean;
     pageAdminMode: boolean;
     postParameters?: any;
     project: Project;
     requiresCss?: Function;
     requiresScript: Function;
-    Security: any;
-    SecurityPolicy: any;
+    devMode: boolean;
+    dirty: boolean;
     serverName: string;
     sharedContainer?: string;
     submit: boolean;
@@ -148,13 +148,13 @@ export type LabKey = {
     verbose: boolean;
     versionString: string;
     vis: any;
-    WebSocket: any;
-}
+    experimental: ExperimentalFlags;
+};
 
 export interface User {
     avatar: string;
-    email: string;
     displayName: string;
+    email: string;
     id: number;
     phone: string;
     // Some LabKey Server API responses specify "userId" in addition to "id" when serializing a User response.
@@ -201,7 +201,7 @@ export function setGlobalUser(user: UserWithPermissions): LabKey {
  * @private
  */
 class _Window extends Window {
-    LABKEY: any
+    LABKEY: any;
 }
 
 /**

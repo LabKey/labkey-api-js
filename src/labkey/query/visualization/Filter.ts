@@ -16,17 +16,17 @@
 
 export interface ICreateOptions {
     /** If specified, only measures from the specified query will be returned. */
-    queryName?: string
+    queryName?: string;
 
     /**
      * If specified, only measures from the specified query types will be returned
      * Valid values for queryType are: [[QueryType.ALL]], [[QueryType.BUILT_IN]],
      * and [[QueryType.CUSTOM]]. By default, all queries will be returned.
      */
-    queryType?: TQueryType
+    queryType?: TQueryType;
 
     /** Only measures from the specified schema will be returned. */
-    schemaName: string
+    schemaName: string;
 }
 
 /**
@@ -39,10 +39,7 @@ export function create(options: ICreateOptions): string {
         throw new Error('You must supply a value for schemaName in your configuration object!');
     }
 
-    let params = [
-        options.schemaName,
-        options.queryName ? options.queryName : '~'
-    ];
+    const params = [options.schemaName, options.queryName ? options.queryName : '~'];
 
     if (options.queryType) {
         params.push(options.queryType);
@@ -57,14 +54,14 @@ export type TQueryType = 'ALL' | 'BUILT_IN' | 'CUSTOM' | 'DATASETS';
  * @namespace QueryType query types for measure filters.  See [[Filter]].
  */
 export const QueryType: {
-    [key: string]: string
+    [key: string]: string;
 } = {
     /** Return only queries that are built-in to the server */
-    BUILT_IN : 'builtIn',
+    BUILT_IN: 'builtIn',
     /** Return only queries that are custom (user defined) */
-    CUSTOM : 'custom',
+    CUSTOM: 'custom',
     /** Return only datasets */
-    DATASETS : 'datasets',
+    DATASETS: 'datasets',
     /** Return all queries (both built-in and custom) */
-    ALL : 'all'
+    ALL: 'all',
 };

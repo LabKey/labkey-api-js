@@ -40,10 +40,10 @@ import {
     sqlStringLiteral,
     URL_COLUMN_PREFIX,
     validateQuery,
-    ValidateQueryOptions
-} from './query/Utils'
-import { ExecuteSqlOptions, executeSql } from './query/ExecuteSql'
-import * as GetData from './query/GetData'
+    ValidateQueryOptions,
+} from './query/Utils';
+import { ExecuteSqlOptions, executeSql } from './query/ExecuteSql';
+import * as GetData from './query/GetData';
 import {
     GetQueryDetailsOptions,
     QueryDetailsResponse,
@@ -53,8 +53,8 @@ import {
     QueryView,
     QueryViewColumn,
     QueryViewFilter,
-    QueryViewSort
-} from './query/GetQueryDetails'
+    QueryViewSort,
+} from './query/GetQueryDetails';
 import {
     Command,
     CommandType,
@@ -66,32 +66,30 @@ import {
     SaveRowsOptions,
     SaveRowsResponse,
     truncateTable,
-    updateRows
-} from './query/Rows'
-import { SelectDistinctOptions, SelectDistinctResponse, selectDistinctRows } from './query/SelectDistinctRows'
-import { SelectRowsOptions, selectRows, ShowRows } from './query/SelectRows'
-import * as SQL from './query/experimental/SQL'
-import * as Visualization from './query/Visualization'
-import { Filter } from './filter/Filter'
-import { Response, Row } from './query/Response'
-import { QueryColumn, QueryLookup } from './query/types'
+    updateRows,
+} from './query/Rows';
+import { SelectDistinctOptions, SelectDistinctResponse, selectDistinctRows } from './query/SelectDistinctRows';
+import { SelectRowsOptions, selectRows, ShowRows } from './query/SelectRows';
+import * as SQL from './query/experimental/SQL';
+import * as Visualization from './query/Visualization';
+import { Filter } from './filter/Filter';
+import { Response, Row } from './query/Response';
+import { QueryColumn, QueryLookup } from './query/types';
 
 /** @hidden */
 const experimental = {
-    SQL
+    SQL,
 };
 
 export {
     /* classes */
     Response,
     Row,
-
     /* constants */
     ContainerFilter, // Enumeration
     containerFilter, // backwards compatible reference
     experimental,
     URL_COLUMN_PREFIX,
-
     /* interfaces */
     Command,
     CommandType,
@@ -125,7 +123,6 @@ export {
     SelectRowsOptions,
     ShowRows,
     ValidateQueryOptions,
-
     /* methods */
     buildQueryParams,
     deleteQueryView,
@@ -149,9 +146,8 @@ export {
     truncateTable,
     updateRows,
     validateQuery,
-
     /* namespaces */
     Filter,
     GetData,
     Visualization,
-}
+};

@@ -66,12 +66,10 @@ export {
     PermissionTypes,
     User,
     UserWithPermissions,
-
     /* interfaces */
     Container,
     ExperimentalFlags,
     Project,
-
     /* modules */
     ActionURL,
     Ajax,
@@ -97,5 +95,5 @@ export {
     Specimen,
     Utils,
     UtilsDOM,
-    Visualization
-}
+    Visualization,
+};

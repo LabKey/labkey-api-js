@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { loadDOMContext } from './constants'
+import { loadDOMContext } from './constants';
 
 const { requiresExt4ClientAPI, requiresScript } = loadDOMContext();
 
 declare const Ext4: any;
 
 function display(componentName: string) {
-    requiresExt4ClientAPI(function() {
-        requiresScript('Impersonate.js', function() {
-            Ext4.onReady(function() {
+    requiresExt4ClientAPI(function () {
+        requiresScript('Impersonate.js', function () {
+            Ext4.onReady(function () {
                 Ext4.create(componentName).show();
             });
         });

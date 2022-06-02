@@ -20,7 +20,7 @@ export type TAggregate = 'AVG' | 'COUNT' | 'MAX' | 'MIN' | 'SUM';
  * @namespace Aggregate aggregates when pivoting a resultset by a dimension. See [[getData]].
  */
 export const Aggregate: {
-    [key: string]: string
+    [key: string]: string;
 } = {
     /** Calculates an average. */
     AVG: 'AVG',
@@ -31,7 +31,7 @@ export const Aggregate: {
     /** Returns the minimum value. */
     MIN: 'MIN',
     /** Calculates a sum/total. */
-    SUM: 'SUM'
+    SUM: 'SUM',
 };
 
 export type TInterval = 'DAY' | 'MONTH' | 'WEEK' | 'YEAR';
@@ -40,16 +40,16 @@ export type TInterval = 'DAY' | 'MONTH' | 'WEEK' | 'YEAR';
  * @namespace Interval intervals are for aligning series in time plots. See [[getData]].
  */
 export const Interval: {
-    [key: string]: string
+    [key: string]: string;
 } = {
     /** Align by the number of days since the zero date. */
-    DAY : 'DAY',
+    DAY: 'DAY',
     /** Align by the number of months since the zero date. */
-    MONTH : 'MONTH',
+    MONTH: 'MONTH',
     /** Align by the number of weeks since the zero date. */
-    WEEK : 'WEEK',
+    WEEK: 'WEEK',
     /** Align by the number of years since the zero date. */
-    YEAR: 'YEAR'
+    YEAR: 'YEAR',
 };
 
 export type TType = 'ReportService.GenericChartReport' | 'ReportService.TimeChartReport';
@@ -59,7 +59,7 @@ export type TType = 'ReportService.GenericChartReport' | 'ReportService.TimeChar
  * [[save]] method.
  */
 export const Type: {
-    [key: string]: string
+    [key: string]: string;
 } = {
     /**
      * Plot types that are not study specific (i.e. Bar, Box, Pie, and Scatter).
@@ -68,5 +68,5 @@ export const Type: {
     /**
      * Plots data over time, aligning different series based on configurable start dates.
      */
-    TimeChart: 'ReportService.TimeChartReport'
+    TimeChart: 'ReportService.TimeChartReport',
 };

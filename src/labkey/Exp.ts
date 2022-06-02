@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { request, RequestOptions } from './Ajax'
+import { buildURL } from './ActionURL';
+import { request, RequestOptions } from './Ajax';
 import {
     ExtendedXMLHttpRequest,
     getCallbackWrapper,
     getOnFailure,
     getOnSuccess,
     RequestFailure,
-    RequestSuccess
-} from './Utils'
-import { create, DomainDesign, getDomainDetails, KINDS } from './Domain'
+    RequestSuccess,
+} from './Utils';
+import { create, DomainDesign, getDomainDetails, KINDS } from './Domain';
 
 /**
  * The experiment object base class which describes basic characteristics of a protocol
@@ -31,7 +31,6 @@ import { create, DomainDesign, getDomainDetails, KINDS } from './Domain'
  * are subclasses of ExpObject, so they provide the fields defined by this object (e.g., name, lsid, etc).
  */
 export class ExpObject {
-
     /**
      * User editable comment.
      */
@@ -80,7 +79,7 @@ export class ExpObject {
      * or a simple value of the following three types: the data's RowId, the data's LSID, or the full path
      * on the server's file system.
      */
-    properties: {[key: string]: any};
+    properties: { [key: string]: any };
 
     /**
      * The id of the ExpObject (alias of id property)
@@ -106,48 +105,48 @@ export interface IGetExpObjectDomain {
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
 
     /**
      * Function called if execution of the "getDomainDetails" function fails.
      */
-    failure?: () => any
+    failure?: () => any;
 
     /**
      * Function called if the "getDomainDetails" function executes successfully.
      * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
      * which describes the fields of a domain.
      */
-    success: (domain?: any) => any
+    success: (domain?: any) => any;
 }
 
 export interface ICreateDataClassDomain {
     /**
      * The container path in which to create the domain.
      */
-    containerPath?: string
+    containerPath?: string;
 
     /**
      * The domain design to save.
      */
-    domainDesign: DomainDesign
+    domainDesign: DomainDesign;
 
     /**
      * Function called if execution of the "getDomainDetails" function fails.
      */
-    failure?: () => any
+    failure?: () => any;
 
     /**
      * Set of extra options used when creating the SampleSet.
      */
-    options?: any
+    options?: any;
 
     /**
      * Function called if the "getDomainDetails" function executes successfully.
      * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
      * which describes the fields of a domain.
      */
-    success: (domain?: any) => any
+    success: (domain?: any) => any;
 }
 
 /**
@@ -156,7 +155,6 @@ export interface ICreateDataClassDomain {
  * Within the DataClass, each Data has a unique name.
  */
 export class DataClass extends ExpObject {
-
     /**
      * Description of the DataClass.
      */
@@ -194,7 +192,7 @@ export class DataClass extends ExpObject {
             kind: 'DataClass',
             options: options.options,
             success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any
+            failure: getOnFailure(options) as any,
         });
     }
 
@@ -221,7 +219,7 @@ export class DataClass extends ExpObject {
             queryName: this.name,
             containerPath: options.containerPath,
             success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any
+            failure: getOnFailure(options) as any,
         });
     }
 }
@@ -233,7 +231,6 @@ export class DataClass extends ExpObject {
  * @private
  */
 export class ChildObject extends ExpObject {
-
     constructor(config: Partial<ChildObject> = {}) {
         super(config);
     }
@@ -246,7 +243,6 @@ export class ChildObject extends ExpObject {
  * @private
  */
 export class ProtocolApplication extends ExpObject {
-
     constructor(config: Partial<ProtocolApplication> = {}) {
         super(config);
     }
@@ -258,7 +254,6 @@ export class ProtocolApplication extends ExpObject {
  * @private
  */
 export class RunItem extends ExpObject {
-
     cpasType: string;
     run: any;
     sourceApplications: any;
@@ -285,36 +280,36 @@ export interface IGetContentOptions {
     /**
      * A reference to a function to call when an error occurs.
      */
-    failure?: (errorInfo?: any, response?: ExtendedXMLHttpRequest, options?: RequestOptions) => any
+    failure?: (errorInfo?: any, response?: ExtendedXMLHttpRequest, options?: RequestOptions) => any;
 
     /**
      * How to format the content. Defaults to plaintext, supported for text/* MIME types,
      * including .html, .xml, .tsv, .txt, and .csv. Use 'jsonTSV' to get a JSON version of the .xls, .tsv, .or .csv
      * files, the structure of which matches the argument to convertToExcel
      */
-    format?: string
+    format?: string;
 
     /**
      * A scoping object for the success and failure callback functions (default to this).
      */
-    scope?: any
+    scope?: any;
 
     /**
      * The function to call when the function finishes successfully.
      */
-    success: (content?: any, format?: string, response?: ExtendedXMLHttpRequest) => any
+    success: (content?: any, format?: string, response?: ExtendedXMLHttpRequest) => any;
 }
 
 export type ExpDataDataClass = {
     /**
      * The row id of the DataClass.
      */
-    id: number
+    id: number;
 
     /**
      * The name of the DataClass.
      */
-    name: string
+    name: string;
 };
 
 /**
@@ -397,7 +392,6 @@ export type ExpDataDataClass = {
  * ```
  */
 export class Data extends ExpObject {
-
     /**
      * The DataClass the data belongs to.
      */
@@ -550,7 +544,7 @@ export class Data extends ExpObject {
         // }
 
         function getSuccessCallbackWrapper(success: Function, format: string, scope: any) {
-            return getCallbackWrapper(function(json: any, response: ExtendedXMLHttpRequest) {
+            return getCallbackWrapper(function (json: any, response: ExtendedXMLHttpRequest) {
                 if (success) {
                     success.call(scope || this, json, format, response);
                 }
@@ -563,10 +557,10 @@ export class Data extends ExpObject {
             method: 'GET',
             params: {
                 format: options.format,
-                rowId: this.id
+                rowId: this.id,
             },
             success: getSuccessCallbackWrapper(getOnSuccess(options), options.format, options.scope),
-            failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+            failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         });
     }
 }
@@ -575,12 +569,12 @@ export interface IDeleteRunOptions {
     /**
      * A reference to a function to call when an error occurs.
      */
-    failure?: RequestFailure
+    failure?: RequestFailure;
 
     /**
      * A reference to a function to call with the API results.
      */
-    success?: RequestSuccess
+    success?: RequestSuccess;
 }
 
 /**
@@ -628,27 +622,26 @@ export interface IDeleteRunOptions {
  * ```
  */
 export class Run extends ExpObject {
-
     /**
      * Array of [[Data]] objects that are the inputs to this run.
      * Datas typically represents a file on the server's file system.
      */
-    dataInputs: Array<Data>;
+    dataInputs: Data[];
 
     /**
      * Array of [[Data]] objects that are the outputs from this run.
      * Datas typically represent a file on the server's file system.
      */
-    dataOutputs: Array<Data>;
+    dataOutputs: Data[];
 
     /**
      * Array of Objects where each Object corresponds to a row in the results domain.
      */
-    dataRows: Array<any>;
+    dataRows: any[];
     experiments: any;
     filePathRoot: string;
-    materialInputs: Array<Material>;
-    materialOutputs: Array<Material>;
+    materialInputs: Material[];
+    materialOutputs: Material[];
     objectProperties: any;
     protocol: any;
 
@@ -682,19 +675,18 @@ export class Run extends ExpObject {
             url: buildURL('experiment', 'deleteRun.api'),
             method: 'POST',
             params: {
-                runId: this.id
+                runId: this.id,
             },
             success: getCallbackWrapper(getOnSuccess(options), this),
-            failure: getCallbackWrapper(getOnFailure(options), this, true)
+            failure: getCallbackWrapper(getOnFailure(options), this, true),
         });
     }
 }
 
 export class RunGroup extends ExpObject {
-
     batchProtocolId?: number;
     hidden?: boolean;
-    runs?: Array<Run>;
+    runs?: Run[];
 
     constructor(config: Partial<RunGroup> = {}) {
         super(config);
@@ -715,12 +707,12 @@ export type ExpMaterialSampleSet = {
     /**
      * The row id of the SampleSet.
      */
-    id: number
+    id: number;
 
     /**
      * The name of the SampleSet.
      */
-    name: string
+    name: string;
 };
 
 /**
@@ -729,7 +721,6 @@ export type ExpMaterialSampleSet = {
  * The fields of this class are inherited from [[ExpObject]] and the private [[RunItem]] object.
  */
 export class Material extends RunItem {
-
     /**
      * The SampleSet the material belongs to.
      */
@@ -748,15 +739,14 @@ export class Material extends RunItem {
  * @private
  */
 export class Protocol extends ExpObject {
-
     applicationType: any;
-    childProtocols: Array<any>;
+    childProtocols: any[];
     contact: any;
     description: string;
     instrument: any;
-    runs: Array<Run>;
+    runs: Run[];
     software: any;
-    steps: Array<any>;
+    steps: any[];
 
     constructor(config: Partial<Protocol> = {}) {
         super(config);
@@ -782,17 +772,17 @@ export interface ICreateSampleSetDomain {
     /**
      * The container path in which to create the domain.
      */
-    containerPath?: string
+    containerPath?: string;
 
     /**
      * The domain design to save.
      */
-    domainDesign: DomainDesign
+    domainDesign: DomainDesign;
 
     /**
      * Function called if execution of the "getDomainDetails" function fails.
      */
-    failure?: () => any
+    failure?: () => any;
 
     /**
      * Set of extra options used when creating the SampleSet.
@@ -802,20 +792,20 @@ export interface ICreateSampleSetDomain {
          * Array of indexes into the domain design fields. If the domain design contains a 'Name' field,
          * no idCols are allowed. Either a 'Name' field must be present or at least one idCol must be supplied.
          */
-        idCols?: Array<string>
+        idCols?: string[];
 
         /**
          * Index of the parent id column.
          */
-        parentCol?: string
-    }
+        parentCol?: string;
+    };
 
     /**
      * Function called if the "getDomainDetails" function executes successfully.
      * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
      * which describes the fields of a domain.
      */
-    success: (domain?: any) => any
+    success: (domain?: any) => any;
 }
 
 /**
@@ -826,7 +816,6 @@ export interface ICreateSampleSetDomain {
  * [additional documentation](https://www.labkey.org/Documentation/wiki-page.view?name=experiment).
  */
 export class SampleSet extends ExpObject {
-
     /**
      * Description of the SampleSet.
      */
@@ -835,7 +824,7 @@ export class SampleSet extends ExpObject {
     /**
      * Array of Exp.Material config objects.
      */
-    samples: Array<Material>;
+    samples: Material[];
 
     constructor(config: Partial<SampleSet> = {}) {
         super(config);
@@ -883,7 +872,7 @@ export class SampleSet extends ExpObject {
             kind: KINDS.SAMPLE_TYPE,
             options: options.options,
             success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any
+            failure: getOnFailure(options) as any,
         });
     }
 
@@ -910,7 +899,7 @@ export class SampleSet extends ExpObject {
             queryName: this.name,
             containerPath: options.containerPath,
             success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any
+            failure: getOnFailure(options) as any,
         });
     }
 }

@@ -13,33 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax'
-import { buildURL } from '../ActionURL'
-import {
-    getOnSuccess,
-    getCallbackWrapper,
-    getOnFailure,
-    isArray,
-    RequestCallbackOptions
-} from '../Utils'
-import { Container, getServerContext } from '../constants'
+import { request } from '../Ajax';
+import { buildURL } from '../ActionURL';
+import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray, RequestCallbackOptions } from '../Utils';
+import { Container, getServerContext } from '../constants';
 
 export interface CreateContainerOptions extends RequestCallbackOptions<Container> {
     /**
      * An alternate container in which to create a new container. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** The description of the container, used primarily for workbooks. */
-    description?: string
+    description?: string;
     /** The name of the folder type to be applied. */
-    folderType?: string
+    folderType?: string;
     /** Whether this a workbook should be created. Defaults to false. */
-    isWorkbook?: boolean
+    isWorkbook?: boolean;
     /** Required for projects or folders. The name of the container. */
-    name: string
+    name: string;
     /** The title of the container, used primarily for workbooks. */
-    title?: string
+    title?: string;
 }
 
 /**
@@ -59,16 +53,16 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
             folderType: config.folderType,
             isWorkbook: config.isWorkbook,
             name: config.name,
-            title: config.title
+            title: config.title,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface DeleteContainerOptions extends RequestCallbackOptions {
     /** The container which should be deleted. If not specified the current container path will be deleted. */
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -84,19 +78,19 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
         url: buildURL('core', 'deleteContainer.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface ModuleProperty {
     /** The value of the property, including a value potentially inherited from parent containers. */
-    effectiveValue: any
+    effectiveValue: any;
     /** Name of the module specifying this property. */
-    module: string
+    module: string;
     /** Name of the module property. */
-    name: string
+    name: string;
     /** The value of the property as set for this specific container. */
-    value: any
+    value: any;
 }
 
 export interface ContainerHierarchy extends Container {
@@ -104,55 +98,55 @@ export interface ContainerHierarchy extends Container {
      * When the includeSubfolders parameter was true this will contain an array of child
      * container objects with the same shape as the parent object.
      */
-    children: ContainerHierarchy[]
+    children: ContainerHierarchy[];
     /**
      * An array of effective permission unique names the group has. Only available if
      * includeEffectivePermissions parameter is set to true.
      */
-    effectivePermissions?: string[]
+    effectivePermissions?: string[];
     /**
      * If requested in the config object, an array of module properties for each included module.
      */
-    moduleProperties: ModuleProperty[]
+    moduleProperties: ModuleProperty[];
     /**
      * @deprecated
      * The permissions the current user has in the container.
      */
-    userPermissions: number
+    userPermissions: number;
 }
 
 // TODO: getContainers return type varies based on parameters. If "container" property is a string
 // it will return a ContainerHierarchy. If "container" property is string[] it will return
 // { containers: ContainerHierarchy[] }. We should consider making return type consistent (e.g. always an array).
 // For this reason the <ContainerHierarchy> type is commented out below leaving this API's response untyped.
-export interface GetContainersOptions extends RequestCallbackOptions/*<ContainerHierarchy>*/ {
+export interface GetContainersOptions extends RequestCallbackOptions /* <ContainerHierarchy>*/ {
     /**
      * A container id or full-path String or an Array of container id/full-path Strings.
      * If not present, the current container is used.
      */
-    container?: string | Array<string>
+    container?: string | string[];
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** May be used to control the depth of recursion if includeSubfolders is set to true. */
-    depth?: number
+    depth?: number;
     /**
      * If set to false, the effective permissions for this container resource
      * will not be included. (defaults to true)
      */
-    includeEffectivePermissions?: boolean
+    includeEffectivePermissions?: boolean;
     /**
      * If set to true, the entire branch of containers will be returned.
      * If false, only the immediate children of the starting container will be returned (defaults to false).
      */
-    includeSubfolders?: boolean
+    includeSubfolders?: boolean;
     /**
      * The names (Strings) of modules whose Module Property values should be included for each container.
      * Use "*" to get the value of all Module Properties for all modules.
      */
-    moduleProperties?: string[]
+    moduleProperties?: string[];
 }
 
 /**
@@ -166,7 +160,7 @@ export interface GetContainersOptions extends RequestCallbackOptions/*<Container
  * (first parameter of the success or failure callbacks.)
  */
 export function getContainers(config: GetContainersOptions): XMLHttpRequest {
-    let params: any = {};
+    const params: any = {};
 
     if (config) {
         // TODO: These undefined checked should use !==
@@ -174,8 +168,7 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
             if (isArray(config.container)) {
                 params.multipleContainers = true;
                 params.container = config.container;
-            }
-            else {
+            } else {
                 params.container = [config.container];
             }
         }
@@ -198,42 +191,42 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
         url: buildURL('project', 'getContainers.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export type FolderTypeWebParts = {
     /** Name of the web part */
-    name: string
+    name: string;
     /** Map of properties that are automatically set */
-    properties: {[key:string]: any}
-}
+    properties: { [key: string]: any };
+};
 
 export type FolderType = {
     /** Array of module names that are automatically active for this folder type */
-    activeModules: string[]
+    activeModules: string[];
     /** Name of the module that provides the home screen for this folder type */
-    defaultModule: string
+    defaultModule: string;
     /** Short description of the folder type */
-    description: string
+    description: string;
     /** Name that's shown to the user for this folder type */
-    label: string
+    label: string;
     /** Cross-version stable name of the folder type */
-    name: string
+    name: string;
     /** Array of web parts that are part of this folder type but may be removed */
-    preferredWebParts: FolderTypeWebParts[]
+    preferredWebParts: FolderTypeWebParts[];
     /** Array of web parts that are part of this folder type and cannot be removed */
-    requiredWebParts: FolderTypeWebParts[]
+    requiredWebParts: FolderTypeWebParts[];
     /** Indicates if this is specifically intended to use as a workbook type */
-    workbookType: boolean
-}
+    workbookType: boolean;
+};
 
 export type GetFolderTypesResponse = {
-    [folderType:string]: FolderType
+    [folderType: string]: FolderType;
 };
 
 export interface GetFolderTypesOptions extends RequestCallbackOptions<GetFolderTypesResponse> {
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -249,7 +242,7 @@ export function getFolderTypes(config: GetFolderTypesOptions): XMLHttpRequest {
         url: buildURL('core', 'getFolderTypes.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
@@ -263,34 +256,34 @@ export function getHomeContainer(): string {
 
 export type GetModulesModules = {
     /** whether this module should be active for this container */
-    active: boolean
+    active: boolean;
 
     /** whether this module should be enabled by default for this container */
-    enabled: boolean
+    enabled: boolean;
 
     /** Name of the module */
-    name: string
-
-    /** Whether this module is required in the folder type specified above */
-    required: boolean
+    name: string;
 
     /** Indicates if this module requires site permission */
-    requireSitePermission: boolean
+    requireSitePermission: boolean;
+
+    /** Whether this module is required in the folder type specified above */
+    required: boolean;
 
     /** name of the tab associated with this module */
-    tabName: string
-}
+    tabName: string;
+};
 
 export interface GetModulesResponse {
     /** the folderType, based on the container used when calling this API */
-    folderType: string
+    folderType: string;
 
     /** All modules present on this site */
-    modules: GetModulesModules[]
+    modules: GetModulesModules[];
 }
 
 export interface GetModulesOptions extends RequestCallbackOptions<GetModulesResponse> {
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -306,41 +299,40 @@ export function getModules(config: GetModulesOptions): XMLHttpRequest {
         url: buildURL('admin', 'getModules.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface GetReadableContainersOptions extends RequestCallbackOptions<string[]> {
-
     /**
      * A container id, full-path string, or an Array of container id/full-path
      * Strings (only the first will be used). If not present, the current container is used.
      */
-    container?: any
+    container?: any;
 
     /**
      * An alternate container from which to request readable containers. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
 
     /**
      * May be used to control the depth of recursion if includeSubfolders is set to true.
      */
-    depth?: number
+    depth?: number;
 
     /**
      * If set to true, the entire branch of containers will be returned.
      * If false, only the immediate children of the starting container will be returned (defaults to false).
      */
-    includeSubfolders?: boolean
+    includeSubfolders?: boolean;
 }
 
 /**
  * Returns information about the container paths visible to the current user.
  */
 export function getReadableContainers(options: GetReadableContainersOptions): XMLHttpRequest {
-    let params: any = {};
+    const params: any = {};
 
     if (undefined !== options.container) {
         if (isArray(options.container)) {
@@ -350,7 +342,7 @@ export function getReadableContainers(options: GetReadableContainersOptions): XM
                 delete options.container;
             }
         } else {
-            options.container = [ options.container ];
+            options.container = [options.container];
         }
         params.container = options.container;
     }
@@ -365,7 +357,7 @@ export function getReadableContainers(options: GetReadableContainersOptions): XM
         url: buildURL('project', 'getReadableContainers.api', options.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, (o: any) => o.containers),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -379,34 +371,34 @@ export function getSharedContainer(): string {
 
 export interface MoveContainerOptions extends RequestCallbackOptions {
     /** Add alias of current container path to container that is being moved (defaults to True). */
-    addAlias?: boolean
+    addAlias?: boolean;
 
-    container?: string
+    container?: string;
 
     /**
      * The current container path of the container that is going to be moved. Additionally, the container
      * entity id is also valid.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * The current container path of the container that is going to be moved. Additionally, the container
      * entity id is also valid.
      */
-    destinationParent?: string
+    destinationParent?: string;
 
-    parent?: string
+    parent?: string;
 
-    parentPath?: string
+    parentPath?: string;
 }
 
 /**
  * Moves an existing container, which may be a folder or workbook to be the subfolder of another folder and/or project.
  */
 export function moveContainer(config: MoveContainerOptions): XMLHttpRequest {
-    let params = {
+    const params = {
         addAlias: config.addAlias !== false,
         container: config.container || config.containerPath,
-        parent: config.destinationParent || config.parent || config.parentPath
+        parent: config.destinationParent || config.parent || config.parentPath,
     };
 
     if (!params.container) {
@@ -422,6 +414,6 @@ export function moveContainer(config: MoveContainerOptions): XMLHttpRequest {
         method: 'POST',
         jsonData: params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }

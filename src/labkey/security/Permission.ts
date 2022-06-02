@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax'
-import { buildURL } from '../ActionURL'
-import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions } from '../Utils'
+import { request } from '../Ajax';
+import { buildURL } from '../ActionURL';
+import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions } from '../Utils';
 
-import { roles } from './constants'
-import { Group, SecurableResource } from './types'
+import { roles } from './constants';
+import { Group, SecurableResource } from './types';
 
 export interface PermissionsContainer {
     /** If includeSubfolders is true, then this will contain child containers. */
-    children?: PermissionsContainer[]
+    children?: PermissionsContainer[];
     /** An array of group objects. */
-    groups: Group[]
+    groups: Group[];
     /** The container id. */
-    id: string
+    id: string;
     /** True if the container is inheriting permissions from its parent. This is not always provided. */
-    isInheritingPerms?: boolean
+    isInheritingPerms?: boolean;
     /** The container name. */
-    name: string
+    name: string;
     /** The container path. */
-    path: string
+    path: string;
 }
 
 export interface PermissionsResponse {
     /** Information object describing the container's permission. */
-    container: PermissionsContainer
+    container: PermissionsContainer;
 }
 
 export interface GetGroupPermissionsOptions extends RequestCallbackOptions<PermissionsResponse> {
@@ -45,9 +45,9 @@ export interface GetGroupPermissionsOptions extends RequestCallbackOptions<Permi
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Set to true to recurse down the subfolders (defaults to false) */
-    includeSubfolders?: boolean
+    includeSubfolders?: boolean;
 }
 
 /**
@@ -60,7 +60,7 @@ export interface GetGroupPermissionsOptions extends RequestCallbackOptions<Permi
  * (first parameter of the success or failure callbacks.)
  */
 export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttpRequest {
-    let params: any = {};
+    const params: any = {};
 
     if (config.includeSubfolders != undefined) {
         params.includeSubfolders = config.includeSubfolders;
@@ -70,7 +70,7 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
         url: buildURL('security', 'getGroupPerms.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
@@ -83,7 +83,7 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
  * getRoles() method to obtain extra information about each role.
  */
 export function getRole(perms: number): string {
-    for (let role in roles) {
+    for (const role in roles) {
         if (roles.hasOwnProperty(role)) {
             if (perms === roles[role]) {
                 return role;
@@ -94,28 +94,28 @@ export function getRole(perms: number): string {
 
 export interface RolePermission {
     /** The description of the permission. */
-    description: string
+    description: string;
     /** The name of the permission. */
-    name: string
+    name: string;
     /** The name of the module in which the permission is defined. */
-    sourceModule: string
+    sourceModule: string;
     /** The unique name of the resource (String, typically a fully-qualified class name). */
-    uniqueName: string
+    uniqueName: string;
 }
 
 export interface Role {
     /** The description of the role. */
-    description: string
+    description: string;
     /** Principals excluded from this role by id. */
-    excludedPrincipals: number[]
+    excludedPrincipals: number[];
     /** The name of the role suitable for showing to a user. */
-    name: string
+    name: string;
     /** An array of permissions the role grants. */
-    permissions: RolePermission[]
+    permissions: RolePermission[];
     /** The name of the module in which the role is defined. */
-    sourceModule: string
+    sourceModule: string;
     /** The unique name of the resource (String, typically a fully-qualified class name). */
-    uniqueName: string
+    uniqueName: string;
 }
 
 export interface GetRolesOptions extends RequestCallbackOptions<Role[]> {
@@ -123,7 +123,7 @@ export interface GetRolesOptions extends RequestCallbackOptions<Role[]> {
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -137,7 +137,7 @@ export interface GetRolesOptions extends RequestCallbackOptions<Role[]> {
 export function getRoles(config: GetRolesOptions): XMLHttpRequest {
     return request({
         url: buildURL('security', 'getRoles.api', config.containerPath),
-        success: getCallbackWrapper(function(data: any, req: any) {
+        success: getCallbackWrapper(function (data: any, req: any) {
             // roles and perms are returned in two separate blocks for efficiency
             let i: number,
                 j: number,
@@ -162,22 +162,22 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
                 success.call(config.scope || this, data.roles, req);
             }
         }, this),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface SecurableResourceWithPermissions extends SecurableResource {
     /** An object with one property per effectivePermission allowed the user. */
-    permissionMap: { [permission:string]: boolean }
+    permissionMap: { [permission: string]: boolean };
 }
 
 export interface SchemaPermissionsResponse {
     schemas: {
         study: {
             /** The queries object property with the name of each table/queries. */
-            queries: { [queryName:string]: SecurableResourceWithPermissions }
-        }
-    }
+            queries: { [queryName: string]: SecurableResourceWithPermissions };
+        };
+    };
 }
 
 export interface GetSchemaPermissionsOptions extends RequestCallbackOptions<SchemaPermissionsResponse> {
@@ -185,9 +185,9 @@ export interface GetSchemaPermissionsOptions extends RequestCallbackOptions<Sche
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Name of the schema to retrieve information on. Currently only works for "study". */
-    schemaName: 'study'
+    schemaName: 'study';
 }
 
 /**
@@ -207,58 +207,59 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
     return getSecurableResources({
         ...config,
         includeEffectivePermissions: true,
-        success: function(json, response) {
+        success: function (json, response) {
             // First lets make sure there is a study in here.
             let studyResource: SecurableResource = null;
             for (let i = 0; i < json.resources.children.length; i++) {
-                let resource = json.resources.children[i];
+                const resource = json.resources.children[i];
                 if (resource.resourceClass == 'org.labkey.study.model.StudyImpl') {
                     studyResource = resource;
                     break;
                 }
             }
 
-            if (null == studyResource) {
-                config.failure.apply(config.scope || this, [{description: 'No study found in container.'}, response]);
+            if (studyResource == null) {
+                config.failure.apply(config.scope || this, [{ description: 'No study found in container.' }, response]);
                 return;
             }
 
             let result: any = {
-                queries: {}
-            }, dataset: any;
+                    queries: {},
+                },
+                dataset: any;
 
             for (let i = 0; i < studyResource.children.length; i++) {
                 dataset = studyResource.children[i];
                 result.queries[dataset.name] = dataset;
                 dataset.permissionMap = {};
-                for (let j=0; j < dataset.effectivePermissions.length; j++) {
+                for (let j = 0; j < dataset.effectivePermissions.length; j++) {
                     dataset.permissionMap[dataset.effectivePermissions[j]] = true;
                 }
             }
 
-            config.success.apply(config.scope || this, [{schemas: {study: result}}, response]);
-        }
+            config.success.apply(config.scope || this, [{ schemas: { study: result } }, response]);
+        },
     });
 }
 
-export interface GetSecurableResourcesOptions extends RequestCallbackOptions<{resources: SecurableResource}> {
+export interface GetSecurableResourcesOptions extends RequestCallbackOptions<{ resources: SecurableResource }> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * If set to true, the response will include the
      * list of effective permissions (unique names) the current user has to each resource (defaults to false).
      * These permissions are calculated based on the current user's group memberships and role assignments, and
      * represent the actual permissions the user has to these resources at the time of the API call.
      */
-    includeEffectivePermissions?: boolean
+    includeEffectivePermissions?: boolean;
     /**
      * If set to true, the response will include subfolders
      * and their contained securable resources (defaults to false).
      */
-    includeSubfolders?: boolean
+    includeSubfolders?: boolean;
 }
 
 /**
@@ -270,7 +271,7 @@ export interface GetSecurableResourcesOptions extends RequestCallbackOptions<{re
  * (first parameter of the success or failure callbacks.)
  */
 export function getSecurableResources(config: GetSecurableResourcesOptions): XMLHttpRequest {
-    let params: any = {};
+    const params: any = {};
 
     if (config.includeSubfolders != undefined) {
         params.includeSubfolders = config.includeSubfolders;
@@ -283,48 +284,48 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
         url: buildURL('security', 'getSecurableResources.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
-    })
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+    });
 }
 
 export interface UserPermissionsContainer extends PermissionsContainer {
     /** An array of effective permission unique names the user has in this container. */
-    effectivePermissions: string[]
+    effectivePermissions: string[];
     /**
      * @deprecated
      * The permissions the current user has in the container.
      */
-    permissions: number
+    permissions: number;
     /**
      * @deprecated
      * The user's role value (e.g., 'READER'). Use this property for programmatic checks.
      */
-    role: string
+    role: string;
     /**
      * @deprecated
      * A description of the group's permission role. This will correspond
      * to the visible labels shown on the permissions page (e.g., 'Admin (all permissions)'.
      */
-    roleLabel: string
+    roleLabel: string;
     /**
      * An array of role unique names that this group is playing in the container. This replaces the
      * existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
      * and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
      * about the roles, including which permissions are granted by each role.
      */
-    roles: string[]
+    roles: string[];
 }
 
 export interface GetUserPermissionsResponse {
     /** Information object describing the container's permission. */
-    container: UserPermissionsContainer
+    container: UserPermissionsContainer;
     /** Information object describing the user. */
     user: {
         /** The user's display name. */
-        displayName: string
+        displayName: string;
         /** The user's id. */
-        userId: number
-    }
+        userId: number;
+    };
 }
 
 export interface GetUserPermissionsOptions extends RequestCallbackOptions<GetUserPermissionsResponse> {
@@ -332,13 +333,13 @@ export interface GetUserPermissionsOptions extends RequestCallbackOptions<GetUse
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Set to true to recurse down the subfolders (defaults to false) */
-    includeSubfolders?: boolean
+    includeSubfolders?: boolean;
     /** The email address (user name) of the user (specify only userId or userEmail, not both) */
-    userEmail?: string
+    userEmail?: string;
     /** The id of the user. Omit to get the current user's information */
-    userId?: number
+    userId?: number;
 }
 
 /**
@@ -351,13 +352,12 @@ export interface GetUserPermissionsOptions extends RequestCallbackOptions<GetUse
  * (first parameter of the success or failure callbacks.)
  */
 export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRequest {
-    let params: any = {};
+    const params: any = {};
 
     // TODO: These undefined checked should be !==
     if (config.userId != undefined) {
         params.userId = config.userId;
-    }
-    else if (config.userEmail != undefined) {
+    } else if (config.userEmail != undefined) {
         params.userEmail = config.userEmail;
     }
 
@@ -369,8 +369,8 @@ export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRe
         url: buildURL('security', 'getUserPerms.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
-    })
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+    });
 }
 
 /**
@@ -380,7 +380,7 @@ export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRe
  * @param desiredPermission A specific permission bit to check for.
  */
 export function hasEffectivePermission(effectivePermissions: string[], desiredPermission: string): boolean {
-    return effectivePermissions.some((ep) => ep === desiredPermission);
+    return effectivePermissions.some(ep => ep === desiredPermission);
 }
 
 /**

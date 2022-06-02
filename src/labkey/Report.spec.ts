@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as Ajax from './Ajax'
+import * as Ajax from './Ajax';
 
-import { execute } from './Report'
+import { execute } from './Report';
 
 describe('execute', () => {
     it('should stringify "inputParams" object', () => {
@@ -28,20 +28,22 @@ describe('execute', () => {
             inputParams: {
                 x: 1,
                 y: 2,
-                z: 'foo'
-            }
+                z: 'foo',
+            },
         });
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            url: '/reports/execute.api',
-            method: 'POST',
-            jsonData: {
-                reportId: 'db:123',
-                'inputParams[x]': 1,
-                'inputParams[y]': 2,
-                'inputParams[z]': 'foo',
-            }
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                url: '/reports/execute.api',
+                method: 'POST',
+                jsonData: {
+                    reportId: 'db:123',
+                    'inputParams[x]': 1,
+                    'inputParams[y]': 2,
+                    'inputParams[z]': 'foo',
+                },
+            })
+        );
     });
 });

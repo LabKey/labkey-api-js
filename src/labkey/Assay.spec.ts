@@ -13,19 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as Ajax from './Ajax'
-import { getAll, getById, getByName, getByType } from './Assay'
+import * as Ajax from './Ajax';
+import { getAll, getById, getByName, getByType } from './Assay';
 
 describe('assayList.api requests', () => {
-
     const success = jest.fn();
     const failure = jest.fn();
     const containerPath = '/my/special/folder';
     let requestSpy: any;
 
-    beforeEach(() => { requestSpy = jest.spyOn(Ajax, 'request').mockImplementation(); });
+    beforeEach(() => {
+        requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+    });
 
-    afterEach(() => { requestSpy.mockRestore(); });
+    afterEach(() => {
+        requestSpy.mockRestore();
+    });
 
     test('#getAll original signature', () => {
         // Original method signature:
@@ -35,9 +38,11 @@ describe('assayList.api requests', () => {
         (getAll as any)(success, failure, containerPath);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            url: '/assay/my/special/folder/assayList.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                url: '/assay/my/special/folder/assayList.api',
+            })
+        );
     });
 
     test('#getById original signature', () => {
@@ -51,10 +56,12 @@ describe('assayList.api requests', () => {
         (getById as any)(success, failure, assayId, containerPath);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            jsonData: { id: assayId },
-            url: '/assay/my/special/folder/assayList.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                jsonData: { id: assayId },
+                url: '/assay/my/special/folder/assayList.api',
+            })
+        );
     });
 
     test('#getByName original signature', () => {
@@ -68,10 +75,12 @@ describe('assayList.api requests', () => {
         (getByName as any)(success, failure, assayName, containerPath);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            jsonData: { name: assayName },
-            url: '/assay/my/special/folder/assayList.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                jsonData: { name: assayName },
+                url: '/assay/my/special/folder/assayList.api',
+            })
+        );
     });
 
     test('#getByType original signature', () => {
@@ -85,9 +94,11 @@ describe('assayList.api requests', () => {
         (getByType as any)(success, failure, assayType, containerPath);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            jsonData: { type: assayType },
-            url: '/assay/my/special/folder/assayList.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                jsonData: { type: assayType },
+                url: '/assay/my/special/folder/assayList.api',
+            })
+        );
     });
 });

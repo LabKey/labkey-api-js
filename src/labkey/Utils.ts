@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getServerContext } from './constants'
-import { AjaxHandler, RequestOptions } from './Ajax'
+import { getServerContext } from './constants';
+import { AjaxHandler, RequestOptions } from './Ajax';
 import { buildURL } from './ActionURL';
 
 export interface ExtendedXMLHttpRequest extends XMLHttpRequest {
-    responseJSON: any
+    responseJSON: any;
 }
 
 export type RequestFailure<E = any> = (errorInfo: E, response: XMLHttpRequest) => any;
@@ -28,17 +28,17 @@ export interface RequestCallbackOptions<S = any, F = any, SC = any> {
     /**
      * This will be called upon failure to complete a request.
      */
-    failure?: RequestFailure<F>
+    failure?: RequestFailure<F>;
 
     /**
      * A scoping object for the success and failure callback functions (default to this).
      */
-    scope?: SC
+    scope?: SC;
 
     /**
      * This will be called upon successfully completing a request.
      */
-    success?: RequestSuccess<S>
+    success?: RequestSuccess<S>;
 }
 
 /**
@@ -50,7 +50,15 @@ const CHARS = '0123456789abcdefghijklmnopqrstuvwxyz'.split('');
 /**
  * @private
  */
-const ENUMERABLES = ['hasOwnProperty', 'valueOf', 'isPrototypeOf', 'propertyIsEnumerable', 'toLocaleString', 'toString', 'constructor'];
+const ENUMERABLES = [
+    'hasOwnProperty',
+    'valueOf',
+    'isPrototypeOf',
+    'propertyIsEnumerable',
+    'toLocaleString',
+    'toString',
+    'constructor',
+];
 
 /**
  * @private
@@ -85,7 +93,7 @@ const DATEALTFORMATS_MonthDay = [
     'n-j-y g:i a|n-j-Y g:i a|n-j-y G:i|n-j-Y G:i|',
     'n/j/y|n/j/Y|',
     'n-j-y|n-j-Y|',
-    DATEALTFORMATS_Either
+    DATEALTFORMATS_Either,
 ].join('');
 
 /**
@@ -98,7 +106,7 @@ const DATEALTFORMATS_DayMonth = [
     'j-n-y g:i a|j-n-Y g:i a|j-n-y G:i|j-n-Y G:i|',
     'j/n/y|j/n/Y|',
     'j-n-y|j-n-Y|',
-    'j-M-y|j-M-Y|'
+    'j-M-y|j-M-Y|',
 ].join('');
 
 /**
@@ -114,9 +122,9 @@ function _copy(o: any, depth: any): any {
     if (depth == 0 || !isObject(o)) {
         return o;
     }
-    let copy: any = {};
-    for (let key in o) {
-        copy[key] = _copy(o[key], depth-1);
+    const copy: any = {};
+    for (const key in o) {
+        copy[key] = _copy(o[key], depth - 1);
     }
     return copy;
 }
@@ -126,13 +134,12 @@ function _copy(o: any, depth: any): any {
  * @private
  */
 function _merge(to: any, from: any, overwrite: any, depth: any): void {
-    for (let key in from) {
+    for (const key in from) {
         if (from.hasOwnProperty(key)) {
             if (isObject(to[key]) && isObject(from[key])) {
-                _merge(to[key], from[key], overwrite, depth-1);
-            }
-            else if (undefined === to[key] || overwrite) {
-                to[key] = _copy(from[key], depth-1);
+                _merge(to[key], from[key], overwrite, depth - 1);
+            } else if (undefined === to[key] || overwrite) {
+                to[key] = _copy(from[key], depth - 1);
             }
         }
     }
@@ -142,7 +149,6 @@ function _merge(to: any, from: any, overwrite: any, depth: any): void {
  * Applies config properties to the specified object.
  */
 export function apply(object: any, config: any): any {
-
     if (object && config && typeof config === 'object') {
         let i, j, k;
 
@@ -150,7 +156,7 @@ export function apply(object: any, config: any): any {
             object[i] = config[i];
         }
 
-        for (j = ENUMERABLES.length; j--;) {
+        for (j = ENUMERABLES.length; j--; ) {
             k = ENUMERABLES[j];
             if (config.hasOwnProperty(k)) {
                 object[k] = config[k];
@@ -179,8 +185,13 @@ export function apply(object: any, config: any): any {
  * @param applyFunctions Set to false to prohibit application of properties
  * that are functions
  */
-export function applyTranslated(target: any, source: any, translationMap: any, applyOthers?: boolean, applyFunctions?: boolean): void {
-
+export function applyTranslated(
+    target: any,
+    source: any,
+    translationMap: any,
+    applyOthers?: boolean,
+    applyFunctions?: boolean
+): void {
     if (undefined === target) {
         target = {};
     }
@@ -192,9 +203,9 @@ export function applyTranslated(target: any, source: any, translationMap: any, a
     }
 
     let targetPropName;
-    for (let prop in source) {
+    for (const prop in source) {
         if (source.hasOwnProperty(prop)) {
-            //special case: Ext adds a "constructor" property to every object, which we don't want to apply
+            // special case: Ext adds a "constructor" property to every object, which we don't want to apply
             if (prop == 'constructor' || isFunction(prop)) {
                 continue;
             }
@@ -202,8 +213,7 @@ export function applyTranslated(target: any, source: any, translationMap: any, a
             targetPropName = translationMap[prop];
             if (targetPropName) {
                 target[translationMap[prop]] = source[prop];
-            }
-            else if (undefined === targetPropName && applyOthers && (applyFunctions || !isFunction(source[prop]))) {
+            } else if (undefined === targetPropName && applyOthers && (applyFunctions || !isFunction(source[prop]))) {
                 target[prop] = source[prop];
             }
         }
@@ -214,7 +224,7 @@ export function applyTranslated(target: any, source: any, translationMap: any, a
 declare const LABKEY: any;
 
 // DOMWrapper's are cached to avoid infinite calls to the wrapper
-let DOMWrappers: {[key:string]: any} = {};
+const DOMWrappers: { [key: string]: any } = {};
 
 /**
  * Provides a function that wraps a stub implementation. If the concrete implementation is available at
@@ -232,15 +242,19 @@ function DOMWrapper<T>(fnName: string): T {
         throw new Error(`DOMWrapper cannot wrap "${fnName}" more than once.`);
     }
 
-    DOMWrappers[fnName] = function() {
-        if (LABKEY && LABKEY.Utils && isFunction(LABKEY.Utils[fnName]) &&
-            LABKEY.Utils[fnName] !== DOMWrappers[fnName]) {
+    DOMWrappers[fnName] = function () {
+        if (
+            LABKEY &&
+            LABKEY.Utils &&
+            isFunction(LABKEY.Utils[fnName]) &&
+            LABKEY.Utils[fnName] !== DOMWrappers[fnName]
+        ) {
             LABKEY.Utils[fnName].apply(this, arguments);
         } else {
             console.warn(
                 `Utils.${fnName}: This is just a stub implementation. ` +
-                `Request the DOM version of the client API, ` +
-                `clientapi_dom.lib.xml, to get the concrete implementation.`
+                    'Request the DOM version of the client API, ' +
+                    'clientapi_dom.lib.xml, to get the concrete implementation.'
             );
         }
     };
@@ -313,12 +327,10 @@ export function deleteCookie(name: string, pageOnly: boolean): void {
  * @param showExceptionClass Flag to display the java class of the exception.
  * @param msgPrefix Prefix to the error message (defaults to: 'An error occurred trying to load:')
  */
-export const displayAjaxErrorResponse = DOMWrapper<(
-    response?: any,
-    exception?: any,
-    showExceptionClass?: any,
-    msgPrefix?: any
-) => void>('displayAjaxErrorResponse');
+export const displayAjaxErrorResponse =
+    DOMWrapper<(response?: any, exception?: any, showExceptionClass?: any, msgPrefix?: any) => void>(
+        'displayAjaxErrorResponse'
+    );
 
 export function encode(data: any): string {
     return JSON.stringify(data);
@@ -353,7 +365,7 @@ export function encodeHtml(html: string, retainEmptyValueTypes?: boolean): strin
 }
 
 export function escapeRe(s: string): string {
-    return s.replace(/([-.*+?\^${}()|\[\]\/\\])/g, "\\$1");
+    return s.replace(/([-.*+?\^${}()|\[\]\/\\])/g, '\\$1');
 }
 
 /**
@@ -378,7 +390,9 @@ export function endsWith(value: string, ending: string): boolean {
  * @private
  */
 export function ensureBoxVisible(): void {
-    console.warn('ensureBoxVisible() has been migrated to the appropriate Ext scope. Consider LABKEY.ext.Utils.ensureBoxVisible or LABKEY.ext4.Util.ensureBoxVisible');
+    console.warn(
+        'ensureBoxVisible() has been migrated to the appropriate Ext scope. Consider LABKEY.ext.Utils.ensureBoxVisible or LABKEY.ext4.Util.ensureBoxVisible'
+    );
 }
 
 /**
@@ -399,21 +413,21 @@ export function generateUUID(): string {
     }
 
     // From the original Math.uuidFast implementation
-    let uuid = new Array(36), rnd = 0, r;
+    let uuid = new Array(36),
+        rnd = 0,
+        r;
     for (let i = 0; i < 36; i++) {
         if (i == 8 || i == 13 || i == 18 || i == 23) {
             uuid[i] = '-';
-        }
-        else if (i == 14) {
+        } else if (i == 14) {
             uuid[i] = '4';
-        }
-        else {
+        } else {
             if (rnd <= 0x02) {
-                rnd = 0x2000000 + (Math.random() * 0x1000000) | 0
+                rnd = (0x2000000 + Math.random() * 0x1000000) | 0;
             }
             r = rnd & 0xf;
             rnd = rnd >> 4;
-            uuid[i] = CHARS[(i == 19) ? (r & 0x3) | 0x8 : r];
+            uuid[i] = CHARS[i == 19 ? (r & 0x3) | 0x8 : r];
         }
     }
 
@@ -438,7 +452,7 @@ export function getCallbackWrapper<T = any>(
     // Due to prior behavior the scope may not be explicitly specified (i.e. specified in the "scope"
     // parameter) and still expect to be respected when applied via function.apply(). Thus, this
     // return function cannot use => syntax and must return a classic function.
-    return function(response: ExtendedXMLHttpRequest, options: RequestOptions) {
+    return function (response: ExtendedXMLHttpRequest, options: RequestOptions) {
         let json = response.responseJSON;
 
         if (!json) {
@@ -446,8 +460,7 @@ export function getCallbackWrapper<T = any>(
             if (isJSONResponse(response)) {
                 try {
                     json = decode(response.responseText);
-                }
-                catch (error) {
+                } catch (error) {
                     // we still want to proceed even if we cannot decode the JSON
                 }
             }
@@ -461,7 +474,7 @@ export function getCallbackWrapper<T = any>(
 
         if (json && !json.exception && isErrorCallback) {
             // Try to make sure we don't show an empty error message
-            json.exception = (response && response.statusText ? response.statusText : 'Communication failure.');
+            json.exception = response && response.statusText ? response.statusText : 'Communication failure.';
         }
 
         if (responseTransformer) {
@@ -470,13 +483,12 @@ export function getCallbackWrapper<T = any>(
 
         if (fn) {
             fn.call(scope || this, json, response, options);
-        }
-        else if (isErrorCallback && response.status != 0) {
+        } else if (isErrorCallback && response.status != 0) {
             // Don't show an error dialog if the user cancelled the request in the browser,
             // like navigating to another page
             alert('Error', json.exception);
         }
-    }
+    };
 }
 
 /**
@@ -490,10 +502,10 @@ export function getCallbackWrapper<T = any>(
  */
 export function getCookie(name: string, defaultValue: string): string {
     // TODO: Move this method to DOM utils
-    let nameEQ = name + "=";
-    let ca = document.cookie.split(';');
+    const nameEQ = name + '=';
+    const ca = document.cookie.split(';');
 
-    for (let i=0; i < ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1, c.length);
@@ -534,7 +546,7 @@ export function getDateTimeFormatWithMS(): string {
 export function getFileIconUrl(fileName: string): string {
     const idx = fileName.lastIndexOf('.');
     return buildURL('core', 'getAttachmentIcon', '', {
-        extension: (idx >= 0) ? fileName.substring(idx + 1) : '_generic'
+        extension: idx >= 0 ? fileName.substring(idx + 1) : '_generic',
     });
 }
 
@@ -544,7 +556,7 @@ export function getMeasureAlias(measure: any, override?: boolean): string {
         return measure.alias;
     }
 
-    let alias = measure.schemaName + '_' + measure.queryName + '_' + measure.name;
+    const alias = measure.schemaName + '_' + measure.queryName + '_' + measure.name;
     return alias.replace(/\//g, '_');
 }
 
@@ -554,7 +566,7 @@ export function getMeasureAlias(measure: any, override?: boolean): string {
 export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, config: any): string {
     config = config || {};
     let error;
-    let prefix = config.msgPrefix || 'An error occurred trying to load:\n';
+    const prefix = config.msgPrefix || 'An error occurred trying to load:\n';
 
     if (response && response.responseText && response.getResponseHeader('Content-Type')) {
         const contentType = response.getResponseHeader('Content-Type');
@@ -565,7 +577,10 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
             if (jsonResponse && jsonResponse.exception) {
                 error = prefix + jsonResponse.exception;
                 if (config.showExceptionClass)
-                    error += "\n(" + (jsonResponse.exceptionClass ? jsonResponse.exceptionClass : "Exception class unknown") + ")";
+                    error +=
+                        '\n(' +
+                        (jsonResponse.exceptionClass ? jsonResponse.exceptionClass : 'Exception class unknown') +
+                        ')';
             }
         }
         // HTML handling has been migrated to dom/Util's override of this method
@@ -586,7 +601,7 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
  * This function provides reverse compatibility by picking the failure callback argument out of a config object
  * be it named failure, failureCallback or errorCallback.
  */
-export function getOnFailure(config: {errorCallback?: any, failure?: any, failureCallback?: any}): any {
+export function getOnFailure(config: { errorCallback?: any; failure?: any; failureCallback?: any }): any {
     return config.failure || config.errorCallback || config.failureCallback;
     // maybe it be desirable for this fall all the way back to returning LABKEY.Utils.displayAjaxErrorResponse?
 }
@@ -596,7 +611,7 @@ export function getOnFailure(config: {errorCallback?: any, failure?: any, failur
  * This function provides reverse compatibility by picking the success callback argument out of a config object,
  * be it named success or successCallback.
  */
-export function getOnSuccess(config: {success?: any, successCallback?: any}): any {
+export function getOnSuccess(config: { success?: any; successCallback?: any }): any {
     return config.success || config.successCallback;
 }
 
@@ -618,9 +633,9 @@ export function getSessionID(): string {
  */
 export function id(prefix?: string): string {
     if (prefix) {
-        return String(prefix) + (++idSeed);
+        return String(prefix) + ++idSeed;
     }
-    return ID_PREFIX + (++idSeed);
+    return ID_PREFIX + ++idSeed;
 }
 
 export function isArray(value: any): boolean {
@@ -638,8 +653,20 @@ export function isArray(value: any): boolean {
  */
 export function isBoolean(value: any): boolean {
     const upperVal = value.toString().toUpperCase();
-    if (upperVal == 'TRUE' || value == '1' || upperVal == 'Y' || upperVal == 'YES' || upperVal == 'ON' || upperVal == 'T'
-        || upperVal == 'FALSE' || value == '0' || upperVal == 'N' || upperVal == 'NO' || upperVal == 'OFF' || upperVal == 'F') {
+    if (
+        upperVal == 'TRUE' ||
+        value == '1' ||
+        upperVal == 'Y' ||
+        upperVal == 'YES' ||
+        upperVal == 'ON' ||
+        upperVal == 'T' ||
+        upperVal == 'FALSE' ||
+        value == '0' ||
+        upperVal == 'N' ||
+        upperVal == 'NO' ||
+        upperVal == 'OFF' ||
+        upperVal == 'F'
+    ) {
         return true;
     }
 }
@@ -665,7 +692,7 @@ export function isDefined(value: any): boolean {
 export function isEmptyObj(obj: any): boolean {
     // Note, this returns true for undefined, null, and empty Array as well. Consider revising
     // or removing in future version.
-    for (let i in obj) {
+    for (const i in obj) {
         return false;
     }
     return true;
@@ -687,7 +714,7 @@ function isJSONResponse(response: ExtendedXMLHttpRequest): boolean {
 }
 
 export function isObject(value: any): boolean {
-    return typeof value == "object" && Object.prototype.toString.call(value) === '[object Object]';
+    return typeof value === 'object' && Object.prototype.toString.call(value) === '[object Object]';
 }
 
 /**
@@ -709,16 +736,16 @@ export function isString(value: any): value is string {
  * Use merge({}, o) to create a deep copy of o.
  */
 export function merge(...props: any[]): any {
-    let o = props[0];
-    for (let i=1; i < props.length; i++) {
+    const o = props[0];
+    for (let i = 1; i < props.length; i++) {
         _merge(o, props[i], true, 50);
     }
     return o;
 }
 
 export function mergeIf(...props: any[]): any {
-    let o = props[0];
-    for (let i=1; i < props.length; i++) {
+    const o = props[0];
+    for (let i = 1; i < props.length; i++) {
         _merge(o, props[i], false, 50);
     }
     return o;
@@ -728,11 +755,11 @@ export const onError = DOMWrapper<(error: any) => void>('onError');
 export const onReady = DOMWrapper<(config: any) => void>('onReady');
 
 export interface IOnTrueOptions extends RequestCallbackOptions {
-    errorArguments?: Array<any>
-    maxTests?: number
-    successArguments?: Array<any>
-    testArguments?: Array<any>
-    testCallback: Function
+    errorArguments?: any[];
+    maxTests?: number;
+    successArguments?: any[];
+    testArguments?: any[];
+    testCallback: Function;
 }
 
 /**
@@ -747,19 +774,16 @@ export function onTrue(options: IOnTrueOptions): void {
     try {
         if (options.testCallback.apply(options.scope || this, options.testArguments || [])) {
             getOnSuccess(options).apply(options.scope || this, options.successArguments || []);
-        }
-        else {
+        } else {
             if (options.maxTests <= 0) {
                 throw 'Maximum number of tests reached!';
-            }
-            else {
+            } else {
                 --options.maxTests;
                 // TODO: Figure out how this is presently working...defer() is not a built-in function property
                 // onTrue.defer(10, this, [options]);
             }
         }
-    }
-    catch(e) {
+    } catch (e) {
         if (getOnFailure(options)) {
             getOnFailure(options).apply(options.scope || this, [e, options.errorArguments]);
         }
@@ -778,14 +802,13 @@ export function padString(input: string | number, length: number, padChar: strin
     let _input: string;
     if (!isString(input)) {
         _input = input.toString();
-    }
-    else {
+    } else {
         _input = input as string;
     }
 
     let pd = '';
     if (length > _input.length) {
-        for (let i=0; i < (length - _input.length); i++) {
+        for (let i = 0; i < length - _input.length; i++) {
             pd += padChar;
         }
     }
@@ -846,7 +869,7 @@ export function pluralBasic(count: number, singlar: string): string {
 }
 
 export function pluralize(count: number, singular: string, plural: string): string {
-    return count.toLocaleString() + ' ' + (1 === count ? singular : plural);
+    return count.toLocaleString() + ' ' + (count === 1 ? singular : plural);
 }
 
 /**
@@ -876,7 +899,7 @@ export function requiresCSS(filePath: string): void {
  * </script>
  * ```
  */
-export function requiresScript(file: string|string[], callback: Function, scope?: any, inOrder?: boolean): void {
+export function requiresScript(file: string | string[], callback: Function, scope?: any, inOrder?: boolean): void {
     // TODO: 2.x Remove this method
     const { requiresScript } = getServerContext();
     requiresScript(file, callback, scope, inOrder);
@@ -920,8 +943,8 @@ export function setCookie(name: string, value: string, pageOnly: boolean, days: 
     // TODO: Move this method to DOM utils
     let expires = '';
     if (days) {
-        let date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         expires = '; expires=' + date.toUTCString();
     }
 
@@ -934,9 +957,9 @@ export function setCookie(name: string, value: string, pageOnly: boolean, days: 
 }
 
 export interface ITextLinkOptions {
-    href?: string
-    onClick?: string
-    text?: string
+    href?: string;
+    onClick?: string;
+    text?: string;
 }
 
 /**
@@ -952,15 +975,15 @@ export function textLink(options: ITextLinkOptions): string {
 
     let attributes = ' ';
     if (options) {
-        for (let i in options) {
+        for (const i in options) {
             if (options.hasOwnProperty(i)) {
                 if (i.toString() != 'text' && i.toString() != 'class') {
-                    attributes += i.toString() + '=\"' + (options as any)[i] + '\" ';
+                    attributes += i.toString() + '="' + (options as any)[i] + '" ';
                 }
             }
         }
 
-        return '<a class="labkey-text-link"' + attributes + '>' + (options.text != null ? options.text : "") + '</a>';
+        return '<a class="labkey-text-link"' + attributes + '>' + (options.text != null ? options.text : '') + '</a>';
     }
 
     throw 'Config object not found for textLink.';

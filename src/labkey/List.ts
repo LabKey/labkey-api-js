@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { create as createDomain, CreateDomainOptions, DomainDesign } from './Domain'
+import { create as createDomain, CreateDomainOptions, DomainDesign } from './Domain';
 
 export interface ICreateOptions {
-    domainDesign: DomainDesign
+    domainDesign: DomainDesign;
     /** The name of the key column.*/
-    keyName: string
+    keyName: string;
     /** The type of the key column.  Either "int" or "string". */
-    keyType?: string
-    kind?: string
-    options?: any
+    keyType?: string;
+    kind?: string;
+    options?: any;
 }
 
 /**
@@ -47,22 +47,20 @@ export interface ICreateOptions {
  * ```
  */
 export function create(config: ICreateOptions) {
-    
-    let domainOptions: CreateDomainOptions = {
+    const domainOptions: CreateDomainOptions = {
         // not really awesome...intermixing interface with domain design. Separate these concerns.
         domainDesign: config as Partial<DomainDesign>,
-        options: {}
+        options: {},
     };
-    
+
     if (!domainOptions.domainDesign.name) {
         throw new Error('List name required');
     }
-    
+
     if (!config.kind) {
         if (config.keyType == 'int') {
             config.kind = 'IntList';
-        }
-        else if (config.keyType == 'string') {
+        } else if (config.keyType == 'string') {
             config.kind = 'VarList';
         }
     }
@@ -76,6 +74,6 @@ export function create(config: ICreateOptions) {
         throw new Error('List keyName required');
     }
     domainOptions.options.keyName = config.keyName;
-    
+
     createDomain(domainOptions);
 }
