@@ -289,6 +289,7 @@ export interface GetQueryViewsOptions extends RequestCallbackOptions {
     queryName?: string
     schemaName?: string
     viewName?: string
+    excludeSessionView?: boolean
 }
 
 /**
@@ -309,6 +310,10 @@ export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
     }
     if (options.metadata) {
         params.metadata = options.metadata;
+    }
+
+    if (options.excludeSessionView) {
+        params.excludeSessionView = true;
     }
 
     return request({
