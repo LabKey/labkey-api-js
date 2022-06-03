@@ -32,6 +32,7 @@ export interface Worksheet {
 export interface Workbook {
     fileName?: string;
     sheets: Worksheet[];
+    auditMessage?: string;
 }
 
 export interface ConvertToTableOptions {
@@ -40,6 +41,7 @@ export interface ConvertToTableOptions {
     fileNamePrefix?: string;
     newlineChar?: string;
     rows: any[];
+    auditMessage?: string;
 }
 
 // Maps to TSVWriter.DELIM for delimited data export
