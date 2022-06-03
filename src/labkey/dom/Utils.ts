@@ -241,7 +241,6 @@ export function signalWebDriverTest(signalName: string, signalResult?: any): voi
  *  });
  *  ```
  *
- *  @returns an Excel file to the browser to be saved or opened.
  */
 export const convertToExcel = (workbook: Workbook): void => {
     const formData = { 'json': JSON.stringify(workbook) };
