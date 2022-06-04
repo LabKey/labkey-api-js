@@ -1,5 +1,6 @@
 ## 1.14.X - 2022-XX
 - Add excludeSessionView param for getQueryViews
+- Add saveSessionView util
 
 ## 1.14.0 - 2022-06-02
 * Package updates.

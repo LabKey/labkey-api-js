@@ -462,6 +462,50 @@ export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
     });
 }
 
+export interface SaveSessionViewOptions extends RequestCallbackOptions {
+    containerPath?: string
+    queryName?: string
+    schemaName?: string
+    viewName?: string
+    newName?: string
+    shared?: boolean
+    inherit?: boolean
+}
+
+/**
+ * Save session view with a new name as non session view.
+ */
+export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest {
+
+    let jsonData: any = {};
+    if (options.schemaName) {
+        jsonData.schemaName = options.schemaName;
+    }
+    if (options.queryName) {
+        jsonData['query.queryName'] = options.queryName;
+    }
+    if (options.viewName) {
+        jsonData['query.viewName'] = options.viewName;
+    }
+    if (options.newName) {
+        jsonData.newName = options.newName;
+    }
+    if (options.shared) {
+        jsonData.shared = true;
+    }
+    if (options.inherit) {
+        jsonData.inherit = true;
+    }
+
+    return request({
+        url: buildURL('query', 'saveSessionView.api', options.containerPath),
+        method: 'POST',
+        jsonData,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+    });
+}
+
 /**
  * Converts a JavaScript date into a format suitable for using in a LabKey SQL query, does not include time.
  * @param date JavaScript date
