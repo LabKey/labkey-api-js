@@ -12,7 +12,8 @@
     "prepublishOnly": "npm run build",
     "deploy": "gh-pages -t -d docs",
     "setup": "npm install",
-    "test": "cross-env NODE_ENV=test jest"
+    "test": "cross-env NODE_ENV=test jest",
+    "lint-fix": "eslint --fix src/"
   },
   "keywords": [
     "labkey",
