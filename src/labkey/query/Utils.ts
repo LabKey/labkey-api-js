@@ -466,10 +466,12 @@ export interface SaveSessionViewOptions extends RequestCallbackOptions {
     containerPath?: string
     queryName?: string
     schemaName?: string
-    viewName?: string
-    newName?: string
-    shared?: boolean
-    inherit?: boolean
+    viewName?: string /* the session view name */
+    newName?: string /* the new non session view name that would replace the session view */
+    shared?: boolean /* if the new view is public or private, default false (private) */
+    inherit?: boolean /* if the new view is accessible from child container, default false */
+    hidden?: boolean /* if the new view should be hidden, default false */
+    replace?: boolean /* replace an existing non-session view if the newName already exist for another view */
 }
 
 /**
@@ -495,6 +497,12 @@ export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest
     }
     if (options.inherit) {
         jsonData.inherit = true;
+    }
+    if (options.hidden) {
+        jsonData.hidden = true;
+    }
+    if (options.replace) {
+        jsonData.replace = true;
     }
 
     return request({
