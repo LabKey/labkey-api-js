@@ -1,3 +1,7 @@
+## 1.14.1 - 2022-06-06
+- Add excludeSessionView param for getQueryViews
+- Add saveSessionView util
+
 ## 1.14.0 - 2022-06-02
 * Package updates.
 * [Issue 45592](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=45592): Remove html encoding of name/value for form submission

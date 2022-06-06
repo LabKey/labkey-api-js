@@ -289,6 +289,7 @@ export interface GetQueryViewsOptions extends RequestCallbackOptions {
     queryName?: string
     schemaName?: string
     viewName?: string
+    excludeSessionView?: boolean
 }
 
 /**
@@ -309,6 +310,10 @@ export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
     }
     if (options.metadata) {
         params.metadata = options.metadata;
+    }
+
+    if (options.excludeSessionView) {
+        params.excludeSessionView = true;
     }
 
     return request({
@@ -450,6 +455,58 @@ export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
 
     return request({
         url: buildURL('query', 'saveQueryViews.api', options.containerPath),
+        method: 'POST',
+        jsonData,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+    });
+}
+
+export interface SaveSessionViewOptions extends RequestCallbackOptions {
+    containerPath?: string
+    queryName?: string
+    schemaName?: string
+    viewName?: string /* the session view name */
+    newName?: string /* the new non session view name that would replace the session view */
+    shared?: boolean /* if the new view is public or private, default false (private) */
+    inherit?: boolean /* if the new view is accessible from child container, default false */
+    hidden?: boolean /* if the new view should be hidden, default false */
+    replace?: boolean /* replace an existing non-session view if the newName already exist for another view */
+}
+
+/**
+ * Save session view with a new name as non session view.
+ */
+export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest {
+
+    let jsonData: any = {};
+    if (options.schemaName) {
+        jsonData.schemaName = options.schemaName;
+    }
+    if (options.queryName) {
+        jsonData['query.queryName'] = options.queryName;
+    }
+    if (options.viewName) {
+        jsonData['query.viewName'] = options.viewName;
+    }
+    if (options.newName) {
+        jsonData.newName = options.newName;
+    }
+    if (options.shared) {
+        jsonData.shared = true;
+    }
+    if (options.inherit) {
+        jsonData.inherit = true;
+    }
+    if (options.hidden) {
+        jsonData.hidden = true;
+    }
+    if (options.replace) {
+        jsonData.replace = true;
+    }
+
+    return request({
+        url: buildURL('query', 'saveSessionView.api', options.containerPath),
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
