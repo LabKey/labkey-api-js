@@ -47,7 +47,7 @@ export function init(LABKEY: any) {
                 registry: {},
             };
 
-            document.addEventListener('readystatechange', (event) => {
+            document.addEventListener('readystatechange', event => {
                 LABKEY.App.__app__.isDOMContentLoaded = document.readyState !== 'loading';
             });
         }

@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ContainerFilter, containerFilter, getSuccessCallbackWrapper } from './Utils'
-import { Response } from './Response'
+import { ContainerFilter, containerFilter, getSuccessCallbackWrapper } from './Utils';
+import { Response } from './Response';
 
 describe('ContainerFilter', () => {
     it('should be a case-sensitive string-based enum', () => {
@@ -47,16 +47,18 @@ describe('getSuccessCallbackWrapper', () => {
             schemaName: 'SSS',
             queryName: 'QQQ',
             metaData: { fields: [] },
-            rows: []
+            rows: [],
         };
         return response;
     };
 
     it('should respect applied scope', () => {
         const other = {};
-        const onSuccess = getSuccessCallbackWrapper(function() {
-            expect(this).toStrictEqual(other);
-        } /* explicit scope not provided as argument here */);
+        const onSuccess = getSuccessCallbackWrapper(
+            function () {
+                expect(this).toStrictEqual(other);
+            } /* explicit scope not provided as argument here */
+        );
 
         // An explicit scope is not provided to getSuccessCallbackWrapper so the returned
         // function wrapper should respect scope being applied.
@@ -66,9 +68,13 @@ describe('getSuccessCallbackWrapper', () => {
     it('should respect explicit scope', () => {
         const me = this;
         const other = {};
-        const onSuccess = getSuccessCallbackWrapper(function() {
-            expect(this).toStrictEqual(other);
-        }, false, other /* scope set to "other" */);
+        const onSuccess = getSuccessCallbackWrapper(
+            function () {
+                expect(this).toStrictEqual(other);
+            },
+            false,
+            other /* scope set to "other" */
+        );
 
         // An explicit scope is provided to getSuccessCallbackWrapper so the returned function
         // wrapper should respect the explicit scope over the applied scope.
@@ -77,19 +83,29 @@ describe('getSuccessCallbackWrapper', () => {
 
     it('should maintain backwards compatibility for requiredVersion', () => {
         [13.2, '13.2', 16.2, 17.1].forEach(version => {
-            const onSuccess = getSuccessCallbackWrapper((data: any) => {
-                expect(data instanceof Response).toBe(true);
-            }, false, undefined, version);
+            const onSuccess = getSuccessCallbackWrapper(
+                (data: any) => {
+                    expect(data instanceof Response).toBe(true);
+                },
+                false,
+                undefined,
+                version
+            );
 
             onSuccess(mockJSONResponse(), { url: 'test' });
         });
 
         [undefined, null, '8.3', 8.3, 12.1, '16.2', '17.1', 'foo', 17.1111].forEach(version => {
-            const onSuccess = getSuccessCallbackWrapper((data: any) => {
-                expect(data instanceof Response).toBe(false);
-            }, false, undefined, version);
+            const onSuccess = getSuccessCallbackWrapper(
+                (data: any) => {
+                    expect(data instanceof Response).toBe(false);
+                },
+                false,
+                undefined,
+                version
+            );
 
             onSuccess(mockJSONResponse(), { url: 'test' });
         });
-    })
+    });
 });

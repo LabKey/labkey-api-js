@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as Filter from './Filter'
+import * as Filter from './Filter';
 
 describe('create', () => {
-
     const basicFilter = Filter.create('BaseBall', 'awesome');
 
     it('should reflect column name', () => {
@@ -54,58 +53,51 @@ describe('create', () => {
     it('should not encode URL parameter value', () => {
         expect(encodedFilter.getURLParameterValue()).toEqual(filterValue);
     });
-
 });
 
 describe('create multi-valued', () => {
     it('single string value', () => {
-        let f = Filter.create('q', 'abc', Filter.Types.IN);
+        const f = Filter.create('q', 'abc', Filter.Types.IN);
         expect(f.getValue()).toEqual(['abc']);
         expect(f.getURLParameterValue()).toEqual('abc');
     });
 
     it('semi-colon separated values', () => {
-        let f = Filter.create('q', 'a;b;c', Filter.Types.IN);
+        const f = Filter.create('q', 'a;b;c', Filter.Types.IN);
         expect(f.getValue()).toEqual(['a', 'b', 'c']);
         expect(f.getURLParameterValue()).toEqual('a;b;c');
     });
 
     it('array of values', () => {
-        let f = Filter.create('q', ['a', 'b', 'c'], Filter.Types.IN);
+        const f = Filter.create('q', ['a', 'b', 'c'], Filter.Types.IN);
         expect(f.getValue()).toEqual(['a', 'b', 'c']);
         expect(f.getURLParameterValue()).toEqual('a;b;c');
     });
 
     it('json encoded array of values', () => {
-        let f = Filter.create('q', '{json:["a","b","c"]}', Filter.Types.IN);
+        const f = Filter.create('q', '{json:["a","b","c"]}', Filter.Types.IN);
         expect(f.getValue()).toEqual(['a', 'b', 'c']);
         expect(f.getURLParameterValue()).toEqual('a;b;c');
     });
 
     it('json encoded array of values with semi-colon', () => {
-        let f = Filter.create('q', '{json:["a","b;c"]}', Filter.Types.IN);
+        const f = Filter.create('q', '{json:["a","b;c"]}', Filter.Types.IN);
         expect(f.getValue()).toEqual(['a', 'b;c']);
         expect(f.getURLParameterValue()).toEqual('{json:["a","b;c"]}');
     });
-
 });
 
 describe('merge', () => {
-
     const baseFilters = [
         Filter.create('A', 'a'),
         Filter.create('B', 'b'),
         Filter.create('C', 'c'),
         Filter.create('A', 'aa'),
         Filter.create('BB', 'bb'),
-        Filter.create('CC', 'cc')
+        Filter.create('CC', 'cc'),
     ];
 
-    const columnFilters = [
-        Filter.create('A', 'A1'),
-        Filter.create('B', 'B1'),
-        Filter.create('C', 'C1')
-    ];
+    const columnFilters = [Filter.create('A', 'A1'), Filter.create('B', 'B1'), Filter.create('C', 'C1')];
 
     it('should accept empty arguments', () => {
         expect(Filter.merge.apply(this, [])).toEqual([]);

@@ -13,37 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { request } from './Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
+import { buildURL } from './ActionURL';
+import { request } from './Ajax';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils';
 
 export interface UpdateParticipantGroupOptions extends RequestCallbackOptions {
     /**
      * The container path in which the relevant study is defined.
      * If not supplied, the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Set of IDs to be removed from the group if they are already members */
-    deleteParticipantIds?: string[]
+    deleteParticipantIds?: string[];
     /** The new value for the description of the group */
-    description?: string
+    description?: string;
     /** Set of IDs to be added to the group if they are not already members */
-    ensureParticipantIds?: string[]
-    filters?: any
+    ensureParticipantIds?: string[];
+    filters?: any;
     /** The new value for the label of the group */
-    label?: string
+    label?: string;
     /** Set of IDs to be members of the group */
-    participantIds?: string[]
+    participantIds?: string[];
     /** The integer ID of the desired participant group */
-    rowId: number
+    rowId: number;
 }
 
 /**
  * Updates an existing participant group, already saved and accessible to the current user on the server.
  */
 export function updateParticipantGroup(options: UpdateParticipantGroupOptions): XMLHttpRequest {
-    let jsonData: any = {
-        rowId: options.rowId
+    const jsonData: any = {
+        rowId: options.rowId,
     };
 
     if (options.participantIds) {
@@ -69,11 +69,7 @@ export function updateParticipantGroup(options: UpdateParticipantGroupOptions): 
         url: buildURL('participant-group', 'updateParticipantGroup.api', options.containerPath),
         method: 'POST',
         jsonData,
-        success: getCallbackWrapper(
-            getOnSuccess(options),
-            options.scope,
-            false,
-            (data) => data.group),
-        failure: getCallbackWrapper(getOnFailure(options), this, true)
+        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.group),
+        failure: getCallbackWrapper(getOnFailure(options), this, true),
     });
 }

@@ -13,22 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from '../ActionURL'
-import { AjaxHandler, request, RequestOptions } from '../Ajax'
-import { appendFilterParams, IFilter } from '../filter/Filter'
+import { buildURL } from '../ActionURL';
+import { AjaxHandler, request, RequestOptions } from '../Ajax';
+import { appendFilterParams, IFilter } from '../filter/Filter';
 import {
     applyTranslated,
-    ensureRegionName, ExtendedXMLHttpRequest,
+    ensureRegionName,
+    ExtendedXMLHttpRequest,
     getCallbackWrapper,
     getOnFailure,
     getOnSuccess,
     parseDateString,
     RequestCallbackOptions,
     RequestFailure,
-} from '../Utils'
+} from '../Utils';
 
-import { Response } from './Response'
-import { QueryColumn } from './types'
+import { Response } from './Response';
+import { QueryColumn } from './types';
 
 /**
  * An enumeration of the various container filters available. Note that not all
@@ -36,7 +37,6 @@ import { QueryColumn } from './types'
  * all values will behave the same as current and show only data in the current container.
  */
 export enum ContainerFilter {
-
     /** Include all folders for which the user has read permission. */
     allFolders = 'AllFolders',
 
@@ -87,10 +87,10 @@ export function buildQueryParams(
 ): any {
     const regionName = ensureRegionName(dataRegionName);
 
-    let params: any = {
+    const params: any = {
         dataRegionName: regionName,
         [regionName + '.queryName']: queryName,
-        schemaName
+        schemaName,
     };
 
     if (sort) {
@@ -101,22 +101,21 @@ export function buildQueryParams(
 }
 
 export interface DeleteQueryViewOptions extends RequestCallbackOptions {
-    containerPath?: string
-    queryName: string
-    revert?: boolean
-    schemaName: string
-    viewName?: string
+    containerPath?: string;
+    queryName: string;
+    revert?: boolean;
+    schemaName: string;
+    viewName?: string;
 }
 
 export interface DeleteQueryViewPayload {
-    complete: boolean
-    queryName: string
-    schemaName: string
-    viewName: string
+    complete: boolean;
+    queryName: string;
+    schemaName: string;
+    viewName: string;
 }
 
 export function deleteQueryView(options: DeleteQueryViewOptions): XMLHttpRequest {
-
     if (!options) {
         throw 'You must specify a configuration!';
     }
@@ -127,9 +126,9 @@ export function deleteQueryView(options: DeleteQueryViewOptions): XMLHttpRequest
         throw 'You must specify a queryName!';
     }
 
-    let jsonData: Partial<DeleteQueryViewPayload> = {
+    const jsonData: Partial<DeleteQueryViewPayload> = {
         schemaName: options.schemaName,
-        queryName: options.queryName
+        queryName: options.queryName,
     };
 
     if (options.viewName) {
@@ -145,28 +144,28 @@ export function deleteQueryView(options: DeleteQueryViewOptions): XMLHttpRequest
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        jsonData
+        jsonData,
     });
 }
 
 export type IDataTypes = 'datasets' | 'queries' | 'reports';
 
 export interface IBrowseDataPayload {
-    dataTypes?: IDataTypes[]
-    includeData?: boolean
-    includeMetadata?: boolean
+    dataTypes?: IDataTypes[];
+    includeData?: boolean;
+    includeMetadata?: boolean;
 }
 
 export interface GetDataViewsOptions {
-    containerPath?: string
-    dataTypes?: IDataTypes[]
-    failure?: RequestFailure
-    scope?: any
+    containerPath?: string;
+    dataTypes?: IDataTypes[];
+    failure?: RequestFailure;
+    scope?: any;
     // Unfortunately, this flips options/response from what getCallbackWrapper normally does.
     // getCallbackWrapper -> (data, response, options)
     // getDataViews -> (data, options, response)
-    success?: (data?: any, options?: RequestOptions, request?: ExtendedXMLHttpRequest) => any
-    timeout?: number
+    success?: (data?: any, options?: RequestOptions, request?: ExtendedXMLHttpRequest) => any;
+    timeout?: number;
 }
 
 /**
@@ -175,9 +174,9 @@ export interface GetDataViewsOptions {
  * @returns {XMLHttpRequest}
  */
 export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
-    let jsonData: IBrowseDataPayload = {
+    const jsonData: IBrowseDataPayload = {
         includeData: true,
-        includeMetadata: false
+        includeMetadata: false,
     };
 
     if (options.dataTypes) {
@@ -185,7 +184,7 @@ export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
     }
 
     const onSuccess = getOnSuccess(options);
-    const success = getCallbackWrapper(function(data: any, response: any, options: any) {
+    const success = getCallbackWrapper(function (data: any, response: any, options: any) {
         if (onSuccess) {
             onSuccess.call(options.scope || this, data.data, options, response);
         }
@@ -196,42 +195,41 @@ export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
         method: 'POST',
         success,
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        jsonData
+        jsonData,
     });
 }
 
 export function getMethod(value: string): string {
-    if (value && (value.toUpperCase() === 'GET' || value.toUpperCase() === 'POST'))
-        return value.toUpperCase();
+    if (value && (value.toUpperCase() === 'GET' || value.toUpperCase() === 'POST')) return value.toUpperCase();
     return 'GET';
 }
 
 // TODO: This interface should overlap more closely with getQueryDetails or at least be a strict subset
 // of getQueryDetails properties for any given query.
 export interface GetQueryResponse {
-    canEdit: boolean
-    canEditSharedViews: boolean
+    canEdit: boolean;
+    canEditSharedViews: boolean;
     /**
      * Columns for the query.
      * Note, if the "queryDetailColumns" option is false then these columns will only include
      * the "caption", "name", and "shortCaption" properties.
      */
-    columns: QueryColumn[]
-    description: string
-    hidden: boolean
-    inherit: boolean
-    isInherited: boolean
-    isMetadataOverrideable: boolean
-    isUserDefined: boolean
-    name: string
-    snapshot: boolean
-    title: string
-    viewDataUrl: string
+    columns: QueryColumn[];
+    description: string;
+    hidden: boolean;
+    inherit: boolean;
+    isInherited: boolean;
+    isMetadataOverrideable: boolean;
+    isUserDefined: boolean;
+    name: string;
+    snapshot: boolean;
+    title: string;
+    viewDataUrl: string;
 }
 
 export interface GetQueriesResponse {
-    queries: GetQueryResponse[]
-    schemaName: string
+    queries: GetQueryResponse[];
+    schemaName: string;
 }
 
 export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResponse> {
@@ -239,65 +237,69 @@ export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResp
      * A container path in which to execute this command. If not supplied,
      * the current container will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * If set to false, information about the available columns in this query will not be included
      * in the results. Default is true.
      */
-    includeColumns?: boolean
-    /** If set to false, user-defined queries will not be included in the results. Default is true. */
-    includeUserQueries?: boolean
+    includeColumns?: boolean;
     /** If set to false, system-defined queries will not be included in the results. Default is true. */
-    includeSystemQueries?: boolean
+    includeSystemQueries?: boolean;
+    /** If set to false, user-defined queries will not be included in the results. Default is true. */
+    includeUserQueries?: boolean;
     /**
      * If set to true, and includeColumns is set to true, information about the available columns
      * will be the same details as specified by [[getQueryDetails]] for columns.
      * Defaults to false.
      */
-    queryDetailColumns?: boolean
+    queryDetailColumns?: boolean;
     /** The name of the schema. */
-    schemaName: string
+    schemaName: string;
 }
 
 /**
  * Returns the set of queries available in a given schema.
  */
 export function getQueries(options: GetQueriesOptions): XMLHttpRequest {
-
-    let params = {};
+    const params = {};
 
     // Only pass the parameters that the server supports, and exclude ones like successCallback
-    applyTranslated(params, options, {
-        schemaName: 'schemaName',
-        includeColumns: 'includeColumns',
-        includeUserQueries: 'includeUserQueries',
-        includeSystemQueries: 'includeSystemQueries',
-        queryDetailColumns: 'queryDetailColumns'
-    }, false, false);
+    applyTranslated(
+        params,
+        options,
+        {
+            schemaName: 'schemaName',
+            includeColumns: 'includeColumns',
+            includeUserQueries: 'includeUserQueries',
+            includeSystemQueries: 'includeSystemQueries',
+            queryDetailColumns: 'queryDetailColumns',
+        },
+        false,
+        false
+    );
 
     return request({
         url: buildURL('query', 'getQueries.api', options.containerPath),
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        params
+        params,
     });
 }
 
 export interface GetQueryViewsOptions extends RequestCallbackOptions {
-    containerPath?: string
-    metadata?: any
-    queryName?: string
-    schemaName?: string
-    viewName?: string
-    excludeSessionView?: boolean
+    containerPath?: string;
+    excludeSessionView?: boolean;
+    metadata?: any;
+    queryName?: string;
+    schemaName?: string;
+    viewName?: string;
 }
 
 /**
  * Returns the set of views available for a given query in a given schema.
  */
 export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
-
-    let params: any = {};
+    const params: any = {};
 
     if (options.schemaName) {
         params.schemaName = options.schemaName;
@@ -311,7 +313,6 @@ export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
     if (options.metadata) {
         params.metadata = options.metadata;
     }
-
     if (options.excludeSessionView) {
         params.excludeSessionView = true;
     }
@@ -320,29 +321,28 @@ export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
         url: buildURL('query', 'getQueryViews.api', options.containerPath),
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        params
+        params,
     });
 }
 
 export interface GetSchemasOptions extends RequestCallbackOptions {
-    apiVersion?: string | number
-    containerPath?: string
-    includeHidden?: boolean
-    schemaName?: string
+    apiVersion?: string | number;
+    containerPath?: string;
+    includeHidden?: boolean;
+    schemaName?: string;
 }
 
 interface GetSchemasParameters {
-    apiVersion: string | number
-    includeHidden: boolean
-    schemaName: string
+    apiVersion: string | number;
+    includeHidden: boolean;
+    schemaName: string;
 }
 
 /**
  * Returns the set of schemas available in the specified container.
  */
 export function getSchemas(options: GetSchemasOptions): XMLHttpRequest {
-
-    let params: Partial<GetSchemasParameters> = {};
+    const params: Partial<GetSchemasParameters> = {};
     if (options.apiVersion) {
         params.apiVersion = options.apiVersion;
     }
@@ -357,7 +357,7 @@ export function getSchemas(options: GetSchemasOptions): XMLHttpRequest {
         url: buildURL('query', 'getSchemas.api', options.containerPath),
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        params
+        params,
     });
 }
 
@@ -373,17 +373,12 @@ export function getServerDate(options: RequestCallbackOptions<Date>): XMLHttpReq
 
     return request({
         url: buildURL('query', 'getServerDate.api'),
-        success: getCallbackWrapper(
-            onSuccess,
-            options.scope,
-            false,
-            (json: any) => {
-                if (json && json.date && onSuccess) {
-                    return parseDateString(json.date);
-                }
+        success: getCallbackWrapper(onSuccess, options.scope, false, (json: any) => {
+            if (json && json.date && onSuccess) {
+                return parseDateString(json.date);
             }
-        ),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        }),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -399,14 +394,14 @@ export function getSuccessCallbackWrapper(
     requiredVersion?: number | string
 ): AjaxHandler {
     if (SUPPORTED_VERSIONS.indexOf(requiredVersion) > -1) {
-        return getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+        return getCallbackWrapper(function (data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
             if (data && onSuccess) {
                 onSuccess.call(scope || this, new Response(data), response, options);
             }
         }, this);
     }
 
-    return getCallbackWrapper(function(data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+    return getCallbackWrapper(function (data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
         if (onSuccess) {
             if (data && data.rows && stripHiddenCols) {
                 stripHiddenColData(data);
@@ -417,14 +412,14 @@ export function getSuccessCallbackWrapper(
 }
 
 export interface SaveQueryViewsOptions extends RequestCallbackOptions {
-    containerPath?: string
-    metadata?: any
-    queryName?: string
-    schemaName?: string
-    views?: any
-    shared?: boolean
-    session?: boolean
-    hidden?: boolean
+    containerPath?: string;
+    hidden?: boolean;
+    metadata?: any;
+    queryName?: string;
+    schemaName?: string;
+    session?: boolean;
+    shared?: boolean;
+    views?: any;
 }
 
 /**
@@ -432,8 +427,7 @@ export interface SaveQueryViewsOptions extends RequestCallbackOptions {
  * The options object matches the viewInfos parameter of the getQueryViews.successCallback.
  */
 export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
-
-    let jsonData: any = {};
+    const jsonData: any = {};
     if (options.schemaName) {
         jsonData.schemaName = options.schemaName;
     }
@@ -458,28 +452,32 @@ export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export interface SaveSessionViewOptions extends RequestCallbackOptions {
-    containerPath?: string
-    queryName?: string
-    schemaName?: string
-    viewName?: string /* the session view name */
-    newName?: string /* the new non session view name that would replace the session view */
-    shared?: boolean /* if the new view is public or private, default false (private) */
-    inherit?: boolean /* if the new view is accessible from child container, default false */
-    hidden?: boolean /* if the new view should be hidden, default false */
-    replace?: boolean /* replace an existing non-session view if the newName already exist for another view */
+    containerPath?: string;
+    /** If the new view should be hidden, default false */
+    hidden?: boolean;
+    /** If the new view is accessible from child container, default false */
+    inherit?: boolean;
+    /** The new non session view name that would replace the session view */
+    newName?: string;
+    queryName?: string;
+    /** Replace an existing non-session view if the newName already exist for another view */
+    replace?: boolean;
+    schemaName?: string;
+    shared?: boolean;
+    /** The session view name */
+    viewName?: string;
 }
 
 /**
  * Save session view with a new name as non session view.
  */
 export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest {
-
-    let jsonData: any = {};
+    const jsonData: any = {};
     if (options.schemaName) {
         jsonData.schemaName = options.schemaName;
     }
@@ -510,7 +508,7 @@ export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -520,21 +518,18 @@ export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest
  * @returns {String} a date literal formatted to be used in a LabKey query
  */
 export function sqlDateLiteral(date: Date): string {
-
     if (date === undefined || date === null || !date) {
-        return "NULL";
+        return 'NULL';
     }
-    if (typeof date == 'string') {
-        try { date = new Date(date); } catch (x) { }
+    if (typeof date === 'string') {
+        try {
+            date = new Date(date);
+        } catch (x) {}
     }
-    if (typeof date == 'object' && typeof date.toISOString == 'function') {
+    if (typeof date === 'object' && typeof date.toISOString === 'function') {
         const fmt2 = (a: number) => (a >= 10 ? '' + a : '0' + a);
 
-        return (
-            "{d '" +
-            date.getFullYear() + "-" + fmt2(date.getMonth() + 1) + "-" + fmt2(date.getDate()) +
-            "'}"
-        );
+        return "{d '" + date.getFullYear() + '-' + fmt2(date.getMonth() + 1) + '-' + fmt2(date.getDate()) + "'}";
     }
 
     return "{d '" + sqlStringLiteral(date.toString()) + "'}";
@@ -550,22 +545,31 @@ export function sqlDateTimeLiteral(date: Date, withMS: boolean): string {
     if (date === undefined || date === null || !date) {
         return 'NULL';
     }
-    if (typeof date == 'string') {
-        try { date = new Date(date); } catch (x) { }
+    if (typeof date === 'string') {
+        try {
+            date = new Date(date);
+        } catch (x) {}
     }
-    if (typeof date == 'object' && typeof date.toISOString == 'function') {
-        const fmt2 = (a: number) => (a >= 10  ? '' + a : '0' + a);
+    if (typeof date === 'object' && typeof date.toISOString === 'function') {
+        const fmt2 = (a: number) => (a >= 10 ? '' + a : '0' + a);
         const fmt3 = (a: number) => (a >= 100 ? '' + a : '0' + fmt2(a));
 
-        return "{ts '" +
-            date.getFullYear() + "-" +
-            fmt2(date.getMonth()+1) + "-" +
-            fmt2(date.getDate()) + " " +
-            fmt2(date.getHours()) + ":" +
-            fmt2(date.getMinutes()) + ":" +
+        return (
+            "{ts '" +
+            date.getFullYear() +
+            '-' +
+            fmt2(date.getMonth() + 1) +
+            '-' +
+            fmt2(date.getDate()) +
+            ' ' +
+            fmt2(date.getHours()) +
+            ':' +
+            fmt2(date.getMinutes()) +
+            ':' +
             fmt2(date.getSeconds()) +
-            (withMS ? "." + fmt3(date.getMilliseconds()) : "")
-            + "'}";
+            (withMS ? '.' + fmt3(date.getMilliseconds()) : '') +
+            "'}"
+        );
     }
 
     return "{ts '" + this.sqlStringLiteral(date) + "'}";
@@ -587,15 +591,14 @@ export function sqlStringLiteral(str: string): string {
 
 function stripHiddenColData(data: any): void {
     // gather the set of hidden columns
-    let hiddenCols = [];
-    let newColModel = [];
-    let newMetaFields = [];
-    let colModel = data.columnModel;
+    const hiddenCols = [];
+    const newColModel = [];
+    const newMetaFields = [];
+    const colModel = data.columnModel;
     for (let i = 0; i < colModel.length; ++i) {
         if (colModel[i].hidden) {
             hiddenCols.push(colModel[i].dataIndex);
-        }
-        else {
+        } else {
             newColModel.push(colModel[i]);
             newMetaFields.push(data.metaData.fields[i]);
         }
@@ -607,7 +610,7 @@ function stripHiddenColData(data: any): void {
 
     // delete column values for any columns in the hiddenCols array
     for (let i = 0; i < data.rows.length; ++i) {
-        let row = data.rows[i];
+        const row = data.rows[i];
         for (let h = 0; h < hiddenCols.length; ++h) {
             delete row[hiddenCols[h]];
             delete row[URL_COLUMN_PREFIX + hiddenCols[h]];
@@ -615,14 +618,14 @@ function stripHiddenColData(data: any): void {
     }
 }
 
-export interface ValidateQueryOptions extends RequestCallbackOptions<{valid: boolean}> {
+export interface ValidateQueryOptions extends RequestCallbackOptions<{ valid: boolean }> {
     /**
      * A container path in which to execute this command. If not supplied,
      * the current container will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** If true, the query metadata and custom views will also be validated. */
-    validateQueryMetadata?: boolean
+    validateQueryMetadata?: boolean;
 }
 
 /**
@@ -633,21 +636,20 @@ export interface ValidateQueryOptions extends RequestCallbackOptions<{valid: boo
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function validateQuery(options: ValidateQueryOptions): XMLHttpRequest {
-
     const action = options.validateQueryMetadata ? 'validateQueryMetadata.api' : 'validateQuery.api';
 
-    let params = {};
+    const params = {};
 
     applyTranslated(params, options, {
         successCallback: false,
         errorCallback: false,
-        scope: false
+        scope: false,
     });
 
     return request({
         url: buildURL('query', action, options.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as Ajax from '../Ajax'
-import {
-    bindFormData,
-    deleteRows,
-    insertRows,
-    updateRows,
-} from './Rows'
+import * as Ajax from '../Ajax';
+
+import { bindFormData, deleteRows, insertRows, updateRows } from './Rows';
 
 describe('deleteRows', () => {
     it('should support original method signature', () => {
@@ -36,15 +32,17 @@ describe('deleteRows', () => {
         (deleteRows as any)(schemaName, queryName, rows, undefined, undefined);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            method: 'POST',
-            jsonData: expect.objectContaining({
-                queryName,
-                rows,
-                schemaName,
-            }),
-            url: '/query/deleteRows.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                jsonData: expect.objectContaining({
+                    queryName,
+                    rows,
+                    schemaName,
+                }),
+                url: '/query/deleteRows.api',
+            })
+        );
     });
 });
 
@@ -63,15 +61,17 @@ describe('insertRows', () => {
         (insertRows as any)(schemaName, queryName, rows, undefined, undefined);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            method: 'POST',
-            jsonData: expect.objectContaining({
-                queryName,
-                rows,
-                schemaName,
-            }),
-            url: '/query/insertRows.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                jsonData: expect.objectContaining({
+                    queryName,
+                    rows,
+                    schemaName,
+                }),
+                url: '/query/insertRows.api',
+            })
+        );
     });
 
     it('should support form data', () => {
@@ -88,14 +88,18 @@ describe('insertRows', () => {
         insertRows({ schemaName, queryName, rows, form });
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            method: 'POST',
-            form: expect.anything(),
-            url: '/query/insertRows.api',
-        }));
-        expect(requestSpy).toHaveBeenCalledWith(expect.not.objectContaining({
-            jsonData: expect.anything(),
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                form: expect.anything(),
+                url: '/query/insertRows.api',
+            })
+        );
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.not.objectContaining({
+                jsonData: expect.anything(),
+            })
+        );
     });
 
     it('should support file data', () => {
@@ -109,11 +113,13 @@ describe('insertRows', () => {
         insertRows({ autoFormFileData: true, schemaName, queryName, rows });
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            method: 'POST',
-            form: expect.anything(),
-            url: '/query/insertRows.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                form: expect.anything(),
+                url: '/query/insertRows.api',
+            })
+        );
     });
 });
 
@@ -132,15 +138,17 @@ describe('updateRows', () => {
         (updateRows as any)(schemaName, queryName, rows, undefined, undefined);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            method: 'POST',
-            jsonData: expect.objectContaining({
-                queryName,
-                rows,
-                schemaName,
-            }),
-            url: '/query/updateRows.api',
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                jsonData: expect.objectContaining({
+                    queryName,
+                    rows,
+                    schemaName,
+                }),
+                url: '/query/updateRows.api',
+            })
+        );
     });
 
     it('should support form data', () => {
@@ -157,14 +165,18 @@ describe('updateRows', () => {
         updateRows({ schemaName, queryName, rows, form });
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            method: 'POST',
-            form: expect.anything(),
-            url: '/query/updateRows.api',
-        }));
-        expect(requestSpy).toHaveBeenCalledWith(expect.not.objectContaining({
-            jsonData: expect.anything(),
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                form: expect.anything(),
+                url: '/query/updateRows.api',
+            })
+        );
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.not.objectContaining({
+                jsonData: expect.anything(),
+            })
+        );
     });
 });
 
@@ -187,7 +199,10 @@ describe('bindFormData', () => {
         const fileA = new File([], '');
         const fileB = new File([], '');
         const fileC = new File([], '');
-        const rows = [{ firstFile: fileA, rowId: 1 }, { rowId: 2, firstFile: fileC, secondFile: fileB }];
+        const rows = [
+            { firstFile: fileA, rowId: 1 },
+            { rowId: 2, firstFile: fileC, secondFile: fileB },
+        ];
 
         // Act
         const form = bindFormData({ rows }, requestOptions, true);

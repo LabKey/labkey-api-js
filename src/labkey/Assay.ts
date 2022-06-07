@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { request } from './Ajax'
-import { appendFilterParams, IFilter } from './filter/Filter'
+import { buildURL } from './ActionURL';
+import { request } from './Ajax';
+import { appendFilterParams, IFilter } from './filter/Filter';
 import { QueryColumn } from './query/types';
 import {
     applyTranslated,
@@ -24,8 +24,8 @@ import {
     getOnFailure,
     getOnSuccess,
     merge,
-    RequestCallbackOptions
-} from './Utils'
+    RequestCallbackOptions,
+} from './Utils';
 
 /**
  * Applies arguments for backwards compatible function signature support.
@@ -91,8 +91,8 @@ export interface GetAssaysOptions extends RequestCallbackOptions<AssayDesign[]> 
      * The container path in which the requested Assays are defined.
      * If not supplied, the current container path will be used.
      */
-    containerPath?: string
-    parameters?: any
+    containerPath?: string;
+    parameters?: any;
 }
 
 export enum AssayLink {
@@ -103,26 +103,24 @@ export enum AssayLink {
     IMPORT = 'import',
     RESULT = 'result',
     RESULTS = 'results',
-    RUNS = 'runs'
+    RUNS = 'runs',
 }
 
 export interface AssayDesign {
-    /** The name of the assay. */
-    name: string
     /** The path to the container in which this assay design is saved. */
     containerPath: string;
     /** Contains the assay description. */
     description: string;
     /**
-     * Map containing name/value pairs.  Typically contains three entries for three domains (batch, run and results).
-     * Each domain is associated with an array of objects that each describe a domain field.
-     */
-    domains: { [domainName:string]: QueryColumn };
-    /**
      * An mapped enumeration of domain types to domain names. Useful when attempting to find a domain by type.
      * The value is a domain name which can be used as a key lookup into the "domain" object.
      */
-    domainTypes: { [domainType:string]: string };
+    domainTypes: { [domainType: string]: string };
+    /**
+     * Map containing name/value pairs.  Typically contains three entries for three domains (batch, run and results).
+     * Each domain is associated with an array of objects that each describe a domain field.
+     */
+    domains: { [domainName: string]: QueryColumn };
     /** The unique ID of the assay. */
     id: number;
     /** The name of the action used for data import. */
@@ -131,6 +129,8 @@ export interface AssayDesign {
     importController: string;
     /** Contains a map of name to URL for this assay design. */
     links: Map<AssayLink, string>;
+    /** The name of the assay. */
+    name: string;
     /** Contains the plate template name if the assay is plate-based.  Undefined otherwise. */
     plateTemplate?: string;
     /** Indicates whether this is a project-level assay. */
@@ -156,20 +156,15 @@ function getAssays(options: GetAssaysOptions): XMLHttpRequest {
         url: buildURL('assay', 'assayList.api', options.containerPath),
         method: 'POST',
         jsonData: options.parameters,
-        success: getCallbackWrapper(
-            getOnSuccess(options),
-            options.scope,
-            false,
-            (data) => data.definitions
-        ),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.definitions),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        scope: options.scope || this
+        scope: options.scope || this,
     });
 }
 
 export interface GetByIdOptions extends GetAssaysOptions {
     /** Unique integer ID for the assay. */
-    id: number
+    id: number;
 }
 
 /**
@@ -183,7 +178,7 @@ export function getById(options: GetByIdOptions): XMLHttpRequest {
 
 export interface GetByNameOptions extends GetAssaysOptions {
     /** String name of the assay. */
-    name: string
+    name: string;
 }
 
 /**
@@ -197,7 +192,7 @@ export function getByName(options: GetByNameOptions): XMLHttpRequest {
 
 export interface GetByTypeOptions extends GetAssaysOptions {
     /** String name of the assay type (e.g. "ELISpot"). */
-    type: string
+    type: string;
 }
 
 /**
@@ -211,46 +206,46 @@ export function getByType(options: GetByTypeOptions): XMLHttpRequest {
 
 export interface GetNAbRunsOptions extends RequestCallbackOptions {
     /** The name of the NAb assay design for which runs are to be retrieved. */
-    assayName: string
+    assayName: string;
     /** Whether neutralization should be calculated on the server. */
-    calculateNeut?: boolean
+    calculateNeut?: boolean;
     /**
      * The path to the container in which the schema and query are defined, if different than the current container.
      * If not supplied, the current container's path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Array of objects created by {@link LABKEY.Filter.create}. */
-    filterArray?: IFilter[]
-    /**Whether the parameters used in the neutralization curve fitting calculation
+    filterArray?: IFilter[];
+    /** Whether the parameters used in the neutralization curve fitting calculation
      * should be included in the response.*/
-    includeFitParameters?: boolean
-    /**Whether or not statistics (standard deviation, max, min, etc.) should
+    includeFitParameters?: boolean;
+    /** Whether or not statistics (standard deviation, max, min, etc.) should
      * be returned with calculations and well data.*/
-    includeStats?: boolean
+    includeStats?: boolean;
     /** Whether well-level data should be included in the response. */
-    includeWells?: boolean
+    includeWells?: boolean;
     /**
      * The maximum number of runs to return from the server (defaults to 100).
      * If you want to return all possible rows, set this config property to -1.
      */
-    maxRows?: number
+    maxRows?: number;
     /**
      * The index of the first row to return from the server (defaults to 0).
      * Use this along with the maxRows config property to request pages of data.
      */
-    offset?: number
+    offset?: number;
     /**
      * String description of the sort.  It includes the column names
      * listed in the URL of a sorted data region (with an optional minus prefix to indicate
      * descending order). In the case of a multi-column sort, up to three column names can be
      * included, separated by commas.
      */
-    sort?: string
+    sort?: string;
     /**
      * The maximum number of milliseconds to allow for this operation before generating
      * a timeout error (defaults to 30000).
      */
-    timeout?: number
+    timeout?: number;
 }
 
 /**
@@ -258,7 +253,7 @@ export interface GetNAbRunsOptions extends RequestCallbackOptions {
  * @param options
  */
 export function getNAbRuns(options: GetNAbRunsOptions): XMLHttpRequest {
-    let params = merge({}, options);
+    const params = merge({}, options);
 
     if (options.sort) {
         params['query.sort'] = options.sort;
@@ -269,8 +264,7 @@ export function getNAbRuns(options: GetNAbRunsOptions): XMLHttpRequest {
     if (options.maxRows) {
         if (options.maxRows < 0) {
             params['query.showRows'] = 'all';
-        }
-        else {
+        } else {
             params['query.maxRows'] = options.maxRows;
         }
     }
@@ -278,49 +272,44 @@ export function getNAbRuns(options: GetNAbRunsOptions): XMLHttpRequest {
     return request({
         url: buildURL('nabassay', 'getNabRuns.api', options.containerPath),
         params: appendFilterParams(params, options.filterArray),
-        success: getCallbackWrapper(
-            getOnSuccess(options),
-            options.scope,
-            false,
-            (data) => data.runs
-        ),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.runs),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        timeout: options.timeout
+        timeout: options.timeout,
     });
 }
 
 export interface GetStudyNabGraphURLResponse {
     /** IDs of the samples that were successfully graphed. */
-    objectIds: any[]
+    objectIds: any[];
     /** URL of the dilution curve graph. */
-    url: string
+    url: string;
 }
 
 export interface GetStudyNabGraphURLOptions extends RequestCallbackOptions<GetStudyNabGraphURLResponse> {
     /** The desired title for the chart. Defaults to no title. */
-    chartTitle?: string
+    chartTitle?: string;
     /**
      * The path to the study container containing the NAb summary data, if different than the current container.
      * If not supplied, the current container's path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Allowable values are FIVE_PARAMETER, FOUR_PARAMETER, and POLYNOMIAL. Defaults to FIVE_PARAMETER. */
-    fitType?: 'FIVE_PARAMETER' | 'FOUR_PARAMETER' | 'POLYNOMIAL'
+    fitType?: 'FIVE_PARAMETER' | 'FOUR_PARAMETER' | 'POLYNOMIAL';
     /** Desired height of the graph image in pixels. Defaults to 300. */
-    height?: number
+    height?: number;
     /**
      * The object Ids for the NAb data rows that have been copied to the study.
      * This method will ignore requests to graph any object IDs that the current
      * user does not have permission to view.
      */
-    objectIds: Array<string | number>
+    objectIds: Array<string | number>;
     /**
      * The maximum number of milliseconds to allow for this operation before generating
      * a timeout error (defaults to 30000).
      */
-    timeout?: number
+    timeout?: number;
     /** Desired width of the graph image in pixels. Defaults to 425. */
-    width?: number
+    width?: number;
 }
 
 /**
@@ -357,7 +346,7 @@ export interface GetStudyNabGraphURLOptions extends RequestCallbackOptions<GetSt
  * @param options
  */
 export function getStudyNabGraphURL(options: GetStudyNabGraphURLOptions): XMLHttpRequest {
-    let params: any = {};
+    const params: any = {};
     applyTranslated(params, options, { objectIds: 'id' }, true, false);
 
     return request({
@@ -365,37 +354,37 @@ export function getStudyNabGraphURL(options: GetStudyNabGraphURLOptions): XMLHtt
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options) || displayAjaxErrorResponse, options.scope, true),
-        timeout: options.timeout
+        timeout: options.timeout,
     });
 }
 
 export interface GetStudyNabRunsOptions extends RequestCallbackOptions {
     /** Whether neutralization should be calculated on the server. */
-    calculateNeut?: boolean
+    calculateNeut?: boolean;
     /**
      * The path to the study container containing the NAb summary, if different than the current container.
      * If not supplied, the current container's path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * Whether the parameters used in the neutralization curve fitting calculation should be included
      * in the response.
      */
-    includeFitParameters?: boolean
+    includeFitParameters?: boolean;
     /**
      * Whether or not statistics (standard deviation, max, min, etc.) should be returned with calculations
      * and well data.
      */
-    includeStats?: boolean
+    includeStats?: boolean;
     /** Whether well-level data should be included in the response. */
-    includeWells?: boolean
+    includeWells?: boolean;
     /** The object Ids for the NAb data rows that have been copied to the study. */
-    objectIds: Array<string | number>
+    objectIds: Array<string | number>;
     /**
      * The maximum number of milliseconds to allow for this operation before generating
      * a timeout error (defaults to 30000).
      */
-    timeout?: number
+    timeout?: number;
 }
 
 /**
@@ -407,14 +396,9 @@ export function getStudyNabRuns(options: GetStudyNabRunsOptions): XMLHttpRequest
     return request({
         url: buildURL('nabassay', 'getStudyNabRuns.api', options.containerPath),
         params: merge({}, options),
-        success: getCallbackWrapper(
-            getOnSuccess(options),
-            options.scope,
-            false,
-            (data) => data.runs
-        ),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.runs),
         failure: getCallbackWrapper(getOnFailure(options) || displayAjaxErrorResponse, options.scope, true),
-        timeout: options.timeout
+        timeout: options.timeout,
     });
 }
 

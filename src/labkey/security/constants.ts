@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getServerContext } from '../constants'
+import { getServerContext } from '../constants';
 
 /**
  * Exposes limited information about the current container.
@@ -41,35 +41,30 @@ export enum PermissionRoles {
  * a user or group has a particular permission.
  */
 export enum PermissionTypes {
-    // CRUD
-    Admin = 'org.labkey.api.security.permissions.AdminPermission',
-    Delete = 'org.labkey.api.security.permissions.DeletePermission',
-    Insert = 'org.labkey.api.security.permissions.InsertPermission',
-    Read = 'org.labkey.api.security.permissions.ReadPermission',
-    Update = 'org.labkey.api.security.permissions.UpdatePermission',
-
-    // Other
     AddUser = 'org.labkey.api.security.permissions.AddUserPermission',
+    Admin = 'org.labkey.api.security.permissions.AdminPermission',
     AdminOperationsPermission = 'org.labkey.api.security.permissions.AdminOperationsPermission',
     ApplicationAdmin = 'org.labkey.api.security.permissions.ApplicationAdminPermission',
     CanSeeAuditLog = 'org.labkey.api.audit.permissions.CanSeeAuditLogPermission',
+    Delete = 'org.labkey.api.security.permissions.DeletePermission',
     DesignAssay = 'org.labkey.api.assay.security.DesignAssayPermission',
     DesignDataClass = 'org.labkey.api.security.permissions.DesignDataClassPermission',
     DesignList = 'org.labkey.api.lists.permissions.DesignListPermission',
     DesignSampleSet = 'org.labkey.api.security.permissions.DesignSampleTypePermission',
     DesignStorage = 'org.labkey.api.inventory.security.StorageDesignPermission',
     EditStorageData = 'org.labkey.api.inventory.security.StorageDataUpdatePermission',
+    Insert = 'org.labkey.api.security.permissions.InsertPermission',
     ManagePicklists = 'org.labkey.api.lists.permissions.ManagePicklistsPermission',
     ManageSampleWorkflows = 'org.labkey.api.security.permissions.SampleWorkflowJobPermission',
+    QCAnalyst = 'org.labkey.api.security.permissions.QCAnalystPermission',
+    Read = 'org.labkey.api.security.permissions.ReadPermission',
     ReadAssay = 'org.labkey.api.security.permissions.AssayReadPermission',
     ReadDataClass = 'org.labkey.api.security.permissions.DataClassReadPermission',
     ReadMedia = 'org.labkey.api.security.permissions.MediaReadPermission',
     ReadNotebooks = 'org.labkey.api.security.permissions.NotebookReadPermission',
     ReadSome = 'org.labkey.api.security.permissions.ReadSomePermission',
+    Update = 'org.labkey.api.security.permissions.UpdatePermission',
     UserManagement = 'org.labkey.api.security.permissions.UserManagementPermission',
-
-    // Assay QC
-    QCAnalyst = 'org.labkey.api.security.permissions.QCAnalystPermission',
 }
 
 /**
@@ -124,7 +119,7 @@ export const permissions = {
     updateOwn: 64,
     deleteOwn: 128,
     admin: 32768,
-    all: 65535
+    all: 65535,
 };
 
 /**
@@ -142,7 +137,7 @@ export const permissions = {
  * <pre><code>LABKEY.Security.roles.author</code></pre>
  */
 export const roles: {
-    [key:string]: number
+    [key: string]: number;
 } = {
     admin: 65535,
     editor: 15,
@@ -150,7 +145,7 @@ export const roles: {
     reader: 1,
     restrictedReader: 16,
     submitter: 2,
-    noPerms: 0
+    noPerms: 0,
 };
 
 /**
@@ -170,5 +165,5 @@ export const systemGroups = {
     administrators: -1,
     users: -2,
     guests: -3,
-    developers: -4
+    developers: -4,
 };

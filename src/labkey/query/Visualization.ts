@@ -13,31 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL, getParameters, queryString } from '../ActionURL'
-import { request } from '../Ajax'
-import { decode, encode, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils'
-import { IFilter as QueryFilter } from '../filter/Filter'
+import { buildURL, getParameters, queryString } from '../ActionURL';
+import { request } from '../Ajax';
+import { decode, encode, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
+import { IFilter as QueryFilter } from '../filter/Filter';
 
-import { Aggregate, Interval, TAggregate, TInterval, Type } from './visualization/constants'
-import { Dimension } from './visualization/Dimension'
-import * as Filter from './visualization/Filter'
-import { MeasureGetDimensionsOptions, Measure } from './visualization/Measure'
+import { Aggregate, Interval, TAggregate, TInterval, Type } from './visualization/constants';
+import { Dimension } from './visualization/Dimension';
+import * as Filter from './visualization/Filter';
+import { MeasureGetDimensionsOptions, Measure } from './visualization/Measure';
 
-export {
-    Aggregate,
-    Dimension,
-    Filter,
-    Interval,
-    MeasureGetDimensionsOptions,
-    Measure,
-    Type
-}
+export { Aggregate, Dimension, Filter, Interval, MeasureGetDimensionsOptions, Measure, Type };
 
 function createMeasures(json: any): Measure[] {
-
-    let measures = [];
+    const measures = [];
     if (json.measures && json.measures.length) {
-        for (let i=0; i < json.measures.length; i++) {
+        for (let i = 0; i < json.measures.length; i++) {
             measures.push(new Measure(json.measures[i]));
         }
     }
@@ -46,7 +37,6 @@ function createMeasures(json: any): Measure[] {
 }
 
 function createTypes(json: any): any[] {
-
     if (json && json.types && json.types.length) {
         // for now just return the raw object array
         return json.types;
@@ -59,77 +49,75 @@ export interface IDateOptions {
     /**
      * A measure object (with properties for name, queryName, and schemaName) of type date specifying the measure date.
      */
-    dateCol: Measure | IMeasureLike
+    dateCol: Measure | IMeasureLike;
 
     /**
      * See [[Interval]].  The type of interval that should be calculated between the measure date and the zero date
      * (if zeroDateCol is specified) or zero day (if zeroDayVisitTag is specified).
      */
-    interval?: TInterval
+    interval?: TInterval;
 
     /**
      * If true, zeroDayVisitTag uses ParticipantVisit.ProtocolDay to calculate offsets;
      * if false ParticipantVisit.Day is used. Defaults to true.
      */
-    useProtocolDay?: boolean
+    useProtocolDay?: boolean;
 
     /**
      * A measure object (with properties for name, queryName, and schemaName) of type date specifying
      * the zero date, used to align data points in terms of days, weeks, or months.
      */
-    zeroDateCol?: Measure | IMeasureLike
+    zeroDateCol?: Measure | IMeasureLike;
 
     /** A VisitTag that will be used to find the ParticipantVisit used to align data points. */
-    zeroDayVisitTag?: string
+    zeroDayVisitTag?: string;
 }
 
-export interface IDimensionLike {
-}
+export interface IDimensionLike {}
 
 export interface VisualizationGetResponse {
-    createdBy: number
-    description: string
-    name: string
-    ownerId: any
-    queryName: string
-    reportId: string
-    reportProps: any
-    schemaName: string
-    shared: boolean
-    thumbnailURL: string
-    type: string
-    visualizationConfig: any
+    createdBy: number;
+    description: string;
+    name: string;
+    ownerId: any;
+    queryName: string;
+    reportId: string;
+    reportProps: any;
+    schemaName: string;
+    shared: boolean;
+    thumbnailURL: string;
+    type: string;
+    visualizationConfig: any;
 }
 
 export interface IGetOptions extends RequestCallbackOptions<VisualizationGetResponse> {
-    name?: string
-    reportId?: any
-
+    name?: string;
     /**
      * Optional, but required if config.schemaName is provided.  Limits the search for
      * the visualization to a specific schema and query.  Note that visualization names are unique within a container
      * (regardless of schema and query), so these additional optional parameters are only useful in a small number of circumstances.
      */
-    queryName?: string
+    queryName?: string;
+
+    reportId?: any;
 
     /**
      * Optional, but required if config.queryName is provided.  Limits the search for
      * the visualization to a specific schema and query.  Note that visualization names are unique within a container
      * (regardless of schema and query), so these additional optional parameters are only useful in a small number of circumstances.
      */
-    schemaName?: string
+    schemaName?: string;
 }
 
 /**
  * Retrieves a saved visualization.  See [[save]].
  */
 export function get(options: IGetOptions): XMLHttpRequest {
-
     const jsonData = {
         name: options.name,
         reportId: options.reportId,
         queryName: options.queryName,
-        schemaName: options.schemaName
+        schemaName: options.schemaName,
     };
 
     const processPayload = (json: any) => {
@@ -145,43 +133,40 @@ export function get(options: IGetOptions): XMLHttpRequest {
         initialConfig: options,
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, processPayload),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export interface IGetDataOptions extends RequestCallbackOptions {
-    containerPath?: string
-    endpoint?: string
-    filterQuery?: string
-    filterUrl?: string
-    groupBys?: any // TODO: determine type
+    containerPath?: string;
+    endpoint?: string;
+    filterQuery?: string;
+    filterUrl?: string;
+    groupBys?: any; // TODO: determine type
 
     /**
      * Default false. If true, all measures will be joined to the first measure
      * in the array instead of to the previous measure.
      */
-    joinToFirst?: boolean
-    limit?: any // TODO: determine type
-    measures: Array<IMeasureable>
+    joinToFirst?: boolean;
+    limit?: any; // TODO: determine type
+    measures: IMeasureable[];
 
     /** Default false. If true, response will no include the actual data rows, just metadata. */
-    metaDataOnly?: boolean
-    parameters?: any
+    metaDataOnly?: boolean;
+    parameters?: any;
 
     /** Generally an array of augmented [[Dimension]] or [[Measure]] objects */
-    sorts?: Array<Dimension> | Array<Measure> | Array<IGetDataSortable>
+    sorts?: Dimension[] | Measure[] | IGetDataSortable[];
 }
 
-export interface IGetDataSortable {
-
-}
+export interface IGetDataSortable {}
 
 /**
  * Returns a resultset suitable for visualization based on requested measures and dimensions.
  */
 export function getData(options: IGetDataOptions): XMLHttpRequest {
-
-    let jsonData: any = {
+    const jsonData: any = {
         measures: [],
         sorts: options.sorts,
 
@@ -196,17 +181,17 @@ export function getData(options: IGetDataOptions): XMLHttpRequest {
         metaDataOnly: options.metaDataOnly,
 
         // specify that all source queries should join back to the first measure
-        joinToFirst: options.joinToFirst === true
+        joinToFirst: options.joinToFirst === true,
     };
 
     // clone measures
     let filters, m, f, asURL, fa;
-    for (m=0; m < options.measures.length; m++) {
-        let c = options.measures[m];
+    for (m = 0; m < options.measures.length; m++) {
+        const c = options.measures[m];
 
-        let measure: IMeasureable = {
+        const measure: IMeasureable = {
             measure: c.measure,
-            time: c.time
+            time: c.time,
         };
 
         if (c.dimension) {
@@ -222,25 +207,28 @@ export function getData(options: IGetDataOptions): XMLHttpRequest {
 
             // assume it is an array of LABKEY.Filter instances, convert each filter to it's URL parameter equivalent
             filters = [];
-            for (f=0; f < measure.filterArray.length; f++) {
+            for (f = 0; f < measure.filterArray.length; f++) {
                 fa = measure.filterArray[f];
                 if (fa && fa.getURLParameterName) {
-                    asURL = encodeURIComponent(fa.getURLParameterName()) + "=" + encodeURIComponent(fa.getURLParameterValue());
+                    asURL =
+                        encodeURIComponent(fa.getURLParameterName()) +
+                        '=' +
+                        encodeURIComponent(fa.getURLParameterValue());
                     filters.push(asURL);
                 }
             }
 
             // TODO: See if we can fix-up typings so this doesn't have to be cast.
-            measure.filterArray = (filters as any);
+            measure.filterArray = filters as any;
         }
 
         jsonData.measures.push(measure);
     }
 
     // issue 21418: support for parameterized queries
-    let urlParams: any = {};
+    const urlParams: any = {};
     if (options.parameters) {
-        for (let p in options.parameters) {
+        for (const p in options.parameters) {
             if (options.parameters.hasOwnProperty(p)) {
                 urlParams['visualization.param.' + p] = options.parameters[p];
             }
@@ -250,8 +238,7 @@ export function getData(options: IGetDataOptions): XMLHttpRequest {
     let url: string;
     if (options.endpoint) {
         url = options.endpoint + '?' + queryString(urlParams);
-    }
-    else {
+    } else {
         url = buildURL('visualization', 'getData', options.containerPath, urlParams);
     }
 
@@ -260,7 +247,7 @@ export function getData(options: IGetDataOptions): XMLHttpRequest {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -278,17 +265,16 @@ export function getDataFilterFromURL(): string {
  * @returns Indicates whether the current URL includes parameters that identify a saved visualization.
  */
 export function getFromUrl(options: RequestCallbackOptions): boolean {
-    let params: any = options || {};
+    const params: any = options || {};
 
     params.success = getOnSuccess(options);
     params.failure = getOnFailure(options);
 
-    let urlParams = getParameters();
+    const urlParams = getParameters();
     let valid = false;
     if (params.reportId) {
         valid = true;
-    }
-    else {
+    } else {
         if (urlParams.name) {
             params.name = urlParams.name;
             params.schemaName = urlParams.schemaName;
@@ -303,13 +289,13 @@ export function getFromUrl(options: RequestCallbackOptions): boolean {
     return valid;
 }
 
-export interface IGetMeasuresOptions extends RequestCallbackOptions<{measures: Measure[]}> {
-    allColumns?: any
+export interface IGetMeasuresOptions extends RequestCallbackOptions<{ measures: Measure[] }> {
+    allColumns?: any;
     /** Indicates whether date measures should be returned instead of numeric measures. Defaults to false. */
-    dateMeasures?: any
+    dateMeasures?: any;
     /** An array of [[Filter]] objects. **/
-    filters?: Array<any> // TODO: Check if this is expecting Query Filters
-    showHidden?: any
+    filters?: any[]; // TODO: Check if this is expecting Query Filters
+    showHidden?: any;
 }
 
 /**
@@ -317,8 +303,7 @@ export interface IGetMeasuresOptions extends RequestCallbackOptions<{measures: M
  * @param {IGetMeasuresOptions} options
  */
 export function getMeasures(options: IGetMeasuresOptions): XMLHttpRequest {
-
-    let params: any = {};
+    const params: any = {};
 
     if (options.filters && options.filters.length) {
         params.filters = options.filters;
@@ -335,21 +320,20 @@ export function getMeasures(options: IGetMeasuresOptions): XMLHttpRequest {
     if (options.showHidden !== undefined) {
         params.showHidden = options.showHidden;
     }
-    
+
     return request({
         url: buildURL('visualization', 'getMeasures.api'),
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createMeasures),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export function getTypes(options: RequestCallbackOptions): XMLHttpRequest {
-
     return request({
         url: buildURL('visualization', 'getVisualizationTypes.api'),
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createTypes),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -358,17 +342,17 @@ export interface IMeasureable {
      * Optional if this measure's axis.timeAxis property is true, ignored otherwise.  Has the following child properties.
      * Either zeroDateCol or ZeroDayVisitTag may be specified, but not both.
      */
-    dateOptions?: IDateOptions
+    dateOptions?: IDateOptions;
 
     /** Used to pivot a resultset into multiple series.  Generally an augmented [[Dimension]] */
-    dimension?: Dimension | IDimensionLike
-    filterArray?: Array<QueryFilter>
+    dimension?: Dimension | IDimensionLike;
+    filterArray?: QueryFilter[];
 
     /** Generally an augmented [[Measure]] */
-    measure: Measure | IMeasureLike
+    measure: Measure | IMeasureLike;
 
     /** "date" indicates this measure is date-based. "time" indicates it is time-based. */
-    time?: any
+    time?: any;
 }
 
 export interface IMeasureLike {
@@ -377,10 +361,10 @@ export interface IMeasureLike {
      * what data should be returned if pivoting by dimension results in multiple underlying values
      * per series data point.
      */
-    aggregate?: TAggregate
+    aggregate?: TAggregate;
 
     /** String. */
-    alias: string
+    alias: string;
 
     /**
      * Optional, defaults to true.  If true, this measure will be joined to other measures via an outer join,
@@ -389,25 +373,25 @@ export interface IMeasureLike {
      * joined to this measure, which will produce a dataset without null values for this measure, but which may
      * not include all data from joined measures.
      */
-    allowNullResults?: boolean
+    allowNullResults?: boolean;
 
     /** Boolean (default false). Indicates whether the measure is Demographic data. */
-    isDemographic?: boolean
+    isDemographic?: boolean;
 
     /** The  name of the column containing this measure. */
-    name: string
+    name: string;
 
     /** The name of the query containing this measure. */
-    queryName: string
+    queryName: string;
 
     /** The name of the schema containing the query that contains this measure. */
-    schemaName: string
+    schemaName: string;
 
     /** The data type of this measure. */
-    type: string
+    type: string;
 
     /** Optional.  If provided, results will be filtered to include only the provided values. */
-    values?: any
+    values?: any;
 }
 
 /**
@@ -418,63 +402,63 @@ export type IconType = 'AUTO' | 'CUSTOM' | 'NONE';
 
 export interface SaveResponse {
     /** The name of the saved visualization. */
-    name: string
+    name: string;
     /** A unique integer identifier for this saved visualization. */
-    visualizationId: number
+    visualizationId: number;
 }
 
 export interface ISaveOptions extends RequestCallbackOptions<SaveResponse> {
     /** A description of the saved report. */
-    description?: string
+    description?: string;
     /**
      * Indicates whether a icon should be auto-generated ('AUTO'), no icon
      * should be saved ('NONE'), or the existing custom icon should be kept ('CUSTOM').
      */
-    iconType?: IconType
+    iconType?: IconType;
     /** The name this visualization should be saved under. */
-    name: string
+    name: string;
     /**
      * Optional, but required if schemaName property is provided.  Allows the visualization to
      * be scoped to a particular query. If scoped, this visualization will appear in the
      * 'views' menu for that query.
      */
-    queryName?: string
+    queryName?: string;
     /**
      * Whether this 'save' call should replace an existing report with the same name.
      * If false, the call to 'save' will fail if another report with the same name exists.
      */
-    replace?: boolean
+    replace?: boolean;
     /**
      * Optional, but required if queryName property is provided.  Allows the visualization to
      * be scoped to a particular query. If scoped, this visualization will appear in the
      * 'views' menu for that query.
      */
-    schemaName?: string
+    schemaName?: string;
     /**
      * Indicates whether this report is viewable by all users with read
      * permissions to the visualization's folder. If false, only the creating user can see
      * the visualization. Defaults to true.
      */
-    shared?: boolean
+    shared?: boolean;
     /**
      * SVG to be used to generate a thumbnail.
      */
-    svg?: string
+    svg?: string;
     /**
      * Indicates whether a thumbnail should be auto-generated ('AUTO'), no thumbnail
      * should be saved ('NONE'), or the existing custom thumbnail should be kept ('CUSTOM').
      */
-    thumbnailType?: IconType
+    thumbnailType?: IconType;
     /**
      * The type of visualization being saved. Should be an instance of
      * {@link LABKEY.Query.Visualization.Type}.
      */
-    type: string // TODO: Make "Type" type
+    type: string; // TODO: Make "Type" type
     /**
      * An arbitrarily complex JavaScript object that contains all information required to
      * recreate the report.
      */
-    visualizationConfig: any
+    visualizationConfig: any;
 }
 
 /**
@@ -493,7 +477,7 @@ export function save(options: ISaveOptions): XMLHttpRequest {
         svg: options.svg,
         type: options.type,
         schemaName: options.schemaName,
-        queryName: options.queryName
+        queryName: options.queryName,
     };
 
     return request({
@@ -501,6 +485,6 @@ export function save(options: ISaveOptions): XMLHttpRequest {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
