@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax'
-import { buildURL } from '../ActionURL'
-import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions, RequestFailure } from '../Utils'
+import { request } from '../Ajax';
+import { buildURL } from '../ActionURL';
+import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions, RequestFailure } from '../Utils';
 
 export interface DeletePolicyOptions extends RequestCallbackOptions {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** The unique id of the securable resource. */
-    resourceId: string
+    resourceId: string;
 }
 
 /**
@@ -41,22 +41,22 @@ export function deletePolicy(config: DeletePolicyOptions): XMLHttpRequest {
         url: buildURL('security', 'deletePolicy.api', config.containerPath),
         method: 'POST',
         jsonData: {
-            resourceId: config.resourceId
+            resourceId: config.resourceId,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface Policy {
-    assignments: {
-        role: string
-        userId: number
-    }[]
-    modified: string
-    modifiedMillis: number
-    resourceId: string
-    requestedResourceId: string
+    assignments: Array<{
+        role: string;
+        userId: number;
+    }>;
+    modified: string;
+    modifiedMillis: number;
+    requestedResourceId: string;
+    resourceId: string;
 }
 
 export interface GetPolicyOptions {
@@ -64,13 +64,13 @@ export interface GetPolicyOptions {
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** A reference to a function to call when an error occurs. */
-    failure?: RequestFailure
+    failure?: RequestFailure;
     /** The unique id of the securable resource. */
-    resourceId: string
+    resourceId: string;
     /** A scoping object for the success and error callback functions (default to this). */
-    scope?: any
+    scope?: any;
     /** A reference to a function to call with the API results. */
     success?: (policy?: Policy, relevantRoles?: string[], request?: XMLHttpRequest) => any;
 }
@@ -91,13 +91,13 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
     return request({
         url: buildURL('security', 'getPolicy.api', config.containerPath),
         jsonData: {
-            resourceId: config.resourceId
+            resourceId: config.resourceId,
         },
-        success: getCallbackWrapper(function(data: { policy: Policy, relevantRoles: string[] }, req: XMLHttpRequest) {
+        success: getCallbackWrapper(function (data: { policy: Policy; relevantRoles: string[] }, req: XMLHttpRequest) {
             data.policy.requestedResourceId = config.resourceId;
             getOnSuccess(config).call(config.scope || this, data.policy, data.relevantRoles, req);
         }, this),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
@@ -106,8 +106,8 @@ export interface SavePolicyOptions extends RequestCallbackOptions {
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
-    policy: any
+    containerPath?: string;
+    policy: any;
 }
 
 /**
@@ -128,6 +128,6 @@ export function savePolicy(config: SavePolicyOptions): XMLHttpRequest {
         method: 'POST',
         jsonData: config.policy.policy ?? config.policy,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }

@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { isString } from './Utils'
-import { QueryKey } from './QueryKey'
+import { isString } from './Utils';
+import { QueryKey } from './QueryKey';
 
 export class FieldKey extends QueryKey {
-
     /**
      * Create new FieldKey from an Array of unencoded FieldKey string parts.
      * @param parts
@@ -26,17 +25,15 @@ export class FieldKey extends QueryKey {
     static fromParts(parts?: any) {
         let ret: FieldKey = null;
 
-        for (let i=0; i < arguments.length; i++) {
-            let arg = arguments[i];
+        for (let i = 0; i < arguments.length; i++) {
+            const arg = arguments[i];
             if (isString(arg)) {
                 ret = new FieldKey(ret, arg);
-            }
-            else if (arg && arg.length) {
-                for (let j=0; j < arg.length; j++) {
+            } else if (arg && arg.length) {
+                for (let j = 0; j < arg.length; j++) {
                     ret = new FieldKey(ret, arg[j]);
                 }
-            }
-            else {
+            } else {
                 throw 'Illegal argument to fromParts: ' + arg;
             }
         }
@@ -51,9 +48,9 @@ export class FieldKey extends QueryKey {
      */
     static fromString(s: string): FieldKey {
         let ret: FieldKey = null;
-        let r = s.split('/');
+        const r = s.split('/');
 
-        for (let i=0; i < r.length; i++) {
+        for (let i = 0; i < r.length; i++) {
             ret = new FieldKey(ret, QueryKey.decodePart(r[i]));
         }
 

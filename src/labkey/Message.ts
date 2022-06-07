@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { request } from './Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
+import { buildURL } from './ActionURL';
+import { request } from './Ajax';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils';
 
 export interface IMsgContent {
-    content: string
-    type: MsgType
+    content: string;
+    type: MsgType;
 }
 
 /**
@@ -30,13 +30,13 @@ export interface IMsgContent {
 export function createMsgContent(type: MsgType, content: string): IMsgContent {
     return {
         content,
-        type
-    }
+        type,
+    };
 }
 
 export interface IPrincipalRecipient {
-    principalId: number
-    type: RecipientType
+    principalId: number;
+    type: RecipientType;
 }
 
 /**
@@ -48,13 +48,13 @@ export interface IPrincipalRecipient {
 export function createPrincipalIdRecipient(type: RecipientType, principalId: number): IPrincipalRecipient {
     return {
         principalId,
-        type
-    }
+        type,
+    };
 }
 
 export interface IRecipient {
-    address: string
-    type: RecipientType
+    address: string;
+    type: RecipientType;
 }
 
 /**
@@ -65,14 +65,14 @@ export interface IRecipient {
 export function createRecipient(type: RecipientType, address: string): IRecipient {
     return {
         address,
-        type
-    }
+        type,
+    };
 }
 
 export type MsgType = 'text/plain' | 'text/html';
 
 export interface IMsgTypeCollection {
-    [key: string]: MsgType
+    [key: string]: MsgType;
 }
 
 /**
@@ -83,13 +83,13 @@ export interface IMsgTypeCollection {
  */
 export const msgType: IMsgTypeCollection = {
     html: 'text/html',
-    plain: 'text/plain'
+    plain: 'text/plain',
 };
 
 export type RecipientType = 'BCC' | 'CC' | 'TO';
 
 export interface IRecipientTypeCollection {
-    [key: string]: RecipientType
+    [key: string]: RecipientType;
 }
 
 /**
@@ -98,7 +98,7 @@ export interface IRecipientTypeCollection {
 export const recipientType: IRecipientTypeCollection = {
     bcc: 'BCC',
     cc: 'CC',
-    to: 'TO'
+    to: 'TO',
 };
 
 export interface ISendMessageOptions extends RequestCallbackOptions {
@@ -109,9 +109,9 @@ export interface ISendMessageOptions extends RequestCallbackOptions {
      *
      * The utility function [[createMsgContent]] can be used to help create these objects.
      */
-    msgContent?: string[]
+    msgContent?: string[];
     /** The email address that appears on the email from line. */
-    msgFrom?: string
+    msgFrom?: string;
     /**
      * An array of recipient objects which have the following properties:
      * - type: the recipient type, must be one of the values from: [[recipientType]].
@@ -121,9 +121,9 @@ export interface ISendMessageOptions extends RequestCallbackOptions {
      * Recipients whose accounts have been deactivated or have never been logged into will be silently dropped from
      * the message.
      */
-    msgRecipients?: string[]
+    msgRecipients?: string[];
     /** The value that appears on the email subject line. */
-    msgSubject?: string
+    msgSubject?: string;
 }
 
 /**
@@ -162,8 +162,7 @@ export interface ISendMessageOptions extends RequestCallbackOptions {
  * ```
  */
 export function sendMessage(config: ISendMessageOptions): XMLHttpRequest {
-
-    let jsonData: ISendMessageOptions = {};
+    const jsonData: ISendMessageOptions = {};
 
     if (config.msgFrom != undefined) {
         jsonData.msgFrom = config.msgFrom;
@@ -183,6 +182,6 @@ export function sendMessage(config: ISendMessageOptions): XMLHttpRequest {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }

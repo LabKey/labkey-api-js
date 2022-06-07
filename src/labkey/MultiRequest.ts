@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getOnFailure, getOnSuccess, isArray } from './Utils'
+import { getOnFailure, getOnSuccess, isArray } from './Utils';
 
 /**
  * Make multiple ajax requests and invokes a callback when all are complete.
@@ -82,25 +82,24 @@ import { getOnFailure, getOnSuccess, isArray } from './Utils'
  *      }
  *  });
  * ```
-*/
-export const MultiRequest = function(config: any) {
-    let doneCallbacks: any[] = [];
-    let self = this;
+ */
+export const MultiRequest = function (config: any) {
+    const doneCallbacks: any[] = [];
+    const self = this;
     let sending = false;
     let sendQ: any[] = [];
     let waitQ: any[] = [];
-    
+
     function applyCallback(callback: any, scope: any) {
-        if (typeof callback == 'function') {
+        if (typeof callback === 'function') {
             doneCallbacks.push({
                 fn: callback,
-                scope
+                scope,
             });
-        }
-        else if (callback && typeof callback.fn == 'function') {
+        } else if (callback && typeof callback.fn === 'function') {
             doneCallbacks.push({
                 fn: callback.fn,
-                scope: callback.scope || scope
+                scope: callback.scope || scope,
             });
         }
     }
@@ -117,16 +116,16 @@ export const MultiRequest = function(config: any) {
 
     function createSequence(fn1: any, fn2: any, scope: any) {
         return function () {
-            let ret = fn1.apply(scope || this || window, arguments);
+            const ret = fn1.apply(scope || this || window, arguments);
             fn2.apply(scope || this || window, arguments);
             return ret;
-        }
+        };
     }
 
     function fireDone() {
         for (let i = 0; i < doneCallbacks.length; i++) {
-            let cb = doneCallbacks[i];
-            if (cb.fn && typeof cb.fn == 'function') {
+            const cb = doneCallbacks[i];
+            if (cb.fn && typeof cb.fn === 'function') {
                 cb.fn.call(cb.scope || window);
             }
         }
@@ -155,12 +154,12 @@ export const MultiRequest = function(config: any) {
      * }).send(function () { console.log("all done!") });
      * ```
      */
-    this.add = function(fn: any, config: any, scope: any) {
+    this.add = function (fn: any, config: any, scope: any) {
         config = config || {};
 
         let success: any = getOnSuccess(config);
         if (!success) {
-            success = function(){};
+            success = function () {};
         }
         if (!success._hookInstalled) {
             config.success = createSequence(success, checkDone, config.scope);
@@ -169,7 +168,7 @@ export const MultiRequest = function(config: any) {
 
         let failure: any = getOnFailure(config);
         if (!failure) {
-            failure = function(){};
+            failure = function () {};
         }
         if (!failure._hookInstalled) {
             config.failure = createSequence(failure, checkDone, config.scope);
@@ -179,7 +178,7 @@ export const MultiRequest = function(config: any) {
         waitQ.push({
             args: [config],
             fn,
-            scope
+            scope,
         });
 
         return this;
@@ -190,7 +189,7 @@ export const MultiRequest = function(config: any) {
      * @param callback
      * @param scope
      */
-    this.send = function(callback: any, scope: any) {
+    this.send = function (callback: any, scope: any) {
         if (sending || waitQ.length === 0) {
             return;
         }
@@ -199,9 +198,9 @@ export const MultiRequest = function(config: any) {
         sendQ = waitQ;
         waitQ = [];
 
-        let len = sendQ.length;
+        const len = sendQ.length;
         for (let i = 0; i < len; i++) {
-            let q = sendQ[i];
+            const q = sendQ[i];
             q.fn.apply(q.scope || window, q.args);
         }
 
@@ -214,15 +213,14 @@ export const MultiRequest = function(config: any) {
 
     if (isArray(cfg)) {
         requests = cfg;
-    }
-    else {
+    } else {
         requests = cfg.requests;
         listeners = cfg.listeners;
     }
 
     if (requests) {
         for (let i = 0; i < requests.length; i++) {
-            let request = requests[i];
+            const request = requests[i];
             this.add(request[0], request[1]);
         }
     }

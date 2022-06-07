@@ -13,91 +13,219 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants';
 import { isArray, isString } from '../Utils';
 
-let urlMap: Record<string, IFilterType> = {};
+import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants';
+
+const urlMap: Record<string, IFilterType> = {};
 
 export interface IFilterType {
-    getDisplaySymbol: () => string
-    getDisplayText: () => string
-    getLongDisplayText: () => string
-    getURLSuffix: () => string
-    isDataValueRequired: () => boolean
-    isMultiValued: () => boolean
-    isTableWise: () => boolean
-    getMultiValueFilter: () => IFilterType
-    getMultiValueMaxOccurs: () => number
-    getMultiValueMinOccurs: () => number
-    getMultiValueSeparator: () => string
-    getOpposite: () => IFilterType
-    getSingleValueFilter:() => IFilterType
+    getDisplaySymbol: () => string;
+    getDisplayText: () => string;
+    /**
+     * Get the LabKey SQL operator for simple filter types (=, >=, <>)
+     */
+    getLabKeySqlOperator: () => string;
+    getLongDisplayText: () => string;
+    getMultiValueFilter: () => IFilterType;
+    getMultiValueMaxOccurs: () => number;
+    getMultiValueMinOccurs: () => number;
+    getMultiValueSeparator: () => string;
+    getOpposite: () => IFilterType;
+    getSingleValueFilter: () => IFilterType;
+    /**
+     * Get the (unencoded) value that will be put on the URL.
+     */
+    getURLParameterValue: (value: FilterValue) => FilterValue;
+    getURLSuffix: () => string;
+    isDataValueRequired: () => boolean;
+    isMultiValued: () => boolean;
+    isTableWise: () => boolean;
     /**
      * Split a filter String or Array value appropriately for this filter type.
      * @return For multi-valued filter types, an Array of values, otherwise the original filter value.
      */
-    parseValue: (value: string | FilterValue[]) => FilterValue | FilterValue[]
-    /**
-     * Get the (unencoded) value that will be put on the URL.
-     */
-    getURLParameterValue: (value: FilterValue) => FilterValue
-    validate: (value: FilterValue, jsonType: string, columnName: string) => any
-    /**
-     * Get the LabKey SQL operator for simple filter types (=, >=, <>)
-     */
-    getLabKeySqlOperator: () => string
+    parseValue: (value: string | FilterValue[]) => FilterValue | FilterValue[];
+    validate: (value: FilterValue, jsonType: string, columnName: string) => any;
 }
 
 /** Finds rows where the column value matches the given filter value. Case-sensitivity depends upon how your underlying relational database was configured.*/
 const EQUAL = registerFilterType('Equals', '=', 'eq', true, undefined, undefined, undefined, undefined, false, '=');
 /** Finds rows where the column value is greater than the filter value.*/
-const GREATER_THAN = registerFilterType('Is Greater Than', '>', 'gt', true, undefined, undefined, undefined, undefined, false, '>');
+const GREATER_THAN = registerFilterType(
+    'Is Greater Than',
+    '>',
+    'gt',
+    true,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    false,
+    '>'
+);
 /** Finds rows where the column value is greater than or equal to the filter value.*/
-const GREATER_THAN_OR_EQUAL = registerFilterType('Is Greater Than or Equal To', '>=', 'gte', true, undefined, undefined, undefined, undefined, false, '>=');
+const GREATER_THAN_OR_EQUAL = registerFilterType(
+    'Is Greater Than or Equal To',
+    '>=',
+    'gte',
+    true,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    false,
+    '>='
+);
 /** Finds rows where the column value equals one of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
 const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of (example usage: a;b;c)');
 /** Finds rows where the column value is less than the filter value.*/
-const LESS_THAN = registerFilterType('Is Less Than', '<', 'lt', true, undefined, undefined, undefined, undefined, false, '<');
+const LESS_THAN = registerFilterType(
+    'Is Less Than',
+    '<',
+    'lt',
+    true,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    false,
+    '<'
+);
 /** Finds rows where the column value is less than or equal to the filter value.*/
-const LESS_THAN_OR_EQUAL = registerFilterType('Is Less Than or Equal To', '=<', 'lte', true, undefined, undefined, undefined, undefined, false, '<=');
+const LESS_THAN_OR_EQUAL = registerFilterType(
+    'Is Less Than or Equal To',
+    '=<',
+    'lte',
+    true,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    false,
+    '<='
+);
 /** Finds rows where the column value does not equal the filter value.*/
-const NOT_EQUAL = registerFilterType('Does Not Equal', '<>', 'neq', true, undefined, undefined, undefined, undefined, false, '<>');
+const NOT_EQUAL = registerFilterType(
+    'Does Not Equal',
+    '<>',
+    'neq',
+    true,
+    undefined,
+    undefined,
+    undefined,
+    undefined,
+    false,
+    '<>'
+);
 /** Finds rows where the column value is not in any of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
-const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of (example usage: a;b;c)');
+const NOT_IN = registerFilterType(
+    'Does Not Equal Any Of',
+    null,
+    'notin',
+    true,
+    ';',
+    'Does Not Equal Any Of (example usage: a;b;c)'
+);
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
 // Mutable due to "_define"
-export let Types: Record<string, IFilterType> = {
-
+export const Types: Record<string, IFilterType> = {
     //
     // These operators require a data value
     //
 
     EQUAL,
-    DATE_EQUAL: registerFilterType(EQUAL.getDisplayText(), EQUAL.getDisplaySymbol(), 'dateeq', true, undefined, undefined, undefined, undefined, false, EQUAL.getLabKeySqlOperator()),
+    DATE_EQUAL: registerFilterType(
+        EQUAL.getDisplayText(),
+        EQUAL.getDisplaySymbol(),
+        'dateeq',
+        true,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        EQUAL.getLabKeySqlOperator()
+    ),
 
     NOT_EQUAL,
     NEQ: NOT_EQUAL,
-    DATE_NOT_EQUAL: registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'dateneq', true, undefined, undefined, undefined, undefined, false, NOT_EQUAL.getLabKeySqlOperator()),
+    DATE_NOT_EQUAL: registerFilterType(
+        NOT_EQUAL.getDisplayText(),
+        NOT_EQUAL.getDisplaySymbol(),
+        'dateneq',
+        true,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        NOT_EQUAL.getLabKeySqlOperator()
+    ),
 
     NEQ_OR_NULL,
     NOT_EQUAL_OR_MISSING: NEQ_OR_NULL,
 
     GREATER_THAN,
     GT: GREATER_THAN,
-    DATE_GREATER_THAN: registerFilterType(GREATER_THAN.getDisplayText(), GREATER_THAN.getDisplaySymbol(), 'dategt', true, undefined, undefined, undefined, undefined, false, GREATER_THAN.getLabKeySqlOperator()),
+    DATE_GREATER_THAN: registerFilterType(
+        GREATER_THAN.getDisplayText(),
+        GREATER_THAN.getDisplaySymbol(),
+        'dategt',
+        true,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        GREATER_THAN.getLabKeySqlOperator()
+    ),
 
     LESS_THAN,
     LT: LESS_THAN,
-    DATE_LESS_THAN: registerFilterType(LESS_THAN.getDisplayText(), LESS_THAN.getDisplaySymbol(), 'datelt', true, undefined, undefined, undefined, undefined, false, LESS_THAN.getLabKeySqlOperator()),
+    DATE_LESS_THAN: registerFilterType(
+        LESS_THAN.getDisplayText(),
+        LESS_THAN.getDisplaySymbol(),
+        'datelt',
+        true,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        LESS_THAN.getLabKeySqlOperator()
+    ),
 
     GREATER_THAN_OR_EQUAL,
-    GTE : GREATER_THAN_OR_EQUAL,
-    DATE_GREATER_THAN_OR_EQUAL: registerFilterType(GREATER_THAN_OR_EQUAL.getDisplayText(), GREATER_THAN_OR_EQUAL.getDisplaySymbol(), 'dategte', true, undefined, undefined, undefined, undefined, false, GREATER_THAN_OR_EQUAL.getLabKeySqlOperator()),
+    GTE: GREATER_THAN_OR_EQUAL,
+    DATE_GREATER_THAN_OR_EQUAL: registerFilterType(
+        GREATER_THAN_OR_EQUAL.getDisplayText(),
+        GREATER_THAN_OR_EQUAL.getDisplaySymbol(),
+        'dategte',
+        true,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        GREATER_THAN_OR_EQUAL.getLabKeySqlOperator()
+    ),
 
     LESS_THAN_OR_EQUAL,
     LTE: LESS_THAN_OR_EQUAL,
-    DATE_LESS_THAN_OR_EQUAL: registerFilterType(LESS_THAN_OR_EQUAL.getDisplayText(), LESS_THAN_OR_EQUAL.getDisplaySymbol(), 'datelte', true, undefined, undefined, undefined, undefined, false, LESS_THAN_OR_EQUAL.getLabKeySqlOperator()),
+    DATE_LESS_THAN_OR_EQUAL: registerFilterType(
+        LESS_THAN_OR_EQUAL.getDisplayText(),
+        LESS_THAN_OR_EQUAL.getDisplaySymbol(),
+        'datelte',
+        true,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        LESS_THAN_OR_EQUAL.getLabKeySqlOperator()
+    ),
 
     STARTS_WITH: registerFilterType('Starts With', null, 'startswith', true),
     DOES_NOT_START_WITH: registerFilterType('Does Not Start With', null, 'doesnotstartwith', true),
@@ -105,8 +233,22 @@ export let Types: Record<string, IFilterType> = {
     CONTAINS: registerFilterType('Contains', null, 'contains', true),
     DOES_NOT_CONTAIN: registerFilterType('Does Not Contain', null, 'doesnotcontain', true),
 
-    CONTAINS_ONE_OF: registerFilterType('Contains One Of', null, 'containsoneof', true, ';', 'Contains One Of (example usage: a;b;c)'),
-    CONTAINS_NONE_OF: registerFilterType('Does Not Contain Any Of', null, 'containsnoneof', true, ';', 'Does Not Contain Any Of (example usage: a;b;c)'),
+    CONTAINS_ONE_OF: registerFilterType(
+        'Contains One Of',
+        null,
+        'containsoneof',
+        true,
+        ';',
+        'Contains One Of (example usage: a;b;c)'
+    ),
+    CONTAINS_NONE_OF: registerFilterType(
+        'Does Not Contain Any Of',
+        null,
+        'containsnoneof',
+        true,
+        ';',
+        'Does Not Contain Any Of (example usage: a;b;c)'
+    ),
 
     // NOTE: for some reason IN is aliased as EQUALS_ONE_OF. Not sure if this is for legacy purposes or it was
     // determined EQUALS_ONE_OF was a better phrase to follow this pattern I did the same for IN_OR_MISSING
@@ -116,8 +258,26 @@ export let Types: Record<string, IFilterType> = {
     NOT_IN,
     EQUALS_NONE_OF: NOT_IN,
 
-    BETWEEN: registerFilterType('Between', null, 'between', true, ',', 'Between, Inclusive (example usage: -4,4)', 2, 2),
-    NOT_BETWEEN: registerFilterType('Not Between', null, 'notbetween', true, ',', 'Not Between, Exclusive (example usage: -4,4)', 2, 2),
+    BETWEEN: registerFilterType(
+        'Between',
+        null,
+        'between',
+        true,
+        ',',
+        'Between, Inclusive (example usage: -4,4)',
+        2,
+        2
+    ),
+    NOT_BETWEEN: registerFilterType(
+        'Not Between',
+        null,
+        'notbetween',
+        true,
+        ',',
+        'Not Between, Exclusive (example usage: -4,4)',
+        2,
+        2
+    ),
 
     MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
 
@@ -133,10 +293,54 @@ export let Types: Record<string, IFilterType> = {
     // The result is a filter that is encoded as "<dataRegionName>.<columnName>~=".
     HAS_ANY_VALUE: registerFilterType('Has Any Value', null, ''),
 
-    ISBLANK: registerFilterType('Is Blank', null, 'isblank', false, undefined, undefined, undefined, undefined, false, 'IS NULL'),
-    MISSING: registerFilterType('Is Blank', null, 'isblank', false, undefined, undefined, undefined, undefined, false, 'IS NULL'),
-    NONBLANK: registerFilterType('Is Not Blank', null, 'isnonblank', false, undefined, undefined, undefined, undefined, false, 'IS NOT NULL'),
-    NOT_MISSING: registerFilterType('Is Not Blank', null, 'isnonblank', false, undefined, undefined, undefined, undefined, false, 'IS NOT NULL'),
+    ISBLANK: registerFilterType(
+        'Is Blank',
+        null,
+        'isblank',
+        false,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        'IS NULL'
+    ),
+    MISSING: registerFilterType(
+        'Is Blank',
+        null,
+        'isblank',
+        false,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        'IS NULL'
+    ),
+    NONBLANK: registerFilterType(
+        'Is Not Blank',
+        null,
+        'isnonblank',
+        false,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        'IS NOT NULL'
+    ),
+    NOT_MISSING: registerFilterType(
+        'Is Not Blank',
+        null,
+        'isnonblank',
+        false,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        false,
+        'IS NOT NULL'
+    ),
 
     HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', null, 'hasmvvalue'),
     DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
@@ -144,31 +348,99 @@ export let Types: Record<string, IFilterType> = {
     //
     // Table/Query-wise operators
     //
-    Q: registerFilterType('Search', null, 'q', true, undefined, 'Search across all columns', undefined, undefined, true),
+    Q: registerFilterType(
+        'Search',
+        null,
+        'q',
+        true,
+        undefined,
+        'Search across all columns',
+        undefined,
+        undefined,
+        true
+    ),
     //
     // Ontology operators
     //
-    ONTOLOGY_IN_SUBTREE : registerFilterType("Is In Subtree", null, "concept:insubtree", true),
-    ONTOLOGY_NOT_IN_SUBTREE : registerFilterType("Is Not In Subtree", null, "concept:notinsubtree", true)
+    ONTOLOGY_IN_SUBTREE: registerFilterType('Is In Subtree', null, 'concept:insubtree', true),
+    ONTOLOGY_NOT_IN_SUBTREE: registerFilterType('Is Not In Subtree', null, 'concept:notinsubtree', true),
 };
 
 export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
 
 export const TYPES_BY_JSON_TYPE: Record<string, IFilterType[]> = {
-    'boolean': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
-    'date': [Types.HAS_ANY_VALUE, Types.DATE_EQUAL, Types.DATE_NOT_EQUAL, Types.ISBLANK, Types.NONBLANK, Types.DATE_GREATER_THAN, Types.DATE_LESS_THAN, Types.DATE_GREATER_THAN_OR_EQUAL, Types.DATE_LESS_THAN_OR_EQUAL],
-    'float': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN],
-    'int': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.IN, Types.NOT_IN, Types.BETWEEN, Types.NOT_BETWEEN],
-    'string': [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK, Types.GT, Types.LT, Types.GTE, Types.LTE, Types.CONTAINS, Types.DOES_NOT_CONTAIN, Types.DOES_NOT_START_WITH, Types.STARTS_WITH, Types.IN, Types.NOT_IN, Types.CONTAINS_ONE_OF, Types.CONTAINS_NONE_OF, Types.BETWEEN, Types.NOT_BETWEEN]
+    boolean: [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
+    date: [
+        Types.HAS_ANY_VALUE,
+        Types.DATE_EQUAL,
+        Types.DATE_NOT_EQUAL,
+        Types.ISBLANK,
+        Types.NONBLANK,
+        Types.DATE_GREATER_THAN,
+        Types.DATE_LESS_THAN,
+        Types.DATE_GREATER_THAN_OR_EQUAL,
+        Types.DATE_LESS_THAN_OR_EQUAL,
+    ],
+    float: [
+        Types.HAS_ANY_VALUE,
+        Types.EQUAL,
+        Types.NEQ_OR_NULL,
+        Types.ISBLANK,
+        Types.NONBLANK,
+        Types.GT,
+        Types.LT,
+        Types.GTE,
+        Types.LTE,
+        Types.IN,
+        Types.NOT_IN,
+        Types.BETWEEN,
+        Types.NOT_BETWEEN,
+    ],
+    int: [
+        Types.HAS_ANY_VALUE,
+        Types.EQUAL,
+        Types.NEQ_OR_NULL,
+        Types.ISBLANK,
+        Types.NONBLANK,
+        Types.GT,
+        Types.LT,
+        Types.GTE,
+        Types.LTE,
+        Types.IN,
+        Types.NOT_IN,
+        Types.BETWEEN,
+        Types.NOT_BETWEEN,
+    ],
+    string: [
+        Types.HAS_ANY_VALUE,
+        Types.EQUAL,
+        Types.NEQ_OR_NULL,
+        Types.ISBLANK,
+        Types.NONBLANK,
+        Types.GT,
+        Types.LT,
+        Types.GTE,
+        Types.LTE,
+        Types.CONTAINS,
+        Types.DOES_NOT_CONTAIN,
+        Types.DOES_NOT_START_WITH,
+        Types.STARTS_WITH,
+        Types.IN,
+        Types.NOT_IN,
+        Types.CONTAINS_ONE_OF,
+        Types.CONTAINS_NONE_OF,
+        Types.BETWEEN,
+        Types.NOT_BETWEEN,
+    ],
 };
 
 // TODO: Update to Record<JsonType, IFilterType[]>
 export const TYPES_BY_JSON_TYPE_DEFAULT: Record<string, IFilterType> = {
-    'boolean': Types.EQUAL,
-    'date': Types.DATE_EQUAL,
-    'float': Types.EQUAL,
-    'int': Types.EQUAL,
-    'string': Types.CONTAINS
+    boolean: Types.EQUAL,
+    date: Types.DATE_EQUAL,
+    float: Types.EQUAL,
+    int: Types.EQUAL,
+    string: Types.CONTAINS,
 };
 
 /**
@@ -235,9 +507,16 @@ export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): 
  * @param labkeySqlOperator The simple operator to use for generating labkey sql
  */
 export function registerFilterType(
-    displayText: string, displaySymbol?: string, urlSuffix?: string,
-    dataValueRequired?: boolean, multiValueSeparator?: string, longDisplayText?: string,
-    minOccurs?: number, maxOccurs?: number, tableWise?: boolean, labkeySqlOperator?: string
+    displayText: string,
+    displaySymbol?: string,
+    urlSuffix?: string,
+    dataValueRequired?: boolean,
+    multiValueSeparator?: string,
+    longDisplayText?: string,
+    minOccurs?: number,
+    maxOccurs?: number,
+    tableWise?: boolean,
+    labkeySqlOperator?: string
 ): IFilterType {
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
@@ -251,26 +530,32 @@ export function registerFilterType(
         isDataValueRequired,
         isMultiValued,
         isTableWise,
-        getMultiValueFilter: () => isMultiValued() ? null : urlMap[singleValueToMultiMap[urlSuffix]],
+        getMultiValueFilter: () => (isMultiValued() ? null : urlMap[singleValueToMultiMap[urlSuffix]]),
         getMultiValueMaxOccurs: () => maxOccurs,
         getMultiValueMinOccurs: () => minOccurs,
         getMultiValueSeparator: () => multiValueSeparator ?? null,
-        getOpposite: () => oppositeMap[urlSuffix] ? urlMap[oppositeMap[urlSuffix]] : null,
-        getSingleValueFilter: () => isMultiValued() ? urlMap[multiValueToSingleMap[urlSuffix]] : urlMap[urlSuffix],
+        getOpposite: () => (oppositeMap[urlSuffix] ? urlMap[oppositeMap[urlSuffix]] : null),
+        getSingleValueFilter: () => (isMultiValued() ? urlMap[multiValueToSingleMap[urlSuffix]] : urlMap[urlSuffix]),
 
-        parseValue: (value) => {
+        parseValue: value => {
             if (type.isMultiValued()) {
                 if (isString(value)) {
-                    if (value.indexOf("{json:") === 0 && value.indexOf("}") === value.length-1) {
-                        value = JSON.parse(value.substring("{json:".length, value.length - 1));
-                    }
-                    else {
+                    if (value.indexOf('{json:') === 0 && value.indexOf('}') === value.length - 1) {
+                        value = JSON.parse(value.substring('{json:'.length, value.length - 1));
+                    } else {
                         value = value.split(type.getMultiValueSeparator());
                     }
                 }
 
                 if (!isArray(value))
-                    throw new Error("Filter '" + type.getDisplayText() + "' must be created with Array of values or a '" + type.getMultiValueSeparator() + "' separated string of values: " + value);
+                    throw new Error(
+                        "Filter '" +
+                            type.getDisplayText() +
+                            "' must be created with Array of values or a '" +
+                            type.getMultiValueSeparator() +
+                            "' separated string of values: " +
+                            value
+                    );
             }
 
             if (!type.isMultiValued() && isArray(value))
@@ -285,17 +570,15 @@ export function registerFilterType(
             }
 
             if (type.isMultiValued() && isArray(value)) {
-
                 // 35265: Create alternate syntax to handle semicolons
-                let sep = type.getMultiValueSeparator();
-                let found = value.some((v: string) => {
+                const sep = type.getMultiValueSeparator();
+                const found = value.some((v: string) => {
                     return isString(v) && v.indexOf(sep) !== -1;
                 });
 
                 if (found) {
                     return '{json:' + JSON.stringify(value) + '}';
-                }
-                else {
+                } else {
                     return value.join(sep);
                 }
             }
@@ -308,10 +591,10 @@ export function registerFilterType(
                 return true; // TODO: This method is all over the place with it's return type. WTB sanity...
             }
 
-            let f = TYPES_BY_JSON_TYPE[jsonType.toLowerCase()];
+            const f = TYPES_BY_JSON_TYPE[jsonType.toLowerCase()];
             let found = false;
 
-            for (let i=0; !found && i < f.length; i++) {
+            for (let i = 0; !found && i < f.length; i++) {
                 if (f[i].getURLSuffix() == urlSuffix) {
                     found = true;
                 }
@@ -319,7 +602,7 @@ export function registerFilterType(
 
             if (!found) {
                 // TODO: Use Utils.alert
-                alert("Filter type '" + displayText + "' can't be applied to " + type + " types.");
+                alert("Filter type '" + displayText + "' can't be applied to " + type + ' types.');
                 return undefined;
             }
 
@@ -330,9 +613,9 @@ export function registerFilterType(
             }
         },
 
-        getLabKeySqlOperator: () : string => {
+        getLabKeySqlOperator: (): string => {
             return labkeySqlOperator;
-        }
+        },
     };
 
     urlMap[urlSuffix] = type;
@@ -360,30 +643,48 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
 
     // TODO: Use Utils.alert throughout this method
     if (jsonType === 'boolean') {
-        let upperVal = strValue.toUpperCase();
-        if (upperVal == 'TRUE' || upperVal == '1' || upperVal == 'YES' || upperVal == 'Y' || upperVal == 'ON' || upperVal == 'T') {
+        const upperVal = strValue.toUpperCase();
+        if (
+            upperVal == 'TRUE' ||
+            upperVal == '1' ||
+            upperVal == 'YES' ||
+            upperVal == 'Y' ||
+            upperVal == 'ON' ||
+            upperVal == 'T'
+        ) {
             return '1';
         }
-        if (upperVal == 'FALSE' || upperVal == '0' || upperVal == 'NO' || upperVal == 'N' || upperVal == 'OFF' || upperVal == 'F') {
+        if (
+            upperVal == 'FALSE' ||
+            upperVal == '0' ||
+            upperVal == 'NO' ||
+            upperVal == 'N' ||
+            upperVal == 'OFF' ||
+            upperVal == 'F'
+        ) {
             return '0';
-        }
-        else {
-            alert(strValue + " is not a valid boolean for field '" + columnName + "'. Try true,false; yes,no; y,n; on,off; or 1,0.");
+        } else {
+            alert(
+                strValue +
+                    " is not a valid boolean for field '" +
+                    columnName +
+                    "'. Try true,false; yes,no; y,n; on,off; or 1,0."
+            );
             return undefined;
         }
-    }
-    else if (jsonType === 'date') {
+    } else if (jsonType === 'date') {
         let year: number, month: number, day: number, hour: number, minute: number;
         hour = 0;
         minute = 0;
 
         // Javascript does not parse ISO dates, but if date matches we're done
-        if (strValue.match(/^\s*(\d\d\d\d)-(\d\d)-(\d\d)\s*$/) ||
-            strValue.match(/^\s*(\d\d\d\d)-(\d\d)-(\d\d)\s*(\d\d):(\d\d)\s*$/)) {
+        if (
+            strValue.match(/^\s*(\d\d\d\d)-(\d\d)-(\d\d)\s*$/) ||
+            strValue.match(/^\s*(\d\d\d\d)-(\d\d)-(\d\d)\s*(\d\d):(\d\d)\s*$/)
+        ) {
             return strValue;
-        }
-        else {
-            let dateVal = new Date(strValue);
+        } else {
+            const dateVal = new Date(strValue);
             if (isNaN(dateVal as any)) {
                 // filters can use relative dates, in the format +1d, -5H, etc. we try to identify those here
                 // this is fairly permissive and does not attempt to parse this value into a date.
@@ -411,32 +712,26 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
             minute = dateVal.getMinutes();
         }
         let str = '' + year + '-' + twoDigit(month) + '-' + twoDigit(day);
-        if (hour != 0 || minute != 0)
-            str += ' ' + twoDigit(hour) + ':' + twoDigit(minute);
+        if (hour != 0 || minute != 0) str += ' ' + twoDigit(hour) + ':' + twoDigit(minute);
 
         return str;
-    }
-    else if (jsonType === 'float') {
-        let decVal = parseFloat(strValue);
+    } else if (jsonType === 'float') {
+        const decVal = parseFloat(strValue);
         if (isNaN(decVal)) {
             alert(strValue + " is not a valid decimal number for field '" + columnName + "'.");
             return undefined;
-        }
-        else {
+        } else {
             return '' + decVal;
         }
-    }
-    else if (jsonType === 'int') {
-        let intVal = parseInt(strValue);
+    } else if (jsonType === 'int') {
+        const intVal = parseInt(strValue);
         if (isNaN(intVal)) {
             alert(strValue + " is not a valid integer for field '" + columnName + "'.");
             return undefined;
-        }
-        else {
+        } else {
             return '' + intVal;
         }
-    }
-    else {
+    } else {
         // jsonType === 'string'
         return strValue;
     }
@@ -445,23 +740,25 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
 // validate the component items of the value
 // returns undefined or the string representation of the filter value (see .getURLParameterValue)
 function validateMultiple(
-    filterType: IFilterType, jsonType: JsonType, value: FilterValue, columnName: string,
-    sep: string, minOccurs: number, maxOccurs: number
+    filterType: IFilterType,
+    jsonType: JsonType,
+    value: FilterValue,
+    columnName: string,
+    sep: string,
+    minOccurs: number,
+    maxOccurs: number
 ): string | undefined {
     let values;
-    try
-    {
+    try {
         values = filterType.parseValue(value);
-    }
-    catch (x)
-    {
-        alert("Failed to validate filter: " + x.toString());
+    } catch (x) {
+        alert('Failed to validate filter: ' + x.toString());
         return undefined;
     }
 
-    let result = [];
+    const result = [];
     for (let i = 0; i < values.length; i++) {
-        let valid = validate(jsonType, values[i].trim(), columnName);
+        const valid = validate(jsonType, values[i].trim(), columnName);
         if (valid == undefined) {
             return undefined;
         }
@@ -471,14 +768,14 @@ function validateMultiple(
 
     if (minOccurs !== undefined && minOccurs > 0) {
         if (values.length < minOccurs) {
-            alert("At least " + minOccurs + " '" + sep + "' separated values are required");
+            alert('At least ' + minOccurs + " '" + sep + "' separated values are required");
             return undefined;
         }
     }
 
     if (maxOccurs !== undefined && maxOccurs > 0) {
         if (values.length > maxOccurs) {
-            alert("At most " + maxOccurs + " '" + sep + "' separated values are allowed");
+            alert('At most ' + maxOccurs + " '" + sep + "' separated values are allowed");
             return undefined;
         }
     }

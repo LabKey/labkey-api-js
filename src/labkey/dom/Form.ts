@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { loadDOMContext } from './constants'
+import { loadDOMContext } from './constants';
 
 const { $ } = loadDOMContext();
 
 declare const window: Window;
 
 export interface IFormOptions {
-    formElement: any
-    showWarningMessage?: boolean
-    warningMessage?: string
+    formElement: any;
+    showWarningMessage?: boolean;
+    warningMessage?: string;
 }
 
 export class Form {
-
     _isDirty: boolean;
     warningMessage: string;
 
@@ -35,12 +34,12 @@ export class Form {
             throw 'Invalid config passed to LABKEY.Form constructor! Your config object should have a property named formElement which is the id of your form.';
         }
 
-        let me = this;
-        this.warningMessage = options.warningMessage || "Your changes have not yet been saved.";
+        const me = this;
+        this.warningMessage = options.warningMessage || 'Your changes have not yet been saved.';
         this._isDirty = false;
 
-        //register for onchange events on all input elements
-        let formEl = $('#' + options.formElement);
+        // register for onchange events on all input elements
+        const formEl = $('#' + options.formElement);
         formEl.find(':input').change(() => {
             this.setDirty();
         });

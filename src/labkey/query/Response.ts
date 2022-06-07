@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { isArray, isDefined, isFunction } from '../Utils'
+import { isArray, isDefined, isFunction } from '../Utils';
 
-import { FieldKey } from '../FieldKey'
-import { SchemaKey } from '../SchemaKey'
+import { FieldKey } from '../FieldKey';
+import { SchemaKey } from '../SchemaKey';
 
 interface ExtRoot {
-    Ext?: any
-    Ext4?: any
+    Ext?: any;
+    Ext4?: any;
 }
 
 declare type ExtWindow = Window & ExtRoot;
@@ -33,8 +33,8 @@ declare const window: ExtWindow;
  * @param {Array<any>} fields
  * @returns {Array<any>}
  */
-function generateColumnModel(fields: Array<any>): Array<any> {
-    let columns = [];
+function generateColumnModel(fields: any[]): any[] {
+    const columns = [];
 
     for (let i = 0; i < fields.length; i++) {
         columns.push({
@@ -46,8 +46,8 @@ function generateColumnModel(fields: Array<any>): Array<any> {
             dataIndex: fields[i].fieldKey.toString(),
             required: fields[i].nullable, // Not sure if this is correct.
             editable: fields[i].userEditable,
-            header: fields[i].shortCaption
-        })
+            header: fields[i].shortCaption,
+        });
     }
 
     return columns;
@@ -60,7 +60,7 @@ function generateColumnModel(fields: Array<any>): Array<any> {
  * @param {Array<any>} fields
  * @returns {Function}
  */
-function generateGetDisplayField(fieldKey: FieldKey, fields: Array<any>): Function {
+function generateGetDisplayField(fieldKey: FieldKey, fields: any[]): Function {
     return () => {
         const fieldString = fieldKey.toString();
         for (let i = 0; i < fields.length; i++) {
@@ -69,7 +69,7 @@ function generateGetDisplayField(fieldKey: FieldKey, fields: Array<any>): Functi
             }
         }
         return null;
-    }
+    };
 }
 
 /** The class used to wrap the response object from [[getRawData]], [[selectRows]], and [[executeSql]]. */
@@ -79,10 +79,10 @@ export class Response {
     metaData: any;
     queryName: string;
     rowCount: number;
-    rows: Array<Row>;
+    rows: Row[];
     schemaKey: SchemaKey;
     schemaName: string;
-    [attr:string]: any;
+    [attr: string]: any;
 
     /**
      * @see [[getRawData]]
@@ -92,9 +92,8 @@ export class Response {
      * [[selectRows]], or [[executeSql]] when requiredVersion is greater than 13.2.
      */
     constructor(rawResponse: any) {
-
         // Shallow copy the rawResponse
-        for (let attr in rawResponse) {
+        for (const attr in rawResponse) {
             if (rawResponse.hasOwnProperty(attr)) {
                 this[attr] = rawResponse[attr];
             }
@@ -108,7 +107,7 @@ export class Response {
             const fields = rawResponse.metaData.fields;
 
             for (let i = 0; i < fields.length; i++) {
-                let field = Object.assign({}, fields[i]);
+                const field = Object.assign({}, fields[i]);
                 const lookup = field.lookup;
 
                 field.fieldKey = FieldKey.fromParts(field.fieldKey);
@@ -126,9 +125,9 @@ export class Response {
                 // checking to see if the fn ExtJS version and the window ExtJS version match
                 if (field.extFormatFn) {
                     const ext4Index = field.extFormatFn.indexOf('Ext4.'),
-                          isExt4Fn = ext4Index === 0 || ext4Index === 1,
-                          canEvalExt3 = !isExt4Fn && window && isDefined(window.Ext),
-                          canEvalExt4 = isExt4Fn && window && isDefined(window.Ext4);
+                        isExt4Fn = ext4Index === 0 || ext4Index === 1,
+                        canEvalExt3 = !isExt4Fn && window && isDefined(window.Ext),
+                        canEvalExt4 = isExt4Fn && window && isDefined(window.Ext4);
 
                     if (canEvalExt3 || canEvalExt4) {
                         field.extFormatFn = eval(field.extFormatFn);
@@ -149,8 +148,7 @@ export class Response {
             for (let i = 0; i < this.rows.length; i++) {
                 this.rows[i] = new Row(this.rows[i]);
             }
-        }
-        else {
+        } else {
             this.rows = [];
         }
     }
@@ -229,7 +227,7 @@ export class Response {
      * Returns the array of row objects.
      * @returns {Array<Row>} Returns an array of [[Row]] objects.
      */
-    getRows(): Array<Row> {
+    getRows(): Row[] {
         return this.rows;
     }
 
@@ -251,7 +249,7 @@ export class Response {
  */
 export class Row {
     links: any;
-    [attr:string]: any;
+    [attr: string]: any;
 
     /**
      * @see [[Response]]
@@ -264,7 +262,7 @@ export class Row {
             this.links = rawRow.links;
         }
 
-        for (let attr in rawRow.data) {
+        for (const attr in rawRow.data) {
             if (rawRow.data.hasOwnProperty(attr)) {
                 this[attr] = rawRow.data[attr];
             }
@@ -285,7 +283,7 @@ export class Row {
     get(columnName: string): any {
         columnName = columnName.toLowerCase();
 
-        for (let attr in this) {
+        for (const attr in this) {
             if (attr.toLowerCase() === columnName && this.hasOwnProperty(attr) && !isFunction(this[attr])) {
                 return this[attr];
             }
@@ -324,7 +322,7 @@ export class Row {
     getValue(columnName: string): any {
         columnName = columnName.toLowerCase();
 
-        for (let attr in this) {
+        for (const attr in this) {
             if (attr.toLowerCase() === columnName && this.hasOwnProperty(attr) && !isFunction(this[attr])) {
                 if (isArray(this[attr])) {
                     return this[attr].map((i: any) => i.value);

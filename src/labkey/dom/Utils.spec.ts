@@ -20,7 +20,9 @@ describe('dom/Utils', () => {
     describe('loadDOMContext', () => {
         it('Error without jQuery', () => {
             const { $ } = loadDOMContext();
-            expect(() => { $(); }).toThrowError('jQuery');
+            expect(() => {
+                $();
+            }).toThrowError('jQuery');
         });
     });
 

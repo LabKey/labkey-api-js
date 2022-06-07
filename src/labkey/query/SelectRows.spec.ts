@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as Ajax from '../Ajax'
-import { create } from '../Filter'
+import * as Ajax from '../Ajax';
+import { create } from '../Filter';
 
-import { selectRows } from './SelectRows'
+import { selectRows } from './SelectRows';
 
 describe('selectRows', () => {
-
     const applyDataRegionName = (params: any, dataRegionName = 'query'): any => {
-        let result: any = {};
-        Object.keys(params).forEach((key) => {
+        const result: any = {};
+        Object.keys(params).forEach(key => {
             result[`${dataRegionName}.${key}`] = params[key];
         });
         return result;
@@ -46,7 +45,7 @@ describe('selectRows', () => {
 
         // Arrange
         const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
-        const schemaName =  'SSS';
+        const schemaName = 'SSS';
         const queryName = 'QQQ';
         const filters = [create('x', 42)];
         const sort = '+x,-y';
@@ -56,25 +55,27 @@ describe('selectRows', () => {
         (selectRows as any)(schemaName, queryName, undefined, undefined, filters, sort, viewName);
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            // default to 'query' dataRegionName
-            params: {
-                ...applyDataRegionName({
-                    queryName,
-                    sort,
-                    viewName,
-                    'x~eq': 42,
-                }),
-                dataRegionName: 'query',
-                schemaName,
-            },
-        }));
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                // default to 'query' dataRegionName
+                params: {
+                    ...applyDataRegionName({
+                        queryName,
+                        sort,
+                        viewName,
+                        'x~eq': 42,
+                    }),
+                    dataRegionName: 'query',
+                    schemaName,
+                },
+            })
+        );
     });
 
     it('should respect defaults', () => {
         // Arrange
         const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
-        const schemaName =  'SSS';
+        const schemaName = 'SSS';
         const queryName = 'QQQ';
 
         // Act
@@ -84,28 +85,29 @@ describe('selectRows', () => {
         });
 
         // Assert
-        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({
-            // default to container-free URL
-            url: '/query/getQuery.api',
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                // default to container-free URL
+                url: '/query/getQuery.api',
 
-            // default to 'GET' request
-            method: 'GET',
+                // default to 'GET' request
+                method: 'GET',
 
-            // default to 'query' dataRegionName
-            params: {
-                dataRegionName: 'query',
-                'query.queryName': queryName,
-                schemaName,
-            },
+                // default to 'query' dataRegionName
+                params: {
+                    dataRegionName: 'query',
+                    'query.queryName': queryName,
+                    schemaName,
+                },
 
-            // default to not supplying a timeout value
-            timeout: undefined
-        }));
+                // default to not supplying a timeout value
+                timeout: undefined,
+            })
+        );
     });
 });
 
 describe('selectRows -- optional parameters', () => {
-
     const selectRowsRequest = (props: any) => {
         const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
         selectRows({
@@ -122,38 +124,37 @@ describe('selectRows -- optional parameters', () => {
 
     test('columns', () => {
         // as string
-        expect(selectRowsRequest({ columns: 'x,y,z' }))
-            .toHaveProperty(getDRParameterPath('columns'), 'x,y,z');
+        expect(selectRowsRequest({ columns: 'x,y,z' })).toHaveProperty(getDRParameterPath('columns'), 'x,y,z');
 
         // as array
-        expect(selectRowsRequest({ columns: ['x', 'y', 'z'] }))
-            .toHaveProperty(getDRParameterPath('columns'), 'x,y,z');
+        expect(selectRowsRequest({ columns: ['x', 'y', 'z'] })).toHaveProperty(getDRParameterPath('columns'), 'x,y,z');
 
         // with dataRegionName
-        expect(selectRowsRequest({ columns: 'x,y,z', dataRegionName: 'QWP' }))
-            .toHaveProperty(getDRParameterPath('columns', 'QWP'), 'x,y,z');
+        expect(selectRowsRequest({ columns: 'x,y,z', dataRegionName: 'QWP' })).toHaveProperty(
+            getDRParameterPath('columns', 'QWP'),
+            'x,y,z'
+        );
     });
 
     test('containerPath', () => {
         const containerPath = '/container';
-        expect(selectRowsRequest({ containerPath }))
-            .toHaveProperty('url', '/query/container/getQuery.api');
+        expect(selectRowsRequest({ containerPath })).toHaveProperty('url', '/query/container/getQuery.api');
     });
 
     test('dataRegionName', () => {
         const dataRegionName = 'QWP';
-        expect(selectRowsRequest({ dataRegionName }))
-            .toHaveProperty('params.dataRegionName', dataRegionName);
+        expect(selectRowsRequest({ dataRegionName })).toHaveProperty('params.dataRegionName', dataRegionName);
     });
 
     test('filterArray', () => {
         const filterArray = [create('x', 42)];
-        expect(selectRowsRequest({ filterArray }))
-            .toHaveProperty(getDRParameterPath('x~eq'), 42);
+        expect(selectRowsRequest({ filterArray })).toHaveProperty(getDRParameterPath('x~eq'), 42);
 
         // with dataRegionName
-        expect(selectRowsRequest({ filterArray, dataRegionName: 'QWP' }))
-            .toHaveProperty(getDRParameterPath('x~eq', 'QWP'), 42);
+        expect(selectRowsRequest({ filterArray, dataRegionName: 'QWP' })).toHaveProperty(
+            getDRParameterPath('x~eq', 'QWP'),
+            42
+        );
     });
 
     test('method', () => {
@@ -161,7 +162,7 @@ describe('selectRows -- optional parameters', () => {
         expect(selectRowsRequest({})).toHaveProperty('method', 'GET');
 
         // allow 'POST'
-        expect(selectRowsRequest({ method: 'POST'})).toHaveProperty('method', 'POST');
+        expect(selectRowsRequest({ method: 'POST' })).toHaveProperty('method', 'POST');
 
         // ignore others
         expect(selectRowsRequest({ method: 'DELETE' })).toHaveProperty('method', 'GET');
@@ -176,8 +177,10 @@ describe('selectRows -- optional parameters', () => {
         expect(result).toHaveProperty(getDRParameterPath('param.y'), 2);
 
         // with dataRegionName
-        expect(selectRowsRequest({ parameters, dataRegionName: 'QWP' }))
-            .toHaveProperty(getDRParameterPath('param.x', 'QWP'), 4);
+        expect(selectRowsRequest({ parameters, dataRegionName: 'QWP' })).toHaveProperty(
+            getDRParameterPath('param.x', 'QWP'),
+            4
+        );
     });
 
     test('timeout', () => {
@@ -186,12 +189,13 @@ describe('selectRows -- optional parameters', () => {
 
     test('viewName', () => {
         const viewName = 'allTheColumns';
-        expect(selectRowsRequest({ viewName }))
-            .toHaveProperty(getDRParameterPath('viewName'), viewName);
+        expect(selectRowsRequest({ viewName })).toHaveProperty(getDRParameterPath('viewName'), viewName);
 
         // with dataRegionName
-        expect(selectRowsRequest({ viewName, dataRegionName: 'QWP' }))
-            .toHaveProperty(getDRParameterPath('viewName', 'QWP'), viewName);
+        expect(selectRowsRequest({ viewName, dataRegionName: 'QWP' })).toHaveProperty(
+            getDRParameterPath('viewName', 'QWP'),
+            viewName
+        );
     });
 
     // TODO: Add coverage for all parameters

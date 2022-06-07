@@ -17,11 +17,9 @@ import * as ActionURL from './ActionURL';
 import { getServerContext } from './constants';
 
 describe('ActionURL', () => {
-
-    let CONTAINER_NAME = "DefaultContainer";
+    const CONTAINER_NAME = 'DefaultContainer';
 
     describe('buildURL', () => {
-
         // NOTE: sinon.stub can work in node.js if change ActionURL.buildURL to invoke this.getContainer() instead of getContainer(), however it breaks when used in the browser
         // it('should default to the current container if one is not provided', () => {
         //     let stub = sinon.stub(ActionURL, "getContainer").returns(CONTAINER_NAME);
@@ -31,14 +29,14 @@ describe('ActionURL', () => {
         // });
 
         it('should build the correct URL', () => {
-            let url = ActionURL.buildURL("project", "getWebPart", "MyContainer");
-            expect(url).toEqual("/project/MyContainer/getWebPart.view");
+            const url = ActionURL.buildURL('project', 'getWebPart', 'MyContainer');
+            expect(url).toEqual('/project/MyContainer/getWebPart.view');
         });
 
         it('should build the correct URL with optional parameters', () => {
-            let params = {listId: 50, returnUrl: "home", array: [10, "li"]};
-            let url = ActionURL.buildURL("project", "getWebPart", "MyContainer", params);
-            expect(url).toEqual("/project/MyContainer/getWebPart.view?listId=50&returnUrl=home&array=10&array=li");
+            const params = { listId: 50, returnUrl: 'home', array: [10, 'li'] };
+            const url = ActionURL.buildURL('project', 'getWebPart', 'MyContainer', params);
+            expect(url).toEqual('/project/MyContainer/getWebPart.view?listId=50&returnUrl=home&array=10&array=li');
         });
     });
 
@@ -53,7 +51,13 @@ describe('ActionURL', () => {
     });
 
     describe('getPathFromLocation', () => {
-        function validatePath(pathname: string, contextPath: string, containerPath: string, controller: string, action: string): void {
+        function validatePath(
+            pathname: string,
+            contextPath: string,
+            containerPath: string,
+            controller: string,
+            action: string
+        ): void {
             const path = ActionURL.getPathFromLocation(pathname);
 
             expect(path.contextPath).toEqual(contextPath);
@@ -71,13 +75,25 @@ describe('ActionURL', () => {
             validatePath('/home/project-begin.view', '', '/home', 'project', 'begin');
             validatePath('/home/with/folder/project-begin.view', '', '/home/with/folder', 'project', 'begin');
             validatePath('/%E2%98%83/%E2%9D%86/%E2%A8%8Drosty-%F0%9D%95%8Anow.view', '', '/☃/❆', '⨍rosty', '𝕊now');
-            validatePath('/my%20folder/my%20path/pipeline-status-action.view?rowId=123', '', '/my folder/my path', 'pipeline-status', 'action');
+            validatePath(
+                '/my%20folder/my%20path/pipeline-status-action.view?rowId=123',
+                '',
+                '/my folder/my path',
+                'pipeline-status',
+                'action'
+            );
 
             // old style URL
             validatePath('/project/home/begin.view', '', '/home', 'project', 'begin');
             validatePath('/project/home/with/folder/begin.view', '', '/home/with/folder', 'project', 'begin');
             validatePath('/%E2%A8%8Drosty/%E2%98%83/%E2%9D%86/%F0%9D%95%8Anow.view', '', '/☃/❆', '⨍rosty', '𝕊now');
-            validatePath('/pipeline-status/my%20folder/my%20path/action.view?rowId=123', '', '/my folder/my path', 'pipeline-status', 'action');
+            validatePath(
+                '/pipeline-status/my%20folder/my%20path/action.view?rowId=123',
+                '',
+                '/my folder/my path',
+                'pipeline-status',
+                'action'
+            );
         });
 
         test('with context path', () => {
@@ -87,12 +103,30 @@ describe('ActionURL', () => {
             // new style URL
             validatePath(`${contextPath}/1/project-begin.view`, contextPath, '/1', 'project', 'begin');
             validatePath(`${contextPath}/1/2/3/project-begin.view`, contextPath, '/1/2/3', 'project', 'begin');
-            validatePath(`${contextPath}/my%20folder/my%20path/pipeline-status-action.view?rowId=123`, contextPath, '/my folder/my path', 'pipeline-status', 'action');
+            validatePath(
+                `${contextPath}/my%20folder/my%20path/pipeline-status-action.view?rowId=123`,
+                contextPath,
+                '/my folder/my path',
+                'pipeline-status',
+                'action'
+            );
 
             // old style URL
             validatePath(`${contextPath}/project/home/begin.view`, contextPath, '/home', 'project', 'begin');
-            validatePath(`${contextPath}/project/home/with/folder/begin.view`, contextPath, '/home/with/folder', 'project', 'begin');
-            validatePath(`${contextPath}/pipeline-status/my%20folder/my%20path/action.view?rowId=123`, contextPath, '/my folder/my path', 'pipeline-status', 'action');
+            validatePath(
+                `${contextPath}/project/home/with/folder/begin.view`,
+                contextPath,
+                '/home/with/folder',
+                'project',
+                'begin'
+            );
+            validatePath(
+                `${contextPath}/pipeline-status/my%20folder/my%20path/action.view?rowId=123`,
+                contextPath,
+                '/my folder/my path',
+                'pipeline-status',
+                'action'
+            );
         });
     });
 });

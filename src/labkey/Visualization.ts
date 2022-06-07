@@ -26,8 +26,8 @@ import {
     Interval,
     Measure,
     save,
-    Type
-} from './query/Visualization'
+    Type,
+} from './query/Visualization';
 
 export {
     Aggregate,
@@ -42,5 +42,5 @@ export {
     Interval,
     Measure,
     save,
-    Type
-}
+    Type,
+};
