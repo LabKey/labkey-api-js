@@ -465,7 +465,7 @@ export interface SaveSessionViewOptions extends RequestCallbackOptions {
     /** The new non session view name that would replace the session view */
     newName?: string;
     queryName?: string;
-    /* Replace an existing non-session view if the newName already exist for another view */
+    /** Replace an existing non-session view if the newName already exist for another view */
     replace?: boolean;
     schemaName?: string;
     shared?: boolean;
