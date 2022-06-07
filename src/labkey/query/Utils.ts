@@ -458,27 +458,26 @@ export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
 
 export interface SaveSessionViewOptions extends RequestCallbackOptions {
     containerPath?: string;
-    queryName?: string;
-    schemaName?: string;
-    /** The session view name */
-    viewName?: string;
-    /** The new non session view name that would replace the session view */
-    newName?: string;
-    shared?: boolean;
-    /** If the new view is accessible from child container, default false */
-    inherit?: boolean;
     /** If the new view should be hidden, default false */
     hidden?: boolean;
+    /** If the new view is accessible from child container, default false */
+    inherit?: boolean;
+    /** The new non session view name that would replace the session view */
+    newName?: string;
+    queryName?: string;
     /* Replace an existing non-session view if the newName already exist for another view */
     replace?: boolean;
+    schemaName?: string;
+    shared?: boolean;
+    /** The session view name */
+    viewName?: string;
 }
 
 /**
  * Save session view with a new name as non session view.
  */
 export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest {
-
-    let jsonData: any = {};
+    const jsonData: any = {};
     if (options.schemaName) {
         jsonData.schemaName = options.schemaName;
     }
@@ -509,7 +508,7 @@ export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 

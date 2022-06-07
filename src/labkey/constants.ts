@@ -114,6 +114,10 @@ export type LabKey = {
     container: Partial<Container>;
     contextPath: string;
     defaultHeaders: Record<string, string>;
+    demoMode: boolean;
+    devMode: boolean;
+    dirty: boolean;
+    experimental: ExperimentalFlags;
     extDateInputFormat: string;
     extDefaultDateFormat: string;
     extDefaultDateTimeFormat: string;
@@ -129,14 +133,11 @@ export type LabKey = {
     isDocumentClosed: string;
     jdkJavaDocLinkPrefix: string;
     moduleContext?: Record<string, any>;
-    demoMode: boolean;
     pageAdminMode: boolean;
     postParameters?: any;
     project: Project;
     requiresCss?: Function;
     requiresScript: Function;
-    devMode: boolean;
-    dirty: boolean;
     serverName: string;
     sharedContainer?: string;
     submit: boolean;
@@ -148,7 +149,6 @@ export type LabKey = {
     verbose: boolean;
     versionString: string;
     vis: any;
-    experimental: ExperimentalFlags;
 };
 
 export interface User {
