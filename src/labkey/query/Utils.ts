@@ -457,15 +457,20 @@ export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
 }
 
 export interface SaveSessionViewOptions extends RequestCallbackOptions {
-    containerPath?: string
-    queryName?: string
-    schemaName?: string
-    viewName?: string /* the session view name */
-    newName?: string /* the new non session view name that would replace the session view */
-    shared?: boolean /* if the new view is public or private, default false (private) */
-    inherit?: boolean /* if the new view is accessible from child container, default false */
-    hidden?: boolean /* if the new view should be hidden, default false */
-    replace?: boolean /* replace an existing non-session view if the newName already exist for another view */
+    containerPath?: string;
+    queryName?: string;
+    schemaName?: string;
+    /** The session view name */
+    viewName?: string;
+    /** The new non session view name that would replace the session view */
+    newName?: string;
+    shared?: boolean;
+    /** If the new view is accessible from child container, default false */
+    inherit?: boolean;
+    /** If the new view should be hidden, default false */
+    hidden?: boolean;
+    /* Replace an existing non-session view if the newName already exist for another view */
+    replace?: boolean;
 }
 
 /**
