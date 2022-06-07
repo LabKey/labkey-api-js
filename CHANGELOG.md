@@ -1,3 +1,8 @@
+## 1.14.2 - 2022-06-06
+- Add package dev dependency on `@labkey/eslint-config-base`.
+- Add `.eslintignore` and `.eslintrc.json` linting configuration files.
+- Ran `npx eslint --fix /src` to perform lint of all current source files.
+
 ## 1.14.1 - 2022-06-06
 - Add excludeSessionView param for getQueryViews
 - Add saveSessionView util
