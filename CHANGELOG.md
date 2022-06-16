@@ -1,4 +1,4 @@
-## TBD - TBD
+## 1.15.0 - 2022-06-16
 - Migrate the convertToTable and convertToExcel utilities from LABKEY.js.
 
 ## 1.14.2 - 2022-06-06
