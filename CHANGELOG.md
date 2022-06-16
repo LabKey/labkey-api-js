@@ -1,3 +1,6 @@
+## 1.15.0 - 2022-06-16
+- Migrate the convertToTable and convertToExcel utilities from LABKEY.js.
+
 ## 1.14.2 - 2022-06-06
 - Add package dev dependency on `@labkey/eslint-config-base`.
 - Add `.eslintignore` and `.eslintrc.json` linting configuration files.

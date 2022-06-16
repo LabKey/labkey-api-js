@@ -17,12 +17,48 @@ import { CSRF_HEADER } from '../constants';
 import { decode, encodeHtml, generateUUID, id } from '../Utils';
 
 import { loadDOMContext } from './constants';
+import { buildURL } from '../ActionURL';
 
 declare const Ext: any;
 declare const Ext4: any;
 declare const window: Window;
 
 const { $, CSRF } = loadDOMContext();
+
+export interface Worksheet {
+    name?: string;
+    data: any[];
+}
+
+export interface Workbook {
+    fileName?: string;
+    sheets: Worksheet[];
+    auditMessage?: string;
+}
+
+export interface ConvertToTableOptions {
+    delim?: DelimiterType;
+    quoteChar?: QuoteCharType;
+    fileNamePrefix?: string;
+    newlineChar?: string;
+    rows: any[];
+    auditMessage?: string;
+}
+
+// Maps to TSVWriter.DELIM for delimited data export
+export enum DelimiterType {
+    COLON = 'COLON',
+    COMMA = 'COMMA',
+    SEMICOLON = 'SEMICOLON',
+    TAB = 'TAB',
+}
+
+// Maps to TSVWriter.QUOTE for delimited data export
+export enum QuoteCharType {
+    DOUBLE = 'DOUBLE',
+    NONE = 'NONE',
+    SINGLE = 'SINGLE',
+}
 
 /**
  * Insert a hidden html <form> into to page, put the form values into it, and submit it - the server's response
@@ -193,3 +229,63 @@ export function signalWebDriverTest(signalName: string, signalResult?: any): voi
         signalContainer.find('div[name="' + signalName + '"]').attr('value', signalResult);
     }
 }
+
+/**
+ * Sends a JSON object to the server which turns it into an Excel file
+ * #### Examples
+ *
+ *  ```js
+ *  LABKEY.Utils.convertToExcel(
+ *  {
+ *      fileName: 'output.xls',
+ *      sheets:
+ *      [
+ *          {
+ *              name: 'FirstSheet',
+ *              data:
+ *              [
+ *                  ['Row1Col1', 'Row1Col2'],
+ *                  ['Row2Col1', 'Row2Col2']
+ *             ]
+ *          },
+ *          {
+ *              name: 'SecondSheet',
+ *              data:
+ *              [
+ *                  ['Col1Header', 'Col2Header'],
+ *                  [{value: 1000.5, formatString: '0,000.00'}, {value: '5 Mar 2009 05:14:17', formatString: 'yyyy MMM dd'}],
+ *                  [{value: 2000.6, formatString: '0,000.00'}, {value: '6 Mar 2009 07:17:10', formatString: 'yyyy MMM dd'}]
+ *              ]
+ *          }
+ *     ]
+ *  });
+ *  ```
+ *
+ */
+export const convertToExcel = (workbook: Workbook): void => {
+    const formData = { 'json': JSON.stringify(workbook) };
+    submitForm(buildURL("experiment", "convertArraysToExcel"), formData);
+};
+
+/**
+ * Sends a JSON object to the server which turns it into an TSV or CSV file and returns it to the browser to be saved or opened.
+ *
+ * #### Examples
+ *
+ * ```js
+ * LABKEY.Utils.convertToTable({
+ *      fileNamePrefix: 'output',
+ *      rows: [
+ *          ['Row1Col1', 'Row1Col2'],
+ *          ['Row2Col1', 'Row2Col2']
+ *      ],
+ *      delim: DelimiterType.COMMA,
+ *      quoteChar: QuoteCharType.DOUBLE
+ * });
+ * ```
+ */
+export const convertToTable = (config: ConvertToTableOptions): void => {
+    const formData = { 'json': JSON.stringify(config) };
+    submitForm(buildURL("experiment", "convertArraysToTable"), formData);
+};
+
