@@ -16,7 +16,7 @@
 import { MultiRequest } from './MultiRequest';
 
 describe('MultiRequest', () => {
-    it('handles array of requests and add', (done) => {
+    it('handles array of requests and add', done => {
         // Arrange
         const scope = {};
         let sum = 0;
@@ -26,10 +26,10 @@ describe('MultiRequest', () => {
         }
 
         const requests = [
-            [ asyncMethod, { x: 1, timeout: 25 } ],
-            [ asyncMethod, { x: 2, timeout: 50 } ],
-            [ asyncMethod, { x: 3, timeout: 75 } ],
-            [ asyncMethod, { x: 12, timeout: 100 } ],
+            [asyncMethod, { x: 1, timeout: 25 }],
+            [asyncMethod, { x: 2, timeout: 50 }],
+            [asyncMethod, { x: 3, timeout: 75 }],
+            [asyncMethod, { x: 12, timeout: 100 }],
         ];
 
         // @ts-ignore
@@ -55,7 +55,7 @@ describe('MultiRequest', () => {
         // Act
         multi.send(onSend, scope);
     });
-    it('supports listeners config', (done) => {
+    it('supports listeners config', done => {
         // Arrange
         const scope = {};
         let sum = 0;
@@ -65,9 +65,9 @@ describe('MultiRequest', () => {
         }
 
         const requests = [
-            [ asyncMethod, { x: 13, timeout: 25 } ],
-            [ asyncMethod, { x: 5, timeout: 50 } ],
-            [ asyncMethod, { x: 71, timeout: 75 } ],
+            [asyncMethod, { x: 13, timeout: 25 }],
+            [asyncMethod, { x: 5, timeout: 50 }],
+            [asyncMethod, { x: 71, timeout: 75 }],
         ];
 
         // @ts-ignore
@@ -84,7 +84,7 @@ describe('MultiRequest', () => {
         // @ts-ignore
         new MultiRequest({
             requests,
-            listeners: { done: { fn: onSend }, scope }
+            listeners: { done: { fn: onSend }, scope },
         });
     });
 });

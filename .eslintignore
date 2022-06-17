@@ -1,0 +1,12 @@
+# exclude everything by default
+*.*
+
+# exclude these directories
+.idea
+dist
+docs
+node_modules
+
+# include files
+!*.js
+!*.ts

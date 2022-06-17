@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { LabKey } from '../constants'
+import { LabKey } from '../constants';
 
 export interface FormWindow extends Window {
-    File: any
-    FormData: any
+    File: any;
+    FormData: any;
 }
 
 export interface LabKeyDOM extends LabKey {
-    $: any
-    requiresExt4ClientAPI: Function
+    $: any;
+    requiresExt4ClientAPI: Function;
 }
 
 declare const LABKEY: LabKeyDOM;
@@ -31,10 +31,11 @@ declare const jQuery: any;
 
 if (typeof jQuery !== 'undefined') {
     LABKEY.$ = jQuery;
-}
-else {
+} else {
     LABKEY.$ = () => {
-        throw new Error('jQuery not available. When using the DOM version of the LabKey API jQuery is expected to be available.');
+        throw new Error(
+            'jQuery not available. When using the DOM version of the LabKey API jQuery is expected to be available.'
+        );
     };
 }
 

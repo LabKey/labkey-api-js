@@ -18,10 +18,6 @@
  * relevant package information.
  */
 // @ts-ignore error when referencing file outside of the TS "rootDir".
-import { description, name, version } from '../package.json'
+import { description, name, version } from '../package.json';
 
-export {
-    description,
-    name,
-    version
-}
+export { description, name, version };

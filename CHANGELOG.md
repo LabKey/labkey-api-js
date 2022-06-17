@@ -1,3 +1,22 @@
+## 1.15.0 - 2022-06-16
+- Migrate the convertToTable and convertToExcel utilities from LABKEY.js.
+
+## 1.14.2 - 2022-06-06
+- Add package dev dependency on `@labkey/eslint-config-base`.
+- Add `.eslintignore` and `.eslintrc.json` linting configuration files.
+- Ran `npx eslint --fix /src` to perform lint of all current source files.
+
+## 1.14.1 - 2022-06-06
+- Add excludeSessionView param for getQueryViews
+- Add saveSessionView util
+
+## 1.14.0 - 2022-06-02
+* Package updates.
+* [Issue 45592](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=45592): Remove html encoding of name/value for form submission
+
+## 1.13.0 - 2022-05-31
+- Issue 45270: Add AdminOperationsPermission
+
 ## 1.12.1 - 2022-05-13
 - Issue 45091: savePolicy update to support unwrapped policy object
 

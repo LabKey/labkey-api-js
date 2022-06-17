@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-//NOTE: these maps contains the unambiguous pairings of single- and multi-valued filters
-//due to NULLs, one cannot easily convert neq to notin
+// NOTE: these maps contains the unambiguous pairings of single- and multi-valued filters
+// due to NULLs, one cannot easily convert neq to notin
 export const multiValueToSingleMap: {
-    [key:string]: string
+    [key: string]: string;
 } = {
-    'in': 'eq',
+    in: 'eq',
     containsoneof: 'contains',
     containsnoneof: 'doesnotcontain',
     between: 'gte',
-    notbetween: 'lt'
+    notbetween: 'lt',
 };
 
 export const oppositeMap: {
-    [key:string]: string
+    [key: string]: string;
 } = {
-    //HAS_ANY_VALUE: null,
+    // HAS_ANY_VALUE: null,
     eq: 'neqornull',
     dateeq: 'dateneq',
     dateneq: 'dateeq',
@@ -48,7 +48,7 @@ export const oppositeMap: {
     doesnotcontain: 'contains',
     doesnotstartwith: 'startswith',
     startswith: 'doesnotstartwith',
-    'in': 'notin',
+    in: 'notin',
     notin: 'in',
     memberof: 'memberof',
     containsoneof: 'containsnoneof',
@@ -62,13 +62,13 @@ export const oppositeMap: {
 };
 
 export const singleValueToMultiMap: {
-    [key:string]: string
+    [key: string]: string;
 } = {
     eq: 'in',
     neq: 'notin',
     neqornull: 'notin',
     doesnotcontain: 'containsnoneof',
-    contains: 'containsoneof'
+    contains: 'containsoneof',
 };
 
 // TODO: Can this be typed to just primitives?

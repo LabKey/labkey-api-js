@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as sinon from 'sinon'
+import * as sinon from 'sinon';
 
-import * as Ajax from './Ajax'
+import * as Ajax from './Ajax';
 
 function mockXHR() {
     let xhr: sinon.SinonFakeXMLHttpRequestStatic;
@@ -31,17 +31,16 @@ function mockXHR() {
 
 // These are properties found on XMLHttpRequest that the TypeScript/XMLHttpRequest definition does not declare
 interface FakeXMLHttpRequest extends XMLHttpRequest {
-    readonly method: string
-    readonly requestHeaders: {[key: string]: any}
-    readonly url: string
+    readonly method: string;
+    readonly requestHeaders: Record<string, any>;
+    readonly url: string;
 }
 
 function request(options: Ajax.RequestOptions): FakeXMLHttpRequest {
-    return (Ajax.request(options) as FakeXMLHttpRequest);
+    return Ajax.request(options) as FakeXMLHttpRequest;
 }
 
 describe('request', () => {
-
     mockXHR();
 
     it('should require configuration', () => {
@@ -50,7 +49,7 @@ describe('request', () => {
         }).toThrowError('a URL is required to make a request');
         expect(() => {
             (Ajax.request as any)({});
-        }).toThrowError("a URL is required to make a request");
+        }).toThrowError('a URL is required to make a request');
     });
     it('should make request with only url', () => {
         expect(request({ url: '/users' }).url).toEqual('/users');
@@ -58,7 +57,6 @@ describe('request', () => {
 });
 
 describe('request headers', () => {
-
     mockXHR();
 
     const testCSRF = 'TEST_CSRF_TOKEN';
@@ -75,38 +73,41 @@ describe('request headers', () => {
         const requestHeaders = request({
             url: '/projects',
             headers: {
-                foo: 'bar'
-            }
+                foo: 'bar',
+            },
         }).requestHeaders;
 
         expect(requestHeaders['foo']).toEqual('bar');
         expect(requestHeaders['X-LABKEY-CSRF']).toEqual(testCSRF); // it shouldn't lose other headers
-    })
+    });
 });
 
 describe('request method', () => {
-
     mockXHR();
 
     it('should default to GET', () => {
         expect(request({ url: '/users' }).method).toEqual('GET');
     });
     it('should default to POST with data', () => {
-        expect(request({
-            url: '/users',
-            jsonData: {
-                userId: 123
-            }
-        }).method).toEqual('POST');
+        expect(
+            request({
+                url: '/users',
+                jsonData: {
+                    userId: 123,
+                },
+            }).method
+        ).toEqual('POST');
     });
     it('should accept GET with data', () => {
-        expect(request({
-            url: '/users',
-            method: 'GET',
-            jsonData: {
-                userId: 123
-            }
-        }).method).toEqual('GET');
+        expect(
+            request({
+                url: '/users',
+                method: 'GET',
+                jsonData: {
+                    userId: 123,
+                },
+            }).method
+        ).toEqual('GET');
     });
     it('should accept any method', () => {
         expect(request({ url: '/users', method: 'DELETE' }).method).toEqual('DELETE');

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getLocation, getServerContext } from './constants'
-import { isArray, isFunction } from './Utils'
+import { getLocation, getServerContext } from './constants';
+import { isArray, isFunction } from './Utils';
 
 /**
  * @hidden
  * @private
  */
-function buildParameterMap(paramString?: string): {[key:string]: any} {
+function buildParameterMap(paramString?: string): Record<string, any> {
     const { postParameters } = getServerContext();
 
     if (!paramString && postParameters) {
@@ -36,27 +36,25 @@ function buildParameterMap(paramString?: string): {[key:string]: any} {
         paramString = paramString.substring(1, paramString.length);
     }
 
-    let paramArray = paramString.split('&');
-    let parameters: any = {};
+    const paramArray = paramString.split('&');
+    const parameters: any = {};
 
     for (let i = 0; i < paramArray.length; i++) {
-        let nameValue = paramArray[i].split('=', 2);
+        const nameValue = paramArray[i].split('=', 2);
         if (nameValue.length == 1 && nameValue[0] != '') {
             // Handle URL parameters with a name but no value or =
             nameValue[1] = '';
         }
 
         if (nameValue.length == 2) {
-            let name = decodeURIComponent(nameValue[0]);
+            const name = decodeURIComponent(nameValue[0]);
             if (undefined == parameters[name]) {
                 parameters[name] = decodeURIComponent(nameValue[1]);
-            }
-            else {
-                let curValue = parameters[name];
+            } else {
+                const curValue = parameters[name];
                 if (isArray(curValue)) {
                     curValue.push(decodeURIComponent(nameValue[1]));
-                }
-                else {
+                } else {
                     parameters[name] = [curValue, decodeURIComponent(nameValue[1])];
                 }
             }
@@ -101,7 +99,12 @@ function buildParameterMap(paramString?: string): {[key:string]: any} {
  * with the same name. (Defaults to no parameters)
  * @return URL constructed from the current container and context path, plus the specified controller and action.
  */
-export function buildURL(controller: string, action: string, containerPath?: string, parameters?: {[key:string]: any }): string {
+export function buildURL(
+    controller: string,
+    action: string,
+    containerPath?: string,
+    parameters?: Record<string, any>
+): string {
     if (!containerPath) {
         containerPath = getContainer();
     }
@@ -123,8 +126,7 @@ export function buildURL(controller: string, action: string, containerPath?: str
     const { contextPath, experimental } = getServerContext();
     if (experimental && experimental.containerRelativeURL) {
         newURL = contextPath + containerPath + controller + '-' + action;
-    }
-    else {
+    } else {
         newURL = contextPath + '/' + controller + containerPath + action;
     }
 
@@ -226,7 +228,7 @@ export function getController(): string {
  */
 export function getParameter(parameterName: string): any {
     const val = buildParameterMap()[parameterName];
-    return (val && isArray(val) && val.length > 0) ? val[0] : val;
+    return val && isArray(val) && val.length > 0 ? val[0] : val;
 }
 
 /**
@@ -236,9 +238,9 @@ export function getParameter(parameterName: string): any {
  * @param parameterName The name of the URL parameter.
  * @returns An Array of parameter values.
  */
-export function getParameterArray(parameterName: string): Array<string> {
+export function getParameterArray(parameterName: string): string[] {
     const val = buildParameterMap()[parameterName];
-    return (val && !isArray(val)) ? [val] : val;
+    return val && !isArray(val) ? [val] : val;
 }
 
 /**
@@ -250,7 +252,7 @@ export function getParameterArray(parameterName: string): Array<string> {
  * @param url The URL to parse. If not specified, the browser's current location will be used.
  * @return Object of parameter names to values.
  */
-export function getParameters(url?: string): {[key:string]: any} {
+export function getParameters(url?: string): Record<string, any> {
     if (!url) {
         return buildParameterMap(url);
     }
@@ -325,7 +327,8 @@ export function getPathFromLocation(pathname?: string, contextPath?: string): Ac
         action = action.substring(dash + 1);
     } else {
         const slash = path.indexOf('/', 1);
-        if (slash < 0) { // 21945: e.g. '/admin'
+        if (slash < 0) {
+            // 21945: e.g. '/admin'
             controller = path.substring(1);
         } else {
             controller = path.substring(1, slash);
@@ -343,7 +346,7 @@ export function getPathFromLocation(pathname?: string, contextPath?: string): Ac
         containerPath: decodeURI(path),
         contextPath: decodeURIComponent(ctxPath),
         controller: decodeURIComponent(controller),
-    }
+    };
 }
 
 /**
@@ -361,13 +364,14 @@ export function getReturnUrl(): string {
  * Parameters will be encoded automatically. Parameter values that are arrays will be appended as multiple parameters
  * with the same name. (Defaults to no parameters.)
  */
-export function queryString(parameters?: {[key:string]: string | Array<string>}): string {
+export function queryString(parameters?: Record<string, string | string[]>): string {
     if (!parameters) {
         return '';
     }
 
-    let query = '', and = '',
-        pval: string | Array<string>,
+    let query = '',
+        and = '',
+        pval: string | string[],
         parameter: string,
         aval: string;
 
@@ -377,8 +381,7 @@ export function queryString(parameters?: {[key:string]: string | Array<string>})
 
             if (pval === null || pval === undefined) {
                 pval = '';
-            }
-            else if (isFunction(pval)) {
+            } else if (isFunction(pval)) {
                 continue;
             }
 
@@ -388,8 +391,7 @@ export function queryString(parameters?: {[key:string]: string | Array<string>})
                     query += and + encodeURIComponent(parameter) + '=' + encodeURIComponent(pval[idx]);
                     and = '&';
                 }
-            }
-            else {
+            } else {
                 query += and + encodeURIComponent(parameter) + '=' + encodeURIComponent(pval as string);
                 and = '&';
             }
@@ -404,8 +406,8 @@ export function queryString(parameters?: {[key:string]: string | Array<string>})
  * @private
  */
 function codePath(path: string, method: (v: string) => string): string {
-    let a = path.split('/');
-    for (let i=0; i < a.length; i++) {
+    const a = path.split('/');
+    for (let i = 0; i < a.length; i++) {
         a[i] = method(a[i]);
     }
     return a.join('/');

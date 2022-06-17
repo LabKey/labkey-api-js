@@ -24,7 +24,14 @@ export abstract class QueryKey {
      * @returns {string}
      */
     static decodePart(s: string): string {
-        return s.replace(/\$P/g, '.').replace(/\$C/g, ',').replace(/\$T/g, '~').replace(/\$B/g, '}').replace(/\$A/g, '&').replace(/\$S/g, '/').replace(/\$D/g, '$');
+        return s
+            .replace(/\$P/g, '.')
+            .replace(/\$C/g, ',')
+            .replace(/\$T/g, '~')
+            .replace(/\$B/g, '}')
+            .replace(/\$A/g, '&')
+            .replace(/\$S/g, '/')
+            .replace(/\$D/g, '$');
     }
 
     /**
@@ -34,7 +41,14 @@ export abstract class QueryKey {
      * @returns {string}
      */
     static encodePart(s: string): string {
-        return s.replace(/\$/g, '$D').replace(/\//g, '$S').replace(/\&/g, '$A').replace(/\}/g, '$B').replace(/\~/g, '$T').replace(/\,/g, '$C').replace(/\./g, '$P');
+        return s
+            .replace(/\$/g, '$D')
+            .replace(/\//g, '$S')
+            .replace(/\&/g, '$A')
+            .replace(/\}/g, '$B')
+            .replace(/\~/g, '$T')
+            .replace(/\,/g, '$C')
+            .replace(/\./g, '$P');
     }
 
     /**
@@ -43,9 +57,12 @@ export abstract class QueryKey {
      * @returns {boolean}
      */
     static needsQuotes(s: string): boolean {
-        if (!s.match(/^[a-zA-Z][_\$a-zA-Z0-9]*$/))
-            return true;
-        if (s.match(/^(all|any|and|as|asc|avg|between|class|count|delete|desc|distinct|elements|escape|exists|false|fetch|from|full|group|having|in|indices|inner|insert|into|is|join|left|like|limit|max|min|new|not|null|or|order|outer|right|select|set|some|sum|true|union|update|user|versioned|where|case|end|else|then|when|on|both|empty|leading|member|of|trailing)$/i))
+        if (!s.match(/^[a-zA-Z][_\$a-zA-Z0-9]*$/)) return true;
+        if (
+            s.match(
+                /^(all|any|and|as|asc|avg|between|class|count|delete|desc|distinct|elements|escape|exists|false|fetch|from|full|group|having|in|indices|inner|insert|into|is|join|left|like|limit|max|min|new|not|null|or|order|outer|right|select|set|some|sum|true|union|update|user|versioned|where|case|end|else|then|when|on|both|empty|leading|member|of|trailing)$/i
+            )
+        )
             return true;
         return false;
     }
@@ -79,13 +96,13 @@ export abstract class QueryKey {
     /**
      * Returns an Array of unencoded QueryKey parts
      */
-    getParts(): Array<string> {
-        let ret: Array<string> = [];
+    getParts(): string[] {
+        let ret: string[] = [];
 
         if (this.parent) {
             ret = this.parent.getParts();
         }
-        
+
         ret.push(this.name);
 
         return ret;
@@ -100,14 +117,13 @@ export abstract class QueryKey {
     }
 
     toSQLString(): string {
-        let encoded: Array<string> = [];
-        let parts = this.getParts();
+        const encoded: string[] = [];
+        const parts = this.getParts();
 
-        for (let i=0; i < parts.length; i++) {
+        for (let i = 0; i < parts.length; i++) {
             if (QueryKey.needsQuotes(parts[i])) {
                 encoded.push(QueryKey.quote(parts[i]));
-            }
-            else {
+            } else {
                 encoded.push(parts[i]);
             }
         }
@@ -116,14 +132,13 @@ export abstract class QueryKey {
     }
 
     toString(divider?: string): string {
-        let encoded: Array<string> = [];
-        let parts = this.getParts();
+        const encoded: string[] = [];
+        const parts = this.getParts();
 
-        for (let i=0; i < parts.length; i++) {
+        for (let i = 0; i < parts.length; i++) {
             encoded.push(QueryKey.encodePart(parts[i]));
         }
 
         return encoded.join(divider);
     }
 }
-

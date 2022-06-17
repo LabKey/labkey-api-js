@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax'
-import { buildURL } from '../ActionURL'
-import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray, RequestCallbackOptions } from '../Utils'
+import { request } from '../Ajax';
+import { buildURL } from '../ActionURL';
+import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray, RequestCallbackOptions } from '../Utils';
 
-import { Group } from './types'
+import { Group } from './types';
 
-export interface AddGroupMembersOptions extends RequestCallbackOptions<{added: number[]}> {
-    containerPath?: string
+export interface AddGroupMembersOptions extends RequestCallbackOptions<{ added: number[] }> {
+    containerPath?: string;
     /** The id of the group to which you want to add the member. */
-    groupId: number
+    groupId: number;
     /** An integer id or array of ids of the users or groups you want to add as members. */
-    principalIds: number | number[]
+    principalIds: number | number[];
 }
 
 /**
@@ -41,18 +41,18 @@ export function addGroupMembers(config: AddGroupMembersOptions): XMLHttpRequest 
         method: 'POST',
         jsonData: {
             groupId: config.groupId,
-            principalIds: isArray(config.principalIds) ? config.principalIds : [config.principalIds]
+            principalIds: isArray(config.principalIds) ? config.principalIds : [config.principalIds],
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface CreateGroupResponse {
     /** The groupId for the group that was created */
-    id: number
+    id: number;
     /** The name for the group that was created */
-    name: string
+    name: string;
 }
 
 export interface CreateGroupOptions extends RequestCallbackOptions<CreateGroupResponse> {
@@ -60,9 +60,9 @@ export interface CreateGroupOptions extends RequestCallbackOptions<CreateGroupRe
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** The name of the group to create */
-    groupName: string
+    groupName: string;
 }
 
 /**
@@ -80,21 +80,21 @@ export function createGroup(config: CreateGroupOptions): XMLHttpRequest {
         url: buildURL('security', 'createGroup.api', config.containerPath),
         method: 'POST',
         jsonData: {
-            name: config.groupName
+            name: config.groupName,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
-export interface DeleteGroupOptions extends RequestCallbackOptions<{deleted: number}> {
+export interface DeleteGroupOptions extends RequestCallbackOptions<{ deleted: number }> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** The id of the group to delete */
-    groupId: number
+    groupId: number;
 }
 
 /**
@@ -110,16 +110,16 @@ export function deleteGroup(config: DeleteGroupOptions): XMLHttpRequest {
         url: buildURL('security', 'deleteGroup.api', config.containerPath),
         method: 'POST',
         jsonData: {
-            id: config.groupId
+            id: config.groupId,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface GetGroupsForCurrentUserResponse {
     /** An array of group information objects. */
-    groups: Pick<Group, 'id'|'isProjectGroup'|'isSystemGroup'|'name'>[]
+    groups: Array<Pick<Group, 'id' | 'isProjectGroup' | 'isSystemGroup' | 'name'>>;
 }
 
 export interface GetGroupsForCurrentUserOptions extends RequestCallbackOptions<GetGroupsForCurrentUserResponse> {
@@ -127,27 +127,27 @@ export interface GetGroupsForCurrentUserOptions extends RequestCallbackOptions<G
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
 }
 
 export function getGroupsForCurrentUser(config: GetGroupsForCurrentUserOptions): XMLHttpRequest {
     return request({
         url: buildURL('security', 'getGroupsForCurrentUser.api', config.containerPath),
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
-export interface RemoveGroupMembersOptions extends RequestCallbackOptions<{removed: number[]}> {
+export interface RemoveGroupMembersOptions extends RequestCallbackOptions<{ removed: number[] }> {
     /**
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** The id of the group from which you want to remove the member. */
-    groupId: number
+    groupId: number;
     /** An integer id or array of ids of the users or groups you want to remove. */
-    principalIds: number | number[]
+    principalIds: number | number[];
 }
 
 /**
@@ -164,22 +164,22 @@ export function removeGroupMembers(config: RemoveGroupMembersOptions): XMLHttpRe
         method: 'POST',
         jsonData: {
             groupId: config.groupId,
-            principalIds: isArray(config.principalIds) ? config.principalIds : [config.principalIds]
+            principalIds: isArray(config.principalIds) ? config.principalIds : [config.principalIds],
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
 
 export interface RenameGroupResponse {
     /** The new name for the group */
-    newName: string
+    newName: string;
     /** The old name for the group */
-    oldName: string
+    oldName: string;
     /** The groupId for the renamed group */
-    renamed: number
+    renamed: number;
     /** Indicates if the rename was successful */
-    success: boolean
+    success: boolean;
 }
 
 export interface RenameGroupOptions extends RequestCallbackOptions<RenameGroupResponse> {
@@ -187,11 +187,11 @@ export interface RenameGroupOptions extends RequestCallbackOptions<RenameGroupRe
      * An alternate container path to get permissions from. If not specified,
      * the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** The id of the group to rename */
-    groupId: number
+    groupId: number;
     /** The new name for the group */
-    newName: string
+    newName: string;
 }
 
 /**
@@ -208,9 +208,9 @@ export function renameGroup(config: RenameGroupOptions): XMLHttpRequest {
         method: 'POST',
         jsonData: {
             id: config.groupId,
-            newName: config.newName
+            newName: config.newName,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }

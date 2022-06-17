@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from '../../ActionURL'
-import { request } from '../../Ajax'
-import { apply, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../../Utils'
+import { buildURL } from '../../ActionURL';
+import { request } from '../../Ajax';
+import { apply, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../../Utils';
 
 function createValues(json: any): any[] {
-
     if (json && json.success && json.values) {
         return json.values;
     }
@@ -32,7 +31,6 @@ function createValues(json: any): any[] {
  * into one series per Analyte.
  */
 export class Dimension {
-
     description: string;
     _isUserDefined: boolean;
     label: string;
@@ -99,17 +97,16 @@ export class Dimension {
     /**
      * Returns the set of available unique values for this dimension.
      */
-    getValues(options: RequestCallbackOptions<{value: any}[]>): XMLHttpRequest {
-
+    getValues(options: RequestCallbackOptions<Array<{ value: any }>>): XMLHttpRequest {
         return request({
             url: buildURL('visualization', 'getDimensionValues.api'),
             params: {
                 name: this.name,
                 queryName: this.queryName,
-                schemaName: this.schemaName
+                schemaName: this.schemaName,
             },
             success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createValues),
-            failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+            failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         });
     }
 

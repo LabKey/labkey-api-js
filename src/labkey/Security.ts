@@ -21,8 +21,8 @@ import {
     PermissionTypes,
     permissions,
     roles,
-    systemGroups
-} from './security/constants'
+    systemGroups,
+} from './security/constants';
 import {
     ContainerHierarchy,
     createContainer,
@@ -47,7 +47,7 @@ import {
     ModuleProperty,
     moveContainer,
     MoveContainerOptions,
-} from './security/Container'
+} from './security/Container';
 import {
     getGroupPermissions,
     GetGroupPermissionsOptions,
@@ -70,7 +70,7 @@ import {
     SchemaPermissionsResponse,
     SecurableResourceWithPermissions,
     UserPermissionsContainer,
-} from './security/Permission'
+} from './security/Permission';
 import {
     createNewUser,
     CreateNewUserOptions,
@@ -82,8 +82,8 @@ import {
     GetUsersResponse,
     getUsersWithPermissions,
     GetUsersWithPermissionsOptions,
-    NewUser
-} from './security/User'
+    NewUser,
+} from './security/User';
 import {
     addGroupMembers,
     AddGroupMembersOptions,
@@ -99,8 +99,8 @@ import {
     RemoveGroupMembersOptions,
     renameGroup,
     RenameGroupOptions,
-    RenameGroupResponse
-} from './security/Group'
+    RenameGroupResponse,
+} from './security/Group';
 import {
     deletePolicy,
     DeletePolicyOptions,
@@ -108,12 +108,9 @@ import {
     GetPolicyOptions,
     Policy,
     savePolicy,
-    SavePolicyOptions
-} from './security/Policy'
-import {
-    Group,
-    SecurableResource
-} from './security/types'
+    SavePolicyOptions,
+} from './security/Policy';
+import { Group, SecurableResource } from './security/types';
 
 export {
     /* constants */
@@ -125,7 +122,6 @@ export {
     permissions,
     roles,
     systemGroups,
-
     /* interfaces */
     AddGroupMembersOptions,
     ContainerHierarchy,
@@ -176,7 +172,6 @@ export {
     SecurableResource,
     SecurableResourceWithPermissions,
     UserPermissionsContainer,
-
     /* methods */
     addGroupMembers,
     createContainer,
@@ -207,5 +202,5 @@ export {
     moveContainer,
     removeGroupMembers,
     renameGroup,
-    savePolicy
-}
+    savePolicy,
+};
