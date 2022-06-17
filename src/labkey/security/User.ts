@@ -37,6 +37,8 @@ export interface CreateNewUserResponse {
      * This property will not be available when creating multiple users in same request.
      */
     email?: string;
+    /** Array of htmlErrors returned for failure cases when multiple user creation is being requested. */
+    htmlErrors: string[];
     /**
      * HTML message describing how the system handled creation of the user.
      * This property will not be available when creating multiple users in same request.
