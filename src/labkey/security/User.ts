@@ -37,6 +37,8 @@ export interface CreateNewUserResponse {
      * This property will not be available when creating multiple users in same request.
      */
     email?: string;
+    /** Array of htmlErrors returned for failure cases when multiple user creation is being requested. */
+    htmlErrors: string[];
     /**
      * HTML message describing how the system handled creation of the user.
      * This property will not be available when creating multiple users in same request.
@@ -68,7 +70,12 @@ export interface CreateNewUserOptions extends RequestCallbackOptions<CreateNewUs
 }
 
 /**
- * Creates a new user account.
+ * Creates a new user account. To create more than one account, provide a semicolon separated list of email addresses.
+ * If all of the provided email addresses are valid, new accounts will be created for any email addresses that are not
+ * already registered users. Already existing accounts will still result in a call to the success handler with a message
+ * indicating that the user account already exists. If multiple accounts are being created and one or more result in
+ * an error but there was at least on successful account creation, the success handler will be called with the "users"
+ * information along with an array of "htmlErrors".
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
