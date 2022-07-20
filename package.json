@@ -36,7 +36,7 @@
   },
   "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://artifactory.labkey.com/artifactory/api/npm/libs-client"
+    "registry": "https://labkey.jfrog.io/artifactory/api/npm/libs-client"
   },
   "devDependencies": {
     "@babel/core": "7.18.2",
