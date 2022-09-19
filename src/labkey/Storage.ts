@@ -42,13 +42,13 @@ export interface IStorageCommandOptions extends RequestCallbackOptions<StorageCo
 }
 
 /**
- * Create a new LabKey Freezer Manager storage item which can then be combined to create a freezer hierarchy.
- * Freezer hierarchies consist of a top level freezer which can have any combination of child non-terminal
+ * Create a new LabKey Freezer Manager storage item that can be used in the creation of a freezer hierarchy.
+ * Freezer hierarchies consist of a top level Freezer, which can have any combination of child non-terminal
  * storage locations (i.e. those that do not directly contain samples but can contain other units) and terminal
- * storage locations (i.e. units in the freezer which directly contain samples and cannot contain other units).
+ * storage locations (i.e. units in the freezer that directly contain samples and cannot contain other units).
  * See the <a href="https://www.labkey.org/SampleManagerHelp/wiki-page.view?name=createFreezer">LabKey Documentation</a> for further details.
  *
- * A freezer may also have a parent hierarchy which defines the physical location of the freezer.
+ * A freezer may also have a parent hierarchy, which defines the physical location of the freezer.
  * See the <a href="https://www.labkey.org/SampleManagerHelp/wiki-page.view?name=freezerLocation">LabKey Documentation</a> for further details.
  *
  * ```js
@@ -180,7 +180,7 @@ export function updateStorageItem(config: IStorageCommandOptions): XMLHttpReques
     });
 }
 
-export interface IDeleteStorageCommandOptions extends IStorageCommandOptions {
+export interface DeleteStorageCommandOptions extends IStorageCommandOptions {
     /** the "rowId" primary key value for the storage item/row to be deleted */
     rowId: number;
 }
@@ -188,6 +188,7 @@ export interface IDeleteStorageCommandOptions extends IStorageCommandOptions {
 /**
  * Delete an existing LabKey Freezer Manager storage item. Note that deletion of freezers or locations within the
  * freezer hierarchy will cascade the delete down the hierarchy to remove child locations and terminal storage locations.
+ * Samples in the deleted freezer location(s) will not be deleted but will be removed from storage.
  *
  * ```js
  * // Delete the freezer, which will delete the full hierarchy of non-terminal and terminal storage locations
@@ -200,7 +201,7 @@ export interface IDeleteStorageCommandOptions extends IStorageCommandOptions {
  * });
  * ```
  */
-export function deleteStorageItem(config: IDeleteStorageCommandOptions): XMLHttpRequest {
+export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpRequest {
     return request({
         url: buildURL('storage', 'delete.api', config.containerPath),
         method: 'POST',
