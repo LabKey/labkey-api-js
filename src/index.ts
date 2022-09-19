@@ -49,6 +49,7 @@ import * as Report from './labkey/Report';
 import { SchemaKey } from './labkey/SchemaKey';
 import * as Security from './labkey/Security';
 import * as Specimen from './labkey/Specimen';
+import * as Storage from './labkey/Storage';
 import * as Utils from './labkey/Utils';
 import * as Visualization from './labkey/Visualization';
 // DOM imports
@@ -93,6 +94,7 @@ export {
     SchemaKey,
     Security,
     Specimen,
+    Storage,
     Utils,
     UtilsDOM,
     Visualization,

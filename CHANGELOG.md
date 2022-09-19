@@ -1,3 +1,8 @@
+## TBD
+- Add support for creating Freezer Manager freezer hierarchies via StorageController APIs
+  - earliest compatible LabKey Server version: 22.10.0
+  - via Storage namespace: createStorageItem, updateStorageItem, deleteStorageItem
+
 ## 1.15.0 - 2022-06-16
 - Migrate the convertToTable and convertToExcel utilities from LABKEY.js.
 

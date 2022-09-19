@@ -48,6 +48,7 @@ LABKEY.Report = API.Report;
 LABKEY.SchemaKey = API.SchemaKey;
 LABKEY.Security = API.Security;
 LABKEY.Specimen = API.Specimen;
+LABKEY.Storage = API.Storage;
 LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
 LABKEY.__package__ = __package__;
