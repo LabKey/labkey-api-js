@@ -1,3 +1,6 @@
+## TBD
+- Add `PermissionRoles.EditorWithoutDelete`
+
 ## 1.16.0 - 2022-09-20
 - Add support for creating Freezer Manager freezer hierarchies via StorageController APIs
   - earliest compatible LabKey Server version: 22.10.0
