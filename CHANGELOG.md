@@ -1,4 +1,4 @@
-## TBD
+## 1.16.1 - 2022-09-22
 - Add `PermissionRoles.EditorWithoutDelete`
 
 ## 1.16.0 - 2022-09-20
