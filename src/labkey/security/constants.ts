@@ -34,6 +34,7 @@ export enum PermissionRoles {
     FolderAdmin = 'org.labkey.api.security.roles.FolderAdminRole',
     ProjectAdmin = 'org.labkey.api.security.roles.ProjectAdminRole',
     Reader = 'org.labkey.api.security.roles.ReaderRole',
+    WorkflowEditor = 'org.labkey.api.security.roles.WorkflowEditor',
 }
 
 /**

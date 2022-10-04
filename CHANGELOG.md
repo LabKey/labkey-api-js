@@ -1,3 +1,6 @@
+## TBD - TBD
+- Add `PermissionRoles.WorkflowEditor`
+
 ## 1.16.1 - 2022-09-22
 - Add `PermissionRoles.EditorWithoutDelete`
 
