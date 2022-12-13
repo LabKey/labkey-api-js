@@ -31,13 +31,14 @@ export interface IStorageCommandOptions extends RequestCallbackOptions<StorageCo
     containerPath?: string;
     /** The specific set of props will differ for each storage item type:
      * - Physical Location: name, description, locationId (rowId of the parent Physical Location)
+     * - Primary Storage: name, description, locationId (rowId of the parent Physical Location)
      * - Freezer: name, description, locationId (rowId of the parent Physical Location), manufacturer, freezerModel, temperature, temperatureUnits, serialNumber, sensorName, lossRate, status
      * - Shelf/Rack/Canister: name, description, locationId (rowId of the parent freezer or Shelf/Rack/Canister)
      * - Storage Unit Type: name, description, unitType (one of the following: "Box", "Plate", "Bag", "Cane", "Tube Rack"), rows, cols (required if positionFormat is not "Num"), positionFormat (one of the following: "Num", "AlphaNum", "AlphaAlpha", "NumAlpha", "NumNum"), positionOrder (one of the following: "RowColumn", "ColumnRow")
      * - Terminal Storage Location: name, description, typeId (rowId of the Storage Unit Type), locationId (rowId of the parent freezer or Shelf/Rack/Canister)
      */
     props: Record<string, any>;
-    /** Storage items can be of the following types: Physical Location, Freezer, Shelf, Rack, Canister, Storage Unit Type, or Terminal Storage Location. */
+    /** Storage items can be of the following types: Physical Location, Freezer, Primary Storage, Shelf, Rack, Canister, Storage Unit Type, or Terminal Storage Location. */
     type: STORAGE_TYPES;
 }
 
@@ -217,6 +218,7 @@ export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpR
 enum STORAGE_TYPES {
     PhysicalLocation = 'Physical Location',
     Freezer = 'Freezer',
+    PrimaryStorage = 'Primary Storage',
     Shelf = 'Shelf',
     Rack = 'Rack',
     Canister = 'Canister',
