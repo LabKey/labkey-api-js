@@ -1,5 +1,5 @@
 ## TBD - TBD
-- Add PrimaryStorage as a new STORAGE_TYPE equivalent to Freezer from room-temp storage
+- Add PrimaryStorage as a new STORAGE_TYPE equivalent to Freezer for room-temp storage
 
 ## 1.16.1 - 2022-09-22
 - Add `PermissionRoles.EditorWithoutDelete`
