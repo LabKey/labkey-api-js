@@ -31,8 +31,8 @@ export interface IStorageCommandOptions extends RequestCallbackOptions<StorageCo
     containerPath?: string;
     /** The specific set of props will differ for each storage item type:
      * - Physical Location: name, description, locationId (rowId of the parent Physical Location)
-     * - Primary Storage: name, description, locationId (rowId of the parent Physical Location)
-     * - Freezer: name, description, locationId (rowId of the parent Physical Location), manufacturer, freezerModel, temperature, temperatureUnits, serialNumber, sensorName, lossRate, status
+     * - Primary Storage: name, description, locationId (rowId of the parent Physical Location), temperatureControlled (boolean)
+     * - Freezer: name, description, locationId (rowId of the parent Physical Location), manufacturer, freezerModel, temperature, temperatureUnits, serialNumber, sensorName, lossRate, status, temperatureControlled (boolean)
      * - Shelf/Rack/Canister: name, description, locationId (rowId of the parent freezer or Shelf/Rack/Canister)
      * - Storage Unit Type: name, description, unitType (one of the following: "Box", "Plate", "Bag", "Cane", "Tube Rack"), rows, cols (required if positionFormat is not "Num"), positionFormat (one of the following: "Num", "AlphaNum", "AlphaAlpha", "NumAlpha", "NumNum"), positionOrder (one of the following: "RowColumn", "ColumnRow")
      * - Terminal Storage Location: name, description, typeId (rowId of the Storage Unit Type), locationId (rowId of the parent freezer or Shelf/Rack/Canister)
