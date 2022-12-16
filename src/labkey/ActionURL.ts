@@ -274,6 +274,16 @@ export interface ActionPath {
 }
 
 /**
+ * decodeURI chooses not to decode encoded commas (presumably because encodeURI also does nothing with commas).
+ * This can be problematic since encoding of commas is actually recommended (and done on the server side).
+ * @param uri to be decoded.
+ */
+function fullyDecodeURI(uri: string)
+{
+    return decodeURI(uri).replace(/%2C/g, ",")
+}
+
+/**
  * Parses a location pathname of a LabKey URL into its constituent parts (e.g. controller, action, etc).
  * Defaults to the current location's pathname and context path. The parsed parts of the [[ActionPath]] are
  * URI decoded.
@@ -343,7 +353,7 @@ export function getPathFromLocation(pathname?: string, contextPath?: string): Ac
 
     return {
         action: decodeURIComponent(action),
-        containerPath: decodeURI(path),
+        containerPath: fullyDecodeURI(path),
         contextPath: decodeURIComponent(ctxPath),
         controller: decodeURIComponent(controller),
     };

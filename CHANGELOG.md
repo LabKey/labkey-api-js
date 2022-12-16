@@ -1,3 +1,6 @@
+## TBD - TBD
+- Fix URI decoding for paths with encoded commas
+
 ## 1.17.0 - 2022-12-15
 - Add PrimaryStorage as a new STORAGE_TYPE equivalent to Freezer for room-temp storage
 
