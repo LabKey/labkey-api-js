@@ -274,13 +274,22 @@ export interface ActionPath {
 }
 
 /**
- * decodeURI chooses not to decode encoded commas (presumably because encodeURI also does nothing with commas).
- * This can be problematic since encoding of commas is actually recommended (and done on the server side).
- * @param uri to be decoded.
+ * decodeURI chooses not to decode characters that are part of the URI syntax (; / ? : @ & = + $ , #).
+ * This can be problematic since we do encode these characters on the server side when they are part of the path.
+ * Here, we decode the subset of these encoded characters that can be part of a project name.
+ * @param path to be decoded.
+ * @return A new copy of the given path with all encoded characters decoded
  */
-function fullyDecodeURI(uri: string)
+function fullyDecodeURIPath(path: string): string
 {
-    return decodeURI(uri).replace(/%2C/g, ",")
+    return decodeURI(path)
+        .replace(/%2C/g, ",")
+        .replace(/%3B/g, ";")
+        .replace(/%40/g, "@")
+        .replace(/%26/g, "&")
+        .replace(/%3D/g, "=")
+        .replace(/%24/g, "$")
+        .replace(/%23/g, "#");
 }
 
 /**
@@ -353,7 +362,7 @@ export function getPathFromLocation(pathname?: string, contextPath?: string): Ac
 
     return {
         action: decodeURIComponent(action),
-        containerPath: fullyDecodeURI(path),
+        containerPath: fullyDecodeURIPath(path),
         contextPath: decodeURIComponent(ctxPath),
         controller: decodeURIComponent(controller),
     };
