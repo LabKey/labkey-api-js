@@ -274,6 +274,25 @@ export interface ActionPath {
 }
 
 /**
+ * decodeURI chooses not to decode characters that are part of the URI syntax (; / ? : @ & = + $ , #).
+ * This can be problematic since we do encode these characters on the server side when they are part of the path.
+ * Here, we decode the subset of these encoded characters that can be part of a project name.
+ * @param path to be decoded.
+ * @return A new copy of the given path with all encoded characters decoded
+ */
+function fullyDecodeURIPath(path: string): string
+{
+    return decodeURI(path)
+        .replace(/%2C/g, ",")
+        .replace(/%3B/g, ";")
+        .replace(/%40/g, "@")
+        .replace(/%26/g, "&")
+        .replace(/%3D/g, "=")
+        .replace(/%24/g, "$")
+        .replace(/%23/g, "#");
+}
+
+/**
  * Parses a location pathname of a LabKey URL into its constituent parts (e.g. controller, action, etc).
  * Defaults to the current location's pathname and context path. The parsed parts of the [[ActionPath]] are
  * URI decoded.
@@ -343,7 +362,7 @@ export function getPathFromLocation(pathname?: string, contextPath?: string): Ac
 
     return {
         action: decodeURIComponent(action),
-        containerPath: decodeURI(path),
+        containerPath: fullyDecodeURIPath(path),
         contextPath: decodeURIComponent(ctxPath),
         controller: decodeURIComponent(controller),
     };

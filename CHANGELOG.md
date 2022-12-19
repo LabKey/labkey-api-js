@@ -1,3 +1,6 @@
+## 1.17.1 - 2022-12-19
+- Fix URI decoding for paths with encoded characters in container names
+
 ## 1.17.0 - 2022-12-15
 - Add PrimaryStorage as a new STORAGE_TYPE equivalent to Freezer for room-temp storage
 

@@ -97,7 +97,7 @@ describe('ActionURL', () => {
         });
 
         test('with context path', () => {
-            const contextPath = '/myContextPath';
+            let contextPath = '/myContextPath';
             getServerContext().contextPath = contextPath;
 
             // new style URL
@@ -110,6 +110,10 @@ describe('ActionURL', () => {
                 'pipeline-status',
                 'action'
             );
+            contextPath ='/my, CommaContext';
+            getServerContext().contextPath = contextPath;
+            validatePath(`${contextPath}/1%2C%202/pro%2C%20ject-be%2C%20%2Cgin.view`, contextPath, '/1, 2', 'pro, ject', 'be, ,gin');
+            validatePath(`${contextPath}/1%2C%202%2C%203/project-begin.view`, contextPath, '/1, 2, 3', 'project', 'begin');
 
             // old style URL
             validatePath(`${contextPath}/project/home/begin.view`, contextPath, '/home', 'project', 'begin');
