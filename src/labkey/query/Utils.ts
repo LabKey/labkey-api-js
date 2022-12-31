@@ -253,6 +253,10 @@ export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResp
      * Defaults to false.
      */
     queryDetailColumns?: boolean;
+    /** If set to false, view data URLs will not be included in the results. Default is true. */
+    includeViewDataUrl?: boolean;
+    /** If set to false, no custom query titles will be included. Instead, titles will be identical to names. Default is true. */
+    includeTitle?: boolean;
     /** The name of the schema. */
     schemaName: string;
 }
@@ -273,6 +277,8 @@ export function getQueries(options: GetQueriesOptions): XMLHttpRequest {
             includeUserQueries: 'includeUserQueries',
             includeSystemQueries: 'includeSystemQueries',
             queryDetailColumns: 'queryDetailColumns',
+            includeViewDataUrl: 'includeViewDataUrl',
+            includeTitle: 'includeTitle',
         },
         false,
         false
