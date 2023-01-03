@@ -245,18 +245,18 @@ export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResp
     includeColumns?: boolean;
     /** If set to false, system-defined queries will not be included in the results. Default is true. */
     includeSystemQueries?: boolean;
+    /** If set to false, no custom query titles will be included. Instead, titles will be identical to names. Default is true. */
+    includeTitle?: boolean;
     /** If set to false, user-defined queries will not be included in the results. Default is true. */
     includeUserQueries?: boolean;
+    /** If set to false, view data URLs will not be included in the results. Default is true. */
+    includeViewDataUrl?: boolean;
     /**
      * If set to true, and includeColumns is set to true, information about the available columns
      * will be the same details as specified by [[getQueryDetails]] for columns.
      * Defaults to false.
      */
     queryDetailColumns?: boolean;
-    /** If set to false, view data URLs will not be included in the results. Default is true. */
-    includeViewDataUrl?: boolean;
-    /** If set to false, no custom query titles will be included. Instead, titles will be identical to names. Default is true. */
-    includeTitle?: boolean;
     /** The name of the schema. */
     schemaName: string;
 }
@@ -274,11 +274,11 @@ export function getQueries(options: GetQueriesOptions): XMLHttpRequest {
         {
             schemaName: 'schemaName',
             includeColumns: 'includeColumns',
-            includeUserQueries: 'includeUserQueries',
             includeSystemQueries: 'includeSystemQueries',
-            queryDetailColumns: 'queryDetailColumns',
-            includeViewDataUrl: 'includeViewDataUrl',
             includeTitle: 'includeTitle',
+            includeUserQueries: 'includeUserQueries',
+            includeViewDataUrl: 'includeViewDataUrl',
+            queryDetailColumns: 'queryDetailColumns',
         },
         false,
         false
