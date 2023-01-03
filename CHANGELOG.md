@@ -1,5 +1,5 @@
-## 1.18.0-pivot_perf - 2022-12-30
-- Add `includeViewDataUrl` and `includeTitle` parameters to `Query.getQueries()`. Setting these to `false` (along with existing parameter `includeColumns`) can improvement performance of these calls.
+## 1.18.0 - 2023-01-03
+- [Issue 47010](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47010): Add `includeViewDataUrl` and `includeTitle` parameters to `Query.getQueries()`. Setting these to `false` (along with existing parameter `includeColumns`) can improve performance of getQueries() calls.
 
 ## 1.17.1 - 2022-12-19
 - Fix URI decoding for paths with encoded characters in container names
