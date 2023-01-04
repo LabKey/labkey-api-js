@@ -80,7 +80,7 @@ can do so via the following steps:
 1. Build the package (as described above).
 1. Copy the package's `/dist` directory to `/<labkey root>/server/modules/platform/core/node_modules/@labkey/api/dist`.
 1. Navigate to `/<labkey root>/server/modules/platform/core`.
-1. Run `node build.js` from the `core` module directory.
+1. Run `npm run copy-distributions` from the `core` module directory.
 
 Your changes will now be included in the bundle served by your local LabKey Server instance.
 
