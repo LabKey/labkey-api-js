@@ -1,3 +1,6 @@
+## TBD - TBD
+- [Issue 47044](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47044): Decode the plus sign that may be part of a folder path
+
 ## 1.18.0 - 2023-01-03
 - [Issue 47010](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47010): Add `includeViewDataUrl` and `includeTitle` parameters to `Query.getQueries()`. Setting these to `false` (along with existing parameter `includeColumns`) can improve performance of getQueries() calls.
 
