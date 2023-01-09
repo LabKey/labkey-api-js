@@ -75,6 +75,7 @@ describe('ActionURL', () => {
             validatePath('/home/project-begin.view', '', '/home', 'project', 'begin');
             validatePath('/home/with/folder/project-begin.view', '', '/home/with/folder', 'project', 'begin');
             validatePath('/%E2%98%83/%E2%9D%86/%E2%A8%8Drosty-%F0%9D%95%8Anow.view', '', '/☃/❆', '⨍rosty', '𝕊now');
+            validatePath('/home%2C%2B%2B%3B%40%26%3D%24%23%2Cfolder/project-begin.view', '', '/home,++;@&=$#,folder', 'project', 'begin');
             validatePath(
                 '/my%20folder/my%20path/pipeline-status-action.view?rowId=123',
                 '',
