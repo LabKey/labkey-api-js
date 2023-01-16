@@ -1,3 +1,6 @@
+## TBD - TBD
+- Add `PermissionTypes.CanSeeGroupDetails`
+
 ## 1.18.1 - 2023-01-09
 - [Issue 47044](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47044): Decode the plus sign that may be part of a folder path
 
