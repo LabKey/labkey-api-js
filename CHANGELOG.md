@@ -1,3 +1,6 @@
+## TBD - TBD
+- Add `PermissionTypes.CanSeeUserDetails`
+
 ## 1.18.2 - 2023-01-20
 - Add `PermissionTypes.CanSeeGroupDetails`
 
