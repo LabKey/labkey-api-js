@@ -1,3 +1,6 @@
+## 1.18.3 - 2023-02-02
+- Add `PermissionTypes.CanSeeUserDetails`
+
 ## 1.18.2 - 2023-01-20
 - Add `PermissionTypes.CanSeeGroupDetails`
 

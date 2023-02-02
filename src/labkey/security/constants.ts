@@ -48,6 +48,7 @@ export enum PermissionTypes {
     ApplicationAdmin = 'org.labkey.api.security.permissions.ApplicationAdminPermission',
     CanSeeAuditLog = 'org.labkey.api.audit.permissions.CanSeeAuditLogPermission',
     CanSeeGroupDetails = 'org.labkey.api.security.permissions.SeeGroupDetailsPermission',
+    CanSeeUserDetails = 'org.labkey.api.security.permissions.SeeUserDetailsPermission',
     Delete = 'org.labkey.api.security.permissions.DeletePermission',
     DesignAssay = 'org.labkey.api.assay.security.DesignAssayPermission',
     DesignDataClass = 'org.labkey.api.security.permissions.DesignDataClassPermission',
