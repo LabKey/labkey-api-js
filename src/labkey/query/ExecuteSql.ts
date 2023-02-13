@@ -96,11 +96,18 @@ export interface ExecuteSqlOptions extends RequestCallbackOptions {
     timeout?: number
 }
 
+const WAF_PREFIX = "/*{{base64/x-www-form-urlencoded/sql}}*/";
+
+function wafEncodeSql(sql :string) :string
+{
+    return !sql ? sql : WAF_PREFIX + btoa(encodeURIComponent(sql));
+}
+
 function buildParams(options: ExecuteSqlOptions): any {
 
     let jsonData: any = {
         schemaName: options.schemaName,
-        sql: options.sql
+        sql: wafEncodeSql(options.sql)
     };
 
     // Work with Ext4.Ajax.request
