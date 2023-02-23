@@ -1,4 +1,4 @@
-## 1.18.TBD - 2023-02-TBD
+## 1.18.4 - 2023-02-23
 - Add `PermissionTypes.SampleWorkflowDelete`
 
 ## 1.18.3 - 2023-02-02
