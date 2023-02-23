@@ -1,3 +1,6 @@
+## 1.18.4 - 2023-02-23
+- Add `PermissionTypes.SampleWorkflowDelete`
+
 ## 1.18.3 - 2023-02-02
 - Add `PermissionTypes.CanSeeUserDetails`
 
