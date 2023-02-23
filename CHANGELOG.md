@@ -1,5 +1,5 @@
 ## TBD - TBD
-- TBD
+- Add `comment` param to `deleteContainer` fn
 
 ## 1.18.4 - 2023-02-23
 - Add `PermissionTypes.SampleWorkflowDelete`
