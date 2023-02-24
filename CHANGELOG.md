@@ -1,3 +1,6 @@
+## 1.18.5 - 2023-02-24
+- Add the `AllInProject` and `AllInProjectPlusShared` container filter types supported starting in v23.03.
+
 ## 1.18.4 - 2023-02-23
 - Add `PermissionTypes.SampleWorkflowDelete`
 
