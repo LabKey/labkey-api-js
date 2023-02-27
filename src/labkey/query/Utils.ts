@@ -40,6 +40,12 @@ export enum ContainerFilter {
     /** Include all folders for which the user has read permission. */
     allFolders = 'AllFolders',
 
+    /** Include the current project and all folders in the current project. */
+    allInProject = 'AllInProject',
+
+    /** Include the current project, Shared project, and all folders in the current project. */
+    allInProjectPlusShared = 'AllInProjectPlusShared',
+
     /** Include the current folder only. */
     current = 'Current',
 

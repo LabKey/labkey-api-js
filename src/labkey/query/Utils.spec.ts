@@ -20,6 +20,8 @@ describe('ContainerFilter', () => {
     it('should be a case-sensitive string-based enum', () => {
         // The "value" of the enumeration is expected to bind to Java classes which is case-sensitive
         expect(ContainerFilter.allFolders).toEqual('AllFolders');
+        expect(ContainerFilter.allInProject).toEqual('AllInProject');
+        expect(ContainerFilter.allInProjectPlusShared).toEqual('AllInProjectPlusShared');
         expect(ContainerFilter.current).toEqual('Current');
         expect(ContainerFilter.currentAndFirstChildren).toEqual('CurrentAndFirstChildren');
         expect(ContainerFilter.currentAndParents).toEqual('CurrentAndParents');
@@ -30,7 +32,7 @@ describe('ContainerFilter', () => {
 
         // All "values" of the ContainerFilter enum should be covered here -- if it has changed
         // this test will fail and the test should be updated accordingly.
-        expect(Object.keys(ContainerFilter).length).toEqual(8);
+        expect(Object.keys(ContainerFilter).length).toEqual(10);
     });
     it('should be equivalent to "containerFilter"', () => {
         // Backwards compatibility support
