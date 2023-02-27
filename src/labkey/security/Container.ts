@@ -61,10 +61,10 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
 }
 
 export interface DeleteContainerOptions extends RequestCallbackOptions {
-    /** The container which should be deleted. If not specified the current container path will be deleted. */
-    containerPath?: string;
     /** A comment which will appear in the audit log on the reason for deletion. */
     comment?: string;
+    /** The container which should be deleted. If not specified the current container path will be deleted. */
+    containerPath?: string;
 }
 
 /**
