@@ -224,7 +224,8 @@ export interface LineageNodeBase {
     steps?: LineageRunStep[];
 }
 
-export type LineageNode = LineageItemBase & LineageIOConfig & LineageNodeBase;
+/** The shape of a LineageNode is determined by the options specified on the lineage API. */
+export type LineageNode = LineageItemBase & LineageIOConfig & LineageNodeBase & Partial<LineageRunStepBase>;
 
 export interface LineageResponse {
     /** Object containing all lineage nodes in this lineage result. Keyed by node LSID. */
