@@ -1,3 +1,6 @@
+## 1.18.7 - 2023-02-28
+- Add `comment` param to `deleteContainer` fn
+
 ## 1.18.6 - 2023-02-28
 * Update `LineageItemBase` to optionally include `comment?: string`.
 * Update `LineageNodeBase` to optionally include `protocol?: LineageItemBase`.

@@ -61,6 +61,8 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
 }
 
 export interface DeleteContainerOptions extends RequestCallbackOptions {
+    /** A comment which will appear in the audit log on the reason for deletion. */
+    comment?: string;
     /** The container which should be deleted. If not specified the current container path will be deleted. */
     containerPath?: string;
 }
@@ -77,6 +79,7 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
     return request({
         url: buildURL('core', 'deleteContainer.api', config.containerPath),
         method: 'POST',
+        jsonData: {comment: config.comment},
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
