@@ -1,3 +1,7 @@
+## 1.18.6 - 2023-02-28
+* Update `LineageItemBase` to optionally include `comment?: string`.
+* Update `LineageNodeBase` to optionally include `protocol?: LineageItemBase`.
+
 ## 1.18.5 - 2023-02-24
 - Add the `AllInProject` and `AllInProjectPlusShared` container filter types supported starting in v23.03.
 
