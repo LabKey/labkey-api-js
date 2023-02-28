@@ -179,6 +179,7 @@ export interface LineagePKFilter {
 }
 
 export interface LineageItemBase {
+    comment?: string;
     container: string;
     cpasType?: string;
     created: string;
@@ -221,9 +222,11 @@ export interface LineageNodeBase {
     parents: LineageEdge[];
     pipelinePath: string;
     properties: any;
+    protocol?: LineageItemBase;
     steps?: LineageRunStep[];
 }
 
+/** The shape of a LineageNode is determined by the options specified on the lineage API. */
 export type LineageNode = LineageItemBase & LineageIOConfig & LineageNodeBase;
 
 export interface LineageResponse {
