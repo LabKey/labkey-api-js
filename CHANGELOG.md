@@ -1,4 +1,4 @@
-## TBD - TBD
+## 1.18.8 - 2023-03-02
 - Issue 47202: Options to reduce payload of getContainers.api response
   - two new properties: includeWorkbookChildren and includeStandardProperties 
 
