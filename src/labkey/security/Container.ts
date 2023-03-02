@@ -141,10 +141,19 @@ export interface GetContainersOptions extends RequestCallbackOptions /* <Contain
      */
     includeEffectivePermissions?: boolean;
     /**
+     * If set to true, all of the container's standard properties will be included. (defaults to true)
+     * If set to false, only the base set of properties (i.e. id, name, and path) will be included.
+     */
+    includeStandardProperties?: boolean;
+    /**
      * If set to true, the entire branch of containers will be returned.
      * If false, only the immediate children of the starting container will be returned (defaults to false).
      */
     includeSubfolders?: boolean;
+    /**
+     * If set to false, child containers of type "workbook" will not be included. (defaults to true)
+     */
+    includeWorkbookChildren?: boolean;
     /**
      * The names (Strings) of modules whose Module Property values should be included for each container.
      * Use "*" to get the value of all Module Properties for all modules.
@@ -187,6 +196,12 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
         }
         if (config.includeEffectivePermissions != undefined) {
             params.includeEffectivePermissions = config.includeEffectivePermissions;
+        }
+        if (config.includeWorkbookChildren != undefined) {
+            params.includeWorkbookChildren = config.includeWorkbookChildren;
+        }
+        if (config.includeStandardProperties != undefined) {
+            params.includeStandardProperties = config.includeStandardProperties;
         }
     }
 
