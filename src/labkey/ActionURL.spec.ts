@@ -75,7 +75,13 @@ describe('ActionURL', () => {
             validatePath('/home/project-begin.view', '', '/home', 'project', 'begin');
             validatePath('/home/with/folder/project-begin.view', '', '/home/with/folder', 'project', 'begin');
             validatePath('/%E2%98%83/%E2%9D%86/%E2%A8%8Drosty-%F0%9D%95%8Anow.view', '', '/☃/❆', '⨍rosty', '𝕊now');
-            validatePath('/home%2C%2B%2B%3B%40%26%3D%24%23%2Cfolder/project-begin.view', '', '/home,++;@&=$#,folder', 'project', 'begin');
+            validatePath(
+                '/home%2C%2B%2B%3B%40%26%3D%24%23%2Cfolder/project-begin.view',
+                '',
+                '/home,++;@&=$#,folder',
+                'project',
+                'begin'
+            );
             validatePath(
                 '/my%20folder/my%20path/pipeline-status-action.view?rowId=123',
                 '',
@@ -111,10 +117,22 @@ describe('ActionURL', () => {
                 'pipeline-status',
                 'action'
             );
-            contextPath ='/my, CommaContext';
+            contextPath = '/my, CommaContext';
             getServerContext().contextPath = contextPath;
-            validatePath(`${contextPath}/1%2C%202/pro%2C%20ject-be%2C%20%2Cgin.view`, contextPath, '/1, 2', 'pro, ject', 'be, ,gin');
-            validatePath(`${contextPath}/1%2C%202%2C%203/project-begin.view`, contextPath, '/1, 2, 3', 'project', 'begin');
+            validatePath(
+                `${contextPath}/1%2C%202/pro%2C%20ject-be%2C%20%2Cgin.view`,
+                contextPath,
+                '/1, 2',
+                'pro, ject',
+                'be, ,gin'
+            );
+            validatePath(
+                `${contextPath}/1%2C%202%2C%203/project-begin.view`,
+                contextPath,
+                '/1, 2, 3',
+                'project',
+                'begin'
+            );
 
             // old style URL
             validatePath(`${contextPath}/project/home/begin.view`, contextPath, '/home', 'project', 'begin');

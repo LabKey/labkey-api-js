@@ -16,8 +16,9 @@
 import { CSRF_HEADER } from '../constants';
 import { decode, encodeHtml, generateUUID, id } from '../Utils';
 
-import { loadDOMContext } from './constants';
 import { buildURL } from '../ActionURL';
+
+import { loadDOMContext } from './constants';
 
 declare const Ext: any;
 declare const Ext4: any;
@@ -26,23 +27,23 @@ declare const window: Window;
 const { $, CSRF } = loadDOMContext();
 
 export interface Worksheet {
-    name?: string;
     data: any[];
+    name?: string;
 }
 
 export interface Workbook {
+    auditMessage?: string;
     fileName?: string;
     sheets: Worksheet[];
-    auditMessage?: string;
 }
 
 export interface ConvertToTableOptions {
+    auditMessage?: string;
     delim?: DelimiterType;
-    quoteChar?: QuoteCharType;
     fileNamePrefix?: string;
     newlineChar?: string;
+    quoteChar?: QuoteCharType;
     rows: any[];
-    auditMessage?: string;
 }
 
 // Maps to TSVWriter.DELIM for delimited data export
@@ -263,8 +264,8 @@ export function signalWebDriverTest(signalName: string, signalResult?: any): voi
  *
  */
 export const convertToExcel = (workbook: Workbook): void => {
-    const formData = { 'json': JSON.stringify(workbook) };
-    submitForm(buildURL("experiment", "convertArraysToExcel"), formData);
+    const formData = { json: JSON.stringify(workbook) };
+    submitForm(buildURL('experiment', 'convertArraysToExcel'), formData);
 };
 
 /**
@@ -285,7 +286,6 @@ export const convertToExcel = (workbook: Workbook): void => {
  * ```
  */
 export const convertToTable = (config: ConvertToTableOptions): void => {
-    const formData = { 'json': JSON.stringify(config) };
-    submitForm(buildURL("experiment", "convertArraysToTable"), formData);
+    const formData = { json: JSON.stringify(config) };
+    submitForm(buildURL('experiment', 'convertArraysToTable'), formData);
 };
-

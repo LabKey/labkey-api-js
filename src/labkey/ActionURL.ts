@@ -280,17 +280,16 @@ export interface ActionPath {
  * @param path to be decoded.
  * @return A new copy of the given path with all encoded characters decoded
  */
-function fullyDecodeURIPath(path: string): string
-{
+function fullyDecodeURIPath(path: string): string {
     return decodeURI(path)
-        .replace(/%2C/g, ",")
-        .replace(/%2B/g, "+")
-        .replace(/%3B/g, ";")
-        .replace(/%40/g, "@")
-        .replace(/%26/g, "&")
-        .replace(/%3D/g, "=")
-        .replace(/%24/g, "$")
-        .replace(/%23/g, "#");
+        .replace(/%2C/g, ',')
+        .replace(/%2B/g, '+')
+        .replace(/%3B/g, ';')
+        .replace(/%40/g, '@')
+        .replace(/%26/g, '&')
+        .replace(/%3D/g, '=')
+        .replace(/%24/g, '$')
+        .replace(/%23/g, '#');
 }
 
 /**

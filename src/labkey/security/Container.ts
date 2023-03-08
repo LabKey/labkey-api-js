@@ -79,7 +79,7 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
     return request({
         url: buildURL('core', 'deleteContainer.api', config.containerPath),
         method: 'POST',
-        jsonData: {comment: config.comment},
+        jsonData: { comment: config.comment },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });

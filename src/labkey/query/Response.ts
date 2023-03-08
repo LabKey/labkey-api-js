@@ -93,8 +93,6 @@ export interface MetadataField {
     dimension: boolean;
     /** If the field has a display field this is the field key for that field. */
     displayField?: FieldKey;
-    /** If the field has a display field this function will return the metadata field object for that field. */
-    getDisplayField?: GetDisplayField;
     excelFormat?: string;
     excludeFromShifting?: boolean;
     extFormat?: string;
@@ -103,6 +101,8 @@ export interface MetadataField {
     /** FieldKey for this field. */
     fieldKey: FieldKey;
     friendlyType: string;
+    /** If the field has a display field this function will return the metadata field object for that field. */
+    getDisplayField?: GetDisplayField;
     /** Whether this field is hidden and not normally shown in grid views. */
     hidden: boolean;
     importAliases?: string[];
@@ -158,7 +158,7 @@ export interface ResponseMetadata {
      * Each URL should either point to a static template file or an action to generate the template.
      * If no custom templates have been provided, it will return the default URL.
      */
-    importTemplates?: { label: string; url: string; }[];
+    importTemplates?: Array<{ label: string; url: string }>;
     /** Name of the property containing rows ("rows"). */
     root: string;
     /** Title of the underlying query */
