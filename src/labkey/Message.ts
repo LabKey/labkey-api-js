@@ -23,7 +23,7 @@ export interface IMsgContent {
 }
 
 /**
- * A utility function to create a message content object used in [[sendMessage]].
+ * A utility function to create a message content object used in {@link sendMessage}.
  * @param type The content type of this message part
  * @param content The message part content.
  */
@@ -40,7 +40,7 @@ export interface IPrincipalRecipient {
 }
 
 /**
- * A utility function to create a recipient object (based on a user ID or group ID) used in [[sendMessage]].
+ * A utility function to create a recipient object (based on a user ID or group ID) used in {@link sendMessage}.
  * Note: only server side validation or transformation scripts can specify a user or group ID.
  * @param type Determines where the recipient email address will appear in the message.
  * @param principalId The user or group id of the recipient.
@@ -58,7 +58,7 @@ export interface IRecipient {
 }
 
 /**
- * A utility function to create a recipient object used in [[sendMessage]].
+ * A utility function to create a recipient object used in {@link sendMessage}.
  * @param type Determines where the recipient email address will appear in the message.
  * @param address The email address of the recipient.
  */
@@ -104,20 +104,20 @@ export const recipientType: IRecipientTypeCollection = {
 export interface ISendMessageOptions extends RequestCallbackOptions {
     /**
      * An array of content objects which have the following properties:
-     * - type: the message content type, must be one of the values from: [[msgType]].
+     * - type: the message content type, must be one of the values from: {@link msgType}.
      * - content: the email message body for this content type.
      *
-     * The utility function [[createMsgContent]] can be used to help create these objects.
+     * The utility function {@link createMsgContent} can be used to help create these objects.
      */
     msgContent?: string[];
     /** The email address that appears on the email from line. */
     msgFrom?: string;
     /**
      * An array of recipient objects which have the following properties:
-     * - type: the recipient type, must be one of the values from: [[recipientType]].
+     * - type: the recipient type, must be one of the values from: {@link recipientType}.
      * - address: the email address of the recipient.
      *
-     * The utility function [[createRecipient]] can be used to help create these objects.
+     * The utility function {@link createRecipient} can be used to help create these objects.
      * Recipients whose accounts have been deactivated or have never been logged into will be silently dropped from
      * the message.
      */

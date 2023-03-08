@@ -16,7 +16,7 @@
 
 export type TAggregate = 'AVG' | 'COUNT' | 'MAX' | 'MIN' | 'SUM';
 
-/** Aggregates when pivoting a result set by a dimension. See [[getData]]. */
+/** Aggregates when pivoting a result set by a dimension. See {@link getData}. */
 export enum Aggregate {
     /** Calculates an average. */
     AVG = 'AVG',
@@ -32,7 +32,7 @@ export enum Aggregate {
 
 export type TInterval = 'DAY' | 'MONTH' | 'WEEK' | 'YEAR';
 
-/** Intervals are for aligning series in time plots. See [[getData]]. */
+/** Intervals are for aligning series in time plots. See {@link getData}. */
 export enum Interval {
     /** Align by the number of days since the zero date. */
     DAY = 'DAY',
@@ -48,7 +48,7 @@ export type TType = 'ReportService.GenericChartReport' | 'ReportService.TimeChar
 
 /**
  * @namespace Type predefined set of visualization types, for use in the config.type property in the
- * [[save]] method.
+ * {@link save} method.
  */
 export const Type: {
     [key: string]: string;

@@ -66,7 +66,7 @@ export function addSpecimensToRequest(options: AddSpecimensToRequestOptions): XM
 }
 
 /**
- * Don't use this... use [[addSpecimensToRequest]] instead.
+ * Don't use this... use {@link addSpecimensToRequest} instead.
  * @deprecated
  */
 export const addSamplesToRequest = addSpecimensToRequest;

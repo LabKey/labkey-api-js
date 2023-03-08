@@ -26,7 +26,7 @@ function createValues(json: any): any[] {
 }
 
 /**
- * @namespace Dimension's are data elements (columns) on which [[Measure]] objects
+ * @namespace Dimension's are data elements (columns) on which {@link Measure} objects
  * can be pivoted or transformed. For example, the 'Analyte Name' dimension may be used to pivot a single 'Result' measure
  * into one series per Analyte.
  */

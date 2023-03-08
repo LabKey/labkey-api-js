@@ -215,7 +215,7 @@ export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpR
     });
 }
 
-enum STORAGE_TYPES {
+export enum STORAGE_TYPES {
     PhysicalLocation = 'Physical Location',
     Freezer = 'Freezer',
     PrimaryStorage = 'Primary Storage',

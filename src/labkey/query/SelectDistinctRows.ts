@@ -33,7 +33,7 @@ export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDist
      */
     column: string;
     /**
-     * One of the values of [[ContainerFilter]] that sets
+     * One of the values of {@link ContainerFilter} that sets
      * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
      * config.containerPath.
      */
@@ -59,7 +59,7 @@ export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDist
     /**
      * Map of name (string)/value pairs for the values of parameters if the SQL
      * references underlying queries that are parameterized. For example, the following passes
-     * two parameters to the query: {'Gender': 'M', 'CD4': '400'}. The parameters are written to the
+     * two parameters to the query: `{'Gender': 'M', 'CD4': '400'}`. The parameters are written to the
      * request URL as follows: query.param.Gender=M&query.param.CD4=400.
      * For details on parameterized SQL queries,
      * see [Parameterized SQL Queries](https://www.labkey.org/Documentation/wiki-page.view?name=paramsql).

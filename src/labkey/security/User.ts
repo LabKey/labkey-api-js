@@ -77,7 +77,7 @@ export interface CreateNewUserOptions extends RequestCallbackOptions<CreateNewUs
  * an error but there was at least on successful account creation, the success handler will be called with the "users"
  * information along with an array of "htmlErrors".
  *
- * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * @returns In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
  * In server-side scripts, this method will return the JSON response object
  * (first parameter of the success or failure callbacks.)
@@ -106,7 +106,7 @@ export interface EnsureLoginOptions extends RequestCallbackOptions<{ currentUser
     /**
      * Set to true to redirect the browser to the normal site login page. After the user logs in,
      * the browser will be redirected back to the current page, and the current user information
-     * will be available via {@link LABKEY.Security.currentUser}. If omitted or set to false,
+     * will be available via `LABKEY.Security.currentUser`. If omitted or set to false,
      * this function will attempt to login via an AJAX request, which will cause the browser to
      * display the basic authentication dialog. After the user logs in successfully, the success
      * function will be called.
@@ -118,9 +118,9 @@ export interface EnsureLoginOptions extends RequestCallbackOptions<{ currentUser
  * Ensures that the current user is logged in.
  *
  * Note that if the current user is already logged in, the success function will be called immediately,
- * passing the current user information from {@link LABKEY.Security.currentUser}.
+ * passing the current user information from `LABKEY.Security.currentUser`.
  *
- * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * @returns In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
  * In server-side scripts, this method will return the JSON response object
  * (first parameter of the success or failure callbacks.)
@@ -189,7 +189,7 @@ export interface GetUsersOptions extends RequestCallbackOptions<GetUsersResponse
 /**
  * Returns a list of users given selection criteria. This may be called by any logged-in user.
  *
- * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * @returns In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
  * In server-side scripts, this method will return the JSON response object
  * (first parameter of the success or failure callbacks.)
@@ -212,7 +212,7 @@ export interface GetUsersWithPermissionsOptions extends GetUsersOptions {
  * provided and only users whose email or display name starts with the prefix will be returned.
  * This will not return any deactivated users (since they do not have permissions of any sort).
  *
- * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * @returns In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
  * In server-side scripts, this method will return the JSON response object
  * (first parameter of the success or failure callbacks.)

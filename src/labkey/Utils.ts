@@ -281,11 +281,11 @@ export function capitalize(value: string): string {
  * Returns true if the arguments are case-insensitive equal.
  * Note: the method converts arguments to strings for the purposes of comparing numbers,
  * which means that it will return odd behaviors with objects
- * (ie. LABKEY.Utils.caseInsensitiveEquals({t: 3}, '[object Object]') returns true)
+ * (ie. `LABKEY.Utils.caseInsensitiveEquals({t: 3}, '[object Object]') // returns true`)
  *
- * @param {String/Number} a The first item to test
- * @param {String/Number} b The second item to test
- * @return {boolean} True if arguments are case-insensitive equal, false if not
+ * @param a The first item to test
+ * @param b The second item to test
+ * @return True if arguments are case-insensitive equal, false if not
  */
 export function caseInsensitiveEquals(a: any, b: any): boolean {
     return String(a).toLowerCase() == String(b).toLowerCase();
@@ -299,7 +299,6 @@ export function ensureRegionName(regionName?: string): string {
 /**
  * Decodes (parses) a JSON string to an object
  * @param data
- * @returns {}
  */
 export function decode(data: any): any {
     return JSON.parse(data + '');
@@ -372,7 +371,6 @@ export function escapeRe(s: string): string {
  * Returns true if value ends with ending
  * @param value the value to examine
  * @param ending the ending to look for
- * @returns {boolean}
  */
 export function endsWith(value: string, ending: string): boolean {
     if (!value || !ending) {
@@ -498,7 +496,6 @@ export function getCallbackWrapper<T = any>(
  * to be available.
  * @param name The name of the cookie to be retrieved.
  * @param defaultValue The value to be returned if no cookie with the specified name is found on the client.
- * @returns {string}
  */
 export function getCookie(name: string, defaultValue: string): string {
     // TODO: Move this method to DOM utils
@@ -684,10 +681,9 @@ export function isDefined(value: any): boolean {
 }
 
 /**
- * Returns true if the passed object is empty (ie. {}) and false if not.
- *
- * @param {Object} obj The object to test
- * @return {Boolean} the result of the test
+ * Returns true if the passed object is empty (ie. `{}`) and false if not.
+ * @param obj The object to test
+ * @return The result of the test
  */
 export function isEmptyObj(obj: any): boolean {
     // Note, this returns true for undefined, null, and empty Array as well. Consider revising
@@ -733,7 +729,7 @@ export function isString(value: any): value is string {
  *
  * The first object is modified.
  *
- * Use merge({}, o) to create a deep copy of o.
+ * Use `merge({}, o)` to create a deep copy of o.
  */
 export function merge(...props: any[]): any {
     const o = props[0];

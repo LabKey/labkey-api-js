@@ -22,10 +22,10 @@ import { decode, isArray, isFunction, isString } from '../Utils';
 import { Response } from './Response';
 
 export interface IGetDataFilter {
-    /** Can be a string, array of strings, or a [[FieldKey]] */
+    /** Can be a string, array of strings, or a {@link FieldKey} */
     fieldKey: string[];
 
-    /** Can be a string or a type from {@link LABKEY.Filter#Types} */
+    /** Can be a string or a type from {@link Types} */
     type: any;
 
     /** Optional depending on filter type. The value to filter on. */
@@ -39,7 +39,7 @@ export interface IGetDataSource {
     /** The queryName to use in the request. Required if source.type = "query". */
     queryName?: string;
 
-    /** The schemaName to use in the request. Can be a string, array of strings, or LABKEY.FieldKey. */
+    /** The schemaName to use in the request. Can be a string, array of strings, or {@link SchemaKey}. */
     schemaName?: string | string[] | SchemaKey;
 
     /** The LabKey SQL to use in the request. Required if source.type = "sql". */
@@ -54,7 +54,7 @@ export interface IGetDataSource {
 
 export interface IGetRawDataOptions {
     /**
-     * An array containing [[FieldKey]]objects, strings, or arrays of strings.
+     * An array containing {@link FieldKey} objects, strings, or arrays of strings.
      * Used to specify which columns the user wants. The columns must match those returned from the last transform.
      */
     columns?: Array<string | string[] | FieldKey>;
@@ -96,7 +96,7 @@ export interface IGetRawDataOptions {
 
     /**
      * A function to be executed when the GetData request completes successfully. The function will
-     * be passed a [[Response]] object.
+     * be passed a {@link Response} object.
      */
     success: () => any;
 
@@ -110,12 +110,12 @@ export interface IGetRawDataParams {
 }
 
 export interface IPivot {
-    /** The column to pivot by. Can be an array of strings, a string, or a [[FieldKey]] */
+    /** The column to pivot by. Can be an array of strings, a string, or a {@link FieldKey} */
     by: string | string[] | FieldKey;
 
     /**
      * The columns to pivot. Is an array containing strings, arrays of strings, and/or
-     * [[FieldKey]] objects.
+     * {@link FieldKey} objects.
      */
     columns: Array<string | string[] | FieldKey>;
 }
@@ -133,24 +133,24 @@ export interface ISort {
     /** Can be 'ASC' or 'DESC', defaults to 'ASC'. */
     dir?: string;
 
-    /** The field key of the column to sort. Can be a string, array of strings, or a [[FieldKey]] */
+    /** The field key of the column to sort. Can be a string, array of strings, or a {@link FieldKey} */
     fieldKey: string | string[] | FieldKey;
 }
 
 export interface ITransform {
     aggregates?: ITransformAggregate[];
 
-    /** An array containing  objects created with [[create]], [[Filter]] objects, or javascript objects. */
+    /** An array containing  objects created with {@link create}, {@link Filter} objects, or javascript objects. */
     filters?: IGetDataFilter[];
 
-    /** An array of Objects. Each object can be a string, array of strings, or a [[FieldKey]]. */
+    /** An array of Objects. Each object can be a string, array of strings, or a {@link FieldKey}. */
     groupBy?: Array<string | string[] | FieldKey>;
 
     type?: string;
 }
 
 export interface ITransformAggregate {
-    /** The target column. Can be an array of strings, a string, or a [[FieldKey]] */
+    /** The target column. Can be an array of strings, a string, or a {@link FieldKey} */
     fieldKey: string | string[] | FieldKey;
 
     /**  The type of aggregate. */
@@ -158,10 +158,8 @@ export interface ITransformAggregate {
 }
 
 /**
- * Used to get the raw data from a GetData request. Roughly equivalent to [[selectRows]] or
- * [[executeSql]], except it allows the user to pass the data through a series of transforms.
- * @param {IGetRawDataOptions} config
- * @returns {XMLHttpRequest}
+ * Used to get the raw data from a GetData request. Roughly equivalent to {@link selectRows} or
+ * {@link executeSql}, except it allows the user to pass the data through a series of transforms.
  */
 export function getRawData(config: IGetRawDataOptions): XMLHttpRequest {
     const jsonData = validateGetDataConfig(config);

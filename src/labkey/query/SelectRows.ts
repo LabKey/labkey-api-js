@@ -33,7 +33,7 @@ export interface SelectRowsOptions extends RequestCallbackOptions {
      */
     columns?: string | string[];
     /**
-     * One of the values of [[ContainerFilter]] that sets
+     * One of the values of {@link ContainerFilter} that sets
      * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
      * config.containerPath.
      */

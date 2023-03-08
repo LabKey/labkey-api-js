@@ -1,4 +1,4 @@
-type OnInitCallback<CTX> = (target: string, ctx: CTX) => void;
+export type OnInitCallback<CTX> = (target: string, ctx: CTX) => void;
 
 interface AppRegistryItem<CTX = any> {
     appName: string;
@@ -57,7 +57,7 @@ export function init(LABKEY: any) {
 }
 
 /**
- * Load/initialize applications that are registered via [[registerApp]].
+ * Load/initialize applications that are registered via {@link registerApp}.
  * @param appName
  * @param appTarget
  * @param appContext
@@ -88,7 +88,7 @@ export function loadApp<CTX = any>(appName: string, appTarget: string, appContex
 }
 
 /**
- * Registers an app by "appName". When the app is requested to be loaded (via [[loadApp]]) the onInit()
+ * Registers an app by "appName". When the app is requested to be loaded (via {@link loadApp}) the onInit()
  * callback will be invoked to initialize the app.
  * @param appName The unique name for this app type.
  * @param onInit Callback that will be invoked when the app is loaded.

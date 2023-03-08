@@ -27,13 +27,23 @@ declare type ExtWindow = Window & ExtRoot;
 
 declare const window: ExtWindow;
 
+export interface ResponseColumn {
+    align: string;
+    dataIndex: string;
+    editable: boolean;
+    header: string;
+    hidden: boolean;
+    required: boolean;
+    scale: number;
+    sortable: boolean;
+    width: number;
+}
+
 /**
  * @hidden
  * @private
- * @param {Array<any>} fields
- * @returns {Array<any>}
  */
-function generateColumnModel(fields: any[]): any[] {
+function generateColumnModel(fields: MetadataField[]): ResponseColumn[] {
     const columns = [];
 
     for (let i = 0; i < fields.length; i++) {
@@ -53,14 +63,13 @@ function generateColumnModel(fields: any[]): any[] {
     return columns;
 }
 
+export type GetDisplayField = () => MetadataField;
+
 /**
  * @hidden
  * @private
- * @param {FieldKey} fieldKey
- * @param {Array<any>} fields
- * @returns {Function}
  */
-function generateGetDisplayField(fieldKey: FieldKey, fields: any[]): Function {
+function generateGetDisplayField(fieldKey: FieldKey, fields: any[]): GetDisplayField {
     return () => {
         const fieldString = fieldKey.toString();
         for (let i = 0; i < fields.length; i++) {
@@ -72,11 +81,97 @@ function generateGetDisplayField(fieldKey: FieldKey, fields: any[]): Function {
     };
 }
 
-/** The class used to wrap the response object from [[getRawData]], [[selectRows]], and [[executeSql]]. */
+export interface MetadataField {
+    align?: string;
+    autoIncrement: boolean;
+    calculated: boolean;
+    caption: string;
+    defaultValue?: any;
+    /** Description of the underlying column */
+    description?: string;
+    /** Whether this field is a dimension. Data dimensions define logical groupings of measures. */
+    dimension: boolean;
+    /** If the field has a display field this is the field key for that field. */
+    displayField?: FieldKey;
+    /** If the field has a display field this function will return the metadata field object for that field. */
+    getDisplayField?: GetDisplayField;
+    excelFormat?: string;
+    excludeFromShifting?: boolean;
+    extFormat?: string;
+    extFormatFn?: Function;
+    facetingBehaviorType?: string;
+    /** FieldKey for this field. */
+    fieldKey: FieldKey;
+    friendlyType: string;
+    /** Whether this field is hidden and not normally shown in grid views. */
+    hidden: boolean;
+    importAliases?: string[];
+    inputType?: string;
+    jsonType: string;
+    keyField: boolean;
+    label?: string;
+    /**
+     * If the field is a lookup, there will be four sub-properties listed under this property:
+     * schema, table, displayColumn, and keyColumn, which describe the schema, table, and display
+     * column, and key column of the lookup table (query).
+     */
+    lookup?: any;
+    /**
+     * Whether this field is a measure.
+     * Measures are fields that contain data subject to charting and other analysis.
+     */
+    measure: boolean;
+    mvEnabled: boolean;
+    /** The name of the field. */
+    name: string;
+    nullable: boolean;
+    readOnly: boolean;
+    recommendedVariable?: boolean;
+    scale?: number;
+    shortCaption: string;
+    /** Whether this field is intended to be shown in details views. */
+    shownInDetailsView: boolean;
+    /** Whether this field is intended to be shown in insert views. */
+    shownInInsertView: boolean;
+    /** Whether this field is intended to be shown in lookup views. */
+    shownInLookupView: boolean;
+    /** Whether this field is intended to be shown in update views. */
+    shownInUpdateView: boolean;
+    sortable: boolean;
+    sqlType?: string;
+    tsvFormat?: string;
+    /** JavaScript type name of the field. */
+    type: string;
+    userEditable: boolean;
+    width: number;
+}
+
+export interface ResponseMetadata {
+    /** Description of the underlying query */
+    description: string;
+    fields: MetadataField[];
+    /** Name of the primary key column. */
+    id: string;
+    importMessage?: string;
+    /**
+     * An array of templates (label/URL) that should be used as the options for excel upload.
+     * Each URL should either point to a static template file or an action to generate the template.
+     * If no custom templates have been provided, it will return the default URL.
+     */
+    importTemplates?: { label: string; url: string; }[];
+    /** Name of the property containing rows ("rows"). */
+    root: string;
+    /** Title of the underlying query */
+    title: string;
+    /** Name of the top-level property containing the row count ("rowCount") in our case. */
+    totalProperty: string;
+}
+
+/** The class used to wrap the response object from {@link getRawData}, {@link selectRows}, and {@link executeSql}. */
 export class Response {
     columnModel: any;
     formatVersion: number;
-    metaData: any;
+    metaData: ResponseMetadata;
     queryName: string;
     rowCount: number;
     rows: Row[];
@@ -85,11 +180,8 @@ export class Response {
     [attr: string]: any;
 
     /**
-     * @see [[getRawData]]
-     * @see [[selectRows]]
-     * @see [[executeSql]]
-     * @param rawResponse The raw JSON response object returned from the server when executing [[getRawData]],
-     * [[selectRows]], or [[executeSql]] when requiredVersion is greater than 13.2.
+     * @param rawResponse The raw JSON response object returned from the server when executing {@link getRawData},
+     * {@link selectRows}, or {@link executeSql} when requiredVersion is greater than 13.2.
      */
     constructor(rawResponse: any) {
         // Shallow copy the rawResponse
@@ -154,47 +246,21 @@ export class Response {
     }
 
     /**
-     * Returns an array of objects that can be used to assist in creating grids using ExtJs.
-     * @returns {any} Returns an array of Objects that can be used to assist in creating Ext Grids to render the data.
+     * Returns an array of objects that can be used to assist in creating grids using ExtJS.
      */
-    getColumnModel(): any {
+    getColumnModel(): ResponseColumn[] {
         return this.columnModel;
     }
 
     /**
      * Gets the metaData object from the response.
-     * @returns {any} Returns an object with the following properties:
-     *  * <strong>fields</strong>: {Object[]} Each field has the following properties:
-     *    * <strong>name</strong>: {String} The name of the field
-     *    * <strong>type</strong>: {String} JavaScript type name of the field
-     *    * <strong>shownInInsertView</strong>: {Boolean} whether this field is intended to be shown in insert views
-     *    * <strong>shownInUpdateView</strong>: {Boolean} whether this field is intended to be shown in update views
-     *    * <strong>shownInDetailsView</strong>: {Boolean} whether this field is intended to be shown in details views
-     *    * <strong>measure</strong>: {Boolean} whether this field is a measure.  Measures are fields that contain data
-     *    subject to charting and other analysis.
-     *    * <strong>dimension</strong>: {Boolean} whether this field is a dimension.  Data dimensions define logical
-     *    groupings of measures.
-     *    * <strong>hidden</strong>: {Boolean} whether this field is hidden and not normally shown in grid views
-     *    * <strong>lookup</strong>: {Object} If the field is a lookup, there will be four sub-properties listed under
-     *    this property: schema, table, displayColumn, and keyColumn, which describe the schema, table, and display
-     *    column, and key column of the lookup table (query).
-     *    * <strong>displayField</strong>: {[[FieldKey]]} If the field has a display field this is
-     *    the field key for that field.
-     *    * <strong>getDisplayField</strong>: {Function} If the field has a display field this function will return
-     *    the metadata field object for that field.
-     *  * <strong>id</strong>: Name of the primary key column.
-     *  * <strong>root</strong>: Name of the property containing rows ("rows"). This is mainly for the Ext grid component.
-     *  * <strong>title</strong>:
-     *  * <strong>totalProperty</strong>: Name of the top-level property containing the row count ("rowCount") in our
-     *  case. This is mainly for the Ext grid component.
      */
-    getMetaData(): any {
+    getMetaData(): ResponseMetadata {
         return this.metaData;
     }
 
     /**
      * Returns the query name from the Response.
-     * @returns {string}
      */
     getQueryName(): string {
         return this.queryName;
@@ -202,8 +268,7 @@ export class Response {
 
     /**
      * Get a specific row from the row array.
-     * @param {number} idx The index of the row you need.
-     * @returns {Row}
+     * @param idx The index of the row you need.
      */
     getRow(idx: number): Row {
         if (this.rows[idx] !== undefined) {
@@ -217,7 +282,6 @@ export class Response {
      * Gets the row count from the response, which is the total number of rows in the query, not necessarily the number
      * of rows returned. For example, if setting maxRows to 100 on a query that has 5,000 rows, getRowCount will return
      * 5,000, not 100.
-     * @returns {number}
      */
     getRowCount(): number {
         return this.rowCount;
@@ -225,7 +289,6 @@ export class Response {
 
     /**
      * Returns the array of row objects.
-     * @returns {Array<Row>} Returns an array of [[Row]] objects.
      */
     getRows(): Row[] {
         return this.rows;
@@ -233,8 +296,7 @@ export class Response {
 
     /**
      * Returns the schema name from the Response.
-     * @param {boolean} asString
-     * @returns {string} If asString is true it returns a string, otherwise it returns a [[FieldKey]] object.
+     * If asString is true it returns a string, otherwise it returns a {@link FieldKey} object.
      */
     getSchemaName(asString?: boolean): string {
         // TODO: Shouldn't this return this.schemaKey when !asString?
@@ -252,7 +314,7 @@ export class Row {
     [attr: string]: any;
 
     /**
-     * @see [[Response]]
+     * @see {@link Response}
      * @param rawRow The raw row from a GetData or executeSQL, selectRows (version 13.2 and above) request.
      */
     constructor(rawRow: any) {
@@ -273,8 +335,8 @@ export class Row {
      * Gets the requested column from the row. Includes extended values such as display value, URL, etc.
      * When requested version is >16.2, multi-value columns will return an array of objects containing "value" and other properties.
      * In the "17.1" format, "formattedValue" may be included in the response as the column display value formatted with the display column's format or folder format settings.
-     * @param {string} columnName The column name requested. Used to do a case-insensitive match to find the column.
-     * @returns {any} For the given columnName, returns an object in the common case or an array of objects for multi-value columns.
+     * @param columnName The column name requested. Used to do a case-insensitive match to find the column.
+     * @returns For the given columnName, returns an object in the common case or an array of objects for multi-value columns.
      * The object will always contain a property named "value" that is the column's value, but it may also contain other properties about that column's value. For
      * example, if the column was setup to track missing value information, it will also contain a property named mvValue
      * (which is the raw value that is considered suspect), and a property named mvIndicator, which will be the string MV
@@ -294,8 +356,8 @@ export class Row {
 
     /**
      * Gets a specific link type for a row (details, update, etc.).
-     * @param {string} linkType The name of the link type to be returned.
-     * @returns {any} Returns an object with the display text and link value.
+     * @param linkType The name of the link type to be returned.
+     * @returns Returns an object with the display text and link value.
      */
     getLink(linkType: string): any {
         if (this.links && this.links.hasOwnProperty(linkType)) {
@@ -307,7 +369,7 @@ export class Row {
 
     /**
      * Gets all of the links for a row (details, update, etc.).
-     * @returns {any} Returns an object with all of the links types (details, update, etc.) for a row.
+     * @returns Returns an object with all of the links types (details, update, etc.) for a row.
      */
     getLinks(): any {
         return this.links;
@@ -316,8 +378,8 @@ export class Row {
     /**
      * Gets the simple value for the requested column. Equivalent of doing Row.get(columnName).value.
      * For multi-value columns, the result is an array of values.
-     * @param {string} columnName The column name requested. Used to do a case-insensitive match to find the column.
-     * @returns {any} Returns the simple value for the given column.
+     * @param columnName The column name requested. Used to do a case-insensitive match to find the column.
+     * @returns Returns the simple value for the given column.
      */
     getValue(columnName: string): any {
         columnName = columnName.toLowerCase();

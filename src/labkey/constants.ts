@@ -70,10 +70,6 @@ export interface Project {
     title: string;
 }
 
-/**
- * @hidden
- * @private
- */
 export enum ExperimentalFeatures {
     containerRelativeURL = 'containerRelativeURL',
     disableGuestAccount = 'disableGuestAccount',
@@ -89,20 +85,12 @@ export enum AuditBehaviorTypes {
     SUMMARY = 'SUMMARY',
 }
 
-/**
- * @hidden
- * @private
- */
 export type ExperimentalFlags = {
     [key in ExperimentalFeatures]: boolean;
 };
 
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
-/**
- * @hidden
- * @private
- */
 export type LabKey = {
     CSRF: string;
     Mothership: any;
