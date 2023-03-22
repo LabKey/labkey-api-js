@@ -1,5 +1,12 @@
+## 1.19.0 - 2023-03-22
+- Package updates
+- Extract jest configuration out of `package.json` and into `jest.config.js`.
+- Add typings for `ResponseMetadata` and `MetadataField` for query response.
+- Replace `[[Reference]]` syntax in docs with `{@link Reference}`.
+- Export additional types so they're not hidden from implementors.
+
 ## 1.18.8 - 2023-03-02
-- Issue 47202: Options to reduce payload of getContainers.api response
+- [Issue 47202](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47202): Options to reduce payload of getContainers.api response
   - two new properties: includeWorkbookChildren and includeStandardProperties 
 
 ## 1.18.7 - 2023-02-28
