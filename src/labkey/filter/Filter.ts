@@ -275,7 +275,7 @@ export function getFiltersFromParameters(params: Record<string, any>, dataRegion
 }
 
 /**
- * Create an array of [[IFilter]] objects from the filter parameters on the URL.
+ * Create an array of {@link IFilter} objects from the filter parameters on the URL.
  * @param url The URL to parse filters from.
  * @param dataRegionName The data region name scope for the filters. Defaults to "query".
  */
@@ -321,9 +321,9 @@ export function getSortFromUrl(url: string, dataRegionName?: string): string {
  * Given an array of filter objects, return a new filterArray with old filters from a column
  * removed and new filters for the column added. If new filters are null, simply remove all old filters
  * from baseFilters that refer to this column.
- * @param baseFilters Array of existing filters created by [[create]]
+ * @param baseFilters Array of existing filters created by {@link create}
  * @param columnName Column name of filters to replace
- * @param columnFilters Array of new filters created by [[create]]. Will replace any filters referring to columnName
+ * @param columnFilters Array of new filters created by {@link create}. Will replace any filters referring to columnName
  */
 export function merge(baseFilters: IFilter[], columnName: string, columnFilters: IFilter[]): IFilter[] {
     const newFilters: IFilter[] = [];

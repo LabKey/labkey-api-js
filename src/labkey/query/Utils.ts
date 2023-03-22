@@ -69,7 +69,7 @@ export enum ContainerFilter {
 }
 
 /**
- * @deprecated Backwards compatible reference to [[ContainerFilter]].
+ * @deprecated Backwards compatible reference to {@link ContainerFilter}.
  */
 export const containerFilter = ContainerFilter;
 
@@ -259,7 +259,7 @@ export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResp
     includeViewDataUrl?: boolean;
     /**
      * If set to true, and includeColumns is set to true, information about the available columns
-     * will be the same details as specified by [[getQueryDetails]] for columns.
+     * will be the same details as specified by {@link getQueryDetails} for columns.
      * Defaults to false.
      */
     queryDetailColumns?: boolean;

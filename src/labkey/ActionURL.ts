@@ -280,22 +280,21 @@ export interface ActionPath {
  * @param path to be decoded.
  * @return A new copy of the given path with all encoded characters decoded
  */
-function fullyDecodeURIPath(path: string): string
-{
+function fullyDecodeURIPath(path: string): string {
     return decodeURI(path)
-        .replace(/%2C/g, ",")
-        .replace(/%2B/g, "+")
-        .replace(/%3B/g, ";")
-        .replace(/%40/g, "@")
-        .replace(/%26/g, "&")
-        .replace(/%3D/g, "=")
-        .replace(/%24/g, "$")
-        .replace(/%23/g, "#");
+        .replace(/%2C/g, ',')
+        .replace(/%2B/g, '+')
+        .replace(/%3B/g, ';')
+        .replace(/%40/g, '@')
+        .replace(/%26/g, '&')
+        .replace(/%3D/g, '=')
+        .replace(/%24/g, '$')
+        .replace(/%23/g, '#');
 }
 
 /**
  * Parses a location pathname of a LabKey URL into its constituent parts (e.g. controller, action, etc).
- * Defaults to the current location's pathname and context path. The parsed parts of the [[ActionPath]] are
+ * Defaults to the current location's pathname and context path. The parsed parts of the {@link ActionPath} are
  * URI decoded.
  * #### Example
  *
@@ -323,7 +322,7 @@ function fullyDecodeURIPath(path: string): string
  * @param pathname A pathname to parse. Defaults to value of window.location.pathname.
  * **Note:** This function does not parse full URLs. It expects only the value that would be part of the "pathname"
  * on window.location. See https://html.spec.whatwg.org/multipage/history.html#dom-location-pathname.
- * @param contextPath A context path to parse. Defaults to value returned by [[getContextPath]].
+ * @param contextPath A context path to parse. Defaults to value returned by {@link getContextPath}.
  */
 export function getPathFromLocation(pathname?: string, contextPath?: string): ActionPath {
     const ctxPath = contextPath ?? getContextPath();
@@ -377,7 +376,7 @@ export function getReturnUrl(): string {
 }
 
 /**
- * Turn the parameter object into a query string (e.g. {x:'fred'} -> "x=fred").
+ * Turn the parameter object into a query string (e.g. `{x:'fred'} -> "x=fred"`).
  * The returned query string is not prepended by a question mark ('?').
  *
  * @param parameters An object with properties corresponding to GET parameters to append to the URL.

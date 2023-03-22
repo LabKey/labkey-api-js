@@ -20,7 +20,7 @@ import { AuditBehaviorTypes } from '../constants';
 
 export interface QueryRequestOptions extends RequestCallbackOptions {
     apiVersion?: number | string;
-    /** Can be used to override the audit behavior for the table the query is acting on. See [[AuditBehaviorTypes]]. */
+    /** Can be used to override the audit behavior for the table the query is acting on. See {@link AuditBehaviorTypes}. */
     auditBehavior?: AuditBehaviorTypes;
     /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
     auditUserComment?: string;
@@ -156,7 +156,7 @@ export type CommandType = 'delete' | 'insert' | 'update';
 
 /**
  * Interface to describe the first object passed to the successCallback function
- * by [[updateRows]], [[insertRows]] or [[deleteRows]]. This object's properties are useful for
+ * by {@link updateRows}, {@link insertRows} or {@link deleteRows}. This object's properties are useful for
  * matching requests to responses, as HTTP requests are typically
  * processed asynchronously.
  * Additional Documentation:
@@ -216,8 +216,8 @@ export interface Command {
      */
     queryName: string;
     /**
-     * An array of data for each row to be changed. See [[insertRows]],
-     * [[updateRows]], or [[deleteRows]] for requirements of what data must be included for each row.
+     * An array of data for each row to be changed. See {@link insertRows},
+     * {@link updateRows}, or {@link deleteRows} for requirements of what data must be included for each row.
      */
     rows: any[];
     /**

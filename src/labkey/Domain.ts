@@ -318,7 +318,7 @@ export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpReques
 export interface GetDomainOptions extends BaseGetDomainOptions, RequestCallbackOptions<DomainDesign> {}
 
 /**
- * Gets a domain design. This is a deprecated. Use [[getDomainDetails]] instead.
+ * Gets a domain design. This is a deprecated. Use {@link getDomainDetails} instead.
  * @deprecated
  */
 export function get(config: GetDomainOptions): XMLHttpRequest {

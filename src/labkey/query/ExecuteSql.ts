@@ -21,7 +21,7 @@ import { ContainerFilter, getSuccessCallbackWrapper } from './Utils';
 
 export interface ExecuteSqlOptions extends RequestCallbackOptions {
     /**
-     * One of the values of [[ContainerFilter]] that sets
+     * One of the values of {@link ContainerFilter} that sets
      * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
      * config.containerPath.
      */
@@ -48,19 +48,20 @@ export interface ExecuteSqlOptions extends RequestCallbackOptions {
     offset?: number;
     /**
      * Map of name (string)/value pairs for the values of parameters if the SQL
-     * references underlying queries that are parameterized. For example, the following passes two parameters to the query: {'Gender': 'M', 'CD4': '400'}.
+     * references underlying queries that are parameterized. For example, the following passes
+     * two parameters to the query: `{'Gender': 'M', 'CD4': '400'}`.
      * The parameters are written to the request URL as follows: query.param.Gender=M&query.param.CD4=400.
      * For details on parameterized SQL queries, see [Parameterized SQL Queries](https://www.labkey.org/Documentation/wiki-page.view?name=paramsql).
      */
     parameters?: any;
     /**
-     * If not set, or set to "8.3", the success handler will be passed a {@link LABKEY.Query.SelectRowsResults}
-     * object. If set to "9.1" the success handler will be passed a {@link LABKEY.Query.ExtendedSelectRowsResults}
-     * object. If greater than 13.2 the success handler will be passed a [[Response]] object.
+     * If not set, or set to "8.3", the success handler will be passed a `SelectRowsResults` object.
+     * If set to "9.1" the success handler will be passed an `ExtendedSelectRowsResults` object.
+     * If greater than 13.2 the success handler will be passed a {@link Response} object.
      * The main difference between SelectRowsResults and ExtendedSelectRowsResults is that each column in each row
      * will be another object (not just a scalar value) with a "value" property as well as other related properties
-     * (url, mvValue, mvIndicator, etc.). In the LABKEY.Query.Response format each row will be an instance of
-     * [[Row]].
+     * (url, mvValue, mvIndicator, etc.). In the {@link Response} format each row will be an instance of
+     * {@link Row}.
      *
      * In the "16.2" format, multi-value columns will be returned as an array of values, each of which may have a value, displayValue, and url.
      * In the "17.1" format, "formattedValue" may be included in the response as the display column's value formatted with the display column's format or folder format settings.

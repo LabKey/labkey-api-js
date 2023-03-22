@@ -27,7 +27,7 @@ import { create, DomainDesign, getDomainDetails, KINDS } from './Domain';
 
 /**
  * The experiment object base class which describes basic characteristics of a protocol
- * or an experimental run. Many experiment classes (such as [[Run]], [[Data]], and [[Material]])
+ * or an experimental run. Many experiment classes (such as {@link Run}, {@link Data}, and {@link Material})
  * are subclasses of ExpObject, so they provide the fields defined by this object (e.g., name, lsid, etc).
  */
 export class ExpObject {
@@ -74,7 +74,7 @@ export class ExpObject {
     /**
      * Map of property descriptor names to values. Most types, such as strings and
      * numbers, are just stored as simple properties. Properties of type FileLink will be returned by the server in the
-     * same format as [[Data]] objects (missing many properties such as id and createdBy if they exist on disk
+     * same format as {@link Data} objects (missing many properties such as id and createdBy if they exist on disk
      * but have no row with metadata in the database). FileLink values are accepted from the client in the same way,
      * or a simple value of the following three types: the data's RowId, the data's LSID, or the full path
      * on the server's file system.
@@ -114,7 +114,7 @@ export interface IGetExpObjectDomain {
 
     /**
      * Function called if the "getDomainDetails" function executes successfully.
-     * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
+     * Will be called with the domain object as returned by {@link getDomainDetails}
      * which describes the fields of a domain.
      */
     success: (domain?: any) => any;
@@ -143,7 +143,7 @@ export interface ICreateDataClassDomain {
 
     /**
      * Function called if the "getDomainDetails" function executes successfully.
-     * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
+     * Will be called with the domain object as returned by {@link getDomainDetails}
      * which describes the fields of a domain.
      */
     success: (domain?: any) => any;
@@ -197,7 +197,7 @@ export class DataClass extends ExpObject {
     }
 
     /**
-     * Get a domain design for the DataClass. See [[getDomainDetails|Domain.getDomainDetails]].
+     * Get a domain design for the DataClass. See {@link getDomainDetails}.
      * @param options
      * @hidden
      *
@@ -274,7 +274,7 @@ export class RunItem extends ExpObject {
 }
 
 /**
- * Available options for [[Data.getContent|LABKEY.Exp.Data.getContent()]]
+ * Available options for {@link Data.getContent}
  */
 export interface IGetContentOptions {
     /**
@@ -313,7 +313,7 @@ export type ExpDataDataClass = {
 };
 
 /**
- * The Exp.Data class describes the data input or output of a [[Run]]. This typically
+ * The Exp.Data class describes the data input or output of a {@link Run}. This typically
  * corresponds to an assay results file uploaded to the LabKey server. To create an Exp.Data object, upload
  * a file using to the "assayFileUpload" action of the "assay" controller.
  *
@@ -623,13 +623,13 @@ export interface IDeleteRunOptions {
  */
 export class Run extends ExpObject {
     /**
-     * Array of [[Data]] objects that are the inputs to this run.
+     * Array of {@link Data} objects that are the inputs to this run.
      * Datas typically represents a file on the server's file system.
      */
     dataInputs: Data[];
 
     /**
-     * Array of [[Data]] objects that are the outputs from this run.
+     * Array of {@link Data} objects that are the outputs from this run.
      * Datas typically represent a file on the server's file system.
      */
     dataOutputs: Data[];
@@ -718,7 +718,7 @@ export type ExpMaterialSampleSet = {
 /**
  * The Exp.Material class describes an experiment material. "Material" is a synonym for both
  * "sample" and "specimen". Thus, for example, the input to an assay could be called a material.
- * The fields of this class are inherited from [[ExpObject]] and the private [[RunItem]] object.
+ * The fields of this class are inherited from {@link ExpObject} and the private {@link RunItem} object.
  */
 export class Material extends RunItem {
     /**
@@ -802,7 +802,7 @@ export interface ICreateSampleSetDomain {
 
     /**
      * Function called if the "getDomainDetails" function executes successfully.
-     * Will be called with the domain object as returned by [[getDomainDetails|Domain.getDomainDetails]]
+     * Will be called with the domain object as returned by {@link getDomainDetails}
      * which describes the fields of a domain.
      */
     success: (domain?: any) => any;
@@ -810,7 +810,7 @@ export interface ICreateSampleSetDomain {
 
 /**
  * The SampleSet class describes a collection of experimental samples, which are
- * also known as materials (see [[Material]]). This class defines the set of fields that
+ * also known as materials (see {@link Material}). This class defines the set of fields that
  * you you wish to attach to all samples in the group. These fields supply characteristics of the sample
  * (e.g., its volume, number of cells, color, etc.). For more information see
  * [additional documentation](https://www.labkey.org/Documentation/wiki-page.view?name=experiment).
@@ -877,7 +877,7 @@ export class SampleSet extends ExpObject {
     }
 
     /**
-     * Get a domain design for the SampleSet. See [[getDomainDetails|Domain.getDomainDetails]].
+     * Get a domain design for the SampleSet. See {@link getDomainDetails}.
      * @param options
      * @hidden
      *

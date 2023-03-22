@@ -114,7 +114,7 @@ export interface RequestOptions {
 
     /**
      * The url used for the XMLHttpRequest. If you are making a request to the LabKey Server instance
-     * see [[ActionURL.buildURL]] for helpful URL construction.
+     * see {@link buildURL} for helpful URL construction.
      */
     url: string;
 }

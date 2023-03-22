@@ -80,7 +80,7 @@ function applyArguments(args: IArguments, options: GetAssaysOptions, parameter?:
  * LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
  * ```
  * @param options
- * @see [[AssayDesign]]
+ * @see {@link AssayDesign}
  */
 export function getAll(options: GetAssaysOptions): XMLHttpRequest {
     return getAssays(applyArguments(arguments, options));
@@ -170,7 +170,7 @@ export interface GetByIdOptions extends GetAssaysOptions {
 /**
  * Gets an assay by its ID.
  * @param options
- * @see [[AssayDesign]]
+ * @see {@link AssayDesign}
  */
 export function getById(options: GetByIdOptions): XMLHttpRequest {
     return getAssays(applyArguments(arguments, options, 'id'));
@@ -184,7 +184,7 @@ export interface GetByNameOptions extends GetAssaysOptions {
 /**
  * Gets an assay by name.
  * @param options
- * @see [[AssayDesign]]
+ * @see {@link AssayDesign}
  */
 export function getByName(options: GetByNameOptions): XMLHttpRequest {
     return getAssays(applyArguments(arguments, options, 'name'));
@@ -198,7 +198,7 @@ export interface GetByTypeOptions extends GetAssaysOptions {
 /**
  * Gets an assay by type.
  * @param options
- * @see [[AssayDesign]]
+ * @see {@link AssayDesign}
  */
 export function getByType(options: GetByTypeOptions): XMLHttpRequest {
     return getAssays(applyArguments(arguments, options, 'type'));
@@ -214,7 +214,7 @@ export interface GetNAbRunsOptions extends RequestCallbackOptions {
      * If not supplied, the current container's path will be used.
      */
     containerPath?: string;
-    /** Array of objects created by {@link LABKEY.Filter.create}. */
+    /** Array of objects created by {@link create}. */
     filterArray?: IFilter[];
     /** Whether the parameters used in the neutralization curve fitting calculation
      * should be included in the response.*/

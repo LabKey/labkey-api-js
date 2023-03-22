@@ -52,7 +52,7 @@ export interface IDateOptions {
     dateCol: Measure | IMeasureLike;
 
     /**
-     * See [[Interval]].  The type of interval that should be calculated between the measure date and the zero date
+     * See {@link Interval}.  The type of interval that should be calculated between the measure date and the zero date
      * (if zeroDateCol is specified) or zero day (if zeroDayVisitTag is specified).
      */
     interval?: TInterval;
@@ -110,7 +110,7 @@ export interface IGetOptions extends RequestCallbackOptions<VisualizationGetResp
 }
 
 /**
- * Retrieves a saved visualization.  See [[save]].
+ * Retrieves a saved visualization.  See {@link save}.
  */
 export function get(options: IGetOptions): XMLHttpRequest {
     const jsonData = {
@@ -156,7 +156,7 @@ export interface IGetDataOptions extends RequestCallbackOptions {
     metaDataOnly?: boolean;
     parameters?: any;
 
-    /** Generally an array of augmented [[Dimension]] or [[Measure]] objects */
+    /** Generally an array of augmented {@link Dimension} or {@link Measure} objects */
     sorts?: Dimension[] | Measure[] | IGetDataSortable[];
 }
 
@@ -258,7 +258,7 @@ export function getDataFilterFromURL(): string {
 /**
  * Retrieves a saved visualization based on identifying parameters found on the current URL.
  * Method returns true or false, depending on whether the URL contains a saved visualization identifier.
- * If true, the success or failure callback function will be called just as with [[get]]. If false, no callbacks
+ * If true, the success or failure callback function will be called just as with {@link get}. If false, no callbacks
  * will be called. This method allows callers to use a single method to retrieve saved visualizations, regardless
  * of how they are identified on the URL.
  *
@@ -293,7 +293,7 @@ export interface IGetMeasuresOptions extends RequestCallbackOptions<{ measures: 
     allColumns?: any;
     /** Indicates whether date measures should be returned instead of numeric measures. Defaults to false. */
     dateMeasures?: any;
-    /** An array of [[Filter]] objects. **/
+    /** An array of {@link Filter} objects. **/
     filters?: any[]; // TODO: Check if this is expecting Query Filters
     showHidden?: any;
 }
@@ -344,11 +344,11 @@ export interface IMeasureable {
      */
     dateOptions?: IDateOptions;
 
-    /** Used to pivot a resultset into multiple series.  Generally an augmented [[Dimension]] */
+    /** Used to pivot a resultset into multiple series.  Generally an augmented {@link Dimension} */
     dimension?: Dimension | IDimensionLike;
     filterArray?: QueryFilter[];
 
-    /** Generally an augmented [[Measure]] */
+    /** Generally an augmented {@link Measure} */
     measure: Measure | IMeasureLike;
 
     /** "date" indicates this measure is date-based. "time" indicates it is time-based. */
@@ -357,7 +357,7 @@ export interface IMeasureable {
 
 export interface IMeasureLike {
     /**
-     * See [[Aggregate]].  Required if a 'dimension' property is specified, ignored otherwise.  Indicates
+     * See {@link Aggregate}.  Required if a 'dimension' property is specified, ignored otherwise.  Indicates
      * what data should be returned if pivoting by dimension results in multiple underlying values
      * per series data point.
      */

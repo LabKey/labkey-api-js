@@ -73,7 +73,7 @@ import { SelectRowsOptions, selectRows, ShowRows } from './query/SelectRows';
 import * as SQL from './query/experimental/SQL';
 import * as Visualization from './query/Visualization';
 import { Filter } from './filter/Filter';
-import { Response, Row } from './query/Response';
+import { GetDisplayField, MetadataField, Response, ResponseColumn, ResponseMetadata, Row } from './query/Response';
 import { QueryColumn, QueryLookup } from './query/types';
 
 /** @hidden */
@@ -96,6 +96,7 @@ export {
     DeleteQueryViewOptions,
     ExecuteSqlOptions,
     GetDataViewsOptions,
+    GetDisplayField,
     GetQueriesOptions,
     GetQueriesResponse,
     GetQueryDetailsOptions,
@@ -103,6 +104,7 @@ export {
     GetQueryViewsOptions,
     GetSchemasOptions,
     IDataTypes,
+    MetadataField,
     ModifyRowsResults,
     QueryColumn,
     QueryDetailsResponse,
@@ -114,6 +116,8 @@ export {
     QueryViewColumn,
     QueryViewFilter,
     QueryViewSort,
+    ResponseColumn,
+    ResponseMetadata,
     SaveQueryViewsOptions,
     SaveRowsOptions,
     SaveRowsResponse,

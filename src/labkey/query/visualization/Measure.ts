@@ -67,7 +67,7 @@ export class Measure {
     }
 
     /**
-     * Returns the set of available [[Dimension]] objects for this measure.
+     * Returns the set of available {@link Dimension} objects for this measure.
      * @param {MeasureGetDimensionsOptions} options
      */
     getDimensions(options: MeasureGetDimensionsOptions): XMLHttpRequest {

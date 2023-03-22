@@ -215,13 +215,13 @@ export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpR
     });
 }
 
-enum STORAGE_TYPES {
-    PhysicalLocation = 'Physical Location',
-    Freezer = 'Freezer',
-    PrimaryStorage = 'Primary Storage',
-    Shelf = 'Shelf',
-    Rack = 'Rack',
+export enum STORAGE_TYPES {
     Canister = 'Canister',
+    Freezer = 'Freezer',
+    PhysicalLocation = 'Physical Location',
+    PrimaryStorage = 'Primary Storage',
+    Rack = 'Rack',
+    Shelf = 'Shelf',
     StorageUnitType = 'Storage Unit Type',
     TerminalStorageLocation = 'Terminal Storage Location',
 }

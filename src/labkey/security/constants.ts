@@ -83,7 +83,7 @@ export enum PermissionTypes {
  * <li>del</li>
  * <li>readOwn</li>
  * </ul>
- * @deprecated Use [[PermissionTypes]] instead.
+ * @deprecated Use {@link PermissionTypes} instead.
  * For example, to refer to the update permission, the syntax would be:<br/>
  * <pre><code>LABKEY.Security.effectivePermissions.update</code></pre>
  */
