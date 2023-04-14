@@ -377,6 +377,7 @@ function sendRequest(options: SendRequestOptions, supportsFiles?: boolean): XMLH
         extraContext: options.extraContext,
         auditBehavior: options.auditBehavior,
         auditUserComment: options.auditUserComment,
+        skipReselectRows: options.skipReselectRows,
     };
 
     const form = bindFormData(jsonData, options, supportsFiles);
