@@ -62,6 +62,11 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
      */
     schemaName: string;
     /**
+     * Whether qus.getRows should be called to return the update/insert results.
+     * Defaults to false.
+     */
+    skipReselectRows?: boolean;
+    /**
      * The maximum number of milliseconds to allow for this operation before
      * generating a timeout error (defaults to 30000).
      */

@@ -1,3 +1,6 @@
+## 1.19.1 - 2023-04-XX
+- Add skipReselectRows parameter to IQueryRequestOptions
+
 ## 1.19.0 - 2023-03-22
 - Package updates
 - Extract jest configuration out of `package.json` and into `jest.config.js`.
