@@ -62,7 +62,7 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
      */
     schemaName: string;
     /**
-     * Whether qus.getRows should be called to return the update/insert results.
+     * Whether the full detailed response for the update/insert rows can be skipped.
      * Defaults to false.
      */
     skipReselectRows?: boolean;
