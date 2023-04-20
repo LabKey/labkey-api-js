@@ -23,6 +23,7 @@ declare let window: FormWindow;
 
 export interface IImportRunOptions {
     allowCrossRunFileInputs?: boolean;
+    allowLookupByAlternateKey?: boolean;
     assayId?: number | string;
     batchId?: number | string;
     batchProperties?: any;
@@ -107,6 +108,9 @@ export function importRun(options: IImportRunOptions): void {
     }
     if (options.workflowTask !== undefined) {
         formData.append('workflowTask', options.workflowTask.toString(10));
+    }
+    if (options.allowLookupByAlternateKey !== undefined) {
+        formData.append('allowLookupByAlternateKey', options.allowLookupByAlternateKey ? 'true' : 'false');
     }
 
     if (options.properties) {

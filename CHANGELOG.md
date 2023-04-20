@@ -1,5 +1,8 @@
-## 1.19.1 - 2023-04-XX
+## 1.19.2 - 2023-04-XX
 - Add skipReselectRows parameter to IQueryRequestOptions
+
+## 1.19.1 - 2023-04-19
+- Add the `allowLookupByAlternateKey` param to the `Assay.importRun()` API
 
 ## 1.19.0 - 2023-03-22
 - Package updates
