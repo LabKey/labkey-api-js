@@ -62,6 +62,11 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
      */
     schemaName: string;
     /**
+     * Whether the full detailed response for the update/insert rows can be skipped.
+     * Defaults to false.
+     */
+    skipReselectRows?: boolean;
+    /**
      * The maximum number of milliseconds to allow for this operation before
      * generating a timeout error (defaults to 30000).
      */
@@ -372,6 +377,7 @@ function sendRequest(options: SendRequestOptions, supportsFiles?: boolean): XMLH
         extraContext: options.extraContext,
         auditBehavior: options.auditBehavior,
         auditUserComment: options.auditUserComment,
+        skipReselectRows: options.skipReselectRows,
     };
 
     const form = bindFormData(jsonData, options, supportsFiles);
