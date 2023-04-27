@@ -1,6 +1,9 @@
 ## TBD - TBD
 - Add `renameContainer()` to `Security` API
 
+## 1.19.2 - 2023-04-XX
+- Add skipReselectRows parameter to IQueryRequestOptions
+
 ## 1.19.1 - 2023-04-19
 - Add the `allowLookupByAlternateKey` param to the `Assay.importRun()` API
 
