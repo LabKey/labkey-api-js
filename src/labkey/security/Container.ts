@@ -85,7 +85,7 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
     });
 }
 
-export interface RenameContainerOptions extends RequestCallbackOptions {
+export interface RenameContainerOptions extends RequestCallbackOptions<Container> {
     /** If set to true, adds an alias for the container's current name. */
     addAlias?: boolean;
     /** The container which should be renamed. If not specified the current container path will be renamed. */
@@ -97,7 +97,7 @@ export interface RenameContainerOptions extends RequestCallbackOptions {
 }
 
 /**
- * Renames an existing container, or updates the container title. Either the name or the title must be supplied.
+ * Updates the container name, title, or both. Either the name or the title must be supplied.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
