@@ -1,4 +1,7 @@
-## 1.19.2 - 2023-04-XX
+## 1.20.0 - 2023-05-02
+- Add `renameContainer()` to `Security` API
+
+## 1.19.2 - 2023-04-26
 - Add skipReselectRows parameter to IQueryRequestOptions
 
 ## 1.19.1 - 2023-04-19

@@ -85,6 +85,35 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
     });
 }
 
+export interface RenameContainerOptions extends RequestCallbackOptions<Container> {
+    /** If set to true, adds an alias for the container's current name. */
+    addAlias?: boolean;
+    /** The container which should be renamed. If not specified the current container path will be renamed. */
+    containerPath?: string;
+    /** The new container name. If not specified, defaults to existing name. */
+    name?: string;
+    /** The new container title. If not specified, defaults to name. */
+    title?: string;
+}
+
+/**
+ * Updates the container name, title, or both. Either the name or the title must be supplied.
+ *
+ * @returns {Mixed} In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
+ */
+export function renameContainer(config: RenameContainerOptions): XMLHttpRequest {
+    return request({
+        url: buildURL('admin', 'renameContainer.api', config.containerPath),
+        method: 'POST',
+        jsonData: { name: config.name, title: config.title, addAlias: config.addAlias },
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+    });
+}
+
 export interface ModuleProperty {
     /** The value of the property, including a value potentially inherited from parent containers. */
     effectiveValue: any;

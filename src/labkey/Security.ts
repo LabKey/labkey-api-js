@@ -47,6 +47,8 @@ import {
     ModuleProperty,
     moveContainer,
     MoveContainerOptions,
+    renameContainer,
+    RenameContainerOptions,
 } from './security/Container';
 import {
     getGroupPermissions,
@@ -163,6 +165,7 @@ export {
     PermissionsResponse,
     Policy,
     RemoveGroupMembersOptions,
+    RenameContainerOptions,
     RenameGroupOptions,
     RenameGroupResponse,
     Role,
@@ -201,6 +204,7 @@ export {
     hasPermission,
     moveContainer,
     removeGroupMembers,
+    renameContainer,
     renameGroup,
     savePolicy,
 };
