@@ -21,10 +21,10 @@ describe('List', () => {
     describe('create', () => {
         it('should require list name', () => {
             expect(() => {
-                create({})
+                create({});
             }).toThrowError('List name required');
             expect(() => {
-                create({ name: undefined })
+                create({ name: undefined });
             }).toThrowError('List name required');
         });
 
@@ -66,11 +66,15 @@ describe('List', () => {
 
             // keyType == 'string'
             create({ name: 'myList', keyName: 'keyField', keyType: 'string' });
-            expect(createSpy).toHaveBeenCalledWith(expect.objectContaining({ kind: 'VarList', options: { keyName: 'keyField', keyType: 'Varchar' } }));
+            expect(createSpy).toHaveBeenCalledWith(
+                expect.objectContaining({ kind: 'VarList', options: { keyName: 'keyField', keyType: 'Varchar' } })
+            );
 
             // keyType == 'VarList'
             create({ name: 'myList', keyName: 'keyField', keyType: 'VarList' });
-            expect(createSpy).toHaveBeenCalledWith(expect.objectContaining({ kind: 'VarList', options: { keyName: 'keyField', keyType: 'Varchar' } }));
+            expect(createSpy).toHaveBeenCalledWith(
+                expect.objectContaining({ kind: 'VarList', options: { keyName: 'keyField', keyType: 'Varchar' } })
+            );
         });
 
         it('should give domainDesign precedence', () => {
@@ -93,13 +97,21 @@ describe('List', () => {
             const createSpy = jest.spyOn(Domain, 'create').mockImplementation();
 
             const description = 'my first list';
-            const fields = [{
-                name: 'one', rangeURI: 'int',
-            },{
-                name: 'two', rangeURI: 'multiLine', required: true,
-            },{
-                name: 'three', rangeURI: 'Attachment',
-            }];
+            const fields = [
+                {
+                    name: 'one',
+                    rangeURI: 'int',
+                },
+                {
+                    name: 'two',
+                    rangeURI: 'multiLine',
+                    required: true,
+                },
+                {
+                    name: 'three',
+                    rangeURI: 'Attachment',
+                },
+            ];
             const keyName = 'one';
             const name = 'mylist';
 
@@ -113,7 +125,7 @@ describe('List', () => {
                 kind: 'IntList',
                 options: {
                     keyName,
-                }
+                },
             });
         });
 
@@ -121,15 +133,25 @@ describe('List', () => {
             const createSpy = jest.spyOn(Domain, 'create').mockImplementation();
 
             const description = 'teams in the league';
-            const fields = [{
-                name: 'rowId', rangeURI: 'int',
-            },{
-                name: 'name', rangeURI: 'string', required: true,
-            },{
-                name: 'slogan', rangeURI: 'multiLine',
-            },{
-                name: 'logo', rangeURI: 'Attachment',
-            }];
+            const fields = [
+                {
+                    name: 'rowId',
+                    rangeURI: 'int',
+                },
+                {
+                    name: 'name',
+                    rangeURI: 'string',
+                    required: true,
+                },
+                {
+                    name: 'slogan',
+                    rangeURI: 'multiLine',
+                },
+                {
+                    name: 'logo',
+                    rangeURI: 'Attachment',
+                },
+            ];
             const kind = 'IntList';
             const name = 'Teams';
             const options = { keyName: 'rowId', keyType: 'AutoIncrementInteger' };
