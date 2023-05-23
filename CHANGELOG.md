@@ -1,3 +1,10 @@
+## 1.21.0 - 2023-05-23
+- Fixes the implementation of `List.create()` to support `keyName` and `keyType` as they were originally documented.
+- Deprecate `keyName` in favor of specifying `options.keyName` as specified on `Domain.create()`.
+- Deprecate `keyType` in favor of specifying `kind` as specified on `Domain.create()`.
+- Rename `ICreateOptions` to `ListCreateOptions`.
+- Update `ListCreateOptions` to extend `CreateDomainOptions` and only support an extension of a subset of `DomainDesign` properties in favor of using `domainDesign` directly.
+
 ## 1.20.0 - 2023-05-02
 - Add `renameContainer()` to `Security` API
 
