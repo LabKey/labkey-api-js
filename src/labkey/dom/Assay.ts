@@ -32,6 +32,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     jobDescription?: string;
     jobNotificationProvider?: string;
     name?: string;
+    plateMetadata?: any;
     properties?: any;
     reRunId?: number | string;
     runFilePath?: string;
@@ -139,6 +140,10 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
         for (let i = 0; i < files.length; i++) {
             formData.append('file' + i, files[i]);
         }
+    }
+
+    if (options.plateMetadata) {
+        formData.append('plateMetadata', JSON.stringify(options.plateMetadata));
     }
 
     return request({
