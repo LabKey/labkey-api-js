@@ -15,13 +15,9 @@
  */
 import { buildURL } from '../ActionURL';
 import { request } from '../Ajax';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, isObject } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, isObject, RequestCallbackOptions } from '../Utils';
 
-import { FormWindow } from './constants';
-
-declare let window: FormWindow;
-
-export interface IImportRunOptions {
+export interface ImportRunOptions extends RequestCallbackOptions {
     allowCrossRunFileInputs?: boolean;
     allowLookupByAlternateKey?: boolean;
     assayId?: number | string;
@@ -31,7 +27,6 @@ export interface IImportRunOptions {
     comments?: string;
     containerPath?: string;
     dataRows?: any[];
-    failure?: Function;
     files?: any[];
     forceAsync?: boolean;
     jobDescription?: string;
@@ -41,13 +36,11 @@ export interface IImportRunOptions {
     reRunId?: number | string;
     runFilePath?: string;
     saveDataAsFile?: boolean;
-    scope?: any;
-    success: Function;
     workflowTask?: number;
 }
 
-export function importRun(options: IImportRunOptions): void {
-    if (!window.FormData) {
+export function importRun(options: ImportRunOptions): XMLHttpRequest {
+    if (!FormData) {
         throw new Error('modern browser required');
     }
 
@@ -59,7 +52,7 @@ export function importRun(options: IImportRunOptions): void {
     if (options.files) {
         for (let i = 0; i < options.files.length; i++) {
             const f = options.files[i];
-            if (f instanceof window.File) {
+            if (f instanceof File) {
                 files.push(f);
             } else if (f.tagName == 'INPUT') {
                 for (let j = 0; j < f.files.length; j++) {
@@ -114,25 +107,21 @@ export function importRun(options: IImportRunOptions): void {
     }
 
     if (options.properties) {
-        for (const key in options.properties) {
-            if (options.properties.hasOwnProperty(key)) {
-                if (isObject(options.properties[key])) {
-                    formData.append("properties['" + key + "']", JSON.stringify(options.properties[key]));
-                } else {
-                    formData.append("properties['" + key + "']", options.properties[key]);
-                }
+        for (const [key, value] of Object.entries(options.properties)) {
+            if (isObject(value)) {
+                formData.append(`properties['${key}']`, JSON.stringify(value));
+            } else {
+                formData.append(`properties['${key}']`, options.properties[key]);
             }
         }
     }
 
     if (options.batchProperties) {
-        for (const key in options.batchProperties) {
-            if (options.batchProperties.hasOwnProperty(key)) {
-                if (isObject(options.batchProperties[key])) {
-                    formData.append("batchProperties['" + key + "']", JSON.stringify(options.batchProperties[key]));
-                } else {
-                    formData.append("batchProperties['" + key + "']", options.batchProperties[key]);
-                }
+        for (const [key, value] of Object.entries(options.batchProperties)) {
+            if (isObject(value)) {
+                formData.append(`batchProperties['${key}']`, JSON.stringify(value));
+            } else {
+                formData.append(`batchProperties['${key}']`, options.batchProperties[key]);
             }
         }
     }
@@ -152,7 +141,7 @@ export function importRun(options: IImportRunOptions): void {
         }
     }
 
-    request({
+    return request({
         url: buildURL('assay', 'importRun.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),

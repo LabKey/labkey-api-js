@@ -15,11 +15,6 @@
  */
 import { LabKey } from '../constants';
 
-export interface FormWindow extends Window {
-    File: any;
-    FormData: any;
-}
-
 export interface LabKeyDOM extends LabKey {
     $: any;
     requiresExt4ClientAPI: Function;
