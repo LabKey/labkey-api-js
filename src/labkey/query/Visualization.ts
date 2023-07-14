@@ -23,7 +23,9 @@ import { Dimension } from './visualization/Dimension';
 import * as Filter from './visualization/Filter';
 import { MeasureGetDimensionsOptions, Measure } from './visualization/Measure';
 
-export type { Aggregate, Dimension, Filter, Interval, MeasureGetDimensionsOptions, Measure, Type };
+export { Aggregate, Dimension, Filter, Interval, Measure, Type };
+
+export type { MeasureGetDimensionsOptions };
 
 function createMeasures(json: any): Measure[] {
     const measures = [];

@@ -17,31 +17,31 @@
 export type TAggregate = 'AVG' | 'COUNT' | 'MAX' | 'MIN' | 'SUM';
 
 /** Aggregates when pivoting a result set by a dimension. See {@link getData}. */
-export enum Aggregate {
+export const Aggregate = {
     /** Calculates an average. */
-    AVG = 'AVG',
+    AVG: 'AVG',
     /** Returns the total number of data points. */
-    COUNT = 'COUNT',
+    COUNT: 'COUNT',
     /** Returns the maximum value. */
-    MAX = 'MAX',
+    MAX: 'MAX',
     /** Returns the minimum value. */
-    MIN = 'MIN',
+    MIN: 'MIN',
     /** Calculates a sum/total. */
-    SUM = 'SUM',
+    SUM: 'SUM',
 }
 
 export type TInterval = 'DAY' | 'MONTH' | 'WEEK' | 'YEAR';
 
 /** Intervals are for aligning series in time plots. See {@link getData}. */
-export enum Interval {
+export const Interval = {
     /** Align by the number of days since the zero date. */
-    DAY = 'DAY',
+    DAY: 'DAY',
     /** Align by the number of months since the zero date. */
-    MONTH = 'MONTH',
+    MONTH: 'MONTH',
     /** Align by the number of weeks since the zero date. */
-    WEEK = 'WEEK',
+    WEEK: 'WEEK',
     /** Align by the number of years since the zero date. */
-    YEAR = 'YEAR',
+    YEAR: 'YEAR',
 }
 
 export type TType = 'ReportService.GenericChartReport' | 'ReportService.TimeChartReport';
