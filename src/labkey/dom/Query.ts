@@ -19,10 +19,7 @@ import { getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils'
 import { appendFilterParams } from '../filter/Filter';
 import { ContainerFilter } from '../query/Utils';
 
-import { FormWindow } from './constants';
 import { postToAction } from './Utils';
-
-declare let window: FormWindow;
 
 export interface IExportSqlOptions {
     containerFilter?: ContainerFilter;
@@ -120,7 +117,7 @@ export interface IImportDataOptions {
 }
 
 export function importData(options: IImportDataOptions): XMLHttpRequest {
-    if (!window.FormData) {
+    if (!FormData) {
         throw new Error('modern browser required');
     }
 
