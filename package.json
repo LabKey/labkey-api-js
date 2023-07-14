@@ -8,7 +8,7 @@
     "build:docs": "typedoc --options typedoc.js",
     "clean": "rimraf dist && npm run clean:docs",
     "clean:docs": "rimraf docs",
-    "esbuild": "rimraf esdist && node ./esbuild.mjs",
+    "esbuild": "rimraf esdist && tsc -p ./tsconfig.esbuild.json && node ./esbuild.mjs",
     "predeploy": "npm run build:docs",
     "prepublishOnly": "npm run build",
     "deploy": "gh-pages -t -d docs",
