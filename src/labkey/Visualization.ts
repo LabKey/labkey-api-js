@@ -43,7 +43,10 @@ export {
     Interval,
     Measure,
     save,
+    Type,
+};
+
+export type {
     TAggregate,
     TInterval,
-    Type,
 };

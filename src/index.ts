@@ -61,16 +61,9 @@ export {
     /* constants */
     AuditBehaviorTypes,
     ExperimentalFeatures,
-    LabKey,
     getServerContext,
     PermissionRoles,
     PermissionTypes,
-    User,
-    UserWithPermissions,
-    /* interfaces */
-    Container,
-    ExperimentalFlags,
-    Project,
     /* modules */
     ActionURL,
     Ajax,
@@ -98,4 +91,13 @@ export {
     Utils,
     UtilsDOM,
     Visualization,
+};
+
+export type {
+    Container,
+    ExperimentalFlags,
+    LabKey,
+    Project,
+    User,
+    UserWithPermissions,
 };

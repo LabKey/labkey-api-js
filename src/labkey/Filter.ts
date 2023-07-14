@@ -51,7 +51,9 @@ export {
     merge,
     registerFilterType,
     Types,
-    /* TypeScript interfaces */
+};
+
+export type {
     IFilter,
     IFilterType,
 };
