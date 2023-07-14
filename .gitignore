@@ -16,3 +16,4 @@ tscache
 *.tgz
 *.log
 *.cache
+esdist
