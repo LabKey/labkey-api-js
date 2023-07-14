@@ -1,3 +1,9 @@
+## 1.22.0 - 2023-07-14
+- Support `plateMetadata` JSON property on `AssayDOM.importRun`.
+- Rename `IImportRunOptions` to `ImportRunOptions`.
+- Extend `RequestCallbackOptions` to streamline usage of common request options.
+- Factor out superfluous `FormWindow` type. TypeScript typings for DOM libraries have improved since initial implementation.
+
 ## 1.21.0 - 2023-05-23
 - Fixes the implementation of `List.create()` to support `keyName` and `keyType` as they were originally documented.
 - Deprecate `keyName` in favor of specifying `options.keyName` as specified on `Domain.create()`.
