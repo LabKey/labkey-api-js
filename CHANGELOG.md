@@ -1,5 +1,5 @@
 ## TBD - TBD
-- TODO
+- Update filters to support newline delimiting as well as semicolon delimiting. Update constants and comments accordingly
 
 ## 1.22.0 - 2023-07-14
 - Support `plateMetadata` JSON property on `AssayDOM.importRun`.

@@ -521,6 +521,8 @@ export function registerFilterType(
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
     const isTableWise = () => tableWise === true;
+    // Note that while ';' and ',' are both used as primary separators, '\n' is the only secondary separator
+    const getSecondaryMultiValueSeparator = () => "\n";
 
     const type: IFilterType = {
         getDisplaySymbol: () => displaySymbol ?? null,
@@ -543,7 +545,8 @@ export function registerFilterType(
                     if (value.indexOf('{json:') === 0 && value.indexOf('}') === value.length - 1) {
                         value = JSON.parse(value.substring('{json:'.length, value.length - 1));
                     } else {
-                        value = value.split(/[,\n;]/); // ROSALINE TODO: Use constants, not hard-code with regex. Establish constant for newline
+                        const regexPattern = new RegExp(`[${getSecondaryMultiValueSeparator()}${type.getMultiValueSeparator()}]`);
+                        value = value.split(regexPattern);
                     }
                 }
 
