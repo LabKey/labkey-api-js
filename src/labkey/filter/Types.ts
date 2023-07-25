@@ -522,7 +522,7 @@ export function registerFilterType(
     const isMultiValued = () => multiValueSeparator != null;
     const isTableWise = () => tableWise === true;
     // Note that while ';' and ',' are both used as primary separators, '\n' is the only secondary separator
-    const getSecondaryMultiValueSeparator = () => "\n";
+    const NEW_LINE_SEP = '\n';
 
     const type: IFilterType = {
         getDisplaySymbol: () => displaySymbol ?? null,
@@ -545,7 +545,7 @@ export function registerFilterType(
                     if (value.indexOf('{json:') === 0 && value.indexOf('}') === value.length - 1) {
                         value = JSON.parse(value.substring('{json:'.length, value.length - 1));
                     } else {
-                        const regexPattern = new RegExp(`[${getSecondaryMultiValueSeparator()}${type.getMultiValueSeparator()}]`);
+                        const regexPattern = new RegExp(`[${NEW_LINE_SEP}${type.getMultiValueSeparator()}]`);
                         value = value.split(regexPattern);
                     }
                 }
