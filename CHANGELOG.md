@@ -1,4 +1,4 @@
-## TBD - TBD
+## 1.23.0 - 2023-27-14
 - Update filters to support newline delimiting as well as semicolon delimiting. Update constants and comments accordingly
 
 ## 1.22.0 - 2023-07-14
