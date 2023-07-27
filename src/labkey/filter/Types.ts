@@ -77,8 +77,8 @@ const GREATER_THAN_OR_EQUAL = registerFilterType(
     false,
     '>='
 );
-/** Finds rows where the column value equals one of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
-const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of (example usage: a;b;c)');
+/** Finds rows where the column value equals one of the supplied filter values. Use semicolons or new lines to separate entries.*/
+const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of');
 /** Finds rows where the column value is less than the filter value.*/
 const LESS_THAN = registerFilterType(
     'Is Less Than',
@@ -118,14 +118,14 @@ const NOT_EQUAL = registerFilterType(
     false,
     '<>'
 );
-/** Finds rows where the column value is not in any of the supplied filter values. The values should be supplied as a semi-colon-delimited list (example usage: a;b;c).*/
+/** Finds rows where the column value is not in any of the supplied filter values. Use semicolons or new lines to separate entries.*/
 const NOT_IN = registerFilterType(
     'Does Not Equal Any Of',
     null,
     'notin',
     true,
     ';',
-    'Does Not Equal Any Of (example usage: a;b;c)'
+    'Does Not Equal Any Of'
 );
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
@@ -239,7 +239,7 @@ export const Types: Record<string, IFilterType> = {
         'containsoneof',
         true,
         ';',
-        'Contains One Of (example usage: a;b;c)'
+        'Contains One Of'
     ),
     CONTAINS_NONE_OF: registerFilterType(
         'Does Not Contain Any Of',
@@ -247,7 +247,7 @@ export const Types: Record<string, IFilterType> = {
         'containsnoneof',
         true,
         ';',
-        'Does Not Contain Any Of (example usage: a;b;c)'
+        'Does Not Contain Any Of'
     ),
 
     // NOTE: for some reason IN is aliased as EQUALS_ONE_OF. Not sure if this is for legacy purposes or it was
@@ -521,6 +521,8 @@ export function registerFilterType(
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
     const isTableWise = () => tableWise === true;
+    // Note that while ';' and ',' are both used as primary separators, '\n' is the only secondary separator
+    const NEW_LINE_SEP = '\n';
 
     const type: IFilterType = {
         getDisplaySymbol: () => displaySymbol ?? null,
@@ -543,7 +545,8 @@ export function registerFilterType(
                     if (value.indexOf('{json:') === 0 && value.indexOf('}') === value.length - 1) {
                         value = JSON.parse(value.substring('{json:'.length, value.length - 1));
                     } else {
-                        value = value.split(type.getMultiValueSeparator());
+                        const regexPattern = new RegExp(`[${NEW_LINE_SEP}${type.getMultiValueSeparator()}]`);
+                        value = value.split(regexPattern);
                     }
                 }
 
