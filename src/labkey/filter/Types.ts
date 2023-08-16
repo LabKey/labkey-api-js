@@ -281,10 +281,6 @@ export const Types: Record<string, IFilterType> = {
 
     MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
 
-    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
-    EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, undefined, ' is parent of'),
-    EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', null, 'exp:lineageof', true, ',', ' in the lineage of'),
-
     //
     // These are the 'no data value' operators
     //
@@ -348,6 +344,7 @@ export const Types: Record<string, IFilterType> = {
     //
     // Table/Query-wise operators
     //
+
     Q: registerFilterType(
         'Search',
         null,
@@ -359,11 +356,21 @@ export const Types: Record<string, IFilterType> = {
         undefined,
         true
     ),
+
     //
     // Ontology operators
     //
+
     ONTOLOGY_IN_SUBTREE: registerFilterType('Is In Subtree', null, 'concept:insubtree', true),
     ONTOLOGY_NOT_IN_SUBTREE: registerFilterType('Is Not In Subtree', null, 'concept:notinsubtree', true),
+
+    //
+    // Lineage operators
+    //
+
+    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
+    EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, undefined, ' is parent of'),
+    EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', null, 'exp:lineageof', true, ',', ' in the lineage of'),
 };
 
 export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
