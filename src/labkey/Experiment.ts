@@ -597,25 +597,54 @@ export function saveRuns(options: SaveRunsOptions): XMLHttpRequest {
     });
 }
 
-export interface GenIdActionsOptions extends RequestCallbackOptions {
+export interface EntitySequenceActionsOptions extends RequestCallbackOptions {
     containerPath?: string;
-    genId?: number;
+    seqType: 'genId' | 'rootSampleCount' | 'sampleCount';
+    newValue?: number;
     kindName: 'SampleSet' | 'DataClass';
-    rowId: number;
+    rowId?: number;
 }
+
 /**
- * Set the current genId sequence value for the data type (sampleset or dataclass)
+ * Update the current value for the DB Sequences used in sample or data name expression
  */
-export function setGenId(config: GenIdActionsOptions): XMLHttpRequest {
+export function setEntitySequence(config: EntitySequenceActionsOptions): XMLHttpRequest {
     return request({
-        url: buildURL('experiment', 'setGenId.api', config.containerPath),
+        url: buildURL('experiment', 'setEntitySequence.api', config.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         jsonData: {
             rowId: config.rowId,
             kindName: config.kindName,
-            genId: config.genId,
+            newValue: config.newValue,
+            seqType: config.seqType,
+        },
+    });
+}
+
+/**
+ * Set the current genId sequence value for the data type (sampleset or dataclass)
+ */
+export function setGenId(config: EntitySequenceActionsOptions): XMLHttpRequest {
+    return setEntitySequence({
+        ...config,
+        seqType: 'genId',
+    });
+}
+
+/**
+ * Get the current value for the DB Sequences used in sample or data name expression
+ */
+export function getEntitySequence(config: EntitySequenceActionsOptions): XMLHttpRequest {
+    return request({
+        url: buildURL('experiment', 'getEntitySequence.api', config.containerPath),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        params: {
+            rowId: config.rowId,
+            kindName: config.kindName,
+            seqType: config.seqType,
         },
     });
 }
@@ -623,14 +652,9 @@ export function setGenId(config: GenIdActionsOptions): XMLHttpRequest {
 /**
  * Get the current genId for the data type (sampleset or dataclass)
  */
-export function getGenId(config: GenIdActionsOptions): XMLHttpRequest {
-    return request({
-        url: buildURL('experiment', 'getGenId.api', config.containerPath),
-        success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
-        params: {
-            rowId: config.rowId,
-            kindName: config.kindName,
-        },
-    });
+export function getGenId(config: EntitySequenceActionsOptions): XMLHttpRequest {
+    return getEntitySequence({
+        ...config,
+        seqType: 'genId',
+    })
 }
