@@ -601,7 +601,7 @@ export interface EntitySequenceActionsOptions extends RequestCallbackOptions {
     containerPath?: string;
     seqType: 'genId' | 'rootSampleCount' | 'sampleCount';
     newValue?: number;
-    kindName: 'SampleSet' | 'DataClass';
+    kindName?: 'SampleSet' | 'DataClass';
     rowId?: number;
 }
 
