@@ -1,5 +1,5 @@
 ## 1.23.X - 2023-*
-- Add setEntityCounter, getEntityCounter methods to Experiment
+- Add setEntitySequence, getEntitySequence methods to Experiment
 
 ## 1.23.0 - 2023-07-14
 - Update filters to support newline delimiting as well as semicolon delimiting. Update constants and comments accordingly

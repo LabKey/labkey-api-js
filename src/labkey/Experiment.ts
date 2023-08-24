@@ -607,6 +607,25 @@ export interface EntitySequenceActionsOptions extends RequestCallbackOptions {
 
 /**
  * Update the current value for the DB Sequences used in sample or data name expression
+ *
+ * #### Examples
+ *
+ * ```js
+ * LABKEY.Experiment.setEntitySequence({
+ *     seqType: 'genId',
+ *     newValue: 100,
+ *     kindName: 'SampleSet',
+ *     rowId: 12
+ * });
+ *
+ * LABKEY.Experiment.setEntitySequence({
+ *     seqType: 'sampleCount',
+ *     newValue: 100,
+ *     containerPath: 'SamplesFolder/'
+ * });
+ *
+ * ```
+ *
  */
 export function setEntitySequence(config: EntitySequenceActionsOptions): XMLHttpRequest {
     return request({
@@ -625,6 +644,8 @@ export function setEntitySequence(config: EntitySequenceActionsOptions): XMLHttp
 
 /**
  * Set the current genId sequence value for the data type (sampleset or dataclass)
+ * Deprecated, use {@link setEntitySequence} instead.
+ * @deprecated
  */
 export function setGenId(config: EntitySequenceActionsOptions): XMLHttpRequest {
     return setEntitySequence({
@@ -651,6 +672,8 @@ export function getEntitySequence(config: EntitySequenceActionsOptions): XMLHttp
 
 /**
  * Get the current genId for the data type (sampleset or dataclass)
+ * Deprecated, use {@link getEntitySequence} instead.
+ * @deprecated
  */
 export function getGenId(config: EntitySequenceActionsOptions): XMLHttpRequest {
     return getEntitySequence({
