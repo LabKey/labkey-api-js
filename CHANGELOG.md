@@ -1,5 +1,6 @@
 ## 1.23.X - 2023-*
 - Add setEntitySequence, getEntitySequence methods to Experiment
+- Remove setGenId, getGenId from Experiment
 
 ## 1.23.0 - 2023-07-14
 - Update filters to support newline delimiting as well as semicolon delimiting. Update constants and comments accordingly

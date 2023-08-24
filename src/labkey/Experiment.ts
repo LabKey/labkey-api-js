@@ -643,18 +643,6 @@ export function setEntitySequence(config: EntitySequenceActionsOptions): XMLHttp
 }
 
 /**
- * Set the current genId sequence value for the data type (sampleset or dataclass)
- * Deprecated, use {@link setEntitySequence} instead.
- * @deprecated
- */
-export function setGenId(config: EntitySequenceActionsOptions): XMLHttpRequest {
-    return setEntitySequence({
-        ...config,
-        seqType: 'genId',
-    });
-}
-
-/**
  * Get the current value for the DB Sequences used in sample or data name expression
  */
 export function getEntitySequence(config: EntitySequenceActionsOptions): XMLHttpRequest {
@@ -668,16 +656,4 @@ export function getEntitySequence(config: EntitySequenceActionsOptions): XMLHttp
             seqType: config.seqType,
         },
     });
-}
-
-/**
- * Get the current genId for the data type (sampleset or dataclass)
- * Deprecated, use {@link getEntitySequence} instead.
- * @deprecated
- */
-export function getGenId(config: EntitySequenceActionsOptions): XMLHttpRequest {
-    return getEntitySequence({
-        ...config,
-        seqType: 'genId',
-    })
 }
