@@ -15,7 +15,7 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions, wafEncode } from '../Utils';
 
 import { ContainerFilter, getSuccessCallbackWrapper } from './Utils';
 
@@ -97,17 +97,10 @@ export interface ExecuteSqlOptions extends RequestCallbackOptions {
     timeout?: number;
 }
 
-const WAF_PREFIX = "/*{{base64/x-www-form-urlencoded/sql}}*/";
-
-function wafEncodeSql(sql :string) :string
-{
-    return !sql ? sql : WAF_PREFIX + btoa(encodeURIComponent(sql));
-}
-
 function buildParams(options: ExecuteSqlOptions): any {
     const jsonData: any = {
         schemaName: options.schemaName,
-        sql: wafEncodeSql(options.sql),
+        sql: wafEncode(options.sql),
     };
 
     // Work with Ext4.Ajax.request

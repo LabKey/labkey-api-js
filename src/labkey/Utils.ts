@@ -985,3 +985,13 @@ export function textLink(options: ITextLinkOptions): string {
 
     throw 'Config object not found for textLink.';
 }
+
+/**
+ * Obfuscates content that's often intercepted by web application firewalls that are scanning for likely
+ * SQL or script injection. We have a handful of endpoints that intentionally accept SQL or script, so we
+ * encode the text to avoid tripping alarms. It's a simple BASE64 encoding that obscures the content, and lets the
+ * WAF scan for and reject malicious content on all other parameters. See Issue 48509.
+ */
+export function wafEncode(value: string): string {
+    return value ? '/*{{base64/x-www-form-urlencoded/wafText}}*/' + btoa(encodeURIComponent(value)) : value;
+}
