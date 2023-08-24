@@ -42,6 +42,7 @@ export function exportSql(options: IExportSqlOptions): void {
         containerFilter: options.containerFilter,
         format: options.format,
         schemaName: options.schemaName,
+        // wafEncode is not necessary here as the export is POSTed
         sql: options.sql,
     });
 }
