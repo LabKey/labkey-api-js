@@ -993,5 +993,8 @@ export function textLink(options: ITextLinkOptions): string {
  * WAF scan for and reject malicious content on all other parameters. See Issue 48509.
  */
 export function wafEncode(value: string): string {
-    return value ? '/*{{base64/x-www-form-urlencoded/wafText}}*/' + btoa(encodeURIComponent(value)) : value;
+    if (isString(value) && value) {
+        return '/*{{base64/x-www-form-urlencoded/wafText}}*/' + btoa(encodeURIComponent(value));
+    }
+    return value;
 }
