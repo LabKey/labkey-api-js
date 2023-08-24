@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { isString } from './Utils'
-import { QueryKey } from './QueryKey'
+import { isString } from './Utils';
+import { QueryKey } from './QueryKey';
 
 export class SchemaKey extends QueryKey {
-
     /**
      * Create new SchemaKey from an Array of unencoded SchemaKey string parts.
      * @returns {SchemaKey}
@@ -25,17 +24,15 @@ export class SchemaKey extends QueryKey {
     static fromParts(parts?: any): SchemaKey {
         let ret: SchemaKey = null;
 
-        for (let i=0; i < arguments.length; i++) {
-            let arg = arguments[i];
+        for (let i = 0; i < arguments.length; i++) {
+            const arg = arguments[i];
             if (isString(arg)) {
                 ret = new SchemaKey(ret, arg);
-            }
-            else if (arg && arg.length) {
-                for (let j=0; j < arg.length; j++) {
+            } else if (arg && arg.length) {
+                for (let j = 0; j < arg.length; j++) {
                     ret = new SchemaKey(ret, arg[j]);
                 }
-            }
-            else {
+            } else {
                 throw 'Illegal argument to fromParts: ' + arg;
             }
         }
@@ -49,10 +46,10 @@ export class SchemaKey extends QueryKey {
      * @returns {null}
      */
     static fromString(s: string): SchemaKey {
-        let r  = s.split('.');
+        const r = s.split('.');
         let ret: SchemaKey = null;
 
-        for (let i=0; i < r.length; i++) {
+        for (let i = 0; i < r.length; i++) {
             ret = new SchemaKey(ret, QueryKey.decodePart(r[i]));
         }
 

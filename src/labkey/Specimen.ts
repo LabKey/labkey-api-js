@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { request } from './Ajax'
+import { buildURL } from './ActionURL';
+import { request } from './Ajax';
 import {
     displayAjaxErrorResponse,
     getCallbackWrapper,
@@ -23,14 +23,14 @@ import {
     isFunction,
     RequestCallbackOptions,
     RequestFailure,
-    RequestSuccess
-} from './Utils'
+    RequestSuccess,
+} from './Utils';
 
 export interface AddSpecimensToRequestOptions extends RequestCallbackOptions {
-    containerPath?: string
-    preferredLocation: number
-    requestId: number
-    specimenHashArray: any[]
+    containerPath?: string;
+    preferredLocation: number;
+    requestId: number;
+    specimenHashArray: any[];
 }
 
 /**
@@ -48,7 +48,7 @@ export function addSpecimensToRequest(options: AddSpecimensToRequestOptions): XM
             specimenHashArray: arguments[2],
             preferredLocation: arguments[3],
             failure: arguments[4],
-            containerPath: arguments[5]
+            containerPath: arguments[5],
         };
     }
 
@@ -58,24 +58,24 @@ export function addSpecimensToRequest(options: AddSpecimensToRequestOptions): XM
         jsonData: {
             preferredLocation: options.preferredLocation,
             requestId: options.requestId,
-            specimenHashes: options.specimenHashArray
+            specimenHashes: options.specimenHashArray,
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 /**
- * Don't use this... use [[addSpecimensToRequest]] instead.
+ * Don't use this... use {@link addSpecimensToRequest} instead.
  * @deprecated
  */
 export const addSamplesToRequest = addSpecimensToRequest;
 
 export interface AddVialsToRequestOptions extends RequestCallbackOptions {
-    containerPath?: string
-    idType?: string
-    requestId: number
-    vialIdArray: any[]
+    containerPath?: string;
+    idType?: string;
+    requestId: number;
+    vialIdArray: any[];
 }
 
 /**
@@ -92,7 +92,7 @@ export function addVialsToRequest(options: AddVialsToRequestOptions): XMLHttpReq
             vialIdArray: arguments[2],
             idType: arguments[3],
             failure: arguments[4],
-            containerPath: arguments[5]
+            containerPath: arguments[5],
         };
     }
 
@@ -106,16 +106,16 @@ export function addVialsToRequest(options: AddVialsToRequestOptions): XMLHttpReq
         jsonData: {
             idType: options.idType,
             requestId: options.requestId,
-            vialIds: options.vialIdArray
+            vialIds: options.vialIdArray,
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface CancelRequestOptions extends RequestCallbackOptions {
-    containerPath?: string
-    requestId: number
+    containerPath?: string;
+    requestId: number;
 }
 
 /**
@@ -131,7 +131,7 @@ export function cancelRequest(options: CancelRequestOptions): XMLHttpRequest {
             success: arguments[0],
             requestId: arguments[1],
             failure: arguments[2],
-            containerPath: arguments[3]
+            containerPath: arguments[3],
         };
     }
 
@@ -139,16 +139,16 @@ export function cancelRequest(options: CancelRequestOptions): XMLHttpRequest {
         url: buildURL('specimen-api', 'cancelRequest.api', options.containerPath),
         method: 'POST',
         jsonData: {
-            requestId: options.requestId
+            requestId: options.requestId,
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface GetOpenRequestsOptions extends RequestCallbackOptions {
-    containerPath?: string
-    allUsers?: boolean
+    allUsers?: boolean;
+    containerPath?: string;
 }
 
 /**
@@ -162,7 +162,7 @@ export function getOpenRequests(options: GetOpenRequestsOptions): XMLHttpRequest
             success: arguments[0],
             allUsers: arguments[1],
             failure: arguments[2],
-            containerPath: arguments[3]
+            containerPath: arguments[3],
         };
     }
 
@@ -170,20 +170,16 @@ export function getOpenRequests(options: GetOpenRequestsOptions): XMLHttpRequest
         url: buildURL('specimen-api', 'getOpenRequests.api', options.containerPath),
         method: 'POST',
         jsonData: {
-            allUsers: options.allUsers
+            allUsers: options.allUsers,
         },
-        success: getCallbackWrapper(
-            onSpecimenSuccess(options),
-            options.scope,
-            false,
-            (data) => data.requests),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.requests),
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface GetProvidingLocationsOptions extends RequestCallbackOptions {
-    containerPath?: string
-    specimenHashArray: string[]
+    containerPath?: string;
+    specimenHashArray: string[];
 }
 
 /**
@@ -196,7 +192,7 @@ export function getProvidingLocations(options: GetProvidingLocationsOptions): XM
             success: arguments[0],
             specimenHashArray: arguments[1],
             failure: arguments[2],
-            containerPath: arguments[3]
+            containerPath: arguments[3],
         };
     }
 
@@ -204,19 +200,15 @@ export function getProvidingLocations(options: GetProvidingLocationsOptions): XM
         url: buildURL('specimen-api', 'getProvidingLocations.api', options.containerPath),
         method: 'POST',
         jsonData: {
-            specimenHashes: options.specimenHashArray
+            specimenHashes: options.specimenHashArray,
         },
-        success: getCallbackWrapper(
-            onSpecimenSuccess(options),
-            options.scope,
-            false,
-            (data) => data.locations),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.locations),
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface GetRepositoriesOptions extends RequestCallbackOptions {
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -228,8 +220,8 @@ export function getRepositories(options: GetRepositoriesOptions): XMLHttpRequest
         options = {
             success: arguments[0],
             failure: arguments[1],
-            containerPath: arguments[2]
-        }
+            containerPath: arguments[2],
+        };
     }
 
     return request({
@@ -237,20 +229,16 @@ export function getRepositories(options: GetRepositoriesOptions): XMLHttpRequest
         method: 'POST',
         // No jsonData, still json request
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        success: getCallbackWrapper(
-            onSpecimenSuccess(options),
-            options.scope,
-            false,
-            (data) => data.repositories),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.repositories),
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface GetRequestOptions extends RequestCallbackOptions {
-    containerPath?: string
-    requestId: number
+    containerPath?: string;
+    requestId: number;
 }
 
 /**
@@ -263,27 +251,23 @@ export function getRequest(options: GetRequestOptions): XMLHttpRequest {
             success: arguments[0],
             requestId: arguments[1],
             failure: arguments[2],
-            containerPath: arguments[3]
-        }
+            containerPath: arguments[3],
+        };
     }
 
     return request({
         url: buildURL('specimen-api', 'getRequest.api', options.containerPath),
         method: 'POST',
         jsonData: {
-            requestId: options.requestId
+            requestId: options.requestId,
         },
-        success: getCallbackWrapper(
-            onSpecimenSuccess(options),
-            options.scope,
-            false,
-            (data) => data.request),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.request),
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface GetSpecimenWebPartGroupsOptions extends RequestCallbackOptions {
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -296,16 +280,16 @@ export function getSpecimenWebPartGroups(options: GetSpecimenWebPartGroupsOption
         method: 'POST',
         // No jsonData, still json request
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface GetVialsByRowIdOptions extends RequestCallbackOptions {
-    containerPath?: string
-    vialRowIdArray: any[]
+    containerPath?: string;
+    vialRowIdArray: any[];
 }
 
 /**
@@ -318,7 +302,7 @@ export function getVialsByRowId(options: GetVialsByRowIdOptions): XMLHttpRequest
             success: arguments[0],
             vialRowIdArray: arguments[1],
             failure: arguments[2],
-            containerPath : arguments[3]
+            containerPath: arguments[3],
         };
     }
 
@@ -326,19 +310,15 @@ export function getVialsByRowId(options: GetVialsByRowIdOptions): XMLHttpRequest
         url: buildURL('specimen-api', 'getVialsByRowId.api', options.containerPath),
         method: 'POST',
         jsonData: {
-            rowIds: options.vialRowIdArray
+            rowIds: options.vialRowIdArray,
         },
-        success: getCallbackWrapper(
-            onSpecimenSuccess(options),
-            options.scope,
-            false,
-            (data) => data.vials),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.vials),
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface GetVialTypeSummaryOptions extends RequestCallbackOptions {
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -351,18 +331,18 @@ export function getVialTypeSummary(options: GetVialTypeSummaryOptions): XMLHttpR
         method: 'POST',
         // No jsonData, still json request
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
 export interface RemoveVialsFromRequestOptions extends RequestCallbackOptions {
-    containerPath?: string
-    idType?: string
-    requestId: number
-    vialIdArray: any[]
+    containerPath?: string;
+    idType?: string;
+    requestId: number;
+    vialIdArray: any[];
 }
 
 /**
@@ -379,7 +359,7 @@ export function removeVialsFromRequest(options: RemoveVialsFromRequestOptions): 
             vialIdArray: arguments[2],
             idType: arguments[3],
             failure: arguments[4],
-            containerPath: arguments[5]
+            containerPath: arguments[5],
         };
     }
 
@@ -393,10 +373,10 @@ export function removeVialsFromRequest(options: RemoveVialsFromRequestOptions): 
         jsonData: {
             idType: options.idType,
             requestId: options.requestId,
-            vialIds: options.vialIdArray
+            vialIds: options.vialIdArray,
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
-        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true)
+        failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
     });
 }
 
@@ -415,7 +395,7 @@ function onSpecimenSuccess(options: RequestCallbackOptions): RequestSuccess {
         } else {
             // backward compatibility: maintain caller's scope.
             // Cannot use "return success" as this would alter scope.
-            return function(data, request, requestOptions): void {
+            return function (data, request, requestOptions): void {
                 success(data, request, requestOptions);
             };
         }

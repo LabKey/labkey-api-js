@@ -13,16 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as Assay from './Assay'
-import { Form } from './Form'
-import * as Query from './Query'
-import * as Security from './Security'
-import * as Utils from './Utils'
+import * as Assay from './Assay';
+import { Form } from './Form';
+import * as Query from './Query';
+import * as Security from './Security';
+import * as Utils from './Utils';
 
-export {
-    Assay,
-    Form,
-    Query,
-    Security,
-    Utils
-}
+export { Assay, Form, Query, Security, Utils };

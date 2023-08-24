@@ -13,56 +13,49 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from '../ActionURL'
-import { request } from '../Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, isObject } from '../Utils'
+import { buildURL } from '../ActionURL';
+import { request } from '../Ajax';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, isObject, RequestCallbackOptions } from '../Utils';
 
-import { FormWindow } from './constants'
-
-declare let window: FormWindow;
-
-export interface IImportRunOptions {
-    allowCrossRunFileInputs?: boolean
-    assayId?: number | string
-    batchId?: number | string
-    batchProperties?: any
-    comment?: string
-    comments?: string
-    containerPath?: string
-    dataRows?: Array<any>
-    failure?: Function
-    files?: Array<any>
-    name?: string
-    properties?: any
-    reRunId?: number | string
-    runFilePath?: string
-    saveDataAsFile?: boolean
-    jobDescription?: string
-    jobNotificationProvider?: string
-    forceAsync?: boolean
-    scope?: any
-    success: Function
-    workflowTask?: number
+export interface ImportRunOptions extends RequestCallbackOptions {
+    allowCrossRunFileInputs?: boolean;
+    allowLookupByAlternateKey?: boolean;
+    assayId?: number | string;
+    batchId?: number | string;
+    batchProperties?: any;
+    comment?: string;
+    comments?: string;
+    containerPath?: string;
+    dataRows?: any[];
+    files?: any[];
+    forceAsync?: boolean;
+    jobDescription?: string;
+    jobNotificationProvider?: string;
+    name?: string;
+    plateMetadata?: any;
+    properties?: any;
+    reRunId?: number | string;
+    runFilePath?: string;
+    saveDataAsFile?: boolean;
+    workflowTask?: number;
 }
 
-export function importRun(options: IImportRunOptions): void {
-
-    if (!window.FormData) {
+export function importRun(options: ImportRunOptions): XMLHttpRequest {
+    if (!FormData) {
         throw new Error('modern browser required');
     }
-    
+
     if (!options.assayId) {
         throw new Error('assayId required');
     }
 
-    let files = [];
+    const files = [];
     if (options.files) {
         for (let i = 0; i < options.files.length; i++) {
-            let f = options.files[i];
-            if (f instanceof window.File) {
+            const f = options.files[i];
+            if (f instanceof File) {
                 files.push(f);
-            }
-            else if (f.tagName == 'INPUT') {
+            } else if (f.tagName == 'INPUT') {
                 for (let j = 0; j < f.files.length; j++) {
                     files.push(f.files[j]);
                 }
@@ -78,7 +71,7 @@ export function importRun(options: IImportRunOptions): void {
         throw new Error('Only one of "file", "runFilePath", or "dataRows" is allowed');
     }
 
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('assayId', options.assayId as any);
     if (options.name) {
         formData.append('name', options.name);
@@ -93,7 +86,7 @@ export function importRun(options: IImportRunOptions): void {
         formData.append('reRunId', options.reRunId as string);
     }
     if (options.saveDataAsFile !== undefined) {
-        formData.append('saveDataAsFile', options.saveDataAsFile ? "true" : "false");
+        formData.append('saveDataAsFile', options.saveDataAsFile ? 'true' : 'false');
     }
     if (options.jobDescription) {
         formData.append('jobDescription', options.jobDescription);
@@ -102,37 +95,34 @@ export function importRun(options: IImportRunOptions): void {
         formData.append('jobNotificationProvider', options.jobNotificationProvider);
     }
     if (options.forceAsync !== undefined) {
-        formData.append('forceAsync', options.forceAsync ? "true" : "false");
+        formData.append('forceAsync', options.forceAsync ? 'true' : 'false');
     }
     if (options.allowCrossRunFileInputs !== undefined) {
-        formData.append('allowCrossRunFileInputs', options.allowCrossRunFileInputs ? "true" : "false");
+        formData.append('allowCrossRunFileInputs', options.allowCrossRunFileInputs ? 'true' : 'false');
     }
     if (options.workflowTask !== undefined) {
         formData.append('workflowTask', options.workflowTask.toString(10));
     }
+    if (options.allowLookupByAlternateKey !== undefined) {
+        formData.append('allowLookupByAlternateKey', options.allowLookupByAlternateKey ? 'true' : 'false');
+    }
 
     if (options.properties) {
-        for (let key in options.properties) {
-            if (options.properties.hasOwnProperty(key)) {
-                if (isObject(options.properties[key])) {
-                    formData.append("properties['" + key + "']", JSON.stringify(options.properties[key]));
-                }
-                else {
-                    formData.append("properties['" + key + "']", options.properties[key]);
-                }
+        for (const [key, value] of Object.entries(options.properties)) {
+            if (isObject(value)) {
+                formData.append(`properties['${key}']`, JSON.stringify(value));
+            } else {
+                formData.append(`properties['${key}']`, options.properties[key]);
             }
         }
     }
 
     if (options.batchProperties) {
-        for (let key in options.batchProperties) {
-            if (options.batchProperties.hasOwnProperty(key)) {
-                if (isObject(options.batchProperties[key])) {
-                    formData.append("batchProperties['" + key + "']", JSON.stringify(options.batchProperties[key]));
-                }
-                else {
-                    formData.append("batchProperties['" + key + "']", options.batchProperties[key]);
-                }
+        for (const [key, value] of Object.entries(options.batchProperties)) {
+            if (isObject(value)) {
+                formData.append(`batchProperties['${key}']`, JSON.stringify(value));
+            } else {
+                formData.append(`batchProperties['${key}']`, options.batchProperties[key]);
             }
         }
     }
@@ -152,11 +142,15 @@ export function importRun(options: IImportRunOptions): void {
         }
     }
 
-    request({
+    if (options.plateMetadata) {
+        formData.append('plateMetadata', JSON.stringify(options.plateMetadata));
+    }
+
+    return request({
         url: buildURL('assay', 'importRun.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        form: formData
+        form: formData,
     });
 }

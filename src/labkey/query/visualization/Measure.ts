@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from '../../ActionURL'
-import { request } from '../../Ajax'
-import { apply, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../../Utils'
+import { buildURL } from '../../ActionURL';
+import { request } from '../../Ajax';
+import { apply, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../../Utils';
 
-import { Dimension } from './Dimension'
+import { Dimension } from './Dimension';
 
 function createDimensions(json: any): Dimension[] {
-
-    let dimensions = [];
+    const dimensions = [];
     if (json.dimensions && json.dimensions.length) {
-        for (let i=0; i < json.dimensions.length; i++) {
+        for (let i = 0; i < json.dimensions.length; i++) {
             dimensions.push(new Dimension(json.dimensions[i]));
         }
     }
@@ -31,20 +30,19 @@ function createDimensions(json: any): Dimension[] {
     return dimensions;
 }
 
-export interface MeasureGetDimensionsOptions extends RequestCallbackOptions<{value: any}[]> {
+export interface MeasureGetDimensionsOptions extends RequestCallbackOptions<Array<{ value: any }>> {
     /**
      * Applies only to measures from study datasets.
      * Indicates whether dimensions from demographic datasets should be included
      * in the returned set. If false, only dimensions from the measure's query will be returned.
      */
-    includeDemographics?: boolean
+    includeDemographics?: boolean;
 }
 
 /**
  * @namespace Measure Measures are plottable data elements (columns).  They may be of numeric or date types.
  */
 export class Measure {
-
     description: string;
     _isUserDefined: boolean;
     label: string;
@@ -69,14 +67,13 @@ export class Measure {
     }
 
     /**
-     * Returns the set of available [[Dimension]] objects for this measure.
+     * Returns the set of available {@link Dimension} objects for this measure.
      * @param {MeasureGetDimensionsOptions} options
      */
     getDimensions(options: MeasureGetDimensionsOptions): XMLHttpRequest {
-
-        let params: any = {
+        const params: any = {
             queryName: this.queryName,
-            schemaName: this.schemaName
+            schemaName: this.schemaName,
         };
 
         if (options.includeDemographics) {
@@ -87,7 +84,7 @@ export class Measure {
             url: buildURL('visualization', 'getDimensions.api'),
             params,
             success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createDimensions),
-            failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+            failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         });
     }
 

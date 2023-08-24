@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as Utils from './Utils'
+import * as Utils from './Utils';
 
 // no need for test of Utils.alert() at this time.
 
@@ -29,7 +29,7 @@ describe('capitalize', () => {
         expect(Utils.capitalize('abc def')).toBe('Abc def');
         expect(Utils.capitalize('ABC')).toBe('ABC');
         expect(Utils.capitalize('☃ snowman')).toBe('☃ snowman');
-    })
+    });
 });
 
 describe('caseInsensitiveEquals', () => {
@@ -54,7 +54,6 @@ describe('ensureRegionName', () => {
 });
 
 describe('getCallbackWrapper', () => {
-
     const mockJSONResponse = () => {
         const response = new XMLHttpRequest();
         response.open('GET', 'test');
@@ -64,18 +63,18 @@ describe('getCallbackWrapper', () => {
 
     it('should apply scope', () => {
         const me = this;
-        const onSuccess = Utils.getCallbackWrapper(function() {
+        const onSuccess = Utils.getCallbackWrapper(function () {
             expect(this).toStrictEqual(me);
         });
 
         // An explicit scope is not provided to Utils.getCallbackWrapper so the returned
         // function wrapper should respect scope being applied.
-        onSuccess.apply(me, [mockJSONResponse(), { url: 'test'}]);
+        onSuccess.apply(me, [mockJSONResponse(), { url: 'test' }]);
     });
     it('should respect explicit scope', () => {
         const me = this;
         const other = {};
-        const onSuccess = Utils.getCallbackWrapper(function() {
+        const onSuccess = Utils.getCallbackWrapper(function () {
             expect(this).toStrictEqual(other);
         }, other);
 
@@ -85,11 +84,16 @@ describe('getCallbackWrapper', () => {
     });
     it('should return value provided by responseTransformer', () => {
         const expected = { x: 123 };
-        const onSuccess = Utils.getCallbackWrapper((data: any) => {
-            expect(data === expected).toBe(true);
-        }, undefined, false, () => expected);
+        const onSuccess = Utils.getCallbackWrapper(
+            (data: any) => {
+                expect(data === expected).toBe(true);
+            },
+            undefined,
+            false,
+            () => expected
+        );
 
-        onSuccess(mockJSONResponse(), { url: 'test'});
+        onSuccess(mockJSONResponse(), { url: 'test' });
     });
 });
 
@@ -100,32 +104,36 @@ describe('getOnFailure', () => {
         expect(Utils.getOnFailure({})).toBe(undefined);
     });
     it('should return "failure" function', () => {
-        expect(Utils.getOnFailure({failure})).toBe(failure);
+        expect(Utils.getOnFailure({ failure })).toBe(failure);
     });
     it('should return "errorCallback" function', () => {
-        expect(Utils.getOnFailure({errorCallback: failure})).toBe(failure);
+        expect(Utils.getOnFailure({ errorCallback: failure })).toBe(failure);
     });
     it('should return "failureCallback" function', () => {
-        expect(Utils.getOnFailure({failureCallback: failure})).toBe(failure);
+        expect(Utils.getOnFailure({ failureCallback: failure })).toBe(failure);
     });
     // Consider testing priority
 });
 
 describe('getOnSuccess', () => {
-    const success = () => { return 'success'; };
-    const successCallback = () => { return 'successCallback'; };
+    const success = () => {
+        return 'success';
+    };
+    const successCallback = () => {
+        return 'successCallback';
+    };
 
     it('should handle empty configuration', () => {
         expect(Utils.getOnSuccess({})).toBe(undefined);
     });
     it('should return "success" function', () => {
-        expect(Utils.getOnSuccess({success})).toBe(success);
+        expect(Utils.getOnSuccess({ success })).toBe(success);
     });
     it('should return "successCallback" function', () => {
-        expect(Utils.getOnSuccess({successCallback})).toBe(successCallback);
+        expect(Utils.getOnSuccess({ successCallback })).toBe(successCallback);
     });
     it('should return "success" over "successCallback" function', () => {
-        expect(Utils.getOnSuccess({success, successCallback})).toBe(success);
+        expect(Utils.getOnSuccess({ success, successCallback })).toBe(success);
     });
 });
 
@@ -134,13 +142,13 @@ describe('id', () => {
     let defaultSeed = 100; // should match initial idSeed value
 
     it('should handle no prefix', () => {
-        expect(Utils.id(undefined)).toEqual(defaultPrefix + (++defaultSeed));
+        expect(Utils.id(undefined)).toEqual(defaultPrefix + ++defaultSeed);
     });
     it('should handle a custom prefix', () => {
-        expect(Utils.id('custom_PreFix')).toEqual('custom_PreFix' + (++defaultSeed));
+        expect(Utils.id('custom_PreFix')).toEqual('custom_PreFix' + ++defaultSeed);
     });
     it('should return a string', () => {
-        expect(Utils.id.apply(this, [123])).toEqual('123' + (++defaultSeed));
+        expect(Utils.id.apply(this, [123])).toEqual('123' + ++defaultSeed);
     });
 });
 
@@ -223,13 +231,13 @@ describe('isEmptyObj', () => {
     });
     it('should return true for {}', () => {
         const x = {};
-        const y = {key: 'value'};
+        const y = { key: 'value' };
         expect(Utils.isEmptyObj(x)).toBe(true);
         expect(Utils.isEmptyObj(y)).toBe(false);
     });
     it('should return true for []', () => {
         expect(Utils.isEmptyObj([])).toBe(true);
-        expect(Utils.isEmptyObj([1,2,3])).toBe(false);
+        expect(Utils.isEmptyObj([1, 2, 3])).toBe(false);
     });
 });
 
@@ -239,8 +247,12 @@ describe('isFunction', () => {
         expect(Utils.isFunction(null)).toBe(false);
     });
     it('should return true for functions', () => {
-        const x = function() { return 'x'; };
-        function y() { return 'y'; }
+        const x = function () {
+            return 'x';
+        };
+        function y() {
+            return 'y';
+        }
         expect(Utils.isFunction(x)).toBe(true);
         expect(Utils.isFunction(y)).toBe(true);
         expect(Utils.isFunction(() => {})).toBe(true);
@@ -259,8 +271,10 @@ describe('isObject', () => {
     });
     it('should return true for objects', () => {
         const x = {};
-        const y = {key: 'value'};
-        function z() { return 'z'; }
+        const y = { key: 'value' };
+        function z() {
+            return 'z';
+        }
         expect(Utils.isObject(x)).toBe(true);
         expect(Utils.isObject(y)).toBe(true);
         expect(Utils.isObject(z)).toBe(false);
@@ -279,8 +293,10 @@ describe('isString', () => {
     });
     it('should return true for string', () => {
         const x = {};
-        const y = {key: 'value'};
-        function z() { return 'z'; }
+        const y = { key: 'value' };
+        function z() {
+            return 'z';
+        }
         expect(Utils.isString(x)).toBe(false);
         expect(Utils.isString(y)).toBe(false);
         expect(Utils.isString(z)).toBe(false);
@@ -300,8 +316,12 @@ describe('isString', () => {
 
 describe('padString', () => {
     it('should be null, undefined unsafe', () => {
-        expect(() => { Utils.padString.apply(this, [null]); }).toThrow(/* cannot call toString() of null */);
-        expect(() => { Utils.padString.apply(this, [undefined]); }).toThrow(/* cannot call toString() of undefined */);
+        expect(() => {
+            Utils.padString.apply(this, [null]);
+        }).toThrow(/* cannot call toString() of null */);
+        expect(() => {
+            Utils.padString.apply(this, [undefined]);
+        }).toThrow(/* cannot call toString() of undefined */);
         // expect(Utils.padString(null, null)).toBe(true);
         // expect(Utils.padString(null, null, null)).toBe(true);
     });

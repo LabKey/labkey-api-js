@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { request } from './Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
-import { insertRows } from './query/Rows'
+import { buildURL } from './ActionURL';
+import { request } from './Ajax';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils';
+import { insertRows } from './query/Rows';
 
-import { Run, RunGroup } from './Exp'
+import { Run, RunGroup } from './Exp';
 
 /** The name of the protocol used by Experiment. This can be used for "protocolName". */
 export const SAMPLE_DERIVATION_PROTOCOL = 'Sample Derivation Protocol';
@@ -29,11 +29,11 @@ export const SAMPLE_ALIQUOT_PROTOCOL = 'Sample Aliquot Protocol';
  */
 export interface ExperimentJSONConverterOptions {
     /** Include run and step inputs and outputs. */
-    includeInputsAndOutputs?: boolean
+    includeInputsAndOutputs?: boolean;
     /** Include properties set on the experiment objects. */
-    includeProperties?: boolean
+    includeProperties?: boolean;
     /** Include run steps. */
-    includeRunSteps?: boolean
+    includeRunSteps?: boolean;
 }
 
 /**
@@ -42,7 +42,7 @@ export interface ExperimentJSONConverterOptions {
  * @private
  */
 function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOptions): any {
-    let params: any = {};
+    const params: any = {};
 
     // Consider: strictly checking option type and raising error if it does not match
     if (options.includeInputsAndOutputs !== undefined) {
@@ -63,17 +63,17 @@ export interface CreateHiddenRunGroupOptions extends RequestCallbackOptions<RunG
      * An alternate container path to get permissions from.
      * If not specified, the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * An array of integer ids for the runs to be members of the group.
      * Either runIds or selectionKey must be specified.
      */
-    runIds?: number[]
+    runIds?: number[];
     /**
      * The DataRegion's selectionKey to be used to resolve the runs to be members of the group.
      * Either runIds or selectionKey must be specified.
      */
-    selectionKey?: string
+    selectionKey?: string;
 }
 
 /**
@@ -81,18 +81,15 @@ export interface CreateHiddenRunGroupOptions extends RequestCallbackOptions<RunG
  * MS2 runs to one another.
  */
 export function createHiddenRunGroup(options: CreateHiddenRunGroupOptions): XMLHttpRequest {
-    let jsonData: any = {};
+    const jsonData: any = {};
 
     if (options.runIds && options.selectionKey) {
         throw 'Only one of runIds or selectionKey config parameter is allowed for a single call.';
-    }
-    else if (options.runIds) {
+    } else if (options.runIds) {
         jsonData.runIds = options.runIds;
-    }
-    else if (options.selectionKey) {
-        jsonData.selectionKey = options.selectionKey
-    }
-    else {
+    } else if (options.selectionKey) {
+        jsonData.selectionKey = options.selectionKey;
+    } else {
         throw 'Either the runIds or the selectionKey config parameter is required';
     }
 
@@ -100,13 +97,8 @@ export function createHiddenRunGroup(options: CreateHiddenRunGroupOptions): XMLH
         url: buildURL('experiment', 'createHiddenRunGroup.api', options.containerPath),
         method: 'POST',
         jsonData,
-        success: getCallbackWrapper<RunGroup>(
-            getOnSuccess(options),
-            options.scope,
-            false,
-            (json) => new RunGroup(json)
-        ),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        success: getCallbackWrapper<RunGroup>(getOnSuccess(options), options.scope, false, json => new RunGroup(json)),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -115,9 +107,9 @@ export function createHiddenRunGroup(options: CreateHiddenRunGroupOptions): XMLH
  * @private
  */
 function createRunGroups(json: any): RunGroup[] {
-    let batches: RunGroup[] = [];
+    const batches: RunGroup[] = [];
     if (json.batches) {
-        for (let i=0; i < json.batches.length; i++) {
+        for (let i = 0; i < json.batches.length; i++) {
             batches.push(new RunGroup(json.batches[i]));
         }
     }
@@ -129,7 +121,7 @@ function createRunGroups(json: any): RunGroup[] {
  * @private
  */
 function createRuns(json: any): Run[] {
-    let runs: Run[] = [];
+    const runs: Run[] = [];
     if (json.runs) {
         for (let i = 0; i < json.runs.length; i++) {
             runs.push(new Run(json.runs[i]));
@@ -149,147 +141,149 @@ export function exportRuns(config: any) {
 
 export interface BaseSaveBatchOptions {
     /** The assay protocol id. */
-    assayId: number
+    assayId: number;
     /** The name of the assay. */
-    assayName?: string
+    assayName?: string;
     /**
      * Save batch(es) to a specific container. If not specified, the batch(es) will be saved
      * to the current container.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
-    protocolName?: string
+    protocolName?: string;
     /** The assay provider name. */
-    providerName?: string
+    providerName?: string;
 }
 
 export interface SaveBatchOptions extends BaseSaveBatchOptions, RequestCallbackOptions<RunGroup> {
     /** A modified RunGroup. */
-    batch?: RunGroup
+    batch?: RunGroup;
 }
 
 export interface SaveBatchesOptions extends BaseSaveBatchOptions, RequestCallbackOptions<RunGroup[]> {
     /** The modified RunGroups. */
-    batches?: RunGroup[]
+    batches?: RunGroup[];
 }
 
 export interface LineageEdge {
-    lsid: string
-    role: string
+    lsid: string;
+    role: string;
 }
 
 export interface LineagePKFilter {
-    fieldKey: string
-    value: any
+    fieldKey: string;
+    value: any;
 }
 
 export interface LineageItemBase {
-    container: string
-    cpasType?: string
-    created: string
-    createdBy: string
-    expType: string
-    id: number
-    lsid: string
-    modified: string
-    modifiedBy: string
-    name: string
-    pkFilters: LineagePKFilter[]
-    queryName: string
-    schemaName: string
-    type?: string
-    url?: string
+    comment?: string;
+    container: string;
+    cpasType?: string;
+    created: string;
+    createdBy: string;
+    expType: string;
+    id: number;
+    lsid: string;
+    modified: string;
+    modifiedBy: string;
+    name: string;
+    pkFilters: LineagePKFilter[];
+    queryName: string;
+    schemaName: string;
+    type?: string;
+    url?: string;
 }
 
 export interface LineageIOConfig {
-    dataInputs?: LineageItemBase[]
-    dataOutputs?: LineageItemBase[]
-    materialInputs?: LineageItemBase[]
-    materialOutputs?: LineageItemBase[]
+    dataInputs?: LineageItemBase[];
+    dataOutputs?: LineageItemBase[];
+    materialInputs?: LineageItemBase[];
+    materialOutputs?: LineageItemBase[];
 }
 
 export interface LineageRunStepBase {
-    applicationType: string
-    activityDate: string
-    activitySequence: number
-    protocol: LineageItemBase
+    activityDate: string;
+    activitySequence: number;
+    applicationType: string;
+    protocol: LineageItemBase;
 }
 
 export type LineageRunStep = LineageItemBase & LineageIOConfig & LineageRunStepBase;
 
 export interface LineageNodeBase {
-    absolutePath: string
-    children: LineageEdge[]
-    dataFileURL: string
-    distance: number
-    listURL: string
-    parents: LineageEdge[]
-    pipelinePath: string
-    properties: any
-    steps?: LineageRunStep[]
+    absolutePath: string;
+    children: LineageEdge[];
+    dataFileURL: string;
+    distance: number;
+    listURL: string;
+    parents: LineageEdge[];
+    pipelinePath: string;
+    properties: any;
+    protocol?: LineageItemBase;
+    steps?: LineageRunStep[];
 }
 
+/** The shape of a LineageNode is determined by the options specified on the lineage API. */
 export type LineageNode = LineageItemBase & LineageIOConfig & LineageNodeBase;
 
 export interface LineageResponse {
     /** Object containing all lineage nodes in this lineage result. Keyed by node LSID. */
-    nodes: {[lsid:string]: LineageNode}
+    nodes: { [lsid: string]: LineageNode };
     /**
      * When request is made with "lsid" option the response will include a singular "seed".
      * @deprecated since 19.3. Use "seeds" instead.
      */
-    seed: string
+    seed: string;
     /** LSID "seeds" for this lineage result. */
-    seeds: string[]
+    seeds: string[];
 }
 
 export interface LineageOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<LineageResponse> {
     /** Include children in the lineage response. Defaults to true. */
-    children?: boolean
+    children?: boolean;
     /**
      * The path to the container in which the LSIDs are defined. If not supplied, the current container's
      * path will be used. All requested LSID's must be defined in the same container. If they are not, then
      * you should consider making separate requests per container.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Optional LSID of a SampleSet or DataClass to filter the response. Defaults to include all. */
-    cpasType?: string
+    cpasType?: string;
     /** An optional depth argument. Defaults to include all. */
-    depth?: number
+    depth?: number;
     /**
      * Optional experiment type to filter response -- either "Data", "Material", or "ExperimentRun".
      * Defaults to include all.
      */
-    expType?: string
+    expType?: string;
     /**
      * The LSID for the seed ExpData, ExpMaterials, or ExpRun.
      * @deprecated since 19.3. Use "lsids" instead.
      */
-    lsid: string
+    lsid: string;
     /** Array of LSIDs for the seed ExpData, ExpMaterials, or ExpRun. */
-    lsids?: string[]
+    lsids?: string[];
     /** Include parents in the lineage response. Defaults to true. */
-    parents?: boolean
+    parents?: boolean;
     /**
      * Optional Exp Run Protocol Lsid to filter response.
      * Defaults to include all.
      */
-    runProtocolLsid?: string
+    runProtocolLsid?: string;
 }
 
 /**
  * Get parent/child relationships of ExpData, ExpMaterial, or ExpRun.
  */
 export function lineage(options: LineageOptions): XMLHttpRequest {
-    let params = Object.assign({}, applyExperimentJSONConverterOptions(options));
+    const params = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.lsids) {
         params.lsids = options.lsids;
-    }
-    else if (options.lsid) {
+    } else if (options.lsid) {
         // Allow singular 'lsid' for backwards compatibility with <19.3.
         // Response will include a top-level 'seed' instead of 'seeds' property.
         params.lsid = options.lsid;
@@ -319,26 +313,26 @@ export function lineage(options: LineageOptions): XMLHttpRequest {
         url: buildURL('experiment', 'lineage.api', options.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
-    });    
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+    });
 }
 
 export interface LoadBatchOptions extends RequestCallbackOptions<RunGroup> {
     /** The assay protocol id. */
-    assayId: number
+    assayId: number;
     /** The name of the assay. */
-    assayName: string
+    assayName: string;
     /** The batch id. */
-    batchId: number
+    batchId: number;
     /** Load batch from a specific container. If not specified, the batch will be loaded from the current container. */
-    containerPath?: string
+    containerPath?: string;
     /**
      * Optional protocol name to be used for non-assay backed runs.
      * Currently only SAMPLE_DERIVATION_PROTOCOL is supported.
      */
-    protocolName?: string
+    protocolName?: string;
     /** The assay provider name. */
-    providerName: string
+    providerName: string;
 }
 
 /**
@@ -346,7 +340,7 @@ export interface LoadBatchOptions extends RequestCallbackOptions<RunGroup> {
  * documentation for more information.
  *
  * #### Examples
- * 
+ *
  * ```js
  * LABKEY.Experiment.loadBatch({
  *     protocolName: LABKEY.Experiment.SAMPLE_DERIVATION_PROTOCOL,
@@ -363,7 +357,7 @@ export function loadBatch(options: LoadBatchOptions): XMLHttpRequest {
             assayName: options.assayName,
             batchId: options.batchId,
             protocolName: options.protocolName,
-            providerName: options.providerName
+            providerName: options.providerName,
         },
         success: getCallbackWrapper<RunGroup>(
             getOnSuccess(options),
@@ -371,29 +365,29 @@ export function loadBatch(options: LoadBatchOptions): XMLHttpRequest {
             false,
             (json: any) => new RunGroup(json.batch)
         ),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export interface LoadBatchesOptions extends RequestCallbackOptions<RunGroup[]> {
     /** The assay protocol id. */
-    assayId: number
+    assayId: number;
     /** The name of the assay. */
-    assayName: string
+    assayName: string;
     /** An Array of batch ids. */
-    batchIds: number[]
+    batchIds: number[];
     /**
      * Load batches from a specific container. If not specified, the batches will be loaded from
      * the current container.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * Optional protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
-    protocolName?: string
+    protocolName?: string;
     /** The assay provider name. */
-    providerName: string
+    providerName: string;
 }
 
 /**
@@ -409,10 +403,10 @@ export function loadBatches(options: LoadBatchesOptions): XMLHttpRequest {
             assayName: options.assayName,
             batchIds: options.batchIds,
             protocolName: options.protocolName,
-            providerName: options.providerName
+            providerName: options.providerName,
         },
         success: getCallbackWrapper<RunGroup[]>(getOnSuccess(options), options.scope, false, createRunGroups),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -420,13 +414,13 @@ export interface LoadRunsOptions extends ExperimentJSONConverterOptions, Request
     /** Load runs from a specific container. If not specified, the runs will be loaded from the current container. */
     containerPath?: string;
     /** An Array of run LSIDs to fetch. */
-    lsids?: string[]
+    lsids?: string[];
     /** An Array of run ids to fetch. */
-    runIds?: number[]
+    runIds?: number[];
 }
 
 export function loadRuns(options: LoadRunsOptions): XMLHttpRequest {
-    let jsonData = Object.assign({}, applyExperimentJSONConverterOptions(options));
+    const jsonData = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.runIds) {
         jsonData.runIds = options.runIds;
@@ -440,12 +434,12 @@ export function loadRuns(options: LoadRunsOptions): XMLHttpRequest {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper<Run[]>(getOnSuccess(options), options.scope, false, createRuns),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export interface ResolveResponse {
-    data: LineageNode[]
+    data: LineageNode[];
 }
 
 export interface ResolveOptions extends ExperimentJSONConverterOptions, RequestCallbackOptions<ResolveResponse> {
@@ -454,24 +448,24 @@ export interface ResolveOptions extends ExperimentJSONConverterOptions, RequestC
      * path will be used. All requested LSID's must be defined in the same container. If they are not, then
      * you should consider making separate requests per container.
      */
-    containerPath?: string
+    containerPath?: string;
     /** The list of run lsids. */
-    lsids?: string[]
+    lsids?: string[];
 }
 
 /** Resolve LSIDs. */
 export function resolve(options: ResolveOptions): XMLHttpRequest {
-    let params = Object.assign({}, applyExperimentJSONConverterOptions(options));
+    const params = Object.assign({}, applyExperimentJSONConverterOptions(options));
 
     if (options.lsids) {
         params.lsids = options.lsids;
     }
-    
+
     return request({
         url: buildURL('experiment', 'resolve.api', options.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -480,7 +474,6 @@ function requestSaveBatches<SuccessPayload>(
     rawOptions: SaveBatchOptions & SaveBatchesOptions,
     payloadProcessor: (json: any) => SuccessPayload
 ): XMLHttpRequest {
-
     return request({
         url: buildURL('assay', 'saveAssayBatch.api', rawOptions.containerPath),
         method: 'POST',
@@ -489,11 +482,16 @@ function requestSaveBatches<SuccessPayload>(
             assayName: rawOptions.assayName,
             batches: rawOptions.batches ? rawOptions.batches : [rawOptions.batch],
             protocolName: rawOptions.protocolName,
-            providerName: rawOptions.providerName
+            providerName: rawOptions.providerName,
         },
-        success: getCallbackWrapper<SuccessPayload>(getOnSuccess(rawOptions), rawOptions.scope, false, payloadProcessor),
-        failure: getCallbackWrapper(getOnFailure(rawOptions), rawOptions.scope, true)
-    })
+        success: getCallbackWrapper<SuccessPayload>(
+            getOnSuccess(rawOptions),
+            rawOptions.scope,
+            false,
+            payloadProcessor
+        ),
+        failure: getCallbackWrapper(getOnFailure(rawOptions), rawOptions.scope, true),
+    });
 }
 
 /**
@@ -505,7 +503,7 @@ function requestSaveBatches<SuccessPayload>(
  * @param options
  *
  * #### Examples
- * 
+ *
  * ```js
  * LABKEY.Experiment.saveBatch({
  *     protocolName: LABKEY.Experiment.SAMPLE_DERIVATION_PROTOCOL,
@@ -547,9 +545,9 @@ export function saveBatches(options: SaveBatchesOptions): XMLHttpRequest {
 
 export interface SaveMaterialsOptions extends RequestCallbackOptions {
     /** An array of LABKEY.Exp.Material objects to be saved. */
-    materials: any
+    materials: any;
     /** Name of the sample set. */
-    name: string
+    name: string;
 }
 
 /** Saves materials. */
@@ -560,26 +558,26 @@ export function saveMaterials(options: SaveMaterialsOptions): XMLHttpRequest {
         rows: options.materials,
         success: getOnSuccess(options),
         failure: getOnFailure(options),
-        scope: options.scope
-    })
+        scope: options.scope,
+    });
 }
 
 export interface SaveRunsOptions extends RequestCallbackOptions {
     /** The assay protocol id. */
-    assayId?: number
+    assayId?: number;
     /** The name of the assay. */
-    assayName?: string
+    assayName?: string;
     /** Save runs to a specific container. If not specified, the runs will be saved to the current container. */
     containerPath?: string;
     /**
      * Protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
-    protocolName?: string
+    protocolName?: string;
     /** The assay provider name. */
-    providerName?: string
+    providerName?: string;
     /** The runs to be saved. */
-    runs: any // TODO: What is this type? Likely too strict to have Array<Run> as "Run-like" objects are also accepted.
+    runs: any; // TODO: What is this type? Likely too strict to have Array<Run> as "Run-like" objects are also accepted.
 }
 
 /** Save modified runs. */
@@ -595,22 +593,20 @@ export function saveRuns(options: SaveRunsOptions): XMLHttpRequest {
             runs: options.runs,
         },
         success: getCallbackWrapper<Run[]>(getOnSuccess(options), options.scope, false, createRuns),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export interface GenIdActionsOptions extends RequestCallbackOptions {
-    containerPath?: string
-    rowId: number
-    kindName: 'SampleSet' | "DataClass"
-    genId?: number
-
+    containerPath?: string;
+    genId?: number;
+    kindName: 'SampleSet' | 'DataClass';
+    rowId: number;
 }
 /**
  * Set the current genId sequence value for the data type (sampleset or dataclass)
  */
 export function setGenId(config: GenIdActionsOptions): XMLHttpRequest {
-
     return request({
         url: buildURL('experiment', 'setGenId.api', config.containerPath),
         method: 'POST',
@@ -619,8 +615,8 @@ export function setGenId(config: GenIdActionsOptions): XMLHttpRequest {
         jsonData: {
             rowId: config.rowId,
             kindName: config.kindName,
-            genId: config.genId
-        }
+            genId: config.genId,
+        },
     });
 }
 
@@ -628,14 +624,13 @@ export function setGenId(config: GenIdActionsOptions): XMLHttpRequest {
  * Get the current genId for the data type (sampleset or dataclass)
  */
 export function getGenId(config: GenIdActionsOptions): XMLHttpRequest {
-
     return request({
         url: buildURL('experiment', 'getGenId.api', config.containerPath),
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         params: {
             rowId: config.rowId,
-            kindName: config.kindName
-        }
+            kindName: config.kindName,
+        },
     });
 }

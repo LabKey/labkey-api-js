@@ -13,95 +13,96 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax'
-import { buildURL } from '../ActionURL'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils'
-import { Container } from '../constants'
-import { QueryColumn } from './types'
+import { request } from '../Ajax';
+import { buildURL } from '../ActionURL';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
+import { Container } from '../constants';
+
+import { QueryColumn } from './types';
 
 export interface QueryImportTemplate {
-    label: string
-    url: string
+    label: string;
+    url: string;
 }
 
 export interface QueryIndex {
-    columns: string[]
-    type: string
+    columns: string[];
+    type: string;
 }
 
 export interface QueryView {
-    analyticsProviders: any[]
-    columns: QueryViewColumn[]
-    containerFilter: any
-    containerPath: string
-    'default': boolean
-    deletable: boolean
-    editable: boolean
-    fields: QueryColumn[]
-    filter: QueryViewFilter[]
-    hidden: boolean
-    inherit: boolean
-    label: string
-    name: string
-    owner: string
-    revertable: boolean
-    savable: boolean
-    session: boolean
-    shared: boolean
-    sort: QueryViewSort[]
-    viewDataUrl: string
+    analyticsProviders: any[];
+    columns: QueryViewColumn[];
+    containerFilter: any;
+    containerPath: string;
+    default: boolean;
+    deletable: boolean;
+    editable: boolean;
+    fields: QueryColumn[];
+    filter: QueryViewFilter[];
+    hidden: boolean;
+    inherit: boolean;
+    label: string;
+    name: string;
+    owner: string;
+    revertable: boolean;
+    savable: boolean;
+    session: boolean;
+    shared: boolean;
+    sort: QueryViewSort[];
+    viewDataUrl: string;
 }
 
 export interface QueryViewColumn {
-    fieldKey: string
-    key: string
-    name: string
+    fieldKey: string;
+    key: string;
+    name: string;
 }
 
 export interface QueryViewFilter {
-    fieldKey: string
-    op: string
-    value: string
+    fieldKey: string;
+    op: string;
+    value: string;
 }
 
 export interface QueryViewSort {
-    dir: string
-    fieldKey: string
+    dir: string;
+    fieldKey: string;
 }
 
 // TODO: This interface should overlap more closely with getQueries or at least be a strict
 // supserset of getQueries properties for any given query.
 export interface QueryDetailsResponse {
-    auditHistoryUrl?: string
-    canEdit: boolean
-    canEditSharedViews: boolean
-    columns: QueryColumn[]
-    createDefinitionUrl?: string
-    defaultView: { columns: QueryColumn[] }
-    description: string
-    editDefinitionUrl: string
-    exception?: string
-    iconURL?: string
-    importTemplates: QueryImportTemplate[]
-    importMessage?: string
-    importUrl?: string
-    importUrlDisabled?: boolean
-    indices: { [index:string]: QueryIndex }
-    insertUrl?: string
-    insertUrlDisabled?: boolean
-    isInherited: boolean
-    isMetadataOverrideable: boolean
-    isTemporary: boolean
-    isUserDefined: boolean
-    moduleName?: string
-    name: string
-    schemaName: string
-    targetContainers: Container[]
-    title: string
-    titleColumn: string
-    viewDataUrl: string
-    views: QueryView[]
-    warning?: string
+    auditHistoryUrl?: string;
+    canEdit: boolean;
+    canEditSharedViews: boolean;
+    columns: QueryColumn[];
+    createDefinitionUrl?: string;
+    defaultView: { columns: QueryColumn[] };
+    description: string;
+    editDefinitionUrl: string;
+    exception?: string;
+    iconURL?: string;
+    importMessage?: string;
+    importTemplates: QueryImportTemplate[];
+    importUrl?: string;
+    importUrlDisabled?: boolean;
+    indices: { [index: string]: QueryIndex };
+    insertUrl?: string;
+    insertUrlDisabled?: boolean;
+    isInherited: boolean;
+    isMetadataOverrideable: boolean;
+    isTemporary: boolean;
+    isUserDefined: boolean;
+    moduleName?: string;
+    name: string;
+    schemaName: string;
+    targetContainers: Container[];
+    title: string;
+    titleColumn: string;
+    viewDataUrl: string;
+    views: QueryView[];
+    warning?: string;
 }
 
 export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDetailsResponse> {
@@ -109,23 +110,23 @@ export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDeta
      * A container path in which to execute this command. If not supplied,
      * the current container will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** A field key or Array of field keys to include in the metadata. */
-    fields?: any
-    fk?: any
+    fields?: any;
+    fk?: any;
     /** Include trigger metadata in the response. */
-    includeTriggers?: boolean
+    includeTriggers?: boolean;
     /** Initialize the view based on the default view iff the view doesn't yet exist. */
-    initializeMissingView?: boolean
+    initializeMissingView?: boolean;
     /** The name of the query. */
-    queryName: string
+    queryName: string;
     /** The name of the schema. */
-    schemaName: string
+    schemaName: string;
     /**
      * A view name or Array of view names to include custom view details.
      * Use '*' to include all views for the query.
      */
-    viewName?: string
+    viewName?: string;
 }
 
 /**
@@ -136,8 +137,7 @@ export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDeta
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function getQueryDetails(options: GetQueryDetailsOptions): XMLHttpRequest {
-
-    let params: any = {};
+    const params: any = {};
 
     if (options.schemaName) {
         params.schemaName = options.schemaName;

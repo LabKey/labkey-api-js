@@ -13,7 +13,7 @@
  *   </dependencies>
  * </view>
  */
-(function() {
+(function () {
     if (!LABKEY) {
         throw new Error('Unable to process "LABKEY" namespace. It is not available.');
     } else if (LABKEY.Query) {
@@ -23,15 +23,14 @@
     var excluded = Object.keys(LABKEY).sort();
     var data = {};
 
-    LABKEY.requiresScript('clientapi_core', function() {
-
+    LABKEY.requiresScript('clientapi_core', function () {
         var namespaces = Object.keys(LABKEY)
-            .filter(function(ns) {
+            .filter(function (ns) {
                 return excluded.indexOf(ns) === -1;
             })
             .sort();
 
-        namespaces.forEach(function(ns) {
+        namespaces.forEach(function (ns) {
             data[ns] = Object.keys(LABKEY[ns]).sort();
         });
 

@@ -15,15 +15,15 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils'
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 import { IFilter } from '../filter/Filter';
 
 import { buildQueryParams, ContainerFilter, getMethod, getSuccessCallbackWrapper } from './Utils';
 
 export interface SelectDistinctResponse {
-    queryName: string
-    schemaName: string
-    values: any[]
+    queryName: string;
+    schemaName: string;
+    values: any[];
 }
 
 export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDistinctResponse> {
@@ -31,58 +31,58 @@ export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDist
      * A single column for which the distinct results will be requested.
      * This column must exist within the specified query.
      */
-    column: string
+    column: string;
     /**
-     * One of the values of [[ContainerFilter]] that sets
+     * One of the values of {@link ContainerFilter} that sets
      * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
      * config.containerPath.
      */
-    containerFilter?: ContainerFilter
+    containerFilter?: ContainerFilter;
     /**
      * The container path in which the changes are to be performed.
      * If not supplied, the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** Prefix for query parameters (e.g. filters, sorts, etc) in this request. Defaults to "query". */
-    dataRegionName?: string
+    dataRegionName?: string;
     /** Array of objects created by Filter.create. */
-    filterArray?: IFilter[]
+    filterArray?: IFilter[];
     /** If true, the command will ignore any filter that may be part of the chosen view. */
-    ignoreFilter?: boolean
+    ignoreFilter?: boolean;
     /**
      * The maximum number of rows to return from the server (defaults to 100000).
      * If you want to return all possible rows, set this config property to -1.
      */
-    maxRows?: number
+    maxRows?: number;
     /** Specify the HTTP method to use when making the request. Defaults to GET. */
-    method?: 'GET' | 'POST'
+    method?: 'GET' | 'POST';
     /**
      * Map of name (string)/value pairs for the values of parameters if the SQL
      * references underlying queries that are parameterized. For example, the following passes
-     * two parameters to the query: {'Gender': 'M', 'CD4': '400'}. The parameters are written to the
+     * two parameters to the query: `{'Gender': 'M', 'CD4': '400'}`. The parameters are written to the
      * request URL as follows: query.param.Gender=M&query.param.CD4=400.
      * For details on parameterized SQL queries,
      * see [Parameterized SQL Queries](https://www.labkey.org/Documentation/wiki-page.view?name=paramsql).
      */
-    parameters?: any
+    parameters?: any;
     /**
      * Name of a query table associated with the chosen schema.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
-    queryName: string
+    queryName: string;
     /**
      * Name of a schema defined within the target container.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
-    schemaName: string
+    schemaName: string;
     /**
      * String description of the sort. It includes the column names listed in the URL of a sorted data region
      * (with an optional minus prefix to indicate descending order). In the case of a multi-column sort,
      * up to three column names can be included, separated by commas.
      */
-    sort?: string
+    sort?: string;
     /** Name of a view to use. This is potentially important if this view contains filters on the data. */
-    viewName?: string
+    viewName?: string;
 }
 
 /**
@@ -90,7 +90,7 @@ export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDist
  * @private
  */
 function buildSelectDistinctParams(options: SelectDistinctOptions): any {
-    let params = buildQueryParams(
+    const params = buildQueryParams(
         options.schemaName,
         options.queryName,
         options.filterArray,
@@ -115,7 +115,7 @@ function buildSelectDistinctParams(options: SelectDistinctOptions): any {
     }
 
     if (options.parameters) {
-        for (let propName in options.parameters) {
+        for (const propName in options.parameters) {
             if (options.parameters.hasOwnProperty(propName)) {
                 params[dataRegionName + '.param.' + propName] = options.parameters[propName];
             }
@@ -133,18 +133,15 @@ function buildSelectDistinctParams(options: SelectDistinctOptions): any {
  * Select Distinct Rows
  */
 export function selectDistinctRows(options: SelectDistinctOptions): XMLHttpRequest {
-    if (!options.schemaName)
-        throw 'You must specify a schemaName!';
-    if (!options.queryName)
-        throw 'You must specify a queryName!';
-    if (!options.column)
-        throw 'You must specify a column!';
+    if (!options.schemaName) throw 'You must specify a schemaName!';
+    if (!options.queryName) throw 'You must specify a queryName!';
+    if (!options.column) throw 'You must specify a column!';
 
     return request({
         url: buildURL('query', 'selectDistinct.api', options.containerPath),
         method: getMethod(options.method),
         success: getSuccessCallbackWrapper(getOnSuccess(options), false, options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        params: buildSelectDistinctParams(options)
+        params: buildSelectDistinctParams(options),
     });
 }

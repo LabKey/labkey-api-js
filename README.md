@@ -33,12 +33,12 @@ you'll want to make sure you set the appropriate registry for the `@labkey` scop
 This package is currently available on LabKey's Artifactory package registry. To include this package set the registry 
 in npm for the `@labkey` scope. This can be done via command line using `npm config`:
 ```
-npm config set @labkey:registry https://artifactory.labkey.com/artifactory/api/npm/libs-client
+npm config set @labkey:registry https://labkey.jfrog.io/artifactory/api/npm/libs-client
 ```
 or via a `.npmrc` file
 ```
 # .npmrc
-@labkey:registry=https://artifactory.labkey.com/artifactory/api/npm/libs-client
+@labkey:registry=https://labkey.jfrog.io/artifactory/api/npm/libs-client
 ```
 
 #### Installing
@@ -80,7 +80,7 @@ can do so via the following steps:
 1. Build the package (as described above).
 1. Copy the package's `/dist` directory to `/<labkey root>/server/modules/platform/core/node_modules/@labkey/api/dist`.
 1. Navigate to `/<labkey root>/server/modules/platform/core`.
-1. Run `node build.js` from the `core` module directory.
+1. Run `npm run copy-distributions` from the `core` module directory.
 
 Your changes will now be included in the bundle served by your local LabKey Server instance.
 

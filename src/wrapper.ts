@@ -22,8 +22,9 @@
  * This is not a part of the API definition and SHOULD NOT define any APIs. Additionally,
  * this file SHOULD NOT export anything.
  */
-import * as API from './index'
-import * as __package__ from './package'
+import * as __package__ from './package';
+
+import * as API from './index';
 
 declare let LABKEY: any;
 
@@ -47,6 +48,7 @@ LABKEY.Report = API.Report;
 LABKEY.SchemaKey = API.SchemaKey;
 LABKEY.Security = API.Security;
 LABKEY.Specimen = API.Specimen;
+LABKEY.Storage = API.Storage;
 LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
 LABKEY.__package__ = __package__;

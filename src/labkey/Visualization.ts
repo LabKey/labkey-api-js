@@ -26,8 +26,9 @@ import {
     Interval,
     Measure,
     save,
-    Type
-} from './query/Visualization'
+    Type,
+} from './query/Visualization';
+import { TAggregate, TInterval } from './query/visualization/constants';
 
 export {
     Aggregate,
@@ -42,5 +43,7 @@ export {
     Interval,
     Measure,
     save,
-    Type
-}
+    TAggregate,
+    TInterval,
+    Type,
+};

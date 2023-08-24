@@ -1,3 +1,108 @@
+## 1.23.0 - 2023-27-14
+- Update filters to support newline delimiting as well as semicolon delimiting. Update constants and comments accordingly
+
+## 1.22.0 - 2023-07-14
+- Support `plateMetadata` JSON property on `AssayDOM.importRun`.
+- Rename `IImportRunOptions` to `ImportRunOptions`.
+- Extend `RequestCallbackOptions` to streamline usage of common request options.
+- Factor out superfluous `FormWindow` type. TypeScript typings for DOM libraries have improved since initial implementation.
+
+## 1.21.0 - 2023-05-23
+- Fixes the implementation of `List.create()` to support `keyName` and `keyType` as they were originally documented.
+- Deprecate `keyName` in favor of specifying `options.keyName` as specified on `Domain.create()`.
+- Deprecate `keyType` in favor of specifying `kind` as specified on `Domain.create()`.
+- Rename `ICreateOptions` to `ListCreateOptions`.
+- Update `ListCreateOptions` to extend `CreateDomainOptions` and only support an extension of a subset of `DomainDesign` properties in favor of using `domainDesign` directly.
+
+## 1.20.0 - 2023-05-02
+- Add `renameContainer()` to `Security` API
+
+## 1.19.2 - 2023-04-26
+- Add skipReselectRows parameter to IQueryRequestOptions
+
+## 1.19.1 - 2023-04-19
+- Add the `allowLookupByAlternateKey` param to the `Assay.importRun()` API
+
+## 1.19.0 - 2023-03-22
+- Package updates
+- Extract jest configuration out of `package.json` and into `jest.config.js`.
+- Add typings for `ResponseMetadata` and `MetadataField` for query response.
+- Replace `[[Reference]]` syntax in docs with `{@link Reference}`.
+- Export additional types so they're not hidden from implementors.
+
+## 1.18.8 - 2023-03-02
+- [Issue 47202](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47202): Options to reduce payload of getContainers.api response
+  - two new properties: includeWorkbookChildren and includeStandardProperties 
+
+## 1.18.7 - 2023-02-28
+- Add `comment` param to `deleteContainer` fn
+
+## 1.18.6 - 2023-02-28
+- Update `LineageItemBase` to optionally include `comment?: string`.
+- Update `LineageNodeBase` to optionally include `protocol?: LineageItemBase`.
+
+## 1.18.5 - 2023-02-24
+- Add the `AllInProject` and `AllInProjectPlusShared` container filter types supported starting in v23.03.
+
+## 1.18.4 - 2023-02-23
+- Add `PermissionTypes.SampleWorkflowDelete`
+
+## 1.18.3 - 2023-02-02
+- Add `PermissionTypes.CanSeeUserDetails`
+
+## 1.18.2 - 2023-01-20
+- Add `PermissionTypes.CanSeeGroupDetails`
+
+## 1.18.1 - 2023-01-09
+- [Issue 47044](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47044): Decode the plus sign that may be part of a folder path
+
+## 1.18.0 - 2023-01-03
+- [Issue 47010](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=47010): Add `includeViewDataUrl` and `includeTitle` parameters to `Query.getQueries()`. Setting these to `false` (along with existing parameter `includeColumns`) can improve performance of getQueries() calls.
+
+## 1.17.1 - 2022-12-19
+- Fix URI decoding for paths with encoded characters in container names
+
+## 1.17.0 - 2022-12-15
+- Add PrimaryStorage as a new STORAGE_TYPE equivalent to Freezer for room-temp storage
+
+## 1.16.1 - 2022-09-22
+- Add `PermissionRoles.EditorWithoutDelete`
+
+## 1.16.0 - 2022-09-20
+- Add support for creating Freezer Manager freezer hierarchies via StorageController APIs
+  - earliest compatible LabKey Server version: 22.10.0
+  - via Storage namespace: createStorageItem, updateStorageItem, deleteStorageItem
+
+## 1.15.0 - 2022-06-16
+- Migrate the convertToTable and convertToExcel utilities from LABKEY.js.
+
+## 1.14.2 - 2022-06-06
+- Add package dev dependency on `@labkey/eslint-config-base`.
+- Add `.eslintignore` and `.eslintrc.json` linting configuration files.
+- Ran `npx eslint --fix /src` to perform lint of all current source files.
+
+## 1.14.1 - 2022-06-06
+- Add excludeSessionView param for getQueryViews
+- Add saveSessionView util
+
+## 1.14.0 - 2022-06-02
+* Package updates.
+* [Issue 45592](https://www.labkey.org/home/Developer/issues/issues-details.view?issueId=45592): Remove html encoding of name/value for form submission
+
+## 1.13.0 - 2022-05-31
+- Issue 45270: Add AdminOperationsPermission
+
+## 1.12.1 - 2022-05-13
+- Issue 45091: savePolicy update to support unwrapped policy object
+
+## 1.12.0 - 2022-05-03
+- Adjust request to enable reading error messages on failed downloads
+
+## 1.11.0 - 2022-04-28
+- Export `ActionURL.getPathFromLocation()` and update to accept input parameters for `pathname` and `contextPath`.
+- Add `contextPath` as a part of the return value from `ActionURL.getPathFromLocation()`.
+- Export `Project` interface.
+
 ## 1.10.0 - 2022-02-28
 - Add getLabKeySqlOperator to IFilterType
 

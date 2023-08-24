@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { AjaxHandler, request } from './Ajax'
-import { decode, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
+import { buildURL } from './ActionURL';
+import { AjaxHandler, request } from './Ajax';
+import { decode, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils';
 
 export interface CreateSessionsResponse {
     /** Session ID for the created session */
-    reportSessionId: string
+    reportSessionId: string;
 }
 
 export interface ICreateSessionOptions extends RequestCallbackOptions<CreateSessionsResponse> {
     /** Client supplied identifier returned in a call to getSessions() */
-    clientContext: any
+    clientContext: any;
     /** The container in which to make the request (defaults to current container) */
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -40,18 +40,18 @@ export function createSession(options: ICreateSessionOptions): XMLHttpRequest {
         url: buildURL('reports', 'createSession.api', options.containerPath),
         method: 'POST',
         jsonData: {
-            clientContext: options.clientContext
+            clientContext: options.clientContext,
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export interface IDeleteSessionOptions extends RequestCallbackOptions {
     /** The container in which to make the request (defaults to current container) */
-    containerPath?: string
+    containerPath?: string;
     /** reportSessionId Identifier for the report session to delete. */
-    reportSessionId: string
+    reportSessionId: string;
 }
 
 /**
@@ -63,42 +63,42 @@ export function deleteSession(options: IDeleteSessionOptions): XMLHttpRequest {
         url: buildURL('reports', 'deleteSession.api', options.containerPath),
         method: 'POST',
         params: {
-            reportSessionId: options.reportSessionId
+            reportSessionId: options.reportSessionId,
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
 export interface RequestExecuteResponse {
     /** Information written by the script to the console */
-    console: string[]
+    console: string[];
     /** Any exception thrown by the script that halted execution */
-    errors: string[]
+    errors: string[];
     /** Any output parameters (imgout, jsonout, etc) returned by the script */
-    outputParams: any[]
+    outputParams: any[];
 }
 
 export interface IRequestExecuteOptions extends RequestCallbackOptions<RequestExecuteResponse> {
     /** The container in which to make the request (defaults to current container) */
-    containerPath?: string
+    containerPath?: string;
     /** The name of the function to execute */
-    functionName?: string
+    functionName?: string;
     /** An object with properties for input parameters. */
-    inputParams?: any
+    inputParams?: any;
+    queryName?: string;
     /** Identifier for the report to execute */
-    reportId?: string
+    reportId?: string;
     /** name of the report to execute if the id is unknown */
-    reportName?: string
+    reportName?: string;
     /** Execute within the existing report session. */
-    reportSessionId?: string
-    queryName?: string
+    reportSessionId?: string;
     /** schema to which this report belongs (only used if reportName is used) */
-    schemaName?: string
+    schemaName?: string;
 }
 
 function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XMLHttpRequest {
-    let jsonData: any = {};
+    const jsonData: any = {};
 
     // fill in these parameters if we are executing a report
     if (isReport) {
@@ -117,8 +117,7 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
         if (options.queryName) {
             jsonData.queryName = options.queryName;
         }
-    }
-    else {
+    } else {
         if (options.functionName) {
             jsonData.functionName = options.functionName;
         }
@@ -131,7 +130,7 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
 
     // bind client input params to our parameter map
     if (options.inputParams) {
-        for (let i in options.inputParams) {
+        for (const i in options.inputParams) {
             if (options.inputParams.hasOwnProperty(i)) {
                 jsonData['inputParams[' + i + ']'] = options.inputParams[i];
             }
@@ -143,7 +142,7 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
         method: 'POST',
         jsonData,
         success: requestExecuteWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }
 
@@ -152,11 +151,11 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
  * @private
  */
 function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
-    return getCallbackWrapper(function(data: any, response: any, options: any) {
+    return getCallbackWrapper(function (data: any, response: any, options: any) {
         // TODO: This could be done with getCallbackWrapper "responseTransformer"
         if (data && data.outputParams) {
             for (let i = 0; i < data.outputParams.length; i++) {
-                let param = data.outputParams[i];
+                const param = data.outputParams[i];
                 if (param.type == 'json') {
                     param.value = decode(param.value);
                 }
@@ -173,9 +172,9 @@ function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
 
 export interface IExecuteOptions extends IRequestExecuteOptions {
     /** reportId Identifier for the report to execute */
-    reportId?: string
+    reportId?: string;
     /** name of the report to execute if the id is unknown */
-    reportName?: string
+    reportName?: string;
 }
 
 /**
@@ -184,7 +183,6 @@ export interface IExecuteOptions extends IRequestExecuteOptions {
  * @returns {XMLHttpRequest}
  */
 export function execute(options: IExecuteOptions): XMLHttpRequest {
-
     if (!options) {
         throw 'You must supply a config object to call this method.';
     }
@@ -197,7 +195,7 @@ export function execute(options: IExecuteOptions): XMLHttpRequest {
 }
 
 export interface IExecuteFunctionOptions extends IRequestExecuteOptions {
-    functionName: string
+    functionName: string;
 }
 
 /**
@@ -206,7 +204,6 @@ export interface IExecuteFunctionOptions extends IRequestExecuteOptions {
  * @returns {XMLHttpRequest}
  */
 export function executeFunction(options: IExecuteFunctionOptions): XMLHttpRequest {
-
     if (!options) {
         throw 'You must supply a config object to call this method.';
     }
@@ -220,12 +217,12 @@ export function executeFunction(options: IExecuteFunctionOptions): XMLHttpReques
 
 export interface GetSessionsResponse {
     /** Any sessions that have been created by the client */
-    reportSessions: any[]
+    reportSessions: any[];
 }
 
 export interface IGetSessionsOptions extends RequestCallbackOptions<GetSessionsResponse> {
     /** The container in which to make the request (defaults to current container) */
-    containerPath?: string
+    containerPath?: string;
 }
 
 /**
@@ -237,6 +234,6 @@ export function getSessions(options: IGetSessionsOptions): XMLHttpRequest {
         url: buildURL('reports', 'getSessions.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true)
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
     });
 }

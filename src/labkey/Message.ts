@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from './ActionURL'
-import { request } from './Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils'
+import { buildURL } from './ActionURL';
+import { request } from './Ajax';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from './Utils';
 
 export interface IMsgContent {
-    content: string
-    type: MsgType
+    content: string;
+    type: MsgType;
 }
 
 /**
- * A utility function to create a message content object used in [[sendMessage]].
+ * A utility function to create a message content object used in {@link sendMessage}.
  * @param type The content type of this message part
  * @param content The message part content.
  */
 export function createMsgContent(type: MsgType, content: string): IMsgContent {
     return {
         content,
-        type
-    }
+        type,
+    };
 }
 
 export interface IPrincipalRecipient {
-    principalId: number
-    type: RecipientType
+    principalId: number;
+    type: RecipientType;
 }
 
 /**
- * A utility function to create a recipient object (based on a user ID or group ID) used in [[sendMessage]].
+ * A utility function to create a recipient object (based on a user ID or group ID) used in {@link sendMessage}.
  * Note: only server side validation or transformation scripts can specify a user or group ID.
  * @param type Determines where the recipient email address will appear in the message.
  * @param principalId The user or group id of the recipient.
@@ -48,31 +48,31 @@ export interface IPrincipalRecipient {
 export function createPrincipalIdRecipient(type: RecipientType, principalId: number): IPrincipalRecipient {
     return {
         principalId,
-        type
-    }
+        type,
+    };
 }
 
 export interface IRecipient {
-    address: string
-    type: RecipientType
+    address: string;
+    type: RecipientType;
 }
 
 /**
- * A utility function to create a recipient object used in [[sendMessage]].
+ * A utility function to create a recipient object used in {@link sendMessage}.
  * @param type Determines where the recipient email address will appear in the message.
  * @param address The email address of the recipient.
  */
 export function createRecipient(type: RecipientType, address: string): IRecipient {
     return {
         address,
-        type
-    }
+        type,
+    };
 }
 
 export type MsgType = 'text/plain' | 'text/html';
 
 export interface IMsgTypeCollection {
-    [key: string]: MsgType
+    [key: string]: MsgType;
 }
 
 /**
@@ -83,13 +83,13 @@ export interface IMsgTypeCollection {
  */
 export const msgType: IMsgTypeCollection = {
     html: 'text/html',
-    plain: 'text/plain'
+    plain: 'text/plain',
 };
 
 export type RecipientType = 'BCC' | 'CC' | 'TO';
 
 export interface IRecipientTypeCollection {
-    [key: string]: RecipientType
+    [key: string]: RecipientType;
 }
 
 /**
@@ -98,32 +98,32 @@ export interface IRecipientTypeCollection {
 export const recipientType: IRecipientTypeCollection = {
     bcc: 'BCC',
     cc: 'CC',
-    to: 'TO'
+    to: 'TO',
 };
 
 export interface ISendMessageOptions extends RequestCallbackOptions {
     /**
      * An array of content objects which have the following properties:
-     * - type: the message content type, must be one of the values from: [[msgType]].
+     * - type: the message content type, must be one of the values from: {@link msgType}.
      * - content: the email message body for this content type.
      *
-     * The utility function [[createMsgContent]] can be used to help create these objects.
+     * The utility function {@link createMsgContent} can be used to help create these objects.
      */
-    msgContent?: string[]
+    msgContent?: string[];
     /** The email address that appears on the email from line. */
-    msgFrom?: string
+    msgFrom?: string;
     /**
      * An array of recipient objects which have the following properties:
-     * - type: the recipient type, must be one of the values from: [[recipientType]].
+     * - type: the recipient type, must be one of the values from: {@link recipientType}.
      * - address: the email address of the recipient.
      *
-     * The utility function [[createRecipient]] can be used to help create these objects.
+     * The utility function {@link createRecipient} can be used to help create these objects.
      * Recipients whose accounts have been deactivated or have never been logged into will be silently dropped from
      * the message.
      */
-    msgRecipients?: string[]
+    msgRecipients?: string[];
     /** The value that appears on the email subject line. */
-    msgSubject?: string
+    msgSubject?: string;
 }
 
 /**
@@ -162,8 +162,7 @@ export interface ISendMessageOptions extends RequestCallbackOptions {
  * ```
  */
 export function sendMessage(config: ISendMessageOptions): XMLHttpRequest {
-
-    let jsonData: ISendMessageOptions = {};
+    const jsonData: ISendMessageOptions = {};
 
     if (config.msgFrom != undefined) {
         jsonData.msgFrom = config.msgFrom;
@@ -183,6 +182,6 @@ export function sendMessage(config: ISendMessageOptions): XMLHttpRequest {
         method: 'POST',
         jsonData,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
-        failure: getCallbackWrapper(getOnFailure(config), config.scope, true)
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }

@@ -13,23 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { buildURL } from '../ActionURL'
-import { request } from '../Ajax'
-import { getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils'
-import { appendFilterParams } from '../filter/Filter'
-import { ContainerFilter } from '../query/Utils'
+import { buildURL } from '../ActionURL';
+import { request } from '../Ajax';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils';
+import { appendFilterParams } from '../filter/Filter';
+import { ContainerFilter } from '../query/Utils';
 
-import { FormWindow } from './constants'
 import { postToAction } from './Utils';
 
-declare let window: FormWindow;
-
 export interface IExportSqlOptions {
-    containerFilter?: ContainerFilter
-    containerPath?: string
-    format?: string
-    schemaName: string
-    sql: string
+    containerFilter?: ContainerFilter;
+    containerPath?: string;
+    format?: string;
+    schemaName: string;
+    sql: string;
 }
 
 /**
@@ -41,18 +38,17 @@ export interface IExportSqlOptions {
  * LabKey SQL Reference</a>.
  */
 export function exportSql(options: IExportSqlOptions): void {
-
     postToAction(buildURL('query', 'exportSql', options.containerPath), {
         containerFilter: options.containerFilter,
         format: options.format,
         schemaName: options.schemaName,
-        sql: options.sql
+        sql: options.sql,
     });
 }
 
 export interface IExportTablesOptions {
-    headerType?: string
-    schemas: any
+    headerType?: string;
+    schemas: any;
 }
 
 /**
@@ -60,23 +56,23 @@ export interface IExportTablesOptions {
  * Export a set of tables
  */
 export function exportTables(options: IExportTablesOptions): void {
-    let formData: any = {};
+    const formData: any = {};
 
     if (options.headerType) {
         formData.headerType = options.headerType;
     }
 
     // Create a copy of the schema config that we can mutate
-    let schemas = merge({}, options.schemas);
-    for (let schemaName in schemas) {
+    const schemas = merge({}, options.schemas);
+    for (const schemaName in schemas) {
         if (!schemas.hasOwnProperty(schemaName)) {
             continue;
         }
 
-        let queryList = schemas[schemaName];
+        const queryList = schemas[schemaName];
         for (let i = 0; i < queryList.length; i++) {
-            let querySettings = queryList[i];
-            let o = merge({}, querySettings);
+            const querySettings = queryList[i];
+            const o = merge({}, querySettings);
 
             delete o.filter;
             delete o.filterArray;
@@ -99,34 +95,33 @@ export function exportTables(options: IExportTablesOptions): void {
 }
 
 export interface IImportDataOptions {
-    containerPath?: string
-    failure?: Function
-    file?: File | Element | any
-    format?: string
-    importIdentity?: any
-    importLookupByAlternateKey?: boolean
-    insertOption?: string
-    importUrl?: string
-    module?: string
-    moduleResource?: any
-    path?: string
-    queryName: string
-    saveToPipeline?: boolean
-    schemaName: string
-    scope?: any
-    success?: Function
-    text?: string
-    timeout?: number
-    useAsync?: boolean
+    containerPath?: string;
+    failure?: Function;
+    file?: File | Element | any;
+    format?: string;
+    importIdentity?: any;
+    importLookupByAlternateKey?: boolean;
+    importUrl?: string;
+    insertOption?: string;
+    module?: string;
+    moduleResource?: any;
+    path?: string;
+    queryName: string;
+    saveToPipeline?: boolean;
+    schemaName: string;
+    scope?: any;
+    success?: Function;
+    text?: string;
+    timeout?: number;
+    useAsync?: boolean;
 }
 
 export function importData(options: IImportDataOptions): XMLHttpRequest {
-
-    if (!window.FormData) {
+    if (!FormData) {
         throw new Error('modern browser required');
     }
 
-    let form = new FormData();
+    const form = new FormData();
     form.append('schemaName', options.schemaName);
     form.append('queryName', options.queryName);
 
@@ -166,8 +161,7 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     if (options.file) {
         if (options.file instanceof File) {
             form.append('file', options.file);
-        }
-        else if (options.file.tagName == 'INPUT' && options.file.files.length > 0) {
+        } else if (options.file.tagName == 'INPUT' && options.file.files.length > 0) {
             form.append('file', options.file.files[0]);
         }
     }
@@ -178,8 +172,6 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
         form,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        timeout: options.timeout
+        timeout: options.timeout,
     });
 }
-
-

@@ -13,64 +13,69 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax'
-import { buildURL } from '../ActionURL'
+import { request } from '../Ajax';
+import { buildURL } from '../ActionURL';
 import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 import { AuditBehaviorTypes } from '../constants';
 
 export interface QueryRequestOptions extends RequestCallbackOptions {
-    apiVersion?: number | string
-    /** Can be used to override the audit behavior for the table the query is acting on. See [[AuditBehaviorTypes]]. */
-    auditBehavior?: AuditBehaviorTypes
+    apiVersion?: number | string;
+    /** Can be used to override the audit behavior for the table the query is acting on. See {@link AuditBehaviorTypes}. */
+    auditBehavior?: AuditBehaviorTypes;
     /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
-    auditUserComment?: string
+    auditUserComment?: string;
     /**
      * Flag that specifies if row data should be parsed and transformed into FormData when File data is present.
      * Defaults to false.
      * This is useful for endpoints that support File data. The client-side supports parsing and transforming
      * the request payload into FormData for handling File data.
      */
-    autoFormFileData?: boolean
+    autoFormFileData?: boolean;
     /**
      * The container path in which the schema and query name are defined.
      * If not supplied, the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
-    extraContext?: any
+    extraContext?: any;
     /**
      * FormData or Object consumable by FormData that can be used to POST key/value pairs of form information.
      * For more information, see <a href="https://developer.mozilla.org/en-US/docs/Web/API/FormData">FormData documentation</a>.
      * Note that if both form and rows are provided, the form object will be used.
      */
-    form?: FormData | HTMLFormElement
+    form?: FormData | HTMLFormElement;
     /**
      * Name of a query table associated with the chosen schema.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
-    queryName: string
-    rowDataArray?: any[]
+    queryName: string;
+    rowDataArray?: any[];
     /**
      * Array of record objects in which each object has a property for each field.
      * The row data array needs to include only the primary key column value, not all columns.
      * Note that if both form and rows are provided, the form object will be used.
      */
-    rows?: any[]
+    rows?: any[];
     /**
      * Name of a schema defined within the current container.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
-    schemaName: string
+    schemaName: string;
+    /**
+     * Whether the full detailed response for the update/insert rows can be skipped.
+     * Defaults to false.
+     */
+    skipReselectRows?: boolean;
     /**
      * The maximum number of milliseconds to allow for this operation before
      * generating a timeout error (defaults to 30000).
      */
-    timeout?: number
+    timeout?: number;
     /**
      * Whether all of the deletes should be done in a single transaction, so they all succeed or all fail.
      * Defaults to true.
      */
-    transacted?: boolean
+    transacted?: boolean;
 }
 
 /**
@@ -78,13 +83,15 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
  * @private
  */
 function applyArguments(options: QueryRequestOptions, args: IArguments, action: string): SendRequestOptions {
-    return args && args.length > 1 ? {
-        ...queryArguments(args),
-        action
-    } : {
-        ...options,
-        action
-    };
+    return args && args.length > 1
+        ? {
+              ...queryArguments(args),
+              action,
+          }
+        : {
+              ...options,
+              action,
+          };
 }
 
 /**
@@ -146,15 +153,15 @@ function queryArguments(args: IArguments): QueryRequestOptions {
         queryName: args[1],
         rows: args[2],
         success: args[3],
-        failure: args[4]
-    }
+        failure: args[4],
+    };
 }
 
 export type CommandType = 'delete' | 'insert' | 'update';
 
 /**
  * Interface to describe the first object passed to the successCallback function
- * by [[updateRows]], [[insertRows]] or [[deleteRows]]. This object's properties are useful for
+ * by {@link updateRows}, {@link insertRows} or {@link deleteRows}. This object's properties are useful for
  * matching requests to responses, as HTTP requests are typically
  * processed asynchronously.
  * Additional Documentation:
@@ -175,13 +182,15 @@ export type CommandType = 'delete' | 'insert' | 'update';
  */
 export interface ModifyRowsResults {
     /** Will be "update", "insert", or "delete" depending on the API called. */
-    command: CommandType
+    command: CommandType;
     /**
      * Objects will contain the properties 'id' (the field to which the error is related, if any),
      * and 'msg' (the error message itself).
      */
-    errors: any[]
-    field?: string
+    errors: any[];
+    field?: string;
+    /** Contains the same queryName the client passed to the calling function. */
+    queryName: string;
     /**
      * Array of rows with field values for the rows updated, inserted,
      * or deleted, in the same order as the rows supplied in the request. For insert, the
@@ -191,48 +200,45 @@ export interface ModifyRowsResults {
      * feature, which automatically adjusts columns of certain names (e.g., Created, CreatedBy,
      * Modified, ModifiedBy, etc.).
      */
-    rows: any[]
+    rows: any[];
     /**
      * Indicates the number of rows affected by the API action.
      * This will typically be the same number of rows passed in to the calling function.
      */
-    rowsAffected: number
-    /** Contains the same queryName the client passed to the calling function. */
-    queryName: string
+    rowsAffected: number;
     /** Contains the same schemaName the client passed to the calling function. */
-    schemaName: string
+    schemaName: string;
 }
 
 export interface Command {
     /** Name of the command to be performed. Must be one of "insert", "update", or "delete". */
-    command: CommandType    
+    command: CommandType;
     /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
-    extraContext?: any
+    extraContext?: any;
     /**
      * Name of a query table associated with the chosen schema.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
-    queryName: string		    
+    queryName: string;
     /**
-     * An array of data for each row to be changed. See [[insertRows]],
-     * [[updateRows]], or [[deleteRows]] for requirements of what data must be included for each row.
+     * An array of data for each row to be changed. See {@link insertRows},
+     * {@link updateRows}, or {@link deleteRows} for requirements of what data must be included for each row.
      */
-    rows: any[]
+    rows: any[];
     /**
      * Name of a schema defined within the current container.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
-    schemaName: string
-
+    schemaName: string;
 }
 
 export interface SaveRowsResponse {
     /** Indicates if the changes were actually committed to the database. */
-    committed: boolean
+    committed: boolean;
     /** The total number of errors encountered during the operation. */
-    errorCount: number
+    errorCount: number;
     /** An array of parsed response data (one for each command in the request). */
-    result: ModifyRowsResults[]
+    result: ModifyRowsResults[];
 }
 
 export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse> {
@@ -242,36 +248,36 @@ export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse
      * response to tell if it committed or not. If this is 13.1 or lower (or unspecified), the failure callback
      * will be invoked instead in the event of a validation failure.
      */
-    apiVersion?: string | number
+    apiVersion?: string | number;
     /** An array of all of the update/insert/delete operations to be performed. */
-    commands: Command[]
+    commands: Command[];
     /**
      * The container path in which the changes are to be performed.
      * If not supplied, the current container path will be used.
      */
-    containerPath?: string
+    containerPath?: string;
     /**
      * **Experimental:** Optional extra context object passed into the transformation/validation script environment.
      * The extraContext at the command-level will be merged with the extraContext at the top-level of the config.
      */
-    extraContext?: any
+    extraContext?: any;
     /**
      * The maximum number of milliseconds to allow for this operation before generating a timeout error
      * (defaults to 30000).
      */
-    timeout?: number
+    timeout?: number;
     /**
      * Whether all of the row changes for all of the tables
      * should be done in a single transaction, so they all succeed or all fail. Defaults to true.
      */
-    transacted?: boolean
+    transacted?: boolean;
     /**
      * Whether or not the server should attempt proceed through all of the
      * commands, but not actually commit them to the database. Useful for scenarios like giving incremental
      * validation feedback as a user fills out a UI form, but not actually save anything until they explicitly request
      * a save.
      */
-    validateOnly?: boolean
+    validateOnly?: boolean;
 }
 
 /**
@@ -282,7 +288,6 @@ export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
-
     // Nick: I've elected to comment this out as saveRows never supported the same argument
     // pattern as other endpoints due to the different nature of it's arguments (e.g. doesn't take a
     // schema/query but rather commands, etc). As a result, the object would not match what is expected.
@@ -299,16 +304,16 @@ export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
             containerPath: options.containerPath,
             extraContext: options.extraContext,
             transacted: options.transacted,
-            validateOnly: options.validateOnly
+            validateOnly: options.validateOnly,
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        timeout: options.timeout
+        timeout: options.timeout,
     });
 }
 
 interface SendRequestOptions extends QueryRequestOptions {
-    action: string
+    action: string;
 }
 
 // Exported for unit testing
@@ -330,13 +335,13 @@ export function bindFormData(jsonData: { rows?: any[] }, options: SendRequestOpt
             form = new FormData();
 
             // Process and extract File data with row offsets
-            const rows: Record<string, any>[] = [];
+            const rows: Array<Record<string, any>> = [];
 
             jsonData.rows.forEach((row, i) => {
-                if (!!row) {
+                if (row) {
                     const _row: Record<string, any> = {};
 
-                    Object.keys(row).forEach((k) => {
+                    Object.keys(row).forEach(k => {
                         // Extract File values from the row
                         if (row[k] instanceof File) {
                             form.append(`${k}::${i}`, row[k]);
@@ -371,7 +376,8 @@ function sendRequest(options: SendRequestOptions, supportsFiles?: boolean): XMLH
         transacted: options.transacted,
         extraContext: options.extraContext,
         auditBehavior: options.auditBehavior,
-        auditUserComment: options.auditUserComment
+        auditUserComment: options.auditUserComment,
+        skipReselectRows: options.skipReselectRows,
     };
 
     const form = bindFormData(jsonData, options, supportsFiles);
@@ -385,7 +391,6 @@ function sendRequest(options: SendRequestOptions, supportsFiles?: boolean): XMLH
         timeout: options.timeout,
     });
 }
-
 
 /**
  * Delete all rows in a table.

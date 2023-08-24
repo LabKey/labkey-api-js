@@ -13,41 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ensureRegionName, isArray } from '../Utils'
-import { getParameters } from '../ActionURL'
-import { FieldKey } from '../FieldKey'
+import { ensureRegionName, isArray } from '../Utils';
+import { getParameters } from '../ActionURL';
+import { FieldKey } from '../FieldKey';
 
-import { FilterValue } from './constants'
-import { IFilterType, getFilterTypeForURLSuffix, Types } from './Types'
+import { FilterValue } from './constants';
+import { IFilterType, getFilterTypeForURLSuffix, Types } from './Types';
 
 export interface Aggregate {
-    column?: string
-    label?: string
-    type: string
+    column?: string;
+    label?: string;
+    type: string;
 }
 
 export interface IFilter {
-    getColumnName(): string
-    getFilterType(): IFilterType
-    getURLParameterName(dataRegionName?: string): string
-    getURLParameterValue(): FilterValue
-    getValue(): FilterValue
+    getColumnName(): string;
+    getFilterType(): IFilterType;
+    getURLParameterName(dataRegionName?: string): string;
+    getURLParameterValue(): FilterValue;
+    getValue(): FilterValue;
 }
 
 // Previously known as LABKEY.Query.Filter
 export class Filter implements IFilter {
-
     readonly columnName: string;
     readonly filterType: IFilterType;
     readonly value: FilterValue;
 
     constructor(columnName: string | string[] | FieldKey, value: FilterValue, filterType?: IFilterType) {
-
         if (columnName) {
             if (columnName instanceof FieldKey) {
                 columnName = columnName.toString();
-            }
-            else if (columnName instanceof Array) {
+            } else if (columnName instanceof Array) {
                 columnName = columnName.join('/');
             }
         }
@@ -80,13 +77,7 @@ export class Filter implements IFilter {
     }
 
     getURLParameterName(dataRegionName?: string): string {
-        return [
-            ensureRegionName(dataRegionName),
-            '.',
-            this.columnName,
-            '~',
-            this.filterType.getURLSuffix()
-        ].join('');
+        return [ensureRegionName(dataRegionName), '.', this.columnName, '~', this.filterType.getURLSuffix()].join('');
     }
 
     getURLParameterValue(): FilterValue {
@@ -104,18 +95,18 @@ export class Filter implements IFilter {
  */
 export function appendAggregateParams(params: any, aggregates: Aggregate[], dataRegionName?: string): any {
     const prefix = ensureRegionName(dataRegionName) + '.agg.';
-    let _params = params || {};
+    const _params = params || {};
 
     if (isArray(aggregates)) {
-        for (let i=0; i < aggregates.length; i++) {
-            let aggregate = aggregates[i];
+        for (let i = 0; i < aggregates.length; i++) {
+            const aggregate = aggregates[i];
             let value = 'type=' + aggregate.type;
             if (aggregate.label) {
                 value = value + '&label=' + aggregate.label;
             }
             if (aggregate.type && aggregate.column) {
                 // Create an array of aggregate values if there is more than one aggregate for the same column.
-                let paramName = prefix + aggregate.column;
+                const paramName = prefix + aggregate.column;
                 let paramValue = encodeURIComponent(value);
                 if (_params[paramName] !== undefined) {
                     let values = _params[paramName];
@@ -138,20 +129,20 @@ export function appendAggregateParams(params: any, aggregates: Aggregate[], data
  * @private
  */
 export function appendFilterParams(params: any, filterArray: IFilter[], dataRegionName?: string): any {
-    let regionName = ensureRegionName(dataRegionName);
-    let filterParams = params || {};
+    const regionName = ensureRegionName(dataRegionName);
+    const filterParams = params || {};
 
     if (filterArray) {
-        for (let i=0; i < filterArray.length; i++) {
-            let filter = filterArray[i];
+        for (let i = 0; i < filterArray.length; i++) {
+            const filter = filterArray[i];
 
             // 10.1 compatibility: treat ~eq=null as a NOOP (#10482)
-            if (filter.getFilterType().isDataValueRequired() && null == filter.getURLParameterValue()) {
+            if (filter.getFilterType().isDataValueRequired() && filter.getURLParameterValue() == null) {
                 continue;
             }
 
             // Create an array of filter values if there is more than one filter for the same column and filter type.
-            let name = filter.getURLParameterName(regionName);
+            const name = filter.getURLParameterName(regionName);
             let value = filter.getURLParameterValue();
 
             if (filterParams[name] !== undefined) {
@@ -221,12 +212,11 @@ export function getFilterDescription(url: string, dataRegionName: string, column
     let result = '';
     let sep = '';
 
-    for (let paramName in params) {
+    for (const paramName in params) {
         if (params.hasOwnProperty(paramName)) {
-
             // Look for parameters that have the right prefix
             if (paramName.indexOf(dataRegionName + '.' + columnName + '~') == 0) {
-                let filterType = paramName.substring(paramName.indexOf('~') + 1);
+                const filterType = paramName.substring(paramName.indexOf('~') + 1);
                 let values = params[paramName];
 
                 if (!isArray(values)) {
@@ -234,17 +224,16 @@ export function getFilterDescription(url: string, dataRegionName: string, column
                 }
 
                 // Get the human readable version, like "Is Less Than"
-                let friendly = getFilterTypeForURLSuffix(filterType);
+                const friendly = getFilterTypeForURLSuffix(filterType);
                 let displayText: string;
 
                 if (friendly) {
                     displayText = friendly.getDisplayText();
-                }
-                else {
+                } else {
                     displayText = filterType;
                 }
 
-                for (let i=0; i < values.length; i++) {
+                for (let i = 0; i < values.length; i++) {
                     // If the same type of filter is applied twice, it will have multiple values
                     result += sep + displayText + ' ' + values[i];
                     sep = ' AND ';
@@ -262,21 +251,20 @@ export function getFiltersFromParameters(params: Record<string, any>, dataRegion
 
     Object.keys(params).forEach(paramName => {
         if (paramName.indexOf(regionName + '.') == 0) {
-            let tilde = paramName.indexOf('~');
+            const tilde = paramName.indexOf('~');
 
             if (tilde != -1) {
-                let columnName = paramName.substring(regionName.length + 1, tilde);
-                let filterName = paramName.substring(tilde + 1);
-                let filterType = getFilterTypeForURLSuffix(filterName);
+                const columnName = paramName.substring(regionName.length + 1, tilde);
+                const filterName = paramName.substring(tilde + 1);
+                const filterType = getFilterTypeForURLSuffix(filterName);
 
-                let values = params[paramName];
+                const values = params[paramName];
                 // Create separate Filter objects if the filter parameter appears on the URL more than once.
                 if (isArray(values)) {
                     for (let i = 0; i < values.length; i++) {
                         filters.push(create(columnName, values[i], filterType));
                     }
-                }
-                else {
+                } else {
                     filters.push(create(columnName, values, filterType));
                 }
             }
@@ -287,7 +275,7 @@ export function getFiltersFromParameters(params: Record<string, any>, dataRegion
 }
 
 /**
- * Create an array of [[IFilter]] objects from the filter parameters on the URL.
+ * Create an array of {@link IFilter} objects from the filter parameters on the URL.
  * @param url The URL to parse filters from.
  * @param dataRegionName The data region name scope for the filters. Defaults to "query".
  */
@@ -306,10 +294,10 @@ export function getQueryParamsFromUrl(url: string, dataRegionName?: string): Rec
     const params = getParameters(url);
     const key = ensureRegionName(dataRegionName) + '.param.';
 
-    for (let paramName in params) {
+    for (const paramName in params) {
         if (params.hasOwnProperty(paramName)) {
             if (paramName.indexOf(key) == 0) {
-                let qParamName = paramName.substring(key.length);
+                const qParamName = paramName.substring(key.length);
                 queryParams[qParamName] = params[paramName];
             }
         }
@@ -333,16 +321,16 @@ export function getSortFromUrl(url: string, dataRegionName?: string): string {
  * Given an array of filter objects, return a new filterArray with old filters from a column
  * removed and new filters for the column added. If new filters are null, simply remove all old filters
  * from baseFilters that refer to this column.
- * @param baseFilters Array of existing filters created by [[create]]
+ * @param baseFilters Array of existing filters created by {@link create}
  * @param columnName Column name of filters to replace
- * @param columnFilters Array of new filters created by [[create]]. Will replace any filters referring to columnName
+ * @param columnFilters Array of new filters created by {@link create}. Will replace any filters referring to columnName
  */
 export function merge(baseFilters: IFilter[], columnName: string, columnFilters: IFilter[]): IFilter[] {
     const newFilters: IFilter[] = [];
 
     if (baseFilters && baseFilters.length > 0) {
-        for (let i=0; i < baseFilters.length; i++) {
-            let bi = baseFilters[i];
+        for (let i = 0; i < baseFilters.length; i++) {
+            const bi = baseFilters[i];
             if (bi.getColumnName() != columnName) {
                 newFilters.push(bi);
             }
