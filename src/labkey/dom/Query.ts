@@ -15,7 +15,7 @@
  */
 import { buildURL } from '../ActionURL';
 import { request } from '../Ajax';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, merge } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, merge, wafEncode } from '../Utils';
 import { appendFilterParams } from '../filter/Filter';
 import { ContainerFilter } from '../query/Utils';
 
@@ -42,8 +42,7 @@ export function exportSql(options: IExportSqlOptions): void {
         containerFilter: options.containerFilter,
         format: options.format,
         schemaName: options.schemaName,
-        // wafEncode is not necessary here as the export is POSTed
-        sql: options.sql,
+        sql: wafEncode(options.sql),
     });
 }
 
