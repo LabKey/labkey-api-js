@@ -15,7 +15,7 @@
  */
 import { buildURL } from '../../ActionURL';
 import { request } from '../../Ajax';
-import { getCallbackWrapper, getOnFailure, getOnSuccess } from '../../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, wafEncode } from '../../Utils';
 
 const CONTROL_CHARS: any = {
     nul: '\x00',
@@ -102,7 +102,7 @@ export function execute(options: IExecuteOptions): XMLHttpRequest {
         parameters: options.parameters,
         schema: options.schema,
         sep,
-        sql: options.sql,
+        sql: wafEncode(options.sql),
     };
 
     return request({
