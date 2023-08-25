@@ -17,7 +17,7 @@ import { buildURL } from '../ActionURL';
 import { request } from '../Ajax';
 import { FieldKey } from '../FieldKey';
 import { SchemaKey } from '../SchemaKey';
-import { decode, isArray, isFunction, isString } from '../Utils';
+import { decode, isArray, isFunction, isString, wafEncode } from '../Utils';
 
 import { Response } from './Response';
 
@@ -210,7 +210,7 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
     if (source.type === 'query') {
         jsonData.source.queryName = source.queryName;
     } else if (source.type === 'sql') {
-        jsonData.source.sql = source.sql;
+        jsonData.source.sql = wafEncode(source.sql);
     }
 
     if (config.transforms) {
