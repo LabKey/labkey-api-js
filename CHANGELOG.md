@@ -1,4 +1,9 @@
-## 1.23.0 - 2023-27-14
+## 1.23.1 - 2023-08-25
+- Introduce `Utils.wafEncode()` which assists with obfuscating content that's often intercepted by web application 
+firewalls that are scanning for likely SQL or script injection.
+- Utilize `wafEncode()` for `query-getData.api`, `sql-executeSql.api`, `sql-execute.api`, and `query-exportSql.view`.
+
+## 1.23.0 - 2023-07-27
 - Update filters to support newline delimiting as well as semicolon delimiting. Update constants and comments accordingly
 
 ## 1.22.0 - 2023-07-14
