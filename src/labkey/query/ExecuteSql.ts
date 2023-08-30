@@ -15,7 +15,7 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions, wafEncode } from '../Utils';
 
 import { ContainerFilter, getSuccessCallbackWrapper } from './Utils';
 
@@ -100,7 +100,7 @@ export interface ExecuteSqlOptions extends RequestCallbackOptions {
 function buildParams(options: ExecuteSqlOptions): any {
     const jsonData: any = {
         schemaName: options.schemaName,
-        sql: options.sql,
+        sql: wafEncode(options.sql),
     };
 
     // Work with Ext4.Ajax.request

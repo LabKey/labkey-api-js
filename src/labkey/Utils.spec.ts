@@ -329,3 +329,25 @@ describe('padString', () => {
     //     expect(Utils.caseInsensitiveEquals(undefined, undefined)).toBe(true);
     // });
 });
+
+describe('wafEncode', () => {
+    const prefix = '/*{{base64/x-www-form-urlencoded/wafText}}*/';
+
+    it('handles empty values', () => {
+        expect(Utils.wafEncode(undefined)).toBeUndefined();
+        expect(Utils.wafEncode(null)).toBe(null);
+        expect(Utils.wafEncode('')).toBe('');
+    });
+    it('encodes string values', () => {
+        expect(Utils.wafEncode('hello')).toEqual(`${prefix}aGVsbG8=`);
+        expect(Utils.wafEncode('DELETE TABLE some.table;')).toEqual(`${prefix}REVMRVRFJTIwVEFCTEUlMjBzb21lLnRhYmxlJTNC`);
+    });
+    it('ignores other value types', () => {
+        expect(Utils.wafEncode(1 as any)).toEqual(1);
+        expect(Utils.wafEncode(true as any)).toEqual(true);
+        expect(Utils.wafEncode(false as any)).toBe(false);
+        expect(Utils.wafEncode({} as any)).toEqual({});
+        const stringArray = ['SELECT * FROM some.table;', 'ALTER TABLE some.table DROP COLUMN measure;'];
+        expect(Utils.wafEncode(stringArray as any)).toEqual(stringArray);
+    });
+});
