@@ -1,3 +1,7 @@
+## 1.24.1 - 2023-08-30
+- Add setEntitySequence, getEntitySequence methods to Experiment
+- Remove setGenId, getGenId from Experiment
+
 ## 1.24.0 - 2023-08-25
 - Introduce `Utils.wafEncode()` which assists with obfuscating content that's often intercepted by web application 
 firewalls that are scanning for likely SQL or script injection.
