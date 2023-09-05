@@ -112,8 +112,9 @@ export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDeta
      */
     containerPath?: string;
     /** A field key or Array of field keys to include in the metadata. */
-    fields?: any;
-    fk?: any;
+    fields?: string | string[];
+    /** When specified the response will only include columns from the specified foreign key query. */
+    fk?: string;
     /** Include trigger metadata in the response. */
     includeTriggers?: boolean;
     /** Initialize the view based on the default view iff the view doesn't yet exist. */
@@ -126,7 +127,7 @@ export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDeta
      * A view name or Array of view names to include custom view details.
      * Use '*' to include all views for the query.
      */
-    viewName?: string;
+    viewName?: string | string[];
 }
 
 /**
@@ -159,7 +160,7 @@ export function getQueryDetails(options: GetQueryDetailsOptions): XMLHttpRequest
         params.fk = options.fk;
     }
 
-    if (options.initializeMissingView) {
+    if (options.initializeMissingView !== undefined) {
         params.initializeMissingView = options.initializeMissingView;
     }
 
