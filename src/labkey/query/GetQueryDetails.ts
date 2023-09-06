@@ -18,6 +18,7 @@ import { buildURL } from '../ActionURL';
 import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 import { Container } from '../constants';
 
+import { getMethod } from './Utils';
 import { QueryColumn } from './types';
 
 export interface QueryImportTemplate {
@@ -119,6 +120,8 @@ export interface GetQueryDetailsOptions extends RequestCallbackOptions<QueryDeta
     includeTriggers?: boolean;
     /** Initialize the view based on the default view iff the view doesn't yet exist. */
     initializeMissingView?: boolean;
+    /** Specify the HTTP method to use when making the request. Defaults to GET. */
+    method?: 'GET' | 'POST';
     /** The name of the query. */
     queryName: string;
     /** The name of the schema. */
@@ -170,6 +173,7 @@ export function getQueryDetails(options: GetQueryDetailsOptions): XMLHttpRequest
 
     return request({
         url: buildURL('query', 'getQueryDetails.api', options.containerPath),
+        method: getMethod(options.method),
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params,
