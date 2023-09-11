@@ -119,14 +119,7 @@ const NOT_EQUAL = registerFilterType(
     '<>'
 );
 /** Finds rows where the column value is not in any of the supplied filter values. Use semicolons or new lines to separate entries.*/
-const NOT_IN = registerFilterType(
-    'Does Not Equal Any Of',
-    null,
-    'notin',
-    true,
-    ';',
-    'Does Not Equal Any Of'
-);
+const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of');
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
 // Mutable due to "_define"
@@ -233,14 +226,7 @@ export const Types: Record<string, IFilterType> = {
     CONTAINS: registerFilterType('Contains', null, 'contains', true),
     DOES_NOT_CONTAIN: registerFilterType('Does Not Contain', null, 'doesnotcontain', true),
 
-    CONTAINS_ONE_OF: registerFilterType(
-        'Contains One Of',
-        null,
-        'containsoneof',
-        true,
-        ';',
-        'Contains One Of'
-    ),
+    CONTAINS_ONE_OF: registerFilterType('Contains One Of', null, 'containsoneof', true, ';', 'Contains One Of'),
     CONTAINS_NONE_OF: registerFilterType(
         'Does Not Contain Any Of',
         null,
