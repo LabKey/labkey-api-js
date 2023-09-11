@@ -340,7 +340,9 @@ describe('wafEncode', () => {
     });
     it('encodes string values', () => {
         expect(Utils.wafEncode('hello')).toEqual(`${prefix}aGVsbG8=`);
-        expect(Utils.wafEncode('DELETE TABLE some.table;')).toEqual(`${prefix}REVMRVRFJTIwVEFCTEUlMjBzb21lLnRhYmxlJTNC`);
+        expect(Utils.wafEncode('DELETE TABLE some.table;')).toEqual(
+            `${prefix}REVMRVRFJTIwVEFCTEUlMjBzb21lLnRhYmxlJTNC`
+        );
     });
     it('ignores other value types', () => {
         expect(Utils.wafEncode(1 as any)).toEqual(1);

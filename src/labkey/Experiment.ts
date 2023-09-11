@@ -599,10 +599,10 @@ export function saveRuns(options: SaveRunsOptions): XMLHttpRequest {
 
 export interface EntitySequenceActionsOptions extends RequestCallbackOptions {
     containerPath?: string;
-    seqType: 'genId' | 'rootSampleCount' | 'sampleCount';
-    newValue?: number;
     kindName?: 'SampleSet' | 'DataClass';
+    newValue?: number;
     rowId?: number;
+    seqType: 'genId' | 'rootSampleCount' | 'sampleCount';
 }
 
 /**
