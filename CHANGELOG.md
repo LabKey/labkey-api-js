@@ -1,3 +1,7 @@
+## 1.24.2 - 2023-09-11
+* Update typings for `fields`, `fk`, and `viewName` properties of `Query.getQueryDetails`
+* Add support for `method` to `Query.getQueryDetails`
+
 ## 1.24.1 - 2023-08-30
 - Add setEntitySequence, getEntitySequence methods to Experiment
 - Remove setGenId, getGenId from Experiment
