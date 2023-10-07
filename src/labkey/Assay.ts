@@ -49,7 +49,7 @@ function applyArguments(args: IArguments, options: GetAssaysOptions, parameter?:
     return _options;
 }
 
-type GetAssaysParameters = {
+export type GetAssaysParameters = {
     /** Applies a filter to match against only assay designs with the provided "id". */
     id?: number;
     /** Applies a filter to match against only assay designs with the provided "name". */
