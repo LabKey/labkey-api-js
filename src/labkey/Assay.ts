@@ -49,7 +49,96 @@ function applyArguments(args: IArguments, options: GetAssaysOptions, parameter?:
     return _options;
 }
 
+type GetAssaysParameters = {
+    /** Applies a filter to match against only assay designs with the provided "id". */
+    id?: number;
+    /** Applies a filter to match against only assay designs with the provided "name". */
+    name?: string;
+    /** Applies a filter to match against only assay designs with the provided "plateEnabled" value. */
+    plateEnabled?: boolean;
+    /**
+     * Applies a filter to match against only assay designs with the provided "status".
+     * Supported statuses are "Active" and "Archived".
+     */
+    status?: string;
+    /** Applies a filter to match against only assay designs with the provided "type". */
+    type?: string;
+};
+
+export interface GetAssaysOptions extends GetAssaysParameters, RequestCallbackOptions<AssayDesign[]> {
+    /**
+     * The container path in which the requested Assays are defined.
+     * If not supplied, the current container path will be used.
+     */
+    containerPath?: string;
+    /** @deprecated Specify any/all parameters directly on GetAssaysOptions instead. */
+    parameters?: GetAssaysParameters;
+}
+
+export enum AssayLink {
+    BATCHES = 'batches',
+    BEGIN = 'begin',
+    DESIGN_COPY = 'designCopy',
+    DESIGN_EDIT = 'designEdit',
+    IMPORT = 'import',
+    RESULT = 'result',
+    RESULTS = 'results',
+    RUNS = 'runs',
+}
+
+export interface AssayDesign {
+    /** The path to the container in which this assay design is saved. */
+    containerPath: string;
+    /** Contains the assay description. */
+    description: string;
+    /**
+     * An mapped enumeration of domain types to domain names. Useful when attempting to find a domain by type.
+     * The value is a domain name which can be used as a key lookup into the "domain" object.
+     */
+    domainTypes: { [domainType: string]: string };
+    /**
+     * Map containing name/value pairs. Typically, contains three entries for three domains (batch, run and results).
+     * Each domain is associated with an array of objects that each describe a domain field.
+     */
+    domains: { [domainName: string]: QueryColumn };
+    /** The unique ID of the assay. */
+    id: number;
+    /** The name of the action used for data import. */
+    importAction: string;
+    /** The name of the controller used for data import. */
+    importController: string;
+    /** Contains a map of name to URL for this assay design. */
+    links: Map<AssayLink, string>;
+    /** The name of the assay. */
+    name: string;
+    /** Contains the plate template name if the assay is plate-based.  Undefined otherwise. */
+    plateTemplate?: string;
+    /** Indicates whether this is a project-level assay. */
+    projectLevel: boolean;
+    /** Query schema name of this assay protocol. e.g. 'assay.General.MyAssay' */
+    protocolSchemaName: string;
+    /** URL for generating an Excel template for importing data into this assay. */
+    templateLink: string;
+    /** The name of the assay type.  Example:  "ELISpot". */
+    type: string;
+}
+
+// TODO: Document
+export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
+    moveParameters(options, 'id', 'name', 'plateEnabled', 'status', 'type');
+
+    return request({
+        url: buildURL('assay', 'assayList.api', options.containerPath),
+        method: 'POST',
+        jsonData: options.parameters,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.definitions),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        scope: options.scope || this,
+    });
+}
+
 /**
+ * @deprecated Use {@link getAssays} instead.
  * Gets all assays
  * #### Examples
  *
@@ -86,90 +175,14 @@ export function getAll(options: GetAssaysOptions): XMLHttpRequest {
     return getAssays(applyArguments(arguments, options));
 }
 
-export interface GetAssaysOptions extends RequestCallbackOptions<AssayDesign[]> {
-    /**
-     * The container path in which the requested Assays are defined.
-     * If not supplied, the current container path will be used.
-     */
-    containerPath?: string;
-    parameters?: any;
-}
-
-export enum AssayLink {
-    BATCHES = 'batches',
-    BEGIN = 'begin',
-    DESIGN_COPY = 'designCopy',
-    DESIGN_EDIT = 'designEdit',
-    IMPORT = 'import',
-    RESULT = 'result',
-    RESULTS = 'results',
-    RUNS = 'runs',
-}
-
-export interface AssayDesign {
-    /** The path to the container in which this assay design is saved. */
-    containerPath: string;
-    /** Contains the assay description. */
-    description: string;
-    /**
-     * An mapped enumeration of domain types to domain names. Useful when attempting to find a domain by type.
-     * The value is a domain name which can be used as a key lookup into the "domain" object.
-     */
-    domainTypes: { [domainType: string]: string };
-    /**
-     * Map containing name/value pairs.  Typically contains three entries for three domains (batch, run and results).
-     * Each domain is associated with an array of objects that each describe a domain field.
-     */
-    domains: { [domainName: string]: QueryColumn };
-    /** The unique ID of the assay. */
-    id: number;
-    /** The name of the action used for data import. */
-    importAction: string;
-    /** The name of the controller used for data import. */
-    importController: string;
-    /** Contains a map of name to URL for this assay design. */
-    links: Map<AssayLink, string>;
-    /** The name of the assay. */
-    name: string;
-    /** Contains the plate template name if the assay is plate-based.  Undefined otherwise. */
-    plateTemplate?: string;
-    /** Indicates whether this is a project-level assay. */
-    projectLevel: boolean;
-    /** Query schema name of this assay protocol. e.g. 'assay.General.MyAssay' */
-    protocolSchemaName: string;
-    /** URL for generating an Excel template for importing data into this assay. */
-    templateLink: string;
-    /** The name of the assay type.  Example:  "ELISpot". */
-    type: string;
-}
-
-/**
- * @hidden
- * @private
- */
-function getAssays(options: GetAssaysOptions): XMLHttpRequest {
-    moveParameter(options, 'id');
-    moveParameter(options, 'type');
-    moveParameter(options, 'name');
-
-    return request({
-        url: buildURL('assay', 'assayList.api', options.containerPath),
-        method: 'POST',
-        jsonData: options.parameters,
-        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.definitions),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        scope: options.scope || this,
-    });
-}
-
 export interface GetByIdOptions extends GetAssaysOptions {
     /** Unique integer ID for the assay. */
     id: number;
 }
 
 /**
+ * @deprecated Use {@link getAssays} instead and specify the `id` option.
  * Gets an assay by its ID.
- * @param options
  * @see {@link AssayDesign}
  */
 export function getById(options: GetByIdOptions): XMLHttpRequest {
@@ -182,6 +195,7 @@ export interface GetByNameOptions extends GetAssaysOptions {
 }
 
 /**
+ * @deprecated Use {@link getAssays} instead and specify the `name` option.
  * Gets an assay by name.
  * @param options
  * @see {@link AssayDesign}
@@ -196,6 +210,7 @@ export interface GetByTypeOptions extends GetAssaysOptions {
 }
 
 /**
+ * @deprecated Use {@link getAssays} instead and specify the `type` option.
  * Gets an assay by type.
  * @param options
  * @see {@link AssayDesign}
@@ -219,7 +234,7 @@ export interface GetNAbRunsOptions extends RequestCallbackOptions {
     /** Whether the parameters used in the neutralization curve fitting calculation
      * should be included in the response.*/
     includeFitParameters?: boolean;
-    /** Whether or not statistics (standard deviation, max, min, etc.) should
+    /** Whether statistics (standard deviation, max, min, etc.) should
      * be returned with calculations and well data.*/
     includeStats?: boolean;
     /** Whether well-level data should be included in the response. */
@@ -372,7 +387,7 @@ export interface GetStudyNabRunsOptions extends RequestCallbackOptions {
      */
     includeFitParameters?: boolean;
     /**
-     * Whether or not statistics (standard deviation, max, min, etc.) should be returned with calculations
+     * Whether statistics (standard deviation, max, min, etc.) should be returned with calculations
      * and well data.
      */
     includeStats?: boolean;
@@ -406,13 +421,15 @@ export function getStudyNabRuns(options: GetStudyNabRunsOptions): XMLHttpRequest
  * @hidden
  * @private
  */
-function moveParameter(config: any, param: any): void {
+function moveParameters(config: any, ...params: string[]): void {
     if (!config.parameters) {
         config.parameters = {};
     }
 
-    if (config[param]) {
-        config.parameters[param] = config[param];
-        delete config[param];
+    for (const param in params) {
+        if (config[param]) {
+            config.parameters[param] = config[param];
+            delete config[param];
+        }
     }
 }
