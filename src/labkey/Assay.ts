@@ -123,23 +123,8 @@ export interface AssayDesign {
     type: string;
 }
 
-// TODO: Document
-export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
-    moveParameters(options, 'id', 'name', 'plateEnabled', 'status', 'type');
-
-    return request({
-        url: buildURL('assay', 'assayList.api', options.containerPath),
-        method: 'POST',
-        jsonData: options.parameters,
-        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.definitions),
-        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        scope: options.scope || this,
-    });
-}
-
 /**
- * @deprecated Use {@link getAssays} instead.
- * Gets all assays
+ * Gets assay designs available in a folder. Optionally, filter the results based on criteria.
  * #### Examples
  *
  * ```
@@ -166,9 +151,28 @@ export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
  *  alert('An error occurred retrieving data.');
  * }
  *
- * LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
+ * // Get all assay design of type "General"
+ * LABKEY.Assay.getAssays({ success: successHandler, failure: errorHandler, type: 'General' });
  * ```
  * @param options
+ * @see {@link AssayDesign}
+ */
+export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
+    moveParameters(options, 'id', 'name', 'plateEnabled', 'status', 'type');
+
+    return request({
+        url: buildURL('assay', 'assayList.api', options.containerPath),
+        method: 'POST',
+        jsonData: options.parameters,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.definitions),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        scope: options.scope || this,
+    });
+}
+
+/**
+ * @deprecated Use {@link getAssays} instead.
+ * Gets all assay designs.
  * @see {@link AssayDesign}
  */
 export function getAll(options: GetAssaysOptions): XMLHttpRequest {
@@ -182,7 +186,7 @@ export interface GetByIdOptions extends GetAssaysOptions {
 
 /**
  * @deprecated Use {@link getAssays} instead and specify the `id` option.
- * Gets an assay by its ID.
+ * Gets an assay design by its ID.
  * @see {@link AssayDesign}
  */
 export function getById(options: GetByIdOptions): XMLHttpRequest {
@@ -196,7 +200,7 @@ export interface GetByNameOptions extends GetAssaysOptions {
 
 /**
  * @deprecated Use {@link getAssays} instead and specify the `name` option.
- * Gets an assay by name.
+ * Gets an assay design by name.
  * @param options
  * @see {@link AssayDesign}
  */
@@ -211,7 +215,7 @@ export interface GetByTypeOptions extends GetAssaysOptions {
 
 /**
  * @deprecated Use {@link getAssays} instead and specify the `type` option.
- * Gets an assay by type.
+ * Gets an assay design by type.
  * @param options
  * @see {@link AssayDesign}
  */
@@ -426,8 +430,9 @@ function moveParameters(config: any, ...params: string[]): void {
         config.parameters = {};
     }
 
-    for (const param in params) {
-        if (config[param]) {
+    for (let i = 0; i < params.length; i++) {
+        const param = params[i];
+        if (config.hasOwnProperty(param)) {
             config.parameters[param] = config[param];
             delete config[param];
         }
