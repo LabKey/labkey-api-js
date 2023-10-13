@@ -55,6 +55,7 @@ export enum PermissionTypes {
     DesignList = 'org.labkey.api.lists.permissions.DesignListPermission',
     DesignSampleSet = 'org.labkey.api.security.permissions.DesignSampleTypePermission',
     DesignStorage = 'org.labkey.api.inventory.security.StorageDesignPermission',
+    EditSharedView = 'org.labkey.api.security.permissions.EditSharedViewPermission',
     EditStorageData = 'org.labkey.api.inventory.security.StorageDataUpdatePermission',
     Insert = 'org.labkey.api.security.permissions.InsertPermission',
     ManagePicklists = 'org.labkey.api.lists.permissions.ManagePicklistsPermission',
