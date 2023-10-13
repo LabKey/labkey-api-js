@@ -1,4 +1,4 @@
-## TBD - 2023-10-TBD
+## 1.25.0 - 2023-10-13
 - Add `PermissionTypes.EditSharedView`
 
 ## 1.24.2 - 2023-09-11
