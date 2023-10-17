@@ -257,13 +257,8 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
         const disposition = xhr.getResponseHeader('Content-Disposition');
         if (disposition && disposition.indexOf('attachment') !== -1) {
             const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
-            if (matches) {
-                if (matches.length > 2) {
-                    filename = matches[2];
-                } else if (matches[1]) {
-                    filename = matches[1];
-                }
-                filename = decodeURI(filename.replace(/['"]/g, ''));
+            if (matches && matches[2]) {
+                filename = decodeURI(matches[2].replace(/['"]/g, ''));
             }
         }
     }
