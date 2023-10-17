@@ -256,7 +256,6 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
         //   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx
         const disposition = xhr.getResponseHeader('Content-Disposition');
         if (disposition && disposition.indexOf('attachment') !== -1) {
-            // const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
             const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
             if (matches) {
                 if (matches.length > 2) {
