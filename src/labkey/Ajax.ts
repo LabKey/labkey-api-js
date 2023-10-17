@@ -238,6 +238,30 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
 }
 
 /**
+ * Parse the filename out of the Content-Disposition header.
+ *   https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+ * Examples:
+ *   Content-Disposition: attachment; filename=data.xlsx
+ *   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx
+ *   Content-Disposition: attachment: filename=data.csv; filename*=UTF-8''filename.csv
+ *   Content-Disposition: attachment: filename*=UTF-8''data.csv; filename=filename.csv
+ * The pattern below will match the first filename provided (so, data.csv in the last two examples)
+ * Exported for jest testing
+ * @hidden
+ * @private
+ */
+export function getFilenameFromContentDisposition(disposition: string): string {
+    var filename;
+    if (disposition && disposition.startsWith('attachment')) {
+        const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
+        if (matches && matches[2]) {
+            filename = decodeURI(matches[2].replace(/['"]/g, ''));
+        }
+    }
+    return filename;
+}
+
+/**
  * Download the file from the ajax response.
  * For now, we assume we are in a browser environment and use the browser's download file prompt
  * by clicking an anchor tag element or navigating by updating window.location.
@@ -249,21 +273,7 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
     if (typeof config.downloadFile === 'string') {
         filename = config.downloadFile;
     } else {
-        // parse the filename out of the Content-Disposition header.
-        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
-        // Examples:
-        //   Content-Disposition: attachment; filename=data.xlsx
-        //   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx
-        //   Content-Disposition: attachment: filename=data.csv; filename*=UTF-8''filename.csv
-        //   Content-Disposition: attachment: filename*=UTF-8''data.csv; filename=filename.csv
-        // The pattern below will match the first filename provided (so, data.csv in the last two examples)
-        const disposition = xhr.getResponseHeader('Content-Disposition');
-        if (disposition && disposition.indexOf('attachment') !== -1) {
-            const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
-            if (matches && matches[2]) {
-                filename = decodeURI(matches[2].replace(/['"]/g, ''));
-            }
-        }
+        filename = getFilenameFromContentDisposition(xhr.getResponseHeader('Content-Disposition'));
     }
 
     const blob = xhr.response;
