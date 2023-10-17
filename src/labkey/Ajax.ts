@@ -249,11 +249,14 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
     if (typeof config.downloadFile === 'string') {
         filename = config.downloadFile;
     } else {
-        // parse the filename out of the Content-Disposition header. Example:
-        //   Content-Disposition: attachment; filename=data.xlsx
+        // parse the filename out of the Content-Disposition header.
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
-        // also
+        // Examples:
+        //   Content-Disposition: attachment; filename=data.xlsx
         //   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx
+        //   Content-Disposition: attachment: filename=data.csv; filename*=UTF-8''filename.csv
+        //   Content-Disposition: attachment: filename*=UTF-8''data.csv; filename=filename.csv
+        // The pattern below will match the first filename provided (so, data.csv in the last two examples)
         const disposition = xhr.getResponseHeader('Content-Disposition');
         if (disposition && disposition.indexOf('attachment') !== -1) {
             const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
