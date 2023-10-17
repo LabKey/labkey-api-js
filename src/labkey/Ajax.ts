@@ -252,11 +252,20 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
         // parse the filename out of the Content-Disposition header. Example:
         //   Content-Disposition: attachment; filename=data.xlsx
         // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+        // also
+        //   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx
         const disposition = xhr.getResponseHeader('Content-Disposition');
         if (disposition && disposition.indexOf('attachment') !== -1) {
-            const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
-            if (matches != null && matches[1]) {
-                filename = matches[1].replace(/['"]/g, '');
+            // const matches = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition);
+            const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
+            if (matches) {
+                if (matches.length > 2) {
+                    var encoding = matches[1];
+                    filename = matches[2];
+                } else if (matches[1]) {
+                    filename = matches[1];
+                }
+                filename = filename.replace(/['"]/g, '');
             }
         }
     }

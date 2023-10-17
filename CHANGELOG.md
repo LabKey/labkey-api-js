@@ -1,3 +1,6 @@
+### TBD - 2023-TBC
+- Update parsing for Content-Disposition header
+
 ## 1.25.0 - 2023-10-13
 - Add `PermissionTypes.EditSharedView`
 
