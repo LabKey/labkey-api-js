@@ -260,12 +260,11 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
             const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
             if (matches) {
                 if (matches.length > 2) {
-                    var encoding = matches[1];
                     filename = matches[2];
                 } else if (matches[1]) {
                     filename = matches[1];
                 }
-                filename = filename.replace(/['"]/g, '');
+                filename = decodeURI(filename.replace(/['"]/g, ''));
             }
         }
     }
