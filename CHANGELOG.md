@@ -1,6 +1,11 @@
 ### TBD - 2023-TBC
 - Update parsing for Content-Disposition header
 
+## 1.26.0 - 2023-10-18
+- Expose `Assay.getAssays` and update documentation.
+- Deprecate `Assay.getById`, `Assay.getByName`, and `Assay.getByType` in favor of `Assay.getAssays`.
+- Add typings for supported parameters of the `assay-assayList.api` endpoint.
+
 ## 1.25.0 - 2023-10-13
 - Add `PermissionTypes.EditSharedView`
 

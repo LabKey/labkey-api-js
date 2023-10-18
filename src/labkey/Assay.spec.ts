@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import * as Ajax from './Ajax';
-import { getAll, getById, getByName, getByType } from './Assay';
+import { getAll, getAssays, getById, getByName, getByType } from './Assay';
 
 describe('assayList.api requests', () => {
     const success = jest.fn();
@@ -98,6 +98,26 @@ describe('assayList.api requests', () => {
             expect.objectContaining({
                 jsonData: { type: assayType },
                 url: '/assay/my/special/folder/assayList.api',
+            })
+        );
+    });
+
+    test('getAssays move parameters', () => {
+        // Arrange
+        const id = 42;
+        const name = 'Jackie';
+        const plateEnabled = true;
+        const status = 'Archived';
+        const type = 'Player';
+
+        // Act
+        getAssays({ failure, id, name, plateEnabled, status, success, type });
+
+        // Assert
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                jsonData: { id, name, plateEnabled, status, type },
+                url: '/assay/assayList.api',
             })
         );
     });

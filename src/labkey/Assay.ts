@@ -49,50 +49,30 @@ function applyArguments(args: IArguments, options: GetAssaysOptions, parameter?:
     return _options;
 }
 
-/**
- * Gets all assays
- * #### Examples
- *
- * ```
- * function successHandler(assayArray){
- *  var html = '';
- *  for (var defIndex = 0; defIndex < assayArray.length; defIndex ++){
- *      var definition = assayArray[defIndex ];
- *      html += '<b>' + definition.type + '</b>: '
- *          + definition.name + '<br>';
- *      for (var domain in definition.domains){
- *          html += '   ' + domain + '<br>';
- *          var properties = definition.domains[domain];
- *          for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
- *              var property = properties[propertyIndex];
- *              html += '      ' + property.name +
- *              	' - ' + property.typeName + '<br>';
- *          }
- *      }
- *  }
- *  document.getElementById('testDiv').innerHTML = html;
- * }
- *
- * function errorHandler(error){
- *  alert('An error occurred retrieving data.');
- * }
- *
- * LABKEY.Assay.getAll({success: successHandler, failure: errorHandler});
- * ```
- * @param options
- * @see {@link AssayDesign}
- */
-export function getAll(options: GetAssaysOptions): XMLHttpRequest {
-    return getAssays(applyArguments(arguments, options));
-}
+export type GetAssaysParameters = {
+    /** Applies a filter to match against only assay designs with the provided "id". */
+    id?: number;
+    /** Applies a filter to match against only assay designs with the provided "name". */
+    name?: string;
+    /** Applies a filter to match against only assay designs with the provided "plateEnabled" value. */
+    plateEnabled?: boolean;
+    /**
+     * Applies a filter to match against only assay designs with the provided "status".
+     * Supported statuses are "Active" and "Archived".
+     */
+    status?: string;
+    /** Applies a filter to match against only assay designs with the provided "type". */
+    type?: string;
+};
 
-export interface GetAssaysOptions extends RequestCallbackOptions<AssayDesign[]> {
+export interface GetAssaysOptions extends GetAssaysParameters, RequestCallbackOptions<AssayDesign[]> {
     /**
      * The container path in which the requested Assays are defined.
      * If not supplied, the current container path will be used.
      */
     containerPath?: string;
-    parameters?: any;
+    /** @deprecated Specify any/all parameters directly on GetAssaysOptions instead. */
+    parameters?: GetAssaysParameters;
 }
 
 export enum AssayLink {
@@ -117,7 +97,7 @@ export interface AssayDesign {
      */
     domainTypes: { [domainType: string]: string };
     /**
-     * Map containing name/value pairs.  Typically contains three entries for three domains (batch, run and results).
+     * Map containing name/value pairs. Typically, contains three entries for three domains (batch, run and results).
      * Each domain is associated with an array of objects that each describe a domain field.
      */
     domains: { [domainName: string]: QueryColumn };
@@ -144,13 +124,41 @@ export interface AssayDesign {
 }
 
 /**
- * @hidden
- * @private
+ * Gets assay designs available in a folder. Optionally, filter the results based on criteria.
+ * #### Examples
+ *
+ * ```
+ * function successHandler(assayArray){
+ *  var html = '';
+ *  for (var defIndex = 0; defIndex < assayArray.length; defIndex ++){
+ *      var definition = assayArray[defIndex ];
+ *      html += '<b>' + definition.type + '</b>: '
+ *          + definition.name + '<br>';
+ *      for (var domain in definition.domains){
+ *          html += '   ' + domain + '<br>';
+ *          var properties = definition.domains[domain];
+ *          for (var propertyIndex = 0; propertyIndex < properties.length; propertyIndex++){
+ *              var property = properties[propertyIndex];
+ *              html += '      ' + property.name +
+ *              	' - ' + property.typeName + '<br>';
+ *          }
+ *      }
+ *  }
+ *  document.getElementById('testDiv').innerHTML = html;
+ * }
+ *
+ * function errorHandler(error){
+ *  alert('An error occurred retrieving data.');
+ * }
+ *
+ * // Get all assay design of type "General"
+ * LABKEY.Assay.getAssays({ success: successHandler, failure: errorHandler, type: 'General' });
+ * ```
+ * @param options
+ * @see {@link AssayDesign}
  */
-function getAssays(options: GetAssaysOptions): XMLHttpRequest {
-    moveParameter(options, 'id');
-    moveParameter(options, 'type');
-    moveParameter(options, 'name');
+export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
+    moveParameters(options, 'id', 'name', 'plateEnabled', 'status', 'type');
 
     return request({
         url: buildURL('assay', 'assayList.api', options.containerPath),
@@ -162,14 +170,23 @@ function getAssays(options: GetAssaysOptions): XMLHttpRequest {
     });
 }
 
+/**
+ * @deprecated Use {@link getAssays} instead.
+ * Gets all assay designs.
+ * @see {@link AssayDesign}
+ */
+export function getAll(options: GetAssaysOptions): XMLHttpRequest {
+    return getAssays(applyArguments(arguments, options));
+}
+
 export interface GetByIdOptions extends GetAssaysOptions {
     /** Unique integer ID for the assay. */
     id: number;
 }
 
 /**
- * Gets an assay by its ID.
- * @param options
+ * @deprecated Use {@link getAssays} instead and specify the `id` option.
+ * Gets an assay design by its ID.
  * @see {@link AssayDesign}
  */
 export function getById(options: GetByIdOptions): XMLHttpRequest {
@@ -182,7 +199,8 @@ export interface GetByNameOptions extends GetAssaysOptions {
 }
 
 /**
- * Gets an assay by name.
+ * @deprecated Use {@link getAssays} instead and specify the `name` option.
+ * Gets an assay design by name.
  * @param options
  * @see {@link AssayDesign}
  */
@@ -196,7 +214,8 @@ export interface GetByTypeOptions extends GetAssaysOptions {
 }
 
 /**
- * Gets an assay by type.
+ * @deprecated Use {@link getAssays} instead and specify the `type` option.
+ * Gets an assay design by type.
  * @param options
  * @see {@link AssayDesign}
  */
@@ -219,7 +238,7 @@ export interface GetNAbRunsOptions extends RequestCallbackOptions {
     /** Whether the parameters used in the neutralization curve fitting calculation
      * should be included in the response.*/
     includeFitParameters?: boolean;
-    /** Whether or not statistics (standard deviation, max, min, etc.) should
+    /** Whether statistics (standard deviation, max, min, etc.) should
      * be returned with calculations and well data.*/
     includeStats?: boolean;
     /** Whether well-level data should be included in the response. */
@@ -372,7 +391,7 @@ export interface GetStudyNabRunsOptions extends RequestCallbackOptions {
      */
     includeFitParameters?: boolean;
     /**
-     * Whether or not statistics (standard deviation, max, min, etc.) should be returned with calculations
+     * Whether statistics (standard deviation, max, min, etc.) should be returned with calculations
      * and well data.
      */
     includeStats?: boolean;
@@ -406,13 +425,16 @@ export function getStudyNabRuns(options: GetStudyNabRunsOptions): XMLHttpRequest
  * @hidden
  * @private
  */
-function moveParameter(config: any, param: any): void {
+function moveParameters(config: any, ...params: string[]): void {
     if (!config.parameters) {
         config.parameters = {};
     }
 
-    if (config[param]) {
-        config.parameters[param] = config[param];
-        delete config[param];
+    for (let i = 0; i < params.length; i++) {
+        const param = params[i];
+        if (config.hasOwnProperty(param)) {
+            config.parameters[param] = config[param];
+            delete config[param];
+        }
     }
 }
