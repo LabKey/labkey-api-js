@@ -1,3 +1,6 @@
+### 1.26.1 - 2023-10-18
+- Update parsing for Content-Disposition header
+
 ## 1.26.0 - 2023-10-18
 - Expose `Assay.getAssays` and update documentation.
 - Deprecate `Assay.getById`, `Assay.getByName`, and `Assay.getByType` in favor of `Assay.getAssays`.

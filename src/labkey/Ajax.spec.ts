@@ -16,6 +16,7 @@
 import * as sinon from 'sinon';
 
 import * as Ajax from './Ajax';
+import { getFilenameFromContentDisposition } from './Ajax';
 
 function mockXHR() {
     let xhr: sinon.SinonFakeXMLHttpRequestStatic;
@@ -113,5 +114,30 @@ describe('request method', () => {
         expect(request({ url: '/users', method: 'DELETE' }).method).toEqual('DELETE');
         expect(request({ url: '/users', method: 'PUT' }).method).toEqual('PUT');
         expect(request({ url: '/users', method: 'BEEP' }).method).toEqual('BEEP');
+    });
+});
+
+describe('getFilenameFromContentDisposition', () => {
+    it('should not find a file if there is no attachment prefix', () => {
+        expect(getFilenameFromContentDisposition('other: filename=data.tsv')).toBeUndefined();
+        expect(getFilenameFromContentDisposition('other: filename=attachment.tsv')).toBeUndefined();
+    });
+
+    it('should find a file with the filename= prefix', () => {
+        expect(getFilenameFromContentDisposition('attachment; filename=data.xlsx')).toBe('data.xlsx');
+        expect(getFilenameFromContentDisposition('attachment; filename=d%20ata.xlsx')).toBe('d ata.xlsx');
+    });
+
+    it('should find a file with the filename*= prefix', () => {
+        expect(getFilenameFromContentDisposition('attachment; filename*=data.xlsx')).toBe('data.xlsx');
+        expect(getFilenameFromContentDisposition('attachment; filename*=d%20ata.xlsx')).toBe('d ata.xlsx');
+        expect(getFilenameFromContentDisposition("attachment; filename*=UTF-8''data.xlsx")).toBe('data.xlsx');
+        expect(getFilenameFromContentDisposition("attachment; filename*=UTF-8''d%20ata.xlsx")).toBe('d ata.xlsx');
+    });
+
+    it('should use the first filename specified', () => {
+        expect(getFilenameFromContentDisposition('attachment; filename*=data.xlsx; filename=other.csv')).toBe('data.xlsx');
+        expect(getFilenameFromContentDisposition('attachment; filename=data.xlsx; filename*=other.csv')).toBe('data.xlsx');
+        expect(getFilenameFromContentDisposition("attachment; filename*=UTF-8''d%20ata.xlsx; filename=other.csv")).toBe('d ata.xlsx');
     });
 });
