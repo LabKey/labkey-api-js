@@ -180,6 +180,11 @@ export interface GetUsersOptions extends RequestCallbackOptions<GetUsersResponse
      */
     name?: string;
     /**
+     * This value is used to optionally include deactivated members in server responses. Only used with
+     * getUsersWithPermissions.
+     */
+    includeDeactivated?: boolean;
+    /**
      * A permissions string or an Array of permissions strings.
      * If not present, no permission filtering occurs. If multiple permissions, all permissions are required.
      */
@@ -253,6 +258,8 @@ function getUsersRequest(endpoint: string, config: GetUsersOptions): XMLHttpRequ
         } else {
             params.permissions = [config.permissions];
         }
+
+        params.includeDeactivated = !!config.includeDeactivated;
     }
 
     return request({
