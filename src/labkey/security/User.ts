@@ -189,6 +189,17 @@ export interface GetUsersOptions extends RequestCallbackOptions<GetUsersResponse
      * If not present, no permission filtering occurs. If multiple permissions, all permissions are required.
      */
     permissions?: string | string[];
+
+    /**
+     * If not set the server will use the 23.10 version.
+     *
+     * If set to 23.10 the server will not honor the "active" flag when using getUsersWithPermission, unless you are
+     * using the "group" parameter. This means without a group the server will only ever return active users.
+     *
+     * If set to 23.11 the server will only honor the "includeDeactivated" param when using getUsersWithPermission, and
+     * if it is set to true, will return active and inactive users (no matter the value of group).
+     */
+    requiredVersion?: number;
 }
 
 /**
@@ -260,6 +271,10 @@ function getUsersRequest(endpoint: string, config: GetUsersOptions): XMLHttpRequ
         }
 
         params.includeDeactivated = !!config.includeDeactivated;
+    }
+
+    if (config.requiredVersion !== undefined) {
+        params.apiVersion = config.requiredVersion;
     }
 
     return request({
