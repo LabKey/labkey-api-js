@@ -180,74 +180,18 @@ export interface GetUsersOptions extends RequestCallbackOptions<GetUsersResponse
      */
     name?: string;
     /**
-     * This value is used to optionally include deactivated members in server responses. Only used with
-     * getUsersWithPermissions.
-     */
-    includeDeactivated?: boolean;
-    /**
      * A permissions string or an Array of permissions strings.
      * If not present, no permission filtering occurs. If multiple permissions, all permissions are required.
      */
     permissions?: string | string[];
-
-    /**
-     * If not set the server will use the 23.10 version.
-     *
-     * If set to 23.10 the server will not honor the "active" flag when using getUsersWithPermission, unless you are
-     * using the "group" parameter. This means without a group the server will only ever return active users.
-     *
-     * If set to 23.11 the server will only honor the "includeDeactivated" param when using getUsersWithPermission, and
-     * if it is set to true, will return active and inactive users (no matter the value of group).
-     */
-    requiredVersion?: number;
 }
 
-/**
- * Returns a list of users given selection criteria. This may be called by any logged-in user.
- *
- * @returns In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request.
- * In server-side scripts, this method will return the JSON response object
- * (first parameter of the success or failure callbacks.)
- */
-export function getUsers(config: GetUsersOptions): XMLHttpRequest {
-    return getUsersRequest('getUsers.api', config);
-}
-
-export interface GetUsersWithPermissionsOptions extends GetUsersOptions {
-    /**
-     * A permissions string or an Array of permissions strings.
-     * If multiple permissions are specified, then all returned users will have all specified permissions.
-     */
-    permissions: string | string[];
-}
-
-/**
- * Retrieves the set of users that have all of a specified set of permissions.  A group
- * may be provided and only users within that group will be returned.  A name (prefix) may be
- * provided and only users whose email or display name starts with the prefix will be returned.
- * This will not return any deactivated users (since they do not have permissions of any sort).
- *
- * @returns In client-side scripts, this method will return a transaction id
- * for the async request that can be used to cancel the request.
- * In server-side scripts, this method will return the JSON response object
- * (first parameter of the success or failure callbacks.)
- */
-export function getUsersWithPermissions(config: GetUsersWithPermissionsOptions): XMLHttpRequest {
-    return getUsersRequest('getUsersWithPermissions.api', config);
-}
-
-/**
- * @hidden
- * @private
- */
-function getUsersRequest(endpoint: string, config: GetUsersOptions): XMLHttpRequest {
+function parseGetUsersOptions(config: GetUsersOptions) {
     const params: any = {};
 
-    // TODO: These undefined checked should be !==
-    if (config.groupId != undefined) {
+    if (config.groupId !== undefined) {
         params.groupId = config.groupId;
-    } else if (config.group != undefined) {
+    } else if (config.group !== undefined) {
         params.group = config.group;
     }
 
@@ -269,8 +213,67 @@ function getUsersRequest(endpoint: string, config: GetUsersOptions): XMLHttpRequ
         } else {
             params.permissions = [config.permissions];
         }
+    }
 
-        params.includeDeactivated = !!config.includeDeactivated;
+    return params;
+}
+
+/**
+ * Returns a list of users given selection criteria. This may be called by any logged-in user.
+ *
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
+ */
+export function getUsers(config: GetUsersOptions): XMLHttpRequest {
+    return request({
+        url: buildURL('user', 'getUsers.api', config.containerPath),
+        params: parseGetUsersOptions(config),
+        success: getCallbackWrapper(getOnSuccess(config), config.scope),
+        failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+    });
+}
+
+export interface GetUsersWithPermissionsOptions extends GetUsersOptions {
+    /**
+     * This value is used to optionally include deactivated members in server responses. Only used with requiredVersion
+     * 23.11. Defaults to false.
+     */
+    includeDeactivated?: boolean;
+    /**
+     * A permissions string or an Array of permissions strings.
+     * If multiple permissions are specified, then all returned users will have all specified permissions.
+     */
+    permissions: string | string[];
+    /**
+     * If not set the server will use the 23.10 version.
+     *
+     * If set to 23.10 the server will not honor the "active" flag when using getUsersWithPermission, unless you are
+     * using the "group" parameter. This means without a group the server will only ever return active users.
+     *
+     * If set to 23.11 the server will only honor the "includeDeactivated" param when using getUsersWithPermission, and
+     * if it is set to true, will return active and inactive users (no matter the value of group).
+     */
+    requiredVersion?: number;
+}
+
+/**
+ * Retrieves the set of users that have all of a specified set of permissions.  A group
+ * may be provided and only users within that group will be returned.  A name (prefix) may be
+ * provided and only users whose email or display name starts with the prefix will be returned.
+ * This will not return any deactivated users (since they do not have permissions of any sort).
+ *
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request.
+ * In server-side scripts, this method will return the JSON response object
+ * (first parameter of the success or failure callbacks.)
+ */
+export function getUsersWithPermissions(config: GetUsersWithPermissionsOptions): XMLHttpRequest {
+    const params: any = parseGetUsersOptions(config);
+
+    if (config.includeDeactivated !== undefined) {
+        params.includeDeactivated = config.includeDeactivated;
     }
 
     if (config.requiredVersion !== undefined) {
@@ -278,7 +281,7 @@ function getUsersRequest(endpoint: string, config: GetUsersOptions): XMLHttpRequ
     }
 
     return request({
-        url: buildURL('user', endpoint, config.containerPath),
+        url: buildURL('user', 'getUsersWithPermissions.api', config.containerPath),
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
