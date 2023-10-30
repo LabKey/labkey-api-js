@@ -1,3 +1,6 @@
+### 1.27.0 - 2023-10-18
+- `Security.getUsersWithPermissions()`: Add includeInactive 
+
 ### 1.26.1 - 2023-10-18
 - Update parsing for Content-Disposition header
 
