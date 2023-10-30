@@ -240,7 +240,7 @@ export interface GetUsersWithPermissionsOptions extends GetUsersOptions {
      * This value is used to optionally include deactivated members in server responses. Only used with requiredVersion
      * 23.11. Defaults to false.
      */
-    includeDeactivated?: boolean;
+    includeInactive?: boolean;
     /**
      * A permissions string or an Array of permissions strings.
      * If multiple permissions are specified, then all returned users will have all specified permissions.
@@ -252,7 +252,7 @@ export interface GetUsersWithPermissionsOptions extends GetUsersOptions {
      * If set to 23.10 the server will not honor the "active" flag when using getUsersWithPermission, unless you are
      * using the "group" parameter. This means without a group the server will only ever return active users.
      *
-     * If set to 23.11 the server will only honor the "includeDeactivated" param when using getUsersWithPermission, and
+     * If set to 23.11 the server will only honor the "includeInactive" param when using getUsersWithPermission, and
      * if it is set to true, will return active and inactive users (no matter the value of group).
      */
     requiredVersion?: number;
@@ -272,8 +272,8 @@ export interface GetUsersWithPermissionsOptions extends GetUsersOptions {
 export function getUsersWithPermissions(config: GetUsersWithPermissionsOptions): XMLHttpRequest {
     const params: any = parseGetUsersOptions(config);
 
-    if (config.includeDeactivated !== undefined) {
-        params.includeDeactivated = config.includeDeactivated;
+    if (config.includeInactive !== undefined) {
+        params.includeInactive = config.includeInactive;
     }
 
     if (config.requiredVersion !== undefined) {
