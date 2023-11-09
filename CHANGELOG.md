@@ -1,3 +1,6 @@
+### 1.27.1 - 2023-11-9
+- Fix `Utils.encodeHtml` by adding necessary semicolon
+
 ### 1.27.0 - 2023-10-18
 - `Security.getUsersWithPermissions()`: Add includeInactive 
 
