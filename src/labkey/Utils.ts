@@ -361,7 +361,7 @@ export function encodeHtml(html: string, retainEmptyValueTypes?: boolean): strin
         .replace(/'/g, '&#39;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
-        .replace(/\\/g, '&#92');
+        .replace(/\\/g, '&#92;');
 }
 
 export function escapeRe(s: string): string {
