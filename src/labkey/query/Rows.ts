@@ -235,6 +235,10 @@ export interface Command {
 export interface  MoveRowsResponse extends ModifyRowsResults {
     /** The container path in which the rows were moved. */
     containerPath: string;
+    /** A string describing any error that occurred during the action. */
+    error?: string;
+    /** Indicates if the action was successful. */
+    success: boolean;
     /** An object with key/value pairs describing the number of items moved during the action. */
     updateCounts: Record<string, number>;
 }
