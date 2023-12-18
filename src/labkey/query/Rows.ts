@@ -232,6 +232,13 @@ export interface Command {
     schemaName: string;
 }
 
+export interface  MoveRowsResponse extends ModifyRowsResults {
+    /** The container path in which the rows were moved. */
+    containerPath: string;
+    /** An object with key/value pairs describing the number of items moved during the action. */
+    updateCounts: Record<string, number>;
+}
+
 export interface SaveRowsResponse {
     /** Indicates if the changes were actually committed to the database. */
     committed: boolean;
@@ -412,4 +419,22 @@ export function truncateTable(options: QueryRequestOptions): XMLHttpRequest {
  */
 export function updateRows(options: QueryRequestOptions): XMLHttpRequest {
     return sendRequest(applyArguments(options, arguments, 'updateRows.api'), true);
+}
+
+export interface MoveRowsOptions extends QueryRequestOptions {
+    /**
+     * The target container in which the rows should be moved.
+     */
+    targetContainerPath: string;
+}
+
+/**
+ * Move a set of rows from the source container to a target container for a table.
+ *
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request. In server-side scripts,
+ * this method will return the JSON response object (first parameter of the success or failure callbacks).
+ */
+export function moveRows(options: MoveRowsOptions): XMLHttpRequest {
+    return sendRequest(applyArguments(options, arguments, 'moveRows.api'), false);
 }
