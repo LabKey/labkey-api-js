@@ -234,13 +234,13 @@ export interface Command {
 
 export interface  MoveRowsResponse extends ModifyRowsResults {
     /** The container path in which the rows were moved. */
-    containerPath: string;
+    containerPath?: string;
     /** A string describing any error that occurred during the action. */
     error?: string;
     /** Indicates if the action was successful. */
     success: boolean;
     /** An object with key/value pairs describing the number of items moved during the action. */
-    updateCounts: Record<string, number>;
+    updateCounts?: Record<string, number>;
 }
 
 export interface SaveRowsResponse {
@@ -435,7 +435,8 @@ export interface MoveRowsOptions extends QueryRequestOptions {
      */
     targetContainerPath: string;
     /**
-     * Used in conjunction with dataRegionSelectionKey to specify whether to use the current selection or the snapshot selection.
+     * Used in conjunction with dataRegionSelectionKey to specify whether to use the current selection
+     * or the snapshot selection.
      * */
     useSnapshotSelection?: boolean;
 }
