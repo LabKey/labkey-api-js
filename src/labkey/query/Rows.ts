@@ -427,9 +427,17 @@ export function updateRows(options: QueryRequestOptions): XMLHttpRequest {
 
 export interface MoveRowsOptions extends QueryRequestOptions {
     /**
+     * The data region selectionKey to use to get the rowIds to be moved if not rows param is provided.
+     */
+    dataRegionSelectionKey?: string;
+    /**
      * The target container in which the rows should be moved.
      */
     targetContainerPath: string;
+    /**
+     * Used in conjunction with dataRegionSelectionKey to specify whether to use the current selection or the snapshot selection.
+     * */
+    useSnapshotSelection?: boolean;
 }
 
 /**
@@ -440,5 +448,24 @@ export interface MoveRowsOptions extends QueryRequestOptions {
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function moveRows(options: MoveRowsOptions): XMLHttpRequest {
-    return sendRequest(applyArguments(options, arguments, 'moveRows.api'), false);
+    const jsonData = {
+        targetContainerPath: options.targetContainerPath,
+        schemaName: options.schemaName,
+        queryName: options.queryName,
+        rows: options.rows,
+        auditBehavior: options.auditBehavior,
+        auditUserComment: options.auditUserComment,
+        dataRegionSelectionKey: options.dataRegionSelectionKey,
+        useSnapshotSelection: options.useSnapshotSelection,
+        extraContext: options.extraContext,
+    };
+
+    return request({
+        url: buildURL('query', 'moveRows.api', options.containerPath),
+        method: 'POST',
+        jsonData,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        timeout: options.timeout,
+    });
 }
