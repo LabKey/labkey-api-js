@@ -232,6 +232,17 @@ export interface Command {
     schemaName: string;
 }
 
+export interface  MoveRowsResponse extends ModifyRowsResults {
+    /** The container path in which the rows were moved. */
+    containerPath?: string;
+    /** A string describing any error that occurred during the action. */
+    error?: string;
+    /** Indicates if the action was successful. */
+    success: boolean;
+    /** An object with key/value pairs describing the number of items moved during the action. */
+    updateCounts?: Record<string, number>;
+}
+
 export interface SaveRowsResponse {
     /** Indicates if the changes were actually committed to the database. */
     committed: boolean;
@@ -412,4 +423,50 @@ export function truncateTable(options: QueryRequestOptions): XMLHttpRequest {
  */
 export function updateRows(options: QueryRequestOptions): XMLHttpRequest {
     return sendRequest(applyArguments(options, arguments, 'updateRows.api'), true);
+}
+
+export interface MoveRowsOptions extends QueryRequestOptions {
+    /**
+     * The data region selectionKey to use to get the rowIds to be moved if not rows param is provided.
+     */
+    dataRegionSelectionKey?: string;
+    /**
+     * The target container in which the rows should be moved.
+     */
+    targetContainerPath: string;
+    /**
+     * Used in conjunction with dataRegionSelectionKey to specify whether to use the current selection
+     * or the snapshot selection.
+     * */
+    useSnapshotSelection?: boolean;
+}
+
+/**
+ * Move a set of rows from the source container to a target container for a table.
+ *
+ * @returns In client-side scripts, this method will return a transaction id
+ * for the async request that can be used to cancel the request. In server-side scripts,
+ * this method will return the JSON response object (first parameter of the success or failure callbacks).
+ */
+export function moveRows(options: MoveRowsOptions): XMLHttpRequest {
+    const jsonData = {
+        targetContainerPath: options.targetContainerPath,
+        schemaName: options.schemaName,
+        queryName: options.queryName,
+        rows: options.rows,
+        auditBehavior: options.auditBehavior,
+        auditUserComment: options.auditUserComment,
+        dataRegionSelectionKey: options.dataRegionSelectionKey,
+        useSnapshotSelection: options.useSnapshotSelection,
+        extraContext: options.extraContext,
+    };
+
+    return request({
+        url: buildURL('query', 'moveRows.api', options.containerPath),
+        method: 'POST',
+        jsonData,
+        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        timeout: options.timeout,
+    });
 }

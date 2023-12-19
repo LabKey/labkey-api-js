@@ -1,3 +1,6 @@
+### 1.28.0 - 2023-12-19
+- Add `moveRows` to `Query` module, along with related types: `MoveRowsOptions` and `MoveRowsResponse`
+
 ### 1.27.1 - 2023-11-9
 - Fix `Utils.encodeHtml` by adding necessary semicolon
 
