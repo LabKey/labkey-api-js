@@ -99,6 +99,7 @@ export interface QueryDetailsResponse {
     name: string;
     schemaName: string;
     targetContainers: Container[];
+    templateColumn : QueryColumn;
     title: string;
     titleColumn: string;
     viewDataUrl: string;
@@ -171,10 +172,51 @@ export function getQueryDetails(options: GetQueryDetailsOptions): XMLHttpRequest
         params.includeTriggers = options.includeTriggers;
     }
 
+
+    function _expandColumnMetaData(template : any, col : any)
+    {
+        const name = col.name;
+        for (let key in ['fieldKey', 'fieldKeyPath', 'shortCaption', 'caption']) {
+            if (!(key in col))
+                col[key] = name;
+        }
+        if (!('fieldKeyArray' in col))
+            col['fieldKeyArray'] = [name];
+        return Object.assign(Object.assign({}, template), col);
+    }
+
+    function _transformQueryDetailsResponse(json : any) : any
+    {
+        const template = json.templateColumn;
+        // if null==template we don't do any compression, including name/fieldKey/caption etc
+        if (!template)
+            return json;
+        if (Array.isArray(json.columns)) {
+            let columns = json.columns;
+            for (let i in columns)
+                columns[i] = _expandColumnMetaData(template, columns[i]);
+        }
+        if (json.defaultView && Array.isArray(json.defaultView.columns)) {
+            let columns = json.defaultView.columns;
+            for (let i in columns)
+                columns[i] = _expandColumnMetaData(template, columns[i]);
+        }
+        if (Array.isArray(json.views)) {
+            for (let v in json.views) {
+                if (Array.isArray(json.views[v].fields)) {
+                    let columns = json.views[v].fields;
+                    for (let i in columns)
+                        columns[i] = _expandColumnMetaData(template, columns[i]);
+                }
+            }
+        }
+        return json;
+    }
+
     return request({
-        url: buildURL('query', 'getQueryDetails.api', options.containerPath),
+        url: buildURL('query', 'getQueryDetails2.api', options.containerPath),
         method: getMethod(options.method),
-        success: getCallbackWrapper(getOnSuccess(options), options.scope),
+        success: getCallbackWrapper(getOnSuccess(options), options.scope, false, _transformQueryDetailsResponse),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params,
     });
