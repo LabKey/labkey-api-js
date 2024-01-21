@@ -1,3 +1,7 @@
+### 1.X - 2024-01-X
+- Add Container.formats.timeFormat
+- Support filter 'time' JsonType
+
 ### 1.28.0 - 2023-12-19
 - Add `moveRows` to `Query` module, along with related types: `MoveRowsOptions` and `MoveRowsResponse`
 
