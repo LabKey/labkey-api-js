@@ -4,7 +4,7 @@ import { getCallbackWrapper } from './Utils';
 import { LabKey, setServerContext } from './constants';
 
 export type LoadServerContextOptions = {
-    applyContext?: boolean;
+    applyContextGlobally?: boolean;
     containerPath?: string;
 };
 
@@ -14,7 +14,7 @@ export function loadServerContext(options: LoadServerContextOptions): Promise<La
             url: buildURL('project', 'context.api', options?.containerPath),
             method: 'POST',
             success: getCallbackWrapper((context: LabKey) => {
-                if (options?.applyContext !== false) {
+                if (options?.applyContextGlobally) {
                     setServerContext(context);
                 }
                 resolve(context);
