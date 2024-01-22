@@ -47,7 +47,7 @@ import * as Query from './labkey/Query';
 import { QueryKey } from './labkey/QueryKey';
 import * as Report from './labkey/Report';
 import { SchemaKey } from './labkey/SchemaKey';
-import { loadServerContext } from './labkey/ServerContext';
+import { loadServerContext, LoadServerContextOptions } from './labkey/ServerContext';
 import * as Security from './labkey/Security';
 import * as Specimen from './labkey/Specimen';
 import * as Storage from './labkey/Storage';
@@ -65,6 +65,7 @@ export {
     LabKey,
     getServerContext,
     loadServerContext,
+    LoadServerContextOptions,
     PermissionRoles,
     PermissionTypes,
     User,
