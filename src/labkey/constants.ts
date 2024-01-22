@@ -177,6 +177,10 @@ export function getServerContext(): LabKey {
     return LABKEY;
 }
 
+export function setServerContext(context: LabKey): void {
+    (LABKEY as any).init?.(context);
+}
+
 export function setGlobalUser(user: UserWithPermissions): LabKey {
     LABKEY.user = user;
     return LABKEY;
