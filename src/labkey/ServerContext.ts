@@ -8,7 +8,7 @@ export type LoadServerContextOptions = {
     containerPath?: string;
 };
 
-export async function loadServerContext(options: LoadServerContextOptions): Promise<LabKey> {
+export function loadServerContext(options: LoadServerContextOptions): Promise<LabKey> {
     return new Promise((resolve, reject) => {
         request({
             url: buildURL('project', 'context.api', options?.containerPath),
@@ -19,9 +19,13 @@ export async function loadServerContext(options: LoadServerContextOptions): Prom
                 }
                 resolve(context);
             }),
-            failure: getCallbackWrapper((error: any) => {
-                reject(error);
-            }, undefined, true),
+            failure: getCallbackWrapper(
+                (error: any) => {
+                    reject(error);
+                },
+                undefined,
+                true
+            ),
         });
     });
 }
