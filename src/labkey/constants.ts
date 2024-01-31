@@ -28,6 +28,7 @@ export interface Container {
         dateFormat: string;
         dateTimeFormat: string;
         numberFormat: string;
+        timeFormat: string;
     };
     /** True if any active modules in this container require site permissions. */
     hasRestrictedActiveModule: boolean;

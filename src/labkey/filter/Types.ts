@@ -359,12 +359,11 @@ export const Types: Record<string, IFilterType> = {
     EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', null, 'exp:lineageof', true, ',', ' in the lineage of'),
 };
 
-export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string';
+export type JsonType = 'boolean' | 'date' | 'float' | 'int' | 'string' | 'time';
 
 export const TYPES_BY_JSON_TYPE: Record<string, IFilterType[]> = {
     boolean: [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
     date: [
-        Types.HAS_ANY_VALUE,
         Types.DATE_EQUAL,
         Types.DATE_NOT_EQUAL,
         Types.ISBLANK,
@@ -373,6 +372,18 @@ export const TYPES_BY_JSON_TYPE: Record<string, IFilterType[]> = {
         Types.DATE_LESS_THAN,
         Types.DATE_GREATER_THAN_OR_EQUAL,
         Types.DATE_LESS_THAN_OR_EQUAL,
+    ],
+    time: [
+        Types.EQUAL,
+        Types.NEQ_OR_NULL,
+        Types.ISBLANK,
+        Types.NONBLANK,
+        Types.GT,
+        Types.LT,
+        Types.GTE,
+        Types.LTE,
+        Types.BETWEEN,
+        Types.NOT_BETWEEN,
     ],
     float: [
         Types.HAS_ANY_VALUE,
