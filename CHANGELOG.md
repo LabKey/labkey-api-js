@@ -1,4 +1,4 @@
-### 1.X - 2024-01-X
+### 1.29.0 - 2024-01-31
 - Add Container.formats.timeFormat
 - Support filter 'time' JsonType
 
