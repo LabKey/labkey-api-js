@@ -21,6 +21,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     allowCrossRunFileInputs?: boolean;
     allowLookupByAlternateKey?: boolean;
     assayId?: number | string;
+    auditUserComment?: string;
     batchId?: number | string;
     batchProperties?: any;
     comment?: string;
@@ -105,6 +106,9 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
     }
     if (options.allowLookupByAlternateKey !== undefined) {
         formData.append('allowLookupByAlternateKey', options.allowLookupByAlternateKey ? 'true' : 'false');
+    }
+    if (options.auditUserComment !== undefined) {
+        formData.append('auditUserComment', options.auditUserComment);
     }
 
     if (options.properties) {
