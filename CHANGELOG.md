@@ -1,3 +1,6 @@
+### 1.30.0 - 2024-03-11
+- Update `IImportDataOptions` and `ImportRunOptions` to include optional `auditUserComment` 
+
 ### 1.29.0 - 2024-01-31
 - Add Container.formats.timeFormat
 - Support filter 'time' JsonType
