@@ -121,6 +121,7 @@ export type LabKey = {
     impersonatingUser?: Partial<UserWithPermissions>;
     isDocumentClosed: string;
     jdkJavaDocLinkPrefix: string;
+    login: any;
     moduleContext?: Record<string, any>;
     pageAdminMode: boolean;
     postParameters?: any;

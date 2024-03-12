@@ -1,3 +1,6 @@
+### TBD
+- Issue 49870: Add "login" to LabKey typing
+
 ### 1.30.0 - 2024-03-11
 - Update `IImportDataOptions` and `ImportRunOptions` to include optional `auditUserComment` 
 
