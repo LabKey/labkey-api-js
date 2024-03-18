@@ -1,3 +1,6 @@
+### TBD - TBD
+- Add `MoveEntities` permission type
+
 ### 1.30.0 - 2024-03-11
 - Update `IImportDataOptions` and `ImportRunOptions` to include optional `auditUserComment` 
 
