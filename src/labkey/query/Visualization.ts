@@ -76,6 +76,9 @@ export interface IDateOptions {
 export interface IDimensionLike {}
 
 export interface VisualizationGetResponse {
+    canDelete: boolean;
+    canEdit: boolean;
+    canShare: boolean;
     createdBy: number;
     description: string;
     name: string;
