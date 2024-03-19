@@ -68,6 +68,7 @@ export enum PermissionTypes {
     ReadNotebooks = 'org.labkey.api.security.permissions.NotebookReadPermission',
     ReadSome = 'org.labkey.api.security.permissions.ReadSomePermission',
     SampleWorkflowDelete = 'org.labkey.api.security.permissions.SampleWorkflowDeletePermission',
+    ShareReportPermission = 'org.labkey.api.reports.permissions.ShareReportPermission',
     Update = 'org.labkey.api.security.permissions.UpdatePermission',
     UserManagement = 'org.labkey.api.security.permissions.UserManagementPermission',
 }

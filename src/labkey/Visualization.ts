@@ -27,6 +27,7 @@ import {
     Measure,
     save,
     Type,
+    VisualizationGetResponse,
 } from './query/Visualization';
 import { TAggregate, TInterval } from './query/visualization/constants';
 
@@ -46,4 +47,5 @@ export {
     TAggregate,
     TInterval,
     Type,
+    VisualizationGetResponse,
 };
