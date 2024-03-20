@@ -81,6 +81,7 @@ export interface VisualizationGetResponse {
     canShare: boolean;
     createdBy: number;
     description: string;
+    id: string;
     name: string;
     ownerId: any;
     queryName: string;
