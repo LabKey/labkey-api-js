@@ -1,5 +1,5 @@
 ### TBD
-- Issue 49870: Add "login" to LabKey typing
+- Issue 49870: Add "login" and "PasswordGauge" to LabKey typing
 - Add PermissionTypes.ShareReportPermission
 - Update VisualizationGetResponse to include canDelete, canEdit, and canShare
 

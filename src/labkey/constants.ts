@@ -90,11 +90,18 @@ export type ExperimentalFlags = {
     [key in ExperimentalFeatures]: boolean;
 };
 
+export type LoginConfiguration = {
+    hasOtherLoginMechanisms: boolean;
+    registrationEnabled: boolean;
+    requiresTermsOfUse: boolean;
+};
+
 export const CSRF_HEADER = 'X-LABKEY-CSRF';
 
 export type LabKey = {
     CSRF: string;
     Mothership: any;
+    PasswordGauge: any;
     Security: any;
     SecurityPolicy: any;
     WebSocket: any;
@@ -121,7 +128,7 @@ export type LabKey = {
     impersonatingUser?: Partial<UserWithPermissions>;
     isDocumentClosed: string;
     jdkJavaDocLinkPrefix: string;
-    login: any;
+    login: LoginConfiguration;
     moduleContext?: Record<string, any>;
     pageAdminMode: boolean;
     postParameters?: any;
