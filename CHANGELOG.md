@@ -1,4 +1,4 @@
-### TBD - TBD
+### 1.32.0 - 2024-03-21
 - Add `MoveEntities` permission type
 
 ### 1.31.0 - 2024-03-21
