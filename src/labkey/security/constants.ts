@@ -60,6 +60,7 @@ export enum PermissionTypes {
     Insert = 'org.labkey.api.security.permissions.InsertPermission',
     ManagePicklists = 'org.labkey.api.lists.permissions.ManagePicklistsPermission',
     ManageSampleWorkflows = 'org.labkey.api.security.permissions.SampleWorkflowJobPermission',
+    MoveEntities = 'org.labkey.api.security.permissions.MoveEntitiesPermission',
     QCAnalyst = 'org.labkey.api.security.permissions.QCAnalystPermission',
     Read = 'org.labkey.api.security.permissions.ReadPermission',
     ReadAssay = 'org.labkey.api.security.permissions.AssayReadPermission',

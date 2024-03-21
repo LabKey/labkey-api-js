@@ -1,3 +1,6 @@
+### 1.32.0 - 2024-03-21
+- Add `MoveEntities` permission type
+
 ### 1.31.0 - 2024-03-21
 - Issue 49870: Add "login" and "PasswordGauge" to LabKey typing
 - Add PermissionTypes.ShareReportPermission
