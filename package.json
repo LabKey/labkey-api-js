@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "1.30.1-crossFolderPermMessage.0",
+  "version": "1.31.1-crossFolderPermMessage.0",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",

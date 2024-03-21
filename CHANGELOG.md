@@ -1,6 +1,11 @@
 ### TBD - TBD
 - Add `MoveEntities` permission type
 
+### 1.31.0 - 2024-03-21
+- Issue 49870: Add "login" and "PasswordGauge" to LabKey typing
+- Add PermissionTypes.ShareReportPermission
+- Update VisualizationGetResponse to include canDelete, canEdit, and canShare
+
 ### 1.30.0 - 2024-03-11
 - Update `IImportDataOptions` and `ImportRunOptions` to include optional `auditUserComment` 
 
