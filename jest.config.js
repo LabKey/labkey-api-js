@@ -8,6 +8,9 @@ module.exports = {
         }
     },
     moduleFileExtensions: ['ts', 'js'],
+    moduleNameMapper: {
+        '^sinon$': require.resolve('sinon'),
+    },
     testEnvironment: 'jsdom',
     testResultsProcessor: 'jest-teamcity-reporter',
     testRegex: '(\\.(spec))\\.(ts)$',

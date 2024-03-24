@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 
 import * as Ajax from './Ajax';
 import { getFilenameFromContentDisposition } from './Ajax';
