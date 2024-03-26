@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.24.3",
-    "@labkey/eslint-config-base": "0.0.12",
+    "@labkey/eslint-config-base": "0.0.14",
     "@types/jest": "29.5.12",
     "@types/sinon": "17.0.3",
     "cross-env": "7.0.3",
