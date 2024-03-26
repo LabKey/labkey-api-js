@@ -1,3 +1,6 @@
+### 1.33.0 - 2024-03-26
+- Package updates
+
 ### 1.32.0 - 2024-03-21
 - Add `MoveEntities` permission type
 
