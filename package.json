@@ -25,11 +25,7 @@
   "files": [
     "dist/"
   ],
-  "author": {
-    "name": "Nick Kerr",
-    "email": "nickk@labkey.com",
-    "url": "https://www.labkey.org"
-  },
+  "author": "LabKey",
   "repository": {
     "type": "git",
     "url": "https://github.com/LabKey/labkey-api-js.git"
