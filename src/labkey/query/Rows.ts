@@ -232,7 +232,7 @@ export interface Command {
     schemaName: string;
 }
 
-export interface  MoveRowsResponse extends ModifyRowsResults {
+export interface MoveRowsResponse extends ModifyRowsResults {
     /** The container path in which the rows were moved. */
     containerPath?: string;
     /** A string describing any error that occurred during the action. */

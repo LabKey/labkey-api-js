@@ -22,28 +22,28 @@ describe('List', () => {
         it('should require list name', () => {
             expect(() => {
                 create({});
-            }).toThrowError('List name required');
+            }).toThrow('List name required');
             expect(() => {
                 create({ name: undefined });
-            }).toThrowError('List name required');
+            }).toThrow('List name required');
         });
 
         it('should require kind or valid keyType', () => {
             expect(() => {
                 create({ name: 'myList' });
-            }).toThrowError('List kind or keyType required');
+            }).toThrow('List kind or keyType required');
             expect(() => {
                 create({ name: 'myList', keyType: 'invalidKeyType' });
-            }).toThrowError('List kind or keyType required');
+            }).toThrow('List kind or keyType required');
         });
 
         it('should require keyName or options.keyName', () => {
             expect(() => {
                 create({ name: 'myList', kind: 'IntList' });
-            }).toThrowError('List keyName or options.keyName required');
+            }).toThrow('List keyName or options.keyName required');
             expect(() => {
                 create({ name: 'myList', keyName: undefined, kind: 'IntList' });
-            }).toThrowError('List keyName or options.keyName required');
+            }).toThrow('List keyName or options.keyName required');
         });
 
         it('should support deprecated keyName', () => {

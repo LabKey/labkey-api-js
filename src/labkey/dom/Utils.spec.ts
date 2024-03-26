@@ -22,7 +22,7 @@ describe('dom/Utils', () => {
             const { $ } = loadDOMContext();
             expect(() => {
                 $();
-            }).toThrowError('jQuery');
+            }).toThrow('jQuery');
         });
     });
 

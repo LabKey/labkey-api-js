@@ -47,10 +47,10 @@ describe('request', () => {
     it('should require configuration', () => {
         expect(() => {
             (Ajax.request as any)();
-        }).toThrowError('a URL is required to make a request');
+        }).toThrow('a URL is required to make a request');
         expect(() => {
             (Ajax.request as any)({});
-        }).toThrowError('a URL is required to make a request');
+        }).toThrow('a URL is required to make a request');
     });
     it('should make request with only url', () => {
         expect(request({ url: '/users' }).url).toEqual('/users');
@@ -136,8 +136,14 @@ describe('getFilenameFromContentDisposition', () => {
     });
 
     it('should use the first filename specified', () => {
-        expect(getFilenameFromContentDisposition('attachment; filename*=data.xlsx; filename=other.csv')).toBe('data.xlsx');
-        expect(getFilenameFromContentDisposition('attachment; filename=data.xlsx; filename*=other.csv')).toBe('data.xlsx');
-        expect(getFilenameFromContentDisposition("attachment; filename*=UTF-8''d%20ata.xlsx; filename=other.csv")).toBe('d ata.xlsx');
+        expect(getFilenameFromContentDisposition('attachment; filename*=data.xlsx; filename=other.csv')).toBe(
+            'data.xlsx'
+        );
+        expect(getFilenameFromContentDisposition('attachment; filename=data.xlsx; filename*=other.csv')).toBe(
+            'data.xlsx'
+        );
+        expect(getFilenameFromContentDisposition("attachment; filename*=UTF-8''d%20ata.xlsx; filename=other.csv")).toBe(
+            'd ata.xlsx'
+        );
     });
 });

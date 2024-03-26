@@ -30,13 +30,13 @@ describe('selectRows', () => {
     it('should error without required properties', () => {
         expect(() => {
             (selectRows as any)();
-        }).toThrowError('You must specify a schemaName!');
+        }).toThrow('You must specify a schemaName!');
         expect(() => {
             (selectRows as any)({ schemaName: '', queryName: '' });
-        }).toThrowError('You must specify a schemaName!');
+        }).toThrow('You must specify a schemaName!');
         expect(() => {
             (selectRows as any)({ schemaName: 'SSS' });
-        }).toThrowError('You must specify a queryName!');
+        }).toThrow('You must specify a queryName!');
     });
 
     it('should support original method signature', () => {
