@@ -1,3 +1,6 @@
+### 1.33.1 - 2024-0X
+- Add LabKey.labels
+
 ### 1.33.0 - 2024-03-26
 - Package updates
 
