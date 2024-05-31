@@ -36,7 +36,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     plateMetadata?: any;
     properties?: any;
     reRunId?: number | string;
-    resultsFiles?: any[];
+    resultsFiles?: File[];
     runFilePath?: string;
     saveDataAsFile?: boolean;
     workflowTask?: number;
