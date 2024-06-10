@@ -36,6 +36,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     plateMetadata?: any;
     properties?: any;
     reRunId?: number | string;
+    resultsFiles?: File[];
     runFilePath?: string;
     saveDataAsFile?: boolean;
     workflowTask?: number;
@@ -143,6 +144,12 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
         formData.append('file', files[0]);
         for (let i = 0; i < files.length; i++) {
             formData.append('file' + i, files[i]);
+        }
+    }
+
+    if (options.resultsFiles && options.resultsFiles.length > 0) {
+        for (let i = 0; i < options.resultsFiles.length; i++) {
+            formData.append('resultsFile', options.resultsFiles[i]);
         }
     }
 
