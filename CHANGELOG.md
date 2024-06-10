@@ -1,4 +1,4 @@
-### TBD
+### 1.34.0 - 2024-06-10
 - Add `resultsFiles` to ImportRunOptions and importRun() in Assay.ts
 
 ### 1.33.0 - 2024-03-26
