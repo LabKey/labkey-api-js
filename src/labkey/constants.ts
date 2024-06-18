@@ -138,6 +138,7 @@ export type LabKey = {
     serverName: string;
     sharedContainer?: string;
     submit: boolean;
+    timezone: string;
     tours: any;
     unloadMessage: string;
     useMDYDateParsing?: boolean;
