@@ -1,3 +1,6 @@
+### 1.34.1 - 2024-06-18
+- Issue 50533: furnish server's timezone in server context
+
 ### 1.34.0 - 2024-06-10
 - Add `resultsFiles` to ImportRunOptions and importRun() in Assay.ts
 
