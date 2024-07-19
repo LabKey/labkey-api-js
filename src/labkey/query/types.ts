@@ -79,6 +79,7 @@ export interface QueryColumn {
     typeName?: string;
     typeURI?: string;
     userEditable: boolean;
+    valueExpression?: string;
     versionField: boolean;
     xtype?: string;
 }
