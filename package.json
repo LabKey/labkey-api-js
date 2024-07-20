@@ -35,7 +35,7 @@
     "registry": "https://labkey.jfrog.io/artifactory/api/npm/libs-client"
   },
   "devDependencies": {
-    "@babel/core": "7.24.8",
+    "@babel/core": "7.24.9",
     "@labkey/eslint-config-base": "0.0.14",
     "@types/jest": "29.5.12",
     "@types/sinon": "17.0.3",
@@ -44,9 +44,9 @@
     "jest": "29.7.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-teamcity-reporter": "0.9.0",
-    "rimraf": "5.0.9",
+    "rimraf": "6.0.1",
     "sinon": "18.0.0",
-    "ts-jest": "29.2.2",
+    "ts-jest": "29.2.3",
     "ts-loader": "9.5.1",
     "typedoc": "0.26.4",
     "typescript": "5.5.3",
