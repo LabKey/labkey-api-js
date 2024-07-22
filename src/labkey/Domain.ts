@@ -390,19 +390,24 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
               }
             : config;
 
+    const json = {
+        domainDesign: options.domainDesign,
+        schemaName: options.schemaName,
+        queryName: options.queryName,
+        domainId: options.domainId,
+        includeWarnings: options.includeWarnings,
+        options: options.options,
+    };
+
+    delete json.domainDesign.calculatedFields;
+    delete json.domainDesign.standardFields;
+
     return request({
         url: buildURL('property', 'saveDomain.api', options.containerPath),
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
-        jsonData: {
-            domainDesign: options.domainDesign,
-            schemaName: options.schemaName,
-            queryName: options.queryName,
-            domainId: options.domainId,
-            includeWarnings: options.includeWarnings,
-            options: options.options,
-        },
+        jsonData: json,
     });
 }
 
