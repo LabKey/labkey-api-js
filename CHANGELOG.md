@@ -1,6 +1,5 @@
 ### TBD
 - Add valueExpression to QueryColumn type
-- Remove standardFields and calculated fields from DomainDesign on save
 
 ### 1.34.1 - 2024-06-18
 - Issue 50533: furnish server's timezone in server context
