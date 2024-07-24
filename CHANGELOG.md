@@ -1,4 +1,7 @@
-### 1.34.2 - 2024-06-24
+### 1.35.0 - 2024-07-24
+- Package updates
+
+### 1.34.2 - 2024-07-24
 - Add valueExpression to QueryColumn type
 
 ### 1.34.1 - 2024-06-18
