@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.24.9",
-    "@labkey/eslint-config-base": "0.0.15-fb-package-updates-0724.2",
+    "@labkey/eslint-config-base": "0.0.15",
     "@types/jest": "29.5.12",
     "@types/sinon": "17.0.3",
     "cross-env": "7.0.3",
