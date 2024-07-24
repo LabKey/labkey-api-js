@@ -1,3 +1,6 @@
+### 1.34.2 - 2024-06-24
+- Add valueExpression to QueryColumn type
+
 ### 1.34.1 - 2024-06-18
 - Issue 50533: furnish server's timezone in server context
 
