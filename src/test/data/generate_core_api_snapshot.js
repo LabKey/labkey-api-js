@@ -6,9 +6,7 @@
  * file-based module view with an "app" template and "none" frame. Something like:
  *
  * <view xmlns="http://labkey.org/data/xml/view" template="app" frame="none">
- *   <permissions>
- *     <permission name="none"/>
- *   </permissions>
+ *   <requiresNoPermission/>
  *   <dependencies>
  *   </dependencies>
  * </view>
