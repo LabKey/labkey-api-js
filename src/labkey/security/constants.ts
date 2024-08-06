@@ -100,22 +100,7 @@ export const effectivePermissions = {
 };
 
 /**
- * A map of the various permission bits supported in the LabKey Server.
- * You can use these values with the hasPermission() method to test if
- * a user or group has a particular permission. The values in this map
- * are as follows:
- * <ul>
- * <li>read</li>
- * <li>insert</li>
- * <li>update</li>
- * <li>del</li>
- * <li>readOwn</li>
- * <li>updateOwn</li>
- * <li>deleteOwn</li>
- * <li>all</li>
- * </ul>
- * For example, to refer to the update permission, the syntax would be:<br/>
- * <pre><code>LABKEY.Security.permissions.update</code></pre>
+ * @deprecated Do not use this. Use PermissionTypes and hasEffectivePermissions() instead.
  */
 export const permissions = {
     read: 1,
@@ -130,18 +115,8 @@ export const permissions = {
 };
 
 /**
- * A map of the various permission roles exposed in the user interface.
- * The members are as follows:
- * <ul>
- * <li>admin</li>
- * <li>editor</li>
- * <li>author</li>
- * <li>reader</li>
- * <li>restrictedReader</li>
- * <li>noPerms</li>
- * </ul>
- * For example, to refer to the author role, the syntax would be:<br/>
- * <pre><code>LABKEY.Security.roles.author</code></pre>
+ * @deprecated Do not use this. Use the roles array in the various responses and the
+ * getRoles() method to obtain extra information about each role.
  */
 export const roles: {
     [key: string]: number;
