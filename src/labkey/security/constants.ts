@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { getServerContext } from '../constants';
-import { hasEffectivePermission } from './Permission';
+import { getRoles, hasEffectivePermission } from './Permission';
 
 /**
  * Exposes limited information about the current container.
@@ -113,6 +113,22 @@ export const permissions = {
     deleteOwn: 128,
     admin: 32768,
     all: 65535,
+};
+
+/**
+ * @deprecated Do not use this. Use the roles array in the various responses and {@link getRoles}
+ * to obtain extra information about each role.
+ */
+export const roles: {
+    [key: string]: number;
+} = {
+    admin: 65535,
+    editor: 15,
+    author: 195,
+    reader: 1,
+    restrictedReader: 16,
+    submitter: 2,
+    noPerms: 0,
 };
 
 /**

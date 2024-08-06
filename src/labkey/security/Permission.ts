@@ -17,6 +17,7 @@ import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
 import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions } from '../Utils';
 
+import { roles } from './constants';
 import { Group, SecurableResource } from './types';
 
 export interface PermissionsContainer {
@@ -72,22 +73,6 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
     });
 }
-
-/**
- * @deprecated Do not use this. Use the roles array in the various responses and {@link getRoles}
- * to obtain extra information about each role.
- */
-export const roles: {
-    [key: string]: number;
-} = {
-    admin: 65535,
-    editor: 15,
-    author: 195,
-    reader: 1,
-    restrictedReader: 16,
-    submitter: 2,
-    noPerms: 0,
-};
 
 /**
  * Returns the name of the security role represented by the permissions passed as 'perms'.
