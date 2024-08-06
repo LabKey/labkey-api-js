@@ -16,6 +16,7 @@
 import { buildURL } from '../ActionURL';
 import { request } from '../Ajax';
 import { FieldKey } from '../FieldKey';
+import { create, Types } from '../Filter';
 import { SchemaKey } from '../SchemaKey';
 import { decode, isArray, isFunction, isString, wafEncode } from '../Utils';
 

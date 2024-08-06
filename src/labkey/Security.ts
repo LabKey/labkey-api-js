@@ -20,7 +20,6 @@ import {
     PermissionRoles,
     PermissionTypes,
     permissions,
-    roles,
     systemGroups,
 } from './security/constants';
 import {
@@ -67,6 +66,7 @@ import {
     hasPermission,
     PermissionsContainer,
     PermissionsResponse,
+    roles,
     Role,
     RolePermission,
     SchemaPermissionsResponse,

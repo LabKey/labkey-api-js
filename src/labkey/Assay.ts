@@ -15,7 +15,7 @@
  */
 import { buildURL } from './ActionURL';
 import { request } from './Ajax';
-import { appendFilterParams, IFilter } from './filter/Filter';
+import { appendFilterParams, create, IFilter } from './filter/Filter';
 import { QueryColumn } from './query/types';
 import {
     applyTranslated,
@@ -229,7 +229,7 @@ export interface GetNAbRunsOptions extends RequestCallbackOptions {
     /** Whether neutralization should be calculated on the server. */
     calculateNeut?: boolean;
     /**
-     * The path to the container in which the schema and query are defined, if different than the current container.
+     * The path to the container in which the schema and query are defined, if different from the current container.
      * If not supplied, the current container's path will be used.
      */
     containerPath?: string;
@@ -308,7 +308,7 @@ export interface GetStudyNabGraphURLOptions extends RequestCallbackOptions<GetSt
     /** The desired title for the chart. Defaults to no title. */
     chartTitle?: string;
     /**
-     * The path to the study container containing the NAb summary data, if different than the current container.
+     * The path to the study container containing the NAb summary data, if different from the current container.
      * If not supplied, the current container's path will be used.
      */
     containerPath?: string;

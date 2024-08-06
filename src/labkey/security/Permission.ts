@@ -17,7 +17,6 @@ import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
 import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions } from '../Utils';
 
-import { roles } from './constants';
 import { Group, SecurableResource } from './types';
 
 export interface PermissionsContainer {
@@ -75,12 +74,28 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
 }
 
 /**
+ * @deprecated Do not use this. Use the roles array in the various responses and {@link getRoles}
+ * to obtain extra information about each role.
+ */
+export const roles: {
+    [key: string]: number;
+} = {
+    admin: 65535,
+    editor: 15,
+    author: 195,
+    reader: 1,
+    restrictedReader: 16,
+    submitter: 2,
+    noPerms: 0,
+};
+
+/**
  * Returns the name of the security role represented by the permissions passed as 'perms'.
  * The return value will be the name of a property in the LABKEY.Security.roles map.
  * This is a local function, and does not make a call to the server.
  * @param {int} perms The permissions set
- * @deprecated Do not use this anymore. Use the roles array in the various responses and the
- * getRoles() method to obtain extra information about each role.
+ * @deprecated Do not use this anymore. Use the roles array in the various responses and {@link getRoles}
+ * to obtain extra information about each role.
  */
 export function getRole(perms: number): string {
     for (const role in roles) {
@@ -310,7 +325,7 @@ export interface UserPermissionsContainer extends PermissionsContainer {
     /**
      * An array of role unique names that this group is playing in the container. This replaces the
      * existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
-     * and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
+     * and each role grants the user a set of permissions. Use {@link getRoles} to retrieve information
      * about the roles, including which permissions are granted by each role.
      */
     roles: string[];
@@ -384,7 +399,7 @@ export function hasEffectivePermission(effectivePermissions: string[], desiredPe
 }
 
 /**
- * @deprecated Do not use! Use hasEffectivePermission() instead. This will be removed soon.
+ * @deprecated Do not use! Use {@link hasEffectivePermission} instead. This will be removed soon.
  */
 export function hasPermission(perms: number, perm: number): number {
     return perms & perm;

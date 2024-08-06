@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { CSRF_HEADER, getServerContext } from './constants';
-import { queryString } from './ActionURL';
+import { buildURL, queryString } from './ActionURL';
 
 const { CSRF, defaultHeaders } = getServerContext();
 
