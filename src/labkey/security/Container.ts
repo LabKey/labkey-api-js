@@ -141,8 +141,7 @@ export interface ContainerHierarchy extends Container {
      */
     moduleProperties: ModuleProperty[];
     /**
-     * @deprecated
-     * The permissions the current user has in the container.
+     * @deprecated No longer provided unless a server-side deprecated feature flag is turned on
      */
     userPermissions: number;
 }

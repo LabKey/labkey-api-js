@@ -79,8 +79,8 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
  * The return value will be the name of a property in the LABKEY.Security.roles map.
  * This is a local function, and does not make a call to the server.
  * @param {int} perms The permissions set
- * @deprecated Do not use this anymore. Use the roles array in the various responses and the
- * getRoles() method to obtain extra information about each role.
+ * @deprecated Do not use this anymore. Use the roles array in the various responses and {@link getRoles}
+ * to obtain extra information about each role.
  */
 export function getRole(perms: number): string {
     for (const role in roles) {
@@ -310,7 +310,7 @@ export interface UserPermissionsContainer extends PermissionsContainer {
     /**
      * An array of role unique names that this group is playing in the container. This replaces the
      * existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
-     * and each role grants the user a set of permissions. Use the getRoles() method to retrieve information
+     * and each role grants the user a set of permissions. Use {@link getRoles} to retrieve information
      * about the roles, including which permissions are granted by each role.
      */
     roles: string[];
@@ -344,7 +344,7 @@ export interface GetUserPermissionsOptions extends RequestCallbackOptions<GetUse
 
 /**
  * Returns information about a user's permissions within a container.
- * If an user id is not specified, then this will return information about the current user.
+ * If a user id is not specified, then this will return information about the current user.
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
@@ -384,13 +384,8 @@ export function hasEffectivePermission(effectivePermissions: string[], desiredPe
 }
 
 /**
- * Returns 1 if the permission passed in 'perm' is on in the permissions
- * set passed as 'perms'. This is a local function and does not make a call to the server.
- * @param perms The permission set, typically retrieved for a given user or group.
- * @param perm A specific permission bit to check for.
+ * @deprecated Do not use! Use {@link hasEffectivePermission} instead. This will be removed soon.
  */
 export function hasPermission(perms: number, perm: number): number {
-    // TODO: This says it returns true (or implied false), but it really returns 0 or 1.
-    // Could change to (perms & perm) === 1, however, that would change the return type.
     return perms & perm;
 }

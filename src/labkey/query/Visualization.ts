@@ -167,7 +167,7 @@ export interface IGetDataOptions extends RequestCallbackOptions {
 export interface IGetDataSortable {}
 
 /**
- * Returns a resultset suitable for visualization based on requested measures and dimensions.
+ * Returns a result set suitable for visualization based on requested measures and dimensions.
  */
 export function getData(options: IGetDataOptions): XMLHttpRequest {
     const jsonData: any = {
@@ -348,7 +348,7 @@ export interface IMeasureable {
      */
     dateOptions?: IDateOptions;
 
-    /** Used to pivot a resultset into multiple series.  Generally an augmented {@link Dimension} */
+    /** Used to pivot a result set into multiple series.  Generally an augmented {@link Dimension} */
     dimension?: Dimension | IDimensionLike;
     filterArray?: QueryFilter[];
 
@@ -453,10 +453,7 @@ export interface ISaveOptions extends RequestCallbackOptions<SaveResponse> {
      * should be saved ('NONE'), or the existing custom thumbnail should be kept ('CUSTOM').
      */
     thumbnailType?: IconType;
-    /**
-     * The type of visualization being saved. Should be an instance of
-     * {@link LABKEY.Query.Visualization.Type}.
-     */
+    /** The type of visualization being saved. */
     type: string; // TODO: Make "Type" type
     /**
      * An arbitrarily complex JavaScript object that contains all information required to

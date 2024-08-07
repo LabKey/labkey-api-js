@@ -1,3 +1,6 @@
+### TBD
+- Deprecate and strongly discourage use of bitmask-based permission constants and functions 
+
 ### 1.35.0 - 2024-07-24
 - Package updates
 

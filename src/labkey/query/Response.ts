@@ -18,6 +18,10 @@ import { isArray, isDefined, isFunction } from '../Utils';
 import { FieldKey } from '../FieldKey';
 import { SchemaKey } from '../SchemaKey';
 
+import { executeSql } from './ExecuteSql';
+import { getRawData } from './GetData';
+import { selectRows } from './SelectRows';
+
 interface ExtRoot {
     Ext?: any;
     Ext4?: any;
