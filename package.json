@@ -37,6 +37,7 @@
   "devDependencies": {
     "@babel/core": "7.24.9",
     "@labkey/eslint-config-base": "0.0.15",
+    "@tinyhttp/content-disposition": "2.2.1",
     "@types/jest": "29.5.12",
     "@types/sinon": "17.0.3",
     "cross-env": "7.0.3",
