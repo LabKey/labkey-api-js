@@ -3,9 +3,9 @@ module.exports = {
         LABKEY: {
             contextPath: '',
             defaultHeaders: {
-                'X-LABKEY-CSRF': 'TEST_CSRF_TOKEN'
-            }
-        }
+                'X-LABKEY-CSRF': 'TEST_CSRF_TOKEN',
+            },
+        },
     },
     moduleFileExtensions: ['ts', 'js'],
     moduleNameMapper: {
@@ -20,7 +20,7 @@ module.exports = {
             {
                 // This increases test perf by a considerable margin
                 isolatedModules: true,
-            }
+            },
         ],
     },
 };
