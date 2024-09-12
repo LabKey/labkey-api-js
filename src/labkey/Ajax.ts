@@ -243,10 +243,10 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
  * Parse the filename out of the Content-Disposition header.
  *   https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
  * Examples:
- *   Content-Disposition: attachment; filename=data.xlsx;
- *   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx;
- *   Content-Disposition: attachment; filename=data.csv; filename*=UTF-8''filename.csv;
- *   Content-Disposition: attachment; filename=filename.csv; filename*=utf-8''data.csv;
+ *   Content-Disposition: attachment; filename=data.xlsx
+ *   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx
+ *   Content-Disposition: attachment; filename=data.csv; filename*=UTF-8''filename.csv
+ *   Content-Disposition: attachment; filename=filename.csv; filename*=utf-8''data.csv
  * Exported for jest testing
  * @hidden
  * @private
