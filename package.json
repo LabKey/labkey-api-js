@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.24.9",
+    "@babel/plugin-transform-modules-commonjs": "7.24.8",
     "@labkey/eslint-config-base": "0.0.15",
     "@tinyhttp/content-disposition": "2.2.1",
     "@types/jest": "29.5.12",
