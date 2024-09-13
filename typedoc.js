@@ -5,24 +5,24 @@
  */
 module.exports = {
     cleanOutputDir: true,
-    entryPoints: ["src/index.ts"],
+    entryPoints: ['src/index.ts'],
     exclude: [
         // Tests
-        "**/*+(.spec).ts",
-        "**/test/**",
+        '**/*+(.spec).ts',
+        '**/test/**',
 
         // Sub-modules
-        "./src/labkey/dom/**",
+        './src/labkey/dom/**',
 
         // Wrappers
-        "./src/package.ts",
-        "./src/wrapper.ts",
-        "./src/wrapper-dom.ts",
+        './src/package.ts',
+        './src/wrapper.ts',
+        './src/wrapper-dom.ts',
     ],
     excludeExternals: true,
     excludePrivate: true,
     excludeProtected: true,
-    externalPattern: "**/node_modules/** ",
-    out: "docs",
-    theme: "default",
+    externalPattern: '**/node_modules/** ',
+    out: 'docs',
+    theme: 'default',
 };

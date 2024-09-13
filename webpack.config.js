@@ -4,21 +4,17 @@
  * Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
  */
 'use strict';
+
 const path = require('path');
 
 const apiGlobalConfig = {
-
     mode: 'production',
 
     devtool: 'source-map',
 
     entry: {
-        'core': [
-            './src/wrapper.ts'
-        ],
-        'dom': [
-            './src/wrapper-dom.ts'
-        ]
+        core: ['./src/wrapper.ts'],
+        dom: ['./src/wrapper-dom.ts'],
     },
 
     module: {
@@ -27,23 +23,22 @@ const apiGlobalConfig = {
                 test: /^(?!.*spec\.ts?$).*\.ts?$/,
                 loader: 'ts-loader',
                 options: {
-                    onlyCompileBundledFiles: true
-                }
-            }
-        ]
+                    onlyCompileBundledFiles: true,
+                },
+            },
+        ],
     },
 
     output: {
-        filename: 'labkey-api-js-[name].min.js'
+        filename: 'labkey-api-js-[name].min.js',
     },
 
     resolve: {
-        extensions: [ '.ts' ]
-    }
+        extensions: ['.ts'],
+    },
 };
 
 const umdPackageConfig = {
-
     entry: './src/index.ts',
 
     mode: 'production',
@@ -51,7 +46,7 @@ const umdPackageConfig = {
     target: 'web',
 
     devtool: 'source-map',
-    
+
     module: {
         rules: [
             {
@@ -64,31 +59,28 @@ const umdPackageConfig = {
                         removeComments: true,
                         target: 'ES6',
                     },
-                    onlyCompileBundledFiles: true
+                    onlyCompileBundledFiles: true,
                 },
-                exclude: /node_modules/
-            }
-        ]
+                exclude: /node_modules/,
+            },
+        ],
     },
 
     optimization: {
         // don't minimize; module/app usages will be doing that if they want to
-        minimize: false
+        minimize: false,
     },
 
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
         library: '@labkey/api',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
     },
 
     resolve: {
-        extensions: [ '.ts' ]
-    }
+        extensions: ['.ts'],
+    },
 };
 
-module.exports = [
-    apiGlobalConfig,
-    umdPackageConfig
-];
+module.exports = [apiGlobalConfig, umdPackageConfig];

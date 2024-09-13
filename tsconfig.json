@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "lib": [ "dom", "es2015" ],
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "moduleResolution": "node",
     "noEmit": false,
     "noImplicitAny": true,
@@ -9,6 +9,7 @@
     "resolveJsonModule": true,
     "rootDir": "src",
     "sourceMap": true,
-    "target": "ES5"
+    "target": "ES5",
+    "types": ["jest"]
   }
 }

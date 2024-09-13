@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { parse } from '@tinyhttp/content-disposition';
+
 import { CSRF_HEADER, getServerContext } from './constants';
 import { buildURL, queryString } from './ActionURL';
 
@@ -243,22 +245,23 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
  * Examples:
  *   Content-Disposition: attachment; filename=data.xlsx
  *   Content-Disposition: attachment; filename*=UTF-8''filename.xlsx
- *   Content-Disposition: attachment: filename=data.csv; filename*=UTF-8''filename.csv
- *   Content-Disposition: attachment: filename*=UTF-8''data.csv; filename=filename.csv
- * The pattern below will match the first filename provided (so, data.csv in the last two examples)
+ *   Content-Disposition: attachment; filename=data.csv; filename*=UTF-8''filename.csv
+ *   Content-Disposition: attachment; filename=filename.csv; filename*=utf-8''data.csv
  * Exported for jest testing
  * @hidden
  * @private
  */
 export function getFilenameFromContentDisposition(disposition: string): string {
-    var filename;
-    if (disposition && disposition.startsWith('attachment')) {
-        const matches = /filename\*?=([^']*'')?(['"].*?['"]|[^;\n]*)/.exec(disposition);
-        if (matches && matches[2]) {
-            filename = decodeURI(matches[2].replace(/['"]/g, ''));
+    try {
+        const contentDisposition = parse(disposition);
+        if (!contentDisposition || contentDisposition.type !== 'attachment') {
+            return undefined;
         }
+
+        return contentDisposition.parameters.filename as string;
+    } catch (e) {
+        return undefined;
     }
-    return filename;
 }
 
 /**

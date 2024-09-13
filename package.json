@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "1.35.0",
+  "version": "1.35.1",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
@@ -36,7 +36,9 @@
   },
   "devDependencies": {
     "@babel/core": "7.24.9",
+    "@babel/plugin-transform-modules-commonjs": "7.24.8",
     "@labkey/eslint-config-base": "0.0.15",
+    "@tinyhttp/content-disposition": "2.2.1",
     "@types/jest": "29.5.12",
     "@types/sinon": "17.0.3",
     "cross-env": "7.0.3",
