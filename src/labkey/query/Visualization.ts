@@ -82,6 +82,7 @@ export interface VisualizationGetResponse {
     createdBy: number;
     description: string;
     id: string;
+    inheritable: boolean;
     name: string;
     ownerId: any;
     queryName: string;

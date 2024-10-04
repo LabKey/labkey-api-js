@@ -1,8 +1,9 @@
-### TBD
-- Deprecate and strongly discourage use of bitmask-based permission constants and functions 
+### 1.35.2 - 2024-10-04
+- Add "inheritable" property to VisualizationGetResponse
 
 ### 1.35.1 - 2024-09-12
 - Issue 50628: Switch our "Content-Disposition" header parsing to utilize the `@tinyhttp/content-disposition` package.
+- Deprecate and strongly discourage use of bitmask-based permission constants and functions
 
 ### 1.35.0 - 2024-07-24
 - Package updates
