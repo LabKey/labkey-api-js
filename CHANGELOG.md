@@ -1,4 +1,4 @@
-### TBD
+### 1.35.2 - 2024-10-04
 - Add "inheritable" property to VisualizationGetResponse
 
 ### 1.35.1 - 2024-09-12
