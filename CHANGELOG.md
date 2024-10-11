@@ -1,3 +1,6 @@
+### 1.X - 2024-10-X
+- Add "includeInheritableFormats" property to GetContainersOptions
+
 ### 1.35.2 - 2024-10-04
 - Add "inheritable" property to VisualizationGetResponse
 
