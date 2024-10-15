@@ -183,6 +183,10 @@ export interface GetContainersOptions extends RequestCallbackOptions /* <Contain
      */
     includeWorkbookChildren?: boolean;
     /**
+     * If set to true, will include properties about the inherited state of the formats as well as formats from parent folders that can be inherited.
+     */
+    includeInheritableFormats?: boolean;
+    /**
      * The names (Strings) of modules whose Module Property values should be included for each container.
      * Use "*" to get the value of all Module Properties for all modules.
      */
@@ -230,6 +234,9 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
         }
         if (config.includeStandardProperties != undefined) {
             params.includeStandardProperties = config.includeStandardProperties;
+        }
+        if (config.includeInheritableFormats != undefined) {
+            params.includeInheritableFormats = config.includeInheritableFormats;
         }
     }
 
