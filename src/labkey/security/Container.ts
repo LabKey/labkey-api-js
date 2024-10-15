@@ -183,7 +183,7 @@ export interface GetContainersOptions extends RequestCallbackOptions /* <Contain
      */
     includeWorkbookChildren?: boolean;
     /**
-     * If set to true, will include properties about the inherited state of the formats as well as formats from parent folders that can be inherited
+     * If set to true, will include properties about the inherited state of the formats as well as formats from parent folders that can be inherited.
      */
     includeInheritableFormats?: boolean;
     /**
