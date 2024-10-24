@@ -1,3 +1,6 @@
+### 1.35.X - 2024-10-X
+- Add "isArchived" to Container interface
+
 ### 1.35.3 - 2024-10-22
 - Add "includeInheritableFormats" property to GetContainersOptions
 
