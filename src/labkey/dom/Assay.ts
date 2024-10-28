@@ -39,6 +39,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     resultsFiles?: File[];
     runFilePath?: string;
     saveDataAsFile?: boolean;
+    saveMatchingColumnDataOnly?: boolean;
     workflowTask?: number;
 }
 
@@ -89,6 +90,9 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
     }
     if (options.saveDataAsFile !== undefined) {
         formData.append('saveDataAsFile', options.saveDataAsFile ? 'true' : 'false');
+    }
+    if (options.saveMatchingColumnDataOnly !== undefined) {
+        formData.append('saveMatchingColumnDataOnly', options.saveMatchingColumnDataOnly ? 'true' : 'false');
     }
     if (options.jobDescription) {
         formData.append('jobDescription', options.jobDescription);
