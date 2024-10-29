@@ -78,7 +78,6 @@ export enum ExperimentalFeatures {
     disableGuestAccount = 'disableGuestAccount',
     javascriptErrorServerLogging = 'javascriptErrorServerLogging',
     javascriptMothership = 'javascriptMothership',
-    useExperimentalCoreUI = 'useExperimentalCoreUI',
 }
 
 /** THe different types of audit behaviors for query requests. May be used to override behavior for a specific requests. */
