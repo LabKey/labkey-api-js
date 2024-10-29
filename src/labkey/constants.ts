@@ -36,6 +36,8 @@ export interface Container {
     iconHref: string;
     /** GUID of this container. */
     id: string;
+    /** Indicates if this container is archived. (lockstate == 'archived'). */
+    isArchived: boolean;
     /** Indicates if this container is a Container Tab. */
     isContainerTab: boolean;
     /** Indicates if this container is a workbook. */

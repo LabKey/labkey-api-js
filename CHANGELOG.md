@@ -1,6 +1,9 @@
 ### TBD
 - Add "saveMatchingColumnDataOnly" property to ImportRunOptions
 
+### 1.35.5 - 2024-10-29
+- Add "isArchived" to Container interface
+
 ### 1.35.4 - 2024-10-28
 - Issue 51293: remove typings reference to `useExperimentalCoreUI` experimental flag
 
