@@ -1,4 +1,4 @@
-### 1.35.X - 2024-10-X
+### 1.35.5 - 2024-10-29
 - Add "isArchived" to Container interface
 
 ### 1.35.4 - 2024-10-28
