@@ -1,3 +1,6 @@
+### 1.35.4 - 2024-10-28
+- Issue 51293: remove typings reference to `useExperimentalCoreUI` experimental flag
+
 ### 1.35.3 - 2024-10-22
 - Add "includeInheritableFormats" property to GetContainersOptions
 
