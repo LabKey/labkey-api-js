@@ -1,3 +1,6 @@
+### 1.36.0 - 2024-11-05
+- Package updates
+
 ### 1.35.6 - 2024-10-31
 - Add "saveMatchingColumnDataOnly" property to ImportRunOptions
 

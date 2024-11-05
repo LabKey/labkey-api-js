@@ -707,7 +707,6 @@ export type ExpMaterialSampleSet = {
 /**
  * The Exp.Material class describes an experiment material. "Material" is a synonym for both
  * "sample" and "specimen". Thus, for example, the input to an assay could be called a material.
- * The fields of this class are inherited from {@link ExpObject} and the private {@link RunItem} object.
  */
 export class Material extends RunItem {
     /**
