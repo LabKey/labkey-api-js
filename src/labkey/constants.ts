@@ -80,7 +80,7 @@ export enum ExperimentalFeatures {
     javascriptMothership = 'javascriptMothership',
 }
 
-/** THe different types of audit behaviors for query requests. May be used to override behavior for a specific requests. */
+/** The different types of audit behaviors for query requests. May be used to override behavior for a specific requests. */
 export enum AuditBehaviorTypes {
     DETAILED = 'DETAILED',
     NONE = 'NONE',

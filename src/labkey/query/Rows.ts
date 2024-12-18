@@ -211,6 +211,10 @@ export interface ModifyRowsResults {
 }
 
 export interface Command {
+    /** Can be used to override the audit behavior for the table the Command is acting on. See{@link AuditBehaviorTypes}. */
+    auditBehavior?: AuditBehaviorTypes;
+    /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
+    auditUserComment?: string;
     /** Name of the command to be performed. Must be one of "insert", "update", or "delete". */
     command: CommandType;
     /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
@@ -230,6 +234,11 @@ export interface Command {
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
      */
     schemaName: string;
+    /**
+     * Whether the full detailed response for the update/insert rows can be skipped.
+     * Defaults to false.
+     */
+    skipReselectRows?: boolean;
 }
 
 export interface MoveRowsResponse extends ModifyRowsResults {
@@ -260,7 +269,7 @@ export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse
      * will be invoked instead in the event of a validation failure.
      */
     apiVersion?: string | number;
-    /** An array of all of the update/insert/delete operations to be performed. */
+    /** An array of the update/insert/delete operations to be performed. */
     commands: Command[];
     /**
      * The container path in which the changes are to be performed.
