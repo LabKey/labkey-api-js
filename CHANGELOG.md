@@ -1,3 +1,6 @@
+### 1.37.0 - 2024-12-??
+- Command: add auditBehavior, auditUserComment, skipReselectRows
+
 ### 1.36.0 - 2024-11-05
 - Package updates
 
