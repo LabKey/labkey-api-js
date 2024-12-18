@@ -32,7 +32,6 @@ import { PermissionRoles, PermissionTypes } from './labkey/security/constants';
 // modules
 import * as ActionURL from './labkey/ActionURL';
 import * as Ajax from './labkey/Ajax';
-import { RequestOptions } from './labkey/Ajax';
 import * as App from './labkey/App';
 import * as Assay from './labkey/Assay';
 import * as Domain from './labkey/Domain';
@@ -46,7 +45,6 @@ import * as Message from './labkey/Message';
 import * as ParticipantGroup from './labkey/ParticipantGroup';
 import * as Pipeline from './labkey/Pipeline';
 import * as Query from './labkey/Query';
-import { Command, CommandType } from './labkey/Query';
 import { QueryKey } from './labkey/QueryKey';
 import * as Report from './labkey/Report';
 import { SchemaKey } from './labkey/SchemaKey';
@@ -75,9 +73,6 @@ export {
     Container,
     ExperimentalFlags,
     Project,
-    RequestOptions,
-    Command,
-    CommandType,
     /* modules */
     ActionURL,
     Ajax,
