@@ -76,7 +76,6 @@ export interface Project {
 export enum ExperimentalFeatures {
     containerRelativeURL = 'containerRelativeURL',
     disableGuestAccount = 'disableGuestAccount',
-    javascriptErrorServerLogging = 'javascriptErrorServerLogging',
     javascriptMothership = 'javascriptMothership',
 }
 
