@@ -76,7 +76,6 @@ export interface Project {
 export enum ExperimentalFeatures {
     containerRelativeURL = 'containerRelativeURL',
     disableGuestAccount = 'disableGuestAccount',
-    javascriptMothership = 'javascriptMothership',
 }
 
 /** The different types of audit behaviors for query requests. May be used to override behavior for a specific requests. */
