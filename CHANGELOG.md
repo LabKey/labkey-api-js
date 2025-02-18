@@ -1,3 +1,6 @@
+### 1.38.0 - 2025-02-17
+- Remove `javascriptErrorServerLogging` from `ExperimentalFeatures` enumeration.
+
 ### 1.37.0 - 2024-12-19
 - Command: add auditBehavior, auditUserComment, skipReselectRows
 
