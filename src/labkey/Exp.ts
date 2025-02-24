@@ -434,15 +434,10 @@ export class Data extends ExpObject {
      *         {
      *             "name": "Sheet1",
      *             "data": [
-     *                 "StringColumn",
-     *                 "DateColumn"
-     *             ],[
-     *                 "Hello",
-     *                 "16 May 2009 17:00:00"
-     *             ],[
-     *                 "world",
-     *                 "12/21/2008 08:45AM"
-     *             ]
+     *                  ["StringColumn", "DateColumn"],
+     *                  ["Hello", "16 May 2009 17:00:00"],
+     *                  ["world", "12/21/2008 08:45AM"]
+ *                  ]
      *         },{
      *             "name": "Sheet2",
      *             "data": [
@@ -467,7 +462,7 @@ export class Data extends ExpObject {
      *     "sheets": [
      *         {
      *             "name": "Sheet1",
-     *             "data": [
+     *             "data": [[
      *                 {
      *                     "value": "StringColumn",
      *                     "formattedValue": "StringColumn"
@@ -495,7 +490,7 @@ export class Data extends ExpObject {
      *                     "timeOnly": false,
      *                     "formattedValue": "12/21/08 7:31 PM"
      *                 }
-     *             ]
+     *             ]]
      *         },{
      *             "name": "Sheet2",
      *             "data": [
