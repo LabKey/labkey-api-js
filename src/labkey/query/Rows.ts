@@ -320,8 +320,8 @@ function bindSaveRowsCommand(form: FormData, command: Command, commandIndex: num
 
         Object.keys(updatedRow).forEach(key => {
             if (updatedRow[key] instanceof File) {
-                delete updatedRow[key];
                 form.append(`${key}::${commandIndex}::${rowIndex}`, updatedRow[key]);
+                delete updatedRow[key];
             }
         });
 
