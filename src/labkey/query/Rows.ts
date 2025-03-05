@@ -331,7 +331,7 @@ function bindSaveRowsCommand(form: FormData, command: Command, commandIndex: num
     return { ...commandData, rows: processedRows };
 }
 
-function bindSaveRowsData(options: SaveRowsOptions): FormData {
+export function bindSaveRowsData(options: SaveRowsOptions): FormData {
     const { commands, ...jsonData } = options;
     const hasFiles = options.commands.some(command => hasFileData(command.rows));
 

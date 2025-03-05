@@ -15,7 +15,7 @@
  */
 import * as Ajax from '../Ajax';
 
-import { bindFormData, deleteRows, insertRows, updateRows } from './Rows';
+import { bindFormData, bindSaveRowsData, CommandType, deleteRows, insertRows, saveRows, updateRows } from './Rows';
 
 describe('deleteRows', () => {
     it('should support original method signature', () => {
@@ -180,6 +180,120 @@ describe('updateRows', () => {
     });
 });
 
+describe('saveRows', () => {
+    const schemaName = 'SSS';
+    const queryName = 'QQQ';
+    it('should send jsonData when files are not present', () => {
+        // Arrange
+        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+        const commands = [
+            {
+                schemaName,
+                queryName,
+                command: 'update' as CommandType,
+                rows: [
+                    {
+                        rowId: 1,
+                        myCol: 'value one',
+                    },
+                    {
+                        rowId: 2,
+                        myCol: 'value two',
+                    },
+                ],
+            },
+            {
+                schemaName,
+                queryName,
+                command: 'delete' as CommandType,
+                rows: [
+                    {
+                        rowId: 3,
+                    },
+                ],
+            },
+        ];
+
+        // Act
+        saveRows({ commands });
+
+        // Assert
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                jsonData: expect.objectContaining({
+                    commands,
+                }),
+                url: '/query/saveRows.api',
+            })
+        );
+    });
+    it('should send form data when files are present', () => {
+        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+        const fileA = new File([], '');
+        const fileB = new File([], '');
+        const commands = [
+            {
+                schemaName,
+                queryName,
+                command: 'update' as CommandType,
+                rows: [
+                    {
+                        rowId: 1,
+                        myFile: fileA,
+                    },
+                    {
+                        rowId: 2,
+                        myFile: fileB,
+                    },
+                ],
+            },
+            {
+                schemaName,
+                queryName,
+                command: 'delete' as CommandType,
+                rows: [
+                    {
+                        rowId: 3,
+                    },
+                ],
+            },
+        ];
+
+        // Act
+        saveRows({ commands });
+
+        // Assert
+        expect(requestSpy).toHaveBeenCalledWith(
+            expect.objectContaining({
+                method: 'POST',
+                url: '/query/saveRows.api',
+            })
+        );
+        const form = requestSpy.mock.lastCall[0].form;
+        expect(form.get('myFile::0::0')).toEqual(fileA);
+        expect(form.get('myFile::0::1')).toEqual(fileB);
+        expect(form.get('json')).toEqual(
+            JSON.stringify({
+                commands: [
+                    {
+                        schemaName,
+                        queryName,
+                        command: 'update',
+                        rows: [{ rowId: 1 }, { rowId: 2 }],
+                    },
+                    {
+                        schemaName,
+                        queryName,
+                        command: 'delete',
+                        rows: [{ rowId: 3 }],
+                    },
+                ],
+            })
+        );
+    });
+});
+
 describe('bindFormData', () => {
     const requestOptions = {
         action: 'some.api',
@@ -211,5 +325,64 @@ describe('bindFormData', () => {
         expect(form.get('firstFile::0')).toEqual(fileA);
         expect(form.get('secondFile::1')).toEqual(fileB);
         expect(form.get('firstFile::1')).toEqual(fileC);
+    });
+});
+
+describe('bindSaveRowsData', () => {
+    const baseCommand = { schemaName: 'schema', queryName: 'query', command: 'update' as CommandType };
+
+    it('skips processing without files', () => {
+        const form = bindSaveRowsData({
+            commands: [
+                {
+                    ...baseCommand,
+                    rows: [
+                        { myFile: 'fileA', rowId: 1 },
+                        { myFile: 'fileB', rowId: 2 },
+                    ],
+                },
+                { ...baseCommand, rows: [{ myFile: 'fileC', rowId: 3 }] },
+            ],
+        });
+
+        expect(form).not.toBeDefined();
+    });
+    it('processes File data', () => {
+        const fileA = new File([], '');
+        const fileB = new File([], '');
+        const fileC = new File([], '');
+        const form = bindSaveRowsData({
+            commands: [
+                {
+                    ...baseCommand,
+                    rows: [
+                        { myFile: fileA, rowId: 1 },
+                        { myFile: fileB, rowId: 2 },
+                    ],
+                },
+                { ...baseCommand, rows: [{ myFile: fileC, rowId: 3 }] },
+            ],
+        });
+        expect(form.get('myFile::0::0')).toEqual(fileA);
+        expect(form.get('myFile::0::1')).toEqual(fileB);
+        expect(form.get('myFile::1::0')).toEqual(fileC);
+        expect(form.get('json')).toEqual(
+            JSON.stringify({
+                commands: [
+                    {
+                        schemaName: 'schema',
+                        queryName: 'query',
+                        command: 'update',
+                        rows: [{ rowId: 1 }, { rowId: 2 }],
+                    },
+                    {
+                        schemaName: 'schema',
+                        queryName: 'query',
+                        command: 'update',
+                        rows: [{ rowId: 3 }],
+                    },
+                ],
+            })
+        );
     });
 });
