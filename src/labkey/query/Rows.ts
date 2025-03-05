@@ -338,7 +338,7 @@ function bindSaveRowsData(options: SaveRowsOptions): FormData {
     // We only need to use FormData if one or more of the commands have files
     if (!hasFiles) return undefined;
 
-    const form: FormData = new FormData();
+    const form = new FormData();
     const updatedCommands = commands.map((command, index) => bindSaveRowsCommand(form, command, index));
     form.append('json', JSON.stringify({ ...jsonData, commands: updatedCommands }));
     return form;
