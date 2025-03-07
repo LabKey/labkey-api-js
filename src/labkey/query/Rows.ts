@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { request } from '../Ajax';
+import { request, RequestOptions } from '../Ajax';
 import { buildURL } from '../ActionURL';
 import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 import { AuditBehaviorTypes } from '../constants';
@@ -300,6 +300,50 @@ export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse
     validateOnly?: boolean;
 }
 
+function hasFileData(rows: any[]): boolean {
+    return !!rows?.find(row => {
+        return !!row && Object.values(row).find(value => value instanceof File);
+    });
+}
+
+/**
+ * Appends any files in the Command to the formData, and removes them from the Command.
+ * @param form the FormData object that will be sent to the server
+ * @param command the Command object to check for files
+ * @param commandIndex the index of the Command object, used to encode files so the server knows what command they
+ * belong to
+ */
+function bindSaveRowsCommand(form: FormData, command: Command, commandIndex: number): Command {
+    const { rows, ...commandData } = command;
+    const processedRows = rows.map((row, rowIndex) => {
+        const updatedRow = { ...row };
+
+        Object.keys(updatedRow).forEach(key => {
+            if (updatedRow[key] instanceof File) {
+                form.append(`${key}::${commandIndex}::${rowIndex}`, updatedRow[key]);
+                delete updatedRow[key];
+            }
+        });
+
+        return updatedRow;
+    });
+
+    return { ...commandData, rows: processedRows };
+}
+
+export function bindSaveRowsData(options: SaveRowsOptions): FormData {
+    const { commands, ...jsonData } = options;
+    const hasFiles = options.commands.some(command => hasFileData(command.rows));
+
+    // We only need to use FormData if one or more of the commands have files
+    if (!hasFiles) return undefined;
+
+    const form = new FormData();
+    const updatedCommands = commands.map((command, index) => bindSaveRowsCommand(form, command, index));
+    form.append('json', JSON.stringify({ ...jsonData, commands: updatedCommands }));
+    return form;
+}
+
 /**
  * Save inserts, updates, and/or deletes to potentially multiple tables with a single request.
  *
@@ -309,27 +353,33 @@ export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse
  */
 export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
     // Nick: I've elected to comment this out as saveRows never supported the same argument
-    // pattern as other endpoints due to the different nature of it's arguments (e.g. doesn't take a
+    // pattern as other endpoints due to the different nature of its arguments (e.g. doesn't take a
     // schema/query but rather commands, etc). As a result, the object would not match what is expected.
     // if (arguments.length > 1) {
     //     options = queryArguments(arguments);
     // }
-
-    return request({
+    const jsonData = {
+        apiVersion: options.apiVersion,
+        commands: options.commands,
+        containerPath: options.containerPath,
+        extraContext: options.extraContext,
+        transacted: options.transacted,
+        validateOnly: options.validateOnly,
+    };
+    const requestOptions: RequestOptions = {
         url: buildURL('query', 'saveRows.api', options.containerPath),
         method: 'POST',
-        jsonData: {
-            apiVersion: options.apiVersion,
-            commands: options.commands,
-            containerPath: options.containerPath,
-            extraContext: options.extraContext,
-            transacted: options.transacted,
-            validateOnly: options.validateOnly,
-        },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout,
-    });
+    };
+
+    const form = bindSaveRowsData(jsonData);
+
+    if (form !== undefined) requestOptions.form = form;
+    else requestOptions.jsonData = jsonData;
+
+    return request(requestOptions);
 }
 
 interface SendRequestOptions extends QueryRequestOptions {
@@ -347,11 +397,9 @@ export function bindFormData(jsonData: { rows?: any[] }, options: SendRequestOpt
         form = options.form;
     } else if (supportsFiles && options.autoFormFileData) {
         // A form was not explicitly provided, however, this endpoint supports File data in the rows payload.
-        const hasFileData = jsonData.rows?.find(row => {
-            return !!row && Object.values(row).find(value => value instanceof File);
-        });
+        const hasFiles = hasFileData(jsonData.rows);
 
-        if (hasFileData) {
+        if (hasFiles) {
             form = new FormData();
 
             // Process and extract File data with row offsets

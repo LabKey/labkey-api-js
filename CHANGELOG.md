@@ -1,3 +1,6 @@
+### 1.39.0 - 2025-03-07
+- Add file support to `Query.saveRows`
+
 ### 1.38.0 - 2025-02-17
 - Remove `javascriptErrorServerLogging` from `ExperimentalFeatures` enumeration.
 
