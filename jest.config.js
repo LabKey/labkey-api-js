@@ -4,7 +4,7 @@ process.env.TZ = 'UTC';
 
 // These are ES modules that we utilize that need to be transformed
 // by babel when being imported during a jest test.
-const esModules = ['@tinyhttp/content-disposition', 'sinon'].join('|');
+const esModules = ['@tinyhttp/content-disposition'].join('|');
 
 module.exports = {
     globals: {
@@ -29,8 +29,7 @@ module.exports = {
         '^.+\\.ts$': [
             'ts-jest',
             {
-                // This increases test perf by a considerable margin
-                isolatedModules: true,
+                tsconfig: 'tsconfig.test.json',
             },
         ],
     },
