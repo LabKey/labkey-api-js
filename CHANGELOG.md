@@ -1,3 +1,6 @@
+### 1.40.0 - 2025-04-21
+- Package updates
+
 ### 1.39.0 - 2025-03-07
 - Add file support to `Query.saveRows`
 

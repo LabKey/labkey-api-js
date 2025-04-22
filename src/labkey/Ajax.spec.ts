@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import sinon from 'sinon';
+import { fakeXhr, FakeXMLHttpRequestStatic } from 'nise';
 
 import * as Ajax from './Ajax';
 import { getFilenameFromContentDisposition } from './Ajax';
 
 function mockXHR(): void {
-    let xhr: sinon.SinonFakeXMLHttpRequestStatic;
+    let xhr: FakeXMLHttpRequestStatic;
 
     afterEach(() => {
         xhr.restore();
     });
 
     beforeEach(() => {
-        xhr = sinon.useFakeXMLHttpRequest();
+        xhr = fakeXhr.useFakeXMLHttpRequest();
     });
 }
 
