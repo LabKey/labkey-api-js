@@ -210,9 +210,11 @@ describe('ActionURL', () => {
                 strParam: 'My&String Value',
                 numParam: 1,
                 'array Param': ['value&one', 'value two', 'valueThree', 1, 2.2, 3.34],
+                nullParam: null,
+                undefinedParam: undefined,
             };
             const expected =
-                'strParam=My%26String%20Value&numParam=1&array%20Param=value%26one&array%20Param=value%20two&array%20Param=valueThree&array%20Param=1&array%20Param=2.2&array%20Param=3.34';
+                'strParam=My%26String%20Value&numParam=1&array%20Param=value%26one&array%20Param=value%20two&array%20Param=valueThree&array%20Param=1&array%20Param=2.2&array%20Param=3.34&nullParam=&undefinedParam=';
             expect(queryString(params)).toEqual(expected);
         });
     });

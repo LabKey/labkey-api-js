@@ -379,6 +379,9 @@ function encodeParamValue(key: string, value: string | number): string {
     return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
 }
 
+type BaseQueryParamValue = string | number | null | undefined;
+type QueryParamValue = BaseQueryParamValue | BaseQueryParamValue[];
+
 /**
  * Turn the parameter object into a query string (e.g. `{x:'fred'} -> "x=fred"`).
  * The returned query string is not prepended by a question mark ('?').
@@ -387,7 +390,7 @@ function encodeParamValue(key: string, value: string | number): string {
  * Parameters will be encoded automatically. Parameter values that are arrays will be appended as multiple parameters
  * with the same name. (Defaults to no parameters.)
  */
-export function queryString(parameters?: Record<string, string | number | Array<string | number>>): string {
+export function queryString(parameters?: Record<string, QueryParamValue>): string {
     if (!parameters) return '';
 
     const parts = Object.keys(parameters).reduce((result: string[], key) => {
@@ -396,11 +399,8 @@ export function queryString(parameters?: Record<string, string | number | Array<
         if (isFunction(value)) return result;
         if (value === null || value === undefined) value = '';
 
-        if (Array.isArray(value)) {
-            value.forEach(aVal => result.push(encodeParamValue(key, aVal)));
-        } else {
-            result.push(encodeParamValue(key, value));
-        }
+        if (Array.isArray(value)) value.forEach(aVal => result.push(encodeParamValue(key, aVal)));
+        else result.push(encodeParamValue(key, value));
 
         return result;
     }, []);
