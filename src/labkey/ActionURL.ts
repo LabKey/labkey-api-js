@@ -375,11 +375,11 @@ export function getReturnUrl(): string {
     return getParameter('returnUrl');
 }
 
-function encodeParamValue(key: string, value: string | number): string {
+function encodeParamValue(key: string, value: string | number | boolean): string {
     return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
 }
 
-type BaseQueryParamValue = string | number | null | undefined;
+type BaseQueryParamValue = string | number | boolean | null | undefined;
 type QueryParamValue = BaseQueryParamValue | BaseQueryParamValue[];
 
 /**

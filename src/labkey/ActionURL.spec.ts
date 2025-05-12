@@ -205,16 +205,25 @@ describe('ActionURL', () => {
             ).toEqual(expected);
         });
 
+        test('supports boolean', () => {
+            let expected = 'paramOne=true';
+            expect(queryString({ paramOne: true })).toEqual(expected);
+
+            expected = 'paramOne=true&param%20Two=false';
+            expect(queryString({ paramOne: true, 'param Two': false })).toEqual(expected);
+        });
+
         test('supports everything', () => {
             const params: Record<string, any> = {
                 strParam: 'My&String Value',
                 numParam: 1,
-                'array Param': ['value&one', 'value two', 'valueThree', 1, 2.2, 3.34],
+                'array Param': ['value&one', 'value two', 'valueThree', 1, 2.2, 3.34, true],
                 nullParam: null,
                 undefinedParam: undefined,
+                boolParam: false,
             };
             const expected =
-                'strParam=My%26String%20Value&numParam=1&array%20Param=value%26one&array%20Param=value%20two&array%20Param=valueThree&array%20Param=1&array%20Param=2.2&array%20Param=3.34&nullParam=&undefinedParam=';
+                'strParam=My%26String%20Value&numParam=1&array%20Param=value%26one&array%20Param=value%20two&array%20Param=valueThree&array%20Param=1&array%20Param=2.2&array%20Param=3.34&array%20Param=true&nullParam=&undefinedParam=&boolParam=false';
             expect(queryString(params)).toEqual(expected);
         });
     });
