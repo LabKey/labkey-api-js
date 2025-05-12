@@ -206,7 +206,7 @@ describe('ActionURL', () => {
         });
 
         test('supports everything', () => {
-            const params = {
+            const params: Record<string, any> = {
                 strParam: 'My&String Value',
                 numParam: 1,
                 'array Param': ['value&one', 'value two', 'valueThree', 1, 2.2, 3.34],
