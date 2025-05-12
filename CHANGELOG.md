@@ -1,5 +1,5 @@
 ### 1.41.0 - 2025-05-??
-- ActionURL.queryString: Add support for numbers, and mixed arrays
+- ActionURL.queryString: Add support for numbers, booleans, and mixed arrays
 
 ### 1.40.0 - 2025-04-21
 - Package updates
