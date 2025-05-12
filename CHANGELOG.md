@@ -1,3 +1,6 @@
+### 1.40.X - 2025-X
+- Add `auditUserComment` to `Domain.drop` and `Domain.save`
+
 ### 1.40.0 - 2025-04-21
 - Package updates
 

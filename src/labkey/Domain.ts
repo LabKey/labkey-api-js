@@ -215,6 +215,7 @@ export interface DropDomainOptions extends RequestCallbackOptions {
     queryName: string;
     /** The domain schema name. */
     schemaName: string;
+    auditUserComment?: string;
 }
 
 /**
@@ -230,6 +231,7 @@ export function drop(config: DropDomainOptions): XMLHttpRequest {
             domainDesign: config.domainDesign,
             schemaName: config.schemaName,
             queryName: config.queryName,
+            auditUserComment: config.auditUserComment
         },
     });
 }
@@ -370,6 +372,7 @@ export interface SaveDomainOptions extends RequestCallbackOptions {
     queryName?: string;
     /** Name of the schema. */
     schemaName?: string;
+    auditUserComment?: string;
 }
 
 /**
@@ -387,6 +390,7 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
                   containerPath: arguments[5],
                   includeWarnings: arguments[6],
                   options: arguments[7],
+                  auditUserComment: arguments[8],
               }
             : config;
 
@@ -401,6 +405,7 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
             queryName: options.queryName,
             domainId: options.domainId,
             includeWarnings: options.includeWarnings,
+            auditUserComment: options.auditUserComment,
             options: options.options,
         },
     });
