@@ -205,18 +205,19 @@ function mapCreateArguments(args: IArguments): CreateDomainOptions {
 }
 
 export interface DropDomainOptions extends RequestCallbackOptions {
+    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
+    auditUserComment?: string;
     /**
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
      */
     containerPath?: string;
-    domainDesign?: any; // consider removing, this doesn't appear to be needed
+    // consider removing, this doesn't appear to be needed
+    domainDesign?: any;
     /** The domain query name. */
     queryName: string;
     /** The domain schema name. */
     schemaName: string;
-    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
-    auditUserComment?: string;
 }
 
 /**
@@ -232,7 +233,7 @@ export function drop(config: DropDomainOptions): XMLHttpRequest {
             domainDesign: config.domainDesign,
             schemaName: config.schemaName,
             queryName: config.queryName,
-            auditUserComment: config.auditUserComment
+            auditUserComment: config.auditUserComment,
         },
     });
 }
@@ -349,6 +350,8 @@ export function get(config: GetDomainOptions): XMLHttpRequest {
 }
 
 export interface SaveDomainOptions extends RequestCallbackOptions {
+    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
+    auditUserComment?: string;
     /**
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
@@ -373,8 +376,6 @@ export interface SaveDomainOptions extends RequestCallbackOptions {
     queryName?: string;
     /** Name of the schema. */
     schemaName?: string;
-    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
-    auditUserComment?: string;
 }
 
 /**

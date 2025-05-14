@@ -437,7 +437,7 @@ export class Data extends ExpObject {
      *                  ["StringColumn", "DateColumn"],
      *                  ["Hello", "16 May 2009 17:00:00"],
      *                  ["world", "12/21/2008 08:45AM"]
- *                  ]
+     *                  ]
      *         },{
      *             "name": "Sheet2",
      *             "data": [
