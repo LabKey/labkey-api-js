@@ -215,6 +215,7 @@ export interface DropDomainOptions extends RequestCallbackOptions {
     queryName: string;
     /** The domain schema name. */
     schemaName: string;
+    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
     auditUserComment?: string;
 }
 
@@ -372,6 +373,7 @@ export interface SaveDomainOptions extends RequestCallbackOptions {
     queryName?: string;
     /** Name of the schema. */
     schemaName?: string;
+    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
     auditUserComment?: string;
 }
 
