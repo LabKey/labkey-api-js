@@ -165,6 +165,11 @@ describe('isArray', () => {
 });
 
 describe('isBoolean', () => {
+    it('should return false for undefined/null', () => {
+        expect(Utils.isBoolean(undefined)).toBe(false);
+        expect(Utils.isBoolean(null)).toBe(false);
+        expect(Utils.isBoolean('')).toBe(false);
+    });
     it('should accept y/n', () => {
         expect(Utils.isBoolean('y')).toBe(true);
         expect(Utils.isBoolean('n')).toBe(true);
@@ -184,6 +189,15 @@ describe('isBoolean', () => {
     it('should accept boolean', () => {
         expect(Utils.isBoolean(true)).toBe(true);
         expect(Utils.isBoolean(false)).toBe(true);
+    });
+    it('should accept 1 and 0 as boolean-like', () => {
+        expect(Utils.isBoolean(1)).toBe(true);
+        expect(Utils.isBoolean(0)).toBe(true);
+    });
+    it('should return false for unrelated strings', () => {
+        expect(Utils.isBoolean('maybe')).toBe(false);
+        expect(Utils.isBoolean('random')).toBe(false);
+        expect(Utils.isBoolean('2')).toBe(false);
     });
 });
 

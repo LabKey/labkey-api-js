@@ -636,10 +636,11 @@ export function id(prefix?: string): string {
     return ID_PREFIX + ++idSeed;
 }
 
-export function isArray(value: any): boolean {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
-    return Object.prototype.toString.call(value) === '[object Array]';
-}
+/**
+ * Returns true if the passed value is an Array.
+ * @deprecated Use `Array.isArray()`
+ */
+export const isArray = Array.isArray;
 
 /**
  * Tests whether the passed value can be used as boolean, using a loose definition.
@@ -649,33 +650,26 @@ export function isArray(value: any): boolean {
  * @param value The value to test
  * @returns {boolean}
  */
-export function isBoolean(value: any): boolean {
-    const upperVal = value.toString().toUpperCase();
-    if (
-        upperVal == 'TRUE' ||
-        value == '1' ||
-        upperVal == 'Y' ||
-        upperVal == 'YES' ||
-        upperVal == 'ON' ||
-        upperVal == 'T' ||
-        upperVal == 'FALSE' ||
-        value == '0' ||
-        upperVal == 'N' ||
-        upperVal == 'NO' ||
-        upperVal == 'OFF' ||
-        upperVal == 'F'
-    ) {
-        return true;
-    }
+export function isBoolean(value: unknown): value is boolean {
+    if (typeof value === 'boolean') return true;
+    const normalized = value?.toString().toUpperCase();
+    const booleanStrings = new Set(['TRUE', 'FALSE', '1', '0', 'Y', 'N', 'YES', 'NO', 'ON', 'OFF', 'T', 'F']);
+    return booleanStrings.has(normalized);
 }
 
-export function isDate(value: any): boolean {
+/**
+ * Returns true if the passed value is a Date.
+ */
+export function isDate(value: unknown): value is Date {
     return Object.prototype.toString.call(value) === '[object Date]';
 }
 
-export function isNumber(value: any): boolean {
-    return typeof value === 'number' && Number.isFinite(value);
-}
+/**
+ * Returns true if the passed value is a finite number.
+ * @deprecated Use `Number.isFinite()`.
+ * @param value
+ */
+export const isNumber = Number.isFinite;
 
 export function isDefined(value: any): boolean {
     return typeof value !== 'undefined';
