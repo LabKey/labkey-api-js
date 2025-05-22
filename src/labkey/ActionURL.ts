@@ -375,6 +375,13 @@ export function getReturnUrl(): string {
     return getParameter('returnUrl');
 }
 
+function encodeParamValue(key: string, value: string | number | boolean): string {
+    return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+}
+
+type BaseQueryParamValue = string | number | boolean | null | undefined;
+type QueryParamValue = BaseQueryParamValue | BaseQueryParamValue[];
+
 /**
  * Turn the parameter object into a query string (e.g. `{x:'fred'} -> "x=fred"`).
  * The returned query string is not prepended by a question mark ('?').
@@ -383,41 +390,22 @@ export function getReturnUrl(): string {
  * Parameters will be encoded automatically. Parameter values that are arrays will be appended as multiple parameters
  * with the same name. (Defaults to no parameters.)
  */
-export function queryString(parameters?: Record<string, string | string[]>): string {
-    if (!parameters) {
-        return '';
-    }
+export function queryString(parameters?: Record<string, QueryParamValue>): string {
+    if (!parameters) return '';
 
-    let query = '',
-        and = '',
-        pval: string | string[],
-        parameter: string,
-        aval: string;
+    const parts = Object.keys(parameters).reduce((result: string[], key) => {
+        let value = parameters[key];
 
-    for (parameter in parameters) {
-        if (parameters.hasOwnProperty(parameter)) {
-            pval = parameters[parameter];
+        if (isFunction(value)) return result;
+        if (value === null || value === undefined) value = '';
 
-            if (pval === null || pval === undefined) {
-                pval = '';
-            } else if (isFunction(pval)) {
-                continue;
-            }
+        if (Array.isArray(value)) value.forEach(aVal => result.push(encodeParamValue(key, aVal)));
+        else result.push(encodeParamValue(key, value));
 
-            if (isArray(pval)) {
-                for (let idx = 0; idx < pval.length; ++idx) {
-                    aval = pval[idx];
-                    query += and + encodeURIComponent(parameter) + '=' + encodeURIComponent(pval[idx]);
-                    and = '&';
-                }
-            } else {
-                query += and + encodeURIComponent(parameter) + '=' + encodeURIComponent(pval as string);
-                and = '&';
-            }
-        }
-    }
+        return result;
+    }, []);
 
-    return query;
+    return parts.join('&');
 }
 
 /**
