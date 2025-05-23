@@ -15,6 +15,7 @@
  */
 import * as ActionURL from './ActionURL';
 import { getServerContext } from './constants';
+import { queryString } from './ActionURL';
 
 describe('ActionURL', () => {
     const CONTAINER_NAME = 'DefaultContainer';
@@ -150,6 +151,80 @@ describe('ActionURL', () => {
                 'pipeline-status',
                 'action'
             );
+        });
+    });
+
+    describe('queryString', () => {
+        test('empty object returns empty string', () => {
+            expect(queryString()).toEqual('');
+            expect(queryString(undefined)).toEqual('');
+            expect(queryString({})).toEqual('');
+        });
+
+        test('supports null values', () => {
+            let expected = 'paramOne=';
+            expect(queryString({ paramOne: null })).toEqual(expected);
+
+            expected = 'paramOne=&paramTwo=';
+            expect(queryString({ paramOne: null, paramTwo: undefined })).toEqual(expected);
+        });
+
+        test('supports strings', () => {
+            let expected = 'paramOne=valueOne';
+            expect(queryString({ paramOne: 'valueOne' })).toEqual(expected);
+
+            expected = 'paramOne=valueOne&paramTwo=valueTwo';
+            expect(queryString({ paramOne: 'valueOne', paramTwo: 'valueTwo' })).toEqual(expected);
+
+            expected = 'encoded%20Param%20One=encoded%20Value%20One&paramTwo=valueTwo';
+            expect(queryString({ 'encoded Param One': 'encoded Value One', paramTwo: 'valueTwo' })).toEqual(expected);
+        });
+
+        test('supports numbers', () => {
+            let expected = 'paramOne=1';
+            expect(queryString({ paramOne: 1 })).toEqual(expected);
+
+            expected = 'paramOne=1&paramTwo=2.2';
+            expect(queryString({ paramOne: 1, paramTwo: 2.2 })).toEqual(expected);
+
+            expected = 'encoded%20Param%20One=1&paramTwo=2.34';
+            expect(queryString({ 'encoded Param One': 1, paramTwo: 2.34 })).toEqual(expected);
+        });
+
+        test('supports arrays', () => {
+            let expected = 'paramOne=v1&paramOne=v2&paramOne=v3';
+            expect(queryString({ paramOne: ['v1', 'v2', 'v3'] })).toEqual(expected);
+
+            expected = 'paramOne=v1&paramOne=v2&paramOne=v3&paramTwo=1&paramTwo=2&paramTwo=3';
+            expect(queryString({ paramOne: ['v1', 'v2', 'v3'], paramTwo: [1, 2, 3] })).toEqual(expected);
+
+            expected =
+                'encoded%20Param%20One=p%261&encoded%20Param%20One=p%262&encoded%20Param%20One=p%263&paramTwo=one&paramTwo=v%202&paramTwo=2.2&paramTwo=3.3';
+            expect(
+                queryString({ 'encoded Param One': ['p&1', 'p&2', 'p&3'], paramTwo: ['one', 'v 2', 2.2, 3.3] })
+            ).toEqual(expected);
+        });
+
+        test('supports boolean', () => {
+            let expected = 'paramOne=true';
+            expect(queryString({ paramOne: true })).toEqual(expected);
+
+            expected = 'paramOne=true&param%20Two=false';
+            expect(queryString({ paramOne: true, 'param Two': false })).toEqual(expected);
+        });
+
+        test('supports everything', () => {
+            const params: Record<string, any> = {
+                strParam: 'My&String Value',
+                numParam: 1,
+                'array Param': ['value&one', 'value two', 'valueThree', 1, 2.2, 3.34, true],
+                nullParam: null,
+                undefinedParam: undefined,
+                boolParam: false,
+            };
+            const expected =
+                'strParam=My%26String%20Value&numParam=1&array%20Param=value%26one&array%20Param=value%20two&array%20Param=valueThree&array%20Param=1&array%20Param=2.2&array%20Param=3.34&array%20Param=true&nullParam=&undefinedParam=&boolParam=false';
+            expect(queryString(params)).toEqual(expected);
         });
     });
 });
