@@ -205,12 +205,15 @@ function mapCreateArguments(args: IArguments): CreateDomainOptions {
 }
 
 export interface DropDomainOptions extends RequestCallbackOptions {
+    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
+    auditUserComment?: string;
     /**
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
      */
     containerPath?: string;
-    domainDesign?: any; // consider removing, this doesn't appear to be needed
+    // consider removing, this doesn't appear to be needed
+    domainDesign?: any;
     /** The domain query name. */
     queryName: string;
     /** The domain schema name. */
@@ -230,6 +233,7 @@ export function drop(config: DropDomainOptions): XMLHttpRequest {
             domainDesign: config.domainDesign,
             schemaName: config.schemaName,
             queryName: config.queryName,
+            auditUserComment: config.auditUserComment,
         },
     });
 }
@@ -346,6 +350,8 @@ export function get(config: GetDomainOptions): XMLHttpRequest {
 }
 
 export interface SaveDomainOptions extends RequestCallbackOptions {
+    /** Can be used to provide a comment from the user that will be attached to domain audit event. */
+    auditUserComment?: string;
     /**
      * The container path in which the requested Domain is defined.
      * If not supplied, the current container path will be used.
@@ -387,6 +393,7 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
                   containerPath: arguments[5],
                   includeWarnings: arguments[6],
                   options: arguments[7],
+                  auditUserComment: arguments[8],
               }
             : config;
 
@@ -401,6 +408,7 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
             queryName: options.queryName,
             domainId: options.domainId,
             includeWarnings: options.includeWarnings,
+            auditUserComment: options.auditUserComment,
             options: options.options,
         },
     });

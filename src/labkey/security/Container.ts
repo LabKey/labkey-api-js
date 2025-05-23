@@ -169,6 +169,10 @@ export interface GetContainersOptions extends RequestCallbackOptions /* <Contain
      */
     includeEffectivePermissions?: boolean;
     /**
+     * If set to true, will include properties about the inherited state of the formats as well as formats from parent folders that can be inherited.
+     */
+    includeInheritableFormats?: boolean;
+    /**
      * If set to true, all of the container's standard properties will be included. (defaults to true)
      * If set to false, only the base set of properties (i.e. id, name, and path) will be included.
      */
@@ -182,10 +186,6 @@ export interface GetContainersOptions extends RequestCallbackOptions /* <Contain
      * If set to false, child containers of type "workbook" will not be included. (defaults to true)
      */
     includeWorkbookChildren?: boolean;
-    /**
-     * If set to true, will include properties about the inherited state of the formats as well as formats from parent folders that can be inherited.
-     */
-    includeInheritableFormats?: boolean;
     /**
      * The names (Strings) of modules whose Module Property values should be included for each container.
      * Use "*" to get the value of all Module Properties for all modules.

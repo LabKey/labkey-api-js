@@ -1,3 +1,6 @@
+### 1.41.1 - 2025-05-22
+- Add `auditUserComment` to `Domain.drop` and `Domain.save`
+
 ### 1.41.0 - 2025-05-22
 - ActionURL.queryString: Add support for numbers, booleans, and mixed arrays
 
