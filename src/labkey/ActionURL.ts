@@ -293,7 +293,7 @@ function fullyDecodeURIPath(path: string): string {
 }
 
 /**
- * Parses a location pathname of a LabKey URL into its constituent parts (e.g. controller, action, etc).
+ * Parses a location pathname of a LabKey URL into its constituent parts (e.g. controller, action, etc.).
  * Defaults to the current location's pathname and context path. The parsed parts of the {@link ActionPath} are
  * URI decoded.
  * #### Example
@@ -379,8 +379,8 @@ function encodeParamValue(key: string, value: string | number | boolean): string
     return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
 }
 
-type BaseQueryParamValue = string | number | boolean | null | undefined;
-type QueryParamValue = BaseQueryParamValue | BaseQueryParamValue[];
+export type BaseQueryParamValue = string | number | boolean | null | undefined;
+export type QueryParamValue = BaseQueryParamValue | BaseQueryParamValue[];
 
 /**
  * Turn the parameter object into a query string (e.g. `{x:'fred'} -> "x=fred"`).

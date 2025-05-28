@@ -1,3 +1,9 @@
+### 1.41.2 - 2025-05-28
+- Update `isBoolean` to directly check for boolean type and be tolerant of undefined/null value.
+- Switch `isArray` to be `Array.isArray`. Deprecate.
+- Switch `isNumber` to be `Number.isNumber`. Deprecate.
+- Update `isDate` to act as a `Date` type check returning `value is Date`.
+
 ### 1.41.1 - 2025-05-22
 - Add `auditUserComment` to `Domain.drop` and `Domain.save`
 
