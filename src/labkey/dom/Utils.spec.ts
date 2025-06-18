@@ -30,7 +30,12 @@ describe('dom/Utils', () => {
         it('submits form', () => {
             // Arrange
             const formId = 'postToAction-form';
-            const onSubmit = jest.fn().mockImplementation(e => e.preventDefault());
+
+            // js-dom does not implement HTMLFormElement.prototype.submit
+            // See https://github.com/jsdom/jsdom/issues/1937
+            const onSubmit = jest.fn();
+            jest.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(onSubmit);
+
             const inject = '<script>alert("8(");</script>';
             const url = '#';
             const formData = {
@@ -53,9 +58,7 @@ describe('dom/Utils', () => {
             expect(form.getAttribute('action')).toEqual(url);
             expect(form.getAttribute('method')).toEqual('POST');
             expect(form.getAttribute('target')).toEqual('_blank');
-
-            const inputs = form.querySelectorAll('input');
-            expect(inputs.length).toEqual(3);
+            expect(form.querySelectorAll('input')).toHaveLength(3);
 
             expect(onSubmit).toHaveBeenCalled();
         });
