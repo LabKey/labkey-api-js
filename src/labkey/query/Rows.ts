@@ -217,6 +217,11 @@ export interface Command {
     auditUserComment?: string;
     /** Name of the command to be performed. Must be one of "insert", "update", or "delete". */
     command: CommandType;
+    /**
+     * The container path in which the command is executed.
+     * If not supplied, the current container path will be used.
+     */
+    containerPath?: string;
     /** **Experimental:** Optional extra context object passed into the transformation/validation script environment. */
     extraContext?: any;
     /**

@@ -1,3 +1,8 @@
+### 1.42.0 - 2025-06-24
+- Package updates
+- Update ESLint configuration
+- Specify `containerPath` on `Query.Command`. Already supported by server-side.
+
 ### 1.41.2 - 2025-05-28
 - Update `isBoolean` to directly check for boolean type and be tolerant of undefined/null value.
 - Switch `isArray` to be `Array.isArray`. Deprecate.
