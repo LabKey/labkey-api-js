@@ -46,6 +46,8 @@ export interface GetGroupPermissionsOptions extends RequestCallbackOptions<Permi
      * the current container path will be used.
      */
     containerPath?: string;
+    /** Set to false to exclude groups that have no effective permissions (defaults to true) */
+    includeEmptyPermGroups?: boolean;
     /** Set to true to recurse down the subfolders (defaults to false) */
     includeSubfolders?: boolean;
 }
@@ -64,6 +66,9 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
 
     if (config.includeSubfolders != undefined) {
         params.includeSubfolders = config.includeSubfolders;
+    }
+    if (config.includeEmptyPermGroups != undefined) {
+        params.includeEmptyPermGroups = config.includeEmptyPermGroups;
     }
 
     return request({
