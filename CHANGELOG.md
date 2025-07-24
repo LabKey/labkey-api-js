@@ -1,3 +1,6 @@
+### 1.42.1 - 2025-07-24
+- Issue 53243: add "includeEmptyPermGroups" to getGroupPermissions
+
 ### 1.42.0 - 2025-06-24
 - Package updates
 - Update ESLint configuration
