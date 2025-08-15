@@ -118,7 +118,9 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
 
     if (options.properties) {
         for (const [key, value] of Object.entries(options.properties)) {
-            if (isObject(value)) {
+            if (value instanceof File) {
+                formData.append(`properties['${key}']`, value);
+            } else if (isObject(value)) {
                 formData.append(`properties['${key}']`, JSON.stringify(value));
             } else {
                 formData.append(`properties['${key}']`, options.properties[key]);
@@ -128,7 +130,9 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
 
     if (options.batchProperties) {
         for (const [key, value] of Object.entries(options.batchProperties)) {
-            if (isObject(value)) {
+            if (value instanceof File) {
+                formData.append(`batchProperties['${key}']`, value);
+            } else if (isObject(value)) {
                 formData.append(`batchProperties['${key}']`, JSON.stringify(value));
             } else {
                 formData.append(`batchProperties['${key}']`, options.batchProperties[key]);
