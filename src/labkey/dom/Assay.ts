@@ -17,13 +17,34 @@ import { buildURL } from '../ActionURL';
 import { request } from '../Ajax';
 import { getCallbackWrapper, getOnFailure, getOnSuccess, isObject, RequestCallbackOptions } from '../Utils';
 
+// CONSIDER: Simplifying serialization by calling JSON.stringify() on the entire properties object and placing that
+// on the form. We would pluck out the file values (like we do for Query.saveRows()). This would require API changes.
+function appendProperties(propName: string, formData: FormData, properties: Record<string, any>): void {
+    if (!properties) return;
+
+    for (const [key, value] of Object.entries(properties)) {
+        if (value === undefined) continue;
+
+        let formValue;
+        if (value instanceof File) {
+            formValue = value;
+        } else if (isObject(value) || Array.isArray(value)) {
+            formValue = JSON.stringify(value);
+        } else {
+            formValue = value;
+        }
+
+        formData.append(`${propName}['${key}']`, formValue);
+    }
+}
+
 export interface ImportRunOptions extends RequestCallbackOptions {
     allowCrossRunFileInputs?: boolean;
     allowLookupByAlternateKey?: boolean;
     assayId?: number | string;
     auditUserComment?: string;
     batchId?: number | string;
-    batchProperties?: any;
+    batchProperties?: Record<string, any>;
     comment?: string;
     comments?: string;
     containerPath?: string;
@@ -34,7 +55,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     jobNotificationProvider?: string;
     name?: string;
     plateMetadata?: any;
-    properties?: any;
+    properties?: Record<string, any>;
     reRunId?: number | string;
     resultsFiles?: File[];
     runFilePath?: string;
@@ -116,29 +137,8 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
         formData.append('auditUserComment', options.auditUserComment);
     }
 
-    if (options.properties) {
-        for (const [key, value] of Object.entries(options.properties)) {
-            if (value instanceof File) {
-                formData.append(`properties['${key}']`, value);
-            } else if (isObject(value)) {
-                formData.append(`properties['${key}']`, JSON.stringify(value));
-            } else {
-                formData.append(`properties['${key}']`, options.properties[key]);
-            }
-        }
-    }
-
-    if (options.batchProperties) {
-        for (const [key, value] of Object.entries(options.batchProperties)) {
-            if (value instanceof File) {
-                formData.append(`batchProperties['${key}']`, value);
-            } else if (isObject(value)) {
-                formData.append(`batchProperties['${key}']`, JSON.stringify(value));
-            } else {
-                formData.append(`batchProperties['${key}']`, options.batchProperties[key]);
-            }
-        }
-    }
+    appendProperties('batchProperties', formData, options.batchProperties);
+    appendProperties('properties', formData, options.properties);
 
     if (options.dataRows) {
         formData.append('dataRows', JSON.stringify(options.dataRows));
