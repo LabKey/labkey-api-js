@@ -1,3 +1,7 @@
+### 1.43.0 - 2025-08-29
+- Support `File` values directly in `Assay.importRun()` for `batchProperties` and (run) `properties`
+- Can only be run with corresponding server-side changes in LabKey v25.09
+
 ### 1.42.1 - 2025-07-24
 - Issue 53243: add "includeEmptyPermGroups" to getGroupPermissions
 
