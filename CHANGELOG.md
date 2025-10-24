@@ -1,3 +1,6 @@
+### 1.43.1 - 2025-X
+- Command and QueryRequestOptions: add auditDetails parameter
+
 ### 1.43.0 - 2025-08-29
 - Support `File` values directly in `Assay.importRun()` for `batchProperties` and (run) `properties`
 - Can only be run with corresponding server-side changes in LabKey v25.09
