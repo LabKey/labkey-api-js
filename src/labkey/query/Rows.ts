@@ -273,6 +273,11 @@ export interface SaveRowsResponse {
 }
 
 export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse> {
+
+    /**
+     * Optional audit details to record in the transaction audit log for this command.
+     */
+    auditDetails?: any;
     /**
      * Version of the API. If this is 13.2 or higher, a request that fails
      * validation will be returned as a successful response. Use the 'errorCount' and 'committed' properties in the
@@ -370,6 +375,7 @@ export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
     //     options = queryArguments(arguments);
     // }
     const jsonData = {
+        auditDetails: options.auditDetails,
         apiVersion: options.apiVersion,
         commands: options.commands,
         containerPath: options.containerPath,
