@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "1.43.0",
+  "version": "1.43.1-fb-lineage-53449.0",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
