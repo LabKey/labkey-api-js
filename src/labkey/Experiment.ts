@@ -181,6 +181,7 @@ export interface LineagePKFilter {
 export interface LineageItemBase {
     comment?: string;
     container: string;
+    containerPath: string;
     cpasType?: string;
     created: string;
     createdBy: string;
