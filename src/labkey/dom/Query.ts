@@ -95,6 +95,7 @@ export function exportTables(options: IExportTablesOptions): void {
 }
 
 export interface IImportDataOptions {
+    auditDetails?: any;
     auditUserComment?: string;
     containerPath?: string;
     failure?: Function;
@@ -160,6 +161,9 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     }
     if (options.auditUserComment !== undefined) {
         form.append('auditUserComment', options.auditUserComment);
+    }
+    if (options.auditDetails !== undefined) {
+        form.append('auditDetails', JSON.stringify(options.auditDetails));
     }
 
     if (options.file) {
