@@ -212,7 +212,7 @@ export interface LineageRunStepBase {
     protocol: LineageItemBase;
 }
 
-export type LineageRunStep = LineageItemBase & LineageIOConfig & LineageRunStepBase;
+export type LineageRunStep = LineageIOConfig & LineageItemBase & LineageRunStepBase;
 
 export interface LineageNodeBase {
     absolutePath: string;
@@ -228,11 +228,11 @@ export interface LineageNodeBase {
 }
 
 /** The shape of a LineageNode is determined by the options specified on the lineage API. */
-export type LineageNode = LineageItemBase & LineageIOConfig & LineageNodeBase;
+export type LineageNode = LineageIOConfig & LineageItemBase & LineageNodeBase;
 
 export interface LineageResponse {
     /** Object containing all lineage nodes in this lineage result. Keyed by node LSID. */
-    nodes: { [lsid: string]: LineageNode };
+    nodes: Record<string, LineageNode>;
     /**
      * When request is made with "lsid" option the response will include a singular "seed".
      * @deprecated since 19.3. Use "seeds" instead.
@@ -472,7 +472,7 @@ export function resolve(options: ResolveOptions): XMLHttpRequest {
 
 // formerly, _saveBatches
 function requestSaveBatches<SuccessPayload>(
-    rawOptions: SaveBatchOptions & SaveBatchesOptions,
+    rawOptions: SaveBatchesOptions & SaveBatchOptions,
     payloadProcessor: (json: any) => SuccessPayload
 ): XMLHttpRequest {
     return request({
@@ -600,7 +600,7 @@ export function saveRuns(options: SaveRunsOptions): XMLHttpRequest {
 
 export interface EntitySequenceActionsOptions extends RequestCallbackOptions {
     containerPath?: string;
-    kindName?: 'SampleSet' | 'DataClass';
+    kindName?: 'DataClass' | 'SampleSet';
     newValue?: number;
     rowId?: number;
     seqType: 'genId' | 'rootSampleCount' | 'sampleCount';
