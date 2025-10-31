@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "1.43.1",
+  "version": "1.43.2-fb-pnpm.0",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "pnpm run build:dist && pnpm run build:docs",
