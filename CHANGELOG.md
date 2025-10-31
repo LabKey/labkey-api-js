@@ -1,3 +1,6 @@
+### 1.43.1 - 2025-10-31
+- Issue 53449: resolve lineage items from container path
+
 ### 1.43.0 - 2025-08-29
 - Support `File` values directly in `Assay.importRun()` for `batchProperties` and (run) `properties`
 - Can only be run with corresponding server-side changes in LabKey v25.09
