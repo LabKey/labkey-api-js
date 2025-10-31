@@ -43,7 +43,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     allowLookupByAlternateKey?: boolean;
     assayId?: number | string;
     auditUserComment?: string;
-    auditDetails?: any;
+    auditDetails?: Record<string, any>;
     batchId?: number | string;
     batchProperties?: Record<string, any>;
     comment?: string;

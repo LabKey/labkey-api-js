@@ -95,7 +95,7 @@ export function exportTables(options: IExportTablesOptions): void {
 }
 
 export interface IImportDataOptions {
-    auditDetails?: any;
+    auditDetails?: Record<string, any>;
     auditUserComment?: string;
     containerPath?: string;
     failure?: Function;

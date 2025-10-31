@@ -23,7 +23,7 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
     /** Can be used to override the audit behavior for the table the query is acting on. See {@link AuditBehaviorTypes}. */
     auditBehavior?: AuditBehaviorTypes;
     /** Optional audit details to record in the transaction audit log for this command. */
-    auditDetails?: any;
+    auditDetails?: Record<string, any>;
     /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
     auditUserComment?: string;
     /**
@@ -217,7 +217,7 @@ export interface Command {
     auditBehavior?: AuditBehaviorTypes;
 
     /** Optional audit details to record in the transaction audit log for this command. */
-    auditDetails?: any;
+    auditDetails?: Record<string, any>;
 
     /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
     auditUserComment?: string;
@@ -277,7 +277,7 @@ export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse
     /**
      * Optional audit details to record in the transaction audit log for this command.
      */
-    auditDetails?: any;
+    auditDetails?: Record<string, any>;
     /**
      * Version of the API. If this is 13.2 or higher, a request that fails
      * validation will be returned as a successful response. Use the 'errorCount' and 'committed' properties in the
