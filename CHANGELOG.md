@@ -1,3 +1,6 @@
+### 1.43.2 - 2025-11-02
+- Command and QueryRequestOptions: add auditDetails parameter
+
 ### 1.43.1 - 2025-10-31
 - Issue 53449: resolve lineage items from container path
 

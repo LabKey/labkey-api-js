@@ -43,6 +43,7 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     allowLookupByAlternateKey?: boolean;
     assayId?: number | string;
     auditUserComment?: string;
+    auditDetails?: Record<string, any>;
     batchId?: number | string;
     batchProperties?: Record<string, any>;
     comment?: string;
@@ -135,6 +136,9 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
     }
     if (options.auditUserComment !== undefined) {
         formData.append('auditUserComment', options.auditUserComment);
+    }
+    if (options.auditDetails !== undefined) {
+        formData.append('auditDetails', JSON.stringify(options.auditDetails));
     }
 
     appendProperties('batchProperties', formData, options.batchProperties);

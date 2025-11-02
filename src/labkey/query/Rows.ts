@@ -22,6 +22,8 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
     apiVersion?: number | string;
     /** Can be used to override the audit behavior for the table the query is acting on. See {@link AuditBehaviorTypes}. */
     auditBehavior?: AuditBehaviorTypes;
+    /** Optional audit details to record in the transaction audit log for this command. */
+    auditDetails?: Record<string, any>;
     /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
     auditUserComment?: string;
     /**
@@ -213,6 +215,10 @@ export interface ModifyRowsResults {
 export interface Command {
     /** Can be used to override the audit behavior for the table the Command is acting on. See{@link AuditBehaviorTypes}. */
     auditBehavior?: AuditBehaviorTypes;
+
+    /** Optional audit details to record in the transaction audit log for this command. */
+    auditDetails?: Record<string, any>;
+
     /** Can be used to provide a comment from the user that will be attached to certain detailed audit log records. */
     auditUserComment?: string;
     /** Name of the command to be performed. Must be one of "insert", "update", or "delete". */
@@ -267,6 +273,11 @@ export interface SaveRowsResponse {
 }
 
 export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse> {
+
+    /**
+     * Optional audit details to record in the transaction audit log for this command.
+     */
+    auditDetails?: Record<string, any>;
     /**
      * Version of the API. If this is 13.2 or higher, a request that fails
      * validation will be returned as a successful response. Use the 'errorCount' and 'committed' properties in the
@@ -364,6 +375,7 @@ export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
     //     options = queryArguments(arguments);
     // }
     const jsonData = {
+        auditDetails: options.auditDetails,
         apiVersion: options.apiVersion,
         commands: options.commands,
         containerPath: options.containerPath,
@@ -449,6 +461,7 @@ function sendRequest(options: SendRequestOptions, supportsFiles?: boolean): XMLH
         transacted: options.transacted,
         extraContext: options.extraContext,
         auditBehavior: options.auditBehavior,
+        auditDetails: options.auditDetails,
         auditUserComment: options.auditUserComment,
         skipReselectRows: options.skipReselectRows,
     };
@@ -517,6 +530,7 @@ export function moveRows(options: MoveRowsOptions): XMLHttpRequest {
         queryName: options.queryName,
         rows: options.rows,
         auditBehavior: options.auditBehavior,
+        auditDetails: options.auditDetails,
         auditUserComment: options.auditUserComment,
         dataRegionSelectionKey: options.dataRegionSelectionKey,
         useSnapshotSelection: options.useSnapshotSelection,
