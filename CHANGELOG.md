@@ -1,4 +1,4 @@
-### 1.43.1 - 2025-X
+### 1.43.2 - 2025-11-02
 - Command and QueryRequestOptions: add auditDetails parameter
 
 ### 1.43.1 - 2025-10-31
