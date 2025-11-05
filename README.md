@@ -1,5 +1,3 @@
-# @labkey/api
-
 [API Docs](https://labkey.github.io/labkey-api-js/) | [Change Log](https://github.com/LabKey/labkey-api-js/blob/master/CHANGELOG.md) | [License](https://github.com/LabKey/labkey-api-js/blob/master/LICENSE) | [![Build Status](https://teamcity.labkey.org/app/rest/builds/buildType:(id:LabKey_Publishing_Client_JavaScriptApiTest)/statusIcon)](https://teamcity.labkey.org/viewType.html?buildTypeId=LabKey_Publishing_Client_JavaScriptApiTest)
 
 JavaScript package for interacting with [LabKey Server](https://www.labkey.com/). The goal for this package is to 
