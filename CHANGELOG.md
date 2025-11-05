@@ -1,3 +1,6 @@
+### 1.44.0 - 2025-11-05
+- Package updates
+
 ### 1.43.2 - 2025-11-02
 - Command and QueryRequestOptions: add auditDetails parameter
 
