@@ -193,6 +193,7 @@ export interface LineageItemBase {
     name: string;
     pkFilters: LineagePKFilter[];
     queryName: string;
+    restricted?: boolean;
     schemaName: string;
     type?: string;
     url?: string;
