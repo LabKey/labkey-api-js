@@ -28,11 +28,13 @@ export const SAMPLE_ALIQUOT_PROTOCOL = 'Sample Aliquot Protocol';
  * Several Experiment API endpoints expose optional settings for the ExperimentJSONConverter.
  */
 export interface ExperimentJSONConverterOptions {
-    /** Include run and step inputs and outputs. */
+    /** Include run and step inputs and outputs. Default is true. */
     includeInputsAndOutputs?: boolean;
-    /** Include properties set on the experiment objects. */
+    /** Include properties set on the experiment objects. Default is true. */
     includeProperties?: boolean;
-    /** Include run steps. */
+    /** Includes nodes the user is restricted from seeing. These nodes will include minimal information. Default is false. */
+    includeRestrictedNodes?: boolean;
+    /** Include run steps. Default is false. */
     includeRunSteps?: boolean;
 }
 
@@ -41,19 +43,13 @@ export interface ExperimentJSONConverterOptions {
  * @hidden
  * @private
  */
-function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOptions): any {
-    const params: any = {};
+function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOptions): Record<string, any> {
+    const params: Record<string, boolean> = {};
 
-    // Consider: strictly checking option type and raising error if it does not match
-    if (options.includeInputsAndOutputs !== undefined) {
-        params.includeInputsAndOutputs = options.includeInputsAndOutputs;
-    }
-    if (options.includeProperties !== undefined) {
-        params.includeProperties = options.includeProperties;
-    }
-    if (options.includeRunSteps !== undefined) {
-        params.includeRunSteps = options.includeRunSteps;
-    }
+    if (options.includeInputsAndOutputs !== undefined) params.includeInputsAndOutputs = options.includeInputsAndOutputs;
+    if (options.includeProperties !== undefined) params.includeProperties = options.includeProperties;
+    if (options.includeRestrictedNodes !== undefined) params.includeRestrictedNodes = options.includeRestrictedNodes;
+    if (options.includeRunSteps !== undefined) params.includeRunSteps = options.includeRunSteps;
 
     return params;
 }
