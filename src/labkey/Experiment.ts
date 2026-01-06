@@ -32,8 +32,6 @@ export interface ExperimentJSONConverterOptions {
     includeInputsAndOutputs?: boolean;
     /** Include properties set on the experiment objects. Default is true. */
     includeProperties?: boolean;
-    /** Includes nodes the user is restricted from seeing. These nodes will include minimal information. Default is false. */
-    includeRestrictedNodes?: boolean;
     /** Include run steps. Default is false. */
     includeRunSteps?: boolean;
 }
@@ -48,7 +46,6 @@ function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOpt
 
     if (options.includeInputsAndOutputs !== undefined) params.includeInputsAndOutputs = options.includeInputsAndOutputs;
     if (options.includeProperties !== undefined) params.includeProperties = options.includeProperties;
-    if (options.includeRestrictedNodes !== undefined) params.includeRestrictedNodes = options.includeRestrictedNodes;
     if (options.includeRunSteps !== undefined) params.includeRunSteps = options.includeRunSteps;
 
     return params;
