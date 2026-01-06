@@ -28,11 +28,11 @@ export const SAMPLE_ALIQUOT_PROTOCOL = 'Sample Aliquot Protocol';
  * Several Experiment API endpoints expose optional settings for the ExperimentJSONConverter.
  */
 export interface ExperimentJSONConverterOptions {
-    /** Include run and step inputs and outputs. Default is true. */
+    /** Include run and step inputs and outputs. */
     includeInputsAndOutputs?: boolean;
-    /** Include properties set on the experiment objects. Default is true. */
+    /** Include properties set on the experiment objects. */
     includeProperties?: boolean;
-    /** Include run steps. Default is false. */
+    /** Include run steps. */
     includeRunSteps?: boolean;
 }
 
@@ -42,11 +42,18 @@ export interface ExperimentJSONConverterOptions {
  * @private
  */
 function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOptions): Record<string, any> {
-    const params: Record<string, boolean> = {};
+    const params: Record<string, any> = {};
 
-    if (options.includeInputsAndOutputs !== undefined) params.includeInputsAndOutputs = options.includeInputsAndOutputs;
-    if (options.includeProperties !== undefined) params.includeProperties = options.includeProperties;
-    if (options.includeRunSteps !== undefined) params.includeRunSteps = options.includeRunSteps;
+    // Consider: strictly checking option type and raising error if it does not match
+    if (options.includeInputsAndOutputs !== undefined) {
+        params.includeInputsAndOutputs = options.includeInputsAndOutputs;
+    }
+    if (options.includeProperties !== undefined) {
+        params.includeProperties = options.includeProperties;
+    }
+    if (options.includeRunSteps !== undefined) {
+        params.includeRunSteps = options.includeRunSteps;
+    }
 
     return params;
 }
