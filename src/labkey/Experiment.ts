@@ -41,8 +41,8 @@ export interface ExperimentJSONConverterOptions {
  * @hidden
  * @private
  */
-function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOptions): any {
-    const params: any = {};
+function applyExperimentJSONConverterOptions(options: ExperimentJSONConverterOptions): Record<string, any> {
+    const params: Record<string, any> = {};
 
     // Consider: strictly checking option type and raising error if it does not match
     if (options.includeInputsAndOutputs !== undefined) {
@@ -193,6 +193,7 @@ export interface LineageItemBase {
     name: string;
     pkFilters: LineagePKFilter[];
     queryName: string;
+    restricted?: boolean;
     schemaName: string;
     type?: string;
     url?: string;

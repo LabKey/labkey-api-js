@@ -1,3 +1,6 @@
+### 1.44.1 - 2026-01-07
+- Lineage: add "restricted" property
+
 ### 1.44.0 - 2025-11-05
 - Package updates
 
