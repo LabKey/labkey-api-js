@@ -1,3 +1,7 @@
+### 1.X - 2026-01-X
+- Add Array filter types
+  - ARRAY_CONTAINS_ALL, ARRAY_CONTAINS_ANY, ARRAY_CONTAINS_EXACT, ARRAY_ISEMPTY, ARRAY_ISNOTEMPTY
+
 ### 1.44.1 - 2026-01-07
 - Lineage: add "restricted" property
 
