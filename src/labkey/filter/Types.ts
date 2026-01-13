@@ -133,7 +133,7 @@ export const Types: Record<string, IFilterType> = {
         null,
         'arraycontainsall',
         true,
-        ';',
+        ',',
         'Contains All Of'
     ),
     ARRAY_CONTAINS_ANY: registerFilterType(
@@ -141,7 +141,7 @@ export const Types: Record<string, IFilterType> = {
         null,
         'arraycontainsany',
         true,
-        ';',
+        ',',
         'Contains At Least One Of'
     ),
     ARRAY_CONTAINS_EXACT: registerFilterType(
@@ -149,15 +149,23 @@ export const Types: Record<string, IFilterType> = {
         null,
         'arraymatches',
         true,
-        ';',
+        ',',
         'Contains Exactly the Selected Values'
+    ),
+    ARRAY_CONTAINS_NOT_EXACT: registerFilterType(
+        'Does Not Contain Exactly',
+        null,
+        'arraynotmatches',
+        true,
+        ',',
+        'Does Not Contains Exactly the Selected Values'
     ),
     ARRAY_CONTAINS_NONE: registerFilterType(
         'Contains None',
         null,
         'arraycontainsnone',
         true,
-        ';',
+        ',',
         'Contains None Of'
     ),
 
@@ -418,7 +426,7 @@ export const Types: Record<string, IFilterType> = {
 export type JsonType = 'array' | 'boolean' | 'date' | 'float' | 'int' | 'string' | 'time';
 
 export const TYPES_BY_JSON_TYPE: Record<string, IFilterType[]> = {
-    array: [Types.ARRAY_ISEMPTY, Types.ARRAY_ISNOTEMPTY, Types.ARRAY_CONTAINS_ALL, Types.ARRAY_CONTAINS_NONE, Types.ARRAY_CONTAINS_ANY, Types.ARRAY_CONTAINS_EXACT],
+    array: [Types.ARRAY_ISEMPTY, Types.ARRAY_ISNOTEMPTY, Types.ARRAY_CONTAINS_ALL, Types.ARRAY_CONTAINS_NONE, Types.ARRAY_CONTAINS_ANY, Types.ARRAY_CONTAINS_EXACT, Types.ARRAY_CONTAINS_NOT_EXACT],
     boolean: [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
     date: [
         Types.DATE_EQUAL,
