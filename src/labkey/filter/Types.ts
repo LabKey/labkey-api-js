@@ -45,7 +45,7 @@ export interface IFilterType {
      * Split a filter String or Array value appropriately for this filter type.
      * @return For multi-valued filter types, an Array of values, otherwise the original filter value.
      */
-    parseValue: (value: string | FilterValue[]) => FilterValue | FilterValue[];
+    parseValue: (value: FilterValue[] | string) => FilterValue | FilterValue[];
     validate: (value: FilterValue, jsonType: string, columnName: string) => any;
 }
 
@@ -128,14 +128,7 @@ export const Types: Record<string, IFilterType> = {
     // These operators require a data value
     //
 
-    ARRAY_CONTAINS_ALL: registerFilterType(
-        'Contains All',
-        null,
-        'arraycontainsall',
-        true,
-        ',',
-        'Contains All Of'
-    ),
+    ARRAY_CONTAINS_ALL: registerFilterType('Contains All', null, 'arraycontainsall', true, ',', 'Contains All Of'),
     ARRAY_CONTAINS_ANY: registerFilterType(
         'Contains Any',
         null,
@@ -160,14 +153,7 @@ export const Types: Record<string, IFilterType> = {
         ',',
         'Does Not Contains Exactly the Selected Values'
     ),
-    ARRAY_CONTAINS_NONE: registerFilterType(
-        'Contains None',
-        null,
-        'arraycontainsnone',
-        true,
-        ',',
-        'Contains None Of'
-    ),
+    ARRAY_CONTAINS_NONE: registerFilterType('Contains None', null, 'arraycontainsnone', true, ',', 'Contains None Of'),
 
     EQUAL,
     DATE_EQUAL: registerFilterType(
@@ -321,7 +307,7 @@ export const Types: Record<string, IFilterType> = {
         undefined,
         undefined,
         undefined,
-        false,
+        false
     ),
     ARRAY_ISNOTEMPTY: registerFilterType(
         'Is Not Empty',
@@ -332,7 +318,7 @@ export const Types: Record<string, IFilterType> = {
         undefined,
         undefined,
         undefined,
-        false,
+        false
     ),
 
     // NOTE: This type, for better or worse, uses empty string as it's urlSuffix.
@@ -426,7 +412,15 @@ export const Types: Record<string, IFilterType> = {
 export type JsonType = 'array' | 'boolean' | 'date' | 'float' | 'int' | 'string' | 'time';
 
 export const TYPES_BY_JSON_TYPE: Record<string, IFilterType[]> = {
-    array: [Types.ARRAY_ISEMPTY, Types.ARRAY_ISNOTEMPTY, Types.ARRAY_CONTAINS_ALL, Types.ARRAY_CONTAINS_NONE, Types.ARRAY_CONTAINS_ANY, Types.ARRAY_CONTAINS_EXACT, Types.ARRAY_CONTAINS_NOT_EXACT],
+    array: [
+        Types.ARRAY_ISEMPTY,
+        Types.ARRAY_ISNOTEMPTY,
+        Types.ARRAY_CONTAINS_ALL,
+        Types.ARRAY_CONTAINS_NONE,
+        Types.ARRAY_CONTAINS_ANY,
+        Types.ARRAY_CONTAINS_EXACT,
+        Types.ARRAY_CONTAINS_NOT_EXACT,
+    ],
     boolean: [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
     date: [
         Types.DATE_EQUAL,
@@ -659,7 +653,7 @@ export function registerFilterType(
             return value;
         },
 
-        validate: (value: FilterValue, jsonType: JsonType, columnName: string): string | boolean | undefined => {
+        validate: (value: FilterValue, jsonType: JsonType, columnName: string): boolean | string | undefined => {
             if (!isDataValueRequired()) {
                 return true; // TODO: This method is all over the place with it's return type. WTB sanity...
             }
@@ -746,7 +740,7 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
             return undefined;
         }
     } else if (jsonType === 'date') {
-        let year: number, month: number, day: number, hour: number, minute: number;
+        let day: number, hour: number, minute: number, month: number, year: number;
         hour = 0;
         minute = 0;
 
