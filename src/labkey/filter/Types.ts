@@ -413,13 +413,13 @@ export type JsonType = 'array' | 'boolean' | 'date' | 'float' | 'int' | 'string'
 
 export const TYPES_BY_JSON_TYPE: Record<string, IFilterType[]> = {
     array: [
-        Types.ARRAY_ISEMPTY,
-        Types.ARRAY_ISNOTEMPTY,
         Types.ARRAY_CONTAINS_ALL,
-        Types.ARRAY_CONTAINS_NONE,
         Types.ARRAY_CONTAINS_ANY,
         Types.ARRAY_CONTAINS_EXACT,
+        Types.ARRAY_CONTAINS_NONE,
         Types.ARRAY_CONTAINS_NOT_EXACT,
+        Types.ARRAY_ISEMPTY,
+        Types.ARRAY_ISNOTEMPTY,
     ],
     boolean: [Types.HAS_ANY_VALUE, Types.EQUAL, Types.NEQ_OR_NULL, Types.ISBLANK, Types.NONBLANK],
     date: [
