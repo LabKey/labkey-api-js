@@ -1,3 +1,6 @@
+### 1.45.X - 2026-X
+- Update Array filter multi-value delimiter to ';' to match IN/NOT IN filter types to allow filter type conversion
+
 ### 1.45.0 - 2026-01-20
 - Add Array filter types
   - ARRAY_CONTAINS_ALL, ARRAY_CONTAINS_ANY, ARRAY_CONTAINS_EXACT, ARRAY_CONTAINS_NOT_EXACT, ARRAY_ISEMPTY, ARRAY_ISNOTEMPTY

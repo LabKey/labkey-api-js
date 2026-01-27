@@ -128,13 +128,13 @@ export const Types: Record<string, IFilterType> = {
     // These operators require a data value
     //
 
-    ARRAY_CONTAINS_ALL: registerFilterType('Contains All', null, 'arraycontainsall', true, ',', 'Contains All Of'),
+    ARRAY_CONTAINS_ALL: registerFilterType('Contains All', null, 'arraycontainsall', true, ';', 'Contains All Of'),
     ARRAY_CONTAINS_ANY: registerFilterType(
         'Contains Any',
         null,
         'arraycontainsany',
         true,
-        ',',
+        ';',
         'Contains At Least One Of'
     ),
     ARRAY_CONTAINS_EXACT: registerFilterType(
@@ -142,7 +142,7 @@ export const Types: Record<string, IFilterType> = {
         null,
         'arraymatches',
         true,
-        ',',
+        ';',
         'Contains Exactly the Selected Values'
     ),
     ARRAY_CONTAINS_NOT_EXACT: registerFilterType(
@@ -150,10 +150,10 @@ export const Types: Record<string, IFilterType> = {
         null,
         'arraynotmatches',
         true,
-        ',',
+        ';',
         'Does Not Contains Exactly the Selected Values'
     ),
-    ARRAY_CONTAINS_NONE: registerFilterType('Contains None', null, 'arraycontainsnone', true, ',', 'Contains None Of'),
+    ARRAY_CONTAINS_NONE: registerFilterType('Contains None', null, 'arraycontainsnone', true, ';', 'Contains None Of'),
 
     EQUAL,
     DATE_EQUAL: registerFilterType(
