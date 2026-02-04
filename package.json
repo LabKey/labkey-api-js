@@ -38,7 +38,7 @@
     "@babel/core": "7.29.0",
     "@babel/plugin-transform-modules-commonjs": "7.28.6",
     "@labkey/eslint-config": "1.1.2-package-updates-0226.0",
-    "@tinyhttp/content-disposition": "2.2.3",
+    "@tinyhttp/content-disposition": "2.2.4",
     "@types/jest": "30.0.0",
     "@types/nise": "1.4.5",
     "ajv": "~8.17.1",
@@ -53,7 +53,7 @@
     "ts-loader": "9.5.4",
     "typedoc": "0.28.16",
     "typescript": "5.9.3",
-    "webpack": "5.104.1",
+    "webpack": "5.105.0",
     "webpack-cli": "6.0.1"
   }
 }
