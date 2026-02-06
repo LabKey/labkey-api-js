@@ -1,5 +1,8 @@
-### 1.45.X - 2026-X
+### 1.46.X - 2026-X
 - Update Array filter multi-value delimiter to ';' to match IN/NOT IN filter types to allow filter type conversion
+
+### 1.46.0 - 2026-02-04
+- Package updates
 
 ### 1.45.0 - 2026-01-20
 - Add Array filter types
