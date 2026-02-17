@@ -1,4 +1,4 @@
-### 1.46.X - 2026-X
+### 1.46.1 - 2026-02-17
 - Update Array filter multi-value delimiter to ';' to match IN/NOT IN filter types to allow filter type conversion
 
 ### 1.46.0 - 2026-02-04
