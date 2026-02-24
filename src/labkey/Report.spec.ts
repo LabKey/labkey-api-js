@@ -35,7 +35,7 @@ describe('execute', () => {
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
-                url: '/reports/execute.api',
+                url: '/reports-execute.api',
                 method: 'POST',
                 jsonData: {
                     reportId: 'db:123',

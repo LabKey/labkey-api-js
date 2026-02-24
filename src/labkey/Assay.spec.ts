@@ -40,7 +40,7 @@ describe('assayList.api requests', () => {
         // Assert
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
-                url: '/assay/my/special/folder/assayList.api',
+                url: '/my/special/folder/assay-assayList.api',
             })
         );
     });
@@ -59,7 +59,7 @@ describe('assayList.api requests', () => {
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
                 jsonData: { id: assayId },
-                url: '/assay/my/special/folder/assayList.api',
+                url: '/my/special/folder/assay-assayList.api',
             })
         );
     });
@@ -78,7 +78,7 @@ describe('assayList.api requests', () => {
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
                 jsonData: { name: assayName },
-                url: '/assay/my/special/folder/assayList.api',
+                url: '/my/special/folder/assay-assayList.api',
             })
         );
     });
@@ -97,7 +97,7 @@ describe('assayList.api requests', () => {
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
                 jsonData: { type: assayType },
-                url: '/assay/my/special/folder/assayList.api',
+                url: '/my/special/folder/assay-assayList.api',
             })
         );
     });
@@ -117,7 +117,7 @@ describe('assayList.api requests', () => {
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
                 jsonData: { id, name, plateEnabled, status, type },
-                url: '/assay/assayList.api',
+                url: '/assay-assayList.api',
             })
         );
     });

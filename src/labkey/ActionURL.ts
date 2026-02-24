@@ -120,15 +120,10 @@ export function buildURL(
     if (action.indexOf('.') == -1) {
         action += '.view';
     }
-    const query = queryString(parameters);
 
-    let newURL: string;
-    const { contextPath, experimental } = getServerContext();
-    if (experimental && experimental.containerRelativeURL) {
-        newURL = contextPath + containerPath + controller + '-' + action;
-    } else {
-        newURL = contextPath + '/' + controller + containerPath + action;
-    }
+    const query = queryString(parameters);
+    const { contextPath } = getServerContext();
+    let newURL = contextPath + containerPath + controller + '-' + action;
 
     if (query) {
         newURL += '?' + query;

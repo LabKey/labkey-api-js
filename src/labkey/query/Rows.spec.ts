@@ -40,7 +40,7 @@ describe('deleteRows', () => {
                     rows,
                     schemaName,
                 }),
-                url: '/query/deleteRows.api',
+                url: '/query-deleteRows.api',
             })
         );
     });
@@ -69,7 +69,7 @@ describe('insertRows', () => {
                     rows,
                     schemaName,
                 }),
-                url: '/query/insertRows.api',
+                url: '/query-insertRows.api',
             })
         );
     });
@@ -92,7 +92,7 @@ describe('insertRows', () => {
             expect.objectContaining({
                 method: 'POST',
                 form: expect.anything(),
-                url: '/query/insertRows.api',
+                url: '/query-insertRows.api',
             })
         );
         expect(requestSpy).toHaveBeenCalledWith(
@@ -117,7 +117,7 @@ describe('insertRows', () => {
             expect.objectContaining({
                 method: 'POST',
                 form: expect.anything(),
-                url: '/query/insertRows.api',
+                url: '/query-insertRows.api',
             })
         );
     });
@@ -146,7 +146,7 @@ describe('updateRows', () => {
                     rows,
                     schemaName,
                 }),
-                url: '/query/updateRows.api',
+                url: '/query-updateRows.api',
             })
         );
     });
@@ -169,7 +169,7 @@ describe('updateRows', () => {
             expect.objectContaining({
                 method: 'POST',
                 form: expect.anything(),
-                url: '/query/updateRows.api',
+                url: '/query-updateRows.api',
             })
         );
         expect(requestSpy).toHaveBeenCalledWith(
@@ -224,7 +224,7 @@ describe('saveRows', () => {
                 jsonData: expect.objectContaining({
                     commands,
                 }),
-                url: '/query/saveRows.api',
+                url: '/query-saveRows.api',
             })
         );
     });
@@ -267,7 +267,7 @@ describe('saveRows', () => {
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
                 method: 'POST',
-                url: '/query/saveRows.api',
+                url: '/query-saveRows.api',
             })
         );
         const form = requestSpy.mock.lastCall[0].form;
