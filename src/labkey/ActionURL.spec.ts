@@ -31,13 +31,13 @@ describe('ActionURL', () => {
 
         it('should build the correct URL', () => {
             const url = ActionURL.buildURL('project', 'getWebPart', 'MyContainer');
-            expect(url).toEqual('/project/MyContainer/getWebPart.view');
+            expect(url).toEqual('/MyContainer/project-getWebPart.view');
         });
 
         it('should build the correct URL with optional parameters', () => {
             const params = { listId: 50, returnUrl: 'home', array: [10, 'li'] };
             const url = ActionURL.buildURL('project', 'getWebPart', 'MyContainer', params);
-            expect(url).toEqual('/project/MyContainer/getWebPart.view?listId=50&returnUrl=home&array=10&array=li');
+            expect(url).toEqual('/MyContainer/project-getWebPart.view?listId=50&returnUrl=home&array=10&array=li');
         });
     });
 

@@ -88,7 +88,7 @@ describe('selectRows', () => {
         expect(requestSpy).toHaveBeenCalledWith(
             expect.objectContaining({
                 // default to container-free URL
-                url: '/query/getQuery.api',
+                url: '/query-getQuery.api',
 
                 // default to 'GET' request
                 method: 'GET',
@@ -138,7 +138,7 @@ describe('selectRows -- optional parameters', () => {
 
     test('containerPath', () => {
         const containerPath = '/container';
-        expect(selectRowsRequest({ containerPath })).toHaveProperty('url', '/query/container/getQuery.api');
+        expect(selectRowsRequest({ containerPath })).toHaveProperty('url', '/container/query-getQuery.api');
     });
 
     test('dataRegionName', () => {
