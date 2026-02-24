@@ -1,3 +1,9 @@
+### 1.47.0 - 2026-02-24
+- Always use container relative URLs
+- Remove ExperimentalFeatures.containerRelativeURL
+- Update tests to assume container relative URLs
+- Add justfile
+
 ### 1.46.1 - 2026-02-17
 - Update Array filter multi-value delimiter to ';' to match IN/NOT IN filter types to allow filter type conversion
 
