@@ -1,3 +1,6 @@
+### 1.48.0 - 2026-02-26
+- Package updates
+
 ### 1.47.0 - 2026-02-24
 - Always use container relative URLs
 - Remove ExperimentalFeatures.containerRelativeURL
