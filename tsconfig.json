@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    // declarationMap is required for IntelliJ to resolve source file references
+    "declarationMap": true,
     "esModuleInterop": true,
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "moduleResolution": "node",
     "noEmit": false,
     "noImplicitAny": true,
+    "outDir": "dist",
     "removeComments": false,
     "resolveJsonModule": true,
     "rootDir": "src",
