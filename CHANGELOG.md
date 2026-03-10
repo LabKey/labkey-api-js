@@ -1,3 +1,8 @@
+### 1.49.0 - 2026-03-10
+- Update TypeScript compiler `lib` option to `"ES2023"'
+- Add `declarationMap` and `outDir` to TypeScript compiler options
+- Package updates
+
 ### 1.48.0 - 2026-02-26
 - Package updates
 
