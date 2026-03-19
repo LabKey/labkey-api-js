@@ -1,3 +1,7 @@
+### 1.49.1 - 2026-03-??
+- Fix Filter parseValue method incorrectly handling invalid JSON values
+  - GH Issue 948: Multi value text choice filters don't work for JSON values, crash the app
+
 ### 1.49.0 - 2026-03-10
 - Update TypeScript compiler `lib` option to `"ES2023"'
 - Add `declarationMap` and `outDir` to TypeScript compiler options

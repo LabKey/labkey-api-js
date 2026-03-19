@@ -51,3 +51,45 @@ describe('Types', () => {
         expect(generateFilterTypesSnapshot(Types)).toStrictEqual(typesSnapshot);
     });
 });
+
+describe('parseValue', () => {
+    describe('multi value types', () => {
+        it('should parse JSON formatted values', () => {
+            const type = Types.IN;
+            const value = '{json:["value1","value2","value;3"]}';
+            expect(type.parseValue(value)).toEqual(['value1', 'value2', 'value;3']);
+        });
+
+        it('should split values by the type multi-value separator', () => {
+            const semicolonType = Types.IN; // Uses ';' as separator
+            const semicolonValue = 'value1;value2;value3';
+            expect(semicolonType.parseValue(semicolonValue)).toEqual(['value1', 'value2', 'value3']);
+
+            const commaType = Types.BETWEEN; // Uses ',' as separator
+            const commaValue = 'value1,value2';
+            expect(commaType.parseValue(commaValue)).toEqual(['value1', 'value2']);
+        });
+
+        it('should split values by newline separator', () => {
+            const type = Types.IN;
+            const value = 'value1\nvalue2\nvalue3';
+            expect(type.parseValue(value)).toEqual(['value1', 'value2', 'value3']);
+        });
+
+        it('should split values by both type separator and newline', () => {
+            const type = Types.IN;
+            const value = 'value1;value2\nvalue3';
+            expect(type.parseValue(value)).toEqual(['value1', 'value2', 'value3']);
+        });
+
+        it('should fall back to regex parsing if JSON is invalid', () => {
+            const type = Types.IN;
+            // Invalid JSON: missing closing quote for value2
+            const singleValue = '{json:["value1","value2]}';
+            expect(type.parseValue(singleValue)).toEqual([singleValue]);
+
+            const multiValue = '{json:aaa;bb}';
+            expect(type.parseValue(multiValue)).toEqual(['{json:aaa', 'bb}']);
+        });
+    })
+});
