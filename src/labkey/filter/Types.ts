@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { isArray, isString } from '../Utils';
+import { isString } from '../Utils';
 
 import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap } from './constants';
 
@@ -557,6 +557,22 @@ export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): 
     return types;
 }
 
+// Note that while ';' and ',' are both used as primary separators, '\n' is the only secondary separator
+const NEW_LINE_SEP = '\n';
+
+export function parseMultiValueFilterString(type: IFilterType, value: string) {
+    if (value.indexOf('{json:') === 0 && value.indexOf('}') === value.length - 1) {
+        try {
+            return JSON.parse(value.substring('{json:'.length, value.length - 1));
+        } catch {
+            // GH Issue #948 Purposely do nothing, revert to parsing with regex
+        }
+    }
+
+    const regexPattern = new RegExp(`[${NEW_LINE_SEP}${type.getMultiValueSeparator()}]`);
+    return value.split(regexPattern);
+}
+
 /**
  * Creates a FilterType object and stores it in the global URL Map used by Filter.getFilterTypeForURLSuffix
  * @param displayText The text to display in a filter menu
@@ -585,8 +601,6 @@ export function registerFilterType(
     const isDataValueRequired = () => dataValueRequired === true;
     const isMultiValued = () => multiValueSeparator != null;
     const isTableWise = () => tableWise === true;
-    // Note that while ';' and ',' are both used as primary separators, '\n' is the only secondary separator
-    const NEW_LINE_SEP = '\n';
 
     const type: IFilterType = {
         getDisplaySymbol: () => displaySymbol ?? null,
@@ -606,15 +620,10 @@ export function registerFilterType(
         parseValue: value => {
             if (type.isMultiValued()) {
                 if (isString(value)) {
-                    if (value.indexOf('{json:') === 0 && value.indexOf('}') === value.length - 1) {
-                        value = JSON.parse(value.substring('{json:'.length, value.length - 1));
-                    } else {
-                        const regexPattern = new RegExp(`[${NEW_LINE_SEP}${type.getMultiValueSeparator()}]`);
-                        value = value.split(regexPattern);
-                    }
+                    value = parseMultiValueFilterString(type, value);
                 }
 
-                if (!isArray(value))
+                if (!Array.isArray(value))
                     throw new Error(
                         "Filter '" +
                             type.getDisplayText() +
@@ -625,7 +634,7 @@ export function registerFilterType(
                     );
             }
 
-            if (!type.isMultiValued() && isArray(value))
+            if (!type.isMultiValued() && Array.isArray(value))
                 throw new Error("Array of values not supported for '" + type.getDisplayText() + "' filter: " + value);
 
             return value;
@@ -636,7 +645,7 @@ export function registerFilterType(
                 return '';
             }
 
-            if (type.isMultiValued() && isArray(value)) {
+            if (type.isMultiValued() && Array.isArray(value)) {
                 // 35265: Create alternate syntax to handle semicolons
                 const sep = type.getMultiValueSeparator();
                 const found = value.some((v: string) => {

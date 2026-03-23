@@ -67,7 +67,7 @@ currentVersionImport := quote("require('./package.json').version")
 version:
     @echo $(node -p -e {{ currentVersionImport }})
 
-# Bumps the @labkey/premium package to the current version in every module listed in the modulesToBump variable
+# Bumps the @labkey/api package to the current version in every module listed in the modulesToBump variable
 bump:
     #!/usr/bin/env zsh
     set -euo pipefail
