@@ -351,6 +351,8 @@ describe('bindSaveRowsData', () => {
         const fileA = new File([], '');
         const fileB = new File([], '');
         const fileC = new File([], '');
+        const fileD = new File([], '');
+        const fileE = new File([], '');
         const form = bindSaveRowsData({
             commands: [
                 {
@@ -358,14 +360,26 @@ describe('bindSaveRowsData', () => {
                     rows: [
                         { myFile: fileA, rowId: 1 },
                         { myFile: fileB, rowId: 2 },
+                        { 'file"Name': fileC, rowId: 3 },
+                        { 'file\\Name': fileD, rowId: 4 },
                     ],
                 },
-                { ...baseCommand, rows: [{ myFile: fileC, rowId: 3 }] },
+                { ...baseCommand, rows: [{ myFile: fileE, rowId: 5 }] },
             ],
         });
+        expect(Array.from(form.keys()).sort()).toEqual([
+            '%_file%22Name::0::2',
+            '%_file%5CName::0::3',
+            'json',
+            'myFile::0::0',
+            'myFile::0::1',
+            'myFile::1::0',
+        ]);
         expect(form.get('myFile::0::0')).toEqual(fileA);
         expect(form.get('myFile::0::1')).toEqual(fileB);
-        expect(form.get('myFile::1::0')).toEqual(fileC);
+        expect(form.get('%_file%22Name::0::2')).toEqual(fileC);
+        expect(form.get('%_file%5CName::0::3')).toEqual(fileD);
+        expect(form.get('myFile::1::0')).toEqual(fileE);
         expect(form.get('json')).toEqual(
             JSON.stringify({
                 commands: [
@@ -373,13 +387,13 @@ describe('bindSaveRowsData', () => {
                         schemaName: 'schema',
                         queryName: 'query',
                         command: 'update',
-                        rows: [{ rowId: 1 }, { rowId: 2 }],
+                        rows: [{ rowId: 1 }, { rowId: 2 }, { rowId: 3 }, { rowId: 4 }],
                     },
                     {
                         schemaName: 'schema',
                         queryName: 'query',
                         command: 'update',
-                        rows: [{ rowId: 3 }],
+                        rows: [{ rowId: 5 }],
                     },
                 ],
             })

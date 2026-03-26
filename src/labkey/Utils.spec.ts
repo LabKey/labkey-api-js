@@ -44,6 +44,34 @@ describe('caseInsensitiveEquals', () => {
     });
 });
 
+describe('encodeFormName', () => {
+    test('empty', () => {
+        expect(Utils.encodeFormName(null)).toBeNull();
+        expect(Utils.encodeFormName(undefined)).toBeUndefined();
+        expect(Utils.encodeFormName('')).toBe('');
+        expect(Utils.encodeFormName('   ')).toBe('   ');
+    });
+
+    test('no relevant special character', () => {
+        expect(Utils.encodeFormName('a')).toBe('a');
+        expect(Utils.encodeFormName('$')).toBe('$');
+        expect(Utils.encodeFormName('9')).toBe('9');
+        expect(Utils.encodeFormName('[a]')).toBe('[a]');
+    });
+
+    test('encoded', () => {
+        expect(Utils.encodeFormName('"')).toBe('%_%22');
+        expect(Utils.encodeFormName('%')).toBe('%_%25');
+        expect(Utils.encodeFormName('%_beep')).toBe('%_%25_beep');
+        expect(Utils.encodeFormName('""')).toBe('%_%22%22');
+        expect(Utils.encodeFormName('"22')).toBe('%_%2222');
+        expect(Utils.encodeFormName('"a"')).toBe('%_%22a%22');
+        expect(Utils.encodeFormName('a%22')).toBe('%_a%2522');
+        expect(Utils.encodeFormName('"a%22')).toBe('%_%22a%2522');
+        expect(Utils.encodeFormName('"a%222')).toBe('%_%22a%25222');
+    });
+});
+
 describe('ensureRegionName', () => {
     it('should return default', () => {
         expect(Utils.ensureRegionName()).toEqual('query');

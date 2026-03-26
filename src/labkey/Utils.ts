@@ -336,6 +336,19 @@ export function encode(data: any): string {
 }
 
 /**
+ * Encodes a form value name for submission to a LabKey Server.
+ *
+ * @param name The form value name to encode.
+ * @return The encoded form value name.
+ */
+export function encodeFormName(name: string): string {
+    // Issue 52925, Issue 52119, Issue 54218
+    // Should be consistent with PageFlowUtil.encodeFormName() on the server
+    if (!name || !/[\\"%]/.test(name)) return name;
+    return '%_' + encodeURIComponent(name);
+}
+
+/**
  * Encodes the html passed in and converts it to a String so that it will not be interpreted as HTML
  * by the browser. For example, if your input string was "&lt;p&gt;Hello&lt;/p&gt;" the output would be
  * "&amp;lt;p&amp;gt;Hello&amp;lt;/p&amp;gt;". If you set an element's innerHTML property
