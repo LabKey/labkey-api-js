@@ -1,6 +1,6 @@
 {
   "name": "@labkey/api",
-  "version": "1.49.1",
+  "version": "1.49.2-fb-encodeFormName.0",
   "description": "JavaScript client API for LabKey Server",
   "scripts": {
     "build": "npm run build:dist && npm run build:docs",
