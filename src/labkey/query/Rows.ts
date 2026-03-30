@@ -15,7 +15,7 @@
  */
 import { request, RequestOptions } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
+import { encodeFormName, getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 import { AuditBehaviorTypes } from '../constants';
 
 export interface QueryRequestOptions extends RequestCallbackOptions {
@@ -273,18 +273,17 @@ export interface SaveRowsResponse {
 }
 
 export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse> {
-
-    /**
-     * Optional audit details to record in the transaction audit log for this command.
-     */
-    auditDetails?: Record<string, any>;
     /**
      * Version of the API. If this is 13.2 or higher, a request that fails
      * validation will be returned as a successful response. Use the 'errorCount' and 'committed' properties in the
      * response to tell if it committed or not. If this is 13.1 or lower (or unspecified), the failure callback
      * will be invoked instead in the event of a validation failure.
      */
-    apiVersion?: string | number;
+    apiVersion?: number | string;
+    /**
+     * Optional audit details to record in the transaction audit log for this command.
+     */
+    auditDetails?: Record<string, any>;
     /** An array of the update/insert/delete operations to be performed. */
     commands: Command[];
     /**
@@ -303,15 +302,14 @@ export interface SaveRowsOptions extends RequestCallbackOptions<SaveRowsResponse
      */
     timeout?: number;
     /**
-     * Whether all of the row changes for all of the tables
-     * should be done in a single transaction, so they all succeed or all fail. Defaults to true.
+     * Whether all the row changes for all the tables should be done in a single transaction,
+     * so they all succeed or all fail. Defaults to true.
      */
     transacted?: boolean;
     /**
-     * Whether or not the server should attempt proceed through all of the
-     * commands, but not actually commit them to the database. Useful for scenarios like giving incremental
-     * validation feedback as a user fills out a UI form, but not actually save anything until they explicitly request
-     * a save.
+     * Whether the server should attempt to proceed through all the commands but not commit them to the database.
+     * Useful for scenarios like giving incremental validation feedback as a user fills out a UI form but does not save
+     * anything until they explicitly request a save.
      */
     validateOnly?: boolean;
 }
@@ -336,7 +334,7 @@ function bindSaveRowsCommand(form: FormData, command: Command, commandIndex: num
 
         Object.keys(updatedRow).forEach(key => {
             if (updatedRow[key] instanceof File) {
-                form.append(`${key}::${commandIndex}::${rowIndex}`, updatedRow[key]);
+                form.append(`${encodeFormName(key)}::${commandIndex}::${rowIndex}`, updatedRow[key]);
                 delete updatedRow[key];
             }
         });
@@ -420,7 +418,7 @@ export function bindFormData(jsonData: { rows?: any[] }, options: SendRequestOpt
             form = new FormData();
 
             // Process and extract File data with row offsets
-            const rows: Array<Record<string, any>> = [];
+            const rows: Record<string, any>[] = [];
 
             jsonData.rows.forEach((row, i) => {
                 if (row) {
@@ -429,7 +427,7 @@ export function bindFormData(jsonData: { rows?: any[] }, options: SendRequestOpt
                     Object.keys(row).forEach(k => {
                         // Extract File values from the row
                         if (row[k] instanceof File) {
-                            form.append(`${k}::${i}`, row[k]);
+                            form.append(`${encodeFormName(k)}::${i}`, row[k]);
                         } else {
                             _row[k] = row[k];
                         }

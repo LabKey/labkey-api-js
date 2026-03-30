@@ -1,3 +1,7 @@
+### 1.50.0 - 2026-03-30
+- Introduce `Utils.encodeFormName` which is a client-side corollary for `PageFlowUtil.encodeFormName`.
+- Update form data binding to encode keys
+
 ### 1.49.1 - 2026-03-23
 - Fix Filter parseValue method incorrectly handling invalid JSON values
   - GH Issue 948: Multi value text choice filters don't work for JSON values, crash the app
