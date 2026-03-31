@@ -1,3 +1,6 @@
+### 1.51.0 - 2026-03-31
+- Package updates
+
 ### 1.50.0 - 2026-03-30
 - Introduce `Utils.encodeFormName` which is a client-side corollary for `PageFlowUtil.encodeFormName`.
 - Update form data binding to encode keys
