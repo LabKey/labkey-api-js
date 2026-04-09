@@ -561,7 +561,8 @@ export function getFilterTypesForType(jsonType: JsonType, mvEnabled?: boolean): 
 const NEW_LINE_SEP = '\n';
 
 export function parseMultiValueFilterString(type: IFilterType, value: string) {
-    if (value.indexOf('{json:') === 0 && value.indexOf('}') === value.length - 1) {
+    // GH Issue 966: Grid filter UI parses URL parameter incorrectly for value a}b;c
+    if (value.startsWith('{json:') && value.endsWith('}')) {
         try {
             return JSON.parse(value.substring('{json:'.length, value.length - 1));
         } catch {

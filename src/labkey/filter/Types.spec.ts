@@ -82,6 +82,20 @@ describe('parseValue', () => {
             expect(type.parseValue(value)).toEqual(['value1', 'value2', 'value3']);
         });
 
+        it('should parse JSON formatted values containing closing brace in value', () => {
+            const type = Types.IN;
+            const value = '{json:["a}b;c"]}';
+            expect(type.parseValue(value)).toEqual(['a}b;c']);
+        });
+
+        it('should round-trip values containing both separator and closing brace', () => {
+            const type = Types.IN;
+            const original = ['a}b;c', 'x;y}z'];
+            const encoded = type.getURLParameterValue(original);
+            expect(encoded).toBe('{json:["a}b;c","x;y}z"]}');
+            expect(type.parseValue(encoded)).toEqual(original);
+        });
+
         it('should fall back to regex parsing if JSON is invalid', () => {
             const type = Types.IN;
             // Invalid JSON: missing closing quote for value2
