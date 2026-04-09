@@ -1,4 +1,4 @@
-### 1.X - 2026-X
+### 1.51.1 - 2026-04-08
 - GitHub Issue 966: Grid filter UI parses URL parameter incorrectly for array data
 
 ### 1.51.0 - 2026-03-31
