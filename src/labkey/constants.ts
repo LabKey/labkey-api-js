@@ -127,6 +127,7 @@ export type LabKey = {
     isDocumentClosed: string;
     jdkJavaDocLinkPrefix: string;
     login: LoginConfiguration;
+    mcpReady?: boolean;
     moduleContext?: Record<string, any>;
     pageAdminMode: boolean;
     postParameters?: any;
