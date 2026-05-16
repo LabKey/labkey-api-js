@@ -1,3 +1,6 @@
+### 1.51.3 - 2026-05-15
+- Add `mcpReady` to types
+
 ### 1.51.2 - 2026-05-12
 - Package updates
 
