@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020-2026 LabKey Corporation
+ *
+ * Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
+ */
 /**
  * Produces a JSON snapshot of the "clientapi_core" library API. This snapshot can be used to compare against
  * the API produced by @labkey/api to help ensure compatibility.

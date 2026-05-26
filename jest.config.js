@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2023-2026 LabKey Corporation
+ *
+ * Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
+ */
 // Run all tests with timezone set to UTC
 // https://stackoverflow.com/a/56482581
 process.env.TZ = 'UTC';
