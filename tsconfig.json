@@ -16,7 +16,9 @@
     "rootDir": "src",
     "sourceMap": true,
     "strict": false,
-    "target": "ES5",
-    "types": ["jest"]
-  }
+    "target": "ES5"
+  },
+  // Test files are compiled by ts-jest via tsconfig.test.json, which supplies the jest types.
+  // Exclude them here, so the type-check does not flag the jest globals.
+  "exclude": ["**/*.spec.ts"]
 }
