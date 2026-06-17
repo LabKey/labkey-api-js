@@ -1,6 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "isolatedModules": true
-  }
+    "types": ["jest"]
+  },
+  // Override the base config's exclude so spec files are part of the compilation of tests.
+  "exclude": []
 }
