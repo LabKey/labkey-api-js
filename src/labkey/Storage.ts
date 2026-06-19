@@ -27,6 +27,8 @@ export interface StorageCommandResponse {
 }
 
 export interface IStorageCommandOptions extends RequestCallbackOptions<StorageCommandResponse> {
+    /** Optional comment that will be attached to the audit log record for this storage change. */
+    auditUserComment?: string;
     /** The container path in which to execute the command. */
     containerPath?: string;
     /** The specific set of props will differ for each storage item type:
@@ -129,6 +131,7 @@ export function createStorageItem(config: IStorageCommandOptions): XMLHttpReques
         jsonData: {
             type: config.type,
             props: config.props,
+            auditUserComment: config.auditUserComment,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
@@ -175,6 +178,7 @@ export function updateStorageItem(config: IStorageCommandOptions): XMLHttpReques
         jsonData: {
             type: config.type,
             props: config.props,
+            auditUserComment: config.auditUserComment,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
@@ -209,6 +213,7 @@ export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpR
         jsonData: {
             type: config.type,
             props: { rowId: config.rowId },
+            auditUserComment: config.auditUserComment,
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
