@@ -1,5 +1,5 @@
 ### 1.X - 2026-X
-- Add `auditUserComment` option to `Storage.createStorageItem`, `Storage.updateStorageItem`, and `Storage.deleteStorageItem` for attaching a reason to the audit log record
+- Pass `auditUserComment` option to `Storage.deleteStorageItem` for attaching a reason to the audit log record
 
 ### 1.51.4 - 2026-06-17
 - Package updates
