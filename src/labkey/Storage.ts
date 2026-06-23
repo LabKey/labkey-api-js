@@ -36,6 +36,8 @@ export interface IStorageCommandOptions extends RequestCallbackOptions<StorageCo
      * - Shelf/Rack/Canister: name, description, locationId (rowId of the parent freezer or Shelf/Rack/Canister)
      * - Storage Unit Type: name, description, unitType (one of the following: "Box", "Plate", "Bag", "Cane", "Tube Rack"), rows, cols (required if positionFormat is not "Num"), positionFormat (one of the following: "Num", "AlphaNum", "AlphaAlpha", "NumAlpha", "NumNum"), positionOrder (one of the following: "RowColumn", "ColumnRow")
      * - Terminal Storage Location: name, description, typeId (rowId of the Storage Unit Type), locationId (rowId of the parent freezer or Shelf/Rack/Canister)
+     *
+     * In addition, any storage item type accepts an optional `auditUserComment` (string) which is recorded as the "Reason" on the resulting audit event.
      */
     props: Record<string, any>;
     /** Storage items can be of the following types: Physical Location, Freezer, Primary Storage, Shelf, Rack, Canister, Storage Unit Type, or Terminal Storage Location. */
@@ -160,7 +162,8 @@ export function createStorageItem(config: IStorageCommandOptions): XMLHttpReques
  *      type: 'Terminal Storage Location',
  *      props: {
  *          rowId: 19382,
- *          locationId: 8089 // move Box #1 from Shelf #1 to Shelf #2
+ *          locationId: 8089, // move Box #1 from Shelf #1 to Shelf #2
+ *          auditUserComment: 'Relocated to make room for incoming samples from Lab B.'
  *      },
  *      success: function(response) {
  *          console.log(response);
@@ -201,6 +204,20 @@ export interface DeleteStorageCommandOptions extends IStorageCommandOptions {
  *      }
  * });
  * ```
+ *
+ * ```js
+ * // Delete a box and record a reason in the audit log
+ * LABKEY.Storage.deleteStorageItem({
+ *      type: 'Terminal Storage Location',
+ *      rowId: 19382,
+ *      props: {
+ *          auditUserComment: 'Decommissioned; replaced by Box #2.'
+ *      },
+ *      success: function(response) {
+ *          console.log(response);
+ *      }
+ * });
+ * ```
  */
 export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpRequest {
     return request({
@@ -208,7 +225,10 @@ export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpR
         method: 'POST',
         jsonData: {
             type: config.type,
-            props: { rowId: config.rowId },
+            props: {
+                rowId: config.rowId,
+                ...(config.props?.auditUserComment !== undefined && { auditUserComment: config.props.auditUserComment }),
+            },
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
