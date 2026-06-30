@@ -1,3 +1,6 @@
+### 1.X - 2026-X
+- Allow `file` to be an array for `IImportDataOptions` 
+
 ### 1.51.5 - 2026-06-22
 - Pass `auditUserComment` option to `Storage.deleteStorageItem` for attaching a reason to the audit log record
 
