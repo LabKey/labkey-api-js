@@ -43,7 +43,7 @@ export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDist
      * If not supplied, the current container path will be used.
      */
     containerPath?: string;
-    /** Prefix for query parameters (e.g. filters, sorts, etc) in this request. Defaults to "query". */
+    /** Prefix for query parameters (e.g., filters, sorts, etc.) in this request. Defaults to "query". */
     dataRegionName?: string;
     /** Array of objects created by Filter.create. */
     filterArray?: IFilter[];
@@ -64,7 +64,7 @@ export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDist
      * For details on parameterized SQL queries,
      * see [Parameterized SQL Queries](https://www.labkey.org/Documentation/wiki-page.view?name=paramsql).
      */
-    parameters?: any;
+    parameters?: Record<string, any>;
     /**
      * Name of a query table associated with the chosen schema.
      * See also: [How To Find schemaName, queryName & viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames).
@@ -89,7 +89,7 @@ export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDist
  * @hidden
  * @private
  */
-function buildSelectDistinctParams(options: SelectDistinctOptions): any {
+function buildSelectDistinctParams(options: SelectDistinctOptions): Record<string, any> {
     const params = buildQueryParams(
         options.schemaName,
         options.queryName,

@@ -31,13 +31,13 @@ function createValues(json: any): any[] {
  * into one series per Analyte.
  */
 export class Dimension {
-    description: string;
-    _isUserDefined: boolean;
-    label: string;
-    name: string;
-    queryName: string;
-    schemaName: string;
-    type: string;
+    description!: string;
+    _isUserDefined!: boolean;
+    label!: string;
+    name!: string;
+    queryName!: string;
+    schemaName!: string;
+    type!: string;
 
     constructor(config: any) {
         if (config && config.hasOwnProperty('isUserDefined')) {
@@ -97,7 +97,7 @@ export class Dimension {
     /**
      * Returns the set of available unique values for this dimension.
      */
-    getValues(options: RequestCallbackOptions<Array<{ value: any }>>): XMLHttpRequest {
+    getValues(options: RequestCallbackOptions<{ value: any }[]>): XMLHttpRequest {
         return request({
             url: buildURL('visualization', 'getDimensionValues.api'),
             params: {

@@ -150,8 +150,8 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
  * @hidden
  * @private
  */
-function requestExecuteWrapper(callback: Function, scope: any): AjaxHandler {
-    return getCallbackWrapper(function (data: any, response: any, options: any) {
+function requestExecuteWrapper(this: any, callback: Function, scope: any): AjaxHandler {
+    return getCallbackWrapper(function (this: any, data: any, response: any, options: any) {
         // TODO: This could be done with getCallbackWrapper "responseTransformer"
         if (data && data.outputParams) {
             for (let i = 0; i < data.outputParams.length; i++) {

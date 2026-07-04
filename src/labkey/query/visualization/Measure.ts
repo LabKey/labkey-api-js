@@ -43,13 +43,13 @@ export interface MeasureGetDimensionsOptions extends RequestCallbackOptions<Arra
  * @namespace Measure Measures are plottable data elements (columns).  They may be of numeric or date types.
  */
 export class Measure {
-    description: string;
-    _isUserDefined: boolean;
-    label: string;
-    name: string;
-    queryName: string;
-    schemaName: string;
-    type: string;
+    description!: string;
+    _isUserDefined!: boolean;
+    label!: string;
+    name!: string;
+    queryName!: string;
+    schemaName!: string;
+    type!: string;
 
     constructor(config: any) {
         if (config && config.hasOwnProperty('isUserDefined')) {

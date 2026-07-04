@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { getOnFailure, getOnSuccess, isArray } from './Utils';
+import { getOnFailure, getOnSuccess } from './Utils';
 
 /**
  * Make multiple ajax requests and invokes a callback when all are complete.
@@ -83,7 +83,7 @@ import { getOnFailure, getOnSuccess, isArray } from './Utils';
  *  });
  * ```
  */
-export const MultiRequest = function (config: any) {
+export const MultiRequest = function (this: any, config: any) {
     const doneCallbacks: any[] = [];
     const self = this;
     let sending = false;
@@ -115,7 +115,7 @@ export const MultiRequest = function (config: any) {
     }
 
     function createSequence(fn1: any, fn2: any, scope: any) {
-        return function () {
+        return function (this: any) {
             const ret = fn1.apply(scope || this || window, arguments);
             fn2.apply(scope || this || window, arguments);
             return ret;
@@ -211,7 +211,7 @@ export const MultiRequest = function (config: any) {
     let listeners;
     let requests;
 
-    if (isArray(cfg)) {
+    if (Array.isArray(cfg)) {
         requests = cfg;
     } else {
         requests = cfg.requests;

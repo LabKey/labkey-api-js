@@ -19,7 +19,7 @@ import { getCallbackWrapper, getOnFailure, getOnSuccess, isObject, RequestCallba
 
 // CONSIDER: Simplifying serialization by calling JSON.stringify() on the entire properties object and placing that
 // on the form. We would pluck out the file values (like we do for Query.saveRows()). This would require API changes.
-function appendProperties(propName: string, formData: FormData, properties: Record<string, any>): void {
+function appendProperties(propName: string, formData: FormData, properties: Record<string, any> | undefined): void {
     if (!properties) return;
 
     for (const [key, value] of Object.entries(properties)) {
@@ -42,8 +42,8 @@ export interface ImportRunOptions extends RequestCallbackOptions {
     allowCrossRunFileInputs?: boolean;
     allowLookupByAlternateKey?: boolean;
     assayId?: number | string;
-    auditUserComment?: string;
     auditDetails?: Record<string, any>;
+    auditUserComment?: string;
     batchId?: number | string;
     batchProperties?: Record<string, any>;
     comment?: string;

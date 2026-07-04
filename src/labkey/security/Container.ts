@@ -15,7 +15,7 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getOnSuccess, getCallbackWrapper, getOnFailure, isArray, RequestCallbackOptions } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 import { Container, getServerContext } from '../constants';
 
 export interface CreateContainerOptions extends RequestCallbackOptions<Container> {
@@ -28,7 +28,7 @@ export interface CreateContainerOptions extends RequestCallbackOptions<Container
     description?: string;
     /** The name of the folder type to be applied. */
     folderType?: string;
-    /** Whether this a workbook should be created. Defaults to false. */
+    /** Whether this workbook should be created. Defaults to false. */
     isWorkbook?: boolean;
     /** Required for projects or folders. The name of the container. */
     name: string;
@@ -61,9 +61,9 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
 }
 
 export interface DeleteContainerOptions extends RequestCallbackOptions {
-    /** A comment which will appear in the audit log on the reason for deletion. */
+    /** A comment that will appear in the audit log on the reason for deletion. */
     comment?: string;
-    /** The container which should be deleted. If not specified the current container path will be deleted. */
+    /** The container that should be deleted. If not specified, the current container path will be deleted. */
     containerPath?: string;
 }
 
@@ -88,9 +88,9 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
 export interface RenameContainerOptions extends RequestCallbackOptions<Container> {
     /** If set to true, adds an alias for the container's current name. */
     addAlias?: boolean;
-    /** The container which should be renamed. If not specified the current container path will be renamed. */
+    /** The container that should be renamed. If not specified, the current container path will be renamed. */
     containerPath?: string;
-    /** The new container name. If not specified, defaults to existing name. */
+    /** The new container name. If not specified, defaults to the existing name. */
     name?: string;
     /** The new container title. If not specified, defaults to name. */
     title?: string;
@@ -127,7 +127,7 @@ export interface ModuleProperty {
 
 export interface ContainerHierarchy extends Container {
     /**
-     * When the includeSubfolders parameter was true this will contain an array of child
+     * When the includeSubfolders parameter was true, this will contain an array of child
      * container objects with the same shape as the parent object.
      */
     children: ContainerHierarchy[];
@@ -173,8 +173,8 @@ export interface GetContainersOptions extends RequestCallbackOptions /* <Contain
      */
     includeInheritableFormats?: boolean;
     /**
-     * If set to true, all of the container's standard properties will be included. (defaults to true)
-     * If set to false, only the base set of properties (i.e. id, name, and path) will be included.
+     * If set to true, all the container's standard properties will be included. (defaults to true)
+     * If set to false, only the base set of properties (i.e., id, name, and path) will be included.
      */
     includeStandardProperties?: boolean;
     /**
@@ -209,7 +209,7 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
     if (config) {
         // TODO: These undefined checked should use !==
         if (config.container != undefined) {
-            if (isArray(config.container)) {
+            if (Array.isArray(config.container)) {
                 params.multipleContainers = true;
                 params.container = config.container;
             } else {
@@ -274,9 +274,7 @@ export type FolderType = {
     workbookType: boolean;
 };
 
-export type GetFolderTypesResponse = {
-    [folderType: string]: FolderType;
-};
+export type GetFolderTypesResponse = Record<string, FolderType>;
 
 export interface GetFolderTypesOptions extends RequestCallbackOptions<GetFolderTypesResponse> {
     containerPath?: string;
@@ -317,11 +315,11 @@ export type GetModulesModules = {
     /** Name of the module */
     name: string;
 
-    /** Indicates if this module requires site permission */
-    requireSitePermission: boolean;
-
     /** Whether this module is required in the folder type specified above */
     required: boolean;
+
+    /** Indicates if this module requires site permission */
+    requireSitePermission: boolean;
 
     /** name of the tab associated with this module */
     tabName: string;
@@ -385,10 +383,10 @@ export interface GetReadableContainersOptions extends RequestCallbackOptions<str
  * Returns information about the container paths visible to the current user.
  */
 export function getReadableContainers(options: GetReadableContainersOptions): XMLHttpRequest {
-    const params: any = {};
+    const params: Record<string, any> = {};
 
     if (undefined !== options.container) {
-        if (isArray(options.container)) {
+        if (Array.isArray(options.container)) {
             if (options.container.length > 0) {
                 options.container = [options.container[0]];
             } else {
@@ -418,7 +416,7 @@ export function getReadableContainers(options: GetReadableContainersOptions): XM
  * Returns the name of the shared container, which is automatically created when your server is setup. It is usually 'Shared'
  * @returns {string} The name of the shared container automatically created on this server.
  */
-export function getSharedContainer(): string {
+export function getSharedContainer(): string | undefined {
     return getServerContext().sharedContainer;
 }
 

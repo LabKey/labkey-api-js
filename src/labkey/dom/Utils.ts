@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { CSRF_HEADER } from '../constants';
-import { decode, encodeHtml, generateUUID, id } from '../Utils';
+import { decode, encodeHtml, ErrorMessageConfig, generateUUID, id } from '../Utils';
 
 import { buildURL } from '../ActionURL';
 
@@ -145,15 +145,15 @@ export function displayAjaxErrorResponse(
  * @Override
  * Generates a display string from the response to an error from an AJAX request
  */
-export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, config: any): string {
+export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, config: ErrorMessageConfig): string {
     config = config || {};
-    let error;
+    let error: string | undefined;
     const prefix = config.msgPrefix || 'An error occurred trying to load:\n';
 
     if (response && response.responseText && response.getResponseHeader('Content-Type')) {
         const contentType = response.getResponseHeader('Content-Type');
 
-        if (contentType.indexOf('application/json') >= 0) {
+        if (contentType && contentType.indexOf('application/json') >= 0) {
             const json = decode(response.responseText);
 
             if (json && json.exception) {
@@ -162,7 +162,7 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
                     error += '\n(' + (json.exceptionClass ? json.exceptionClass : 'Exception class unknown') + ')';
                 }
             }
-        } else if (contentType.indexOf('text/html') >= 0 && $) {
+        } else if (contentType && contentType.indexOf('text/html') >= 0 && $) {
             const html = $(response.responseText);
             const el = html.find('.exception-message');
             if (el && el.length === 1) {

@@ -125,7 +125,7 @@ export interface EnsureLoginOptions extends RequestCallbackOptions<{ currentUser
  * In server-side scripts, this method will return the JSON response object
  * (first parameter of the success or failure callbacks.)
  */
-export function ensureLogin(config: EnsureLoginOptions): XMLHttpRequest | void {
+export function ensureLogin(this: any, config: EnsureLoginOptions): XMLHttpRequest | void {
     if (getServerContext().user.isGuest || config.force) {
         if (config.useSiteLoginPage) {
             if (typeof window !== undefined) {
@@ -134,7 +134,7 @@ export function ensureLogin(config: EnsureLoginOptions): XMLHttpRequest | void {
         } else {
             return request({
                 url: buildURL('security', 'ensureLogin.api'),
-                success: getCallbackWrapper(function (data: any, req: any) {
+                success: getCallbackWrapper(function (this: any, data: any, req: any) {
                     if (data.currentUser) {
                         setGlobalUser(data.currentUser);
                     }

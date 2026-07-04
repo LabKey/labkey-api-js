@@ -26,50 +26,50 @@ import {
 import { create, DomainDesign, getDomainDetails, KINDS } from './Domain';
 
 /**
- * The experiment object base class which describes basic characteristics of a protocol
+ * The experiment object base class that describes basic characteristics of a protocol
  * or an experimental run. Many experiment classes (such as {@link Run}, {@link Data}, and {@link Material})
- * are subclasses of ExpObject, so they provide the fields defined by this object (e.g., name, lsid, etc).
+ * are subclasses of ExpObject, so they provide the fields defined by this object (e.g., name, lsid, etc.).
  */
 export class ExpObject {
     /**
-     * User editable comment.
+     * User-editable comment.
      */
-    comment: string;
+    comment?: string;
 
     /**
      * The person who created the ExpObject.
      */
-    created: Date;
+    created?: Date;
 
     /**
      * The person who created the ExpObject.
      */
-    createdBy: string;
+    createdBy?: string;
 
     /**
      * The id of the ExpObject
      */
-    id: number;
+    id?: number;
 
     /**
      * The LSID of the ExpObject
      */
-    lsid: string;
+    lsid?: string;
 
     /**
      * When the ExpObject was last modified.
      */
-    modified: Date;
+    modified?: Date;
 
     /**
      * The person who last modified the ExpObject.
      */
-    modifiedBy: string;
+    modifiedBy?: string;
 
     /**
      * The name of the ExpObject
      */
-    name: string;
+    name?: string;
 
     /**
      * Map of property descriptor names to values. Most types, such as strings and
@@ -84,7 +84,7 @@ export class ExpObject {
     /**
      * The id of the ExpObject (alias of id property)
      */
-    rowId: number;
+    rowId?: number;
 
     constructor(config: Partial<ExpObject> = {}) {
         this.lsid = config.lsid;
@@ -110,14 +110,14 @@ export interface IGetExpObjectDomain {
     /**
      * Function called if execution of the "getDomainDetails" function fails.
      */
-    failure?: () => any;
+    failure?: () => void;
 
     /**
      * Function called if the "getDomainDetails" function executes successfully.
      * Will be called with the domain object as returned by {@link getDomainDetails}
      * which describes the fields of a domain.
      */
-    success: (domain?: any) => any;
+    success: (domain?: any) => void;
 }
 
 export interface ICreateDataClassDomain {
@@ -134,7 +134,7 @@ export interface ICreateDataClassDomain {
     /**
      * Function called if execution of the "getDomainDetails" function fails.
      */
-    failure?: () => any;
+    failure?: () => void;
 
     /**
      * Set of extra options used when creating the SampleSet.
@@ -146,29 +146,29 @@ export interface ICreateDataClassDomain {
      * Will be called with the domain object as returned by {@link getDomainDetails}
      * which describes the fields of a domain.
      */
-    success: (domain?: any) => any;
+    success: (domain?: any) => void;
 }
 
 /**
  * DataClass represents a set of ExpData objects that share a set of properties.
- * This class defines the set of fields that you you wish to attach to all datas in the group.
+ * This class defines the set of fields that you wish to attach to all datas in the group.
  * Within the DataClass, each Data has a unique name.
  */
 export class DataClass extends ExpObject {
     /**
      * Description of the DataClass.
      */
-    description: string;
+    description?: string;
 
     /**
      * Optional name expression used to generate unique names for ExpData inserted into the DataClass.
      */
-    nameExpression: string;
+    nameExpression?: string;
 
     /**
      * The optional SampleSet the DataClass is associated with.
      */
-    sampleSet: ExpMaterialSampleSet;
+    sampleSet?: ExpMaterialSampleSet;
 
     constructor(config: Partial<DataClass> = {}) {
         super(config);
@@ -187,12 +187,10 @@ export class DataClass extends ExpObject {
         create({
             containerPath: options.containerPath,
             domainDesign: options.domainDesign,
-            // err, this says "type" in Experiment.js, however, I don't believe "type" is a supported property.
-            // I assume it is attempting to match to "kind" which would be "DataClass" to create a DataClassDomainKind.
             kind: 'DataClass',
             options: options.options,
-            success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any,
+            success: getOnSuccess(options),
+            failure: getOnFailure(options),
         });
     }
 
@@ -218,8 +216,8 @@ export class DataClass extends ExpObject {
             schemaName: 'exp.data',
             queryName: this.name,
             containerPath: options.containerPath,
-            success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any,
+            success: getOnSuccess(options),
+            failure: getOnFailure(options),
         });
     }
 }
@@ -238,7 +236,7 @@ export class ChildObject extends ExpObject {
 
 /**
  * Internal configuration object. Not intended to be instantiated directly.
- * If anyone is using this we should really ask them why -- it was never hooked up.
+ * If anyone is using this, we should really ask them why -- it was never hooked up.
  * @hidden
  * @private
  */
@@ -254,7 +252,7 @@ export class ProtocolApplication extends ExpObject {
  * @private
  */
 export class RunItem extends ExpObject {
-    cpasType: string;
+    cpasType?: string;
     run: any;
     sourceApplications: any;
     sourceProtocol: any;
@@ -280,7 +278,7 @@ export interface IGetContentOptions {
     /**
      * A reference to a function to call when an error occurs.
      */
-    failure?: (errorInfo?: any, response?: ExtendedXMLHttpRequest, options?: RequestOptions) => any;
+    failure?: (errorInfo?: any, response?: ExtendedXMLHttpRequest, options?: RequestOptions) => void;
 
     /**
      * How to format the content. Defaults to plaintext, supported for text/* MIME types,
@@ -297,7 +295,7 @@ export interface IGetContentOptions {
     /**
      * The function to call when the function finishes successfully.
      */
-    success: (content?: any, format?: string, response?: ExtendedXMLHttpRequest) => any;
+    success: (content?: any, format?: string, response?: ExtendedXMLHttpRequest) => void;
 }
 
 export type ExpDataDataClass = {
@@ -315,7 +313,7 @@ export type ExpDataDataClass = {
 /**
  * The Exp.Data class describes the data input or output of a {@link Run}. This typically
  * corresponds to an assay results file uploaded to the LabKey server. To create an Exp.Data object, upload
- * a file using to the "assayFileUpload" action of the "assay" controller.
+ * a file using the "assayFileUpload" action of the "assay" controller.
  *
  * #### Examples
  * To perform a file upload over HTTP:
@@ -384,27 +382,27 @@ export class Data extends ExpObject {
     /**
      * The DataClass the data belongs to.
      */
-    dataClass: ExpDataDataClass;
+    dataClass?: ExpDataDataClass;
 
     /**
      * The local file url of the uploaded file.
      */
-    dataFileURL: string;
+    dataFileURL?: string;
 
     /**
      * TODO: Describe dataType. Possibly no longer supported.
      */
-    dataType: string;
+    dataType?: string;
 
     /**
-     * Path relative to pipeline root.
+     * Path relative to the pipeline root.
      */
-    pipelinePath: string;
+    pipelinePath?: string;
 
     /**
      * The role designation for this data.
      */
-    role: string;
+    role?: string;
 
     constructor(config: Partial<Data> = {}) {
         super(config);
@@ -518,17 +516,12 @@ export class Data extends ExpObject {
      * ```
      */
     getContent(options: IGetContentOptions): void {
-        // NK: I'm choosing to not implement this call to "alert". There are plenty of places where we
-        // "require" arguments and fail less gracefully. In this case, not supplying a success just means the call
-        // is useless but I think a user of this API will quickly come to realize that they need to get access
-        // to the object somehow and investigate further.
-
-        // if (getOnSuccess(options)) {
-        //     alert('Error', 'You must specify a callback function in config.success when calling LABKEY.Exp.Data.getContent()');
-        // }
-
-        function getSuccessCallbackWrapper(success: Function, format: string, scope: any) {
-            return getCallbackWrapper(function (json: any, response: ExtendedXMLHttpRequest) {
+        function getSuccessCallbackWrapper(
+            success: IGetContentOptions['success'] | undefined,
+            format: string | undefined,
+            scope: any
+        ) {
+            return getCallbackWrapper(function (this: any, json: any, response: ExtendedXMLHttpRequest) {
                 if (success) {
                     success.call(scope || this, json, format, response);
                 }
@@ -623,7 +616,7 @@ export class Run extends ExpObject {
      */
     dataRows: any[];
     experiments: any;
-    filePathRoot: string;
+    filePathRoot?: string;
     materialInputs: Material[];
     materialOutputs: Material[];
     objectProperties: any;
@@ -707,7 +700,7 @@ export class Material extends RunItem {
     /**
      * The SampleSet the material belongs to.
      */
-    sampleSet: ExpMaterialSampleSet;
+    sampleSet?: ExpMaterialSampleSet;
 
     constructor(config: Partial<Material> = {}) {
         super(config);
@@ -725,7 +718,7 @@ export class Protocol extends ExpObject {
     applicationType: any;
     childProtocols: any[];
     contact: any;
-    description: string;
+    description?: string;
     instrument: any;
     runs: Run[];
     software: any;
@@ -765,7 +758,7 @@ export interface ICreateSampleSetDomain {
     /**
      * Function called if execution of the "getDomainDetails" function fails.
      */
-    failure?: () => any;
+    failure?: () => void;
 
     /**
      * Set of extra options used when creating the SampleSet.
@@ -788,13 +781,13 @@ export interface ICreateSampleSetDomain {
      * Will be called with the domain object as returned by {@link getDomainDetails}
      * which describes the fields of a domain.
      */
-    success: (domain?: any) => any;
+    success: (domain?: any) => void;
 }
 
 /**
  * The SampleSet class describes a collection of experimental samples, which are
  * also known as materials (see {@link Material}). This class defines the set of fields that
- * you you wish to attach to all samples in the group. These fields supply characteristics of the sample
+ * you wish to attach to all samples in the group. These fields supply characteristics of the sample
  * (e.g., its volume, number of cells, color, etc.). For more information see
  * [additional documentation](https://www.labkey.org/Documentation/wiki-page.view?name=experiment).
  */
@@ -802,12 +795,12 @@ export class SampleSet extends ExpObject {
     /**
      * Description of the SampleSet.
      */
-    description: string;
+    description?: string;
 
     /**
      * Array of Exp.Material config objects.
      */
-    samples: Material[];
+    samples?: Material[];
 
     constructor(config: Partial<SampleSet> = {}) {
         super(config);
@@ -825,7 +818,7 @@ export class SampleSet extends ExpObject {
      *
      * ```js
      * var domainDesign = {
-     *     name: "BoyHowdy',
+     *     name: "BoyHowdy",
      *     description: "A client api created sample set",
      *     fields: [{
      *         name: "TestName",
@@ -854,8 +847,8 @@ export class SampleSet extends ExpObject {
             domainDesign: options.domainDesign,
             kind: KINDS.SAMPLE_TYPE,
             options: options.options,
-            success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any,
+            success: getOnSuccess(options),
+            failure: getOnFailure(options),
         });
     }
 
@@ -881,8 +874,8 @@ export class SampleSet extends ExpObject {
             schemaName: 'Samples',
             queryName: this.name,
             containerPath: options.containerPath,
-            success: getOnSuccess(options) as any,
-            failure: getOnFailure(options) as any,
+            success: getOnSuccess(options),
+            failure: getOnFailure(options),
         });
     }
 }

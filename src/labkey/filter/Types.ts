@@ -20,24 +20,24 @@ import { FilterValue, multiValueToSingleMap, oppositeMap, singleValueToMultiMap 
 const urlMap: Record<string, IFilterType> = {};
 
 export interface IFilterType {
-    getDisplaySymbol: () => string;
+    getDisplaySymbol: () => string | null;
     getDisplayText: () => string;
     /**
      * Get the LabKey SQL operator for simple filter types (=, >=, <>)
      */
-    getLabKeySqlOperator: () => string;
+    getLabKeySqlOperator: () => string | undefined;
     getLongDisplayText: () => string;
-    getMultiValueFilter: () => IFilterType;
-    getMultiValueMaxOccurs: () => number;
-    getMultiValueMinOccurs: () => number;
-    getMultiValueSeparator: () => string;
-    getOpposite: () => IFilterType;
+    getMultiValueFilter: () => IFilterType | null;
+    getMultiValueMaxOccurs: () => number | undefined;
+    getMultiValueMinOccurs: () => number | undefined;
+    getMultiValueSeparator: () => string | null;
+    getOpposite: () => IFilterType | null;
     getSingleValueFilter: () => IFilterType;
     /**
      * Get the (unencoded) value that will be put on the URL.
      */
     getURLParameterValue: (value: FilterValue) => FilterValue;
-    getURLSuffix: () => string;
+    getURLSuffix: () => string | null;
     isDataValueRequired: () => boolean;
     isMultiValued: () => boolean;
     isTableWise: () => boolean;
@@ -78,7 +78,7 @@ const GREATER_THAN_OR_EQUAL = registerFilterType(
     '>='
 );
 /** Finds rows where the column value equals one of the supplied filter values. Use semicolons or new lines to separate entries.*/
-const IN = registerFilterType('Equals One Of', null, 'in', true, ';', 'Equals One Of');
+const IN = registerFilterType('Equals One Of', undefined, 'in', true, ';', 'Equals One Of');
 /** Finds rows where the column value is less than the filter value.*/
 const LESS_THAN = registerFilterType(
     'Is Less Than',
@@ -119,7 +119,7 @@ const NOT_EQUAL = registerFilterType(
     '<>'
 );
 /** Finds rows where the column value is not in any of the supplied filter values. Use semicolons or new lines to separate entries.*/
-const NOT_IN = registerFilterType('Does Not Equal Any Of', null, 'notin', true, ';', 'Does Not Equal Any Of');
+const NOT_IN = registerFilterType('Does Not Equal Any Of', undefined, 'notin', true, ';', 'Does Not Equal Any Of');
 const NEQ_OR_NULL = registerFilterType(NOT_EQUAL.getDisplayText(), NOT_EQUAL.getDisplaySymbol(), 'neqornull', true);
 
 // Mutable due to "_define"
@@ -128,10 +128,10 @@ export const Types: Record<string, IFilterType> = {
     // These operators require a data value
     //
 
-    ARRAY_CONTAINS_ALL: registerFilterType('Contains All', null, 'arraycontainsall', true, ';', 'Contains All Of'),
+    ARRAY_CONTAINS_ALL: registerFilterType('Contains All', undefined, 'arraycontainsall', true, ';', 'Contains All Of'),
     ARRAY_CONTAINS_ANY: registerFilterType(
         'Contains Any',
-        null,
+        undefined,
         'arraycontainsany',
         true,
         ';',
@@ -139,7 +139,7 @@ export const Types: Record<string, IFilterType> = {
     ),
     ARRAY_CONTAINS_EXACT: registerFilterType(
         'Contains Exactly',
-        null,
+        undefined,
         'arraymatches',
         true,
         ';',
@@ -147,13 +147,13 @@ export const Types: Record<string, IFilterType> = {
     ),
     ARRAY_CONTAINS_NOT_EXACT: registerFilterType(
         'Does Not Contain Exactly',
-        null,
+        undefined,
         'arraynotmatches',
         true,
         ';',
         'Does Not Contains Exactly the Selected Values'
     ),
-    ARRAY_CONTAINS_NONE: registerFilterType('Contains None', null, 'arraycontainsnone', true, ';', 'Contains None Of'),
+    ARRAY_CONTAINS_NONE: registerFilterType('Contains None', undefined, 'arraycontainsnone', true, ';', 'Contains None Of'),
 
     EQUAL,
     DATE_EQUAL: registerFilterType(
@@ -247,16 +247,16 @@ export const Types: Record<string, IFilterType> = {
         LESS_THAN_OR_EQUAL.getLabKeySqlOperator()
     ),
 
-    STARTS_WITH: registerFilterType('Starts With', null, 'startswith', true),
-    DOES_NOT_START_WITH: registerFilterType('Does Not Start With', null, 'doesnotstartwith', true),
+    STARTS_WITH: registerFilterType('Starts With', undefined, 'startswith', true),
+    DOES_NOT_START_WITH: registerFilterType('Does Not Start With', undefined, 'doesnotstartwith', true),
 
-    CONTAINS: registerFilterType('Contains', null, 'contains', true),
-    DOES_NOT_CONTAIN: registerFilterType('Does Not Contain', null, 'doesnotcontain', true),
+    CONTAINS: registerFilterType('Contains', undefined, 'contains', true),
+    DOES_NOT_CONTAIN: registerFilterType('Does Not Contain', undefined, 'doesnotcontain', true),
 
-    CONTAINS_ONE_OF: registerFilterType('Contains One Of', null, 'containsoneof', true, ';', 'Contains One Of'),
+    CONTAINS_ONE_OF: registerFilterType('Contains One Of', undefined, 'containsoneof', true, ';', 'Contains One Of'),
     CONTAINS_NONE_OF: registerFilterType(
         'Does Not Contain Any Of',
-        null,
+        undefined,
         'containsnoneof',
         true,
         ';',
@@ -273,7 +273,7 @@ export const Types: Record<string, IFilterType> = {
 
     BETWEEN: registerFilterType(
         'Between',
-        null,
+        undefined,
         'between',
         true,
         ',',
@@ -283,7 +283,7 @@ export const Types: Record<string, IFilterType> = {
     ),
     NOT_BETWEEN: registerFilterType(
         'Not Between',
-        null,
+        undefined,
         'notbetween',
         true,
         ',',
@@ -292,7 +292,7 @@ export const Types: Record<string, IFilterType> = {
         2
     ),
 
-    MEMBER_OF: registerFilterType('Member Of', null, 'memberof', true, undefined, 'Member Of'),
+    MEMBER_OF: registerFilterType('Member Of', undefined, 'memberof', true, undefined, 'Member Of'),
 
     //
     // These are the 'no data value' operators
@@ -300,7 +300,7 @@ export const Types: Record<string, IFilterType> = {
 
     ARRAY_ISEMPTY: registerFilterType(
         'Is Empty',
-        null,
+        undefined,
         'arrayisempty',
         false,
         undefined,
@@ -311,7 +311,7 @@ export const Types: Record<string, IFilterType> = {
     ),
     ARRAY_ISNOTEMPTY: registerFilterType(
         'Is Not Empty',
-        null,
+        undefined,
         'arrayisnotempty',
         false,
         undefined,
@@ -323,11 +323,11 @@ export const Types: Record<string, IFilterType> = {
 
     // NOTE: This type, for better or worse, uses empty string as it's urlSuffix.
     // The result is a filter that is encoded as "<dataRegionName>.<columnName>~=".
-    HAS_ANY_VALUE: registerFilterType('Has Any Value', null, ''),
+    HAS_ANY_VALUE: registerFilterType('Has Any Value', undefined, ''),
 
     ISBLANK: registerFilterType(
         'Is Blank',
-        null,
+        undefined,
         'isblank',
         false,
         undefined,
@@ -339,7 +339,7 @@ export const Types: Record<string, IFilterType> = {
     ),
     MISSING: registerFilterType(
         'Is Blank',
-        null,
+        undefined,
         'isblank',
         false,
         undefined,
@@ -351,7 +351,7 @@ export const Types: Record<string, IFilterType> = {
     ),
     NONBLANK: registerFilterType(
         'Is Not Blank',
-        null,
+        undefined,
         'isnonblank',
         false,
         undefined,
@@ -363,7 +363,7 @@ export const Types: Record<string, IFilterType> = {
     ),
     NOT_MISSING: registerFilterType(
         'Is Not Blank',
-        null,
+        undefined,
         'isnonblank',
         false,
         undefined,
@@ -374,8 +374,8 @@ export const Types: Record<string, IFilterType> = {
         'IS NOT NULL'
     ),
 
-    HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', null, 'hasmvvalue'),
-    DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', null, 'nomvvalue'),
+    HAS_MISSING_VALUE: registerFilterType('Has a missing value indicator', undefined, 'hasmvvalue'),
+    DOES_NOT_HAVE_MISSING_VALUE: registerFilterType('Does not have a missing value indicator', undefined, 'nomvvalue'),
 
     //
     // Table/Query-wise operators
@@ -383,7 +383,7 @@ export const Types: Record<string, IFilterType> = {
 
     Q: registerFilterType(
         'Search',
-        null,
+        undefined,
         'q',
         true,
         undefined,
@@ -397,16 +397,16 @@ export const Types: Record<string, IFilterType> = {
     // Ontology operators
     //
 
-    ONTOLOGY_IN_SUBTREE: registerFilterType('Is In Subtree', null, 'concept:insubtree', true),
-    ONTOLOGY_NOT_IN_SUBTREE: registerFilterType('Is Not In Subtree', null, 'concept:notinsubtree', true),
+    ONTOLOGY_IN_SUBTREE: registerFilterType('Is In Subtree', undefined, 'concept:insubtree', true),
+    ONTOLOGY_NOT_IN_SUBTREE: registerFilterType('Is Not In Subtree', undefined, 'concept:notinsubtree', true),
 
     //
     // Lineage operators
     //
 
-    EXP_CHILD_OF: registerFilterType('Is Child Of', null, 'exp:childof', true, undefined, ' is child of'),
-    EXP_PARENT_OF: registerFilterType('Is Parent Of', null, 'exp:parentof', true, undefined, ' is parent of'),
-    EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', null, 'exp:lineageof', true, ',', ' in the lineage of'),
+    EXP_CHILD_OF: registerFilterType('Is Child Of', undefined, 'exp:childof', true, undefined, ' is child of'),
+    EXP_PARENT_OF: registerFilterType('Is Parent Of', undefined, 'exp:parentof', true, undefined, ' is parent of'),
+    EXP_LINEAGE_OF: registerFilterType('In The Lineage Of', undefined, 'exp:lineageof', true, ',', ' in the lineage of'),
 };
 
 export type JsonType = 'array' | 'boolean' | 'date' | 'float' | 'int' | 'string' | 'time';
@@ -514,9 +514,9 @@ export const TYPES_BY_JSON_TYPE_DEFAULT: Record<string, IFilterType> = {
 export function _define(typeName: string, displayText: string, urlSuffix: string, isMultiType?: boolean): void {
     if (!Types[typeName]) {
         if (isMultiType) {
-            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true, ',');
+            Types[typeName] = registerFilterType(displayText, undefined, urlSuffix, true, ',');
         } else {
-            Types[typeName] = registerFilterType(displayText, null, urlSuffix, true);
+            Types[typeName] = registerFilterType(displayText, undefined, urlSuffix, true);
         }
     }
 }
@@ -589,8 +589,8 @@ export function parseMultiValueFilterString(type: IFilterType, value: string) {
  */
 export function registerFilterType(
     displayText: string,
-    displaySymbol?: string,
-    urlSuffix?: string,
+    displaySymbol: string | null | undefined,
+    urlSuffix: string,
     dataValueRequired?: boolean,
     multiValueSeparator?: string,
     longDisplayText?: string,
@@ -648,7 +648,8 @@ export function registerFilterType(
 
             if (type.isMultiValued() && Array.isArray(value)) {
                 // 35265: Create alternate syntax to handle semicolons
-                const sep = type.getMultiValueSeparator();
+                // isMultiValued() guarantees a separator was configured, so it is non-null here.
+                const sep = type.getMultiValueSeparator() as string;
                 const found = value.some((v: string) => {
                     return isString(v) && v.indexOf(sep) !== -1;
                 });
@@ -663,7 +664,7 @@ export function registerFilterType(
             return value;
         },
 
-        validate: (value: FilterValue, jsonType: JsonType, columnName: string): boolean | string | undefined => {
+        validate: (value: FilterValue, jsonType: string, columnName: string): boolean | string | undefined => {
             if (!isDataValueRequired()) {
                 return true; // TODO: This method is all over the place with it's return type. WTB sanity...
             }
@@ -690,7 +691,7 @@ export function registerFilterType(
             }
         },
 
-        getLabKeySqlOperator: (): string => {
+        getLabKeySqlOperator: (): string | undefined => {
             return labkeySqlOperator;
         },
     };
@@ -715,7 +716,7 @@ function twoDigit(num: number): string {
  * @param columnName The column name to use in error messages.
  * @return undefined if not valid otherwise a normalized string value for the type.
  */
-function validate(jsonType: JsonType, value: FilterValue, columnName: string): string | undefined {
+function validate(jsonType: string, value: FilterValue, columnName: string): string | undefined {
     const strValue = value.toString();
 
     // TODO: Use Utils.alert throughout this method
@@ -818,18 +819,18 @@ function validate(jsonType: JsonType, value: FilterValue, columnName: string): s
 // returns undefined or the string representation of the filter value (see .getURLParameterValue)
 function validateMultiple(
     filterType: IFilterType,
-    jsonType: JsonType,
+    jsonType: string,
     value: FilterValue,
     columnName: string,
-    sep: string,
-    minOccurs: number,
-    maxOccurs: number
+    sep: string | undefined,
+    minOccurs: number | undefined,
+    maxOccurs: number | undefined
 ): string | undefined {
     let values;
     try {
         values = filterType.parseValue(value);
     } catch (x) {
-        alert('Failed to validate filter: ' + x.toString());
+        alert('Failed to validate filter: ' + String(x));
         return undefined;
     }
 

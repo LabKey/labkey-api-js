@@ -18,14 +18,15 @@ import { QueryKey } from './QueryKey';
 
 export class FieldKey extends QueryKey {
     /**
-     * Create new FieldKey from an Array of unencoded FieldKey string parts.
+     * Create a new FieldKey from an Array of unencoded FieldKey string parts.
      * @param parts
      * @returns {FieldKey}
      */
     static fromParts(parts?: any) {
-        let ret: FieldKey = null;
+        let ret: FieldKey | null = null;
 
         for (let i = 0; i < arguments.length; i++) {
+            // eslint-disable-next-line prefer-rest-params
             const arg = arguments[i];
             if (isString(arg)) {
                 ret = new FieldKey(ret, arg);
@@ -42,12 +43,12 @@ export class FieldKey extends QueryKey {
     }
 
     /**
-     * Create new FieldKey from a FieldKey encoded string with parts separated by '/' characters.
+     * Create a new FieldKey from a FieldKey encoded string with parts separated by '/' characters.
      * @param s
      * @returns {FieldKey}
      */
-    static fromString(s: string): FieldKey {
-        let ret: FieldKey = null;
+    static fromString(s: string): FieldKey | null {
+        let ret: FieldKey | null = null;
         const r = s.split('/');
 
         for (let i = 0; i < r.length; i++) {

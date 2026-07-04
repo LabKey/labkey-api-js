@@ -18,7 +18,7 @@ import { request } from '../Ajax';
 import { FieldKey } from '../FieldKey';
 import { create, Types } from '../Filter';
 import { SchemaKey } from '../SchemaKey';
-import { decode, isArray, isFunction, isString, wafEncode } from '../Utils';
+import { decode, isFunction, isString, wafEncode } from '../Utils';
 
 import { Response } from './Response';
 
@@ -29,7 +29,7 @@ export interface IGetDataFilter {
     /** Can be a string or a type from {@link Types} */
     type: any;
 
-    /** Optional depending on filter type. The value to filter on. */
+    /** Optional depending on the filter type. The value to filter on. */
     value?: any;
 }
 
@@ -41,14 +41,14 @@ export interface IGetDataSource {
     queryName?: string;
 
     /** The schemaName to use in the request. Can be a string, array of strings, or {@link SchemaKey}. */
-    schemaName?: string | string[] | SchemaKey;
+    schemaName?: SchemaKey | string | string[];
 
     /** The LabKey SQL to use in the request. Required if source.type = "sql". */
     sql?: string;
 
     /**
-     * A string with value set to either "query" or "sql". Indicates if the value is "sql" then source.sql is required.
-     * If the value is "query" then source.queryName is required.
+     * A string with a value set to either "query" or "sql". Indicates if the value is "sql" then source.sql is required.
+     * If the value is "query", then source.queryName is required.
      */
     type?: 'query' | 'sql';
 }
@@ -58,18 +58,18 @@ export interface IGetRawDataOptions {
      * An array containing {@link FieldKey} objects, strings, or arrays of strings.
      * Used to specify which columns the user wants. The columns must match those returned from the last transform.
      */
-    columns?: Array<string | string[] | FieldKey>;
+    columns?: (FieldKey | string | string[])[];
 
     /**
-     * If no failure function is provided the response is sent to the console
-     * via console.error. If a function is provided the JSON response is passed to it as the only parameter.
+     * If no failure function is provided, the response is sent to the console
+     * via console.error. If a function is provided, the JSON response is passed to it as the only parameter.
      */
-    failure?: (json?: any) => any;
+    failure?: (json?: any) => void;
 
     /**
      * Include the Details link column in the set of columns (defaults to false).
      * If included, the column will have the name "~~Details~~". The underlying table/query must support details
-     * links or the column will be omitted in the response.
+     * links, or the column will be omitted in the response.
      */
     includeDetailsColumn?: boolean;
 
@@ -92,14 +92,14 @@ export interface IGetRawDataOptions {
     /** Define how columns are sorted. */
     sort?: ISort[];
 
-    /** An object which contains parameters related to the source of the request. */
+    /** An object that contains parameters related to the source of the request. */
     source: IGetDataSource;
 
     /**
      * A function to be executed when the GetData request completes successfully. The function will
      * be passed a {@link Response} object.
      */
-    success: () => any;
+    success: () => void;
 
     transforms?: ITransform[];
 }
@@ -112,17 +112,17 @@ export interface IGetRawDataParams {
 
 export interface IPivot {
     /** The column to pivot by. Can be an array of strings, a string, or a {@link FieldKey} */
-    by: string | string[] | FieldKey;
+    by: FieldKey | string | string[];
 
     /**
      * The columns to pivot. Is an array containing strings, arrays of strings, and/or
      * {@link FieldKey} objects.
      */
-    columns: Array<string | string[] | FieldKey>;
+    columns: (FieldKey | string | string[])[];
 }
 
 export interface IRenderer {
-    columns?: Array<string | string[] | FieldKey>;
+    columns?: (FieldKey | string | string[])[];
     includeDetailsColumn?: boolean;
     maxRows?: number;
     offset?: number;
@@ -135,24 +135,24 @@ export interface ISort {
     dir?: string;
 
     /** The field key of the column to sort. Can be a string, array of strings, or a {@link FieldKey} */
-    fieldKey: string | string[] | FieldKey;
+    fieldKey: FieldKey | string | string[];
 }
 
 export interface ITransform {
     aggregates?: ITransformAggregate[];
 
-    /** An array containing  objects created with {@link create}, {@link Filter} objects, or javascript objects. */
+    /** An array containing objects created with {@link create}, {@link Filter} objects, or JavaScript objects. */
     filters?: IGetDataFilter[];
 
     /** An array of Objects. Each object can be a string, array of strings, or a {@link FieldKey}. */
-    groupBy?: Array<string | string[] | FieldKey>;
+    groupBy?: (FieldKey | string | string[])[];
 
     type?: string;
 }
 
 export interface ITransformAggregate {
     /** The target column. Can be an array of strings, a string, or a {@link FieldKey} */
-    fieldKey: string | string[] | FieldKey;
+    fieldKey: FieldKey | string | string[];
 
     /**  The type of aggregate. */
     type: string;
@@ -162,7 +162,7 @@ export interface ITransformAggregate {
  * Used to get the raw data from a GetData request. Roughly equivalent to {@link selectRows} or
  * {@link executeSql}, except it allows the user to pass the data through a series of transforms.
  */
-export function getRawData(config: IGetRawDataOptions): XMLHttpRequest {
+export function getRawData(this: any, config: IGetRawDataOptions): XMLHttpRequest {
     const jsonData = validateGetDataConfig(config);
     jsonData.renderer.type = 'json';
 
@@ -192,7 +192,7 @@ export function getRawData(config: IGetRawDataOptions): XMLHttpRequest {
 }
 
 function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
-    if (!config || config === null || config === undefined) {
+    if (!config) {
         throw new Error('A config object is required for GetData requests.');
     }
 
@@ -201,7 +201,7 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
 
     const jsonData: IGetRawDataParams = {
         renderer: {},
-        // Shallow copy source so if the user adds unexpected properties to source the server doesn't throw errors.
+        // Shallow copy source, so if the user adds unexpected properties to source, the server doesn't throw errors.
         source: {
             schemaName: source.schemaName,
             type: source.type,
@@ -215,7 +215,7 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
     }
 
     if (config.transforms) {
-        if (!isArray(config.transforms)) {
+        if (!Array.isArray(config.transforms)) {
             throw new Error('transforms must be an array.');
         }
 
@@ -230,16 +230,12 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
     }
 
     if (config.columns) {
-        if (!isArray(config.columns)) {
+        if (!Array.isArray(config.columns)) {
             throw new Error('columns must be an array of FieldKeys.');
         }
 
         for (let i = 0; i < config.columns.length; i++) {
-            config.columns[i] = validateFieldKey(config.columns[i]);
-
-            if (!config.columns[i]) {
-                throw new Error('columns must be an array of FieldKeys.');
-            }
+            config.columns[i] = validateFieldKey(config.columns[i], 'columns must be an array of FieldKeys.');
         }
 
         jsonData.renderer.columns = config.columns;
@@ -258,7 +254,7 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
     }
 
     if (config.sort) {
-        if (!isArray(config.sort)) {
+        if (!Array.isArray(config.sort)) {
             throw new Error('sort must be an array.');
         }
 
@@ -267,14 +263,13 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
                 throw new Error('Each sort must specify a field key.');
             }
 
-            config.sort[i].fieldKey = validateFieldKey(config.sort[i].fieldKey);
-
-            if (!config.sort[i].fieldKey) {
-                throw new Error('Invalid field key specified for sort.');
-            }
+            config.sort[i].fieldKey = validateFieldKey(
+                config.sort[i].fieldKey,
+                'Invalid field key specified for sort.'
+            );
 
             if (config.sort[i].dir) {
-                config.sort[i].dir = config.sort[i].dir.toUpperCase();
+                config.sort[i].dir = (config.sort[i].dir as string).toUpperCase();
             }
         }
 
@@ -288,30 +283,37 @@ function validateGetDataConfig(config: IGetRawDataOptions): IGetRawDataParams {
  * @hidden
  * @private
  * @param {string | Array<string> | FieldKey} key
+ * @param {string} error
  * @returns {Array<string>}
  */
-function validateFieldKey(key: string | string[] | FieldKey): string[] {
+function validateFieldKey(key: FieldKey | string | string[], error: string): string[] {
     if (key instanceof FieldKey) {
         return key.getParts();
     }
 
-    if (key instanceof Array) {
+    if (Array.isArray(key)) {
         return key;
     }
 
     if (isString(key)) {
-        return FieldKey.fromString(key).getParts();
+        const fk = FieldKey.fromString(key);
+        if (fk) {
+            return fk.getParts();
+        }
     }
 
-    return undefined;
+    throw new Error(error);
 }
 
 function validateFilter(filter: any): IGetDataFilter {
     // TODO: This behavior is changed from original, however, LABKEY.Query.Filter is not an "instance" so
     // need to check whether that ever worked as expected or just worked because of the fallback duck-typing.
     if (filter && isFunction(filter.getColumnName)) {
+        const fieldKey = FieldKey.fromString(filter.getColumnName());
+        if (!fieldKey) throw new Error(`Failed to parse field key from column "${filter.getColumnName()}"`);
+
         return {
-            fieldKey: FieldKey.fromString(filter.getColumnName()).getParts(),
+            fieldKey: fieldKey.getParts(),
             type: filter.getFilterType().getURLSuffix(),
             value: filter.getValue(),
         };
@@ -319,13 +321,9 @@ function validateFilter(filter: any): IGetDataFilter {
 
     // If filter isn't a LABKEY.Query.Filter or LABKEY.Filter, then it's probably a raw object.
     if (filter.fieldKey) {
-        filter.fieldKey = validateFieldKey(filter.fieldKey);
+        filter.fieldKey = validateFieldKey(filter.fieldKey, 'Filter fieldKeys must be valid FieldKeys');
     } else {
         throw new Error('All filters must have a "fieldKey" attribute.');
-    }
-
-    if (!filter.fieldKey) {
-        throw new Error('Filter fieldKeys must be valid FieldKeys');
     }
 
     if (!filter.type) {
@@ -340,45 +338,38 @@ function validateFilter(filter: any): IGetDataFilter {
  * @param {IPivot} pivot
  */
 function validatePivot(pivot: IPivot): void {
-    if (!pivot.columns || pivot.columns == null) {
+    if (!pivot.columns) {
         throw new Error('pivot.columns is required.');
     }
 
-    if (!isArray(pivot.columns)) {
+    if (!Array.isArray(pivot.columns)) {
         throw new Error('pivot.columns must be an array of fieldKeys.');
     }
 
     for (let i = 0; i < pivot.columns.length; i++) {
-        pivot.columns[i] = validateFieldKey(pivot.columns[i]);
-
-        if (!pivot.columns[i]) {
-            throw new Error('pivot.columns must be an array of fieldKeys.');
-        }
+        pivot.columns[i] = validateFieldKey(pivot.columns[i], 'pivot.columns must be an array of fieldKeys.');
     }
 
-    if (!pivot.by || pivot.by == null) {
+    if (!pivot.by) {
         throw new Error('pivot.by is required');
     }
 
-    pivot.by = validateFieldKey(pivot.by);
-
-    if (!pivot.by === false) {
-        throw new Error('pivot.by must be a fieldKey.');
-    }
+    pivot.by = validateFieldKey(pivot.by, 'pivot.by must be a fieldKey.');
 }
 
 /**
  * @hidden
  * @private
  * @param {string | Array<string> | SchemaKey} key
+ * @param {string} error
  * @returns {Array<string>}
  */
-function validateSchemaKey(key: string | string[] | SchemaKey): string[] {
+function validateSchemaKey(key: SchemaKey | string | string[], error: string): string[] {
     if (key instanceof SchemaKey) {
         return key.getParts();
     }
 
-    if (key instanceof Array) {
+    if (Array.isArray(key)) {
         return key;
     }
 
@@ -386,7 +377,7 @@ function validateSchemaKey(key: string | string[] | SchemaKey): string[] {
         return SchemaKey.fromString(key).getParts();
     }
 
-    return undefined;
+    throw new Error(error);
 }
 
 /**
@@ -395,7 +386,7 @@ function validateSchemaKey(key: string | string[] | SchemaKey): string[] {
  * @param {IGetDataSource} source
  */
 function validateSource(source: IGetDataSource): void {
-    if (!source || source == null) {
+    if (!source) {
         throw new Error('A source is required for a GetData request.');
     }
 
@@ -404,7 +395,7 @@ function validateSource(source: IGetDataSource): void {
     }
 
     if (source.type === 'query') {
-        if (!source.queryName || source.queryName == null) {
+        if (!source.queryName) {
             throw new Error('A queryName is required for getData requests with type = "query"');
         }
     } else if (source.type === 'sql') {
@@ -419,11 +410,7 @@ function validateSource(source: IGetDataSource): void {
         throw new Error('A schemaName is required.');
     }
 
-    source.schemaName = validateSchemaKey(source.schemaName);
-
-    if (!source.schemaName) {
-        throw new Error('schemaName must be a FieldKey');
-    }
+    source.schemaName = validateSchemaKey(source.schemaName, 'schemaName must be a FieldKey');
 }
 
 /**
@@ -437,14 +424,14 @@ function validateTransform(transform: ITransform): void {
         transform.type = 'aggregate';
     }
 
-    if (transform.groupBy && transform.groupBy != null) {
-        if (!isArray(transform.groupBy)) {
+    if (transform.groupBy) {
+        if (!Array.isArray(transform.groupBy)) {
             throw new Error('groupBy must be an array.');
         }
     }
 
-    if (transform.aggregates && transform.aggregates != null) {
-        if (!isArray(transform.aggregates)) {
+    if (transform.aggregates) {
+        if (!Array.isArray(transform.aggregates)) {
             throw new Error('aggregates must be an array.');
         }
 
@@ -453,11 +440,10 @@ function validateTransform(transform: ITransform): void {
                 throw new Error('All aggregates must include a fieldKey.');
             }
 
-            transform.aggregates[i].fieldKey = validateFieldKey(transform.aggregates[i].fieldKey);
-
-            if (!transform.aggregates[i].fieldKey) {
-                throw new Error('Aggregate fieldKeys must be valid fieldKeys');
-            }
+            transform.aggregates[i].fieldKey = validateFieldKey(
+                transform.aggregates[i].fieldKey,
+                'Aggregate fieldKeys must be valid fieldKeys'
+            );
 
             if (!transform.aggregates[i].type) {
                 throw new Error('All aggregates must include a type.');
@@ -465,8 +451,8 @@ function validateTransform(transform: ITransform): void {
         }
     }
 
-    if (transform.filters && transform.filters != null) {
-        if (!isArray(transform.filters)) {
+    if (transform.filters) {
+        if (!Array.isArray(transform.filters)) {
             throw new Error('The filters of a transform must be an array.');
         }
 

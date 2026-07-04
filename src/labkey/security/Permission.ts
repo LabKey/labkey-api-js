@@ -15,7 +15,7 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 
 import { roles } from './constants';
 import { Group, SecurableResource } from './types';
@@ -82,12 +82,12 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
 /**
  * Returns the name of the security role represented by the permissions passed as 'perms'.
  * The return value will be the name of a property in the LABKEY.Security.roles map.
- * This is a local function, and does not make a call to the server.
+ * This is a local function and does not make a call to the server.
  * @param {int} perms The permissions set
  * @deprecated Do not use this anymore. Use the roles array in the various responses and {@link getRoles}
  * to obtain extra information about each role.
  */
-export function getRole(perms: number): string {
+export function getRole(perms: number): string | undefined {
     for (const role in roles) {
         if (roles.hasOwnProperty(role)) {
             if (perms === roles[role]) {
@@ -95,6 +95,8 @@ export function getRole(perms: number): string {
             }
         }
     }
+
+    return undefined;
 }
 
 export interface RolePermission {
@@ -104,7 +106,7 @@ export interface RolePermission {
     name: string;
     /** The name of the module in which the permission is defined. */
     sourceModule: string;
-    /** The unique name of the resource (String, typically a fully-qualified class name). */
+    /** The unique name of the resource (String, typically a fully qualified class name). */
     uniqueName: string;
 }
 
@@ -119,7 +121,7 @@ export interface Role {
     permissions: RolePermission[];
     /** The name of the module in which the role is defined. */
     sourceModule: string;
-    /** The unique name of the resource (String, typically a fully-qualified class name). */
+    /** The unique name of the resource (String, typically a fully qualified class name). */
     uniqueName: string;
 }
 
@@ -139,15 +141,15 @@ export interface GetRolesOptions extends RequestCallbackOptions<Role[]> {
  * In server-side scripts, this method will return the JSON response object
  * (first parameter of the success or failure callbacks.)
  */
-export function getRoles(config: GetRolesOptions): XMLHttpRequest {
+export function getRoles(this: any, config: GetRolesOptions): XMLHttpRequest {
     return request({
         url: buildURL('security', 'getRoles.api', config.containerPath),
-        success: getCallbackWrapper(function (data: any, req: any) {
+        success: getCallbackWrapper(function (this: any, data, req) {
             // roles and perms are returned in two separate blocks for efficiency
             let i: number,
                 j: number,
-                permMap: any = {},
                 perm: any,
+                permMap: any = {},
                 role: any;
 
             for (i = 0; i < data.permissions.length; i++) {
@@ -173,14 +175,14 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
 
 export interface SecurableResourceWithPermissions extends SecurableResource {
     /** An object with one property per effectivePermission allowed the user. */
-    permissionMap: { [permission: string]: boolean };
+    permissionMap: Record<string, boolean>;
 }
 
 export interface SchemaPermissionsResponse {
     schemas: {
         study: {
             /** The queries object property with the name of each table/queries. */
-            queries: { [queryName: string]: SecurableResourceWithPermissions };
+            queries: Record<string, SecurableResourceWithPermissions>;
         };
     };
 }
@@ -197,7 +199,7 @@ export interface GetSchemaPermissionsOptions extends RequestCallbackOptions<Sche
 
 /**
  * EXPERIMENTAL! gets permissions for a set of tables within the study schema.
- * Currently only study tables have individual permissions so only works on the study schema
+ * Currently only study tables have individual permissions, so only work on the study schema
  *
  * @returns {Mixed} In client-side scripts, this method will return a transaction id
  * for the async request that can be used to cancel the request.
@@ -213,8 +215,7 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
         ...config,
         includeEffectivePermissions: true,
         success: function (json, response) {
-            // First lets make sure there is a study in here.
-            let studyResource: SecurableResource = null;
+            let studyResource: SecurableResource | undefined;
             for (let i = 0; i < json.resources.children.length; i++) {
                 const resource = json.resources.children[i];
                 if (resource.resourceClass == 'org.labkey.study.model.StudyImpl') {
@@ -223,15 +224,18 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
                 }
             }
 
-            if (studyResource == null) {
-                config.failure.apply(config.scope || this, [{ description: 'No study found in container.' }, response]);
+            if (!studyResource) {
+                if (config.failure) {
+                    config.failure.apply(config.scope || this, [
+                        { description: 'No study found in container.' },
+                        response,
+                    ]);
+                }
                 return;
             }
 
-            let result: any = {
-                    queries: {},
-                },
-                dataset: any;
+            let dataset: any;
+            let result: any = { queries: {} };
 
             for (let i = 0; i < studyResource.children.length; i++) {
                 dataset = studyResource.children[i];
@@ -242,7 +246,9 @@ export function getSchemaPermissions(config: GetSchemaPermissionsOptions): XMLHt
                 }
             }
 
-            config.success.apply(config.scope || this, [{ schemas: { study: result } }, response]);
+            if (config.success) {
+                config.success.apply(config.scope || this, [{ schemas: { study: result } }, response] as any);
+            }
         },
     });
 }
@@ -256,7 +262,7 @@ export interface GetSecurableResourcesOptions extends RequestCallbackOptions<{ r
     /**
      * If set to true, the response will include the
      * list of effective permissions (unique names) the current user has to each resource (defaults to false).
-     * These permissions are calculated based on the current user's group memberships and role assignments, and
+     * These permissions are calculated based on the current user's group memberships and role assignments and
      * represent the actual permissions the user has to these resources at the time of the API call.
      */
     includeEffectivePermissions?: boolean;
@@ -276,7 +282,7 @@ export interface GetSecurableResourcesOptions extends RequestCallbackOptions<{ r
  * (first parameter of the success or failure callbacks.)
  */
 export function getSecurableResources(config: GetSecurableResourcesOptions): XMLHttpRequest {
-    const params: any = {};
+    const params: Record<string, any> = {};
 
     if (config.includeSubfolders != undefined) {
         params.includeSubfolders = config.includeSubfolders;
@@ -314,7 +320,7 @@ export interface UserPermissionsContainer extends PermissionsContainer {
     roleLabel: string;
     /**
      * An array of role unique names that this group is playing in the container. This replaces the
-     * existing roleLabel, role and permissions properties. Groups may now play multiple roles in a container
+     * existing roleLabel, role, and permissions properties. Groups may now play multiple roles in a container,
      * and each role grants the user a set of permissions. Use {@link getRoles} to retrieve information
      * about the roles, including which permissions are granted by each role.
      */

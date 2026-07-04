@@ -132,7 +132,7 @@ export type LabKey = {
     pageAdminMode: boolean;
     postParameters?: any;
     project: Project;
-    requiresCss?: Function;
+    requiresCss: Function;
     requiresScript: Function;
     serverName: string;
     sharedContainer?: string;

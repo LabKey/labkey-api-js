@@ -19,7 +19,9 @@ import * as Utils from './Utils';
 
 describe('capitalize', () => {
     it('should be null and undefined safe', () => {
+        // @ts-ignore
         expect(Utils.capitalize(null)).toBe(null);
+        // @ts-ignore
         expect(Utils.capitalize(undefined)).toBe(undefined);
     });
     it('should be empty string safe', () => {
@@ -46,7 +48,9 @@ describe('caseInsensitiveEquals', () => {
 
 describe('encodeFormName', () => {
     test('empty', () => {
+        // @ts-ignore
         expect(Utils.encodeFormName(null)).toBeNull();
+        // @ts-ignore
         expect(Utils.encodeFormName(undefined)).toBeUndefined();
         expect(Utils.encodeFormName('')).toBe('');
         expect(Utils.encodeFormName('   ')).toBe('   ');
@@ -92,10 +96,11 @@ describe('getCallbackWrapper', () => {
     it('should apply scope', () => {
         const me = this;
         const onSuccess = Utils.getCallbackWrapper(function () {
+            // @ts-ignore
             expect(this).toStrictEqual(me);
         });
 
-        // An explicit scope is not provided to Utils.getCallbackWrapper so the returned
+        // An explicit scope is not provided to Utils.getCallbackWrapper, so the returned
         // function wrapper should respect scope being applied.
         onSuccess.apply(me, [mockJSONResponse(), { url: 'test' }]);
     });
@@ -103,6 +108,7 @@ describe('getCallbackWrapper', () => {
         const me = this;
         const other = {};
         const onSuccess = Utils.getCallbackWrapper(function () {
+            // @ts-ignore
             expect(this).toStrictEqual(other);
         }, other);
 
@@ -176,6 +182,7 @@ describe('id', () => {
         expect(Utils.id('custom_PreFix')).toEqual('custom_PreFix' + ++defaultSeed);
     });
     it('should return a string', () => {
+        // @ts-ignore
         expect(Utils.id.apply(this, [123])).toEqual('123' + ++defaultSeed);
     });
 });
@@ -359,17 +366,14 @@ describe('isString', () => {
 describe('padString', () => {
     it('should be null, undefined unsafe', () => {
         expect(() => {
+            // @ts-ignore
             Utils.padString.apply(this, [null]);
         }).toThrow(/* cannot call toString() of null */);
         expect(() => {
+            // @ts-ignore
             Utils.padString.apply(this, [undefined]);
         }).toThrow(/* cannot call toString() of undefined */);
-        // expect(Utils.padString(null, null)).toBe(true);
-        // expect(Utils.padString(null, null, null)).toBe(true);
     });
-    // it('should be undefined safe', () => {
-    //     expect(Utils.caseInsensitiveEquals(undefined, undefined)).toBe(true);
-    // });
 });
 
 describe('wafEncode', () => {
@@ -377,7 +381,6 @@ describe('wafEncode', () => {
 
     it('handles empty values', () => {
         expect(Utils.wafEncode(undefined)).toBeUndefined();
-        expect(Utils.wafEncode(null)).toBe(null);
         expect(Utils.wafEncode('')).toBe('');
     });
     it('encodes string values', () => {

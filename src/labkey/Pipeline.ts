@@ -68,7 +68,7 @@ export function getFileStatus(config: IGetFileStatusOptions): XMLHttpRequest {
             protocolName: config.protocolName,
             taskId: config.taskId,
         },
-        success: getCallbackWrapper(function (data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+        success: getCallbackWrapper(function (this: any, data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
             if (onSuccess) {
                 onSuccess.call(this, data.files, data.submitType, response, options);
             }
@@ -150,7 +150,7 @@ export function getProtocols(config: IGetProtocolsOptions): XMLHttpRequest {
             path: config.path,
             taskId: config.taskId,
         },
-        success: getCallbackWrapper(function (data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+        success: getCallbackWrapper(function (this: any, data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
             if (onSuccess) {
                 onSuccess.call(this, data.protocols, data.defaultProtocolName, response, options);
             }

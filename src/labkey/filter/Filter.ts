@@ -18,7 +18,7 @@ import { getParameters } from '../ActionURL';
 import { FieldKey } from '../FieldKey';
 
 import { FilterValue } from './constants';
-import { IFilterType, getFilterTypeForURLSuffix, Types } from './Types';
+import { getFilterTypeForURLSuffix, IFilterType, Types } from './Types';
 
 export interface Aggregate {
     column?: string;
@@ -40,7 +40,7 @@ export class Filter implements IFilter {
     readonly filterType: IFilterType;
     readonly value: FilterValue;
 
-    constructor(columnName: string | string[] | FieldKey, value: FilterValue, filterType?: IFilterType) {
+    constructor(columnName: FieldKey | string | string[], value: FilterValue, filterType?: IFilterType) {
         if (columnName) {
             if (columnName instanceof FieldKey) {
                 columnName = columnName.toString();
@@ -125,10 +125,14 @@ export function appendAggregateParams(params: any, aggregates: Aggregate[], data
 }
 
 /**
- * Create an Object suitable for Query.selectRows, etc
+ * Create an Object suitable for Query.selectRows, etc.
  * @private
  */
-export function appendFilterParams(params: any, filterArray: IFilter[], dataRegionName?: string): any {
+export function appendFilterParams(
+    params: Record<string, any>,
+    filterArray?: IFilter[],
+    dataRegionName?: string
+): Record<string, any> {
     const regionName = ensureRegionName(dataRegionName);
     const filterParams = params || {};
 

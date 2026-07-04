@@ -120,9 +120,7 @@ export const permissions = {
  * @deprecated Do not use this. Use the roles array in the various responses and {@link getRoles}
  * to obtain extra information about each role.
  */
-export const roles: {
-    [key: string]: number;
-} = {
+export const roles: Record<string, number> = {
     admin: 65535,
     editor: 15,
     author: 195,

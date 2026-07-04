@@ -87,13 +87,13 @@ export const URL_COLUMN_PREFIX = '_labkeyurl_';
 export function buildQueryParams(
     schemaName: string,
     queryName: string,
-    filterArray: IFilter[],
-    sort: string,
+    filterArray?: IFilter[],
+    sort?: string,
     dataRegionName?: string
-): any {
+): Record<string, any> {
     const regionName = ensureRegionName(dataRegionName);
 
-    const params: any = {
+    const params: Record<string, any> = {
         dataRegionName: regionName,
         [regionName + '.queryName']: queryName,
         schemaName,
@@ -179,7 +179,7 @@ export interface GetDataViewsOptions {
  * @param {GetDataViewsOptions} options
  * @returns {XMLHttpRequest}
  */
-export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
+export function getDataViews(this: any, options: GetDataViewsOptions): XMLHttpRequest {
     const jsonData: IBrowseDataPayload = {
         includeData: true,
         includeMetadata: false,
@@ -190,7 +190,7 @@ export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
     }
 
     const onSuccess = getOnSuccess(options);
-    const success = getCallbackWrapper(function (data: any, response: any, options: any) {
+    const success = getCallbackWrapper(function (this: any, data: any, response: any, options: any) {
         if (onSuccess) {
             onSuccess.call(options.scope || this, data.data, options, response);
         }
@@ -205,7 +205,7 @@ export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
     });
 }
 
-export function getMethod(value: string): string {
+export function getMethod(value: string | undefined): string {
     if (value && (value.toUpperCase() === 'GET' || value.toUpperCase() === 'POST')) return value.toUpperCase();
     return 'GET';
 }
@@ -338,14 +338,14 @@ export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
 }
 
 export interface GetSchemasOptions extends RequestCallbackOptions {
-    apiVersion?: string | number;
+    apiVersion?: number | string;
     containerPath?: string;
     includeHidden?: boolean;
     schemaName?: string;
 }
 
 interface GetSchemasParameters {
-    apiVersion: string | number;
+    apiVersion: number | string;
     includeHidden: boolean;
     schemaName: string;
 }
@@ -400,20 +400,31 @@ export function getServerDate(options: RequestCallbackOptions<Date>): XMLHttpReq
 const SUPPORTED_VERSIONS = [13.2, '13.2', 16.2, 17.1];
 
 export function getSuccessCallbackWrapper(
+    this: any,
     onSuccess: Function,
     stripHiddenCols?: boolean,
     scope?: any,
     requiredVersion?: number | string
 ): AjaxHandler {
-    if (SUPPORTED_VERSIONS.indexOf(requiredVersion) > -1) {
-        return getCallbackWrapper(function (data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+    if (requiredVersion && SUPPORTED_VERSIONS.indexOf(requiredVersion) > -1) {
+        return getCallbackWrapper(function (
+            this: any,
+            data: any,
+            request: ExtendedXMLHttpRequest,
+            options: RequestOptions
+        ) {
             if (data && onSuccess) {
-                onSuccess.call(scope || this, new Response(data), response, options);
+                onSuccess.call(scope || this, new Response(data), request, options);
             }
         }, this);
     }
 
-    return getCallbackWrapper(function (data: any, response: ExtendedXMLHttpRequest, options: RequestOptions) {
+    return getCallbackWrapper(function (
+        this: any,
+        data: any,
+        response: ExtendedXMLHttpRequest,
+        options: RequestOptions
+    ) {
         if (onSuccess) {
             if (data && data.rows && stripHiddenCols) {
                 stripHiddenColData(data);
@@ -474,7 +485,7 @@ export interface SaveSessionViewOptions extends RequestCallbackOptions {
     hidden?: boolean;
     /** If the new view is accessible from child container, default false */
     inherit?: boolean;
-    /** The new non session view name that would replace the session view */
+    /** The new non-session view name that would replace the session view */
     newName?: string;
     queryName?: string;
     /** Replace an existing non-session view if the newName already exist for another view */
@@ -548,12 +559,12 @@ export function sqlDateLiteral(date: Date): string {
 }
 
 /**
- * Converts a javascript date into a format suitable for using in a LabKey SQL query, includes time but not milliseconds.
+ * Converts a JavaScript date into a format suitable for using in a LabKey SQL query, includes time but not milliseconds.
  * @param date JavaScript Date
  * @param withMS include milliseconds
  * @returns {String} a date and time literal formatted to be used in a LabKey query
  */
-export function sqlDateTimeLiteral(date: Date, withMS: boolean): string {
+export function sqlDateTimeLiteral(this: any, date: Date, withMS: boolean): string {
     if (date === undefined || date === null || !date) {
         return 'NULL';
     }

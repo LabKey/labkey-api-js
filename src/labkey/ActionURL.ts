@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { getLocation, getServerContext } from './constants';
-import { isArray, isFunction } from './Utils';
+import { isFunction } from './Utils';
 
 /**
  * @hidden
@@ -52,7 +52,7 @@ function buildParameterMap(paramString?: string): Record<string, any> {
                 parameters[name] = decodeURIComponent(nameValue[1]);
             } else {
                 const curValue = parameters[name];
-                if (isArray(curValue)) {
+                if (Array.isArray(curValue)) {
                     curValue.push(decodeURIComponent(nameValue[1]));
                 } else {
                     parameters[name] = [curValue, decodeURIComponent(nameValue[1])];
@@ -223,7 +223,7 @@ export function getController(): string {
  */
 export function getParameter(parameterName: string): any {
     const val = buildParameterMap()[parameterName];
-    return val && isArray(val) && val.length > 0 ? val[0] : val;
+    return val && Array.isArray(val) && val.length > 0 ? val[0] : val;
 }
 
 /**
@@ -235,13 +235,13 @@ export function getParameter(parameterName: string): any {
  */
 export function getParameterArray(parameterName: string): string[] {
     const val = buildParameterMap()[parameterName];
-    return val && !isArray(val) ? [val] : val;
+    return val && !Array.isArray(val) ? [val] : val;
 }
 
 /**
  * Returns an object mapping URL parameter names to parameter values. If a given parameter
  * appears more than once on the query string, the value in the map will be an array instead
- * of a single value. Use LABKEY.Utils.isArray() to determine if the value is an array or not, or use
+ * of a single value. Use Array.isArray() to determine if the value is an array or not, or use
  * getParameter() or getParameterArray() to retrieve a specific parameter name as a single value
  * or array respectively.
  * @param url The URL to parse. If not specified, the browser's current location will be used.

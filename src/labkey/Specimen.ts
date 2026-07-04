@@ -384,7 +384,7 @@ export function removeVialsFromRequest(options: RemoveVialsFromRequestOptions): 
  * @hidden
  * @private
  */
-function onSpecimenSuccess(options: RequestCallbackOptions): RequestSuccess {
+function onSpecimenSuccess(options: RequestCallbackOptions): RequestSuccess | undefined {
     const success = getOnSuccess(options);
     const { scope } = options;
 
@@ -401,7 +401,7 @@ function onSpecimenSuccess(options: RequestCallbackOptions): RequestSuccess {
         }
     }
 
-    // success not specified
+    // success is not specified
     return undefined;
 }
 

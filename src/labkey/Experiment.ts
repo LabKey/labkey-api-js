@@ -81,7 +81,7 @@ export interface CreateHiddenRunGroupOptions extends RequestCallbackOptions<RunG
  * MS2 runs to one another.
  */
 export function createHiddenRunGroup(options: CreateHiddenRunGroupOptions): XMLHttpRequest {
-    const jsonData: any = {};
+    const jsonData: Record<string, any> = {};
 
     if (options.runIds && options.selectionKey) {
         throw 'Only one of runIds or selectionKey config parameter is allowed for a single call.';
@@ -330,7 +330,7 @@ export interface LoadBatchOptions extends RequestCallbackOptions<RunGroup> {
     containerPath?: string;
     /**
      * Optional protocol name to be used for non-assay backed runs.
-     * Currently only SAMPLE_DERIVATION_PROTOCOL is supported.
+     * Currently, only SAMPLE_DERIVATION_PROTOCOL is supported.
      */
     protocolName?: string;
     /** The assay provider name. */
@@ -526,10 +526,12 @@ function requestSaveBatches<SuccessPayload>(
  * ```
  */
 export function saveBatch(options: SaveBatchOptions): XMLHttpRequest {
-    return requestSaveBatches<RunGroup>(options as any, (json: any) => {
+    return requestSaveBatches<RunGroup | undefined>(options as any, json => {
         if (json.batches) {
             return new RunGroup(json.batches[0]);
         }
+
+        return undefined;
     });
 }
 
@@ -572,7 +574,7 @@ export interface SaveRunsOptions extends RequestCallbackOptions {
     /** Save runs to a specific container. If not specified, the runs will be saved to the current container. */
     containerPath?: string;
     /**
-     * Protocol name to be used for non-assay backed runs. Currently only SAMPLE_DERIVATION_PROTOCOL
+     * Protocol name to be used for non-assay backed runs. Currently, only SAMPLE_DERIVATION_PROTOCOL
      * is supported.
      */
     protocolName?: string;

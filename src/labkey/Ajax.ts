@@ -85,14 +85,14 @@ export interface RequestOptions {
 
     /**
      * HTTP request method used for the XMLHttpRequest. Examples are "GET", "PUSH, "DELETE", etc.
-     * Defaults to "GET" unless jsonData is supplied then the default is changed to "POST". For more information,
+     * Defaults to "GET" unless jsonData is supplied, then the default is changed to "POST". For more information,
      * see this <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods">HTTP request method documentation</a>.
      */
     method?: string;
 
     /**
-     * An object representing URL parameters that will be added to the URL. Note, that if the request is method
-     * "POST" and jsonData is not provided these params will be sent via the body of the request.
+     * An object representing URL parameters that will be added to the URL. Note that if the request is method
+     * "POST" and jsonData is not provided, these params will be sent via the body of the request.
      */
     params?: Record<string, any>;
 
@@ -110,7 +110,7 @@ export interface RequestOptions {
     success?: AjaxHandler;
 
     /**
-     * If a non-null value is supplied then XMLHttpRequest.ontimeout will be hooked to failure.
+     * If a non-null value is supplied, then XMLHttpRequest.ontimeout will be hooked to failure.
      */
     timeout?: number;
 
@@ -125,7 +125,7 @@ export interface RequestOptions {
  * @hidden
  * @private
  */
-function callback(fn: Function, scope: any, args?: any) {
+function callback(fn: ((...args: any[]) => void) | undefined, scope: any, args?: any): void {
     if (fn) {
         fn.apply(scope, args);
     }
@@ -134,9 +134,9 @@ function callback(fn: Function, scope: any, args?: any) {
 /**
  * @hidden
  * @private
- * Returns true iff obj contains case-insensitive key
+ * Returns true iff obj contains a case-insensitive key
  */
-function contains(obj: Object, key: string) {
+function contains(obj: Record<string, any>, key: string): boolean {
     if (key) {
         const lowerKey = key.toLowerCase();
         for (const k in obj) {
@@ -153,16 +153,14 @@ function contains(obj: Object, key: string) {
  * @private
  */
 function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: ConfiguredOptions): void {
-    let headers = config.headers,
-        jsonData = config.jsonData;
-
+    let { headers } = config;
     if (headers === undefined || headers === null) {
         headers = {};
     }
 
     // only set Content-Type if this is not FormData and it has not been set explicitly
     if (!options.isForm && !contains(headers, 'Content-Type')) {
-        if (jsonData !== undefined && jsonData !== null) {
+        if (config.jsonData !== undefined && config.jsonData !== null) {
             headers['Content-Type'] = 'application/json';
         } else {
             headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
@@ -191,8 +189,8 @@ function configureHeaders(xhr: XMLHttpRequest, config: RequestOptions, options: 
  * @private
  */
 function configureOptions(config: RequestOptions): ConfiguredOptions {
-    let data: string;
-    let formData: FormData;
+    let data: string | undefined;
+    let formData: FormData | undefined;
     let method = 'GET';
     let isForm = false;
 
@@ -213,7 +211,7 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
     }
 
     // configure method
-    if (config.hasOwnProperty('method') && config.method !== null) {
+    if (config.hasOwnProperty('method') && config.method !== null && config.method !== undefined) {
         method = config.method.toUpperCase();
     } else if (data) {
         method = 'POST';
@@ -223,7 +221,7 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
     if (params !== undefined && params !== null) {
         const qs = queryString(params);
 
-        // 26617: backwards compatibility to append params to the body in the case of a POST without form/jsonData
+        // Issue 26617: backwards compatibility to append params to the body in the case of a POST without form/jsonData
         if (method === 'POST' && (data === undefined || data === null)) {
             data = qs;
         } else {
@@ -251,7 +249,11 @@ function configureOptions(config: RequestOptions): ConfiguredOptions {
  * @hidden
  * @private
  */
-export function getFilenameFromContentDisposition(disposition: string): string {
+export function getFilenameFromContentDisposition(disposition: string | null): string | undefined {
+    if (!disposition) {
+        return undefined;
+    }
+
     try {
         const contentDisposition = parse(disposition);
         if (!contentDisposition || contentDisposition.type !== 'attachment') {
@@ -276,7 +278,7 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
     if (typeof config.downloadFile === 'string') {
         filename = config.downloadFile;
     } else {
-        filename = getFilenameFromContentDisposition(xhr.getResponseHeader('Content-Disposition'));
+        filename = getFilenameFromContentDisposition(xhr.getResponseHeader('Content-Disposition')) ?? '';
     }
 
     const blob = xhr.response;
@@ -299,10 +301,10 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
 }
 
 /**
- * Make a XMLHttpRequest nominally to a LabKey instance. Includes success/failure callback mechanism,
+ * Make an XMLHttpRequest nominally to a LabKey instance. Includes success/failure callback mechanism,
  * HTTP header configuration, support for FormData, and parameter encoding amongst other features.
  */
-export function request(config: RequestOptions): XMLHttpRequest {
+export function request(this: any, config: RequestOptions): XMLHttpRequest {
     const options = configureOptions(config);
     const scope = config.hasOwnProperty('scope') && config.scope !== null ? config.scope : this;
     const xhr = new XMLHttpRequest();

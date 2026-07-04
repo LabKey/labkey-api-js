@@ -157,7 +157,7 @@ export interface AssayDesign {
  * @param options
  * @see {@link AssayDesign}
  */
-export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
+export function getAssays(this: any, options: GetAssaysOptions): XMLHttpRequest {
     moveParameters(options, 'id', 'name', 'plateEnabled', 'status', 'type');
 
     return request({

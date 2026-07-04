@@ -15,7 +15,7 @@
  */
 export abstract class QueryKey {
     name: string;
-    parent: QueryKey;
+    parent: null | QueryKey;
 
     /**
      * Use QueryKey encoding to decode a single part.
@@ -76,7 +76,7 @@ export abstract class QueryKey {
         return '"' + s.replace(/\"/g, '""') + '"';
     }
 
-    constructor(parent: QueryKey, name: string) {
+    constructor(parent: null | QueryKey, name: string) {
         this.name = name;
         this.parent = parent;
     }

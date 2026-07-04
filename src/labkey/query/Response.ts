@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { isArray, isDefined, isFunction } from '../Utils';
+import { isDefined, isFunction } from '../Utils';
 
 import { FieldKey } from '../FieldKey';
 import { SchemaKey } from '../SchemaKey';
@@ -27,18 +27,18 @@ interface ExtRoot {
     Ext4?: any;
 }
 
-declare type ExtWindow = Window & ExtRoot;
+declare type ExtWindow = ExtRoot & Window;
 
 declare const window: ExtWindow;
 
 export interface ResponseColumn {
-    align: string;
+    align?: string;
     dataIndex: string;
     editable: boolean;
     header: string;
     hidden: boolean;
     required: boolean;
-    scale: number;
+    scale?: number;
     sortable: boolean;
     width: number;
 }
@@ -48,7 +48,7 @@ export interface ResponseColumn {
  * @private
  */
 function generateColumnModel(fields: MetadataField[]): ResponseColumn[] {
-    const columns = [];
+    const columns: ResponseColumn[] = [];
 
     for (let i = 0; i < fields.length; i++) {
         columns.push({
@@ -95,7 +95,7 @@ export interface MetadataField {
     description?: string;
     /** Whether this field is a dimension. Data dimensions define logical groupings of measures. */
     dimension: boolean;
-    /** If the field has a display field this is the field key for that field. */
+    /** If the field has a display field, this is the field key for that field. */
     displayField?: FieldKey;
     excelFormat?: string;
     excludeFromShifting?: boolean;
@@ -115,7 +115,7 @@ export interface MetadataField {
     keyField: boolean;
     label?: string;
     /**
-     * If the field is a lookup, there will be four sub-properties listed under this property:
+     * If the field is a lookup, there will be four subproperties listed under this property:
      * schema, table, displayColumn, and keyColumn, which describe the schema, table, and display
      * column, and key column of the lookup table (query).
      */
@@ -158,11 +158,11 @@ export interface ResponseMetadata {
     id: string;
     importMessage?: string;
     /**
-     * An array of templates (label/URL) that should be used as the options for excel upload.
+     * An array of templates (label/URL) that should be used as the options for Excel upload.
      * Each URL should either point to a static template file or an action to generate the template.
      * If no custom templates have been provided, it will return the default URL.
      */
-    importTemplates?: Array<{ label: string; url: string }>;
+    importTemplates?: { label: string; url: string }[];
     /** Name of the property containing rows ("rows"). */
     root: string;
     /** Title of the underlying query */
@@ -174,13 +174,13 @@ export interface ResponseMetadata {
 /** The class used to wrap the response object from {@link getRawData}, {@link selectRows}, and {@link executeSql}. */
 export class Response {
     columnModel: any;
-    formatVersion: number;
-    metaData: ResponseMetadata;
-    queryName: string;
-    rowCount: number;
-    rows: Row[];
+    formatVersion!: number;
+    metaData!: ResponseMetadata;
+    queryName!: string;
+    rowCount!: number;
+    rows!: Row[];
     schemaKey: SchemaKey;
-    schemaName: string;
+    schemaName!: string;
     [attr: string]: any;
 
     /**
@@ -337,12 +337,12 @@ export class Row {
 
     /**
      * Gets the requested column from the row. Includes extended values such as display value, URL, etc.
-     * When requested version is >16.2, multi-value columns will return an array of objects containing "value" and other properties.
+     * When the requested version is >16.2, multi-value columns will return an array of objects containing "value" and other properties.
      * In the "17.1" format, "formattedValue" may be included in the response as the column display value formatted with the display column's format or folder format settings.
      * @param columnName The column name requested. Used to do a case-insensitive match to find the column.
      * @returns For the given columnName, returns an object in the common case or an array of objects for multi-value columns.
      * The object will always contain a property named "value" that is the column's value, but it may also contain other properties about that column's value. For
-     * example, if the column was setup to track missing value information, it will also contain a property named mvValue
+     * example, if the column was set up to track missing value information, it will also contain a property named mvValue
      * (which is the raw value that is considered suspect), and a property named mvIndicator, which will be the string MV
      * indicator (e.g., "Q").
      */
@@ -372,8 +372,8 @@ export class Row {
     }
 
     /**
-     * Gets all of the links for a row (details, update, etc.).
-     * @returns Returns an object with all of the links types (details, update, etc.) for a row.
+     * Gets all the links for a row (details, update, etc.).
+     * @returns Returns an object with all the link types (details, update, etc.) for a row.
      */
     getLinks(): any {
         return this.links;
@@ -390,7 +390,7 @@ export class Row {
 
         for (const attr in this) {
             if (attr.toLowerCase() === columnName && this.hasOwnProperty(attr) && !isFunction(this[attr])) {
-                if (isArray(this[attr])) {
+                if (Array.isArray(this[attr])) {
                     return this[attr].map((i: any) => i.value);
                 }
                 if (this[attr].hasOwnProperty('value')) {

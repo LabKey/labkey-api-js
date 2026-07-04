@@ -41,7 +41,7 @@ export interface UpdateParticipantGroupOptions extends RequestCallbackOptions {
 /**
  * Updates an existing participant group, already saved and accessible to the current user on the server.
  */
-export function updateParticipantGroup(options: UpdateParticipantGroupOptions): XMLHttpRequest {
+export function updateParticipantGroup(this: any, options: UpdateParticipantGroupOptions): XMLHttpRequest {
     const jsonData: any = {
         rowId: options.rowId,
     };

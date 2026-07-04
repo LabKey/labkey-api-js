@@ -15,7 +15,7 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getOnSuccess, getCallbackWrapper, getOnFailure, RequestCallbackOptions, RequestFailure } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions, RequestFailure } from '../Utils';
 
 export interface DeletePolicyOptions extends RequestCallbackOptions {
     /**
@@ -49,10 +49,7 @@ export function deletePolicy(config: DeletePolicyOptions): XMLHttpRequest {
 }
 
 export interface Policy {
-    assignments: Array<{
-        role: string;
-        userId: number;
-    }>;
+    assignments: { role: string; userId: number }[];
     modified: string;
     modifiedMillis: number;
     requestedResourceId: string;
@@ -87,13 +84,17 @@ export interface GetPolicyOptions {
  * In server-side scripts, this method will return the JSON response object
  * (first parameter of the success or failure callbacks.)
  */
-export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
+export function getPolicy(this: any, config: GetPolicyOptions): XMLHttpRequest {
     return request({
         url: buildURL('security', 'getPolicy.api', config.containerPath),
         jsonData: {
             resourceId: config.resourceId,
         },
-        success: getCallbackWrapper(function (data: { policy: Policy; relevantRoles: string[] }, req: XMLHttpRequest) {
+        success: getCallbackWrapper(function (
+            this: any,
+            data: { policy: Policy; relevantRoles: string[] },
+            req: XMLHttpRequest
+        ) {
             data.policy.requestedResourceId = config.resourceId;
             getOnSuccess(config).call(config.scope || this, data.policy, data.relevantRoles, req);
         }, this),

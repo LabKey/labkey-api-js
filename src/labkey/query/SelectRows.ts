@@ -15,7 +15,7 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray, RequestCallbackOptions } from '../Utils';
+import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
 import { IFilter } from '../filter/Filter';
 
 import { buildQueryParams, ContainerFilter, getMethod, getSuccessCallbackWrapper } from './Utils';
@@ -39,11 +39,11 @@ export interface SelectRowsOptions extends RequestCallbackOptions {
      */
     containerFilter?: ContainerFilter;
     /**
-     * The path to the container in which the schema and query are defined, if different than the current container.
+     * The path to the container in which the schema and query are defined, if different from the current container.
      * If not supplied, the current container's path will be used.
      */
     containerPath?: string;
-    /** Prefix for query parameters (e.g. filters, sorts, etc) in this request. Defaults to "query". */
+    /** Prefix for query parameters (e.g., filters, sorts, etc.) in this request. Defaults to "query". */
     dataRegionName?: string;
     /** Array of objects created by Filter.create. */
     filterArray?: IFilter[];
@@ -51,7 +51,7 @@ export interface SelectRowsOptions extends RequestCallbackOptions {
     ignoreFilter?: boolean;
     /**
      * Include the Details link column in the set of columns (defaults to false). If included, the column will
-     * have the name "~~Details~~". The underlying table/query must support details links or the column will
+     * have the name "~~Details~~". The underlying table/query must support details links, or the column will
      * be omitted in the response.
      */
     includeDetailsColumn?: boolean;
@@ -60,12 +60,12 @@ export interface SelectRowsOptions extends RequestCallbackOptions {
     includeStyle?: boolean;
     /**
      * Include the total number of rows available (defaults to true). If false totalCount will equal
-     * number of rows returned (equal to maxRows unless maxRows == 0).
+     *  the number of rows returned (equal to maxRows unless maxRows == 0).
      */
     includeTotalCount?: boolean;
     /**
      * Include the Update (or edit) link column in the set of columns (defaults to false). If included, the column
-     * will have the name "~~Update~~". The underlying table/query must support update links or the column
+     * will have the name "~~Update~~". The underlying table/query must support update links, or the column
      * will be omitted in the response.
      */
     includeUpdateColumn?: boolean;
@@ -120,7 +120,7 @@ export interface SelectRowsOptions extends RequestCallbackOptions {
  * @hidden
  * @private
  */
-function buildSelectRowsParams(options: SelectRowsOptions): any {
+function buildSelectRowsParams(options: SelectRowsOptions): Record<string, any> {
     const params = buildQueryParams(
         options.schemaName,
         options.queryName,
@@ -150,7 +150,7 @@ function buildSelectRowsParams(options: SelectRowsOptions): any {
     if (options.viewName) params[dataRegionName + '.viewName'] = options.viewName;
 
     if (options.columns)
-        params[dataRegionName + '.columns'] = isArray(options.columns)
+        params[dataRegionName + '.columns'] = Array.isArray(options.columns)
             ? (options.columns as string[]).join(',')
             : options.columns;
 
@@ -233,6 +233,7 @@ function selectRowArguments(args: IArguments): SelectRowsOptions {
  */
 export function selectRows(options: SelectRowsOptions): XMLHttpRequest {
     if (arguments.length > 1) {
+        // eslint-disable-next-line prefer-rest-params
         options = selectRowArguments(arguments);
     }
 

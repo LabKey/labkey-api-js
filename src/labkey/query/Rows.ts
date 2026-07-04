@@ -84,16 +84,16 @@ export interface QueryRequestOptions extends RequestCallbackOptions {
  * @hidden
  * @private
  */
-function applyArguments(options: QueryRequestOptions, args: IArguments, action: string): SendRequestOptions {
-    return args && args.length > 1
-        ? {
-              ...queryArguments(args),
-              action,
-          }
-        : {
-              ...options,
-              action,
-          };
+function applyArguments(
+    options: QueryRequestOptions,
+    args: IArguments | undefined,
+    action: string
+): SendRequestOptions {
+    if (args && args.length > 1) {
+        return { ...queryArguments(args), action };
+    }
+
+    return { ...options, action };
 }
 
 /**
@@ -104,6 +104,7 @@ function applyArguments(options: QueryRequestOptions, args: IArguments, action: 
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function deleteRows(options: QueryRequestOptions): XMLHttpRequest {
+    // eslint-disable-next-line prefer-rest-params
     return sendRequest(applyArguments(options, arguments, 'deleteRows.api'));
 }
 
@@ -141,6 +142,7 @@ export function deleteRows(options: QueryRequestOptions): XMLHttpRequest {
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function insertRows(options: QueryRequestOptions): XMLHttpRequest {
+    // eslint-disable-next-line prefer-rest-params
     return sendRequest(applyArguments(options, arguments, 'insertRows.api'), true);
 }
 
@@ -167,8 +169,8 @@ export type CommandType = 'delete' | 'insert' | 'update';
  * matching requests to responses, as HTTP requests are typically
  * processed asynchronously.
  * Additional Documentation:
- * - [How to find schemaName, queryName and viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames)
- * - [LabKey Javascript tutorial](https://www.labkey.org/Documentation/wiki-page.view?name=javascriptTutorial)
+ * - [How to find schemaName, queryName, and viewName](https://www.labkey.org/Documentation/wiki-page.view?name=findNames)
+ * - [LabKey JavaScript tutorial](https://www.labkey.org/Documentation/wiki-page.view?name=javascriptTutorial)
  * - [Demo](https://www.labkey.org/home/Study/demo/wiki-page.view?name=reagentRequest)
  *
  * ```js
@@ -197,7 +199,7 @@ export interface ModifyRowsResults {
      * Array of rows with field values for the rows updated, inserted,
      * or deleted, in the same order as the rows supplied in the request. For insert, the
      * new key value for an auto-increment key will be in the returned row's field values.
-     * For insert or update, the other field values may also be different than those supplied
+     * For insert or update, the other field values may also be different from those supplied
      * as a result of database default expressions, triggers, or LabKey's automatic tracking
      * feature, which automatically adjusts columns of certain names (e.g., Created, CreatedBy,
      * Modified, ModifiedBy, etc.).
@@ -345,7 +347,7 @@ function bindSaveRowsCommand(form: FormData, command: Command, commandIndex: num
     return { ...commandData, rows: processedRows };
 }
 
-export function bindSaveRowsData(options: SaveRowsOptions): FormData {
+export function bindSaveRowsData(options: SaveRowsOptions): FormData | undefined {
     const { commands, ...jsonData } = options;
     const hasFiles = options.commands.some(command => hasFileData(command.rows));
 
@@ -367,8 +369,8 @@ export function bindSaveRowsData(options: SaveRowsOptions): FormData {
  */
 export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
     // Nick: I've elected to comment this out as saveRows never supported the same argument
-    // pattern as other endpoints due to the different nature of its arguments (e.g. doesn't take a
-    // schema/query but rather commands, etc). As a result, the object would not match what is expected.
+    // pattern as other endpoints due to the different nature of its arguments (e.g., doesn't take a
+    // schema/query but rather commands, etc.). As a result, the object would not match what is expected.
     // if (arguments.length > 1) {
     //     options = queryArguments(arguments);
     // }
@@ -411,7 +413,7 @@ export function bindFormData(jsonData: { rows?: any[] }, options: SendRequestOpt
         }
         form = options.form;
     } else if (supportsFiles && options.autoFormFileData) {
-        // A form was not explicitly provided, however, this endpoint supports File data in the rows payload.
+        // A form was not explicitly provided; however, this endpoint supports File data in the rows payload.
         const hasFiles = hasFileData(jsonData.rows);
 
         if (hasFiles) {
@@ -495,6 +497,7 @@ export function truncateTable(options: QueryRequestOptions): XMLHttpRequest {
  * this method will return the JSON response object (first parameter of the success or failure callbacks).
  */
 export function updateRows(options: QueryRequestOptions): XMLHttpRequest {
+    // eslint-disable-next-line prefer-rest-params
     return sendRequest(applyArguments(options, arguments, 'updateRows.api'), true);
 }
 

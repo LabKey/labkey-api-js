@@ -15,7 +15,7 @@ interface AppRegistryItem<CTX = any> {
 
 type AppRegistry = {
     isDOMContentLoaded: boolean;
-    registry: { [appName: string]: AppRegistryItem };
+    registry: Record<string, AppRegistryItem>;
 };
 
 /**

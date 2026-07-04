@@ -71,7 +71,7 @@ const ID_PREFIX = 'lk-gen';
 let idSeed = 100;
 
 /**
- * When using Ext dateFields you can use DATEALTFORMATS for the altFormat: config option.
+ * When using Ext dateFields, you can use DATEALTFORMATS for the altFormat: config option.
  * @private
  */
 const DATEALTFORMATS_Either = [
@@ -171,7 +171,7 @@ export function apply(object: any, config: any): any {
  * Applies properties from the source object to the target object, translating
  * the property names based on the translation map. The translation map should
  * have an entry per property that you wish to rename when it is applied on
- * the target object. The key should be the name of the property on the source object
+ * the target object. The key should be the name of the property on the source object,
  * and the value should be the desired name on the target object. The value may
  * also be set to null or false to prohibit that property from being applied.
  * By default, this function will also apply all other properties on the source
@@ -228,7 +228,7 @@ const DOMWrappers: Record<string, any> = {};
 
 /**
  * Provides a function that wraps a stub implementation. If the concrete implementation is available at
- * run-time it will call that with the arguments applied, otherwise, it will log a warning to the console.
+ * run-time, it will call that with the arguments applied, otherwise, it will log a warning to the console.
  * @hidden
  * @private
  * @param fnName
@@ -249,6 +249,7 @@ function DOMWrapper<T>(fnName: string): T {
             isFunction(LABKEY.Utils[fnName]) &&
             LABKEY.Utils[fnName] !== DOMWrappers[fnName]
         ) {
+            // eslint-disable-next-line prefer-rest-params
             LABKEY.Utils[fnName].apply(this, arguments);
         } else {
             console.warn(
@@ -281,7 +282,7 @@ export function capitalize(value: string): string {
  * Returns true if the arguments are case-insensitive equal.
  * Note: the method converts arguments to strings for the purposes of comparing numbers,
  * which means that it will return odd behaviors with objects
- * (ie. `LABKEY.Utils.caseInsensitiveEquals({t: 3}, '[object Object]') // returns true`)
+ * (i.e. `LABKEY.Utils.caseInsensitiveEquals({t: 3}, '[object Object]') // returns true`)
  *
  * @param a The first item to test
  * @param b The second item to test
@@ -419,15 +420,15 @@ export function ensureBoxVisible(): void {
 export function generateUUID(): string {
     const { uuids } = getServerContext();
 
-    // First see if there are any server-generated UUIDs available to return
+    // First, see if there are any server-generated UUIDs available to return
     if (uuids && uuids.length > 0) {
-        return uuids.pop();
+        return uuids.pop()!;
     }
 
     // From the original Math.uuidFast implementation
-    let uuid = new Array(36),
-        rnd = 0,
-        r;
+    let uuid = new Array(36);
+    let rnd = 0;
+    let r: number;
     for (let i = 0; i < 36; i++) {
         if (i == 8 || i == 13 || i == 18 || i == 23) {
             uuid[i] = '-';
@@ -451,33 +452,35 @@ export function generateUUID(): string {
  * @param fn The callback function to wrap.
  * @param scope The scope for the callback function.
  * @param isErrorCallback Set to true if the function is an error callback. If true, and you do not provide a
- * separate callback, alert will popup showing the error message.
+ * separate callback, an alert will popup showing the error message.
  * @param responseTransformer Function to be invoked to transform the response object before invoking the
  * primary callback function.
  */
 export function getCallbackWrapper<T = any>(
-    fn: Function, // TODO: Improve this type -- (data: T, response: ExtendedXMLHttpRequest, options: RequestOptions) => any
+    fn: ((data: T, response: ExtendedXMLHttpRequest, options: RequestOptions) => void) | undefined,
     scope?: any,
     isErrorCallback?: boolean,
     responseTransformer?: (json?: any) => T
 ): AjaxHandler {
-    // Due to prior behavior the scope may not be explicitly specified (i.e. specified in the "scope"
+    // Due to prior behavior, the scope may not be explicitly specified (i.e., specified in the "scope"
     // parameter) and still expect to be respected when applied via function.apply(). Thus, this
     // return function cannot use => syntax and must return a classic function.
-    return function (response: ExtendedXMLHttpRequest, options: RequestOptions) {
-        let json = response.responseJSON;
+    return function (this: any, response: XMLHttpRequest, options: RequestOptions) {
+        // The request machinery attaches responseJSON to the XHR, so treat it as extended here.
+        const extResponse = response as ExtendedXMLHttpRequest;
+        let json = extResponse.responseJSON;
 
         if (!json) {
             // ensure response is JSON before trying to decode
-            if (isJSONResponse(response)) {
+            if (isJSONResponse(extResponse)) {
                 try {
-                    json = decode(response.responseText);
+                    json = decode(extResponse.responseText);
                 } catch (error) {
                     // we still want to proceed even if we cannot decode the JSON
                 }
             }
 
-            response.responseJSON = json;
+            extResponse.responseJSON = json;
         }
 
         if (!json && isErrorCallback) {
@@ -486,7 +489,7 @@ export function getCallbackWrapper<T = any>(
 
         if (json && !json.exception && isErrorCallback) {
             // Try to make sure we don't show an empty error message
-            json.exception = response && response.statusText ? response.statusText : 'Communication failure.';
+            json.exception = extResponse && extResponse.statusText ? extResponse.statusText : 'Communication failure.';
         }
 
         if (responseTransformer) {
@@ -494,9 +497,9 @@ export function getCallbackWrapper<T = any>(
         }
 
         if (fn) {
-            fn.call(scope || this, json, response, options);
-        } else if (isErrorCallback && response.status != 0) {
-            // Don't show an error dialog if the user cancelled the request in the browser,
+            fn.call(scope || this, json, extResponse, options);
+        } else if (isErrorCallback && extResponse.status != 0) {
+            // Don't show an error dialog if the user canceled the request in the browser,
             // like navigating to another page
             alert('Error', json.exception);
         }
@@ -550,7 +553,7 @@ export function getDateTimeFormatWithMS(): string {
 
 /**
  * Returns a URL to the appropriate file icon image based on the specified file name.
- * Note that file name can be a full path or just the file name and extension.
+ * Note that the file name can be a full path or just the file name and extension.
  * If the file name does not include an extension, the URL for a generic image will be returned
  * @return The URL suitable for use in the src attribute of an img element.
  */
@@ -571,27 +574,30 @@ export function getMeasureAlias(measure: any, override?: boolean): string {
     return alias.replace(/\//g, '_');
 }
 
+export type ErrorMessageConfig = {
+    msgPrefix?: string;
+    showExceptionClass?: boolean;
+};
+
 /**
  * Generates a display string from the response to an error from an AJAX request
  */
-export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, config: any): string {
+export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, config: ErrorMessageConfig): string {
     config = config || {};
-    let error;
+    let error: string | undefined;
     const prefix = config.msgPrefix || 'An error occurred trying to load:\n';
 
     if (response && response.responseText && response.getResponseHeader('Content-Type')) {
         const contentType = response.getResponseHeader('Content-Type');
 
-        if (contentType.indexOf('application/json') >= 0) {
-            const jsonResponse = decode(response.responseText);
+        if (contentType && contentType.indexOf('application/json') >= 0) {
+            const json = decode(response.responseText);
 
-            if (jsonResponse && jsonResponse.exception) {
-                error = prefix + jsonResponse.exception;
-                if (config.showExceptionClass)
-                    error +=
-                        '\n(' +
-                        (jsonResponse.exceptionClass ? jsonResponse.exceptionClass : 'Exception class unknown') +
-                        ')';
+            if (json && json.exception) {
+                error = prefix + json.exception;
+                if (config.showExceptionClass) {
+                    error += '\n(' + (json.exceptionClass ? json.exceptionClass : 'Exception class unknown') + ')';
+                }
             }
         }
         // HTML handling has been migrated to dom/Util's override of this method
@@ -608,16 +614,16 @@ export function getMsgFromError(response: XMLHttpRequest, exceptionObj: any, con
 
 /**
  *
- * Standard documented name for error callback arguments is "failure" but various other names have been employed in the past.
- * This function provides reverse compatibility by picking the failure callback argument out of a config object
- * be it named failure, failureCallback or errorCallback.
+ * The standard documented name for error callback arguments is "failure" but various other names have been employed in the past.
+ * This function provides reverse compatibility by picking the failure callback argument out of a config object,
+ * be it named failure, failureCallback, or errorCallback.
  */
 export function getOnFailure(config: { errorCallback?: any; failure?: any; failureCallback?: any }): any {
     return config.failure || config.errorCallback || config.failureCallback;
 }
 
 /**
- * Standard documented name for success callback arguments is "success" but various names have been employed in past.
+ * The standard documented name for success callback arguments is "success" but various names have been employed in the past.
  * This function provides reverse compatibility by picking the success callback argument out of a config object,
  * be it named success or successCallback.
  */
@@ -665,8 +671,8 @@ export const isArray = Array.isArray;
 export function isBoolean(value: unknown): value is boolean {
     if (typeof value === 'boolean') return true;
     const normalized = value?.toString().toUpperCase();
-    const booleanStrings = new Set(['TRUE', 'FALSE', '1', '0', 'Y', 'N', 'YES', 'NO', 'ON', 'OFF', 'T', 'F']);
-    return booleanStrings.has(normalized);
+    const booleanStrings = new Set(['0', '1', 'F', 'FALSE', 'N', 'NO', 'OFF', 'ON', 'T', 'TRUE', 'Y', 'YES']);
+    return normalized !== undefined && booleanStrings.has(normalized);
 }
 
 /**
@@ -708,12 +714,7 @@ export function isFunction(value: any): boolean {
 }
 
 function isJSONResponse(response: ExtendedXMLHttpRequest): boolean {
-    return (
-        response &&
-        response.getResponseHeader &&
-        response.getResponseHeader('Content-Type') &&
-        response.getResponseHeader('Content-Type').indexOf('application/json') >= 0
-    );
+    return (response?.getResponseHeader?.('Content-Type')?.indexOf('application/json') ?? -1) >= 0;
 }
 
 export function isObject(value: any): boolean {
@@ -771,7 +772,7 @@ export interface IOnTrueOptions extends RequestCallbackOptions {
  * as cases where you are including common script files dynamically using the requiresScript()
  * method, and need to wait until classes defined in those files are parsed and ready for use.
  */
-export function onTrue(options: IOnTrueOptions): void {
+export function onTrue(this: any, options: IOnTrueOptions): void {
     // TODO: 2.x Remove this method
     options.maxTests = options.maxTests || 1000;
     try {
@@ -801,7 +802,7 @@ export function onTrue(options: IOnTrueOptions): void {
  * @param {String} padChar The character to use for padding.
  * @return {String} The padded string
  */
-export function padString(input: string | number, length: number, padChar: string): string {
+export function padString(input: number | string, length: number, padChar: string): string {
     let _input: string;
     if (!isString(input)) {
         _input = input.toString();
@@ -876,7 +877,7 @@ export function pluralize(count: number, singular: string, plural: string): stri
 }
 
 /**
- * Includes a Cascading Style Sheet (CSS) file into the page. If the file was already included by some other code, this
+ * Includes a Cascading Style Sheet (CSS) file in the page. If the file was already included by some other code, this
  * function will simply ignore the call. This may be used to include CSS files defined in your module's web/ directory.
  * @param filePath The path to the script file to include. This path should be relative to the web application
  * root. So for example, if you wanted to include a file in your module's web/mymodule/styles/ directory,
@@ -938,7 +939,7 @@ export function roundNumber(input: number, dec: number): number {
  * database persistence.
  * @param name The name of the cookie to be saved.
  * @param value The value of the cookie to be saved.
- * @param pageOnly Whether this cookie should be scoped to the entire site, or just this page.
+ * @param pageOnly Whether this cookie should be scoped to the entire site or just this page.
  * Page scoping considers the entire URL without parameters; all URL contents after the '?' are ignored.
  * @param days The number of days the cookie should be saved on the client.
  */
@@ -966,7 +967,7 @@ export interface ITextLinkOptions {
 }
 
 /**
- * Returns a string containing a well-formed html anchor that will apply theme specific styling. The configuration
+ * Returns a string containing a well-formed html anchor that will apply theme-specific styling. The configuration
  * takes any property value pair and places them on the anchor.
  * @param options
  * @returns {string}
@@ -993,12 +994,12 @@ export function textLink(options: ITextLinkOptions): string {
 }
 
 /**
- * Obfuscates content that's often intercepted by web application firewalls that are scanning for likely
+ * Obfuscates content often intercepted by web application firewalls that are scanning for likely
  * SQL or script injection. We have a handful of endpoints that intentionally accept SQL or script, so we
- * encode the text to avoid tripping alarms. It's a simple BASE64 encoding that obscures the content, and lets the
+ * encode the text to avoid tripping alarms. It's a simple BASE64 encoding that obscures the content and lets the
  * WAF scan for and reject malicious content on all other parameters. See Issue 48509.
  */
-export function wafEncode(value: string): string {
+export function wafEncode(value: string | undefined): string | undefined {
     if (isString(value) && value) {
         return '/*{{base64/x-www-form-urlencoded/wafText}}*/' + btoa(encodeURIComponent(value));
     }
