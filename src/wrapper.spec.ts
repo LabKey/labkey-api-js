@@ -19,7 +19,7 @@ describe('LABKEY wrapper', () => {
         const expectedNamespaces = Object.keys(snapshot).sort();
 
         // Support all top level namespaces
-        // If this test fails it means there is a missing namespace in @labkey/api
+        // If this test fails, it means there is a missing namespace in @labkey/api
         expectedNamespaces.forEach(expectedProperty => {
             expect(LABKEY).toHaveProperty(expectedProperty);
         });
@@ -27,13 +27,13 @@ describe('LABKEY wrapper', () => {
         const errors: string[] = [];
 
         // For each namespace assert LABKEY is a superset of the API snapshot
-        // If this test fails it means there is an export missing from @labkey/api
+        // If this test fails, it means there is an export missing from @labkey/api
         expectedNamespaces.forEach(expectedProperty => {
-            const actualExports = Object.keys(LABKEY[expectedProperty]).sort();
+            const namespace = LABKEY[expectedProperty];
             const expectedExports = snapshot[expectedProperty];
 
             expectedExports.forEach(expectedExport => {
-                if (actualExports.indexOf(expectedExport) === -1) {
+                if (!(expectedExport in namespace)) {
                     errors.push(`Expected '${expectedProperty}' to export '${expectedExport}'`);
                 }
             });
