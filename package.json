@@ -11,7 +11,7 @@
     "predeploy": "npm run build:docs",
     "prepublishOnly": "npm run build",
     "deploy": "gh-pages -t -d docs",
-    "setup": "npm install",
+    "setup": "npm ci --legacy-peer-deps",
     "test": "cross-env NODE_ENV=test jest",
     "lint-fix": "eslint --fix src/"
   },
