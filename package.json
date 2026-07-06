@@ -41,13 +41,11 @@
   "publishConfig": {
     "registry": "https://labkey.jfrog.io/artifactory/api/npm/libs-client"
   },
-  "dependencies": {
-    "@tinyhttp/content-disposition": "2.2.4"
-  },
   "devDependencies": {
     "@babel/core": "8.0.1",
     "@babel/plugin-transform-modules-commonjs": "8.0.1",
     "@labkey/eslint-config": "1.2.2",
+    "@tinyhttp/content-disposition": "2.2.4",
     "@types/jest": "30.0.0",
     "@types/nise": "1.4.5",
     "ajv": "~8.20.0",
