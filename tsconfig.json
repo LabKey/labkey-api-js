@@ -4,8 +4,6 @@
     // declarationMap is required for IntelliJ to resolve source file references
     "declarationMap": true,
     "esModuleInterop": true,
-    // We currently target ES5 with this package. Ignore deprecation.
-    "ignoreDeprecations": "6.0",
     "lib": ["ES2023", "DOM"],
     "moduleResolution": "bundler",
     "noEmit": false,
@@ -16,7 +14,7 @@
     "rootDir": "src",
     "sourceMap": true,
     "strict": false,
-    "target": "ES5"
+    "target": "ES2023"
   },
   // Test files are compiled by ts-jest via tsconfig.test.json, which supplies the jest types.
   // Exclude them here, so the type-check does not flag the jest globals.
