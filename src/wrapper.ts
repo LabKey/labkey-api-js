@@ -29,7 +29,6 @@ import * as API from './index';
 declare let LABKEY: any;
 
 LABKEY.ActionURL = API.ActionURL;
-LABKEY.Ajax = API.Ajax;
 LABKEY.App = API.App;
 LABKEY.Domain = API.Domain;
 LABKEY.Exp = API.Exp;
@@ -49,6 +48,7 @@ LABKEY.Visualization = API.Visualization;
 
 // The following namespaces are extended at runtime by legacy DOM overrides.
 // Since we are now targeting ES2023+, we need to create writable plain objects so the overrides can mutate.
+LABKEY.Ajax = Object.assign({}, API.Ajax);
 LABKEY.Assay = Object.assign({}, API.Assay);
 LABKEY.Experiment = Object.assign({}, API.Experiment);
 LABKEY.Query = Object.assign({}, API.Query);
