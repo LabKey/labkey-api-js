@@ -168,7 +168,6 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
 
     if (options.file) {
         if (Array.isArray(options.file)) {
-            // Multiple files are sent as repeated "file" parts; the server reads them via getMultiFileMap.
             options.file.forEach(f => {
                 if (f instanceof File) {
                     form.append('file', f);
