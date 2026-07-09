@@ -57,7 +57,6 @@ const umdPackageConfig = {
                         outDir: path.resolve(__dirname, 'dist'),
                         declaration: true,
                         removeComments: true,
-                        target: 'ES6',
                     },
                     onlyCompileBundledFiles: true,
                 },
