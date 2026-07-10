@@ -31,8 +31,10 @@ declare let LABKEY: any;
 LABKEY.ActionURL = API.ActionURL;
 LABKEY.Ajax = API.Ajax;
 LABKEY.App = API.App;
+LABKEY.Assay = API.Assay;
 LABKEY.Domain = API.Domain;
 LABKEY.Exp = API.Exp;
+LABKEY.Experiment = API.Experiment;
 LABKEY.FieldKey = API.FieldKey;
 LABKEY.Filter = API.Filter;
 LABKEY.List = API.List;
@@ -40,20 +42,15 @@ LABKEY.Message = API.Message;
 LABKEY.MultiRequest = API.MultiRequest;
 LABKEY.ParticipantGroup = API.ParticipantGroup;
 LABKEY.Pipeline = API.Pipeline;
+LABKEY.Query = API.Query;
 LABKEY.QueryKey = API.QueryKey;
 LABKEY.Report = API.Report;
 LABKEY.SchemaKey = API.SchemaKey;
+LABKEY.Security = API.Security;
 LABKEY.Specimen = API.Specimen;
 LABKEY.Storage = API.Storage;
+LABKEY.Utils = API.Utils;
 LABKEY.Visualization = API.Visualization;
-
-// The following namespaces are extended at runtime by legacy DOM overrides.
-// Since we are now targeting ES2023+, we need to create writable plain objects so the overrides can mutate.
-LABKEY.Assay = Object.assign({}, API.Assay);
-LABKEY.Experiment = Object.assign({}, API.Experiment);
-LABKEY.Query = Object.assign({}, API.Query);
-LABKEY.Security = Object.assign({}, API.Security);
-LABKEY.Utils = Object.assign({}, API.Utils);
 
 LABKEY.__package__ = __package__;
 

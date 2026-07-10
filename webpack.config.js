@@ -24,9 +24,20 @@ const apiGlobalConfig = {
                 loader: 'ts-loader',
                 options: {
                     onlyCompileBundledFiles: true,
+                    // Emit CommonJS ("nodenext", since package.json intentionally has no "type":"module") so LABKEY
+                    // namespaces stay shared, writable exports that legacy runtime overrides can patch.
+                    compilerOptions: {
+                        module: 'nodenext',
+                        moduleResolution: 'nodenext',
+                    },
                 },
             },
         ],
+    },
+
+    optimization: {
+        // Disable scope hoisting so cross-module references resolve through the shared, patchable exports objects.
+        concatenateModules: false,
     },
 
     output: {
@@ -57,7 +68,6 @@ const umdPackageConfig = {
                         outDir: path.resolve(__dirname, 'dist'),
                         declaration: true,
                         removeComments: true,
-                        target: 'ES6',
                     },
                     onlyCompileBundledFiles: true,
                 },
