@@ -99,7 +99,7 @@ export interface IImportDataOptions {
     auditUserComment?: string;
     containerPath?: string;
     failure?: Function;
-    file?: File | Element | any;
+    file?: File | File[] | Element | any;
     format?: string;
     importIdentity?: any;
     importLookupByAlternateKey?: boolean;
@@ -167,7 +167,13 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
     }
 
     if (options.file) {
-        if (options.file instanceof File) {
+        if (Array.isArray(options.file)) {
+            options.file.forEach(f => {
+                if (f instanceof File) {
+                    form.append('file', f);
+                }
+            });
+        } else if (options.file instanceof File) {
             form.append('file', options.file);
         } else if (options.file.tagName == 'INPUT' && options.file.files.length > 0) {
             form.append('file', options.file.files[0]);
