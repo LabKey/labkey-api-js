@@ -1,3 +1,16 @@
+### 1.52.2 - 2026-07-14
+- Update `Query.importData()` to support multiple files
+
+### 1.52.1 - 2026-07-10
+- Emit CommonJS (`nodenext`) and disable module concatenation in global bundles
+- Assign `LABKEY.*` namespaces directly from the API exports
+- Remove target override in the UMD build
+
+### 1.52.0 - 2026-07-08
+- Update TypeScript compilation `target` to `ES2023`
+- Remove TypeScript `ignoreDeprecations`
+- Package updates
+
 ### 1.51.5 - 2026-06-22
 - Pass `auditUserComment` option to `Storage.deleteStorageItem` for attaching a reason to the audit log record
 
