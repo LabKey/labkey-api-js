@@ -1,3 +1,6 @@
+### 1.52.3 - 2026-08-04
+- Package updates
+
 ### 1.52.2 - 2026-07-14
 - Update `Query.importData()` to support multiple files
 
