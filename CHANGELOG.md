@@ -1,4 +1,4 @@
-### 1.52.4 - TBD
+### 1.52.4 - 2026-09-08
 - Package updates.
 - Rehydrate `package-lock.json`.
 
