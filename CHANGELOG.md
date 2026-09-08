@@ -1,3 +1,7 @@
+### 1.52.4 - 2026-09-08
+- Package updates.
+- Rehydrate `package-lock.json`.
+
 ### 1.52.3 - 2026-08-04
 - Package updates
 
