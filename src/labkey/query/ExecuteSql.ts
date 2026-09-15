@@ -39,6 +39,11 @@ export interface ExecuteSqlOptions extends RequestCallbackOptions {
      * If false totalCount will equal number of rows returned (equal to maxRows unless maxRows == 0).
      */
     includeTotalCount?: boolean;
+    /**
+     * Cap the total-count query at this many rows so COUNT(*) is performant. When exceeded the response reports
+     * rowCount clamped to this value and rowCountCapped: true. Omitted or 0 counts exactly (the default).
+     */
+    maxCount?: number;
     /** The maximum number of rows to return from the server (defaults to returning 100,000 rows). */
     maxRows?: number;
     /**
@@ -116,6 +121,9 @@ function buildParams(options: ExecuteSqlOptions): any {
     }
     if (options.includeTotalCount !== undefined) {
         jsonData.includeTotalCount = options.includeTotalCount;
+    }
+    if (options.maxCount !== undefined) {
+        jsonData.maxCount = options.maxCount;
     }
 
     if (options.containerFilter) {

@@ -178,6 +178,8 @@ export class Response {
     metaData: ResponseMetadata;
     queryName: string;
     rowCount: number;
+    /** True when rowCount was capped at the request's maxCount rather than counted exactly. Absent unless maxCount was hit. */
+    rowCountCapped?: boolean;
     rows: Row[];
     schemaKey: SchemaKey;
     schemaName: string;

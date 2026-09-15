@@ -64,6 +64,12 @@ export interface SelectRowsOptions extends RequestCallbackOptions {
      */
     includeTotalCount?: boolean;
     /**
+     * Cap the total-count query at this many rows, so a large grid's COUNT(*) won't do a full scan.
+     * When exceeded the response reports rowCount clamped to this value and rowCountCapped: true. Omitted or 0
+     * counts exactly (the default). Only affects the count; row data is unaffected.
+     */
+    maxCount?: number;
+    /**
      * Include the Update (or edit) link column in the set of columns (defaults to false). If included, the column
      * will have the name "~~Update~~". The underlying table/query must support update links or the column
      * will be omitted in the response.
@@ -171,6 +177,8 @@ function buildSelectRowsParams(options: SelectRowsOptions): any {
     if (options.containerFilter) params.containerFilter = options.containerFilter;
 
     if (options.includeTotalCount !== undefined) params.includeTotalCount = options.includeTotalCount;
+
+    if (options.maxCount !== undefined) params.maxCount = options.maxCount;
 
     if (options.includeDetailsColumn) params.includeDetailsColumn = options.includeDetailsColumn;
 
