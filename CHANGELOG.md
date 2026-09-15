@@ -1,3 +1,7 @@
+### 1.52.5 - 2026-09-15
+- Add `maxCount` parameter to the selectRows and executeSql request options
+- Expose `rowCountCapped` on the query response
+
 ### 1.52.4 - 2026-09-08
 - Package updates.
 - Rehydrate `package-lock.json`.
