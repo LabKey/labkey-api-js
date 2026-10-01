@@ -255,6 +255,8 @@ export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResp
     includeTitle?: boolean;
     /** If set to false, user-defined queries will not be included in the results. Default is true. */
     includeUserQueries?: boolean;
+    /** If set to true, user-defined queries that have a primary key are included. Default is false. */
+    includeUserQueriesForLookups?: boolean;
     /** If set to false, view data URLs will not be included in the results. Default is true. */
     includeViewDataUrl?: boolean;
     /**
@@ -283,6 +285,7 @@ export function getQueries(options: GetQueriesOptions): XMLHttpRequest {
             includeSystemQueries: 'includeSystemQueries',
             includeTitle: 'includeTitle',
             includeUserQueries: 'includeUserQueries',
+            includeUserQueriesForLookups: 'includeUserQueriesForLookups',
             includeViewDataUrl: 'includeViewDataUrl',
             queryDetailColumns: 'queryDetailColumns',
         },
