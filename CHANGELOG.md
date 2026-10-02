@@ -1,3 +1,6 @@
+### 1.52.X - 2026-X
+- Add `includeUserQueriesForLookups` option to getQueries.api
+
 ### 1.52.5 - 2026-09-15
 - Add `maxCount` parameter to the selectRows and executeSql request options
 - Expose `rowCountCapped` on the query response
