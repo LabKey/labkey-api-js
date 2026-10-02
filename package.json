@@ -44,7 +44,7 @@
   "devDependencies": {
     "@babel/core": "8.0.6",
     "@babel/plugin-transform-modules-commonjs": "8.0.1",
-    "@labkey/eslint-config": "1.2.4-fb-package-updates-1026.0",
+    "@labkey/eslint-config": "1.2.4",
     "@tinyhttp/content-disposition": "2.2.4",
     "@types/jest": "30.0.0",
     "@types/nise": "1.4.5",
