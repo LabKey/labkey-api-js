@@ -262,6 +262,12 @@ export interface LineageOptions extends ExperimentJSONConverterOptions, RequestC
      */
     expType?: string;
     /**
+     * Include edges between returned nodes that lie on neither the parent nor the child traversal
+     * (e.g. from an ancestor directly to a descendant of the seed). Ignored when filtering by "expType" or "cpasType".
+     * Defaults to false.
+     */
+    includeCrossEdges?: boolean;
+    /**
      * The LSID for the seed ExpData, ExpMaterials, or ExpRun.
      * @deprecated since 19.3. Use "lsids" instead.
      */
@@ -309,6 +315,9 @@ export function lineage(options: LineageOptions): XMLHttpRequest {
     }
     if (options.runProtocolLsid) {
         params.runProtocolLsid = options.runProtocolLsid;
+    }
+    if (options.includeCrossEdges) {
+        params.includeCrossEdges = options.includeCrossEdges;
     }
 
     return request({

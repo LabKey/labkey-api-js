@@ -1,3 +1,6 @@
+### TBD
+- Add `includeCrossEdges` option to `Experiment.lineage`
+
 ### 1.53.0 - 2026-10-02
 - Package updates
 
