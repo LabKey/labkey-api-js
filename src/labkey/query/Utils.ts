@@ -256,8 +256,8 @@ export interface GetQueriesOptions extends RequestCallbackOptions<GetQueriesResp
     /** If set to false, user-defined queries will not be included in the results. Default is true. */
     includeUserQueries?: boolean;
     /**
-     * Only takes effect when includeUserQueries is false. If set to true, user-defined queries that have a primary key
-     * are included in the results (they are valid lookup targets); those without one are excluded. Default is false.
+     * Only takes effect when includeUserQueries is false. If set to true, user-defined queries that are valid lookup
+     * targets are included in the results: those included for lookups that have a primary key. Default is false.
      */
     includeUserQueriesForLookups?: boolean;
     /** If set to false, view data URLs will not be included in the results. Default is true. */
