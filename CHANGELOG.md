@@ -1,3 +1,6 @@
+### 1.53.1 - 2026-10-06
+- Add `includeUserQueriesForLookups` option to getQueries.api
+
 ### 1.53.0 - 2026-10-02
 - Package updates
 
