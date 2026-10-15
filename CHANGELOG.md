@@ -1,3 +1,12 @@
+### TBD
+- Cancel abandoned requests
+  - Add `signal` (an `AbortSignal`) to `Ajax.request` and every API function, to abort a request through an `AbortController`
+  - Add `cancellable` to `Ajax.request`: when the `cancelAbandonedRequests` experimental feature is on, an aborted or timed-out cancellable request asks the server to stop it over the notification WebSocket
+  - `selectRows`, `selectDistinctRows` and `executeSql` are cancellable by default
+  - Add `Ajax.isAborted(xhr)` to tell an aborted request from a failed one
+  - Add `Ajax.getCancellableRequests()` to list in-flight cancellable requests
+  - Add `ActionURL.isSameOrigin(url)`
+
 ### 1.53.1 - 2026-10-06
 - Add `includeUserQueriesForLookups` option to getQueries.api
 
