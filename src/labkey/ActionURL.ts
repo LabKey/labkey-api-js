@@ -370,6 +370,17 @@ export function getReturnUrl(): string {
     return getParameter('returnUrl');
 }
 
+/**
+ * Returns true if the URL, absolute or relative to the current page, is on the current page's origin.
+ */
+export function isSameOrigin(url: string): boolean {
+    try {
+        return new URL(url, window.location.href).origin === window.location.origin;
+    } catch (e) {
+        return false;
+    }
+}
+
 function encodeParamValue(key: string, value: string | number | boolean): string {
     return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
 }

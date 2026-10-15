@@ -15,10 +15,19 @@
  */
 import { parse } from '@tinyhttp/content-disposition';
 
-import { CSRF_HEADER, getServerContext } from './constants';
-import { buildURL, queryString } from './ActionURL';
+import { CSRF_HEADER, ExperimentalFeatures, getServerContext } from './constants';
+import { buildURL, isSameOrigin, queryString } from './ActionURL';
+import { generateUUID } from './Utils';
 
 const { CSRF, defaultHeaders } = getServerContext();
+
+const TAB_ID_HEADER = 'X-LABKEY-TabId';
+const REQUEST_ID_HEADER = 'X-LABKEY-RequestId';
+
+const abortedRequests = new WeakSet<XMLHttpRequest>();
+// In-flight cancellable requests, keyed to the request id the server knows them by
+const cancellableRequests = new Map<XMLHttpRequest, string>();
+let pendingCancelIds: string[] = [];
 
 export let DEFAULT_HEADERS: Record<string, string> = {
     [CSRF_HEADER]: CSRF,
@@ -47,6 +56,12 @@ export interface RequestOptions {
      * * <b>xhr:</b> The XMLHttpRequest where the text of the response can be found on xhr.responseText amongst other properties
      */
     callback?: AjaxCallbackHandler;
+
+    /**
+     * When true, aborting this request also asks the server to stop it, including its database queries. Set this
+     * only for read-only requests: never for a request that inserts, updates or deletes data. Defaults to false.
+     */
+    cancellable?: boolean;
 
     /**
      * Save the response as a file. Only works in browser environments.
@@ -100,6 +115,12 @@ export interface RequestOptions {
      * A scope for the callback functions. Defaults to "this".
      */
     scope?: any;
+
+    /**
+     * Aborts the request when this signal aborts. The failure and callback functions are called as for any other
+     * aborted request; use {@link isAborted} to tell an abort from a failure.
+     */
+    signal?: AbortSignal;
 
     /**
      * A function called when a successful response is received (determined by XHR readyState and status).
@@ -299,6 +320,69 @@ function downloadFile(xhr: XMLHttpRequest, config: any): void {
 }
 
 /**
+ * Tags a cancellable request with the tab and request ids the server cancels by.
+ * @returns the request id, or undefined if the server can't cancel this request.
+ * @hidden
+ * @private
+ */
+function configureCancellation(xhr: XMLHttpRequest, config: RequestOptions, options: ConfiguredOptions): string {
+    const { experimental, tabId } = getServerContext();
+
+    if (
+        !experimental?.[ExperimentalFeatures.cancelAbandonedRequests] ||
+        !config.cancellable ||
+        !tabId ||
+        !isSameOrigin(options.url)
+    ) {
+        return undefined;
+    }
+
+    const requestId = generateUUID();
+    xhr.setRequestHeader(TAB_ID_HEADER, tabId);
+    xhr.setRequestHeader(REQUEST_ID_HEADER, requestId);
+    return requestId;
+}
+
+/**
+ * @hidden
+ * @private
+ */
+function flushCancels(): void {
+    const requestIds = pendingCancelIds;
+    pendingCancelIds = [];
+
+    if (!getServerContext().WebSocket?.send?.({ type: 'cancel', requestIds })) {
+        console.warn('Unable to ask the server to cancel aborted requests; the notification WebSocket is not open.');
+    }
+}
+
+/**
+ * Batches the cancels from aborts made in the same task, e.g., every request a page leaves behind, into one message.
+ * @hidden
+ * @private
+ */
+function cancelOnServer(requestId: string): void {
+    pendingCancelIds.push(requestId);
+    if (pendingCancelIds.length === 1) {
+        queueMicrotask(flushCancels);
+    }
+}
+
+/**
+ * Returns true if the request was aborted, by its signal or by calling abort() on it, rather than failing.
+ */
+export function isAborted(xhr: XMLHttpRequest): boolean {
+    return !!xhr && abortedRequests.has(xhr);
+}
+
+/**
+ * Returns the cancellable requests that are still in flight.
+ */
+export function getCancellableRequests(): XMLHttpRequest[] {
+    return Array.from(cancellableRequests.keys());
+}
+
+/**
  * Make a XMLHttpRequest nominally to a LabKey instance. Includes success/failure callback mechanism,
  * HTTP header configuration, support for FormData, and parameter encoding amongst other features.
  */
@@ -306,13 +390,32 @@ export function request(config: RequestOptions): XMLHttpRequest {
     const options = configureOptions(config);
     const scope = config.hasOwnProperty('scope') && config.scope !== null ? config.scope : this;
     const xhr = new XMLHttpRequest();
+    const { signal } = config;
+    let requestId: string;
 
     if (config.downloadFile) {
         xhr.responseType = 'blob';
     }
 
+    const onSignalAbort = (): void => xhr.abort();
+
+    // Wrapped on the instance so callers that already hold the xhr and abort it directly also cancel on the server
+    const nativeAbort = xhr.abort;
+    xhr.abort = function () {
+        if (xhr.readyState !== 0 && xhr.readyState !== 4) {
+            abortedRequests.add(xhr);
+            if (cancellableRequests.delete(xhr)) {
+                cancelOnServer(requestId);
+            }
+        }
+        nativeAbort.call(xhr);
+    };
+
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
+            cancellableRequests.delete(xhr);
+            signal?.removeEventListener('abort', onSignalAbort);
+
             const success = (xhr.status >= 200 && xhr.status < 300) || xhr.status == 304;
 
             if (success && config.downloadFile) {
@@ -334,6 +437,12 @@ export function request(config: RequestOptions): XMLHttpRequest {
 
     // configure headers after request is open
     configureHeaders(xhr, config, options);
+    requestId = configureCancellation(xhr, config, options);
+    if (requestId) {
+        cancellableRequests.set(xhr, requestId);
+        // A timed-out request fails rather than aborts, but the server would otherwise keep running it
+        xhr.addEventListener('timeout', () => cancelOnServer(requestId));
+    }
 
     // configure timeout after request is open
     if (config.hasOwnProperty('timeout') && config.timeout !== null && config.timeout !== undefined) {
@@ -344,6 +453,13 @@ export function request(config: RequestOptions): XMLHttpRequest {
     }
 
     xhr.send(options.data);
+
+    if (signal?.aborted) {
+        // Aborted after send so the failure handlers still run, as fetch() rejects for an already-aborted signal
+        xhr.abort();
+    } else {
+        signal?.addEventListener('abort', onSignalAbort);
+    }
 
     return xhr;
 }

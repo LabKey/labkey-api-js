@@ -15,14 +15,21 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, isArray, RequestCallbackOptions } from '../Utils';
+import {
+    CancellableRequestOptions,
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    isArray,
+    RequestCallbackOptions,
+} from '../Utils';
 import { IFilter } from '../filter/Filter';
 
 import { buildQueryParams, ContainerFilter, getMethod, getSuccessCallbackWrapper } from './Utils';
 
 export type ShowRows = 'all' | 'none' | 'paginated' | 'selected' | 'unselected';
 
-export interface SelectRowsOptions extends RequestCallbackOptions {
+export interface SelectRowsOptions extends CancellableRequestOptions, RequestCallbackOptions {
     /**
      * An Array of columns or a comma-delimited list of column names you wish to select from the specified query.
      * By default, selectRows will return the set of columns defined in the default value for this query, as defined
@@ -263,5 +270,7 @@ export function selectRows(options: SelectRowsOptions): XMLHttpRequest {
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: buildSelectRowsParams(options),
         timeout: options.timeout,
+        cancellable: options.cancellable ?? true,
+        signal: options.signal,
     });
 }

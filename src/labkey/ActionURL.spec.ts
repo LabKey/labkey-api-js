@@ -15,7 +15,7 @@
  */
 import * as ActionURL from './ActionURL';
 import { getServerContext } from './constants';
-import { queryString } from './ActionURL';
+import { isSameOrigin, queryString } from './ActionURL';
 
 describe('ActionURL', () => {
     const CONTAINER_NAME = 'DefaultContainer';
@@ -151,6 +151,25 @@ describe('ActionURL', () => {
                 'pipeline-status',
                 'action'
             );
+        });
+    });
+
+    describe('isSameOrigin', () => {
+        // jsdom sets window.location.origin to 'http://localhost'
+        test('same origin', () => {
+            expect(isSameOrigin('http://localhost/some/path')).toBe(true);
+            expect(isSameOrigin('/labkey/query-selectRows.api')).toBe(true);
+        });
+
+        test('different origin', () => {
+            expect(isSameOrigin('http://example.com/path')).toBe(false);
+            expect(isSameOrigin('https://localhost/path')).toBe(false);
+            expect(isSameOrigin('http://localhost:8080/path')).toBe(false);
+            expect(isSameOrigin('javascript:alert(1)')).toBe(false);
+        });
+
+        test('invalid URL', () => {
+            expect(isSameOrigin('http://a b/path')).toBe(false);
         });
     });
 

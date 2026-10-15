@@ -39,6 +39,19 @@ describe('selectRows', () => {
         }).toThrow('You must specify a queryName!');
     });
 
+    it('should be cancellable by default', () => {
+        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+        const signal = new AbortController().signal;
+
+        selectRows({ schemaName: 'SSS', queryName: 'QQQ', signal });
+        expect(requestSpy).toHaveBeenLastCalledWith(expect.objectContaining({ cancellable: true, signal }));
+
+        selectRows({ schemaName: 'SSS', queryName: 'QQQ', cancellable: false });
+        expect(requestSpy).toHaveBeenLastCalledWith(expect.objectContaining({ cancellable: false }));
+
+        requestSpy.mockRestore();
+    });
+
     it('should support original method signature', () => {
         // Original method signature:
         // selectRows(schemaName, queryName, success, failure, filterArray, sort, viewName)
