@@ -139,6 +139,7 @@ export function get(options: IGetOptions): XMLHttpRequest {
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, processPayload),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -253,6 +254,7 @@ export function getData(options: IGetDataOptions): XMLHttpRequest {
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -331,6 +333,7 @@ export function getMeasures(options: IGetMeasuresOptions): XMLHttpRequest {
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createMeasures),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -339,6 +342,7 @@ export function getTypes(options: RequestCallbackOptions): XMLHttpRequest {
         url: buildURL('visualization', 'getVisualizationTypes.api'),
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createTypes),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -488,5 +492,6 @@ export function save(options: ISaveOptions): XMLHttpRequest {
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }

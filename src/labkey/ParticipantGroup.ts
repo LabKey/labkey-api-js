@@ -71,5 +71,6 @@ export function updateParticipantGroup(options: UpdateParticipantGroupOptions): 
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.group),
         failure: getCallbackWrapper(getOnFailure(options), this, true),
+        signal: options.signal,
     });
 }

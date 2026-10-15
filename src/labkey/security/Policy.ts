@@ -45,6 +45,7 @@ export function deletePolicy(config: DeletePolicyOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -71,6 +72,11 @@ export interface GetPolicyOptions {
     resourceId: string;
     /** A scoping object for the success and error callback functions (default to this). */
     scope?: any;
+    /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
+
     /** A reference to a function to call with the API results. */
     success?: (policy?: Policy, relevantRoles?: string[], request?: XMLHttpRequest) => any;
 }
@@ -98,6 +104,7 @@ export function getPolicy(config: GetPolicyOptions): XMLHttpRequest {
             getOnSuccess(config).call(config.scope || this, data.policy, data.relevantRoles, req);
         }, this),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -129,5 +136,6 @@ export function savePolicy(config: SavePolicyOptions): XMLHttpRequest {
         jsonData: config.policy.policy ?? config.policy,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }

@@ -76,6 +76,7 @@ export function getGroupPermissions(config: GetGroupPermissionsOptions): XMLHttp
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -168,6 +169,7 @@ export function getRoles(config: GetRolesOptions): XMLHttpRequest {
             }
         }, this),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -290,6 +292,7 @@ export function getSecurableResources(config: GetSecurableResourcesOptions): XML
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -375,6 +378,7 @@ export function getUserPermissions(config: GetUserPermissionsOptions): XMLHttpRe
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
