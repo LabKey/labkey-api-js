@@ -375,7 +375,8 @@ export function getReturnUrl(): string {
  */
 export function isSameOrigin(url: string): boolean {
     try {
-        return new URL(url, window.location.href).origin === window.location.origin;
+        const { origin } = new URL(url, window.location.href);
+        return origin !== 'null' && origin === window.location.origin;
     } catch (e) {
         return false;
     }
