@@ -2,7 +2,7 @@ name: Deploy TypeDoc to GitHub Pages
 
 on:
   push:
-    branches: ["develop", "fb_package_updates_102026"]
+    branches: ["develop"]
   workflow_dispatch:
 
 permissions:
