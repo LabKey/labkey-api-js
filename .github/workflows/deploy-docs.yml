@@ -27,7 +27,7 @@ jobs:
           node-version: 26
 
       - name: Install dependencies
-        run: npm setup
+        run: npm run setup
 
       - name: Build documentation
         run: npm run build:docs
