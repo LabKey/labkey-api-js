@@ -1,0 +1,49 @@
+name: Deploy TypeDoc to GitHub Pages
+
+on:
+  push:
+    branches: ["develop"]
+  workflow_dispatch:
+
+permissions:
+  contents: read   # Allows the token to read repository code
+  pages: write     # Gives the token permission to update GitHub Pages site
+  id-token: write  # Required by GitHub's secure deployment infrastructure
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26
+
+      - name: Install dependencies
+        run: npm run setup
+
+      - name: Build documentation
+        run: npm run build:docs
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: './docs'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
