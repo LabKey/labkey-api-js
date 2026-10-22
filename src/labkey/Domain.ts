@@ -17,7 +17,7 @@ import { buildURL } from './ActionURL';
 import { request } from './Ajax';
 import { getCallbackWrapper, getOnFailure, getOnSuccess, isString, RequestCallbackOptions } from './Utils';
 import { LineageItemBase } from './Experiment';
-import { appendFilterParams, IFilter } from './filter/Filter';
+import { IFilter } from './filter/Filter';
 
 // This is effectively GWTDomain
 /**
