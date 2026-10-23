@@ -452,14 +452,19 @@ export function request(config: RequestOptions): XMLHttpRequest {
         };
     }
 
-    xhr.send(options.data);
-
+    // Never sent, so nothing reaches the server; fail asynchronously, as fetch() rejects for an already-aborted signal
     if (signal?.aborted) {
-        // Aborted after send so the failure handlers still run, as fetch() rejects for an already-aborted signal
-        xhr.abort();
-    } else {
-        signal?.addEventListener('abort', onSignalAbort);
+        cancellableRequests.delete(xhr);
+        abortedRequests.add(xhr);
+        queueMicrotask(() => {
+            callback(config.failure, scope, [xhr, config]);
+            callback(config.callback, scope, [config, false /* success */, xhr]);
+        });
+        return xhr;
     }
+
+    xhr.send(options.data);
+    signal?.addEventListener('abort', onSignalAbort);
 
     return xhr;
 }

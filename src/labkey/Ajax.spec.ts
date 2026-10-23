@@ -236,6 +236,7 @@ describe('Ajax', () => {
             const controller = new AbortController();
             const failure = jest.fn();
             const xhr = request({ url: '/users', cancellable: true, failure, signal: controller.signal });
+            const requestId = xhr.requestHeaders['X-LABKEY-RequestId'];
 
             controller.abort();
             await flushMicrotasks();
@@ -243,17 +244,24 @@ describe('Ajax', () => {
             expect(failure).toHaveBeenCalledTimes(1);
             expect(Ajax.isAborted(xhr)).toBe(true);
             expect(send).toHaveBeenCalledTimes(1);
+            expect(send).toHaveBeenCalledWith({ type: 'cancel', requestIds: [requestId] });
         });
 
-        it('should abort at once for an already-aborted signal', () => {
+        it('should not send a request for an already-aborted signal, and fail after returning', async () => {
             const controller = new AbortController();
             controller.abort();
             const failure = jest.fn();
 
-            const xhr = request({ url: '/users', failure, signal: controller.signal });
+            const xhr = request({ url: '/users', cancellable: true, failure, signal: controller.signal });
+
+            expect(failure).not.toHaveBeenCalled();
+            await flushMicrotasks();
 
             expect(failure).toHaveBeenCalledTimes(1);
+            expect((xhr as any).sendFlag).toBeFalsy();
             expect(Ajax.isAborted(xhr)).toBe(true);
+            expect(Ajax.getCancellableRequests()).toEqual([]);
+            expect(send).not.toHaveBeenCalled();
         });
     });
 

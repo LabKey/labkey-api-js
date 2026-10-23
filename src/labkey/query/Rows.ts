@@ -387,6 +387,7 @@ export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     };
 
     const form = bindSaveRowsData(jsonData);
