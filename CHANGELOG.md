@@ -1,4 +1,4 @@
-### TBD
+### 1.53.3 - 2026-10-23
 - Add `sameDataSourceAs` option to getSchemas.api
 
 ### 1.53.2 - 2026-10-22
