@@ -183,5 +183,6 @@ export function sendMessage(config: ISendMessageOptions): XMLHttpRequest {
         jsonData,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }

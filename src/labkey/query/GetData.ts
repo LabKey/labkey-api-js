@@ -89,6 +89,11 @@ export interface IGetRawDataOptions {
 
     scope?: any;
 
+    /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
+
     /** Define how columns are sorted. */
     sort?: ISort[];
 
@@ -188,6 +193,7 @@ export function getRawData(config: IGetRawDataOptions): XMLHttpRequest {
                 }
             }
         },
+        signal: config.signal,
     });
 }
 

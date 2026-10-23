@@ -177,5 +177,6 @@ export function getQueryDetails(options: GetQueryDetailsOptions): XMLHttpRequest
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params,
+        signal: options.signal,
     });
 }

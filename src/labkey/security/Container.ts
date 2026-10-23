@@ -57,6 +57,7 @@ export function createContainer(config: CreateContainerOptions): XMLHttpRequest 
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -82,6 +83,7 @@ export function deleteContainer(config: DeleteContainerOptions): XMLHttpRequest 
         jsonData: { comment: config.comment },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -111,6 +113,7 @@ export function renameContainer(config: RenameContainerOptions): XMLHttpRequest 
         jsonData: { name: config.name, title: config.title, addAlias: config.addAlias },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -245,6 +248,7 @@ export function getContainers(config: GetContainersOptions): XMLHttpRequest {
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -296,6 +300,7 @@ export function getFolderTypes(config: GetFolderTypesOptions): XMLHttpRequest {
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -353,6 +358,7 @@ export function getModules(config: GetModulesOptions): XMLHttpRequest {
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -411,6 +417,7 @@ export function getReadableContainers(options: GetReadableContainersOptions): XM
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, (o: any) => o.containers),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -468,5 +475,6 @@ export function moveContainer(config: MoveContainerOptions): XMLHttpRequest {
         jsonData: params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }

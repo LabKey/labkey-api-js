@@ -17,6 +17,7 @@ import { fakeXhr, FakeXMLHttpRequestStatic } from 'nise';
 
 import * as Ajax from './Ajax';
 import { getFilenameFromContentDisposition } from './Ajax';
+import { getServerContext } from './constants';
 
 function mockXHR(): void {
     let xhr: FakeXMLHttpRequestStatic;
@@ -115,6 +116,152 @@ describe('Ajax', () => {
             expect(request({ url: '/users', method: 'DELETE' }).method).toEqual('DELETE');
             expect(request({ url: '/users', method: 'PUT' }).method).toEqual('PUT');
             expect(request({ url: '/users', method: 'BEEP' }).method).toEqual('BEEP');
+        });
+    });
+
+    describe('cancellation', () => {
+        mockXHR();
+
+        const LABKEY = getServerContext() as any;
+        let send: jest.Mock;
+
+        beforeEach(() => {
+            send = jest.fn().mockReturnValue(true);
+            LABKEY.experimental = { cancelAbandonedRequests: true };
+            LABKEY.tabId = 'tab-1';
+            LABKEY.WebSocket = { send };
+        });
+
+        afterEach(() => {
+            delete LABKEY.experimental;
+            delete LABKEY.tabId;
+            delete LABKEY.WebSocket;
+        });
+
+        // Lets the batched cancel message go out
+        const flushMicrotasks = (): Promise<void> => new Promise(resolve => setTimeout(resolve, 0));
+
+        it('should tag only cancellable requests', () => {
+            expect(request({ url: '/users' }).requestHeaders['X-LABKEY-RequestId']).toBeUndefined();
+
+            const xhr = request({ url: '/users', cancellable: true });
+            expect(xhr.requestHeaders['X-LABKEY-TabId']).toEqual('tab-1');
+            expect(xhr.requestHeaders['X-LABKEY-RequestId']).toBeTruthy();
+            expect(Ajax.getCancellableRequests()).toEqual([xhr]);
+
+            xhr.abort();
+        });
+
+        it('should not tag requests when the feature is off, there is no tab id, or the request is cross-origin', () => {
+            LABKEY.experimental = { cancelAbandonedRequests: false };
+            expect(request({ url: '/users', cancellable: true }).requestHeaders['X-LABKEY-RequestId']).toBeUndefined();
+
+            LABKEY.experimental = { cancelAbandonedRequests: true };
+            delete LABKEY.tabId;
+            expect(request({ url: '/users', cancellable: true }).requestHeaders['X-LABKEY-RequestId']).toBeUndefined();
+
+            LABKEY.tabId = 'tab-1';
+            const crossOrigin = request({ url: 'https://example.com/users', cancellable: true });
+            expect(crossOrigin.requestHeaders['X-LABKEY-RequestId']).toBeUndefined();
+
+            expect(Ajax.getCancellableRequests()).toEqual([]);
+        });
+
+        it('should forget a cancellable request once it completes', async () => {
+            const xhr = request({ url: '/users', cancellable: true });
+            (xhr as any).respond(200, {}, '{}');
+
+            expect(Ajax.getCancellableRequests()).toEqual([]);
+            xhr.abort();
+            await flushMicrotasks();
+            expect(Ajax.isAborted(xhr)).toBe(false);
+            expect(send).not.toHaveBeenCalled();
+        });
+
+        it('should cancel aborted requests on the server in one message', async () => {
+            const failure = jest.fn();
+            const first = request({ url: '/users', cancellable: true, failure });
+            const second = request({ url: '/groups', cancellable: true, failure });
+            const notCancellable = request({ url: '/projects', failure });
+            const requestIds = [first, second].map(xhr => xhr.requestHeaders['X-LABKEY-RequestId']);
+
+            first.abort();
+            second.abort();
+            notCancellable.abort();
+            await flushMicrotasks();
+
+            expect(failure).toHaveBeenCalledTimes(3);
+            expect(Ajax.isAborted(first)).toBe(true);
+            expect(Ajax.isAborted(notCancellable)).toBe(true);
+            expect(Ajax.getCancellableRequests()).toEqual([]);
+            expect(send).toHaveBeenCalledTimes(1);
+            expect(send).toHaveBeenCalledWith({ type: 'cancel', requestIds });
+        });
+
+        it('should warn when the cancel cannot be sent', async () => {
+            send.mockReturnValue(false);
+            const warn = jest.spyOn(console, 'warn').mockImplementation();
+
+            request({ url: '/users', cancellable: true }).abort();
+            await flushMicrotasks();
+
+            expect(warn).toHaveBeenCalledTimes(1);
+            warn.mockRestore();
+        });
+
+        it('should cancel a timed-out request on the server without reporting it as aborted', async () => {
+            const failure = jest.fn();
+            const xhr = request({ url: '/users', cancellable: true, failure, timeout: 1000 });
+            const requestId = xhr.requestHeaders['X-LABKEY-RequestId'];
+
+            (xhr as any).triggerTimeout();
+            await flushMicrotasks();
+
+            expect(failure).toHaveBeenCalled();
+            expect(Ajax.isAborted(xhr)).toBe(false);
+            expect(Ajax.getCancellableRequests()).toEqual([]);
+            expect(send).toHaveBeenCalledWith({ type: 'cancel', requestIds: [requestId] });
+        });
+
+        it('should not report a failed request as aborted', () => {
+            const failure = jest.fn();
+            const xhr = request({ url: '/users', cancellable: true, failure });
+            (xhr as any).respond(500, {}, '{}');
+
+            expect(failure).toHaveBeenCalledTimes(1);
+            expect(Ajax.isAborted(xhr)).toBe(false);
+        });
+
+        it('should abort when the signal aborts', async () => {
+            const controller = new AbortController();
+            const failure = jest.fn();
+            const xhr = request({ url: '/users', cancellable: true, failure, signal: controller.signal });
+            const requestId = xhr.requestHeaders['X-LABKEY-RequestId'];
+
+            controller.abort();
+            await flushMicrotasks();
+
+            expect(failure).toHaveBeenCalledTimes(1);
+            expect(Ajax.isAborted(xhr)).toBe(true);
+            expect(send).toHaveBeenCalledTimes(1);
+            expect(send).toHaveBeenCalledWith({ type: 'cancel', requestIds: [requestId] });
+        });
+
+        it('should not send a request for an already-aborted signal, and fail after returning', async () => {
+            const controller = new AbortController();
+            controller.abort();
+            const failure = jest.fn();
+
+            const xhr = request({ url: '/users', cancellable: true, failure, signal: controller.signal });
+
+            expect(failure).not.toHaveBeenCalled();
+            await flushMicrotasks();
+
+            expect(failure).toHaveBeenCalledTimes(1);
+            expect((xhr as any).sendFlag).toBeFalsy();
+            expect(Ajax.isAborted(xhr)).toBe(true);
+            expect(Ajax.getCancellableRequests()).toEqual([]);
+            expect(send).not.toHaveBeenCalled();
         });
     });
 

@@ -93,6 +93,7 @@ export function createNewUser(config: CreateNewUserOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -144,6 +145,7 @@ export function ensureLogin(config: EnsureLoginOptions): XMLHttpRequest | void {
                     }
                 }, this),
                 failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+                signal: config.signal,
             });
         }
     } else {
@@ -232,6 +234,7 @@ export function getUsers(config: GetUsersOptions): XMLHttpRequest {
         params: parseGetUsersOptions(config),
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -285,5 +288,6 @@ export function getUsersWithPermissions(config: GetUsersWithPermissionsOptions):
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
