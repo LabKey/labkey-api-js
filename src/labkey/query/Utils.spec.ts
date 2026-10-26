@@ -115,6 +115,10 @@ describe('getSuccessCallbackWrapper', () => {
 });
 
 describe('getQueries', () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     it('should forward the signal without making the request cancellable', () => {
         const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
         const signal = new AbortController().signal;
@@ -123,6 +127,5 @@ describe('getQueries', () => {
 
         expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({ signal }));
         expect(requestSpy.mock.calls[0][0].cancellable).toBeUndefined();
-        requestSpy.mockRestore();
     });
 });

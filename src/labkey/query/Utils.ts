@@ -168,14 +168,10 @@ export interface GetDataViewsOptions {
     dataTypes?: IDataTypes[];
     failure?: RequestFailure;
     scope?: any;
+    signal?: AbortSignal; // Aborts the request when this signal aborts.
     // Unfortunately, this flips options/response from what getCallbackWrapper normally does.
     // getCallbackWrapper -> (data, response, options)
     // getDataViews -> (data, options, response)
-    /**
-     * Aborts the request when this signal aborts.
-     */
-    signal?: AbortSignal;
-
     success?: (data?: any, options?: RequestOptions, request?: ExtendedXMLHttpRequest) => any;
     timeout?: number;
 }

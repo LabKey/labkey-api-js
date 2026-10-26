@@ -19,6 +19,10 @@ import { create } from '../Filter';
 import { selectRows } from './SelectRows';
 
 describe('selectRows', () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     const applyDataRegionName = (params: any, dataRegionName = 'query'): any => {
         const result: any = {};
         Object.keys(params).forEach(key => {
@@ -48,8 +52,6 @@ describe('selectRows', () => {
 
         selectRows({ schemaName: 'SSS', queryName: 'QQQ', cancellable: false });
         expect(requestSpy).toHaveBeenLastCalledWith(expect.objectContaining({ cancellable: false }));
-
-        requestSpy.mockRestore();
     });
 
     it('should support original method signature', () => {

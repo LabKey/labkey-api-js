@@ -28,6 +28,8 @@ const abortedRequests = new WeakSet<XMLHttpRequest>();
 // In-flight cancellable requests, keyed to the request id the server knows them by
 const cancellableRequests = new Map<XMLHttpRequest, string>();
 let pendingCancelIds: string[] = [];
+// The server reads at most this many ids from one message
+const MAX_CANCEL_IDS_PER_MESSAGE = 100;
 
 export let DEFAULT_HEADERS: Record<string, string> = {
     [CSRF_HEADER]: CSRF,
@@ -351,8 +353,12 @@ function flushCancels(): void {
     const requestIds = pendingCancelIds;
     pendingCancelIds = [];
 
-    if (!getServerContext().WebSocket?.send?.({ type: 'cancel', requestIds })) {
-        console.warn('Unable to ask the server to cancel aborted requests; the notification WebSocket is not open.');
+    for (let i = 0; i < requestIds.length; i += MAX_CANCEL_IDS_PER_MESSAGE) {
+        const batch = requestIds.slice(i, i + MAX_CANCEL_IDS_PER_MESSAGE);
+        if (!getServerContext().WebSocket?.send?.({ type: 'cancel', requestIds: batch })) {
+            console.warn('Unable to ask the server to cancel aborted requests; the notification WebSocket is not open.');
+            return;
+        }
     }
 }
 

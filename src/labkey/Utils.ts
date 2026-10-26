@@ -37,7 +37,7 @@ export interface RequestCallbackOptions<S = any, F = any, SC = any> {
 
     /**
      * Aborts the request when this signal aborts. Use Ajax.isAborted() on the failure callback's response to tell an
-     * abort from a failure.
+     * abort from a failure. Only cancellable requests are stopped on the server; an aborted write may still complete.
      */
     signal?: AbortSignal;
 

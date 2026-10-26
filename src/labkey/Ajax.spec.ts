@@ -133,6 +133,7 @@ describe('Ajax', () => {
         });
 
         afterEach(() => {
+            jest.restoreAllMocks();
             delete LABKEY.experimental;
             delete LABKEY.tabId;
             delete LABKEY.WebSocket;
@@ -206,7 +207,21 @@ describe('Ajax', () => {
             await flushMicrotasks();
 
             expect(warn).toHaveBeenCalledTimes(1);
-            warn.mockRestore();
+        });
+
+        it('should split cancels into messages the server reads in full', async () => {
+            // Arrange
+            const requests = Array.from({ length: 101 }, () => request({ url: '/users', cancellable: true }));
+            const requestIds = requests.map(xhr => xhr.requestHeaders['X-LABKEY-RequestId']);
+
+            // Act
+            requests.forEach(xhr => xhr.abort());
+            await flushMicrotasks();
+
+            // Assert - every id is sent, at most 100 per message
+            expect(send).toHaveBeenCalledTimes(2);
+            expect(send).toHaveBeenNthCalledWith(1, { type: 'cancel', requestIds: requestIds.slice(0, 100) });
+            expect(send).toHaveBeenNthCalledWith(2, { type: 'cancel', requestIds: requestIds.slice(100) });
         });
 
         it('should cancel a timed-out request on the server without reporting it as aborted', async () => {
