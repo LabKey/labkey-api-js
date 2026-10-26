@@ -356,12 +356,18 @@ export interface GetSchemasOptions extends RequestCallbackOptions {
     apiVersion?: string | number;
     containerPath?: string;
     includeHidden?: boolean;
+    /**
+     * If set, only schemas in the same data source as this schema are returned, e.g., valid lookup targets for a
+     * domain in this schema. Requires apiVersion 9.3 or later.
+     */
+    sameDataSourceAs?: string;
     schemaName?: string;
 }
 
 interface GetSchemasParameters {
     apiVersion: string | number;
     includeHidden: boolean;
+    sameDataSourceAs: string;
     schemaName: string;
 }
 
@@ -378,6 +384,9 @@ export function getSchemas(options: GetSchemasOptions): XMLHttpRequest {
     }
     if (options.includeHidden !== undefined) {
         params.includeHidden = options.includeHidden;
+    }
+    if (options.sameDataSourceAs) {
+        params.sameDataSourceAs = options.sameDataSourceAs;
     }
 
     return request({
