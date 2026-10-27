@@ -368,6 +368,8 @@ function flushCancels(): void {
  * @private
  */
 function cancelOnServer(requestId: string): void {
+    if (!requestId) return;
+
     pendingCancelIds.push(requestId);
     if (pendingCancelIds.length === 1) {
         queueMicrotask(flushCancels);
@@ -441,6 +443,16 @@ export function request(config: RequestOptions): XMLHttpRequest {
 
     xhr.open(options.method, options.url, true);
 
+    // Never sent, so nothing reaches the server; fail asynchronously, as fetch() rejects for an already-aborted signal
+    if (signal?.aborted) {
+        abortedRequests.add(xhr);
+        queueMicrotask(() => {
+            callback(config.failure, scope, [xhr, config]);
+            callback(config.callback, scope, [config, false /* success */, xhr]);
+        });
+        return xhr;
+    }
+
     // configure headers after request is open
     configureHeaders(xhr, config, options);
     requestId = configureCancellation(xhr, config, options);
@@ -456,17 +468,6 @@ export function request(config: RequestOptions): XMLHttpRequest {
             callback(config.failure, scope, [xhr, config]);
             callback(config.callback, scope, [config, false /* success */, xhr]);
         };
-    }
-
-    // Never sent, so nothing reaches the server; fail asynchronously, as fetch() rejects for an already-aborted signal
-    if (signal?.aborted) {
-        cancellableRequests.delete(xhr);
-        abortedRequests.add(xhr);
-        queueMicrotask(() => {
-            callback(config.failure, scope, [xhr, config]);
-            callback(config.callback, scope, [config, false /* success */, xhr]);
-        });
-        return xhr;
     }
 
     xhr.send(options.data);

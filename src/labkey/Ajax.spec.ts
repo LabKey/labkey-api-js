@@ -274,6 +274,7 @@ describe('Ajax', () => {
 
             expect(failure).toHaveBeenCalledTimes(1);
             expect((xhr as any).sendFlag).toBeFalsy();
+            expect(xhr.requestHeaders['X-LABKEY-RequestId']).toBeUndefined();
             expect(Ajax.isAborted(xhr)).toBe(true);
             expect(Ajax.getCancellableRequests()).toEqual([]);
             expect(send).not.toHaveBeenCalled();
