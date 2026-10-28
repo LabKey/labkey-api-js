@@ -19,6 +19,10 @@ import { create } from '../Filter';
 import { selectRows } from './SelectRows';
 
 describe('selectRows', () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     const applyDataRegionName = (params: any, dataRegionName = 'query'): any => {
         const result: any = {};
         Object.keys(params).forEach(key => {
@@ -37,6 +41,17 @@ describe('selectRows', () => {
         expect(() => {
             (selectRows as any)({ schemaName: 'SSS' });
         }).toThrow('You must specify a queryName!');
+    });
+
+    it('should be cancellable by default', () => {
+        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+        const signal = new AbortController().signal;
+
+        selectRows({ schemaName: 'SSS', queryName: 'QQQ', signal });
+        expect(requestSpy).toHaveBeenLastCalledWith(expect.objectContaining({ cancellable: true, signal }));
+
+        selectRows({ schemaName: 'SSS', queryName: 'QQQ', cancellable: false });
+        expect(requestSpy).toHaveBeenLastCalledWith(expect.objectContaining({ cancellable: false }));
     });
 
     it('should support original method signature', () => {

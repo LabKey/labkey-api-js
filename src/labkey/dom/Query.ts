@@ -112,6 +112,11 @@ export interface IImportDataOptions {
     saveToPipeline?: boolean;
     schemaName: string;
     scope?: any;
+    /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
+
     success?: Function;
     text?: string;
     timeout?: number;
@@ -187,5 +192,6 @@ export function importData(options: IImportDataOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     });
 }

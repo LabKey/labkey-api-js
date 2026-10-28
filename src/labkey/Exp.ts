@@ -295,6 +295,11 @@ export interface IGetContentOptions {
     scope?: any;
 
     /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
+
+    /**
      * The function to call when the function finishes successfully.
      */
     success: (content?: any, format?: string, response?: ExtendedXMLHttpRequest) => any;
@@ -545,6 +550,7 @@ export class Data extends ExpObject {
             },
             success: getSuccessCallbackWrapper(getOnSuccess(options), options.format, options.scope),
             failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+            signal: options.signal,
         });
     }
 }
@@ -554,6 +560,11 @@ export interface IDeleteRunOptions {
      * A reference to a function to call when an error occurs.
      */
     failure?: RequestFailure;
+
+    /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
 
     /**
      * A reference to a function to call with the API results.
@@ -663,6 +674,7 @@ export class Run extends ExpObject {
             },
             success: getCallbackWrapper(getOnSuccess(options), this),
             failure: getCallbackWrapper(getOnFailure(options), this, true),
+            signal: options.signal,
         });
     }
 }

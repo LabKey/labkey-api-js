@@ -134,6 +134,7 @@ export function createStorageItem(config: IStorageCommandOptions): XMLHttpReques
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -181,6 +182,7 @@ export function updateStorageItem(config: IStorageCommandOptions): XMLHttpReques
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -232,6 +234,7 @@ export function deleteStorageItem(config: DeleteStorageCommandOptions): XMLHttpR
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 

@@ -74,6 +74,7 @@ export interface Project {
 }
 
 export enum ExperimentalFeatures {
+    cancelAbandonedRequests = 'cancelAbandonedRequests',
     disableGuestAccount = 'disableGuestAccount',
 }
 
@@ -137,6 +138,7 @@ export type LabKey = {
     serverName: string;
     sharedContainer?: string;
     submit: boolean;
+    tabId?: string; // Identifies this page load to the server, e.g., to cancel its requests. Set by LABKEY.WebSocket.
     timezone: string;
     tours: any;
     unloadMessage: string;

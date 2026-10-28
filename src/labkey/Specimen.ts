@@ -62,6 +62,7 @@ export function addSpecimensToRequest(options: AddSpecimensToRequestOptions): XM
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -110,6 +111,7 @@ export function addVialsToRequest(options: AddVialsToRequestOptions): XMLHttpReq
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -143,6 +145,7 @@ export function cancelRequest(options: CancelRequestOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -174,6 +177,7 @@ export function getOpenRequests(options: GetOpenRequestsOptions): XMLHttpRequest
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.requests),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -204,6 +208,7 @@ export function getProvidingLocations(options: GetProvidingLocationsOptions): XM
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.locations),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -233,6 +238,7 @@ export function getRepositories(options: GetRepositoriesOptions): XMLHttpRequest
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.repositories),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -263,6 +269,7 @@ export function getRequest(options: GetRequestOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.request),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -284,6 +291,7 @@ export function getSpecimenWebPartGroups(options: GetSpecimenWebPartGroupsOption
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -314,6 +322,7 @@ export function getVialsByRowId(options: GetVialsByRowIdOptions): XMLHttpRequest
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope, false, data => data.vials),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -335,6 +344,7 @@ export function getVialTypeSummary(options: GetVialTypeSummaryOptions): XMLHttpR
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -377,6 +387,7 @@ export function removeVialsFromRequest(options: RemoveVialsFromRequestOptions): 
         },
         success: getCallbackWrapper(onSpecimenSuccess(options), options.scope),
         failure: getCallbackWrapper(rebindFailure(getOnFailure(options)), options.scope, true),
+        signal: options.signal,
     });
 }
 
