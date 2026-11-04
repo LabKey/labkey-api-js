@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ContainerFilter, containerFilter, getSuccessCallbackWrapper } from './Utils';
+import * as Ajax from '../Ajax';
+
+import { ContainerFilter, containerFilter, getQueries, getSuccessCallbackWrapper } from './Utils';
 import { Response } from './Response';
 
 describe('ContainerFilter', () => {
@@ -109,5 +111,21 @@ describe('getSuccessCallbackWrapper', () => {
 
             onSuccess(mockJSONResponse(), { url: 'test' });
         });
+    });
+});
+
+describe('getQueries', () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    it('should forward the signal without making the request cancellable', () => {
+        const requestSpy = jest.spyOn(Ajax, 'request').mockImplementation();
+        const signal = new AbortController().signal;
+
+        getQueries({ schemaName: 'SSS', signal });
+
+        expect(requestSpy).toHaveBeenCalledWith(expect.objectContaining({ signal }));
+        expect(requestSpy.mock.calls[0][0].cancellable).toBeUndefined();
     });
 });

@@ -107,6 +107,7 @@ export class Dimension {
             },
             success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createValues),
             failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+            signal: options.signal,
         });
     }
 

@@ -99,6 +99,7 @@ export function createHiddenRunGroup(options: CreateHiddenRunGroupOptions): XMLH
         jsonData,
         success: getCallbackWrapper<RunGroup>(getOnSuccess(options), options.scope, false, json => new RunGroup(json)),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -316,6 +317,7 @@ export function lineage(options: LineageOptions): XMLHttpRequest {
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -368,6 +370,7 @@ export function loadBatch(options: LoadBatchOptions): XMLHttpRequest {
             (json: any) => new RunGroup(json.batch)
         ),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -409,6 +412,7 @@ export function loadBatches(options: LoadBatchesOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper<RunGroup[]>(getOnSuccess(options), options.scope, false, createRunGroups),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -437,6 +441,7 @@ export function loadRuns(options: LoadRunsOptions): XMLHttpRequest {
         jsonData,
         success: getCallbackWrapper<Run[]>(getOnSuccess(options), options.scope, false, createRuns),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -468,6 +473,7 @@ export function resolve(options: ResolveOptions): XMLHttpRequest {
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -493,6 +499,7 @@ function requestSaveBatches<SuccessPayload>(
             payloadProcessor
         ),
         failure: getCallbackWrapper(getOnFailure(rawOptions), rawOptions.scope, true),
+        signal: rawOptions.signal,
     });
 }
 
@@ -596,6 +603,7 @@ export function saveRuns(options: SaveRunsOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper<Run[]>(getOnSuccess(options), options.scope, false, createRuns),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -641,6 +649,7 @@ export function setEntitySequence(config: EntitySequenceActionsOptions): XMLHttp
             newValue: config.newValue,
             seqType: config.seqType,
         },
+        signal: config.signal,
     });
 }
 
@@ -657,5 +666,6 @@ export function getEntitySequence(config: EntitySequenceActionsOptions): XMLHttp
             kindName: config.kindName,
             seqType: config.seqType,
         },
+        signal: config.signal,
     });
 }

@@ -175,5 +175,6 @@ export function importRun(options: ImportRunOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         form: formData,
+        signal: options.signal,
     });
 }

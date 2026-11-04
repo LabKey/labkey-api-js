@@ -15,11 +15,18 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions, wafEncode } from '../Utils';
+import {
+    CancellableRequestOptions,
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    RequestCallbackOptions,
+    wafEncode,
+} from '../Utils';
 
 import { ContainerFilter, getSuccessCallbackWrapper } from './Utils';
 
-export interface ExecuteSqlOptions extends RequestCallbackOptions {
+export interface ExecuteSqlOptions extends CancellableRequestOptions, RequestCallbackOptions {
     /**
      * One of the values of {@link ContainerFilter} that sets
      * the scope of this query. Defaults to ContainerFilter.current, and is interpreted relative to
@@ -206,5 +213,7 @@ export function executeSql(options: ExecuteSqlOptions): XMLHttpRequest {
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData: buildParams(options),
         timeout: options.timeout,
+        cancellable: options.cancellable ?? true,
+        signal: options.signal,
     });
 }

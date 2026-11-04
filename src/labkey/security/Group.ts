@@ -45,6 +45,7 @@ export function addGroupMembers(config: AddGroupMembersOptions): XMLHttpRequest 
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -84,6 +85,7 @@ export function createGroup(config: CreateGroupOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -114,6 +116,7 @@ export function deleteGroup(config: DeleteGroupOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -135,6 +138,7 @@ export function getGroupsForCurrentUser(config: GetGroupsForCurrentUserOptions):
         url: buildURL('security', 'getGroupsForCurrentUser.api', config.containerPath),
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -168,6 +172,7 @@ export function removeGroupMembers(config: RemoveGroupMembersOptions): XMLHttpRe
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -212,5 +217,6 @@ export function renameGroup(config: RenameGroupOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }

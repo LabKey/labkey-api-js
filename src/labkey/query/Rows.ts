@@ -387,6 +387,7 @@ export function saveRows(options: SaveRowsOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     };
 
     const form = bindSaveRowsData(jsonData);
@@ -473,6 +474,7 @@ function sendRequest(options: SendRequestOptions, supportsFiles?: boolean): XMLH
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         ...(form ? { form } : { jsonData }),
         timeout: options.timeout,
+        signal: options.signal,
     });
 }
 
@@ -542,5 +544,6 @@ export function moveRows(options: MoveRowsOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     });
 }

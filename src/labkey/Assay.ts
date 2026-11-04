@@ -167,6 +167,7 @@ export function getAssays(options: GetAssaysOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.definitions),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         scope: options.scope || this,
+        signal: options.signal,
     });
 }
 
@@ -294,6 +295,7 @@ export function getNAbRuns(options: GetNAbRunsOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.runs),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     });
 }
 
@@ -374,6 +376,7 @@ export function getStudyNabGraphURL(options: GetStudyNabGraphURLOptions): XMLHtt
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options) || displayAjaxErrorResponse, options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     });
 }
 
@@ -418,6 +421,7 @@ export function getStudyNabRuns(options: GetStudyNabRunsOptions): XMLHttpRequest
         success: getCallbackWrapper(getOnSuccess(options), options.scope, false, data => data.runs),
         failure: getCallbackWrapper(getOnFailure(options) || displayAjaxErrorResponse, options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     });
 }
 

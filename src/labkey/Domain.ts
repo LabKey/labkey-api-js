@@ -178,6 +178,7 @@ export function create(config: CreateDomainOptions): XMLHttpRequest {
         jsonData: options,
         success: getCallbackWrapper(getOnSuccess(options), config.scope),
         failure: getCallbackWrapper(getOnFailure(options), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -235,6 +236,7 @@ export function drop(config: DropDomainOptions): XMLHttpRequest {
             queryName: config.queryName,
             auditUserComment: config.auditUserComment,
         },
+        signal: config.signal,
     });
 }
 
@@ -316,6 +318,7 @@ export function getDomainDetails(config: GetDomainDetailsOptions): XMLHttpReques
             domainId: options.domainId,
             domainKind: options.domainKind,
         },
+        signal: config.signal,
     });
 }
 
@@ -346,6 +349,7 @@ export function get(config: GetDomainOptions): XMLHttpRequest {
             queryName: options.queryName,
             domainId: options.domainId,
         },
+        signal: config.signal,
     });
 }
 
@@ -411,6 +415,7 @@ export function save(config: SaveDomainOptions): XMLHttpRequest {
             auditUserComment: options.auditUserComment,
             options: options.options,
         },
+        signal: config.signal,
     });
 }
 
@@ -431,6 +436,7 @@ export function validateNameExpressions(config: ValidateDomainNameExpressionOpti
             options: config.options,
             kind: config.kind,
         },
+        signal: config.signal,
     });
 }
 
@@ -447,6 +453,7 @@ export function getDomainNamePreviews(config: GetDomainDetailsOptions): XMLHttpR
             queryName: config.queryName,
             domainId: config.domainId,
         },
+        signal: config.signal,
     });
 }
 
@@ -483,6 +490,7 @@ export function updateDomain(config: UpdateDomainOptions): XMLHttpRequest {
         jsonData: params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -518,6 +526,7 @@ export function listDomains(config: ListDomainsOptions): XMLHttpRequest {
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -594,6 +603,7 @@ export function getProperties(config: GetPropertiesOptions): XMLHttpRequest {
         jsonData: params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -635,6 +645,7 @@ export function getPropertyUsages(config: PropertyUsagesOptions): XMLHttpRequest
         params,
         success: getCallbackWrapper(getOnSuccess(config), config.scope, false, (json: any) => json.data),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 

@@ -15,7 +15,13 @@
  */
 import { request } from '../Ajax';
 import { buildURL } from '../ActionURL';
-import { getCallbackWrapper, getOnFailure, getOnSuccess, RequestCallbackOptions } from '../Utils';
+import {
+    CancellableRequestOptions,
+    getCallbackWrapper,
+    getOnFailure,
+    getOnSuccess,
+    RequestCallbackOptions,
+} from '../Utils';
 import { IFilter } from '../filter/Filter';
 
 import { buildQueryParams, ContainerFilter, getMethod, getSuccessCallbackWrapper } from './Utils';
@@ -26,7 +32,8 @@ export interface SelectDistinctResponse {
     values: any[];
 }
 
-export interface SelectDistinctOptions extends RequestCallbackOptions<SelectDistinctResponse> {
+export interface SelectDistinctOptions
+    extends CancellableRequestOptions, RequestCallbackOptions<SelectDistinctResponse> {
     /**
      * A single column for which the distinct results will be requested.
      * This column must exist within the specified query.
@@ -143,5 +150,7 @@ export function selectDistinctRows(options: SelectDistinctOptions): XMLHttpReque
         success: getSuccessCallbackWrapper(getOnSuccess(options), false, options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params: buildSelectDistinctParams(options),
+        cancellable: options.cancellable ?? true,
+        signal: options.signal,
     });
 }

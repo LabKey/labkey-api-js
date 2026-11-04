@@ -41,6 +41,11 @@ export interface IGetFileStatusOptions {
     /** A scoping object for the success and failure callback functions (default to this). */
     scope?: any;
     /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
+
+    /**
      * The function to call with the resulting information.
      * This function will be passed two arguments, a list of file status objects (described below) and the
      * name of the action that would be performed on the files if the user initiated processing
@@ -75,6 +80,7 @@ export function getFileStatus(config: IGetFileStatusOptions): XMLHttpRequest {
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         timeout: 60000000,
+        signal: config.signal,
     });
 }
 
@@ -103,6 +109,7 @@ export function getPipelineContainer(config: IGetPipelineContainerOptions): XMLH
         url: buildURL('pipeline', 'getPipelineContainer.api', config.containerPath),
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -117,6 +124,11 @@ export interface IGetProtocolsOptions {
     path: string;
     /** A scoping object for the success and failure callback functions (default to this). */
     scope?: any;
+    /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
+
     /**
      * The function to call with the resulting information.
      * This function will be passed a list of protocol objects, which will have the following properties:
@@ -156,6 +168,7 @@ export function getProtocols(config: IGetProtocolsOptions): XMLHttpRequest {
             }
         }, config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
+        signal: config.signal,
     });
 }
 
@@ -278,5 +291,6 @@ export function startAnalysis(config: IStartAnalysisOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(config), config.scope),
         failure: getCallbackWrapper(getOnFailure(config), config.scope, true),
         timeout: 60000000,
+        signal: config.signal,
     });
 }

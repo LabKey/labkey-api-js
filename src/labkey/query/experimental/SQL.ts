@@ -79,6 +79,11 @@ export interface IExecuteOptions {
     schema: string;
     scope?: any;
     sep?: string;
+    /**
+     * Aborts the request when this signal aborts.
+     */
+    signal?: AbortSignal;
+
     sql: string;
     success?: Function;
     timeout?: number;
@@ -115,6 +120,7 @@ export function execute(options: IExecuteOptions): XMLHttpRequest {
         },
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         timeout: options.timeout,
+        signal: options.signal,
     });
 }
 

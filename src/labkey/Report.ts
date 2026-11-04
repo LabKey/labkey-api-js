@@ -44,6 +44,7 @@ export function createSession(options: ICreateSessionOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -67,6 +68,7 @@ export function deleteSession(options: IDeleteSessionOptions): XMLHttpRequest {
         },
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -143,6 +145,7 @@ function requestExecute(options: IRequestExecuteOptions, isReport: boolean): XML
         jsonData,
         success: requestExecuteWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -235,5 +238,6 @@ export function getSessions(options: IGetSessionsOptions): XMLHttpRequest {
         method: 'POST',
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }

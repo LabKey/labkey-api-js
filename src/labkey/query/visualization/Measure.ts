@@ -85,6 +85,7 @@ export class Measure {
             params,
             success: getCallbackWrapper(getOnSuccess(options), options.scope, false, createDimensions),
             failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+            signal: options.signal,
         });
     }
 

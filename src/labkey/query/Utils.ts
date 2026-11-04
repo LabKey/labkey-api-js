@@ -151,6 +151,7 @@ export function deleteQueryView(options: DeleteQueryViewOptions): XMLHttpRequest
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData,
+        signal: options.signal,
     });
 }
 
@@ -167,6 +168,7 @@ export interface GetDataViewsOptions {
     dataTypes?: IDataTypes[];
     failure?: RequestFailure;
     scope?: any;
+    signal?: AbortSignal; // Aborts the request when this signal aborts.
     // Unfortunately, this flips options/response from what getCallbackWrapper normally does.
     // getCallbackWrapper -> (data, response, options)
     // getDataViews -> (data, options, response)
@@ -202,6 +204,7 @@ export function getDataViews(options: GetDataViewsOptions): XMLHttpRequest {
         success,
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         jsonData,
+        signal: options.signal,
     });
 }
 
@@ -301,6 +304,7 @@ export function getQueries(options: GetQueriesOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params,
+        signal: options.signal,
     });
 }
 
@@ -340,6 +344,7 @@ export function getQueryViews(options: GetQueryViewsOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params,
+        signal: options.signal,
     });
 }
 
@@ -385,6 +390,7 @@ export function getSchemas(options: GetSchemasOptions): XMLHttpRequest {
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
         params,
+        signal: options.signal,
     });
 }
 
@@ -406,6 +412,7 @@ export function getServerDate(options: RequestCallbackOptions<Date>): XMLHttpReq
             }
         }),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -480,6 +487,7 @@ export function saveQueryViews(options: SaveQueryViewsOptions): XMLHttpRequest {
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -536,6 +544,7 @@ export function saveSessionView(options: SaveSessionViewOptions): XMLHttpRequest
         jsonData,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
 
@@ -678,5 +687,6 @@ export function validateQuery(options: ValidateQueryOptions): XMLHttpRequest {
         params,
         success: getCallbackWrapper(getOnSuccess(options), options.scope),
         failure: getCallbackWrapper(getOnFailure(options), options.scope, true),
+        signal: options.signal,
     });
 }
