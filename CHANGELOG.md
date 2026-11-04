@@ -1,4 +1,7 @@
-### TBD
+### 1.54.1 - 2026-11-04
+- Add `DesignTerminalStorage` to `PermissionTypes` enum
+
+### 1.54.0 - 2026-11-04
 - Cancel abandoned requests
   - Add `signal` (an `AbortSignal`) to `Ajax.request` and every API function, to abort a request through an `AbortController`
   - Add `cancellable` to `Ajax.request`: when the `cancelAbandonedRequests` experimental feature is on, an aborted cancellable request asks the server to stop it over the notification WebSocket
