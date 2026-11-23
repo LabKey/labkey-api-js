@@ -1,4 +1,4 @@
-### TBD
+### 1.55.0 - 2026-11-23
 - Add `ActionURL.getRedirectUrl(url)` and `ActionURL.redirect(url)`, which route off-origin URLs through `core-safeRedirect.view`
 
 ### 1.54.1 - 2026-11-04
