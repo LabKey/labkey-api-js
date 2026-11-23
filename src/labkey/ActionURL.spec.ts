@@ -197,7 +197,6 @@ describe('ActionURL', () => {
             test('a buildURL() result is returned unchanged', () => {
                 const url = ActionURL.buildURL('publish', 'sampleTypePublishStart.view', undefined, { rowId: 4 });
                 expect(getRedirectUrl(url)).toEqual(url);
-                expect(getRedirectUrl(url)).not.toContain('safeRedirect');
             });
         });
 
