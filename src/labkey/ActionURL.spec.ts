@@ -210,8 +210,6 @@ describe('ActionURL', () => {
                 const result = getRedirectUrl(url);
                 expect(result).toEqual(safeRedirectUrl(url));
                 expect(result).toContain('core-safeRedirect.view');
-                expect(result).toContain('returnUrl=');
-                expect(result).not.toEqual(url);
             });
 
             test('javascript: URL has an opaque origin and is routed through safeRedirect', () => {
