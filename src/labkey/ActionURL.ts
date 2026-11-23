@@ -382,6 +382,25 @@ export function isSameOrigin(url: string): boolean {
     }
 }
 
+/**
+ * Returns the URL unchanged if it is on the current page's origin; otherwise returns a core-safeRedirect.view URL that
+ * validates the target on the server, guarding against open redirects.
+ */
+export function getRedirectUrl(url: string): string {
+    if (isSameOrigin(url)) {
+        return url;
+    }
+    return buildURL('core', 'safeRedirect', undefined, { returnUrl: url });
+}
+
+/**
+ * Navigates the browser to the URL, routing off-origin targets through core-safeRedirect.view. Prefer this to setting
+ * window.location for any URL that comes from a parameter or user input.
+ */
+export function redirect(url: string): void {
+    window.location.href = getRedirectUrl(url);
+}
+
 function encodeParamValue(key: string, value: string | number | boolean): string {
     return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
 }
